@@ -1780,18 +1780,14 @@
                         <div
                           class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                           <div class="user-profile-info">
-                            <h4>John Doe</h4>
+                            <h4>관리자</h4>
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-                              <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> UX Designer</li>
-                              <li class="list-inline-item fw-medium"><i class="bx bx-map"></i> Vatican City</li>
-                              <li class="list-inline-item fw-medium">
-                                <i class="bx bx-calendar-alt"></i> Joined April 2021
-                              </li>
+                              <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : admin0</li>
                             </ul>
                           </div>
                           <a href="javascript:void(0)" class="btn btn-primary text-nowrap">
-                            <i class="bx bx-user-check me-1"></i>Connected
+                            <i class="bx bx-user-check me-1"></i>로그인 제한 해제
                           </a>
                         </div>
                       </div>
@@ -1802,7 +1798,7 @@
               <!--/ Header -->
 
               <!-- Navbar pills -->
-              <div class="row">
+<!--               <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-sm-row mb-4">
                     <li class="nav-item">
@@ -1823,480 +1819,266 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
               <!--/ Navbar pills -->
 
               <!-- User Profile Content -->
+               <!-- Form with Tabs -->
               <div class="row">
-                <div class="col-xl-4 col-lg-5 col-md-5">
-                  <!-- About User -->
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <small class="text-muted text-uppercase">About</small>
-                      <ul class="list-unstyled mb-4 mt-3">
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-user"></i><span class="fw-medium mx-2">Full Name:</span> <span>John Doe</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-check"></i><span class="fw-medium mx-2">Status:</span> <span>Active</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-star"></i><span class="fw-medium mx-2">Role:</span> <span>Developer</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-flag"></i><span class="fw-medium mx-2">Country:</span> <span>USA</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-detail"></i><span class="fw-medium mx-2">Languages:</span>
-                          <span>English</span>
-                        </li>
-                      </ul>
-                      <small class="text-muted text-uppercase">Contacts</small>
-                      <ul class="list-unstyled mb-4 mt-3">
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-phone"></i><span class="fw-medium mx-2">Contact:</span>
-                          <span>(123) 456-7890</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-chat"></i><span class="fw-medium mx-2">Skype:</span> <span>john.doe</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-envelope"></i><span class="fw-medium mx-2">Email:</span>
-                          <span>john.doe@example.com</span>
-                        </li>
-                      </ul>
-                      <small class="text-muted text-uppercase">Teams</small>
-                      <ul class="list-unstyled mt-3 mb-0">
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bxl-github text-primary me-2"></i>
-                          <div class="d-flex flex-wrap">
-                            <span class="fw-medium me-2">Backend Developer</span><span>(126 Members)</span>
+                <div class="col">
+                  <div class="nav-align-top mb-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
+                        <button
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-personal"
+                          role="tab"
+                          aria-selected="true">
+                          기본 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-account"
+                          role="tab"
+                          aria-selected="false">
+                          상세 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-social"
+                          role="tab"
+                          aria-selected="false">
+                          부서 직급
+                        </button>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-first-name">이름</label>
+                              <input type="text" id="formtabs-first-name" class="form-control" placeholder="관리자" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="emp_id">임시 비밀번호</label>
+                              <input type="text" id="emp_id" class="form-control" />
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="password">사내 전화번호</label>
+                              <input type="text" id="password" class="form-control" placeholder="02-000-0000" />
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="formtabs-last-name">휴대폰 번호</label>
+                              <input type="text" id="formtabs-last-name" class="form-control" placeholder="010-0000-0000" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-birthdate">생년 월일</label>
+                              <input
+                                type="text"
+                                id="emp_birth"
+                                class="form-control dob-picker"
+                                placeholder="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="email">이메일</label>
+                              <input type="text" id="email" class="form-control" placeholder="admin@example.com"/>
+                            </div>
+                          <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
                           </div>
-                        </li>
-                        <li class="d-flex align-items-center">
-                          <i class="bx bxl-react text-info me-2"></i>
-                          <div class="d-flex flex-wrap">
-                            <span class="fw-medium me-2">React Developer</span><span>(98 Members)</span>
+                         </div>
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-username">Username</label>
+                              <input type="text" id="formtabs-username" class="form-control" placeholder="john.doe" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-email">Email</label>
+                              <div class="input-group input-group-merge">
+                                <input
+                                  type="text"
+                                  id="formtabs-email"
+                                  class="form-control"
+                                  placeholder="john.doe"
+                                  aria-label="john.doe"
+                                  aria-describedby="formtabs-email2" />
+                                <span class="input-group-text" id="formtabs-email2">@example.com</span>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-password-toggle">
+                                <label class="form-label" for="formtabs-password">Password</label>
+                                <div class="input-group input-group-merge">
+                                  <input
+                                    type="password"
+                                    id="formtabs-password"
+                                    class="form-control"
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="formtabs-password2" />
+                                  <span class="input-group-text cursor-pointer" id="formtabs-password2"
+                                    ><i class="bx bx-hide"></i
+                                  ></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-password-toggle">
+                                <label class="form-label" for="formtabs-confirm-password">Confirm Password</label>
+                                <div class="input-group input-group-merge">
+                                  <input
+                                    type="password"
+                                    id="formtabs-confirm-password"
+                                    class="form-control"
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="formtabs-confirm-password2" />
+                                  <span class="input-group-text cursor-pointer" id="formtabs-confirm-password2"
+                                    ><i class="bx bx-hide"></i
+                                  ></span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </li>
-                      </ul>
+                          <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-twitter">Twitter</label>
+                              <input
+                                type="text"
+                                id="formtabs-twitter"
+                                class="form-control"
+                                placeholder="https://twitter.com/abc" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-facebook">Facebook</label>
+                              <input
+                                type="text"
+                                id="formtabs-facebook"
+                                class="form-control"
+                                placeholder="https://facebook.com/abc" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-google">Google+</label>
+                              <input
+                                type="text"
+                                id="formtabs-google"
+                                class="form-control"
+                                placeholder="https://plus.google.com/abc" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-linkedin">Linkedin</label>
+                              <input
+                                type="text"
+                                id="formtabs-linkedin"
+                                class="form-control"
+                                placeholder="https://linkedin.com/abc" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-instagram">Instagram</label>
+                              <input
+                                type="text"
+                                id="formtabs-instagram"
+                                class="form-control"
+                                placeholder="https://instagram.com/abc" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-quora">Quora</label>
+                              <input
+                                type="text"
+                                id="formtabs-quora"
+                                class="form-control"
+                                placeholder="https://quora.com/abc" />
+                            </div>
+                          </div>
+                          <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                  <!--/ About User -->
-                  <!-- Profile Overview -->
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <small class="text-muted text-uppercase">Overview</small>
-                      <ul class="list-unstyled mt-3 mb-0">
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-check"></i><span class="fw-medium mx-2">Task Compiled:</span>
-                          <span>13.5k</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                          <i class="bx bx-customize"></i><span class="fw-medium mx-2">Projects Compiled:</span>
-                          <span>146</span>
-                        </li>
-                        <li class="d-flex align-items-center">
-                          <i class="bx bx-user"></i><span class="fw-medium mx-2">Connections:</span> <span>897</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <!--/ Profile Overview -->
-                </div>
-                <div class="col-xl-8 col-lg-7 col-md-7">
-                  <!-- Activity Timeline -->
-                  <div class="card card-action mb-4">
-                    <div class="card-header align-items-center">
-                      <h5 class="card-action-title mb-0"><i class="bx bx-list-ul me-2"></i>Activity Timeline</h5>
-                      <div class="card-action-element">
-                        <div class="dropdown">
-                          <button
-                            type="button"
-                            class="btn dropdown-toggle hide-arrow p-0"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="javascript:void(0);">Share timeline</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Suggest edits</a></li>
-                            <li>
-                              <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Report bug</a></li>
-                          </ul>
+                </div>      
+              </div>
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+              <!-- Activity Timeline -->
+                <div class="col-xl-8 mb-4 order-3">
+                  <div class="card" style="width: 1388px;">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">기본정보 변경 이력</h5>
+                      <div class="dropdown">
+                        <button
+                          class="btn p-0"
+                          type="button"
+                          id="timelineWapper"
+                          data-bs-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false">
+                          <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="timelineWapper">
+                          <a class="dropdown-item" href="javascript:void(0);">Select All</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Share</a>
                         </div>
                       </div>
                     </div>
                     <div class="card-body">
-                      <ul class="timeline ms-2">
-                        <li class="timeline-item timeline-item-transparent">
-                          <span class="timeline-point-wrapper"
-                            ><span class="timeline-point timeline-point-warning"></span
-                          ></span>
-                          <div class="timeline-event">
-                            <div class="timeline-header mb-1">
-                              <h6 class="mb-0">Client Meeting</h6>
-                              <small class="text-muted">Today</small>
-                            </div>
-                            <p class="mb-2">Project meeting with john @10:15am</p>
-                            <div class="d-flex flex-wrap">
-                              <div class="avatar me-3">
-                                <img src="../../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
-                              </div>
-                              <div>
-                                <h6 class="mb-0">Lester McCarthy (Client)</h6>
-                                <span>CEO of Infibeam</span>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="timeline-item timeline-item-transparent">
-                          <span class="timeline-point-wrapper"
-                            ><span class="timeline-point timeline-point-info"></span
-                          ></span>
-                          <div class="timeline-event">
-                            <div class="timeline-header mb-1">
-                              <h6 class="mb-0">Create a new project for client</h6>
-                              <small class="text-muted">2 Day Ago</small>
-                            </div>
-                            <p class="mb-0">Add files to new design folder</p>
-                          </div>
-                        </li>
+                      <!-- Activity Timeline -->
+                      <ul class="timeline">
                         <li class="timeline-item timeline-item-transparent">
                           <span class="timeline-point-wrapper"
                             ><span class="timeline-point timeline-point-primary"></span
                           ></span>
                           <div class="timeline-event">
                             <div class="timeline-header mb-1">
-                              <h6 class="mb-0">Shared 2 New Project Files</h6>
-                              <small class="text-muted">6 Day Ago</small>
+                              <h6 class="mb-0">이메일 수정</h6>
+                              <small class="text-muted">2010-01-01 12:30</small>
                             </div>
-                            <p class="mb-2">
-                              Sent by Mollie Dixon
-                              <img
-                                src="../../assets/img/avatars/4.png"
-                                class="rounded-circle ms-3"
-                                alt="avatar"
-                                height="20"
-                                width="20" />
-                            </p>
-                            <div class="d-flex flex-wrap gap-2">
-                              <a href="javascript:void(0)" class="me-3">
-                                <img
-                                  src="../../assets/img/icons/misc/pdf.png"
-                                  alt="Document image"
-                                  width="20"
-                                  class="me-2" />
-                                <span class="h6">App Guidelines</span>
-                              </a>
-                              <a href="javascript:void(0)">
-                                <img
-                                  src="../../assets/img/icons/misc/doc.png"
-                                  alt="Excel image"
-                                  width="20"
-                                  class="me-2" />
-                                <span class="h6">Testing Results</span>
-                              </a>
-                            </div>
+                            <p class="mb-2">solluna9@example.com -> admin@example.com</p>
                           </div>
                         </li>
                         <li class="timeline-item timeline-item-transparent">
                           <span class="timeline-point-wrapper"
-                            ><span class="timeline-point timeline-point-success"></span
+                            ><span class="timeline-point timeline-point-warning"></span
                           ></span>
-                          <div class="timeline-event pb-0">
+                          <div class="timeline-event">
                             <div class="timeline-header mb-1">
-                              <h6 class="mb-0">Project status updated</h6>
-                              <small class="text-muted">10 Day Ago</small>
+                              <h6 class="mb-0">이름 수정</h6>
+                              <small class="text-muted">2010-01-01 12:30</small>
                             </div>
-                            <p class="mb-0">Woocommerce iOS App Completed</p>
+                            <p class="mb-2">아무개 -> 홍길동</p>
                           </div>
                         </li>
                         <li class="timeline-end-indicator">
                           <i class="bx bx-check-circle"></i>
                         </li>
                       </ul>
+                      <!-- /Activity Timeline -->
                     </div>
                   </div>
-                  <!--/ Activity Timeline -->
-                  <div class="row">
-                    <!-- Connections -->
-                    <div class="col-lg-12 col-xl-6">
-                      <div class="card card-action mb-4">
-                        <div class="card-header align-items-center">
-                          <h5 class="card-action-title mb-0">Connections</h5>
-                          <div class="card-action-element">
-                            <div class="dropdown">
-                              <button
-                                type="button"
-                                class="btn dropdown-toggle hide-arrow p-0"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);">Share connections</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Suggest edits</a></li>
-                                <li>
-                                  <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Report bug</a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="card-body">
-                          <ul class="list-unstyled mb-0">
-                            <li class="mb-3">
-                              <div class="d-flex align-items-start">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">Cecilia Payne</h6>
-                                    <small class="text-muted">45 Connections</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <button class="btn btn-label-primary btn-icon btn-sm">
-                                    <i class="bx bx-user"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="mb-3">
-                              <div class="d-flex align-items-start">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img src="../../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">Curtis Fletcher</h6>
-                                    <small class="text-muted">1.32k Connections</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <button class="btn btn-primary btn-icon btn-sm"><i class="bx bx-user"></i></button>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="mb-3">
-                              <div class="d-flex align-items-start">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img src="../../assets/img/avatars/10.png" alt="Avatar" class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">Alice Stone</h6>
-                                    <small class="text-muted">125 Connections</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <button class="btn btn-primary btn-icon btn-sm"><i class="bx bx-user"></i></button>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="mb-3">
-                              <div class="d-flex align-items-start">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">Darrell Barnes</h6>
-                                    <small class="text-muted">456 Connections</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <button class="btn btn-label-primary btn-icon btn-sm">
-                                    <i class="bx bx-user"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </li>
-
-                            <li class="mb-3">
-                              <div class="d-flex align-items-start">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img src="../../assets/img/avatars/12.png" alt="Avatar" class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">Eugenia Moore</h6>
-                                    <small class="text-muted">1.2k Connections</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <button class="btn btn-label-primary btn-icon btn-sm">
-                                    <i class="bx bx-user"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="text-center">
-                              <a href="javascript:;">View all connections</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <!--/ Connections -->
-                    <!-- Teams -->
-                    <div class="col-lg-12 col-xl-6">
-                      <div class="card card-action mb-4">
-                        <div class="card-header align-items-center">
-                          <h5 class="card-action-title mb-0">Teams</h5>
-                          <div class="card-action-element">
-                            <div class="dropdown">
-                              <button
-                                type="button"
-                                class="btn dropdown-toggle hide-arrow p-0"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);">Share teams</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Suggest edits</a></li>
-                                <li>
-                                  <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Report bug</a></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="card-body">
-                          <ul class="list-unstyled mb-0">
-                            <li class="mb-3">
-                              <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img
-                                      src="../../assets/img/icons/brands/react-label.png"
-                                      alt="Avatar"
-                                      class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">React Developers</h6>
-                                    <small class="text-muted">72 Members</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <a href="javascript:;"><span class="badge bg-label-danger">Developer</span></a>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="mb-3">
-                              <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img
-                                      src="../../assets/img/icons/brands/support-label.png"
-                                      alt="Avatar"
-                                      class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">Support Team</h6>
-                                    <small class="text-muted">122 Members</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <a href="javascript:;"><span class="badge bg-label-primary">Support</span></a>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="mb-3">
-                              <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img
-                                      src="../../assets/img/icons/brands/figma-label.png"
-                                      alt="Avatar"
-                                      class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">UI Designers</h6>
-                                    <small class="text-muted">7 Members</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <a href="javascript:;"><span class="badge bg-label-info">Designer</span></a>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="mb-3">
-                              <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img
-                                      src="../../assets/img/icons/brands/vue-label.png"
-                                      alt="Avatar"
-                                      class="rounded-circle" />
-                                  </div>
-                                  <div class="me-2">
-                                    <h6 class="mb-0">Vue.js Developers</h6>
-                                    <small class="text-muted">289 Members</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <a href="javascript:;"><span class="badge bg-label-danger">Developer</span></a>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="mb-3">
-                              <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-start">
-                                  <div class="avatar me-3">
-                                    <img
-                                      src="../../assets/img/icons/brands/twitter-label.png"
-                                      alt="Avatar"
-                                      class="rounded-circle" />
-                                  </div>
-                                  <div class="me-w">
-                                    <h6 class="mb-0">Digital Marketing</h6>
-                                    <small class="text-muted">24 Members</small>
-                                  </div>
-                                </div>
-                                <div class="ms-auto">
-                                  <a href="javascript:;"><span class="badge bg-label-secondary">Marketing</span></a>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="text-center">
-                              <a href="javascript:;">View all teams</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <!--/ Teams -->
-                  </div>
-                  <!-- Projects table -->
-                  <div class="card mb-4">
-                    <h5 class="card-header">Projects List</h5>
-                    <div class="table-responsive mb-3">
-                      <table class="table datatable-project">
-                        <thead class="table-light">
-                          <tr>
-                            <th></th>
-                            <th></th>
-                            <th>Project</th>
-                            <th class="text-nowrap">Total Task</th>
-                            <th>Progress</th>
-                            <th>Hours</th>
-                          </tr>
-                        </thead>
-                      </table>
-                    </div>
-                  </div>
-                  <!--/ Projects table -->
                 </div>
+                <!--/ Activity Timeline -->
               </div>
-              <!--/ User Profile Content -->
             </div>
             <!-- / Content -->
 
