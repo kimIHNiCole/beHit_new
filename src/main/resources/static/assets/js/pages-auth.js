@@ -14,15 +14,15 @@ document.addEventListener('DOMContentLoaded', function (e) {
           username: {
             validators: {
               notEmpty: {
-                message: 'Please enter username'
+                message: '아이디를 입력해 주세요'
               },
               stringLength: {
                 min: 6,
-                message: 'Username must be more than 6 characters'
+                message: '6자 이상 입력해야 합니다'
               }
             }
           },
-          email: {
+          /* email: {
             validators: {
               notEmpty: {
                 message: 'Please enter your email'
@@ -42,15 +42,15 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 message: 'Username must be more than 6 characters'
               }
             }
-          },
+          },*/
           password: {
             validators: {
               notEmpty: {
-                message: 'Please enter your password'
+                message: '비밀번호를 입력해 주세요'
               },
               stringLength: {
-                min: 6,
-                message: 'Password must be more than 6 characters'
+                min: 4,
+                message: '4자 이상 입력해야 합니다'
               }
             }
           },
@@ -71,13 +71,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
               }
             }
           },
+          /*
           terms: {
             validators: {
               notEmpty: {
                 message: 'Please agree terms & conditions'
               }
             }
-          }
+          }*/
         },
         plugins: {
           trigger: new FormValidation.plugins.Trigger(),

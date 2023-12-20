@@ -21,7 +21,7 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping(value="/")
 	public String home() {
-		return "index";
+		return "login";
 	}
 	
 	@GetMapping(value="/{page}.go")
