@@ -1,4 +1,4 @@
-package kr.co.gudi;
+package com.behit;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
