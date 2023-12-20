@@ -14,13 +14,25 @@ import com.behit.employee.service.LoginService;
 public class LoginController {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired LoginService service;
-	
+
+
 	@PostMapping(value="login.do")
-	public ModelAndView login(@RequestParam String emp_id, @RequestParam String password) {
+	public ModelAndView login(@RequestParam String emp_id, @RequestParam String password) { 
+		
 		ModelAndView mav = new ModelAndView();
 		
+		boolean success = service.login(emp_id, password);
+		
+		if (success != false) {
+			mav.addObject("msg", "로그인에 성공했습니다.");
+			mav.setViewName("redirect:/html/vertical-menu-template/index.go");
+		} else {
+			mav.addObject("msg", "비밀번호를 확인해주세요");
+			mav.setViewName("redirect:/");
+		}
+	 
 		return mav; 
-	}
+	 }
 }
