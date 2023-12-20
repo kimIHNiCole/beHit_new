@@ -97,7 +97,7 @@
           <div class="w-px-400 mx-auto">
             <!-- Logo -->
             <div class="app-brand mb-5">
-              <a href="index.go" class="app-brand-link gap-2">
+              <a href="html/vertical-menu-template/index.go" class="app-brand-link gap-2">
                 <span class="app-brand-logo demo">
                   <svg
                     width="25"
@@ -155,7 +155,7 @@
             <!-- <h4 class="mb-2">Be Hit</h4> -->
             <p class="mb-4">세계 최고의 유튜버들을 위한 에이전시</p>
 
-            <form id="formAuthentication" class="mb-3" action="index.go" method="GET">
+            <form id="formAuthentication" class="mb-3" action="html/vertical-menu-template/index.go" method="GET">
               <div class="mb-3">
                 <label for="username" class="form-label">아이디</label>
                 <input

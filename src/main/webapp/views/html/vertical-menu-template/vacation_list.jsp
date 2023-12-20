@@ -1762,244 +1762,56 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-            <!-- Content -->
+          
+           <!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y mt-2">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">연차 관리 </span></h4>
 
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리</span></h4>
+    <!-- DataTable with Buttons -->
+    <div class="card">
+        <div class="card-datatable table-responsive">
+            <div class="row mb-3">
+               
+                <div class="col-md-4">
+                    <!-- 검색박스 및 셀렉트 박스 -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <select class="form-select">
+                                <option value="name">이름</option>
+                                <option value="id">아이디</option>
+                                <option value="department">부서</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" placeholder="검색어 입력">
+                        <button class="btn btn-primary" type="button">검색</button>
+                    </div>
+                </div>
 
-              <!-- DataTable with Buttons -->
-              <div class="card">
-                <div class="card-datatable table-responsive">
-                  <table class="datatables-basic table border-top">
-                    <thead>
-                      <tr>
+                
+            </div>
+            <table class="datatables-basic table border-top" style="margin-top: -10px;">
+                <thead>
+                    <tr>
                         <th></th>
+                        <th>no.</th>
                         <th></th>
                         <th>이름 / 아이디</th>
                         <th>부서</th>
-                        <th>직급</th>
-                        <th>직책</th>
-                        <th></th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-              <!-- Modal to add new record -->
-              <div class="offcanvas offcanvas-end" id="add-new-record">
-                <div class="offcanvas-header border-bottom">
-                  <h5 class="offcanvas-title" id="exampleModalLabel">New Record</h5>
-                  <button
-                    type="button"
-                    class="btn-close text-reset"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body flex-grow-1">
-                  <form class="add-new-record pt-0 row g-2" id="form-add-new-record" onsubmit="return false">
-                    <div class="col-sm-12">
-                      <label class="form-label" for="basicFullname">Full Name</label>
-                      <div class="input-group input-group-merge">
-                        <span id="basicFullname2" class="input-group-text"><i class="bx bx-user"></i></span>
-                        <input
-                          type="text"
-                          id="basicFullname"
-                          class="form-control dt-full-name"
-                          name="basicFullname"
-                          placeholder="John Doe"
-                          aria-label="John Doe"
-                          aria-describedby="basicFullname2" />
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <label class="form-label" for="basicPost">Post</label>
-                      <div class="input-group input-group-merge">
-                        <span id="basicPost2" class="input-group-text"><i class="bx bxs-briefcase"></i></span>
-                        <input
-                          type="text"
-                          id="basicPost"
-                          name="basicPost"
-                          class="form-control dt-post"
-                          placeholder="Web Developer"
-                          aria-label="Web Developer"
-                          aria-describedby="basicPost2" />
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <label class="form-label" for="basicEmail">Email</label>
-                      <div class="input-group input-group-merge">
-                        <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                        <input
-                          type="text"
-                          id="basicEmail"
-                          name="basicEmail"
-                          class="form-control dt-email"
-                          placeholder="john.doe@example.com"
-                          aria-label="john.doe@example.com" />
-                      </div>
-                      <div class="form-text">You can use letters, numbers & periods</div>
-                    </div>
-                    <div class="col-sm-12">
-                      <label class="form-label" for="basicDate">Joining Date</label>
-                      <div class="input-group input-group-merge">
-                        <span id="basicDate2" class="input-group-text"><i class="bx bx-calendar"></i></span>
-                        <input
-                          type="text"
-                          class="form-control dt-date"
-                          id="basicDate"
-                          name="basicDate"
-                          aria-describedby="basicDate2"
-                          placeholder="MM/DD/YYYY"
-                          aria-label="MM/DD/YYYY" />
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <label class="form-label" for="basicSalary">Salary</label>
-                      <div class="input-group input-group-merge">
-                        <span id="basicSalary2" class="input-group-text"><i class="bx bx-dollar"></i></span>
-                        <input
-                          type="number"
-                          id="basicSalary"
-                          name="basicSalary"
-                          class="form-control dt-salary"
-                          placeholder="12000"
-                          aria-label="12000"
-                          aria-describedby="basicSalary2" />
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
-                      <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <!--/ DataTable with Buttons -->
+                        <th>입사일</th>
+                        <th>총 연차</th>
+                        <th>사용 연차</th>
+                        <th>잔여 연차</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 
-              <hr class="my-5" />
+    <hr class="my-5" />
+</div>
+<!-- / Content -->
 
-              <!-- Complex Headers -->
-              <div class="card">
-                <h5 class="card-header">Complex Headers</h5>
-                <div class="card-datatable text-nowrap">
-                  <table class="dt-complex-header table table-bordered">
-                    <thead>
-                      <tr>
-                        <th rowspan="2">Name</th>
-                        <th colspan="2">Contact</th>
-                        <th colspan="3">HR Information</th>
-                        <th rowspan="2">Action</th>
-                      </tr>
-                      <tr>
-                        <th>E-mail</th>
-                        <th>City</th>
-                        <th>Position</th>
-                        <th>Salary</th>
-                        <th class="border-1">Status</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-              <!--/ Complex Headers -->
-
-              <hr class="my-5" />
-
-              <!-- Row grouping -->
-              <div class="card">
-                <h5 class="card-header">Row Grouping</h5>
-                <div class="card-datatable table-responsive">
-                  <table class="dt-row-grouping table border-top">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Email</th>
-                        <th>City</th>
-                        <th>Date</th>
-                        <th>Salary</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Email</th>
-                        <th>City</th>
-                        <th>Date</th>
-                        <th>Salary</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div>
-              <!--/ Row grouping -->
-
-              <hr class="my-5" />
-
-              <!-- Multilingual -->
-              <div class="card">
-                <h5 class="card-header">Multilingual</h5>
-                <div class="card-datatable table-responsive">
-                  <table class="dt-multilingual table border-top">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Email</th>
-                        <th>Date</th>
-                        <th>Salary</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-              <!--/ Multilingual -->
-            </div>
-            <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  Â©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with â¤ï¸ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://themeselection.com/support/"
-                    target="_blank"
-                    class="footer-link d-none d-sm-inline-block"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
+           
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -2044,6 +1856,195 @@
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/tables-datatables-basic.js"></script>
+<!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
+     <script>
+     /**
+      * DataTables Basic
+      */
+
+     'use strict';
+
+     let fv, offCanvasEl;
+     
+     // datatable (jquery)
+     $(function () {
+       var dt_basic_table = $('.datatables-basic'),
+       dt_basic;
+
+       
+       // DataTable with buttons
+       // --------------------------------------------------------------------
+
+       if (dt_basic_table.length) {
+         dt_basic = dt_basic_table.DataTable({
+           ajax: assetsPath + 'json/table-datatable.json',
+           columns: [
+             { data: '' },
+             { data: 'id' },
+             { data: 'id' },
+             { data: 'full_name' },
+             { data: 'email' },
+             { data: 'start_date' },
+             { data: 'salary' },
+             { data: 'status' },
+             { data: '' }
+           ],
+           columnDefs: [
+             {
+               // For Responsive
+               className: 'control',
+               orderable: false,
+               searchable: false,
+               responsivePriority: 2,
+               targets: 0,
+               render: function (data, type, full, meta) {
+                 return '';
+               }
+             },
+             
+             {
+               targets: 2,
+               searchable: false,
+               visible: false
+             },
+             {
+               // Avatar image/badge, Name and post
+               targets: 3,
+               responsivePriority: 4,
+               render: function (data, type, full, meta) {
+                 var $user_img = full['avatar'],
+                   $name = full['full_name'],
+                   $post = full['post'];
+                 if ($user_img) {
+                   // For Avatar image
+                   var $output =
+                     '<img src="' + assetsPath + 'img/avatars/' + $user_img + '" alt="Avatar" class="rounded-circle">';
+                 } else {
+                   // For Avatar badge
+                   var stateNum = Math.floor(Math.random() * 6);
+                   var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
+                   var $state = states[stateNum],
+                     $name = full['full_name'],
+                     $initials = $name.match(/\b\w/g) || [];
+                   $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+                   $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
+                 }
+                 // Creates full output for row
+                 var $row_output =
+                   '<div class="d-flex justify-content-start align-items-center user-name">' +
+                   '<div class="avatar-wrapper">' +
+                   '<div class="avatar me-2">' +
+                   $output +
+                   '</div>' +
+                   '</div>' +
+                   '<div class="d-flex flex-column">' +
+                   '<span class="emp_name text-truncate">' +
+                   $name +
+                   '</span>' +
+                   '<small class="emp_post text-truncate text-muted">' +
+                   $post +
+                   '</small>' +
+                   '</div>' +
+                   '</div>';
+                 return $row_output;
+               }
+             },
+             {
+               responsivePriority: 1,
+               targets: 4
+             },
+             {
+               // Label
+               targets: -2,
+               render: function (data, type, full, meta) {
+                 var $status_number = full['status'];
+                 var $status = {
+                   1: { title: 'Current', class: 'bg-label-primary' },
+                   2: { title: 'Professional', class: ' bg-label-success' },
+                   3: { title: 'Rejected', class: ' bg-label-danger' },
+                   4: { title: 'Resigned', class: ' bg-label-warning' },
+                   5: { title: 'Applied', class: ' bg-label-info' }
+                 };
+                 if (typeof $status[$status_number] === 'undefined') {
+                   return data;
+                 }
+                 return (
+                		 '<span>사용 연차 int 값</span>'
+                 );
+               }
+             },
+             {
+               // Actions
+               targets: -1,
+               title: '잔여 연차',
+               orderable: false,
+               searchable: false,
+               render: function (data, type, full, meta) {
+                 return (
+                		 '<span>잔여 연차 int 값</span>'
+                 );
+               }
+             }
+           ],
+           
+           order: [[2, 'desc']],
+           dom: '<<"head-label text-center">><"row">t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+           
+           displayLength: 10,
+           lengthMenu: [10],
+           
+           
+           responsive: {
+             details: {
+               display: $.fn.dataTable.Responsive.display.modal({
+                 header: function (row) {
+                   var data = row.data();
+                   return 'Details of ' + data['full_name'];
+                 }
+               }),
+               type: 'column',
+               renderer: function (api, rowIdx, columns) {
+                 var data = $.map(columns, function (col, i) {
+                   return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                     ? '<tr data-dt-row="' +
+                         col.rowIndex +
+                         '" data-dt-column="' +
+                         col.columnIndex +
+                         '">' +
+                         '<td>' +
+                         col.title +
+                         ':' +
+                         '</td> ' +
+                         '<td>' +
+                         col.data +
+                         '</td>' +
+                         '</tr>'
+                     : '';
+                 }).join('');
+
+                 return data ? $('<table class="table"/><tbody />').append(data) : false;
+               }
+             }
+           }
+         });
+         
+         
+         
+       }
+
+
+      
+
+       
+
+       // Filter form control to default size
+       // ? setTimeout used for multilingual table initialization
+       setTimeout(() => {
+         $('.dataTables_filter .form-control').removeClass('form-control-sm');
+         $('.dataTables_length .form-select').removeClass('form-select-sm');
+       }, 300);
+     });
+
+     </script>
   </body>
 </html>
