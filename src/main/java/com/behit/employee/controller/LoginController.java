@@ -20,7 +20,7 @@ public class LoginController {
 
 	@PostMapping(value="login.do")
 	public ModelAndView login(@RequestParam String emp_id, @RequestParam String password) { 
-		
+		logger.info(emp_id+" / "+ password);
 		ModelAndView mav = new ModelAndView();
 		
 		boolean success = service.login(emp_id, password);
