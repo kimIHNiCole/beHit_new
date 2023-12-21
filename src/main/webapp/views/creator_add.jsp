@@ -2129,6 +2129,5 @@
 	
     <script src="../../assets/js/form-wizard-numbered.js"></script>
     <script src="../../assets/js/form-wizard-validation.js"></script>
-    <script src="../../assets/js/forms-file-upload.js"></script>
   </body>
 </html>
