@@ -6,6 +6,6 @@
 <mapper namespace="com.behit.employee.dao.EmployeeDAO">
 	<insert id="join" parameterType="HashMap">
 		INSERT INTO employee (emp_id, emp_name, password, emp_birth, email, cp_phone, mobile_phone, address, detail_addr, position_idx)
-			VALUES(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{emp_id}, #{mobile_phone}, #{address}, #{detail_addr}, 0);
+			VALUES(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr}, 0);
 	</insert>
 </mapper>
