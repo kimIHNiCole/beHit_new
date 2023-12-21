@@ -6571,6 +6571,10 @@ textarea.form-control-lg {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family:pretendard;
+  font-weight:600;
+  font-size:1rem;
+  margin-top:0.225rem;
 }
 
 .vr {
@@ -20145,7 +20149,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   flex: 1 1 auto;
 }
 .menu-vertical .menu-inner > .menu-item {
-  margin: 0.0625rem 0;
+  margin: 0.225rem 0;
 }
 .menu-vertical .menu-inner > .menu-item .menu-link {
   margin: 0rem 1rem;
@@ -26069,3 +26073,10 @@ a.bg-vimeo:hover, a.bg-vimeo:focus {
 .footer.bg-lighter hr {
   border-color: rgba(105, 122, 141, 0.076604902);
 }
+
+
+/*custom CSS*/
+
+.layout-menu-collapsed:not(.layout-menu-hover) .logo_beHit{
+    	display:none;
+    }

@@ -53,7 +53,6 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
 		<!-- Row Group CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
     <!-- Form Validation -->
@@ -82,11 +81,16 @@
     	margin-bottom:0.1rem !important;
     }
     
-    h5,h4,h3{
+    h5{
     	font-family:pretendard;
     	font-weight:600;
     }
-   
+    
+    h4{
+    	font-family:pretendard;
+    	font-weight:600;
+    }
+    
     .apv-home{
     	color:#c20000;
     	margin-bottom:2rem;
@@ -120,12 +124,12 @@
     
   </head>
 
-  <body class style>
+  <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        
+
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.go" class="app-brand-link">
@@ -150,7 +154,7 @@
               </a>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="test" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
@@ -215,7 +219,7 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
+                <div class="text-truncate" data-i18n="인사관리">인사 관리</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -293,7 +297,6 @@
                     <span class="badge bg-danger rounded-pill badge-notifications">5</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end py-0">
-                  
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
                         <h5 class="text-body mb-0 me-auto">Notification</h5>
@@ -307,7 +310,6 @@
                         ></a>
                       </div>
                     </li>
-                    
                     <li class="dropdown-notifications-list scrollable-container">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
@@ -318,8 +320,191 @@
                               </div>
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
+                              <h6 class="mb-1">Congratulation Lettie ð</h6>
+                              <p class="mb-0">Won the monthly best seller gold badge</p>
+                              <small class="text-muted">1h ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">Charles Franklin</h6>
+                              <p class="mb-0">Accepted your connection</p>
+                              <small class="text-muted">12hr ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <img src="../../assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle" />
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">New Message âï¸</h6>
+                              <p class="mb-0">You have new message from Natalie</p>
+                              <small class="text-muted">1h ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <span class="avatar-initial rounded-circle bg-label-success"
+                                  ><i class="bx bx-cart"></i
+                                ></span>
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">Whoo! You have new order ð</h6>
+                              <p class="mb-0">ACME Inc. made new order $1,154</p>
+                              <small class="text-muted">1 day ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <img src="../../assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle" />
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">Application has been approved ð</h6>
+                              <p class="mb-0">Your ABC project application has been approved.</p>
+                              <small class="text-muted">2 days ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <span class="avatar-initial rounded-circle bg-label-success"
+                                  ><i class="bx bx-pie-chart-alt"></i
+                                ></span>
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">Monthly report is generated</h6>
+                              <p class="mb-0">July monthly financial report is generated</p>
+                              <small class="text-muted">3 days ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <img src="../../assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle" />
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">Send connection request</h6>
+                              <p class="mb-0">Peter sent you connection request</p>
+                              <small class="text-muted">4 days ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <img src="../../assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle" />
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">New message from Jane</h6>
+                              <p class="mb-0">Your have new message from Jane</p>
+                              <small class="text-muted">5 days ago</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                              <a href="javascript:void(0)" class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <span class="avatar-initial rounded-circle bg-label-warning"
+                                  ><i class="bx bx-error"></i
+                                ></span>
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">CPU is running high</h6>
+                              <p class="mb-0">CPU Utilization Percent is currently at 88.63%,</p>
+                              <small class="text-muted">5 days ago</small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"
@@ -333,11 +518,9 @@
                         </li>
                       </ul>
                     </li>
-                    
                     <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
+                      <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
                     </li>
-                    
                   </ul>
                 </li>
                 <!--/ Notification -->
@@ -402,7 +585,7 @@
                     	</li>
                     	
                     	<li class="nav-item mb-1">
-                    		<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#apv-modal">새 결재 작성</button>
+                    		<button type="button" class="btn btn-secondary">새 결재 작성</button>
                     	</li>
                     
                     	<li class="nav-item mb-1">
@@ -412,7 +595,7 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="getApproval_list.go">
+                        <a class="nav-link active" href="getApproval_list.go">
                           <span class="align-middle">결재 요청 받은 문서</span>
                         </a>
                       </li>
@@ -457,77 +640,17 @@
                 </div>
                 <!-- /Navigation -->
 
-								<!-- modal -->
-								<!-- Add New Credit Card Modal -->
-              <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
-                  <div class="modal-content p-3 p-md-5">
-                    <div class="modal-body">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <div class="text-start mb-4">
-                        <h3>결재 양식</h3>
-                        <p>적용할 결재 양식을 선택해주세요</p>
-                      </div>
-                      
-                      <div>
-                      	<div class="col-md-6 col-12">
-													<div class="card mb-md-0 mb-4">
-														<h5 class="card-header">Checkboxes</h5>
-														<div class="card-body">
-															<div id="jstree-checkbox"></div>
-														</div>
-													</div>
-												</div>
-                      </div>
-
-                      <div class="col-12 text-center">
-                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3">선택</button>
-                        <button
-                          type="reset"
-                          class="btn btn-label-secondary btn-reset mt-3"
-                          data-bs-dismiss="modal"
-                          aria-label="Close">
-                          취소
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--/ Add New Credit Card Modal -->
-
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
                 	<h4 class="apv-home">
-                		전자 결재 홈
+                		결재 요청 받은 문서
                 	</h4>
                   <div class="tab-content p-0">
                     <!-- Store Details Tab -->
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
-                    	
-                    	
-                    	<div class="card">
-				                <h5 class="card-header">결재 요청받은 문서</h5>
-				                <div class="card-datatable table-responsive">
-				                  <table class="dt-multilingual1 table border-top">
-				                    <thead>
-				                      <tr>
-				                        <th></th>
-				                        <th>문서양식</th>
-				                        <th>문서제목</th>
-				                        <th>요청일</th>
-				                        <th>기안자/부서</th>
-				                        <!--<th>Salary</th>
-				                        <th>Status</th>
-				                        <th>Action</th>-->
-				                      </tr>
-				                    </thead>
-				                  </table>
-				                </div>
-				              </div>
-				              
+        
 				              <div class="card">
-				                <h5 class="card-header">결재 요청한 문서</h5>
+				                <h5 class="card-header"> 결재 요청 받은 문서 리스트 </h5>
 				                <div class="card-datatable table-responsive">
 				                  <table class="dt-multilingual2 table border-top">
 				                    <thead>
@@ -536,8 +659,7 @@
 				                        <th>문서양식</th>
 				                        <th>문서제목</th>
 				                        <th>상신일</th>
-				                        <th>마지막 결제일</th>
-				                        <th>현 결재자</th>
+				                        <th>기안자/부서</th>
 				                        <th>결재 상태</th>
 				                      </tr>
 				                    </thead>
@@ -590,8 +712,6 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
-    
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
@@ -610,247 +730,107 @@
     <!-- custom JS -->
     <script>
     
-    
-    
     $(function () {
-    	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-    	  dt_multilingual_table2 = $('.dt-multilingual2');
+  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
+  	  dt_multilingual_table2 = $('.dt-multilingual2');
 
-    	  // Multilingual DataTable
-    	  // --------------------------------------------------------------------
-    	  
-    	  var lang = 'English';
-    	  if (dt_multilingual_table1.length) {
-    	    var table_language = dt_multilingual_table1.DataTable({
-    	      ajax: assetsPath + 'json/table-datatable.json',
-    	      columns: [
-    	        { data: '' },
-    	        { data: 'full_name' },
-    	        { data: 'post' },
-    	        { data: 'start_date' },
-    	        { data: '' }
-    	      ],
-    	      columnDefs: [
-    	        {
-    	          // For Responsive
-    	          className: 'control',
-    	          orderable: false,
-    	          targets: 0,
-    	          searchable: false,
-    	          render: function (data, type, full, meta) {
-    	            return '';
-    	          }
-    	        },
-    	        {
-      	          // Actions
-      	          targets: -1,
-      	          title: '기안자/부서',
-      	          orderable: false,
-      	          searchable: false,
-      	          render: function (data, type, full, meta) {
-      	            return '';
-      	          }
-      	        }
-    	      ],
-    	      language: {
-    	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-    	      },
-    	      //paging: false,
-    	      displayLength: 5,
-    	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-    	      lengthMenu: [5],
-    	      searching: false,
-    	      responsive: {
-    	        details: {
-    	          display: $.fn.dataTable.Responsive.display.modal({
-    	            header: function (row) {
-    	              var data = row.data();
-    	              return 'Details of ' + data['full_name'];
-    	            }
-    	          }),
-    	          type: 'column',
-    	          renderer: function (api, rowIdx, columns) {
-    	            var data = $.map(columns, function (col, i) {
-    	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-    	                ? '<tr data-dt-row="' +
-    	                    col.rowIndex +
-    	                    '" data-dt-column="' +
-    	                    col.columnIndex +
-    	                    '">' +
-    	                    '<td>' +
-    	                    col.title +
-    	                    ':' +
-    	                    '</td> ' +
-    	                    '<td>' +
-    	                    col.data +
-    	                    '</td>' +
-    	                    '</tr>'
-    	                : '';
-    	            }).join('');
+  	  // Multilingual DataTable
+  	  // --------------------------------------------------------------------
 
-    	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-    	          }
-    	        }
-    	      }
-    	    });
-    	  }
-    	  
-    	  
+  	  var lang = 'English';
+  	  if (dt_multilingual_table2.length) {
+  	    var table_language = dt_multilingual_table2.DataTable({
+  	      ajax: assetsPath + 'json/table-datatable.json',
+  	      columns: [
+  	        { data: '' },
+  	        { data: 'full_name' },
+  	        { data: 'post' },
+  	        { data: 'start_date' },
+  	        { data: 'status' },
+  	        { data: '' }
+  	      ],
+  	      columnDefs: [
+  	        {
+  	          // For Responsive
+  	          className: 'control',
+  	          orderable: false,
+  	          targets: 0,
+  	          searchable: false,
+  	          render: function (data, type, full, meta) {
+  	            return '';
+  	          }
+  	        },
+  	        {
+  	          // Label
+  	          targets: -1,
+  	          render: function (data, type, full, meta) {
+  	            var $status_number = full['status'];
+  	            var $status = {
+  	              1: { title: 'Current', class: 'bg-label-primary' },
+  	              2: { title: 'Professional', class: ' bg-label-success' },
+  	              3: { title: 'Rejected', class: ' bg-label-danger' },
+  	              4: { title: 'Resigned', class: ' bg-label-warning' },
+  	              5: { title: 'Applied', class: ' bg-label-info' }
+  	            };
+  	            if (typeof $status[$status_number] === 'undefined') {
+  	              return data;
+  	            }
+  	            return (
+  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
+  	            );
+  	          }
+  	        }
+  	      ],
+  	      language: {
+  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
+  	      },
+  	      //paging: false,
+  	      displayLength: 10,
+  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+  	      lengthMenu: [10],
+  	      searching: false,
+  	      responsive: {
+  	        details: {
+  	          display: $.fn.dataTable.Responsive.display.modal({
+  	            header: function (row) {
+  	              var data = row.data();
+  	              return 'Details of ' + data['full_name'];
+  	            }
+  	          }),
+  	          type: 'column',
+  	          renderer: function (api, rowIdx, columns) {
+  	            var data = $.map(columns, function (col, i) {
+  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+  	                ? '<tr data-dt-row="' +
+  	                    col.rowIndex +
+  	                    '" data-dt-column="' +
+  	                    col.columnIndex +
+  	                    '">' +
+  	                    '<td>' +
+  	                    col.title +
+  	                    ':' +
+  	                    '</td> ' +
+  	                    '<td>' +
+  	                    col.data +
+  	                    '</td>' +
+  	                    '</tr>'
+  	                : '';
+  	            }).join('');
 
-    	  var lang = 'English';
-    	  if (dt_multilingual_table2.length) {
-    	    var table_language2 = dt_multilingual_table2.DataTable({
-    	      ajax: assetsPath + 'json/table-datatable.json',
-    	      columns: [
-    	        { data: '' },
-    	        { data: 'full_name' },
-    	        { data: 'post' },
-    	        { data: 'start_date' },
-    	        { data: 'start_date' },
-    	        { data: 'status' },
-    	        { data: '' }
-    	      ],
-    	      columnDefs: [
-    	        {
-    	          // For Responsive
-    	          className: 'control',
-    	          orderable: false,
-    	          targets: 0,
-    	          searchable: false,
-    	          render: function (data, type, full, meta) {
-    	            return '';
-    	          }
-    	        },
-    	        {
-    	          // Label
-    	          targets: -1,
-    	          render: function (data, type, full, meta) {
-    	            var $status_number = full['status'];
-    	            var $status = {
-    	              1: { title: 'Current', class: 'bg-label-primary' },
-    	              2: { title: 'Professional', class: ' bg-label-success' },
-    	              3: { title: 'Rejected', class: ' bg-label-danger' },
-    	              4: { title: 'Resigned', class: ' bg-label-warning' },
-    	              5: { title: 'Applied', class: ' bg-label-info' }
-    	            };
-    	            if (typeof $status[$status_number] === 'undefined') {
-    	              return data;
-    	            }
-    	            return (
-    	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-    	            );
-    	          }
-    	        }
-    	      ],
-    	      language: {
-    	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-    	      },
-    	      //paging: false,
-    	      displayLength: 5,
-    	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-    	      lengthMenu: [5],
-    	      searching: false,
-    	      responsive: {
-    	        details: {
-    	          display: $.fn.dataTable.Responsive.display.modal({
-    	            header: function (row) {
-    	              var data = row.data();
-    	              return 'Details of ' + data['full_name'];
-    	            }
-    	          }),
-    	          type: 'column',
-    	          renderer: function (api, rowIdx, columns) {
-    	            var data = $.map(columns, function (col, i) {
-    	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-    	                ? '<tr data-dt-row="' +
-    	                    col.rowIndex +
-    	                    '" data-dt-column="' +
-    	                    col.columnIndex +
-    	                    '">' +
-    	                    '<td>' +
-    	                    col.title +
-    	                    ':' +
-    	                    '</td> ' +
-    	                    '<td>' +
-    	                    col.data +
-    	                    '</td>' +
-    	                    '</tr>'
-    	                : '';
-    	            }).join('');
+  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
+  	          }
+  	        }
+  	      }
+  	    });
+  	  }
 
-    	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-    	          }
-    	        }
-    	      }
-    	    });
-    	  }
-
-    	  // Filter form control to default size
-    	  // ? setTimeout used for multilingual table initialization
-    	  setTimeout(() => {
-    	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-    	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-    	  }, 300);
-    	});
-    
-    
-    
-    $(function () {
-    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
-    	    checkboxTree = $('#jstree-checkbox');
-
-    	  // Checkbox
-    	  // --------------------------------------------------------------------
-    	  if (checkboxTree.length) {
-    	    checkboxTree.jstree({
-    	      core: {
-    	        themes: {
-    	          name: theme
-    	        },
-    	        data: [
-    	          {
-    	            text: '근태',
-    	            state: {
-      	              opened: true
-      	            },
-    	            children: [
-    	              {
-    	                text: '휴가 신청서',
-    	                type: 'docs'
-    	              },
-    	              {
-      	              text: '사후 휴가 신청서',
-      	              type: 'docs'
-      	            }
-    	            ]
-    	          },
-    	          {
-    	            text: '일반 ',
-    	            state: {
-    	              opened: true
-    	            },
-    	            children: [
-    	              {
-    	                text: '사업 기안서',
-    	                type: 'docs'
-    	              }
-    	            ]
-    	          },
-    	        ]
-    	      },
-    	      plugins: ['types', 'checkbox', 'wholerow'],
-    	      types: {
-    	        default: {
-    	          icon: 'bx bx-folder'
-    	        },
-    	        docs: {
-    	          icon: 'bx bxs-file-blank'
-    	        }
-    	      }
-    	    });
-    	  }
-
-    	});
+  	  // Filter form control to default size
+  	  // ? setTimeout used for multilingual table initialization
+  	  setTimeout(() => {
+  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
+  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
+  	  }, 300);
+  	});
     
     </script>
   </body>

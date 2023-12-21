@@ -1430,7 +1430,7 @@ html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item .menu-lin
 }
 .bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
   color: #C20000;
-  background-color: rgba(105, 108, 255, 0.16) !important;
+  background-color: #FFE2E2 !important;
 }
 .bg-menu-theme .menu-inner > .menu-item.active:before {
   background: #C20000;
