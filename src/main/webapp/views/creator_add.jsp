@@ -2110,16 +2110,15 @@
        });
     </script>
     <script>
-      var dropzoneBasic = document.querySelector('#dropzone-basic');
+    var dropzoneBasic = document.querySelector('#dropzone-basic');
 
       var myDropzone = new Dropzone(dropzoneBasic, {
-      previewTemplate: previewTemplate,
-      parallelUploads: 1,
-      maxFilesize: 5,
-      acceptedFiles: '.jpg,.jpeg,.png,.gif',
-      addRemoveLinks: true,
-      maxFiles: 1
-    	});
+          previewTemplate: previewTemplate,
+          parallelUploads: 1,
+          maxFilesize: 5,
+          addRemoveLinks: true,
+          maxFiles: 1
+        });
     </script>
   
 
