@@ -561,7 +561,7 @@
             <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div class="text-truncate" data-i18n="Pages">Pages</div>
+                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -1760,24 +1760,25 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Account</h4>
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 /</span> 직원 등록</h4>
 
               <div class="row">
                 <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                  <!-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
+                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> 기본 정보</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="pages-account-settings-security.go"
-                        ><i class="bx bx-lock-alt me-1"></i> Security</a
+                        ><i class="bx bx-lock-alt me-1"></i> 상세 정보</a
                       >
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="pages-account-settings-billing.go"
-                        ><i class="bx bx-detail me-1"></i> Billing & Plans</a
+                        ><i class="bx bx-detail me-1"></i> 부서 / 직급</a
                       >
                     </li>
+                    
                     <li class="nav-item">
                       <a class="nav-link" href="pages-account-settings-notifications.go"
                         ><i class="bx bx-bell me-1"></i> Notifications</a
@@ -1788,9 +1789,9 @@
                         ><i class="bx bx-link-alt me-1"></i> Connections</a
                       >
                     </li>
-                  </ul>
+                  </ul> -->
                   <div class="card mb-4">
-                    <h5 class="card-header">Profile Details</h5>
+                    <h5 class="card-header">직원 등록</h5>
                     <!-- Account -->
                     <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -1803,7 +1804,7 @@
                           id="uploadedAvatar" />
                         <div class="button-wrapper">
                           <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
+                            <span class="d-none d-sm-block">사진 등록</span>
                             <i class="bx bx-upload d-block d-sm-none"></i>
                             <input
                               type="file"
@@ -1814,10 +1815,10 @@
                           </label>
                           <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
                             <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
+                            <span class="d-none d-sm-block">초기화</span>
                           </button>
 
-                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                          <p class="text-muted mb-0">업로드는 JPG, GIF 또는 PNG만 가능하고, 최대 사이즈는 800KB입니다.</p>
                         </div>
                       </div>
                     </div>
@@ -1826,153 +1827,126 @@
                       <form id="formAccountSettings" method="GET" onsubmit="return false">
                         <div class="row">
                           <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">First Name</label>
+                            <label for="firstName" class="form-label">아이디</label>
                             <input
                               class="form-control"
                               type="text"
-                              id="firstName"
-                              name="firstName"
-                              value="John"
+                              id="emp_id"
+                              name="emp_id"
+                              placeholder="Honggildong"
                               autofocus />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" value="Doe" />
+                            <label for="lastName" class="form-label">임시 비밀번호</label>
+                            <input class="form-control" type="text" name="password" id="password" placeholder="****" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
+                            <label for="email" class="form-label">이메일</label>
                             <input
                               class="form-control"
                               type="text"
                               id="email"
                               name="email"
-                              value="john.doe@example.com"
-                              placeholder="john.doe@example.com" />
+                              placeholder="admin@example.com" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">Organization</label>
+                            <label for="organization" class="form-label">이름</label>
                             <input
                               type="text"
                               class="form-control"
-                              id="organization"
-                              name="organization"
-                              value="ThemeSelection" />
+                              id="emp_name"
+                              name="emp_name"
+                              placeholder="홍길동" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                            <label class="form-label" for="cp_phone">사내 번호</label>
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text">US (+1)</span>
                               <input
                                 type="text"
-                                id="phoneNumber"
-                                name="phoneNumber"
+                                id="cp_phone"
+                                name="cp_phone"
                                 class="form-control"
-                                placeholder="202 555 0111" />
+                                placeholder="02-000-0000" />
                             </div>
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                            <label for="address" class="form-label">주소</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="주소" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="state" class="form-label">State</label>
-                            <input class="form-control" type="text" id="state" name="state" placeholder="California" />
-                          </div>
+                            <label class="form-label" for="phoneNumber">휴대폰 번호</label>
+                            <div class="input-group input-group-merge">
+                              <input
+                                type="text"
+                                id="moblie-phone"
+                                name="	moblie-phone"
+                                class="form-control"
+                                placeholder="010-0000-0000" />
+                            </div>
+                          </div>                        
                           <div class="mb-3 col-md-6">
-                            <label for="zipCode" class="form-label">Zip Code</label>
+                            <label for="zipCode" class="form-label">상세 주소</label>
                             <input
                               type="text"
                               class="form-control"
-                              id="zipCode"
-                              name="zipCode"
-                              placeholder="231465"
+                              id="detail-addr"
+                              name="detail-addr"
+                              placeholder="상세 주소"
                               maxlength="6" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">Country</label>
-                            <select id="country" class="select2 form-select">
-                              <option value="">Select</option>
-                              <option value="Australia">Australia</option>
-                              <option value="Bangladesh">Bangladesh</option>
-                              <option value="Belarus">Belarus</option>
-                              <option value="Brazil">Brazil</option>
-                              <option value="Canada">Canada</option>
-                              <option value="China">China</option>
-                              <option value="France">France</option>
-                              <option value="Germany">Germany</option>
-                              <option value="India">India</option>
-                              <option value="Indonesia">Indonesia</option>
-                              <option value="Israel">Israel</option>
-                              <option value="Italy">Italy</option>
-                              <option value="Japan">Japan</option>
-                              <option value="Korea">Korea, Republic of</option>
-                              <option value="Mexico">Mexico</option>
-                              <option value="Philippines">Philippines</option>
-                              <option value="Russia">Russian Federation</option>
-                              <option value="South Africa">South Africa</option>
-                              <option value="Thailand">Thailand</option>
-                              <option value="Turkey">Turkey</option>
-                              <option value="Ukraine">Ukraine</option>
-                              <option value="United Arab Emirates">United Arab Emirates</option>
-                              <option value="United Kingdom">United Kingdom</option>
-                              <option value="United States">United States</option>
+                            <label for="state" class="form-label">부서</label>
+                            <select id="department" class="select2 form-select">
+                              <option value=""></option>
+                              <option value="finance">재무</option>
+                              <option value="personnel">인사</option>
+                              <option value="management">매니지먼트 / 기획</option>
+                              <option value="business">사업 기획</option>
+                              <option value="marketing">마케팅</option>
                             </select>
+                          </div> 
+                          <div class="mb-3 col-md-6">
+                            <label for="hiredate" class="form-label">입사일</label>
+ 							<input type="date" class="form-control" id="hiredate" name="hiredate">
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="language" class="form-label">Language</label>
-                            <select id="language" class="select2 form-select">
-                              <option value="">Select Language</option>
-                              <option value="en">English</option>
-                              <option value="fr">French</option>
-                              <option value="de">German</option>
-                              <option value="pt">Portuguese</option>
+                            <label for="job" class="form-label">직책</label>
+                            <select id="job" class="select2 form-select">
+                              <option value=""></option>
+                              <option value="member">팀원</option>
+                              <option value="leader">팀장</option>
+                              <option value="dm_manager">실장</option>
+                              <option value="hq_manager">본부장</option>
                             </select>
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="timeZones" class="form-label">Timezone</label>
-                            <select id="timeZones" class="select2 form-select">
-                              <option value="">Select Timezone</option>
-                              <option value="-12">(GMT-12:00) International Date Line West</option>
-                              <option value="-11">(GMT-11:00) Midway Island, Samoa</option>
-                              <option value="-10">(GMT-10:00) Hawaii</option>
-                              <option value="-9">(GMT-09:00) Alaska</option>
-                              <option value="-8">(GMT-08:00) Pacific Time (US & Canada)</option>
-                              <option value="-8">(GMT-08:00) Tijuana, Baja California</option>
-                              <option value="-7">(GMT-07:00) Arizona</option>
-                              <option value="-7">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
-                              <option value="-7">(GMT-07:00) Mountain Time (US & Canada)</option>
-                              <option value="-6">(GMT-06:00) Central America</option>
-                              <option value="-6">(GMT-06:00) Central Time (US & Canada)</option>
-                              <option value="-6">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
-                              <option value="-6">(GMT-06:00) Saskatchewan</option>
-                              <option value="-5">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
-                              <option value="-5">(GMT-05:00) Eastern Time (US & Canada)</option>
-                              <option value="-5">(GMT-05:00) Indiana (East)</option>
-                              <option value="-4">(GMT-04:00) Atlantic Time (Canada)</option>
-                              <option value="-4">(GMT-04:00) Caracas, La Paz</option>
-                            </select>
+                        <div class="mb-3 col-md-6">
+                            <label for="emp_birth" class="form-label">생년월일</label>
+							<input type="date" class="form-control" id="emp_birth" name="emp_birth">
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="currency" class="form-label">Currency</label>
-                            <select id="currency" class="select2 form-select">
-                              <option value="">Select Currency</option>
-                              <option value="usd">USD</option>
-                              <option value="euro">Euro</option>
-                              <option value="pound">Pound</option>
-                              <option value="bitcoin">Bitcoin</option>
+                            <div class="mb-3 col-md-6">
+                            <label class="form-label" for="country">직급</label>
+                            <select id="position" class="select2 form-select">
+                              <option value=""></option>
+                              <option value="staff">사원</option>
+                              <option value="associate">주임</option>
+                              <option value="As_manager">대리</option>
+                              <option value="manager">과장</option>
+                              <option value="sn_manager">차장</option>
+                              <option value="gn_manager">부장</option>
+                              <option value="director">이사</option>
                             </select>
-                          </div>
+                          </div>    
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                          <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                          <button type="submit" class="btn btn-primary me-2">직원 등록</button>
+                          <button type="reset" class="btn btn-label-secondary">등록 취소 </button>
                         </div>
                       </form>
                     </div>
                     <!-- /Account -->
                   </div>
-                  <div class="card">
-                    <h5 class="card-header">Delete Account</h5>
+<!--                   <div class="card">
+                    <h5 class="card-header">기본정보 변경 이력</h5>
                     <div class="card-body">
                       <div class="mb-3 col-12 mb-0">
                         <div class="alert alert-warning">
@@ -1997,7 +1971,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- / Content -->
 
             <!-- Footer -->
