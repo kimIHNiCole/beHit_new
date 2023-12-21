@@ -155,7 +155,9 @@
             <!-- <h4 class="mb-2">Be Hit</h4> -->
             <p class="mb-4">세계 최고의 유튜버들을 위한 에이전시</p>
 
+
             <form id="formAuthentication" class="mb-3" action="login.do" method="POST">
+
               <div class="mb-3">
                 <label for="username" class="form-label">아이디</label>
                 <input
