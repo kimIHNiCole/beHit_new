@@ -97,7 +97,7 @@
           <div class="w-px-400 mx-auto">
             <!-- Logo -->
             <div class="app-brand mb-5">
-              <a href="index.go" class="app-brand-link gap-2">
+              <a href="html/vertical-menu-template/index.go" class="app-brand-link gap-2">
                 <span class="app-brand-logo demo">
                   <svg
                     width="25"
