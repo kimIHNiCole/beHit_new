@@ -372,6 +372,7 @@ $(function () {
                 }
               }
             },
+            
             {
               extend: 'copy',
               text: '<i class="bx bx-copy me-1" ></i>Copy',
@@ -398,8 +399,9 @@ $(function () {
             }
           ]
         },
+        
         {
-          text: '<i class="bx bx-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Add New Record</span>',
+          text: ' <span class="d-none d-sm-inline-block">직원 등록</span>',
           className: 'create-new btn btn-primary'
         }
       ],
@@ -436,7 +438,7 @@ $(function () {
         }
       }
     });
-    $('div.head-label').html('<h5 class="card-title mb-0">DataTable with Buttons</h5>');
+    $('div.head-label').html('<h5 class="card-title mb-0">라벨구분선</h5>');
   }
 
   // Add New record

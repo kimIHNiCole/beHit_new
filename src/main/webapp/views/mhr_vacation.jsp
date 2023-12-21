@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Account settings - Account | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Tables - Basic Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,10 +42,6 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
 
     <!-- Page CSS -->
 
@@ -56,6 +52,20 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <style>
+    .mb-1.red{
+    color: #C20000;
+    }
+    .mb-0{
+    font-size: 12px;
+    }
+    .btn.btn-primary.vaca{
+    width: 160px;
+    height: 38px;
+    margin-left: 150px;
+    }
+    </style>
   </head>
 
   <body>
@@ -558,10 +568,10 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
+                <div class="text-truncate" data-i18n="Pages">Pages</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -591,12 +601,12 @@
                     </li>
                   </ul>
                 </li>
-                <li class="menu-item active open">
+                <li class="menu-item">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>
                   </a>
                   <ul class="menu-sub">
-                    <li class="menu-item active">
+                    <li class="menu-item">
                       <a href="pages-account-settings-account.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Account">Account</div>
                       </a>
@@ -1169,7 +1179,7 @@
               </a>
             </li>
             <!-- Tables -->
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="tables-basic.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div class="text-truncate" data-i18n="Tables">Tables</div>
@@ -1461,7 +1471,7 @@
                               </div>
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">Congratulation Lettie ð</h6>
+                              
                               <p class="mb-0">Won the monthly best seller gold badge</p>
                               <small class="text-muted">1h ago</small>
                             </div>
@@ -1484,7 +1494,7 @@
                             </div>
                             <div class="flex-grow-1">
                               <h6 class="mb-1">Charles Franklin</h6>
-                              <p class="mb-0">Accepted your connection</p>
+                              
                               <small class="text-muted">12hr ago</small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
@@ -1755,223 +1765,483 @@
 
           <!-- / Navbar -->
 
+
           <!-- Content wrapper -->
           <div class="content-wrapper">
+          
+          
+          
+          
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 /</span> 직원 등록</h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">내 상세 연차</span> </h4>
 
-              <div class="row">
-                <div class="col-md-12">
-                  <!-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> 기본 정보</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-security.go"
-                        ><i class="bx bx-lock-alt me-1"></i> 상세 정보</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-billing.go"
-                        ><i class="bx bx-detail me-1"></i> 부서 / 직급</a
-                      >
-                    </li>
-                    
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-notifications.go"
-                        ><i class="bx bx-bell me-1"></i> Notifications</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-connections.go"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                      >
-                    </li>
-                  </ul> -->
-                  <div class="card mb-4">
-                    <h5 class="card-header">직원 등록</h5>
-                    <!-- Account -->
-                    <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img
-                          src="../../assets/img/avatars/1.png"
-                          alt="user-avatar"
-                          class="d-block rounded"
-                          height="100"
-                          width="100"
-                          id="uploadedAvatar" />
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">사진 등록</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                              type="file"
-                              id="upload"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg" />
-                          </label>
-                          <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">초기화</span>
-                          </button>
+              <!-- 총 기록 -->
 
-                          <p class="text-muted mb-0">업로드는 JPG, GIF 또는 PNG만 가능하고, 최대 사이즈는 800KB입니다.</p>
+              <div class="card mb-4">
+                <div class="card-widget-separator-wrapper">
+                  <div class="card-body card-widget-separator">
+                    <div class="row gy-4 gy-sm-1">
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
+                          <div>
+                            <h3 class="mb-1 red">153</h3>
+                            <p class="mb-0">총 연차</p>
+                          </div>
+                          <div class="avatar me-sm-4">
+                            <span class="text-muted fw-light">시간</span>
+                          </div>
+                        </div>
+                        <hr class="d-none d-sm-block d-lg-none me-4" />
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
+                          <div>
+                            <h3 class="mb-1 red">22</h3>
+                            <p class="mb-0">사용 연차</p>
+                          </div>
+                          <div class="avatar me-lg-4">
+                            <span class="text-muted fw-light">시간</span>
+                          </div>
+                        </div>
+                        <hr class="d-none d-sm-block d-lg-none" />
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
+                          <div>
+                            <h3 class="mb-1 red">88</h3>
+                            <p class="mb-0">잔여 연차</p>
+                          </div>
+                          <div class="avatar me-sm-4">
+                            <span class="text-muted fw-light">시간</span>
+                          </div>
+                        </div>
+                      </div>
+                     </div>
+                    </div>
+                   </div>
+                  </div>
+                  
+  			<!--연도별 기록 -->
+
+              <div class="card mb-4">
+                <div class="card-widget-separator-wrapper">
+                  <div class="card-body card-widget-separator">
+                    <div class="row gy-4 gy-sm-1">
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
+                          <div>
+                            <h3 class="mb-1">120</h3>
+                            <p class="mb-0">발생 연차</p>
+                          </div>
+                          <div class="avatar me-sm-4">
+                            <span class="text-muted fw-light">시간</span>
+                          </div>
+                        </div>
+                        <hr class="d-none d-sm-block d-lg-none me-4" />
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
+                          <div>
+                            <h3 class="mb-1">0</h3>
+                            <p class="mb-0">발생 월차</p>
+                          </div>
+                          <div class="avatar me-lg-4">
+                            <span class="text-muted fw-light">시간</span>
+                          </div>
+                        </div>
+                        <hr class="d-none d-sm-block d-lg-none" />
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
+                          <div>
+                            <h3 class="mb-1">53</h3>
+                            <p class="mb-0">이월 연/월차</p>
+                          </div>
+                          <div class="avatar me-sm-4">
+                            <span class="text-muted fw-light">시간</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div>
+                            <h3 class="mb-1">24</h3>
+                            <p class="mb-0">조정 연차</p>
+                          </div>
+                          <div class="avatar">
+                            <span class="text-muted fw-light">시간</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <hr class="my-0" />
-                    <div class="card-body">
-                      <form id="formAccountSettings" method="GET" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">아이디</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="emp_id"
-                              name="emp_id"
-                              placeholder="Honggildong"
-                              autofocus />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">임시 비밀번호</label>
-                            <input class="form-control" type="text" name="password" id="password" placeholder="****" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">이메일</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
-                              placeholder="admin@example.com" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">이름</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="emp_name"
-                              name="emp_name"
-                              placeholder="홍길동" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="cp_phone">사내 번호</label>
-                            <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="cp_phone"
-                                name="cp_phone"
-                                class="form-control"
-                                placeholder="02-000-0000" />
-                            </div>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">주소</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="주소" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">휴대폰 번호</label>
-                            <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="moblie-phone"
-                                name="	moblie-phone"
-                                class="form-control"
-                                placeholder="010-0000-0000" />
-                            </div>
-                          </div>                        
-                          <div class="mb-3 col-md-6">
-                            <label for="zipCode" class="form-label">상세 주소</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="detail-addr"
-                              name="detail-addr"
-                              placeholder="상세 주소"
-                              maxlength="6" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="state" class="form-label">부서</label>
-                            <select id="department" class="select2 form-select">
-                              <option value=""></option>
-                              <option value="finance">재무</option>
-                              <option value="personnel">인사</option>
-                              <option value="management">매니지먼트 / 기획</option>
-                              <option value="business">사업 기획</option>
-                              <option value="marketing">마케팅</option>
-                            </select>
-                          </div> 
-                          <div class="mb-3 col-md-6">
-                            <label for="hiredate" class="form-label">입사일</label>
- 							<input type="date" class="form-control" id="hiredate" name="hiredate">
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="job" class="form-label">직책</label>
-                            <select id="job" class="select2 form-select">
-                              <option value=""></option>
-                              <option value="member">팀원</option>
-                              <option value="leader">팀장</option>
-                              <option value="dm_manager">실장</option>
-                              <option value="hq_manager">본부장</option>
-                            </select>
-                          </div>
-                        <div class="mb-3 col-md-6">
-                            <label for="emp_birth" class="form-label">생년월일</label>
-							<input type="date" class="form-control" id="emp_birth" name="emp_birth">
-                          </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">직급</label>
-                            <select id="position" class="select2 form-select">
-                              <option value=""></option>
-                              <option value="staff">사원</option>
-                              <option value="associate">주임</option>
-                              <option value="As_manager">대리</option>
-                              <option value="manager">과장</option>
-                              <option value="sn_manager">차장</option>
-                              <option value="gn_manager">부장</option>
-                              <option value="director">이사</option>
-                            </select>
-                          </div>    
-                        </div>
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">직원 등록</button>
-                          <button type="reset" class="btn btn-label-secondary">등록 취소 </button>
-                        </div>
-                      </form>
                     </div>
-                    <!-- /Account -->
+                   </div>
                   </div>
-<!--                   <div class="card">
-                    <h5 class="card-header">기본정보 변경 이력</h5>
-                    <div class="card-body">
-                      <div class="mb-3 col-12 mb-0">
-                        <div class="alert alert-warning">
-                          <h6 class="alert-heading fw-medium mb-1">Are you sure you want to delete your account?</h6>
-                          <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
-                        </div>
-                      </div>
-                      <form id="formAccountDeactivation" onsubmit="return false">
-                        <div class="form-check mb-3">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            name="accountActivation"
-                            id="accountActivation" />
-                          <label class="form-check-label" for="accountActivation"
-                            >I confirm my account deactivation</label
-                          >
-                        </div>
-                        <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
-                      </form>
-                    </div>
-                  </div>
+                  <hr class="my-5" />
+			<!-- Basic Bootstrap Table -->
+              <div class="card">
+                <h5 class="card-header">사용 내역</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>이름</th>
+                        <th>부서</th>
+                        <th>사용 연차</th>
+                        <th>사용 날짜</th>
+                        <th>내용</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td>
+                          <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                          <span class="fw-medium">Angular Project</span>
+                        </td>
+                        <td>Albert Cook</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-primary me-1">Active</span></td>
+                        <td>
+                         <span>집</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <i class="fab fa-react fa-lg text-info me-3"></i> <span class="fw-medium">React Project</span>
+                        </td>
+                        <td>Barry Hunter</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-success me-1">Completed</span></td>
+                        <td>
+                         <span>내용</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <i class="fab fa-vuejs fa-lg text-success me-3"></i>
+                          <span class="fw-medium">VueJs Project</span>
+                        </td>
+                        <td>Trevor Baker</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-info me-1">Scheduled</span></td>
+                        <td>
+                         <span>내용</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
+                          <span class="fw-medium">Bootstrap Project</span>
+                        </td>
+                        <td>Jerry Milton</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                        <td>
+                         <span>소멸</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </div> -->
+ 
+            
+      <hr class="my-5" />
+      
+      
+      
+
+              <!-- Basic Bootstrap Table -->
+              <div class="card">
+                <h5 class="card-header">발생 내역</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>연/월차 등록일자</th>
+                        <th>연차 사용기한</th>
+                        <th>발생 시간</th>
+                        <th>내용</th>
+                       
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td>
+                          <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                          <span class="fw-medium">Angular Project</span>
+                        </td>
+                        <td>Albert Cook</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-primary me-1">Active</span></td>
+                        
+                      </tr>
+                      <tr>
+                        <td>
+                          <i class="fab fa-react fa-lg text-info me-3"></i> <span class="fw-medium">React Project</span>
+                        </td>
+                        <td>Barry Hunter</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-success me-1">Completed</span></td>
+                        
+                      </tr>
+                      <tr>
+                        <td>
+                          <i class="fab fa-vuejs fa-lg text-success me-3"></i>
+                          <span class="fw-medium">VueJs Project</span>
+                        </td>
+                        <td>Trevor Baker</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-info me-1">Scheduled</span></td>
+                        
+                      </tr>
+                      <tr>
+                        <td>
+                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
+                          <span class="fw-medium">Bootstrap Project</span>
+                        </td>
+                        <td>Jerry Milton</td>
+                        <td>
+                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Lilian Fuller">
+                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Sophia Wilkerson">
+                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                            <li
+                              data-bs-toggle="tooltip"
+                              data-popup="tooltip-custom"
+                              data-bs-placement="top"
+                              class="avatar avatar-xs pull-up"
+                              title="Christina Parker">
+                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                            </li>
+                          </ul>
+                        </td>
+                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+ 
+ 			
+ 
+             <hr class="my-5" />
+
+			
+ 
+            </div>
+            
             <!-- / Content -->
 
             <!-- Footer -->
@@ -2037,18 +2307,10 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/pages-account-settings-account.js"></script>
   </body>
 </html>
