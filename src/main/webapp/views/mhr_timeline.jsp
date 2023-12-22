@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>User List - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,13 +42,15 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
     <!-- Page CSS -->
+
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -271,7 +273,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -495,13 +497,13 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div class="text-truncate" data-i18n="Users">Users</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="app-user-list.go" class="menu-link">
                     <div class="text-truncate" data-i18n="List">List</div>
                   </a>
@@ -1761,199 +1763,73 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h6> <a href="newcreator">전체리스트</a> | <a href="changecreator">나의 크리에이터</a></h6>
-              <div class="row g-4 mb-4">
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>관리크리에이터</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">238 명</h4>
-                          </div>
-                          <p class="mb-0">　</p>
-                        </div>
+              <div class="card app-calendar-wrapper">
+                <div class="row g-0">
+                  <!-- Calendar Sidebar -->
+                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
+                    <div class="p-4">
+                      <div class="mb-1">
+                        <small class="text-small text-muted text-uppercase align-middle">근무시간 전체 등록</small>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>관리채널</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">346 개</h4>
-                          </div>
-                          <p class="mb-0">　</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>구독자 합계</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">3,221,207,208 명</h4>
-                          </div>
-                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>컨텐츠 합계</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">348,043개</h4>
-                          </div>
-                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Users List Table -->
-              <div class="card">
-                <div class="card-header border-bottom">
-                  <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-                    <div class="col-md-4 user_role"></div>
-                    <div class="col-md-4 user_plan"></div>
-                  </div>
-                </div>
-                <div class="card-datatable table-responsive">
-                  <table class="datatables-users table border-top">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>크리에이터</th>
-                        <th>Role</th>
-                        <th>Plan</th>
-                        <th>Billing</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-                <!-- Offcanvas to add new user -->
-                <div
-                  class="offcanvas offcanvas-end"
-                  tabindex="-1"
-                  id="offcanvasAddUser"
-                  aria-labelledby="offcanvasAddUserLabel">
-                  <div class="offcanvas-header">
-                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                    <button
-                      type="button"
-                      class="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body mx-0 flex-grow-0">
-                    <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="add-user-fullname"
-                          placeholder="John Doe"
-                          name="userFullname"
-                          aria-label="John Doe" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input
-                          type="text"
-                          id="add-user-email"
-                          class="form-control"
-                          placeholder="john.doe@example.com"
-                          aria-label="john.doe@example.com"
-                          name="userEmail" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input
-                          type="text"
-                          id="add-user-contact"
-                          class="form-control phone-mask"
-                          placeholder="+1 (609) 988-44-11"
-                          aria-label="john.doe@example.com"
-                          name="userContact" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-company">Company</label>
-                        <input
-                          type="text"
-                          id="add-user-company"
-                          class="form-control"
-                          placeholder="Web Developer"
-                          aria-label="jdoe1"
-                          name="companyName" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="country">Country</label>
-                        <select id="country" class="select2 form-select">
-                          <option value="">Select</option>
-                          <option value="Australia">Australia</option>
-                          <option value="Bangladesh">Bangladesh</option>
-                          <option value="Belarus">Belarus</option>
-                          <option value="Brazil">Brazil</option>
-                          <option value="Canada">Canada</option>
-                          <option value="China">China</option>
-                          <option value="France">France</option>
-                          <option value="Germany">Germany</option>
-                          <option value="India">India</option>
-                          <option value="Indonesia">Indonesia</option>
-                          <option value="Israel">Israel</option>
-                          <option value="Italy">Italy</option>
-                          <option value="Japan">Japan</option>
-                          <option value="Korea">Korea, Republic of</option>
-                          <option value="Mexico">Mexico</option>
-                          <option value="Philippines">Philippines</option>
-                          <option value="Russia">Russian Federation</option>
-                          <option value="South Africa">South Africa</option>
-                          <option value="Thailand">Thailand</option>
-                          <option value="Turkey">Turkey</option>
-                          <option value="Ukraine">Ukraine</option>
-                          <option value="United Arab Emirates">United Arab Emirates</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="United States">United States</option>
+
+                      <div class="form-check mb-2">
+				     	<select value="07:00~16:00">
+				     		 <option value="07:00~16:00">07:00~16:00</option>
+                         	 <option value="08:00~17:00">08:00~17:00</option>
+                        	 <option value="09:00~18:00">09:00~18:00</option>
+                        	 <option value="10:00~19:00">10:00~19:00</option>
+                       		 <option value="11:00~20:00">11:00~20:00</option>
                         </select>
+                        <button>등록</button>
                       </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="user-role">카테고리</label>
-                        <select id="user-role" class="form-select">
-                          <option value="subscriber">게임</option>
-                          <option value="editor">음식</option>
-                          <option value="maintainer">일상</option>
+                      <div class="mb-1">
+                        <small class="text-small text-muted text-uppercase align-middle">근무시간 선택일(선택일값)변경</small>
+                      </div>
+
+                      <div class="form-check mb-2">
+				     	<select value="07:00~16:00">
+				     		 <option value="07:00~16:00">07:00~16:00</option>
+                         	 <option value="08:00~17:00">08:00~17:00</option>
+                        	 <option value="09:00~18:00">09:00~18:00</option>
+                        	 <option value="10:00~19:00">10:00~19:00</option>
+                       		 <option value="11:00~20:00">11:00~20:00</option>
                         </select>
+                        <button>등록</button>
                       </div>
-                      <div class="mb-4">
-                        <label class="form-label" for="user-plan">Select Plan</label>
-                        <select id="user-plan" class="form-select">
-                          <option value="basic">열람가능</option>
-                          <option value="enterprise">Enterprise</option>
-                          <option value="company">Company</option>
-                          <option value="team">Team</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                      <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                    </form>
+
+                    </div>
                   </div>
+                  <!-- /Calendar Sidebar -->
+
+                  <!-- Calendar & Modal -->
+                  <div class="col app-calendar-content">
+                    <div class="card shadow-none border-0">
+                      <div class="card-body pb-0">
+                        <!-- FullCalendar -->
+                        <div id="calendar"></div>
+                        <!-- 맨위에 달,주,일,리스트 없애려면 -->
+                        <!--
+                        app-calendar.js 부분의 아래 코드에서↓
+                        
+                        headerToolbar: {
+				        start: 'sidebarToggle, prev,next, title',
+				        end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth' -> 이부분을 end: ''로 변경
+				        
+				      	}, 
+                        -->
+                      </div>
+                    </div>
+                    <div class="app-overlay"></div>
+                    <!-- FullCalendar Offcanvas -->
+                    <div
+                      class="offcanvas offcanvas-end event-sidebar"
+                      tabindex="-1"
+                      id="addEventSidebar"
+                      aria-labelledby="addEventSidebarLabel">
+                      
+                    </div>
+                  </div>
+                  <!-- /Calendar & Modal -->
                 </div>
               </div>
             </div>
@@ -2022,22 +1898,19 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <!-- 
-     --> 
-    <script src="../../assets/js/app-user-list.js"></script>
-    
+    <script src="../../assets/js/app-calendar-events.js"></script>
+    <script src="../../assets/js/app-calendar.js"></script>
   </body>
 </html>

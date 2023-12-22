@@ -21,27 +21,7 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping(value="/")
 	public String home() {
-		return "audiroden";
-	}
-	
-	@GetMapping(value="/index")
-	public String index() {
 		return "index";
-	}
-	
-	@GetMapping(value="/newcreator")
-	public String newcreator() {
-		return "newcreator";
-	}
-	
-	@GetMapping(value="/changecreator")
-	public String changecreator() {
-		return "changecreator";
-	}
-	
-	@GetMapping(value="/creator_add")
-	public String add() {
-		return "creator_add";
 	}
 	
 	@GetMapping(value="/{page}.go")

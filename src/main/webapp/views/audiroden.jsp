@@ -11,6 +11,8 @@
 	<button onclick="location.href='index'">인덱스</button>
 	<button onclick="location.href='changecreator'">체인지크리에이터</button>
 	<button onclick="location.href='creator_add'">크리에이터추가</button>
+	<button onclick="location.href='mhr_timeline'">근태관리캘린더</button>
+	<button onclick="location.href='todoList'">투두리스트</button>
 </body>
 <script></script>
 </html>
