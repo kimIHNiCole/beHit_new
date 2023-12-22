@@ -1,4 +1,4 @@
-RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
@@ -43,7 +43,7 @@ RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding=
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-	
+
     <!-- Page CSS -->
 
     <link rel="stylesheet" href="../../assets/vendor/css/pages/app-invoice.css" />
@@ -1761,11 +1761,14 @@ RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding=
             <div class="container-xxl flex-grow-1 container-p-y">
             
               <div class="row invoice-add" style="height : 100%;">
-                <div class="col-lg-3 col-12 invoice-actions" style="width: 20%;">
-                </div>
                 <!-- Invoice Add-->
-                <div class="col-lg-9 col-12 mb-lg-0 mb-4" style="width: 80%; height : 100%;">
-                  <div class="card invoice-preview-card" style="height: 100%; justify-content: center; display: flex; overflow: auto;">
+                <div class="col-lg-9 col-12 mb-lg-0 mb-4" style="width: 100%; height : 100%;">
+                  <br><br><br>
+                  <div style="width: 20%"> 
+                  	<h5 class="card-header" style="font-size: 24px; font-weight: bold; color: #C20000;">회의실 예약</h5>
+                  </div>
+                  <br><br><br>
+                  <div class="card invoice-preview-card" style="height: 80%; justify-content: center; display: flex; overflow: auto;">
                   <div class="card" style="box-shadow: none; background-color: none; max-height: 400px;" >
                    <div class="card-body">
 						<!-- Date Picker-->
@@ -1777,30 +1780,28 @@ RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding=
 						</div>
 		                <!-- /Date Picker -->               
                     <div class="table-responsive text-nowrap">
-                    	<table class="table table-bordered" style="white-space: normal;">
+                    	<table class="table table-bordered text-center text-nowrap" style="white-space: normal;">
 	                      <thead>
 	                        <tr>
 	                          <th></th>
-	                          <th colspan="2" style="font-weight: bold; font-size: 14px; padding: 0px 0px; width: 40px;">7</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">8</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">9</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">10</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">11</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">12</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">13</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">14</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">15</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">16</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">17</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">18</th>
-	                          <th  style="font-weight: bold; font-size: 14px; padding: 0px 0px;">19</th>
+	                          <th colspan="2">7</th>
+	                          <th colspan="2">8</th>
+	                          <th colspan="2">9</th>
+	                          <th colspan="2">10</th>
+	                          <th colspan="2">11</th>
+	                          <th colspan="2">12</th>
+	                          <th colspan="2">13</th>
+	                          <th colspan="2">14</th>
+	                          <th colspan="2">15</th>
+	                          <th colspan="2">16</th>
+	                          <th colspan="2">17</th>
+	                          <th colspan="2">18</th>
+	                          <th colspan="2">19</th>
 	                        </tr>
 	                      </thead>
 	                      <tbody>
 	                        <tr>
-	                        	<th style="white-space: nowrap;">회의실 1 (10명)</th>
-	                        	<td style="width:1em; padding:0px 0px;"></td>
-	                        	<td style="width:10px"></td>
+	                        	<th class="text-start">회의실 1 (10명)</th>
 	                        	<td></td>
 	                        	<td></td>
 	                        	<td></td>
@@ -1812,10 +1813,24 @@ RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding=
 	                        	<td></td>
 	                        	<td></td>
 	                        	<td></td>
-	                        	
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>     	
 	                        </tr>
 	                        <tr>
-	                        	<th style="white-space: nowrap;">회의실 2 (20명)</th>
+	                        	<th class="text-start">회의실 2 (20명)</th>
 	                        	<td></td>
 	                        	<td></td>
 	                        	<td></td>
@@ -1828,10 +1843,23 @@ RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding=
 	                        	<td></td>
 	                        	<td></td>
 	                        	<td></td>
-	                        	<td></td>                        	
+	                        	<td></td>
+	                         	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>                         	
 	                        </tr>
 	                        <tr>
-	                        	<th style="white-space: nowrap;">회의실 3 (30명)</th>
+	                        	<th class="text-start">대   회의실 (30명)</th>
 	                        	<td></td>
 	                        	<td></td>
 	                        	<td></td>
@@ -1844,7 +1872,20 @@ RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding=
 	                        	<td></td>
 	                        	<td></td>
 	                        	<td></td>           
-	                        	<td></td>       	
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>
+	                        	<td></td>        	
 	                        </tr>
 	                      </tbody>
                     	</table>
@@ -1855,72 +1896,57 @@ RfA<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding=
                 </div>
                 <!-- /Invoice Add-->
               </div>
-              <!-- Offcanvas -->
-              <!-- Send Invoice Sidebar -->
-              <div class="offcanvas offcanvas-end" id="sendInvoiceOffcanvas" aria-hidden="true">
-                <div class="offcanvas-header mb-3">
-                  <h5 class="offcanvas-title">Send Invoice</h5>
-                  <button
-                    type="button"
-                    class="btn-close text-reset"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body flex-grow-1">
-                  <form>
-                    <div class="mb-3">
-                      <label for="invoice-from" class="form-label">From</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="invoice-from"
-                        value="shelbyComapny@email.com"
-                        placeholder="company@email.com" />
+              <!-- 모달창 정보 -->
+
+              <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog modal-lg modal-simple modal-edit-user"  style="display: flex; justify-content: center; align-items: center; height: 100%;" >
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body" style="width: 100%">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <h3 class="mb-5">회의실 예약</h3>
+                      <div class="text-start" style="display: flex;">
+                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
+                      		<h5 style="margin-bottom: 0rem;">예약일</h5>
+                      	</div>
+                      	<div class="col-md-6 col-12" style="width: 150px; padding: 10 10">
+                      		<label for="reservelabel" class="form-label">날짜 선택</label>
+                        	<input type="text" class="form-control"/>
+                        </div>
+              			<div class="col-md-6 col-12" style="width: 150px; padding: 10 10">
+				            <label for="flatpickr-time" class="form-label">시작 시간</label>
+				            <input type="text" class="form-control" placeholder="HH:MM" id="flatpickr-time" data-bs-backdrop="static" />
+			            </div>
+			            <div class="col-md-6 col-12" style="width: 150px; padding: 10 10">
+				            <label for="flatpickr-time" class="form-label">종료 시간</label>
+				            <input type="text" class="form-control" placeholder="HH:MM" id="flatpickr-time" data-bs-backdrop="static" />
+			            </div>
+                      </div>
+                      <div class="text-start mt-4" style="display: flex;">
+                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
+                      		<h5 style="margin-bottom: 0rem;">예약자</h5>
+                      	</div>
+                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
+                      		<h5 style="margin-bottom: 0rem;">???</h5>
+                      	</div>
+                      </div>
+                      <div class="text-start mt-4" style="display: flex;">
+                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
+                      		<h5 style="margin-bottom: 0rem;">사용 목적</h5>
+                      	</div>
+                      	<div class="col-md-6 col-12" style="padding: 10 10">
+                      		<label for="reservelabel" class="form-label"></label>
+                        	<input type="text" class="form-control"/>
+                        </div>
+                      </div>
+                      <div class="text-end">
+                      	<button type="button" class="btn rounded-pill btn-primary" data-bs-dismiss="modal">
+                              <span class="tf-icons bx bx-pie-chart-alt me-1"></span>예약
+                        </button>
+                      </div>
                     </div>
-                    <div class="mb-3">
-                      <label for="invoice-to" class="form-label">To</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="invoice-to"
-                        value="qConsolidated@email.com"
-                        placeholder="company@email.com" />
-                    </div>
-                    <div class="mb-3">
-                      <label for="invoice-subject" class="form-label">Subject</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="invoice-subject"
-                        value="Invoice of purchased Admin Templates"
-                        placeholder="Invoice regarding goods" />
-                    </div>
-                    <div class="mb-3">
-                      <label for="invoice-message" class="form-label">Message</label>
-                      <textarea class="form-control" name="invoice-message" id="invoice-message" cols="3" rows="8">
-Dear Queen Consolidated,
-          Thank you for your business, always a pleasure to work with you!
-          We have generated a new invoice in the amount of $95.59
-          We would appreciate payment of this invoice by 05/11/2021</textarea
-                      >
-                    </div>
-                    <div class="mb-4">
-                      <span class="badge bg-label-primary">
-                        <i class="bx bx-link bx-xs"></i>
-                        <span class="align-middle">Invoice Attached</span>
-                      </span>
-                    </div>
-                    <div class="mb-3 d-flex flex-wrap">
-                      <button type="button" class="btn btn-primary me-3" data-bs-dismiss="offcanvas">Send</button>
-                      <button type="button" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                    </div>
-                  </form>
+                  </div>
                 </div>
               </div>
-              <!-- /Send Invoice Sidebar -->
-
-              <!-- /Offcanvas -->
-            </div>
             <!-- / Content -->
 
             <!-- Footer -->
@@ -1991,10 +2017,30 @@ Dear Queen Consolidated,
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
     <script>
+    
+    	// 날짜 선택
 	    var flatpickrDate = document.querySelector("#flatpickr-date");
 	
 	    flatpickrDate.flatpickr({
 	      monthSelectorType: "static"
+	    });
+	    
+	    // 시간 선택
+	    var flatpickrTime = document.querySelector("#flatpickr-time");
+		
+		flatpickrTime.flatpickr({
+		  enableTime: true,
+		  noCalendar: true
+		});
+	    
+	    // 모달 실행 명령어
+	    document.addEventListener('DOMContentLoaded', function () {
+	        var allTds = document.querySelectorAll('td');
+
+	        allTds.forEach(function (td) {
+	            td.setAttribute('data-bs-toggle', 'modal');
+	            td.setAttribute('data-bs-target', '#editUser');
+	        });
 	    });
     </script>
 
