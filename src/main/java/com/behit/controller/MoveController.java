@@ -21,7 +21,7 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping(value="/")
 	public String home() {
-		return "audiroden";
+		return "login";
 	}
 	
 	@GetMapping(value="/index")

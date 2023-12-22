@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User Profile - Profile | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,15 +42,12 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
 
     <!-- Page CSS -->
-
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -59,6 +56,23 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+<style>
+img.rounded-top{
+	height: 95px;
+    }
+.btn.btn-primary.text-nowrap.photo{
+	width: 70px;
+	height: 30px;
+	margin-bottom: 7px;
+	background-color: #969696;
+	border-color: #969696;
+	font-size: 13px;
+}
+
+</style>    
+    
+    
   </head>
 
   <body>
@@ -273,7 +287,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -561,18 +575,18 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div class="text-truncate" data-i18n="Pages">Pages</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item active open">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="User Profile">User Profile</div>
                   </a>
                   <ul class="menu-sub">
-                    <li class="menu-item">
+                    <li class="menu-item active">
                       <a href="pages-profile-user.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Profile">Profile</div>
                       </a>
@@ -1763,233 +1777,207 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
-                <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
-                        </button>
-                      </div>
+
+              <!-- Header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mb-4">
+                    <div class="user-profile-header-banner">
+                      <img src="../../assets/img/pages/profile-banner.png" alt="Banner image" class="rounded-top" />
                     </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
+                    <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                      <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                        <img
+                          src="../../assets/img/avatars/1.png"
+                          alt="user image"
+                          class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
                       </div>
-
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
+                      <div class="flex-grow-1 mt-3 mt-sm-5">
+                        <div
+                          class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                          <div class="user-profile-info">
+                            <div class="col-md-6">
+           						 <h4>한가인</h4>
+        					</div>
+	        					<div>
+					            	<button class="btn btn-primary text-nowrap photo">사진 변경</button>
+					            	<button class="btn btn-primary text-nowrap photo">초기화</button>
+					          </div>
+        					
+                            <ul
+                              class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                              <li class="list-inline-item fw-medium"><i class='bx bx-user' ></i> 아이디 : HanGain_02</li>
+                            </ul>
+                          </div>
+                          
+                          <a href="javascript:void(0)" class="btn btn-primary text-nowrap">비밀번호 변경</a>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <!-- /Calendar Sidebar -->
+                </div>
+              </div>
+              <!--/ Header -->
 
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
-                      </div>
-                    </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
+              <!-- Navbar pills -->
+<!--               <div class="row">
+                <div class="col-md-12">
+                  <ul class="nav nav-pills flex-column flex-sm-row mb-4">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-teams.go"><i class="bx bx-group me-1"></i> Teams</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-projects.go"
+                        ><i class="bx bx-grid-alt me-1"></i> Projects</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-connections.go"
+                        ><i class="bx bx-link-alt me-1"></i> Connections</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+              <!--/ Navbar pills -->
+              <!-- User Profile Content -->
+               <!-- Form with Tabs -->
+              <div class="row">
+                <div class="col">
+                  <div class="nav-align-top mb-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
                         <button
-                          type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-personal"
+                          role="tab"
+                          aria-selected="true">
+                          기본 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-account"
+                          role="tab"
+                          aria-selected="false">
+                          상세 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-social"
+                          role="tab"
+                          aria-selected="false">
+                          부서 직급
+                        </button>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-first-name">이름</label>
+                              <p id="formtabs-first-name">한가인</p>
                             </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="email">이메일</label>
+                              <p id="email">admin0@naver.com</p>
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="password">사내 전화번호</label>
+                              <p id="password">02-111-1111</p>
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="formtabs-last-name">휴대폰 번호</label>
+                              <p id="formtabs-last-name">010-1111-1111</p>
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-birthdate">생년월일</label>
+                              <p id="emp_birth">2000-12-21</p>
+                            </div>
+                          
+                         </div>
+						<!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">             
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="address">주소</label>
+                              <p id="address">서울특별시 금천구 가신디지털단지2로 11-1</p>
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="detail-addr">상세 주소</label>
+                              <p id="detail-addr">OO아파트 1111동 111호</p>
+                            </div>
+                            <div class="mb-3 col-md-6">
+	                            <label for="hiredate" class="form-label">입사일</label>
+	 							<p id="hiredate" name="hiredate">2000-01-01</p>
+	                        </div>
+	                        <div class="mb-3 col-md-6">
+	                            <label for="leavedate" class="form-label">퇴사일</label>
+	 							<p id="leavedate" name="leavedate">-</p>
+	                         </div>
                           </div>
+                          
+                          <!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">
+		                  
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                          <div class="mb-3 col-md-6">
+                            <label for="department" class="form-label">부서</label>
+                            <p>인사팀</p>
+                          </div> 
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="position">직급</label>
+                            <p>대리</p>
+                          </div>
+                           <div class="mb-3 col-md-6">
+                            <label for="job" class="form-label">직책</label>
+                            <p>팀원</p>
+                          </div>
+                          </div>
+                          
+                          <!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">
+		                 
+		                </div>
+	                <!--/ Activity Timeline -->
                         </form>
                       </div>
                     </div>
                   </div>
-                  <!-- /Calendar & Modal -->
-                </div>
+                </div>      
               </div>
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="tab-content">
+              	<div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+              		
+	              	</div> 	
+	              </div>
+	       		</div>
             </div>
             <!-- / Content -->
 
@@ -2056,19 +2044,12 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+    <script src="../../assets/js/app-user-view-account.js"></script>
   </body>
 </html>

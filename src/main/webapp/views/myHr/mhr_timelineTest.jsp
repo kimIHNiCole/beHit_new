@@ -59,6 +59,33 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <!-- 커스텀 스타일 -->
+    <style>
+.btn.btn-primary.btn-toggle-sidebar{
+	width: 70px;
+	font-size: 13px;
+	padding : 2px;
+	
+	margin-left: auto;
+	
+}
+.col.app-calendar-sidebar{
+	font-size: 13px;
+	margin: 15px;
+	padding : 2px;
+}
+.text-body.mb-0.me-auto.calendar{
+	margin-bottom: 10px;
+}
+.all-select{
+	margin-top: 10px;
+	margin-right: 8px;
+}
+    
+    
+    </style>
+    
   </head>
 
   <body>
@@ -1766,98 +1793,31 @@
               <div class="card app-calendar-wrapper">
                 <div class="row g-0">
                   <!-- Calendar Sidebar -->
+                  
                   <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
-                        </button>
-                      </div>
-                    </div>
+                  
+                    
+                    <h6 class="text-body mb-0 me-auto calendar">근무시간 전체등록</h6>
+                    <div class="all-select">
+                    <div class="d-flex cal-select">
+				        <select class="form-select">
+				            <option value="option1">07:00~16:00</option>
+				            <option value="option2">08:00~17:00</option>
+				            <option value="option3">09:00~18:00</option>
+				            <option value="option4">10:00~19:00</option>
+				            <option value="option5">11:00~20:00</option>
+				        </select>
+				        <button class="btn btn-primary btn-toggle-sidebar" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
+				            <span class="align-middle">등록</span>
+				        </button>
+				    </div>
+				    </div>
+                    
                     <div class="p-4">
                       <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
-                      </div>
 
-                      <hr class="container-m-nx my-4" />
 
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
-                      </div>
+                     
                     </div>
                   </div>
                   <!-- /Calendar Sidebar -->

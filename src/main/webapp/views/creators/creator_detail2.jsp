@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User View - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,15 +42,11 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
     <!-- Page CSS -->
-
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -273,7 +269,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -497,7 +493,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div class="text-truncate" data-i18n="Users">Users</div>
@@ -509,7 +505,7 @@
                   </a>
                 </li>
 
-                <li class="menu-item">
+                <li class="menu-item active open">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="View">View</div>
                   </a>
@@ -524,7 +520,7 @@
                         <div class="text-truncate" data-i18n="Security">Security</div>
                       </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item active">
                       <a href="app-user-view-billing.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Billing & Plans">Billing & Plans</div>
                       </a>
@@ -1763,233 +1759,947 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
-                <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light">User / View /</span> Billing & Plans</h4>
+              <div class="row">
+                <!-- User Sidebar -->
+                <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                  <!-- User Card -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="user-avatar-section">
+                        <div class="d-flex align-items-center flex-column">
+                          <img
+                            class="img-fluid rounded my-4"
+                            src="../../assets/img/avatars/10.png"
+                            height="110"
+                            width="110"
+                            alt="User avatar" />
+                          <div class="user-info text-center">
+                            <h4 class="mb-2">Violet Mendoza</h4>
+                            <span class="badge bg-label-secondary">Author</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                        <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">1.23k</h5>
+                            <span>Tasks Done</span>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-start mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">568</h5>
+                            <span>Projects Done</span>
+                          </div>
+                        </div>
+                      </div>
+                      <h5 class="pb-2 border-bottom mb-4">Details</h5>
+                      <div class="info-container">
+                        <ul class="list-unstyled">
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Username:</span>
+                            <span>violet.dev</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Email:</span>
+                            <span>vafgot@vultukir.org</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Status:</span>
+                            <span class="badge bg-label-success">Active</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Role:</span>
+                            <span>Author</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Tax id:</span>
+                            <span>Tax-8965</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Contact:</span>
+                            <span>(123) 456-7890</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Languages:</span>
+                            <span>French</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Country:</span>
+                            <span>England</span>
+                          </li>
+                        </ul>
+                        <div class="d-flex justify-content-center pt-3">
+                          <a
+                            href="javascript:;"
+                            class="btn btn-primary me-3"
+                            data-bs-target="#editUser"
+                            data-bs-toggle="modal"
+                            >Edit</a
+                          >
+                          <a href="javascript:;" class="btn btn-label-danger suspend-user">Suspended</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /User Card -->
+                  <!-- Plan Card -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <span class="badge bg-label-primary">Standard</span>
+                        <div class="d-flex justify-content-center">
+                          <sup class="h5 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup>
+                          <h1 class="display-5 mb-0 text-primary">99</h1>
+                          <sub class="fs-6 pricing-duration mt-auto mb-3">/month</sub>
+                        </div>
+                      </div>
+                      <ul class="ps-3 g-2 my-4">
+                        <li class="mb-2">10 Users</li>
+                        <li class="mb-2">Up to 10 GB storage</li>
+                        <li>Basic Support</li>
+                      </ul>
+                      <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span>Days</span>
+                        <span>80% Completed</span>
+                      </div>
+                      <div class="progress mb-1" style="height: 8px">
+                        <div
+                          class="progress-bar"
+                          role="progressbar"
+                          style="width: 80%"
+                          aria-valuenow="80"
+                          aria-valuemin="0"
+                          aria-valuemax="100"></div>
+                      </div>
+                      <span>6 days remaining</span>
+                      <div class="d-grid w-100 mt-4 pt-2">
+                        <button class="btn btn-primary" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">
+                          Upgrade Plan
                         </button>
                       </div>
                     </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
-                      </div>
-
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                  <!-- /Calendar Sidebar -->
+                  <!-- /Plan Card -->
+                </div>
+                <!--/ User Sidebar -->
 
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
-                      </div>
-                    </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
-                        <button
-                          type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
+                <!-- User Content -->
+                <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                  <!-- User Pills -->
+                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link" href="app-user-view-account.go"><i class="bx bx-user me-1"></i>Account</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="app-user-view-security.go"
+                        ><i class="bx bx-lock-alt me-1"></i>Security</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0);"
+                        ><i class="bx bx-detail me-1"></i>Billing & Plans</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="app-user-view-notifications.go"
+                        ><i class="bx bx-bell me-1"></i>Notifications</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="app-user-view-connections.go"
+                        ><i class="bx bx-link-alt me-1"></i>Connections</a
+                      >
+                    </li>
+                  </ul>
+                  <!--/ User Pills -->
+
+                  <!-- Current Plan -->
+                  <div class="card mb-4">
+                    <h5 class="card-header">Current Plan</h5>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-xl-6 order-1 order-xl-0">
+                          <div class="mb-4">
+                            <h6 class="mb-1">Your Current Plan is Basic</h6>
+                            <p>A simple start for everyone</p>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
+                          <div class="mb-4">
+                            <h6 class="mb-1">Active until Dec 09, 2021</h6>
+                            <p>We will send you a notification upon Subscription expiration</p>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
+                          <div class="mb-4">
+                            <h6 class="mb-1">
+                              <span class="me-2">$199 Per Month</span>
+                              <span class="badge bg-label-primary">Popular</span>
+                            </h6>
+                            <p>Standard plan for small to medium businesses</p>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
+                        </div>
+                        <div class="col-xl-6 order-0 order-xl-0">
+                          <div class="alert alert-warning mb-4" role="alert">
+                            <h6 class="alert-heading mb-1">We need your attention!</h6>
+                            <span>Your plan requires update</span>
                           </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
+                          <div class="plan-statistics">
+                            <div class="d-flex justify-content-between">
+                              <h6 class="mb-2">Days</h6>
+                              <h6 class="mb-2">24 of 30 Days</h6>
                             </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
+                            <div class="progress mb-1">
+                              <div
+                                class="progress-bar w-75"
+                                role="progressbar"
+                                aria-valuenow="75"
+                                aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                            </div>
+                            <p>6 days remaining until your plan requires update</p>
                           </div>
-                        </form>
+                        </div>
+                        <div class="col-12 order-2 order-xl-0">
+                          <button
+                            class="btn btn-primary me-2 my-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#upgradePlanModal">
+                            Upgrade Plan
+                          </button>
+                          <button class="btn btn-label-danger cancel-subscription">Cancel Subscription</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <!-- /Calendar & Modal -->
+                  <!-- /Current Plan -->
+
+                  <!-- Payment Methods -->
+                  <div class="card card-action mb-4">
+                    <div class="card-header align-items-center">
+                      <h5 class="card-action-title mb-0">Payment Methods</h5>
+                      <div class="card-action-element">
+                        <button
+                          class="btn btn-primary btn-sm"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#addNewCCModal">
+                          <i class="bx bx-plus bx-xs me-1"></i>Add Card
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="added-cards">
+                        <div class="cardMaster border p-3 rounded mb-3">
+                          <div class="d-flex justify-content-between flex-sm-row flex-column">
+                            <div class="card-information">
+                              <img
+                                class="mb-3 img-fluid"
+                                src="../../assets/img/icons/payments/mastercard.png"
+                                alt="Master Card" />
+                              <h6 class="mb-1">Kaith Morrison</h6>
+                              <span class="card-number"
+                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
+                                9856</span
+                              >
+                            </div>
+                            <div class="d-flex flex-column text-start text-lg-end">
+                              <div class="d-flex order-sm-0 order-1">
+                                <button
+                                  class="btn btn-label-primary me-3"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#editCCModal">
+                                  Edit
+                                </button>
+                                <button class="btn btn-label-secondary">Delete</button>
+                              </div>
+                              <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 12/26</small>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="cardMaster border p-3 rounded mb-3">
+                          <div class="d-flex justify-content-between flex-sm-row flex-column">
+                            <div class="card-information">
+                              <img
+                                class="mb-3 img-fluid"
+                                src="../../assets/img/icons/payments/visa.png"
+                                alt="Master Card" />
+                              <div class="d-flex align-items-center mb-1">
+                                <h6 class="mb-0 me-3">Tom McBride</h6>
+                                <span class="badge bg-label-primary me-1">Primary</span>
+                              </div>
+                              <span class="card-number"
+                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
+                                6542</span
+                              >
+                            </div>
+                            <div class="d-flex flex-column text-start text-lg-end">
+                              <div class="d-flex order-sm-0 order-1">
+                                <button
+                                  class="btn btn-label-primary me-3"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#editCCModal">
+                                  Edit
+                                </button>
+                                <button class="btn btn-label-secondary">Delete</button>
+                              </div>
+                              <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 10/24</small>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="cardMaster border p-3 rounded">
+                          <div class="d-flex justify-content-between flex-sm-row flex-column">
+                            <div class="card-information">
+                              <img
+                                class="mb-3 img-fluid"
+                                src="../../assets/img/icons/payments/american-express-logo.png"
+                                alt="Visa Card" />
+                              <h6 class="mb-1">Mildred Wagner</h6>
+                              <span class="card-number"
+                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
+                                5896</span
+                              >
+                            </div>
+                            <div class="d-flex flex-column text-start text-lg-end">
+                              <div class="d-flex order-sm-0 order-1">
+                                <button
+                                  class="btn btn-label-primary me-3"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#editCCModal">
+                                  Edit
+                                </button>
+                                <button class="btn btn-label-secondary">Delete</button>
+                              </div>
+                              <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 10/27</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/ Payment Methods -->
+
+                  <!-- Billing Address -->
+                  <div class="card card-action mb-4">
+                    <div class="card-header align-items-center">
+                      <h5 class="card-action-title mb-0">Billing Address</h5>
+                      <div class="card-action-element">
+                        <button
+                          class="btn btn-primary btn-sm edit-address"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#addNewAddress">
+                          Edit address
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-xl-7 col-12">
+                          <dl class="row mb-0">
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Company Name:</dt>
+                            <dd class="col-sm-8">Sneat</dd>
+
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Billing Email:</dt>
+                            <dd class="col-sm-8">user@ex.com</dd>
+
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Tax ID:</dt>
+                            <dd class="col-sm-8">TAX-357378</dd>
+
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">VAT Number:</dt>
+                            <dd class="col-sm-8">SDF754K77</dd>
+
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Billing Address:</dt>
+                            <dd class="col-sm-8">
+                              100 Water Plant <br />Avenue, Building 1303<br />
+                              Wake Island
+                            </dd>
+                          </dl>
+                        </div>
+                        <div class="col-xl-5 col-12">
+                          <dl class="row mb-0">
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Contact:</dt>
+                            <dd class="col-sm-8">+1 (605) 977-32-65</dd>
+
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Country:</dt>
+                            <dd class="col-sm-8">Wake Island</dd>
+
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">State:</dt>
+                            <dd class="col-sm-8">Capholim</dd>
+
+                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Zipcode:</dt>
+                            <dd class="col-sm-8">403114</dd>
+                          </dl>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/ Billing Address -->
+                </div>
+                <!--/ User Content -->
+              </div>
+
+              <!-- Modal -->
+              <!-- Edit User Modal -->
+              <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h3>Edit User Information</h3>
+                        <p>Updating user details will receive a privacy audit.</p>
+                      </div>
+                      <form id="editUserForm" class="row g-3" onsubmit="return false">
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserFirstName">First Name</label>
+                          <input
+                            type="text"
+                            id="modalEditUserFirstName"
+                            name="modalEditUserFirstName"
+                            class="form-control"
+                            placeholder="John" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserLastName">Last Name</label>
+                          <input
+                            type="text"
+                            id="modalEditUserLastName"
+                            name="modalEditUserLastName"
+                            class="form-control"
+                            placeholder="Doe" />
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label" for="modalEditUserName">Username</label>
+                          <input
+                            type="text"
+                            id="modalEditUserName"
+                            name="modalEditUserName"
+                            class="form-control"
+                            placeholder="john.doe.007" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserEmail">Email</label>
+                          <input
+                            type="text"
+                            id="modalEditUserEmail"
+                            name="modalEditUserEmail"
+                            class="form-control"
+                            placeholder="example@domain.com" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserStatus">Status</label>
+                          <select
+                            id="modalEditUserStatus"
+                            name="modalEditUserStatus"
+                            class="form-select"
+                            aria-label="Default select example">
+                            <option selected>Status</option>
+                            <option value="1">Active</option>
+                            <option value="2">Inactive</option>
+                            <option value="3">Suspended</option>
+                          </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditTaxID">Tax ID</label>
+                          <input
+                            type="text"
+                            id="modalEditTaxID"
+                            name="modalEditTaxID"
+                            class="form-control modal-edit-tax-id"
+                            placeholder="123 456 7890" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserPhone">Phone Number</label>
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text">+1</span>
+                            <input
+                              type="text"
+                              id="modalEditUserPhone"
+                              name="modalEditUserPhone"
+                              class="form-control phone-number-mask"
+                              placeholder="202 555 0111" />
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserLanguage">Language</label>
+                          <select
+                            id="modalEditUserLanguage"
+                            name="modalEditUserLanguage"
+                            class="select2 form-select"
+                            multiple>
+                            <option value="">Select</option>
+                            <option value="english" selected>English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="dutch">Dutch</option>
+                            <option value="hebrew">Hebrew</option>
+                            <option value="sanskrit">Sanskrit</option>
+                            <option value="hindi">Hindi</option>
+                          </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserCountry">Country</label>
+                          <select
+                            id="modalEditUserCountry"
+                            name="modalEditUserCountry"
+                            class="select2 form-select"
+                            data-allow-clear="true">
+                            <option value="">Select</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Canada">Canada</option>
+                            <option value="China">China</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Korea">Korea, Republic of</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Russia">Russian Federation</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="United States">United States</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label class="switch">
+                            <input type="checkbox" class="switch-input" />
+                            <span class="switch-toggle-slider">
+                              <span class="switch-on"></span>
+                              <span class="switch-off"></span>
+                            </span>
+                            <span class="switch-label">Use as a billing address?</span>
+                          </label>
+                        </div>
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <!--/ Edit User Modal -->
+
+              <!-- Add New Credit Card Modal -->
+              <div class="modal fade" id="editCCModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h3>Edit Card</h3>
+                        <p>Edit your saved card details</p>
+                      </div>
+                      <form id="editCCForm" class="row g-3" onsubmit="return false">
+                        <div class="col-12">
+                          <label class="form-label w-100" for="modalEditCard">Card Number</label>
+                          <div class="input-group input-group-merge">
+                            <input
+                              id="modalEditCard"
+                              name="modalEditCard"
+                              class="form-control credit-card-mask-edit"
+                              type="text"
+                              placeholder="4356 3215 6548 7898"
+                              value="4356 3215 6548 7898"
+                              aria-describedby="modalEditCard2" />
+                            <span class="input-group-text cursor-pointer p-1" id="modalEditCard2"
+                              ><span class="card-type-edit"></span
+                            ></span>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditName">Name</label>
+                          <input
+                            type="text"
+                            id="modalEditName"
+                            class="form-control"
+                            placeholder="John Doe"
+                            value="John Doe" />
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <label class="form-label" for="modalEditExpiryDate">Exp. Date</label>
+                          <input
+                            type="text"
+                            id="modalEditExpiryDate"
+                            class="form-control expiry-date-mask-edit"
+                            placeholder="MM/YY"
+                            value="08/28" />
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <label class="form-label" for="modalEditCvv">CVV Code</label>
+                          <div class="input-group input-group-merge">
+                            <input
+                              type="text"
+                              id="modalEditCvv"
+                              class="form-control cvv-code-mask-edit"
+                              maxlength="3"
+                              placeholder="654"
+                              value="XXX" />
+                            <span class="input-group-text cursor-pointer" id="modalEditCvv2"
+                              ><i
+                                class="bx bx-help-circle text-muted"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Card Verification Value"></i
+                            ></span>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <label class="switch">
+                            <input type="checkbox" class="switch-input" />
+                            <span class="switch-toggle-slider">
+                              <span class="switch-on"></span>
+                              <span class="switch-off"></span>
+                            </span>
+                            <span class="switch-label">Set as primary card</span>
+                          </label>
+                        </div>
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3">Submit</button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary mt-3"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add New Credit Card Modal -->
+
+              <!-- Add New Address Modal -->
+              <div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h3 class="address-title">Add New Address</h3>
+                        <p class="address-subtitle">Add new address for express delivery</p>
+                      </div>
+                      <form id="addNewAddressForm" class="row g-3" onsubmit="return false">
+                        <div class="col-12">
+                          <div class="row">
+                            <div class="col-md mb-md-0 mb-3">
+                              <div class="form-check custom-option custom-option-icon">
+                                <label class="form-check-label custom-option-content" for="customRadioHome">
+                                  <span class="custom-option-body">
+                                    <i class="bx bx-home"></i>
+                                    <span class="custom-option-title">Home</span>
+                                    <small> Delivery time (9am â 9pm) </small>
+                                  </span>
+                                  <input
+                                    name="customRadioIcon"
+                                    class="form-check-input"
+                                    type="radio"
+                                    value=""
+                                    id="customRadioHome"
+                                    checked />
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-md mb-md-0 mb-3">
+                              <div class="form-check custom-option custom-option-icon">
+                                <label class="form-check-label custom-option-content" for="customRadioOffice">
+                                  <span class="custom-option-body">
+                                    <i class="bx bx-briefcase"></i>
+                                    <span class="custom-option-title"> Office </span>
+                                    <small> Delivery time (9am â 5pm) </small>
+                                  </span>
+                                  <input
+                                    name="customRadioIcon"
+                                    class="form-check-input"
+                                    type="radio"
+                                    value=""
+                                    id="customRadioOffice" />
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalAddressFirstName">First Name</label>
+                          <input
+                            type="text"
+                            id="modalAddressFirstName"
+                            name="modalAddressFirstName"
+                            class="form-control"
+                            placeholder="John" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalAddressLastName">Last Name</label>
+                          <input
+                            type="text"
+                            id="modalAddressLastName"
+                            name="modalAddressLastName"
+                            class="form-control"
+                            placeholder="Doe" />
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label" for="modalAddressCountry">Country</label>
+                          <select
+                            id="modalAddressCountry"
+                            name="modalAddressCountry"
+                            class="select2 form-select"
+                            data-allow-clear="true">
+                            <option value="">Select</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Canada">Canada</option>
+                            <option value="China">China</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Korea">Korea, Republic of</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Russia">Russian Federation</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="United States">United States</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label" for="modalAddressAddress1">Address Line 1</label>
+                          <input
+                            type="text"
+                            id="modalAddressAddress1"
+                            name="modalAddressAddress1"
+                            class="form-control"
+                            placeholder="12, Business Park" />
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label" for="modalAddressAddress2">Address Line 2</label>
+                          <input
+                            type="text"
+                            id="modalAddressAddress2"
+                            name="modalAddressAddress2"
+                            class="form-control"
+                            placeholder="Mall Road" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalAddressLandmark">Landmark</label>
+                          <input
+                            type="text"
+                            id="modalAddressLandmark"
+                            name="modalAddressLandmark"
+                            class="form-control"
+                            placeholder="Nr. Hard Rock Cafe" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalAddressCity">City</label>
+                          <input
+                            type="text"
+                            id="modalAddressCity"
+                            name="modalAddressCity"
+                            class="form-control"
+                            placeholder="Los Angeles" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalAddressLandmark">State</label>
+                          <input
+                            type="text"
+                            id="modalAddressState"
+                            name="modalAddressState"
+                            class="form-control"
+                            placeholder="California" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalAddressZipCode">Zip Code</label>
+                          <input
+                            type="text"
+                            id="modalAddressZipCode"
+                            name="modalAddressZipCode"
+                            class="form-control"
+                            placeholder="99950" />
+                        </div>
+                        <div class="col-12">
+                          <label class="switch">
+                            <input type="checkbox" class="switch-input" />
+                            <span class="switch-toggle-slider">
+                              <span class="switch-on"></span>
+                              <span class="switch-off"></span>
+                            </span>
+                            <span class="switch-label">Use as a billing address?</span>
+                          </label>
+                        </div>
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add New Address Modal -->
+
+              <!-- Add New Credit Card Modal -->
+              <div class="modal fade" id="addNewCCModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h3>Add New Card</h3>
+                        <p>Add new card to complete payment</p>
+                      </div>
+                      <form id="addNewCCForm" class="row g-3" onsubmit="return false">
+                        <div class="col-12">
+                          <label class="form-label w-100" for="modalAddCard">Card Number</label>
+                          <div class="input-group input-group-merge">
+                            <input
+                              id="modalAddCard"
+                              name="modalAddCard"
+                              class="form-control credit-card-mask"
+                              type="text"
+                              placeholder="1356 3215 6548 7898"
+                              aria-describedby="modalAddCard2" />
+                            <span class="input-group-text cursor-pointer p-1" id="modalAddCard2"
+                              ><span class="card-type"></span
+                            ></span>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalAddCardName">Name</label>
+                          <input type="text" id="modalAddCardName" class="form-control" placeholder="John Doe" />
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <label class="form-label" for="modalAddCardExpiryDate">Exp. Date</label>
+                          <input
+                            type="text"
+                            id="modalAddCardExpiryDate"
+                            class="form-control expiry-date-mask"
+                            placeholder="MM/YY" />
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <label class="form-label" for="modalAddCardCvv">CVV Code</label>
+                          <div class="input-group input-group-merge">
+                            <input
+                              type="text"
+                              id="modalAddCardCvv"
+                              class="form-control cvv-code-mask"
+                              maxlength="3"
+                              placeholder="654" />
+                            <span class="input-group-text cursor-pointer" id="modalAddCardCvv2"
+                              ><i
+                                class="bx bx-help-circle text-muted"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Card Verification Value"></i
+                            ></span>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <label class="switch">
+                            <input type="checkbox" class="switch-input" />
+                            <span class="switch-toggle-slider">
+                              <span class="switch-on"></span>
+                              <span class="switch-off"></span>
+                            </span>
+                            <span class="switch-label">Save card for future billing?</span>
+                          </label>
+                        </div>
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3">Submit</button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary btn-reset mt-3"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add New Credit Card Modal -->
+
+              <!-- Add New Credit Card Modal -->
+              <div class="modal fade" id="upgradePlanModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-simple modal-upgrade-plan">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h3>Upgrade Plan</h3>
+                        <p>Choose the best plan for user.</p>
+                      </div>
+                      <form id="upgradePlanForm" class="row g-3" onsubmit="return false">
+                        <div class="col-sm-9">
+                          <label class="form-label" for="choosePlan">Choose Plan</label>
+                          <select id="choosePlan" name="choosePlan" class="form-select" aria-label="Choose Plan">
+                            <option selected>Choose Plan</option>
+                            <option value="standard">Standard - $99/month</option>
+                            <option value="exclusive">Exclusive - $249/month</option>
+                            <option value="Enterprise">Enterprise - $499/month</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-3 d-flex align-items-end">
+                          <button type="submit" class="btn btn-primary">Upgrade</button>
+                        </div>
+                      </form>
+                    </div>
+                    <hr class="mx-md-n5 mx-n3" />
+                    <div class="modal-body">
+                      <h6 class="mb-0">User current plan is standard plan</h6>
+                      <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="d-flex justify-content-center me-2 mt-3">
+                          <sup class="h5 pricing-currency pt-1 mt-3 mb-0 me-1 text-primary">$</sup>
+                          <h1 class="display-3 mb-0 text-primary">99</h1>
+                          <sub class="h5 pricing-duration mt-auto mb-2">/month</sub>
+                        </div>
+                        <button class="btn btn-label-danger cancel-subscription mt-3">Cancel Subscription</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add New Credit Card Modal -->
+
+              <!-- /Modal -->
             </div>
             <!-- / Content -->
 
@@ -2056,19 +2766,23 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+    <script src="../../assets/js/modal-edit-user.js"></script>
+    <script src="../../assets/js/modal-edit-cc.js"></script>
+    <script src="../../assets/js/modal-add-new-cc.js"></script>
+    <script src="../../assets/js/modal-add-new-address.js"></script>
+    <script src="../../assets/js/app-user-view.js"></script>
+    <script src="../../assets/js/app-user-view-billing.js"></script>
   </body>
 </html>

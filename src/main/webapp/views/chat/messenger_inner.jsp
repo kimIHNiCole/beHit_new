@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Chat - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,15 +42,12 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css" />
 
     <!-- Page CSS -->
 
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-chat.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -59,6 +56,38 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <!-- 커스텀 -->
+    <style>
+    /* 채팅방 추가 버튼 */
+    .btn.btn-primary.text-nowrap{
+    	margin-left: 5px;
+    	width: 130px;
+    	font-size: 13px;
+    }
+    /* 채팅 리스트 글씨 */
+    .text-primary.mb-0{
+    	margin-top: 12px;
+    	font-weight: 600;
+    	margin-right: 20px;
+    }
+    
+    /* 서치박스 */
+    .flex-grow-1.input-group.input-group-merge.rounded-pill.ms-1{
+    	width: 180px;
+    	margin-left: 50px;
+    }
+    /* 내 이름, 부서 표시 */
+    .text-muted.text-uppercase{
+    	width: 150px;
+    }
+	/* 메시지 전송 버튼 */
+	.btn.btn-primary.d-flex.send-msg-btn{
+		width: 95px;
+	}    
+
+    
+    </style>
   </head>
 
   <body>
@@ -267,13 +296,13 @@
                 <div class="text-truncate" data-i18n="Email">Email</div>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="app-chat.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-chat"></i>
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -1763,231 +1792,512 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
+              <div class="app-chat overflow-hidden card">
                 <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
+                  <!-- Sidebar Left -->
+                  <div class="col app-chat-sidebar-left app-sidebar overflow-hidden" id="app-chat-sidebar-left">
+                    <div
+                      class="chat-sidebar-left-user sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap p-4 mt-2">
+                      <div class="avatar avatar-xl avatar-online">
+                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                      </div>
+                      <h5 class="mt-3 mb-1">John Doe</h5>
+                      <small class="text-muted">UI/UX Designer</small>
+                      <i
+                        class="bx bx-x bx-sm cursor-pointer close-sidebar me-1 fs-4"
+                        data-bs-toggle="sidebar"
+                        data-overlay
+                        data-target="#app-chat-sidebar-left"></i>
+                    </div>
+                    <div class="sidebar-body px-4 pb-4">
+                      <div class="my-3">
+                        <span class="text-muted text-uppercase">About</span>
+                        <textarea
+                          id="chat-sidebar-left-user-about"
+                          class="form-control chat-sidebar-left-user-about mt-2"
+                          rows="4"
+                          maxlength="120">
+Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.</textarea
+                        >
+                      </div>
+                      <div class="my-4">
+                        <span class="text-muted text-uppercase">Status</span>
+                        <div class="d-grid gap-1 mt-2">
+                          <div class="form-check form-check-success">
+                            <input
+                              name="chat-user-status"
+                              class="form-check-input"
+                              type="radio"
+                              value="active"
+                              id="user-active"
+                              checked />
+                            <label class="form-check-label" for="user-active">Active</label>
+                          </div>
+                          <div class="form-check form-check-danger">
+                            <input
+                              name="chat-user-status"
+                              class="form-check-input"
+                              type="radio"
+                              value="busy"
+                              id="user-busy" />
+                            <label class="form-check-label" for="user-busy">Busy</label>
+                          </div>
+                          <div class="form-check form-check-warning">
+                            <input
+                              name="chat-user-status"
+                              class="form-check-input"
+                              type="radio"
+                              value="away"
+                              id="user-away" />
+                            <label class="form-check-label" for="user-away">Away</label>
+                          </div>
+                          <div class="form-check form-check-secondary">
+                            <input
+                              name="chat-user-status"
+                              class="form-check-input"
+                              type="radio"
+                              value="offline"
+                              id="user-offline" />
+                            <label class="form-check-label" for="user-offline">Offline</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-4">
+                        <span class="text-muted text-uppercase">Settings</span>
+                        <ul class="list-unstyled d-grid gap-2 mt-2">
+                          <li class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <i class="bx bx-check-circle me-1"></i>
+                              <span class="align-middle">Two-step Verification</span>
+                            </div>
+                            <div class="form-check form-switch mb-0">
+                              <input class="form-check-input" type="checkbox" id="twoStepVerification" />
+                            </div>
+                          </li>
+                          <li class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <i class="bx bx-bell me-1"></i>
+                              <span class="align-middle">Notification</span>
+                            </div>
+                            <div class="form-check form-switch mb-0">
+                              <input class="form-check-input" type="checkbox" id="switchNotification" checked />
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="d-flex mt-4">
                         <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
+                          class="btn btn-primary"
+                          data-bs-toggle="sidebar"
+                          data-overlay
+                          data-target="#app-chat-sidebar-left">
+                          Logout
                         </button>
                       </div>
                     </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
-                      </div>
+                  </div>
+                  <!-- /Sidebar Left-->
 
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
+                  <!-- Chat & Contacts -->
+                  <div
+                    class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
+                    id="app-chat-contacts">
+                    <div class="sidebar-header pt-3 px-3 mx-1">
+                      <div class="d-flex align-items-center me-3 me-lg-0">
+                        <div
+                          class="flex-shrink-0 avatar avatar-online me-2"
+                          data-bs-toggle="sidebar"
+                          data-overlay="app-overlay-ex"
+                          data-target="#app-chat-sidebar-left">
+                          <img
+                            class="user-avatar rounded-circle cursor-pointer"
+                            src="../../assets/img/avatars/1.png"
+                            alt="Avatar" />
                         </div>
-                        <div class="form-check mb-2">
+                        <div class="text-muted text-uppercase">
+                        	<span class="chat-contact-name text-truncate m-0">한가인</span>
+                        	<div><span class="m-0">매니지먼트팀</span></div>
+                        	</div>
+                        <button class="btn btn-primary text-nowrap">채팅방 추가</button>
+                       </div>
+                    </div>
+                    <hr class="container-m-nx mt-3 mb-0" />
+                    <div class="sidebar-body">
+                      <!-- Chats -->
+                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
+                        <li class="chat-contact-list-item chat-contact-list-item-title">
+                          <h6 class="text-primary mb-0">채팅 리스트</h6>
+                          <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
+                          <span class="input-group-text" id="basic-addon-search31"
+                            ><i class="bx bx-search fs-4"></i
+                          ></span>
                           <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
+                            type="text"
+                            class="form-control chat-search-input"
+                            placeholder="Search..."
+                            aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
                         </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
-                      </div>
+                        </li>
+                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                          <h6 class="text-muted mb-0">No Chats Found</h6>
+                        </li>
+                        <!-- 온라인일 경우 표시 -->
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">전은호</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                어디로 보내면 될까요?
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">16:05</small>
+                          </a>
+                        </li>
+                        <!-- 오프라인일 경우 표시 -->
+                        <li class="chat-contact-list-item active">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-offline">
+                              <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">김세연</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                11시 반에 시킬까?
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">10:58</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">오현비</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                너무 추워서 얼어죽어버릴 것만 같아요
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">9:11</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">이도훈</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                다 확인했지? 테이블 이대로 생성할게
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <!-- 바쁨 상태일 때(안 쓸 예정) 
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-busy">
+                              <span class="avatar-initial rounded-circle bg-label-success">CM</span>
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">Calvin Moore</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                If it takes long you can mail inbox user
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">1 Day</small>
+                          </a>
+                        </li>
+                        -->
+                        
+                        
+                      </ul>
+                      
                     </div>
                   </div>
-                  <!-- /Calendar Sidebar -->
+                  <!-- /Chat contacts -->
 
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
-                      </div>
-                    </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
-                        <button
-                          type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
+                  <!-- Chat History -->
+                  <div class="col app-chat-history">
+                    <div class="chat-history-wrapper">
+                      <div class="chat-history-header border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex overflow-hidden align-items-center">
+                            <i
+                              class="bx bx-menu bx-sm cursor-pointer d-lg-none d-block me-2"
+                              data-bs-toggle="sidebar"
+                              data-overlay
+                              data-target="#app-chat-contacts"></i>
+                            <div class="flex-shrink-0 avatar">
+                              <img
+                                src="../../assets/img/avatars/2.png"
+                                alt="Avatar"
+                                class="rounded-circle"
+                                data-bs-toggle="sidebar"
+                                data-overlay
+                                data-target="#app-chat-sidebar-right" />
                             </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="m-0">김세연</h6>
+                              <small class="user-status text-muted">인사팀</small>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                      <div class="chat-history-body">
+                        <ul class="list-unstyled chat-history mb-0">
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">보여줄게 완전히 달라진 나</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">
+                                  <i class="bx bx-check-double text-success"></i>
+                                  <small>09:00 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message">
+                            <div class="d-flex overflow-hidden">
+                              <div class="user-avatar flex-shrink-0 me-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">오늘은 지각을 조금밖에 안 했구만</p>
+                                  <p class="mb-0">이 정도만 해도 만족스러워😊</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">제군들 부대장은 실망했다</p>
+                                </div>
+                                <div class="text-muted mt-1">
+                                  <small>09:02 AM</small>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">얍얍</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">
+                                  <i class="bx bx-check-double text-success"></i>
+                                  <small>10:03 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message">
+                            <div class="d-flex overflow-hidden">
+                              <div class="user-avatar flex-shrink-0 me-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">아무 말 대잔치</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">배는 안 고픈데 맛있는 게 먹고 싶다</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">맥도날드❤️❤️❤️❤️</p>
+                                </div>
+                                <div class="text-muted mt-1">
+                                  <small>10:11 AM</small>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">신메뉴 맛있었으면 좋겠넹</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">
+                                  <i class="bx bx-check-double text-success"></i>
+                                  <small>10:12 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message">
+                            <div class="d-flex overflow-hidden">
+                              <div class="user-avatar flex-shrink-0 me-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">히스토리 너무 길어</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">삭제하겠습니다!</p>
+                                </div>
+                                <div class="text-muted mt-1">
+                                  <small>10:20 AM</small>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">네엡</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">                             
+                                  <small>11:00 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                      <!-- Chat message form -->
+                      <div class="chat-history-footer">
+                        <form class="form-send-message d-flex justify-content-between align-items-center">
+                          <input
+                            class="form-control message-input border-0 me-3 shadow-none"
+                            placeholder="메시지를 입력하세요..." />
+                          <div class="message-actions d-flex align-items-center">                      
+                            <label for="attach-doc" class="form-label mb-0">
+                              <i class="bx bx-paperclip bx-sm cursor-pointer mx-3 text-body"></i>
+                              <input type="file" id="attach-doc" hidden />
+                            </label>
+                            <button class="btn btn-primary d-flex send-msg-btn">
+                              <i class="bx bx-paper-plane me-md-1 me-0"></i>
+                              <span class="align-middle d-md-inline-block d-none">전송</span>
+                            </button>
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
-                  <!-- /Calendar & Modal -->
+                  <!-- /Chat History -->
+
+                  <!-- Sidebar Right -->
+                  <div class="col app-chat-sidebar-right app-sidebar overflow-hidden" id="app-chat-sidebar-right">
+                    <div
+                      class="sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap p-4 mt-2">
+                      <div class="avatar avatar-xl avatar-online">
+                        <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                      </div>
+                      <h6 class="mt-3 mb-1">Felecia Rower</h6>
+                      <small class="text-muted">NextJS Developer</small>
+                      <i
+                        class="bx bx-x bx-sm cursor-pointer close-sidebar me-1 fs-4 d-block"
+                        data-bs-toggle="sidebar"
+                        data-overlay
+                        data-target="#app-chat-sidebar-right"></i>
+                    </div>
+                    <div class="sidebar-body px-4 pb-4">
+                      <div class="my-3">
+                        <span class="text-muted text-uppercase">About</span>
+                        <p class="mb-0 mt-2">
+                          A Next. js developer is a software developer who uses the Next. js framework alongside ReactJS
+                          to build web applications.
+                        </p>
+                      </div>
+                      <div class="my-4">
+                        <span class="text-muted text-uppercase">Personal Information</span>
+                        <ul class="list-unstyled d-grid gap-2 mt-2">
+                          <li class="d-flex align-items-center">
+                            <i class="bx bx-envelope"></i>
+                            <span class="align-middle ms-2">josephGreen@email.com</span>
+                          </li>
+                          <li class="d-flex align-items-center">
+                            <i class="bx bx-phone-call"></i>
+                            <span class="align-middle ms-2">+1(123) 456 - 7890</span>
+                          </li>
+                          <li class="d-flex align-items-center">
+                            <i class="bx bx-time-five"></i>
+                            <span class="align-middle ms-2">Mon - Fri 10AM - 8PM</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="mt-4">
+                        <span class="text-muted text-uppercase">Options</span>
+                        <ul class="list-unstyled d-grid gap-2 mt-2">
+                          <li class="cursor-pointer d-flex align-items-center">
+                            <i class="bx bx-bookmark"></i>
+                            <span class="align-middle ms-2">Add Tag</span>
+                          </li>
+                          <li class="cursor-pointer d-flex align-items-center">
+                            <i class="bx bx-star"></i>
+                            <span class="align-middle ms-2">Important Contact</span>
+                          </li>
+                          <li class="cursor-pointer d-flex align-items-center">
+                            <i class="bx bx-image-alt"></i>
+                            <span class="align-middle ms-2">Shared Media</span>
+                          </li>
+                          <li class="cursor-pointer d-flex align-items-center">
+                            <i class="bx bx-trash-alt"></i>
+                            <span class="align-middle ms-2">Delete Contact</span>
+                          </li>
+                          <li class="cursor-pointer d-flex align-items-center">
+                            <i class="bx bx-block"></i>
+                            <span class="align-middle ms-2">Block Contact</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Sidebar Right -->
+
+                  <div class="app-overlay"></div>
                 </div>
               </div>
             </div>
@@ -2056,19 +2366,12 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+    <script src="../../assets/js/app-chat.js"></script>
   </body>
 </html>

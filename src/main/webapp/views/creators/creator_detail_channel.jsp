@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User View - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,15 +42,12 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+	<link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
-
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -59,6 +56,17 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+        <!-- 커스텀 -->
+    <style>
+    .d-flex.justify-content-center.pt-3{
+    	padding-top: 0rem !important;
+    	margin-right: -7rem;
+    }
+    
+    </style>
+    
+    
   </head>
 
   <body>
@@ -273,7 +281,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -497,7 +505,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div class="text-truncate" data-i18n="Users">Users</div>
@@ -509,7 +517,7 @@
                   </a>
                 </li>
 
-                <li class="menu-item">
+                <li class="menu-item active open">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="View">View</div>
                   </a>
@@ -529,7 +537,7 @@
                         <div class="text-truncate" data-i18n="Billing & Plans">Billing & Plans</div>
                       </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item active">
                       <a href="app-user-view-notifications.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Notifications">Notifications</div>
                       </a>
@@ -1763,233 +1771,221 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
-                <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
-                        </button>
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light"></span> 크리에이터 관리</h4>
+              <div class="row">
+                <!-- User Sidebar -->
+                <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                  <!-- User Card -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="user-avatar-section">
+                        <div class="d-flex align-items-center flex-column">
+                          <img
+                            class="img-fluid rounded my-4"
+                            src="../../assets/img/avatars/10.png"
+                            height="110"
+                            width="110"
+                            alt="User avatar" />
+                          <div class="user-info text-center">
+                            <h4 class="mb-2">히빱</h4>
+                            
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
+                      <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                        <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">구독자</h5>
+                            <span>3,333,333 명</span>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-start mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">컨텐츠 수</h5>
+                            <span>1,432 개</span>
+                          </div>
+                        </div>
                       </div>
-
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
+                      <h5 class="pb-2 border-bottom mb-4">상세정보</h5>
+                      <div class="info-container">
+                        <ul class="list-unstyled">
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">이름:</span>
+                            <span>김희연</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">성별:</span>
+                            <span>여자</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">생년월일:</span>
+                            <span>1997.12.23</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">국적:</span>
+                            <span>한국</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">연락처:</span>
+                            <span>010-1111-2222</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Email:</span>
+                            <span>vafgot@vultukir.org</span>
+                          </li>
+                          
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">계약 시작일:</span>
+                            <span>2022.01.14</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">계약 만료일:</span>
+                            <span>2023.01.13</span>
+                          </li>
+                          
+                        </ul>
+                        
                       </div>
                     </div>
                   </div>
-                  <!-- /Calendar Sidebar -->
+                  <!-- /User Card -->
+                  <!-- Plan Card -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      
+                      <h5 class="pb-2 border-bottom mb-4">특이사항</h5>
+                      <p class="fw-medium me-2">동해물과 백두산이 마르고 닳도록 하느님이 보유하사 우리나라 만세</p>
+                      <p class="fw-medium me-2">사실 히빱은 히밥의 짝퉁임을 여기에 고하매 하늘을 우러러 부끄럽기 짝이 없는 일이로다</p>
+                      
+                      
+                    </div>
+                  </div>
+                  <!-- /Plan Card -->
+                </div>
+                <!--/ User Sidebar -->
 
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
+                <!-- User Content -->
+                <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                  <!-- User Pills -->
+                  <div class="row">
+                  <div class="col-md-8">
+                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link" href="../creators/creator_detail.go"><i class='bx bx-face' ></i></i>크리에이터 정보</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="../creators/creator_detail_channel.go"
+                        ><i class='bx bxl-sketch' ></i>대표 채널 정보</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="app-user-view-billing.go"
+                        ><i class='bx bxl-youtube' ></i></i>컨텐츠 정보(임시)</a
+                      >
+                    </li>
+                  </ul>
+                  </div>
+                  <div class="col-md-4 text-end">
+                  	<div class="d-flex justify-content-center pt-3">
+                          <a
+                            href="javascript:;"
+                            class="btn btn-primary me-3"
+                            data-bs-target="#editUser"
+                            data-bs-toggle="modal"
+                            >수정</a
+                          >
+                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
+                        </div>
                       </div>
                     </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
+                  <!--/ User Pills -->
+
+					<!-- Line Area Chart -->
+                <div class="col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title mb-0">일별 구독자 수</h5>
+                        <small class="text-muted">구독자 성장세 확인</small>
+                      </div>
+                      <!-- 쓸 수도 있을 것 같아서 일단 남겨둠
+                      <div class="dropdown">
                         <button
                           type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
+                          class="btn dropdown-toggle px-0"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bx bx-calendar"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 7 Days</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 30 Days</a
+                            >
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Current Month</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                          </li>
+                        </ul>
                       </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
-                            </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
-                          </div>
-                        </form>
-                      </div>
+                       달력 드롭다운 영역--> 
+                    </div>
+                    <div class="card-body">
+                      <div id="lineAreaChart"></div>
                     </div>
                   </div>
-                  <!-- /Calendar & Modal -->
                 </div>
+                <!-- /Line Area Chart -->
+					
+				<!-- Line Chart -->
+                <div class="col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title mb-0">일일 조회수 추이</h5>
+                        <small class="text-muted">조회수 변동값 체크를 통해 알고리즘 상태와 채널 성장도 체크</small>
+                      </div>
+                      <!-- 
+                      <div class="d-sm-flex d-none align-items-center">
+                        <h5 class="mb-0 me-3">$ 100,000</h5>
+                        <span class="badge bg-label-secondary">
+                          <i class="bx bx-down-arrow-alt bx-xs text-danger"></i>
+                          <span class="align-middle">20%</span>
+                        </span>
+                      </div>
+                       -->
+                    </div>
+                    <div class="card-body">
+                      <div id="lineChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Line Chart -->
+               
+                <!--/ User Content -->
               </div>
+
             </div>
             <!-- / Content -->
 
@@ -2056,19 +2052,385 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+    <script src="../../assets/js/modal-edit-user.js"></script>
+    <script src="../../assets/js/app-user-view.js"></script>
+     <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+     <!-- <script src="../../assets/js/charts-apex.js"></script> -->
+     <script>
+     
+     /**
+      * Charts Apex
+      */
+
+     'use strict';
+
+     (function () {
+       let cardColor, headingColor, labelColor, borderColor, legendColor;
+
+       if (isDarkStyle) {
+         cardColor = config.colors_dark.cardColor;
+         headingColor = config.colors_dark.headingColor;
+         labelColor = config.colors_dark.textMuted;
+         legendColor = config.colors_dark.bodyColor;
+         borderColor = config.colors_dark.borderColor;
+       } else {
+         cardColor = config.colors.cardColor;
+         headingColor = config.colors.headingColor;
+         labelColor = config.colors.textMuted;
+         legendColor = config.colors.bodyColor;
+         borderColor = config.colors.borderColor;
+       }
+
+       // Color constant
+       const chartColors = {
+         column: {
+           series1: '#826af9',
+           series2: '#d2b0ff',
+           bg: '#f8d3ff'
+         },
+         donut: {
+           series1: '#fee802',
+           series2: '#3fd0bd',
+           series3: '#826bf8',
+           series4: '#2b9bf4'
+         },
+         area: {
+           series1: '#29dac7',
+           series2: '#60f2ca',
+           series3: '#a5f8cd'
+         }
+       };
+
+       // Heat chart data generator
+       function generateDataHeat(count, yrange) {
+         let i = 0;
+         let series = [];
+         while (i < count) {
+           let x = 'w' + (i + 1).toString();
+           let y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+           series.push({
+             x: x,
+             y: y
+           });
+           i++;
+         }
+         return series;
+       }
+
+       // Line Area Chart
+       // --------------------------------------------------------------------
+       const areaChartEl = document.querySelector('#lineAreaChart'),
+         areaChartConfig = {
+           chart: {
+             height: 400,
+             type: 'area',
+             parentHeightOffset: 0,
+             toolbar: {
+               show: false
+             }
+           },
+           dataLabels: {
+             enabled: false
+           },
+           stroke: {
+             show: false,
+             curve: 'straight'
+           },
+           legend: {
+             show: true,
+             position: 'top',
+             horizontalAlign: 'start',
+             labels: {
+               colors: legendColor,
+               useSeriesColors: false
+             }
+           },
+           grid: {
+             borderColor: borderColor,
+             xaxis: {
+               lines: {
+                 show: true
+               }
+             }
+           },
+           colors: [chartColors.area.series3, chartColors.area.series2, chartColors.area.series1],
+           series: [
+             {
+               name: '구독자 수',
+               data: [100, 120, 90, 170, 130, 160, 140, 240, 220, 180, 270, 280, 375]
+             },
+             {
+               name: '컨텐츠 수',
+               data: [60, 80, 70, 110, 80, 100, 90, 180, 160, 140, 200, 220, 275]
+             },
+             {
+               name: '총 조회수',
+               data: [20, 40, 30, 70, 40, 60, 50, 140, 120, 100, 140, 180, 220]
+             }
+           ],
+           xaxis: {
+             categories: [
+               '7/12',
+               '8/12',
+               '9/12',
+               '10/12',
+               '11/12',
+               '12/12',
+               '13/12',
+               '14/12',
+               '15/12',
+               '16/12',
+               '17/12',
+               '18/12',
+               '19/12',
+               '20/12'
+             ],
+             axisBorder: {
+               show: false
+             },
+             axisTicks: {
+               show: false
+             },
+             labels: {
+               style: {
+                 colors: labelColor,
+                 fontSize: '13px'
+               }
+             }
+           },
+           yaxis: {
+             labels: {
+               style: {
+                 colors: labelColor,
+                 fontSize: '13px'
+               }
+             }
+           },
+           fill: {
+             opacity: 1,
+             type: 'solid'
+           },
+           tooltip: {
+             shared: false
+           }
+         };
+       if (typeof areaChartEl !== undefined && areaChartEl !== null) {
+         const areaChart = new ApexCharts(areaChartEl, areaChartConfig);
+         areaChart.render();
+       }
+
+       // Bar Chart
+       // --------------------------------------------------------------------
+       const barChartEl = document.querySelector('#barChart'),
+         barChartConfig = {
+           chart: {
+             height: 400,
+             type: 'bar',
+             stacked: true,
+             parentHeightOffset: 0,
+             toolbar: {
+               show: false
+             }
+           },
+           plotOptions: {
+             bar: {
+               columnWidth: '15%',
+               colors: {
+                 backgroundBarColors: [
+                   chartColors.column.bg,
+                   chartColors.column.bg,
+                   chartColors.column.bg,
+                   chartColors.column.bg,
+                   chartColors.column.bg
+                 ],
+                 backgroundBarRadius: 10
+               }
+             }
+           },
+           dataLabels: {
+             enabled: false
+           },
+           legend: {
+             show: true,
+             position: 'top',
+             horizontalAlign: 'start',
+             labels: {
+               colors: legendColor,
+               useSeriesColors: false
+             }
+           },
+           colors: [chartColors.column.series1, chartColors.column.series2],
+           stroke: {
+             show: true,
+             colors: ['transparent']
+           },
+           grid: {
+             borderColor: borderColor,
+             xaxis: {
+               lines: {
+                 show: true
+               }
+             }
+           },
+           series: [
+             {
+               name: 'Apple',
+               data: [90, 120, 55, 100, 80, 125, 175, 70, 88, 180]
+             },
+             {
+               name: 'Samsung',
+               data: [85, 100, 30, 40, 95, 90, 30, 110, 62, 20]
+             }
+           ],
+           xaxis: {
+             categories: ['7/12', '8/12', '9/12', '10/12', '11/12', '12/12', '13/12', '14/12', '15/12', '16/12'],
+             axisBorder: {
+               show: false
+             },
+             axisTicks: {
+               show: false
+             },
+             labels: {
+               style: {
+                 colors: labelColor,
+                 fontSize: '13px'
+               }
+             }
+           },
+           yaxis: {
+             labels: {
+               style: {
+                 colors: labelColor,
+                 fontSize: '13px'
+               }
+             }
+           },
+           fill: {
+             opacity: 1
+           }
+         };
+       if (typeof barChartEl !== undefined && barChartEl !== null) {
+         const barChart = new ApexCharts(barChartEl, barChartConfig);
+         barChart.render();
+       }
+
+     
+
+       // Line Chart
+       // --------------------------------------------------------------------
+       const lineChartEl = document.querySelector('#lineChart'),
+         lineChartConfig = {
+           chart: {
+             height: 400,
+             type: 'line',
+             parentHeightOffset: 0,
+             zoom: {
+               enabled: false
+             },
+             toolbar: {
+               show: false
+             }
+           },
+           series: [
+             {
+               data: [280, 200, 220, 180, 270, 250, 70, 90, 200, 150, 160, 100, 150, 100, 50]
+             }
+           ],
+           markers: {
+             strokeWidth: 7,
+             strokeOpacity: 1,
+             strokeColors: [cardColor],
+             colors: [config.colors.warning]
+           },
+           dataLabels: {
+             enabled: false
+           },
+           stroke: {
+             curve: 'straight'
+           },
+           colors: [config.colors.warning],
+           grid: {
+             borderColor: borderColor,
+             xaxis: {
+               lines: {
+                 show: true
+               }
+             },
+             padding: {
+               top: -20
+             }
+           },
+           tooltip: {
+             custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+               return '<div class="px-3 py-2">' + '<span>' + series[seriesIndex][dataPointIndex] + '%</span>' + '</div>';
+             }
+           },
+           xaxis: {
+             categories: [
+               '7/12',
+               '8/12',
+               '9/12',
+               '10/12',
+               '11/12',
+               '12/12',
+               '13/12',
+               '14/12',
+               '15/12',
+               '16/12',
+               '17/12',
+               '18/12',
+               '19/12',
+               '20/12',
+               '21/12'
+             ],
+             axisBorder: {
+               show: false
+             },
+             axisTicks: {
+               show: false
+             },
+             labels: {
+               style: {
+                 colors: labelColor,
+                 fontSize: '13px'
+               }
+             }
+           },
+           yaxis: {
+             labels: {
+               style: {
+                 colors: labelColor,
+                 fontSize: '13px'
+               }
+             }
+           }
+         };
+       if (typeof lineChartEl !== undefined && lineChartEl !== null) {
+         const lineChart = new ApexCharts(lineChartEl, lineChartConfig);
+         lineChart.render();
+       }
+
+
+
+
+     })();
+
+     
+     </script>
+     
+     
   </body>
 </html>

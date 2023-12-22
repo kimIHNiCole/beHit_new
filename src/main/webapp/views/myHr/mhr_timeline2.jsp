@@ -1792,15 +1792,6 @@
                         <small class="text-small text-muted text-uppercase align-middle">Filter</small>
                       </div>
 
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
                       <div class="form-check mb-2">
                         <input
                           class="form-check-input select-all"

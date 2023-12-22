@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Apex - Charts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,15 +42,9 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
-
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -273,7 +267,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -1206,13 +1200,13 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text" data-i18n="Charts & Maps">Charts &amp; Maps</span>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-chart"></i>
                 <div class="text-truncate" data-i18n="Charts">Charts</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="charts-apex.go" class="menu-link">
                     <div class="text-truncate" data-i18n="Apex Charts">Apex Charts</div>
                   </a>
@@ -1763,232 +1757,430 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
-                <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
-                      </div>
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Charts /</span> Apex</h4>
 
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
+              <div class="row">
+                <!-- Line Area Chart -->
+                <div class="col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title mb-0">Last updates</h5>
+                        <small class="text-muted">Commercial networks</small>
                       </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Calendar Sidebar -->
-
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
-                      </div>
-                    </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
+                      <div class="dropdown">
                         <button
                           type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
-                            </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
-                          </div>
-                        </form>
+                          class="btn dropdown-toggle px-0"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bx bx-calendar"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 7 Days</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 30 Days</a
+                            >
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Current Month</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                          </li>
+                        </ul>
                       </div>
                     </div>
+                    <div class="card-body">
+                      <div id="lineAreaChart"></div>
+                    </div>
                   </div>
-                  <!-- /Calendar & Modal -->
                 </div>
+                <!-- /Line Area Chart -->
+
+                <!-- Bar Chart -->
+                <div class="col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-md-center align-items-start">
+                      <h5 class="card-title mb-0">Data Science</h5>
+                      <div class="dropdown">
+                        <button
+                          type="button"
+                          class="btn dropdown-toggle p-0"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bx bx-calendar"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 7 Days</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 30 Days</a
+                            >
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Current Month</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="barChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Bar Chart -->
+
+                <!-- Scatter Chart -->
+                <div class="col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">New Technologies Data</h5>
+                      <div class="btn-group d-none d-sm-flex" role="group" aria-label="radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="dailyRadio" checked />
+                        <label class="btn btn-outline-secondary" for="dailyRadio">Daily</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="monthlyRadio" />
+                        <label class="btn btn-outline-secondary" for="monthlyRadio">Monthly</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="yearlyRadio" />
+                        <label class="btn btn-outline-secondary" for="yearlyRadio">Yearly</label>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="scatterChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Scatter Chart -->
+
+                <!-- Line Chart -->
+                <div class="col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                      <div>
+                        <h5 class="card-title mb-0">Balance</h5>
+                        <small class="text-muted">Commercial networks & enterprises</small>
+                      </div>
+                      <div class="d-sm-flex d-none align-items-center">
+                        <h5 class="mb-0 me-3">$ 100,000</h5>
+                        <span class="badge bg-label-secondary">
+                          <i class="bx bx-down-arrow-alt bx-xs text-danger"></i>
+                          <span class="align-middle">20%</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="lineChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Line Chart -->
+
+                <!-- Bar Chart -->
+                <div class="col-md-6 col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="card-subtitle text-muted mb-1">Balance</p>
+                        <h5 class="card-title mb-0">$74,382.72</h5>
+                      </div>
+                      <div class="dropdown">
+                        <button
+                          type="button"
+                          class="btn dropdown-toggle px-0"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bx bx-calendar"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 7 Days</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 30 Days</a
+                            >
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Current Month</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="horizontalBarChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Bar Chart -->
+
+                <!-- Candlestick Chart -->
+                <div class="col-md-6 col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <div>
+                        <h5 class="card-title mb-1">Stocks Prices</h5>
+                        <p class="text-muted mb-0">$50,863.98</p>
+                      </div>
+                      <div class="dropdown">
+                        <button
+                          type="button"
+                          class="btn dropdown-toggle px-0"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bx bx-calendar"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 7 Days</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 30 Days</a
+                            >
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Current Month</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="candleStickChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Candlestick Chart -->
+
+                <!-- Heat map Chart -->
+                <div class="col-md-6 col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Daily Sales States</h5>
+                      <div class="dropdown">
+                        <button
+                          class="btn p-0"
+                          type="button"
+                          id="heatChartDd"
+                          data-bs-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false">
+                          <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="heatChartDd">
+                          <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="heatMapChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Heat map Chart -->
+
+                <!-- Radial bar Chart -->
+                <div class="col-md-6 col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title mb-0">Statistics</h5>
+                      <div class="dropdown">
+                        <button
+                          type="button"
+                          class="btn dropdown-toggle p-0"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bx bx-calendar"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 7 Days</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 30 Days</a
+                            >
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Current Month</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="radialBarChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Radial bar Chart -->
+
+                <!-- Radar Chart -->
+                <div class="col-md-6 col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Mobile Comparison</h5>
+                      <div class="dropdown">
+                        <button
+                          class="btn px-0"
+                          type="button"
+                          id="heatChartDd1"
+                          data-bs-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false">
+                          <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="heatChartDd1">
+                          <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="radarChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Radar Chart -->
+
+                <!-- Donut Chart -->
+                <div class="col-md-6 col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <div>
+                        <h5 class="card-title mb-0">Expense Ratio</h5>
+                        <small class="text-muted">Spending on various categories</small>
+                      </div>
+                      <div class="dropdown d-none d-sm-flex">
+                        <button
+                          type="button"
+                          class="btn dropdown-toggle px-0"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bx bx-calendar"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 7 Days</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Last 30 Days</a
+                            >
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider" />
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+                              >Current Month</a
+                            >
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="donutChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Donut Chart -->
               </div>
             </div>
             <!-- / Content -->
@@ -2056,19 +2248,12 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+    <script src="../../assets/js/charts-apex.js"></script>
   </body>
 </html>

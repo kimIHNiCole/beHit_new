@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User View - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,15 +42,17 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
     <!-- Page CSS -->
 
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-user-view.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -59,6 +61,16 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <!-- 커스텀 -->
+    <style>
+    .d-flex.justify-content-center.pt-3{
+    	padding-top: 0rem !important;
+    	margin-right: -7rem;
+    }
+    
+    </style>
+    
   </head>
 
   <body>
@@ -273,7 +285,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -497,7 +509,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div class="text-truncate" data-i18n="Users">Users</div>
@@ -509,12 +521,12 @@
                   </a>
                 </li>
 
-                <li class="menu-item">
+                <li class="menu-item active open">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="View">View</div>
                   </a>
                   <ul class="menu-sub">
-                    <li class="menu-item">
+                    <li class="menu-item active">
                       <a href="app-user-view-account.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Account">Account</div>
                       </a>
@@ -1763,233 +1775,274 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
-                <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
-                        </button>
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light"></span> 크리에이터 관리</h4>
+              <div class="row">
+                <!-- User Sidebar -->
+                <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                  <!-- User Card -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="user-avatar-section">
+                        <div class="d-flex align-items-center flex-column">
+                          <img
+                            class="img-fluid rounded my-4"
+                            src="../../assets/img/avatars/10.png"
+                            height="110"
+                            width="110"
+                            alt="User avatar" />
+                          <div class="user-info text-center">
+                            <h4 class="mb-2">히빱</h4>
+                            
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
+                      <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                        <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">구독자</h5>
+                            <span>3,333,333 명</span>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-start mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">컨텐츠 수</h5>
+                            <span>1,432 개</span>
+                          </div>
+                        </div>
                       </div>
-
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
+                      <h5 class="pb-2 border-bottom mb-4">상세정보</h5>
+                      <div class="info-container">
+                        <ul class="list-unstyled">
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">이름:</span>
+                            <span>김희연</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">성별:</span>
+                            <span>여자</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">생년월일:</span>
+                            <span>1997.12.23</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">국적:</span>
+                            <span>한국</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">연락처:</span>
+                            <span>010-1111-2222</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Email:</span>
+                            <span>vafgot@vultukir.org</span>
+                          </li>
+                          
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">계약 시작일:</span>
+                            <span>2022.01.14</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">계약 만료일:</span>
+                            <span>2023.01.13</span>
+                          </li>
+                          
+                        </ul>
+                        
                       </div>
                     </div>
                   </div>
-                  <!-- /Calendar Sidebar -->
-
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
-                      </div>
-                    </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
-                        <button
-                          type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
-                            </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
-                          </div>
-                        </form>
-                      </div>
+                  <!-- /User Card -->
+                  <!-- Plan Card -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      
+                      <h5 class="pb-2 border-bottom mb-4">특이사항</h5>
+                      <p class="fw-medium me-2">동해물과 백두산이 마르고 닳도록 하느님이 보유하사 우리나라 만세</p>
+                      <p class="fw-medium me-2">사실 히빱은 히밥의 짝퉁임을 여기에 고하매 하늘을 우러러 부끄럽기 짝이 없는 일이로다</p>
+                      
+                      
                     </div>
                   </div>
-                  <!-- /Calendar & Modal -->
+                  <!-- /Plan Card -->
                 </div>
+                <!--/ User Sidebar -->
+
+                <!-- User Content -->
+                <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                  <!-- User Pills -->
+                  <div class="row">
+                  <div class="col-md-8">
+                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0);"><i class='bx bx-face' ></i></i>크리에이터 정보</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../creators/creator_detail_channel.go"
+                        ><i class='bx bxl-sketch' ></i>대표 채널 정보</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="app-user-view-billing.go"
+                        ><i class='bx bxl-youtube' ></i></i>컨텐츠 정보(임시)</a
+                      >
+                    </li>
+                  </ul>
+                  </div>
+                  <div class="col-md-4 text-end">
+                  	<div class="d-flex justify-content-center pt-3">
+                          <a
+                            href="javascript:;"
+                            class="btn btn-primary me-3"
+                            data-bs-target="#editUser"
+                            data-bs-toggle="modal"
+                            >수정</a
+                          >
+                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
+                        </div>
+                      </div>
+                    </div>
+                  <!--/ User Pills -->
+
+                  <!-- Project table -->
+                  <div class="card mb-4">
+                    <h5 class="card-header">활동 채널 리스트</h5>
+                    <div class="table-responsive mb-3">
+                      <table class="table datatable-project border-top">
+                        <thead>
+                          <tr>
+                            <th>채널명</th>
+                            <th class="text-nowrap">카테고리</th>
+                            <th>구독자 수</th>
+                            <th>컨텐츠 수</th>
+                            <th>총 조회수</th>
+                            <th>가입일자</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        	<tr>
+	                            <th>쀼쀼</th>
+	                            <th class="text-nowrap">일상, 코믹</th>
+	                            <th>11,234 명</th>
+	                            <th>45 개</th>
+	                            <th>1,999,356</th>
+	                            <th>2023.10.01</th>
+                          	</tr>
+                          	<tr>
+	                            <th>많이 먹어도 살 안 쪄서 좋겠당</th>
+	                            <th class="text-nowrap">먹방</th>
+	                            <th>3,332,123 명</th>
+	                            <th>325 개</th>
+	                            <th>515,745,435</th>
+	                            <th>2019.04.24</th>
+                          	</tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- /Project table -->
+                  <!-- Project table -->
+                  <div class="card mb-4">
+                    <h5 class="card-header">SNS</h5>
+                    <div class="table-responsive mb-3">
+                      <table class="table datatable-project border-top">
+                        <thead>
+                          <tr>                         
+                            <th>SNS 주소</th>
+                            <th class="text-nowrap">팔로워</th>
+                            <th>팔로우</th>
+                            <th>게시물</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        	<tr>                         
+	                            <th><img src="../../assets/img/icons/brands/instagram.png" alt="instagram" class="me-3" height="20">히빱 일상</th>
+	                            <th class="text-nowrap">311,234</th>
+	                            <th>1 명</th>
+	                            <th>279 개</th>
+                           </tr>
+                        	<tr>                         
+	                            <th><img src="../../assets/img/icons/brands/facebook.png" alt="facebook" class="me-3" height="20">히빱 페북</th>
+	                            <th class="text-nowrap">22,222</th>
+	                            <th>191 명</th>
+	                            <th>-</th>
+                           </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- /Project table -->
+
+                  <!-- Activity Timeline -->
+                  <div class="card mb-4">
+                    <h4 class="card-header">활동이력</h4>
+                    <div class="card-body">
+                      <ul class="timeline">
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-primary"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">유튜브 채널 1</h6>
+                              <small class="text-muted">2023-12-12</small>
+                            </div>
+                            <p class="mb-2">200만 구독자 달성</p>
+                            
+                          </div>
+                        </li>
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-warning"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">유튜브 채널 2</h6>
+                              <small class="text-muted">2023-11-28</small>
+                            </div>
+                            <p class="mb-2">10만 구독자 달성</p>
+                            
+                          </div>
+                        </li>
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-info"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">히빱</h6>
+                              <small class="text-muted">2023-11-22</small>
+                            </div>
+                            <p class="mb-2">유튜브 크리에이터 대상 수상</p>
+                            
+                          </div>
+                        </li>
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-success"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">유튜브 채널 2</h6>
+                              <small class="text-muted">2023-10-01</small>
+                            </div>
+                            <p class="mb-0">채널 가입일</p>
+                          </div>
+                        </li>
+                        <li class="timeline-end-indicator">
+                          <i class="bx bx-check-circle"></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- /Activity Timeline -->
+
+                </div>
+                <!--/ User Content -->
               </div>
+
             </div>
             <!-- / Content -->
 
@@ -2056,19 +2109,22 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+<!--     <script src="../../assets/js/modal-edit-user.js"></script>
+    <script src="../../assets/js/app-user-view.js"></script>
+    <script src="../../assets/js/app-user-view-account.js"></script> -->
   </body>
 </html>
