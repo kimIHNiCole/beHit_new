@@ -21,29 +21,8 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping(value="/")
 	public String home() {
-		return "audiroden";
+		return "login";
 	}
-	
-	@GetMapping(value="/index")
-	public String index() {
-		return "index";
-	}
-	
-	@GetMapping(value="/newcreator")
-	public String newcreator() {
-		return "newcreator";
-	}
-	
-	@GetMapping(value="/changecreator")
-	public String changecreator() {
-		return "changecreator";
-	}
-	
-	@GetMapping(value="/creator_add")
-	public String add() {
-		return "creator_add";
-	}
-	
 	@GetMapping(value="/{page}.go")
 	public String pageMove(@PathVariable String page) {
 		logger.info("page : "+page);
@@ -59,5 +38,8 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	public String pageMove(@PathVariable String root, @PathVariable String page,@PathVariable String sub) {
 		return root+"/"+sub+"/"+page;
 	}
+	
+	
+
 
 }

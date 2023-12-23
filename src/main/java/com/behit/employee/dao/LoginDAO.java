@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LoginDAO {
 
-	boolean login(String emp_id, String password);
+	String login(String emp_id, String password);
 
 }

@@ -23,11 +23,13 @@ public class LoginController {
 		logger.info(emp_id+" / "+ password);
 		ModelAndView mav = new ModelAndView();
 		
-		boolean success = service.login(emp_id, password);
-		
-		if (success != false) {
+		String loginId = service.login(emp_id, password);
+		logger.info("login result || ");
+		logger.info("login result || "+ loginId);
+		if (loginId.equals(emp_id)) {
+			
 			mav.addObject("msg", "로그인에 성공했습니다.");
-			mav.setViewName("redirect:/html/vertical-menu-template/index.go");
+			mav.setViewName("redirect:/views/home.jsp");
 		} else {
 			mav.addObject("msg", "비밀번호를 확인해주세요");
 			mav.setViewName("redirect:/");

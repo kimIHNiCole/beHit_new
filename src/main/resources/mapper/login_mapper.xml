@@ -4,7 +4,7 @@
 >
 
 <mapper namespace="com.behit.employee.dao.LoginDAO">
-	<select id="login" parameterType="String">
-		SELECT * FROM employee WHERE emp_id = #{emp_id} AND password = #{password} 
+	<select id="login" parameterType="String" resultType="String">
+		SELECT emp_id FROM employee WHERE emp_id = #{param1} AND password = #{param2} 
 	</select>
 </mapper>
