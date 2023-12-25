@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.behit.employee.dao.LoginDAO;
+import com.behit.employee.dto.EmployeeDTO;
 
 @Service
 public class LoginService {
@@ -14,7 +15,7 @@ public class LoginService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public String login(String emp_id, String password) {
+	public EmployeeDTO login(String emp_id, String password) {
 		logger.info("login() 실행 || prameter = "+emp_id+" / "+ password);
 		return dao.login(emp_id, password);
 	}

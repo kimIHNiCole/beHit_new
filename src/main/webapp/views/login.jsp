@@ -284,6 +284,15 @@
   
   
   <script>
+  	var msg = ${"msg"};
+  	if(msg != null){
+  		alert(msg);
+  	}
+	var loginChk = ${"loginChk"};
+  	if(loginChk != null){
+  		alert(loginChk);
+  	}
+  
   	$(document).ready(function(){
   		getRememberId();		
   	});
@@ -315,7 +324,7 @@
         if(todayDate > expiredays){
         	console.log(todayDate , expiredays);
             document.cookie = name + "=" + escape(value) + "; path=/; expires=" + expiredays + ";";
-        }else if(todayDate < expiredays){
+        }else if(todayDate < expiredays){                                                  
         	console.log(todayDate , expiredays);
             todayDate.setDate(todayDate.getDate() + expiredays);
             document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";

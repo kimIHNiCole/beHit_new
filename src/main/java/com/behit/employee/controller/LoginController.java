@@ -1,5 +1,7 @@
 package com.behit.employee.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.service.LoginService;
 
 @Controller
@@ -19,19 +23,19 @@ public class LoginController {
 
 
 	@PostMapping(value="login.do")
-	public ModelAndView login(@RequestParam String emp_id, @RequestParam String password) { 
+	public ModelAndView login(@RequestParam String emp_id, @RequestParam String password,
+		RedirectAttributes rAttr, HttpSession session) { 
 		logger.info(emp_id+" / "+ password);
 		ModelAndView mav = new ModelAndView();
 		
-		String loginId = service.login(emp_id, password);
-		logger.info("login result || ");
-		logger.info("login result || "+ loginId);
-		if (loginId.equals(emp_id)) {
-			
-			mav.addObject("msg", "로그인에 성공했습니다.");
+		EmployeeDTO loginInfo = service.login(emp_id, password);
+		if (loginInfo != null) {
+			logger.info("login result || "+ loginInfo.getEmp_id());
+			session.setAttribute("loginInfo", loginInfo);
 			mav.setViewName("redirect:/views/home.jsp");
 		} else {
-			mav.addObject("msg", "비밀번호를 확인해주세요");
+			logger.info("로그인 에러");
+			rAttr.addFlashAttribute("msg","비밀번호를 확인해주세요");
 			mav.setViewName("redirect:/");
 		}
 	 
