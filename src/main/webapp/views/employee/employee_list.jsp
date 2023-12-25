@@ -1820,10 +1820,8 @@
             <table class="datatables-basic table border-top" style="margin-top: -10px;">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>no.</th>
-                        <th></th>
-                        <th>이름 / 아이디</th>
+                        <th colspan="3">이름 / 아이디</th>
                         <th>부서</th>
                         <th>직급</th>
                         <th>직책</th>
@@ -1831,6 +1829,19 @@
                         <th>직원상세</th>
                     </tr>
                 </thead>
+                <tbody id="ampList">
+                	<tr>
+                		<th>1</th>
+                		<th>1</th>
+                		<th>1</th>
+                		<th>1</th>
+                		<th>1</th>
+                		<th>1</th>
+                		<th>1</th>
+                		<th>1</th>
+                		<th>1</th>
+                	</tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -1886,181 +1897,29 @@
     <!-- Page JS -->
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
      <script>
-     /**
-      * DataTables Basic
-      */
-
-     'use strict';
-
-     let fv, offCanvasEl;
+	listCall();
+	
+	function listCall(){
+		$.ajax({
+			type: 'get',
+			url: 'amplist.do',
+			data: {},
+			dataType: 'json',
+			success:function(){
+				console.log(data);
+				drawList(data.list);
+			},
+			error:function(){
+				console.log(e);
+			}
+		});
+	}
+	
+	function drawList(list){
+		console.log(list);
+		var content = '';
+	}
      
-     // datatable (jquery)
-     $(function () {
-       var dt_basic_table = $('.datatables-basic'),
-       dt_basic;
-
-       
-       // DataTable with buttons
-       // --------------------------------------------------------------------
-
-       if (dt_basic_table.length) {
-         dt_basic = dt_basic_table.DataTable({
-           ajax: assetsPath + 'json/table-datatable.json',
-           columns: [
-             { data: '' },
-             { data: 'id' },
-             { data: 'id' },
-             { data: 'full_name' },
-             { data: 'email' },
-             { data: 'start_date' },
-             { data: 'salary' },
-             { data: 'status' },
-             { data: '' }
-           ],
-           columnDefs: [
-             {
-               // For Responsive
-               className: 'control',
-               orderable: false,
-               searchable: false,
-               responsivePriority: 2,
-               targets: 0,
-               render: function (data, type, full, meta) {
-                 return '';
-               }
-             },
-             
-             {
-               targets: 2,
-               searchable: false,
-               visible: false
-             },
-             {
-               // Avatar image/badge, Name and post
-               targets: 3,
-               responsivePriority: 4,
-               render: function (data, type, full, meta) {
-                 var $user_img = full['avatar'],
-                   $name = full['full_name'],
-                   $post = full['post'];
-                 if ($user_img) {
-                   // For Avatar image
-                   var $output =
-                     '<img src="' + assetsPath + 'img/avatars/' + $user_img + '" alt="Avatar" class="rounded-circle">';
-                 } else {
-                   // For Avatar badge
-                   var stateNum = Math.floor(Math.random() * 6);
-                   var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                   var $state = states[stateNum],
-                     $name = full['full_name'],
-                     $initials = $name.match(/\b\w/g) || [];
-                   $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                   $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-                 }
-                 // Creates full output for row
-                 var $row_output =
-                   '<div class="d-flex justify-content-start align-items-center user-name">' +
-                   '<div class="avatar-wrapper">' +
-                   '<div class="avatar me-2">' +
-                   $output +
-                   '</div>' +
-                   '</div>' +
-                   '<div class="d-flex flex-column">' +
-                   '<span class="emp_name text-truncate">' +
-                   $name +
-                   '</span>' +
-                   '<small class="emp_post text-truncate text-muted">' +
-                   $post +
-                   '</small>' +
-                   '</div>' +
-                   '</div>';
-                 return $row_output;
-               }
-             },
-             {
-               responsivePriority: 1,
-               targets: 4
-             },
-             {
-               // Label
-               targets: -2,
-               render: function (data, type, full, meta) {
-                 var $status_number = full['status'];
-                 var $status = {
-                   1: { title: 'Current', class: 'bg-label-primary' },
-                   2: { title: 'Professional', class: ' bg-label-success' },
-                   3: { title: 'Rejected', class: ' bg-label-danger' },
-                   4: { title: 'Resigned', class: ' bg-label-warning' },
-                   5: { title: 'Applied', class: ' bg-label-info' }
-                 };
-                 if (typeof $status[$status_number] === 'undefined') {
-                   return data;
-                 }
-                 return (
-                		 '<span>&#x1F4AC;</span>'
-                 );
-               }
-             },
-             {
-               // Actions
-               targets: -1,
-               title: '직원 상세 보기',
-               orderable: false,
-               searchable: false,
-               render: function (data, type, full, meta) {
-                 return (
-                		 '<a href="javascript:;" class="btn btn-sm btn-primary btn-view-details">직원 상세보기</a>'
-                 );
-               }
-             }
-           ],
-           
-           order: [[2, 'desc']],
-           dom: '<<"head-label text-center">><"row">t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-           
-           displayLength: 10,
-           lengthMenu: [10],
-           
-           
-           responsive: {
-             details: {
-               display: $.fn.dataTable.Responsive.display.modal({
-                 header: function (row) {
-                   var data = row.data();
-                   return 'Details of ' + data['full_name'];
-                 }
-               }),
-               type: 'column',
-               renderer: function (api, rowIdx, columns) {
-                 var data = $.map(columns, function (col, i) {
-                   return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                     ? '<tr data-dt-row="' +
-                         col.rowIndex +
-                         '" data-dt-column="' +
-                         col.columnIndex +
-                         '">' +
-                         '<td>' +
-                         col.title +
-                         ':' +
-                         '</td> ' +
-                         '<td>' +
-                         col.data +
-                         '</td>' +
-                         '</tr>'
-                     : '';
-                 }).join('');
-
-                 return data ? $('<table class="table"/><tbody />').append(data) : false;
-               }
-             }
-           }
-         });
-         
-         
-         
-       }
-
-
       
 
        
@@ -2072,7 +1931,7 @@
          $('.dataTables_length .form-select').removeClass('form-select-sm');
        }, 300);
      });
-
+ 
      </script>
   </body>
 </html>

@@ -16,8 +16,17 @@ public class EmployeeService {
 	@Autowired EmployeeDAO employeeDAO;
 	
 	public int join(HashMap<String, Object> params) {
-		logger.info("join() 실행");
-		int row = employeeDAO.join(params);
-		return row;
+		
+		int department = Integer.parseInt(params.get("department").toString());
+		int rank = Integer.parseInt(params.get("rank").toString());
+		int job = Integer.parseInt(params.get("job").toString());
+		
+		int position = department + rank + job;
+		
+		logger.info("position : "+position);
+		
+		params.put("position", position);
+		
+		return employeeDAO.join(params);
 	}
 }
