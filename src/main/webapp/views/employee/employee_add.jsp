@@ -2015,6 +2015,7 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
     	// 날짜 선택
 	    var flatpickrDate = document.querySelector("#flatpickr-date");
@@ -2028,6 +2029,18 @@
 	    flatpickrDate.flatpickr({
 	      monthSelectorType: "static"
 	    });
+	    
+	    window.onload = function(){
+	        document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	            //카카오 지도 발생
+	            new daum.Postcode({
+	                oncomplete: function(data) { //선택시 입력값 세팅
+	                    document.getElementById("address").value = data.address; // 주소 넣기
+	                    document.querySelector("input[name=detail_addr]").focus(); //상세입력 포커싱
+	                }
+	            }).open();
+	        });
+	    }
     </script>
 
     <!-- Main JS -->
