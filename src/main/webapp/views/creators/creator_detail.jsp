@@ -15,9 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iKt6iOp+J8r+longdZlF/YJ83QpvL+fm9ifktD5tr5Q/f1vZ/EKUnDSny" crossorigin="anonymous">
-    <title>Real-time Clock Example</title>
-    <title>User Profile - Profile | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User View - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -46,12 +44,15 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
     <!-- Page CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
+
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-user-view.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -61,47 +62,22 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
+    <!-- 커스텀 -->
     <style>
-    .homePosition{
-    font-size: 12px;
+    .d-flex.justify-content-center.pt-3{
+    	padding-top: 0rem !important;
+    	margin-right: -7rem;
     }
     
-    img.rounded-top{
-	height: 95px;
-    }
-    .bx.bxl-youtube{
-    margin-right: 15px;
-    }
-    .homeCate{
-    font-size: 11px;
-    }
-    .text-muted.text-uppercase.homeO{
-    font-size: 20px;
-    }
-    .todayWork{
-    text-align: center;
-    font-size: 15px;
-    margin-top: 30px;
-    margin-bottom: 0px;
-    }
-    .todayWorkTime{
-    text-align: center;
-    font-size: 30px;
-    margin-top: -5px;
-    }
-    .card-header.plus{
-    margin-top: 10px;
-    font-size: 13px;
-    }
     </style>
+    
   </head>
-
 
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-      <!-- 여기서부터 붙여넣기 -->
+        <!-- 여기서부터 붙여넣기 -->
       
         <!-- Menu -->
         
@@ -122,7 +98,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="../home.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div class="text-truncate" data-i18n="홈">홈</div>
@@ -136,7 +112,7 @@
               </a>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="../creators/creator_list_all.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-slideshow"></i>
                 <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
@@ -346,6 +322,7 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
+                    
                     <li>
                       <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
                         <i class="bx bx-power-off me-2"></i>
@@ -371,286 +348,274 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- Header -->
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light"></span> 크리에이터 관리</h4>
               <div class="row">
-                <div class="col-12">
+                <!-- User Sidebar -->
+                <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                  <!-- User Card -->
                   <div class="card mb-4">
-                    <div class="user-profile-header-banner">
-                      <img src="../../assets/img/pages/profile-banner.png" alt="Banner image" class="rounded-top" />
-                    </div>
-                    <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
-                      <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                        <img
-                          src="../../assets/img/avatars/1.png"
-                          alt="user image"
-                          class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
-                      </div>
-                      <div class="flex-grow-1 mt-3 mt-sm-5">
-                        <div
-                          class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
-                          <div class="user-profile-info">
-                            <h4>한가인  <span class='homePosition'>/ 대리</span></h4>
-                            <ul
-                              class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-                              <li class="list-inline-item fw-medium"><i class="bx bx-map"></i></i> 매니지먼트팀</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bx-ghost'></i></i> 팀원</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bxs-time' ></i> 사용 연차 : 66시간</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bx-time-five' ></i> 잔여 연차 : 12시간</li>
-                            </ul>
+                    <div class="card-body">
+                      <div class="user-avatar-section">
+                        <div class="d-flex align-items-center flex-column">
+                          <img
+                            class="img-fluid rounded my-4"
+                            src="../../assets/img/avatars/10.png"
+                            height="110"
+                            width="110"
+                            alt="User avatar" />
+                          <div class="user-info text-center">
+                            <h4 class="mb-2">히빱</h4>
+                            
                           </div>
-                          <a href="../profile/profile_detail.go" class="btn btn-primary text-nowrap">
-                            <i class="bx bx-user-check me-1"></i>내 정보 보기
-                          </a>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                        <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">구독자</h5>
+                            <span>3,333,333 명</span>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-start mt-3 gap-3">
+                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
+                          <div>
+                            <h5 class="mb-0">컨텐츠 수</h5>
+                            <span>1,432 개</span>
+                          </div>
+                        </div>
+                      </div>
+                      <h5 class="pb-2 border-bottom mb-4">상세정보</h5>
+                      <div class="info-container">
+                        <ul class="list-unstyled">
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">이름:</span>
+                            <span>김희연</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">성별:</span>
+                            <span>여자</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">생년월일:</span>
+                            <span>1997.12.23</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">국적:</span>
+                            <span>한국</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">연락처:</span>
+                            <span>010-1111-2222</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">Email:</span>
+                            <span>vafgot@vultukir.org</span>
+                          </li>
+                          
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">계약 시작일:</span>
+                            <span>2022.01.14</span>
+                          </li>
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">계약 만료일:</span>
+                            <span>2023.01.13</span>
+                          </li>
+                          
+                        </ul>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /User Card -->
+                  <!-- Plan Card -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      
+                      <h5 class="pb-2 border-bottom mb-4">특이사항</h5>
+                      <p class="fw-medium me-2">동해물과 백두산이 마르고 닳도록 하느님이 보유하사 우리나라 만세</p>
+                      <p class="fw-medium me-2">사실 히빱은 히밥의 짝퉁임을 여기에 고하매 하늘을 우러러 부끄럽기 짝이 없는 일이로다</p>
+                      
+                      
+                    </div>
+                  </div>
+                  <!-- /Plan Card -->
+                </div>
+                <!--/ User Sidebar -->
+
+                <!-- User Content -->
+                <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                  <!-- User Pills -->
+                  <div class="row">
+                  <div class="col-md-8">
+                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0);"><i class='bx bx-face' ></i></i>크리에이터 정보</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../creators/creator_detail_channel.go"
+                        ><i class='bx bxl-sketch' ></i>대표 채널 정보</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="app-user-view-billing.go"
+                        ><i class='bx bxl-youtube' ></i></i>컨텐츠 정보(임시)</a
+                      >
+                    </li>
+                  </ul>
+                  </div>
+                  <div class="col-md-4 text-end">
+                  	<div class="d-flex justify-content-center pt-3">
+                          <a
+                            href="javascript:;"
+                            class="btn btn-primary me-3"
+                            data-bs-target="#editUser"
+                            data-bs-toggle="modal"
+                            >수정</a
+                          >
+                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <!--/ Header -->
+                  <!--/ User Pills -->
 
-              
-
-              <!-- User Profile Content -->
-              <div class="row">
-                <div class="col-xl-4 col-lg-5 col-md-5">
-                  <!-- About User -->
+                  <!-- Project table -->
                   <div class="card mb-4">
+                    <h5 class="card-header">활동 채널 리스트</h5>
+                    <div class="table-responsive mb-3">
+                      <table class="table datatable-project border-top">
+                        <thead>
+                          <tr>
+                            <th>채널명</th>
+                            <th class="text-nowrap">카테고리</th>
+                            <th>구독자 수</th>
+                            <th>컨텐츠 수</th>
+                            <th>총 조회수</th>
+                            <th>가입일자</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        	<tr>
+	                            <th>쀼쀼</th>
+	                            <th class="text-nowrap">일상, 코믹</th>
+	                            <th>11,234 명</th>
+	                            <th>45 개</th>
+	                            <th>1,999,356</th>
+	                            <th>2023.10.01</th>
+                          	</tr>
+                          	<tr>
+	                            <th>많이 먹어도 살 안 쪄서 좋겠당</th>
+	                            <th class="text-nowrap">먹방</th>
+	                            <th>3,332,123 명</th>
+	                            <th>325 개</th>
+	                            <th>515,745,435</th>
+	                            <th>2019.04.24</th>
+                          	</tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- /Project table -->
+                  <!-- Project table -->
+                  <div class="card mb-4">
+                    <h5 class="card-header">SNS</h5>
+                    <div class="table-responsive mb-3">
+                      <table class="table datatable-project border-top">
+                        <thead>
+                          <tr>                         
+                            <th>SNS 주소</th>
+                            <th class="text-nowrap">팔로워</th>
+                            <th>팔로우</th>
+                            <th>게시물</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        	<tr>                         
+	                            <th><img src="../../assets/img/icons/brands/instagram.png" alt="instagram" class="me-3" height="20">히빱 일상</th>
+	                            <th class="text-nowrap">311,234</th>
+	                            <th>1 명</th>
+	                            <th>279 개</th>
+                           </tr>
+                        	<tr>                         
+	                            <th><img src="../../assets/img/icons/brands/facebook.png" alt="facebook" class="me-3" height="20">히빱 페북</th>
+	                            <th class="text-nowrap">22,222</th>
+	                            <th>191 명</th>
+	                            <th>-</th>
+                           </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- /Project table -->
+
+                  <!-- Activity Timeline -->
+                  <div class="card mb-4">
+                    <h4 class="card-header">활동이력</h4>
                     <div class="card-body">
-                      <small class="text-muted text-uppercase homeO">근태관리</small>                      
-                      <hr/>
-                      <div class="container">
-					    <small class="text-muted text-uppercase moreS" id="currentDateTime">오늘 날짜</small>
-					  </div>
-                      <div>
-	                      <div>
-	                      	<p class="todayWork">오늘의 출퇴근 시간</p>
-	                      	<p class="todayWorkTime">09:00 ~ 18:00</p>
-	                      </div>
-                      </div>
-                      <br/>
-                      <ul class="list-unstyled mb-4 mt-3">
-                        <li class="d-flex align-items-center mb-3">
-                          <i class='bx bx-timer' ></i><span class="fw-medium mx-2">출근 시간:</span>
-                          <span>09:34</span>
+                      <ul class="timeline">
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-primary"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">유튜브 채널 1</h6>
+                              <small class="text-muted">2023-12-12</small>
+                            </div>
+                            <p class="mb-2">200만 구독자 달성</p>
+                            
+                          </div>
                         </li>
-                        <li class="d-flex align-items-center mb-3">
-                         <i class='bx bxs-timer' ></i><span class="fw-medium mx-2">퇴근 시간:</span> <span>18:30</span>
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-warning"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">유튜브 채널 2</h6>
+                              <small class="text-muted">2023-11-28</small>
+                            </div>
+                            <p class="mb-2">10만 구독자 달성</p>
+                            
+                          </div>
                         </li>
-                        
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-info"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">히빱</h6>
+                              <small class="text-muted">2023-11-22</small>
+                            </div>
+                            <p class="mb-2">유튜브 크리에이터 대상 수상</p>
+                            
+                          </div>
+                        </li>
+                        <li class="timeline-item timeline-item-transparent">
+                          <span class="timeline-point-wrapper"
+                            ><span class="timeline-point timeline-point-success"></span
+                          ></span>
+                          <div class="timeline-event">
+                            <div class="timeline-header mb-1">
+                              <h6 class="mb-0">유튜브 채널 2</h6>
+                              <small class="text-muted">2023-10-01</small>
+                            </div>
+                            <p class="mb-0">채널 가입일</p>
+                          </div>
+                        </li>
+                        <li class="timeline-end-indicator">
+                          <i class="bx bx-check-circle"></i>
+                        </li>
                       </ul>
+                    </div>
+                  </div>
+                  <!-- /Activity Timeline -->
 
-                      <div class="row">
-				        <div class="col-md-6">
-				            <button type="button" class="btn btn-success" id="type-success">출근하기</button>
-				        </div>
-				        <div class="col-md-6 text-end">
-				            <button type="button" class="btn btn-warning" id="type-warning">퇴근하기</button>
-				        </div>
-				    </div>
-                    </div>
-                  </div>
-                  <!--/ About User -->
-                  <!-- Profile Overview -->
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <small class="text-muted text-uppercase">주간 날씨</small>
-                      <hr/>
-                      <div>날씨 api 위치
-                      </div>
-                    </div>
-                  </div>
-                  <!--/ Profile Overview -->
                 </div>
-                <!-- 급상승 유튜버 영역 -->
-	                <div class="col-xl-8 col-lg-7 col-md-7">
-	                  <!-- Activity Timeline -->
-	                  <div class="card card-action mb-4">
-	                    <div class="card-header align-items-center">
-	                      <h5 class="card-action-title mb-0"><i class='bx bxl-youtube' ></i>급상승 유튜버</h5>
-	                    </div>
-	                    <!-- Basic Bootstrap Table -->
-	              <div class="card">
-	                <div class="table-responsive text-nowrap">
-	                  <table class="table">
-	                    <thead>
-	                      <tr>
-	                      	<th>순위</th>
-	                        <th>썸네일</th>
-	                        <th>채널 이름/분야</th>
-	                        <th>구독자수</th>
-	                        <th>구독자 급상승 수</th>
-	                        <th>일일 조회수</th>
-	                      </tr>
-	                    </thead>
-	                    <tbody class="table-border-bottom-0">
-	                      <tr>
-	                        <td>1</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">가인은 가인가인</span>
-	                          <div><span class="badge bg-label-primary me-1">#일상</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>2</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">금요일은 반차 쓰고 싶다</span>
-	                          <div><span class="badge bg-label-primary me-1">#회사생활</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>3</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">놀토</span>
-	                          <div><span class="badge bg-label-primary me-1">#예능</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>4</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">모름</span>
-	                          <div><span class="badge bg-label-primary me-1">#모름</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>5</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">모름</span>
-	                          <div><span class="badge bg-label-primary me-1">#모름</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                    </tbody>
-	                  </table>
-	                </div>
-	              </div>
-                  </div>
-                  <!--/ 급상승 유튜버 -->
-                  <!-- Projects table -->
-                  <div class="card mb-4">
-                    <div class="row">
-				        <div class="col-md-6">
-				            <h5 class="card-header">전자결재(상신한 결재)</h5>
-				        </div>
-				        <div class="col-md-6 text-end">
-				            <h5 class="card-header plus">+더보기</h5>
-				        </div>
-				    </div>
-                    <div class="table-responsive mb-3">
-                      <table class="table datatable-project">
-                        <thead class="table-light">
-                          <tr>
-                            <th>문서 제목</th>
-                            <th>상신일</th>
-                            <th class="text-nowrap">마지막 결재일</th>
-                            <th>현 결재자</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>
-                        		<td>카메라 대량 구입의 건</td>
-                        		<td>2023.12.21</td>
-                        		<td>2023.12.23</td>
-                        		<td>이지훈</td>
-                        	</tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!--/ Projects table -->
-                  <!-- Projects table -->
-                  <div class="card mb-4">
-                    <div class="row">
-				        <div class="col-md-6">
-				            <h5 class="card-header">프로젝트(마감임박)</h5>
-				        </div>
-				        <div class="col-md-6 text-end">
-				            <h5 class="card-header plus">+더보기</h5>
-				        </div>
-				    </div>
-                    <div class="table-responsive mb-3">
-                      <table class="table datatable-project">
-                        <thead class="table-light">
-                          <tr>
-                            <th>시작일</th>
-                            <th>종료일</th>
-                            <th>프로젝트명</th>                          
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>
-                        		<td>2023.12.21</td>
-                        		<td>2023.12.23</td>
-                        		<td>소속 유튜버 합방 스케줄</td>
-                        	</tr>
-                        </tbody>
-                     
-                      </table>
-                    </div>
-                  </div>
-                  <!--/ Projects table -->
-                </div>
+                <!--/ User Content -->
               </div>
-              <!--/ User Profile Content -->
+
             </div>
             <!-- / Content -->
 
@@ -702,8 +667,6 @@
     </div>
     <!-- / Layout wrapper -->
 
-
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
@@ -719,52 +682,22 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
-    
-    <!-- 시간 반영 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-oGNHuvKMC5LEHibI2NCAp8CKO98iz+cbJP5r9XtZADn1I2QFsgJj8peNrtQ8iS9Z" crossorigin="anonymous"></script>
-
-
-	<!-- Page JS -->
-    <script src="../../assets/js/extended-ui-sweetalert2.js"></script>
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>   
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/app-user-view-account.js"></script> -->
-<!-- 페이징 필요 없는 리스트 뿌리기라 js 빼버림  -->     
-     
-
+<!--     <script src="../../assets/js/modal-edit-user.js"></script>
+    <script src="../../assets/js/app-user-view.js"></script>
+    <script src="../../assets/js/app-user-view-account.js"></script> -->
   </body>
-<script>
-     document.addEventListener("DOMContentLoaded", function () {
-         // 초 단위로 실시간으로 업데이트
-         setInterval(updateCurrentDateTime, 1000);
-
-         // 초기 로딩 시 한번 업데이트
-         updateCurrentDateTime();
-     });
-
-     function updateCurrentDateTime() {
-         var currentDate = new Date();
-         var options = {
-             year: 'numeric',
-             month: 'long',
-             day: 'numeric',
-             weekday: 'long',
-             hour: 'numeric',
-             minute: 'numeric',
-             second: 'numeric',
-             timeZone: 'Asia/Seoul'
-         };
-         var formattedDateTime = currentDate.toLocaleString('ko-KR', options);
-
-         // 현재 날짜와 시간을 업데이트
-         document.getElementById('currentDateTime').textContent = formattedDateTime;
-     }
-     
-     </script>
 </html>

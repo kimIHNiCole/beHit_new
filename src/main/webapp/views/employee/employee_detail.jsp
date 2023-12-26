@@ -15,8 +15,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iKt6iOp+J8r+longdZlF/YJ83QpvL+fm9ifktD5tr5Q/f1vZ/EKUnDSny" crossorigin="anonymous">
-    <title>Real-time Clock Example</title>
     <title>User Profile - Profile | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
@@ -47,8 +45,6 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
@@ -60,51 +56,21 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
-    
-    <style>
-    .homePosition{
-    font-size: 12px;
-    }
-    
-    img.rounded-top{
+<style>
+img.rounded-top{
 	height: 95px;
     }
-    .bx.bxl-youtube{
-    margin-right: 15px;
-    }
-    .homeCate{
-    font-size: 11px;
-    }
-    .text-muted.text-uppercase.homeO{
-    font-size: 20px;
-    }
-    .todayWork{
-    text-align: center;
-    font-size: 15px;
-    margin-top: 30px;
-    margin-bottom: 0px;
-    }
-    .todayWorkTime{
-    text-align: center;
-    font-size: 30px;
-    margin-top: -5px;
-    }
-    .card-header.plus{
-    margin-top: 10px;
-    font-size: 13px;
-    }
-    </style>
-  </head>
 
+</style>
+
+  </head>
 
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-      <!-- 여기서부터 붙여넣기 -->
-      
         <!-- Menu -->
-        
+
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="../home.go" class="app-brand-link">
@@ -122,7 +88,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="../home.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div class="text-truncate" data-i18n="홈">홈</div>
@@ -227,8 +193,8 @@
 
         <!-- Layout container -->
         <div class="layout-page">
-          <!-- Navbar -->
-
+        
+        <!-- Navbar -->
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
@@ -241,26 +207,22 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
-                
               </div>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Language -->
                 <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  
                 </li>
                 <!-- /Language -->
 
                 <!-- Quick links  -->
                 <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  
                 </li>
                 <!-- Quick links -->
 
                 <!-- Style Switcher -->
                 <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  
                 </li>
                 <!-- / Style Switcher-->
 
@@ -276,6 +238,7 @@
                     <span class="badge bg-danger rounded-pill badge-notifications">5</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end py-0">
+                  
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
                         <h5 class="text-body mb-0 me-auto">알림</h5>
@@ -289,6 +252,7 @@
                         ></a>
                       </div>
                     </li>
+                    
                     <li class="dropdown-notifications-list scrollable-container">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
@@ -314,9 +278,11 @@
                         </li>
                       </ul>
                     </li>
+                    
                     <li class="dropdown-menu-footer border-top p-3">
                       <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
                     </li>
+                    
                   </ul>
                 </li>
                 <!--/ Notification -->
@@ -329,7 +295,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
+                      <a class="dropdown-item" href="#">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
@@ -357,20 +323,17 @@
                 <!--/ User -->
               </ul>
             </div>
-
-            <!-- Search Small Screens -->
-            
           </nav>
 
           <!-- / Navbar -->
-          
-          <!-- 여기까지 붙여넣기 -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light">User Profile /</span> Profile</h4>
+
               <!-- Header -->
               <div class="row">
                 <div class="col-12">
@@ -389,17 +352,14 @@
                         <div
                           class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                           <div class="user-profile-info">
-                            <h4>한가인  <span class='homePosition'>/ 대리</span></h4>
+                            <h4>관리자</h4>
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-                              <li class="list-inline-item fw-medium"><i class="bx bx-map"></i></i> 매니지먼트팀</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bx-ghost'></i></i> 팀원</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bxs-time' ></i> 사용 연차 : 66시간</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bx-time-five' ></i> 잔여 연차 : 12시간</li>
+                              <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : admin0</li>
                             </ul>
                           </div>
-                          <a href="../profile/profile_detail.go" class="btn btn-primary text-nowrap">
-                            <i class="bx bx-user-check me-1"></i>내 정보 보기
+                          <a href="javascript:void(0)" class="btn btn-primary text-nowrap">
+                            <i class="bx bx-user-check me-1"></i>로그인 제한 해제
                           </a>
                         </div>
                       </div>
@@ -409,248 +369,316 @@
               </div>
               <!--/ Header -->
 
-              
-
+              <!-- Navbar pills -->
+<!--               <div class="row">
+                <div class="col-md-12">
+                  <ul class="nav nav-pills flex-column flex-sm-row mb-4">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-teams.go"><i class="bx bx-group me-1"></i> Teams</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-projects.go"
+                        ><i class="bx bx-grid-alt me-1"></i> Projects</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-connections.go"
+                        ><i class="bx bx-link-alt me-1"></i> Connections</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+              <!--/ Navbar pills -->
               <!-- User Profile Content -->
+               <!-- Form with Tabs -->
               <div class="row">
-                <div class="col-xl-4 col-lg-5 col-md-5">
-                  <!-- About User -->
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <small class="text-muted text-uppercase homeO">근태관리</small>                      
-                      <hr/>
-                      <div class="container">
-					    <small class="text-muted text-uppercase moreS" id="currentDateTime">오늘 날짜</small>
-					  </div>
-                      <div>
-	                      <div>
-	                      	<p class="todayWork">오늘의 출퇴근 시간</p>
-	                      	<p class="todayWorkTime">09:00 ~ 18:00</p>
-	                      </div>
+                <div class="col">
+                  <div class="nav-align-top mb-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
+                        <button
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-personal"
+                          role="tab"
+                          aria-selected="true">
+                          기본 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-account"
+                          role="tab"
+                          aria-selected="false">
+                          상세 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-social"
+                          role="tab"
+                          aria-selected="false">
+                          부서 직급
+                        </button>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-first-name">이름</label>
+                              <input type="text" id="formtabs-first-name" class="form-control" placeholder="관리자" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="emp_id">임시 비밀번호</label>
+                              <input type="text" id="emp_id" class="form-control" />
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="password">사내 전화번호</label>
+                              <input type="text" id="password" class="form-control" placeholder="02-000-0000" />
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="formtabs-last-name">휴대폰 번호</label>
+                              <input type="text" id="formtabs-last-name" class="form-control" placeholder="010-0000-0000" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-birthdate">생년 월일</label>
+                              <input
+                                type="text"
+                                id="emp_birth"
+                                class="form-control dob-picker"
+                                placeholder="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="email">이메일</label>
+                              <input type="text" id="email" class="form-control" placeholder="admin@example.com"/>
+                            </div>
+                          <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                          </div>
+                         </div>
+						<!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">
+		                  <div class="card" style="width: 100%;">
+		                    <div class="card-header d-flex align-items-center justify-content-between">
+		                      <h5 class="card-title m-0 me-2">기본정보 변경 이력</h5>
+		                    </div>
+		                    <div class="card-body">
+		                      <!-- Activity Timeline -->
+		                      <ul class="timeline">
+		                        <li class="timeline-item timeline-item-transparent">
+		                          <span class="timeline-point-wrapper"
+		                            ><span class="timeline-point timeline-point-primary"></span
+		                          ></span>
+		                          <div class="timeline-event">
+		                            <div class="timeline-header mb-1">
+		                              <h6 class="mb-0">이메일 수정</h6>
+		                              <small class="text-muted">2010-01-01 12:30</small>
+		                            </div>
+		                            <p class="mb-2">solluna9@example.com -> admin@example.com</p>
+		                          </div>
+		                        </li>
+		                        <li class="timeline-item timeline-item-transparent">
+		                          <span class="timeline-point-wrapper"
+		                            ><span class="timeline-point timeline-point-warning"></span
+		                          ></span>
+		                          <div class="timeline-event">
+		                            <div class="timeline-header mb-1">
+		                              <h6 class="mb-0">이름 수정</h6>
+		                              <small class="text-muted">2010-01-01 12:30</small>
+		                            </div>
+		                            <p class="mb-2">아무개 -> 홍길동</p>
+		                          </div>
+		                        </li>
+		                        <li class="timeline-end-indicator">
+		                          <i class="bx bx-check-circle"></i>
+		                        </li>
+		                      </ul>
+		                      <!-- /Activity Timeline -->
+		                    </div>
+		                  </div>
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
                       </div>
-                      <br/>
-                      <ul class="list-unstyled mb-4 mt-3">
-                        <li class="d-flex align-items-center mb-3">
-                          <i class='bx bx-timer' ></i><span class="fw-medium mx-2">출근 시간:</span>
-                          <span>09:34</span>
-                        </li>
-                        <li class="d-flex align-items-center mb-3">
-                         <i class='bx bxs-timer' ></i><span class="fw-medium mx-2">퇴근 시간:</span> <span>18:30</span>
-                        </li>
-                        
-                      </ul>
-
-                      <div class="row">
-				        <div class="col-md-6">
-				            <button type="button" class="btn btn-success" id="type-success">출근하기</button>
-				        </div>
-				        <div class="col-md-6 text-end">
-				            <button type="button" class="btn btn-warning" id="type-warning">퇴근하기</button>
-				        </div>
-				    </div>
-                    </div>
-                  </div>
-                  <!--/ About User -->
-                  <!-- Profile Overview -->
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      <small class="text-muted text-uppercase">주간 날씨</small>
-                      <hr/>
-                      <div>날씨 api 위치
+                      <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="address">주소</label>
+                              <input type="text" id="address" class="form-control" placeholder="서울특별시 금천구 가신디지털단지2로 11-1" />
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="detail-addr">상세 주소</label>
+                              <input type="text" id="detail-addr" class="form-control" placeholder="OO아파트 1111동 111호" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+	                            <label for="hiredate" class="form-label">입사일</label>
+	 							<input type="date" class="form-control" id="hiredate" name="hiredate" value="2000-01-01">
+	                        </div>
+	                        <div class="mb-3 col-md-6">
+	                            <label for="leavedate" class="form-label">퇴사일</label>
+	 							<input type="date" class="form-control" id="leavedate" name="leavedate">
+	                         </div>
+                          </div>
+                          <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">수정 등록</button>
+                            <button type="reset" class="btn btn-label-secondary">취소</button>
+                          </div>
+                          <!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">
+		                  <div class="card" style="width: 100%;">
+		                    <div class="card-header d-flex align-items-center justify-content-between">
+		                      <h5 class="card-title m-0 me-2">상세정보 변경 이력</h5>
+		                    </div>
+		                    <div class="card-body">
+		                      <!-- Activity Timeline -->
+		                      <ul class="timeline">
+		                        <li class="timeline-item timeline-item-transparent">
+		                          <span class="timeline-point-wrapper"
+		                            ><span class="timeline-point timeline-point-primary"></span
+		                          ></span>
+		                          <div class="timeline-event">
+		                            <div class="timeline-header mb-1">
+		                              <h6 class="mb-0">상세주소 수정</h6>
+		                              <small class="text-muted">2010-01-01 12:30</small>
+		                            </div>
+		                            <p class="mb-2">OO아파트 1111동 001호 -> OO아파트 1111동 111호</p>
+		                          </div>
+		                        </li>
+		                        <li class="timeline-item timeline-item-transparent">
+		                          <span class="timeline-point-wrapper"
+		                            ><span class="timeline-point timeline-point-warning"></span
+		                          ></span>
+		                          <div class="timeline-event">
+		                            <div class="timeline-header mb-1">
+		                              <h6 class="mb-0">입사일 수정</h6>
+		                              <small class="text-muted">2010-01-01 12:30</small>
+		                            </div>
+		                            <p class="mb-2">2001-01-01 -> 2000-01-01</p>
+		                          </div>
+		                        </li>
+		                        <li class="timeline-end-indicator">
+		                          <i class="bx bx-check-circle"></i>
+		                        </li>
+		                      </ul>
+		                      <!-- /Activity Timeline -->
+		                    </div>
+		                  </div>
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                          <div class="mb-3 col-md-6">
+                            <label for="department" class="form-label">부서</label>
+                            <select id="department" class="select2 form-select">
+                              <option value="">인사</option>
+                              <option value="finance">재무</option>
+                              <option value="personnel">인사</option>
+                              <option value="management">매니지먼트 / 기획</option>
+                              <option value="business">사업 기획</option>
+                              <option value="marketing">마케팅</option>
+                            </select>
+                          </div> 
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="position">직급</label>
+                            <select id="position" class="select2 form-select">
+                              <option value="">이사</option>
+                              <option value="staff">사원</option>
+                              <option value="associate">주임</option>
+                              <option value="As_manager">대리</option>
+                              <option value="manager">과장</option>
+                              <option value="sn_manager">차장</option>
+                              <option value="gn_manager">부장</option>
+                              <option value="director">이사</option>
+                            </select>
+                          </div>
+                           <div class="mb-3 col-md-6">
+                            <label for="job" class="form-label">직책</label>
+                            <select id="job" class="select2 form-select">
+                              <option value="">본부장</option>
+                              <option value="member">팀원</option>
+                              <option value="leader">팀장</option>
+                              <option value="dm_manager">실장</option>
+                              <option value="hq_manager">본부장</option>
+                            </select>
+                          </div>
+                          </div>
+                          <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">수정 등록</button>
+                            <button type="reset" class="btn btn-label-secondary">취소</button>
+                          </div>
+                          <!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">
+		                  <div class="card" style="width: 100%;">
+		                    <div class="card-header d-flex align-items-center justify-content-between">
+		                      <h5 class="card-title m-0 me-2">부서 / 직급 변경 이력</h5>
+		                    </div>
+		                    <div class="card-body">
+		                      <!-- Activity Timeline -->
+		                      <ul class="timeline">
+		                        <li class="timeline-item timeline-item-transparent">
+		                          <span class="timeline-point-wrapper"
+		                            ><span class="timeline-point timeline-point-primary"></span
+		                          ></span>
+		                          <div class="timeline-event">
+		                            <div class="timeline-header mb-1">
+		                              <h6 class="mb-0">직책 정보 수정</h6>
+		                              <small class="text-muted">2010-01-01 12:30</small>
+		                            </div>
+		                            <p class="mb-2">실장 -> 본부장</p>
+		                          </div>
+		                        </li>
+		                        <li class="timeline-item timeline-item-transparent">
+		                          <span class="timeline-point-wrapper"
+		                            ><span class="timeline-point timeline-point-warning"></span
+		                          ></span>
+		                          <div class="timeline-event">
+		                            <div class="timeline-header mb-1">
+		                              <h6 class="mb-0">직급 수정</h6>
+		                              <small class="text-muted">2010-01-01 12:30</small>
+		                            </div>
+		                            <p class="mb-2">부장 -> 이사</p>
+		                          </div>
+		                        </li>
+		                        <li class="timeline-end-indicator">
+		                          <i class="bx bx-check-circle"></i>
+		                        </li>
+		                      </ul>
+		                      <!-- /Activity Timeline -->
+		                    </div>
+		                  </div>
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
                       </div>
                     </div>
                   </div>
-                  <!--/ Profile Overview -->
-                </div>
-                <!-- 급상승 유튜버 영역 -->
-	                <div class="col-xl-8 col-lg-7 col-md-7">
-	                  <!-- Activity Timeline -->
-	                  <div class="card card-action mb-4">
-	                    <div class="card-header align-items-center">
-	                      <h5 class="card-action-title mb-0"><i class='bx bxl-youtube' ></i>급상승 유튜버</h5>
-	                    </div>
-	                    <!-- Basic Bootstrap Table -->
-	              <div class="card">
-	                <div class="table-responsive text-nowrap">
-	                  <table class="table">
-	                    <thead>
-	                      <tr>
-	                      	<th>순위</th>
-	                        <th>썸네일</th>
-	                        <th>채널 이름/분야</th>
-	                        <th>구독자수</th>
-	                        <th>구독자 급상승 수</th>
-	                        <th>일일 조회수</th>
-	                      </tr>
-	                    </thead>
-	                    <tbody class="table-border-bottom-0">
-	                      <tr>
-	                        <td>1</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">가인은 가인가인</span>
-	                          <div><span class="badge bg-label-primary me-1">#일상</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>2</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">금요일은 반차 쓰고 싶다</span>
-	                          <div><span class="badge bg-label-primary me-1">#회사생활</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>3</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">놀토</span>
-	                          <div><span class="badge bg-label-primary me-1">#예능</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>4</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">모름</span>
-	                          <div><span class="badge bg-label-primary me-1">#모름</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>5</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">모름</span>
-	                          <div><span class="badge bg-label-primary me-1">#모름</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                    </tbody>
-	                  </table>
-	                </div>
-	              </div>
-                  </div>
-                  <!--/ 급상승 유튜버 -->
-                  <!-- Projects table -->
-                  <div class="card mb-4">
-                    <div class="row">
-				        <div class="col-md-6">
-				            <h5 class="card-header">전자결재(상신한 결재)</h5>
-				        </div>
-				        <div class="col-md-6 text-end">
-				            <h5 class="card-header plus">+더보기</h5>
-				        </div>
-				    </div>
-                    <div class="table-responsive mb-3">
-                      <table class="table datatable-project">
-                        <thead class="table-light">
-                          <tr>
-                            <th>문서 제목</th>
-                            <th>상신일</th>
-                            <th class="text-nowrap">마지막 결재일</th>
-                            <th>현 결재자</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>
-                        		<td>카메라 대량 구입의 건</td>
-                        		<td>2023.12.21</td>
-                        		<td>2023.12.23</td>
-                        		<td>이지훈</td>
-                        	</tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!--/ Projects table -->
-                  <!-- Projects table -->
-                  <div class="card mb-4">
-                    <div class="row">
-				        <div class="col-md-6">
-				            <h5 class="card-header">프로젝트(마감임박)</h5>
-				        </div>
-				        <div class="col-md-6 text-end">
-				            <h5 class="card-header plus">+더보기</h5>
-				        </div>
-				    </div>
-                    <div class="table-responsive mb-3">
-                      <table class="table datatable-project">
-                        <thead class="table-light">
-                          <tr>
-                            <th>시작일</th>
-                            <th>종료일</th>
-                            <th>프로젝트명</th>                          
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>
-                        		<td>2023.12.21</td>
-                        		<td>2023.12.23</td>
-                        		<td>소속 유튜버 합방 스케줄</td>
-                        	</tr>
-                        </tbody>
-                     
-                      </table>
-                    </div>
-                  </div>
-                  <!--/ Projects table -->
-                </div>
+                </div>      
               </div>
-              <!--/ User Profile Content -->
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="tab-content">
+              	<div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+              		
+	              	</div> 	
+	              </div>
+	       		</div>
             </div>
             <!-- / Content -->
 
@@ -702,8 +730,6 @@
     </div>
     <!-- / Layout wrapper -->
 
-
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
@@ -723,48 +749,8 @@
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
-    
-    <!-- 시간 반영 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-oGNHuvKMC5LEHibI2NCAp8CKO98iz+cbJP5r9XtZADn1I2QFsgJj8peNrtQ8iS9Z" crossorigin="anonymous"></script>
-
-
-	<!-- Page JS -->
-    <script src="../../assets/js/extended-ui-sweetalert2.js"></script>
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>   
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/app-user-view-account.js"></script> -->
-<!-- 페이징 필요 없는 리스트 뿌리기라 js 빼버림  -->     
-     
-
+    <script src="../../assets/js/app-user-view-account.js"></script>
   </body>
-<script>
-     document.addEventListener("DOMContentLoaded", function () {
-         // 초 단위로 실시간으로 업데이트
-         setInterval(updateCurrentDateTime, 1000);
-
-         // 초기 로딩 시 한번 업데이트
-         updateCurrentDateTime();
-     });
-
-     function updateCurrentDateTime() {
-         var currentDate = new Date();
-         var options = {
-             year: 'numeric',
-             month: 'long',
-             day: 'numeric',
-             weekday: 'long',
-             hour: 'numeric',
-             minute: 'numeric',
-             second: 'numeric',
-             timeZone: 'Asia/Seoul'
-         };
-         var formattedDateTime = currentDate.toLocaleString('ko-KR', options);
-
-         // 현재 날짜와 시간을 업데이트
-         document.getElementById('currentDateTime').textContent = formattedDateTime;
-     }
-     
-     </script>
 </html>

@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Tables - Basic Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Email - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,8 +42,13 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
 
     <!-- Page CSS -->
+
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-email.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -54,18 +59,15 @@
     <script src="../../assets/js/config.js"></script>
     
     <style>
-    .mb-1.red{
-    color: #C20000;
+    
+    .container-xxl.flex-grow-1.container-p-y{
+    	width: 900px;
+    	padding-right: 120px;
+    	margin-right: 650px;
     }
-    .mb-0{
-    font-size: 12px;
-    }
-    .btn.btn-primary.vaca{
-    width: 160px;
-    height: 38px;
-    margin-left: 150px;
-    }
+    
     </style>
+    
   </head>
 
   <body>
@@ -268,7 +270,7 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text" data-i18n="Apps & Pages">Apps &amp; Pages</span>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="app-email.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-envelope"></i>
                 <div class="text-truncate" data-i18n="Email">Email</div>
@@ -1179,7 +1181,7 @@
               </a>
             </li>
             <!-- Tables -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="tables-basic.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div class="text-truncate" data-i18n="Tables">Tables</div>
@@ -1765,492 +1767,658 @@
 
           <!-- / Navbar -->
 
-
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          
-          
-          
-          
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">이유빈 님의 상세 연차</span> </h4>
-
-              <!-- 총 기록 -->
-
-              <div class="card mb-4">
-                <div class="card-widget-separator-wrapper">
-                  <div class="card-body card-widget-separator">
-                    <div class="row gy-4 gy-sm-1">
-                      <div class="col-sm-6 col-lg-3">
-                        <div
-                          class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
-                          <div>
-                            <h3 class="mb-1 red">153</h3>
-                            <p class="mb-0">총 연차</p>
-                          </div>
-                          <div class="avatar me-sm-4">
-                            <span class="text-muted fw-light">시간</span>
-                          </div>
-                        </div>
-                        <hr class="d-none d-sm-block d-lg-none me-4" />
-                      </div>
-                      <div class="col-sm-6 col-lg-3">
-                        <div
-                          class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
-                          <div>
-                            <h3 class="mb-1 red">22</h3>
-                            <p class="mb-0">사용 연차</p>
-                          </div>
-                          <div class="avatar me-lg-4">
-                            <span class="text-muted fw-light">시간</span>
-                          </div>
-                        </div>
-                        <hr class="d-none d-sm-block d-lg-none" />
-                      </div>
-                      <div class="col-sm-6 col-lg-3">
-                        <div
-                          class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
-                          <div>
-                            <h3 class="mb-1 red">88</h3>
-                            <p class="mb-0">잔여 연차</p>
-                          </div>
-                          <div class="avatar me-sm-4">
-                            <span class="text-muted fw-light">시간</span>
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <div class="col-sm-6 col-lg-3">
-                        <div class="col-md-4 text-end">
-                		    <!-- 직원 등록 버튼 -->
-                 		   <button class="btn btn-primary vaca">연차 조정</button>
-            		   </div>
-                      </div>
-                    </div>
-                    </div>
+              <div class="app-email card">
+                <div class="border-0">
+                  <div class="row g-0">
                     
-                   </div>
-                   
-                  </div>
-                  
-  			<!--연도별 기록 -->
+                    <!-- Emails List -->
+                    <div class="col app-emails-list">
+                      <div class="card shadow-none border-0">
+                        <div class="card-body emails-list-header p-3 py-lg-3 py-2">
+                          <!-- Email List: Search -->
+                          
+                          <hr class="mx-n3 emails-list-header-hr" />
+                          <!-- Email List: Actions -->
+                          
+                        </div>
+                        <hr class="container-m-nx m-0" />
+                        <!-- Email List: Items -->
+                        <div class="email-list pt-0">
+                          <ul class="list-unstyled m-0">
+                          	
+                            
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    장비 구매 결재 재촉 세 번째</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    회식 장소 예약하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    장비 구매 결재 재촉하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    오킹 미팅 날짜 잡기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    장비 구매 결재 재촉하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            
+                            
+                          </ul>
+                          <ul class="list-unstyled m-0">
+                            <li class="email-list-empty text-center d-none">No items found.</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="app-overlay"></div>
+                    </div>
+                    <!-- /Emails List -->
 
-              <div class="card mb-4">
-                <div class="card-widget-separator-wrapper">
-                  <div class="card-body card-widget-separator">
-                    <div class="row gy-4 gy-sm-1">
-                      <div class="col-sm-6 col-lg-3">
-                        <div
-                          class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
-                          <div>
-                            <h3 class="mb-1">120</h3>
-                            <p class="mb-0">발생 연차</p>
-                          </div>
-                          <div class="avatar me-sm-4">
-                            <span class="text-muted fw-light">시간</span>
-                          </div>
-                        </div>
-                        <hr class="d-none d-sm-block d-lg-none me-4" />
+                    <!-- Email View -->
+                    
+                    <!-- Email View -->
+                  </div>
+                </div>
+
+                <!-- Compose Email -->
+                <div
+                  class="app-email-compose modal"
+                  id="emailComposeSidebar"
+                  tabindex="-1"
+                  aria-labelledby="emailComposeSidebarLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog m-0 me-md-4 mb-4 modal-lg">
+                    <div class="modal-content p-0">
+                      <div class="modal-header py-3 bg-body">
+                        <h5 class="modal-title fs-5">Compose Mail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="col-sm-6 col-lg-3">
-                        <div
-                          class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
-                          <div>
-                            <h3 class="mb-1">0</h3>
-                            <p class="mb-0">발생 월차</p>
+                      <div class="modal-body flex-grow-1 pb-sm-0 p-4 py-2">
+                        <form class="email-compose-form">
+                          <div class="email-compose-to d-flex justify-content-between align-items-center">
+                            <label class="form-label mb-2" for="emailContacts">To:</label>
+                            <div class="select2-primary border-0 shadow-none flex-grow-1 mx-2">
+                              <select
+                                class="select2 select-email-contacts form-select"
+                                id="emailContacts"
+                                name="emailContacts"
+                                multiple>
+                                <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
+                                <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
+                                <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
+                                <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
+                                <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
+                                <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
+                              </select>
+                            </div>
+                            <div class="email-compose-toggle-wrapper mb-2">
+                              <a class="email-compose-toggle-cc text-body" href="javascript:void(0);">Cc |</a>
+                              <a class="email-compose-toggle-bcc text-body" href="javascript:void(0);">Bcc</a>
+                            </div>
                           </div>
-                          <div class="avatar me-lg-4">
-                            <span class="text-muted fw-light">시간</span>
+
+                          <div class="email-compose-cc d-none">
+                            <hr class="mx-n4 my-2" />
+                            <div class="d-flex align-items-center">
+                              <label for="email-cc" class="form-label mb-0">Cc:</label>
+                              <input
+                                type="text"
+                                class="form-control border-0 shadow-none flex-grow-1 mx-2"
+                                id="email-cc"
+                                placeholder="someone@email.com" />
+                            </div>
                           </div>
-                        </div>
-                        <hr class="d-none d-sm-block d-lg-none" />
-                      </div>
-                      <div class="col-sm-6 col-lg-3">
-                        <div
-                          class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
-                          <div>
-                            <h3 class="mb-1">53</h3>
-                            <p class="mb-0">이월 연/월차</p>
+                          <div class="email-compose-bcc d-none">
+                            <hr class="mx-n4 my-2" />
+                            <div class="d-flex align-items-center">
+                              <label for="email-bcc" class="form-label mb-0">Bcc:</label>
+                              <input
+                                type="text"
+                                class="form-control border-0 shadow-none flex-grow-1 mx-2"
+                                id="email-bcc"
+                                placeholder="someone@email.com" />
+                            </div>
                           </div>
-                          <div class="avatar me-sm-4">
-                            <span class="text-muted fw-light">시간</span>
+                          <hr class="mx-n4 my-0" />
+                          <div class="email-compose-subject d-flex align-items-center my-1">
+                            <label for="email-subject" class="form-label mb-0">Subject:</label>
+                            <input
+                              type="text"
+                              class="form-control border-0 shadow-none flex-grow-1 mx-2"
+                              id="email-subject" />
                           </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-lg-3">
-                        <div class="d-flex justify-content-between align-items-start">
-                          <div>
-                            <h3 class="mb-1">24</h3>
-                            <p class="mb-0">조정 연차</p>
+                          <div class="email-compose-message mx-n4">
+                            <div class="d-flex justify-content-end">
+                              <div class="email-editor-toolbar border-0 w-100 border-top">
+                                <span class="ql-formats me-0">
+                                  <button class="ql-bold"></button>
+                                  <button class="ql-italic"></button>
+                                  <button class="ql-underline"></button>
+                                  <button class="ql-list" value="ordered"></button>
+                                  <button class="ql-list" value="bullet"></button>
+                                  <button class="ql-link"></button>
+                                  <button class="ql-image"></button>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="email-editor border-0 border-top"></div>
                           </div>
-                          <div class="avatar">
-                            <span class="text-muted fw-light">시간</span>
+                          <hr class="mx-n4 mt-0 mb-2" />
+                          <div
+                            class="email-compose-actions d-flex justify-content-between align-items-center my-2 py-1">
+                            <div class="d-flex align-items-center">
+                              <div class="btn-group">
+                                <button type="reset" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
+                                  Send
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                  data-bs-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">
+                                  <span class="visually-hidden">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="javascript:void(0);">Schedule send</a></li>
+                                  <li><a class="dropdown-item" href="javascript:void(0);">Save draft</a></li>
+                                </ul>
+                              </div>
+                              <label for="attach-file"><i class="bx bx-paperclip cursor-pointer ms-2"></i></label>
+                              <input type="file" name="file-input" class="d-none" id="attach-file" />
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <div class="dropdown">
+                                <button
+                                  class="btn p-0"
+                                  type="button"
+                                  id="dropdownMoreActions"
+                                  data-bs-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMoreActions">
+                                  <li><button type="button" class="dropdown-item">Add Label</button></li>
+                                  <li><button type="button" class="dropdown-item">Plain text mode</button></li>
+                                  <li>
+                                    <hr class="dropdown-divider" />
+                                  </li>
+                                  <li><button type="button" class="dropdown-item">Print</button></li>
+                                  <li><button type="button" class="dropdown-item">Check Spelling</button></li>
+                                </ul>
+                              </div>
+                              <button type="reset" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="bx bx-trash-alt"></i>
+                              </button>
+                            </div>
                           </div>
-                        </div>
+                        </form>
                       </div>
                     </div>
-                    </div>
-                   </div>
                   </div>
-                  <hr class="my-5" />
-			<!-- Basic Bootstrap Table -->
-              <div class="card">
-                <h5 class="card-header">사용 내역</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>이름</th>
-                        <th>부서</th>
-                        <th>사용 연차</th>
-                        <th>사용 날짜</th>
-                        <th>내용</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td>
-                          <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                          <span class="fw-medium">Angular Project</span>
-                        </td>
-                        <td>Albert Cook</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                        <td>
-                         <span>집</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-react fa-lg text-info me-3"></i> <span class="fw-medium">React Project</span>
-                        </td>
-                        <td>Barry Hunter</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-success me-1">Completed</span></td>
-                        <td>
-                         <span>내용</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-vuejs fa-lg text-success me-3"></i>
-                          <span class="fw-medium">VueJs Project</span>
-                        </td>
-                        <td>Trevor Baker</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-info me-1">Scheduled</span></td>
-                        <td>
-                         <span>내용</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
-                          <span class="fw-medium">Bootstrap Project</span>
-                        </td>
-                        <td>Jerry Milton</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                        <td>
-                         <span>소멸</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
+                <!-- /Compose Email -->
               </div>
- 
-            
-      <hr class="my-5" />
-      
-      
-      
-
-              <!-- Basic Bootstrap Table -->
-              <div class="card">
-                <h5 class="card-header">발생 내역</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>연/월차 등록일자</th>
-                        <th>연차 사용기한</th>
-                        <th>발생 시간</th>
-                        <th>내용</th>
-                       
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td>
-                          <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                          <span class="fw-medium">Angular Project</span>
-                        </td>
-                        <td>Albert Cook</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                        
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-react fa-lg text-info me-3"></i> <span class="fw-medium">React Project</span>
-                        </td>
-                        <td>Barry Hunter</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-success me-1">Completed</span></td>
-                        
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-vuejs fa-lg text-success me-3"></i>
-                          <span class="fw-medium">VueJs Project</span>
-                        </td>
-                        <td>Trevor Baker</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-info me-1">Scheduled</span></td>
-                        
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
-                          <span class="fw-medium">Bootstrap Project</span>
-                        </td>
-                        <td>Jerry Milton</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller">
-                              <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson">
-                              <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker">
-                              <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                        
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
- 
- 			
- 
-             <hr class="my-5" />
-
-			
- 
             </div>
-            
             <!-- / Content -->
 
             <!-- Footer -->
@@ -2316,10 +2484,15 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/quill/katex.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/block-ui/block-ui.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
+    <script src="../../assets/js/app-email.js"></script>
   </body>
 </html>

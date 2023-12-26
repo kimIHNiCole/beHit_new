@@ -1,5 +1,6 @@
 package com.behit.employee.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.behit.employee.dao.EmployeeDAO;
+import com.behit.employee.dto.EmployeeDTO;
 
 @Service
 public class EmployeeService {
@@ -16,8 +18,40 @@ public class EmployeeService {
 	@Autowired EmployeeDAO employeeDAO;
 	
 	public int join(HashMap<String, Object> params) {
-		logger.info("join() 실행");
-		int row = employeeDAO.join(params);
-		return row;
+		
+		int department = Integer.parseInt(params.get("department").toString());
+		int rank = Integer.parseInt(params.get("rank").toString());
+		int job = Integer.parseInt(params.get("job").toString());
+		
+		int position = department + rank + job;
+		
+		logger.info("position : "+position);
+		
+		params.put("position", position);
+		
+		return employeeDAO.join(params);
+	}
+
+	public HashMap<String, Object> list(String page) {
+		
+		int p = Integer.parseInt(page);
+		
+		int offset = (p-1) * 10;	
+		
+		ArrayList<EmployeeDTO> elist = employeeDAO.elist(offset);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int pages = employeeDAO.totalPage(10);
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
+		
+		if (p > pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages);
+		map.put("elist", elist);
+		
+		return map;
 	}
 }

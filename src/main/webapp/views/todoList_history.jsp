@@ -15,7 +15,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
     <title>eCommerce Category List - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+========
+    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <meta name="description" content="" />
 
@@ -42,10 +46,10 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
@@ -53,7 +57,11 @@
 
     <!-- Page CSS -->
 
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
     <link rel="stylesheet" href="../../assets/vendor/css/pages/app-ecommerce.css" />
+========
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -63,6 +71,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
         <style>
         body {
             font-family: Arial, sans-serif;
@@ -116,6 +125,32 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+========
+    <!-- 커스텀 스타일 -->
+    <style>
+.btn.btn-primary.btn-toggle-sidebar{
+	width: 70px;
+	font-size: 13px;
+	padding : 2px;
+	
+	margin-left: auto;
+	
+}
+.col.app-calendar-sidebar{
+	font-size: 13px;
+	margin: 15px;
+	padding : 2px;
+}
+.text-body.mb-0.me-auto.calendar{
+	margin-bottom: 10px;
+}
+.all-select{
+	margin-top: 10px;
+	margin-right: 8px;
+}
+    
+    
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
     </style>
     
   </head>
@@ -332,7 +367,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -1822,6 +1857,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
               <h4 class="py-3 mb-4">완료한 히스토리</h4>
                 <!-- Category List Table -->
 					<div id="taskList">
@@ -1832,6 +1868,168 @@
                  <div class="card">
                 </div>
                  -->
+========
+              <div class="card app-calendar-wrapper">
+                <div class="row g-0">
+                  <!-- Calendar Sidebar -->
+                  
+                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
+                  
+                    
+                    <h6 class="text-body mb-0 me-auto calendar">근무시간 전체등록</h6>
+                    <div class="all-select">
+                    <div class="d-flex cal-select">
+				        <select class="form-select">
+				            <option value="option1">07:00~16:00</option>
+				            <option value="option2">08:00~17:00</option>
+				            <option value="option3">09:00~18:00</option>
+				            <option value="option4">10:00~19:00</option>
+				            <option value="option5">11:00~20:00</option>
+				        </select>
+				        <button class="btn btn-primary btn-toggle-sidebar" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
+				            <span class="align-middle">등록</span>
+				        </button>
+				    </div>
+				    </div>
+                    
+                    <div class="p-4">
+                      <!-- inline calendar (flatpicker) -->
+
+
+                     
+                    </div>
+                  </div>
+                  <!-- /Calendar Sidebar -->
+
+                  <!-- Calendar & Modal -->
+                  <div class="col app-calendar-content">
+                    <div class="card shadow-none border-0">
+                      <div class="card-body pb-0">
+                        <!-- FullCalendar -->
+                        <div id="calendar"></div>
+                      </div>
+                    </div>
+                    <div class="app-overlay"></div>
+                    <!-- FullCalendar Offcanvas -->
+                    <div
+                      class="offcanvas offcanvas-end event-sidebar"
+                      tabindex="-1"
+                      id="addEventSidebar"
+                      aria-labelledby="addEventSidebarLabel">
+                      <div class="offcanvas-header border-bottom">
+                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
+                        <button
+                          type="button"
+                          class="btn-close text-reset"
+                          data-bs-dismiss="offcanvas"
+                          aria-label="Close"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
+                          <div class="mb-3">
+                            <label class="form-label" for="eventTitle">Title</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventTitle"
+                              name="eventTitle"
+                              placeholder="Event Title" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventLabel">Label</label>
+                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
+                              <option data-label="primary" value="Business" selected>Business</option>
+                              <option data-label="danger" value="Personal">Personal</option>
+                              <option data-label="warning" value="Family">Family</option>
+                              <option data-label="success" value="Holiday">Holiday</option>
+                              <option data-label="info" value="ETC">ETC</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventStartDate">Start Date</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventStartDate"
+                              name="eventStartDate"
+                              placeholder="Start Date" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventEndDate">End Date</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventEndDate"
+                              name="eventEndDate"
+                              placeholder="End Date" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="switch">
+                              <input type="checkbox" class="switch-input allDay-switch" />
+                              <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                              </span>
+                              <span class="switch-label">All Day</span>
+                            </label>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventURL">Event URL</label>
+                            <input
+                              type="url"
+                              class="form-control"
+                              id="eventURL"
+                              name="eventURL"
+                              placeholder="https://www.google.com" />
+                          </div>
+                          <div class="mb-3 select2-primary">
+                            <label class="form-label" for="eventGuests">Add Guests</label>
+                            <select
+                              class="select2 select-event-guests form-select"
+                              id="eventGuests"
+                              name="eventGuests"
+                              multiple>
+                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
+                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
+                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
+                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
+                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
+                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventLocation">Location</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventLocation"
+                              name="eventLocation"
+                              placeholder="Enter Location" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventDescription">Description</label>
+                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
+                          </div>
+                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
+                            <div>
+                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
+                              <button
+                                type="reset"
+                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                                data-bs-dismiss="offcanvas">
+                                Cancel
+                              </button>
+                            </div>
+                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Calendar & Modal -->
+                </div>
+              </div>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
             </div>
             <!-- / Content -->
 
@@ -1898,19 +2096,24 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
+========
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
     <script src="../../assets/js/app-ecommerce-category-list.js"></script>
     
     
@@ -1949,5 +2152,9 @@
     });
 </script>
     
+========
+    <script src="../../assets/js/app-calendar-events.js"></script>
+    <script src="../../assets/js/app-calendar.js"></script>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
   </body>
 </html>

@@ -17,6 +17,9 @@
 
     <title>Register Cover - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
+	<!-- JQuery 추가 -->
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -155,9 +158,7 @@
             <!-- <h4 class="mb-2">Be Hit</h4> -->
             <p class="mb-4">세계 최고의 유튜버들을 위한 에이전시</p>
 
-
-            <form id="formAuthentication" class="mb-3" action="login.do" method="POST">
-
+			<form id="formAuthentication" class="mb-3" action="login.do" method="POST" onsubmit="return saveId()">
               <div class="mb-3">
                 <label for="username" class="form-label">아이디</label>
                 <input
@@ -188,15 +189,56 @@
 
               <div class="mb-3">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                  <label class="form-check-label" for="terms-conditions">
+                  <input class="form-check-input" type="checkbox" id="rememberId" name="rememberId"/>
+                  <label class="form-check-label" for="rememberId">
                     아이디 저장
-                   <!--  <a href="javascript:void(0);">privacy policy & terms</a> -->
+                   <!--  <a href="javascript:void(0);">privacy policy & terms</a> --> 
                   </label>
                 </div>
               </div>
               <button class="btn btn-primary d-grid w-100">로그인</button>
-            </form>
+             </form>
+            <!-- <form id="formAuthentication" class="mb-3" action="login.do" method="POST">
+
+              <div class="mb-3">
+                <label for="username" class="form-label">아이디</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="emp_id"
+                  placeholder="아이디를 입력하세요."
+                  autofocus />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+              </div>
+              <div class="mb-3 form-password-toggle">
+                <label class="form-label" for="password">비밀번호</label>
+                <div class="input-group input-group-merge">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="비밀번호를 입력하세요."
+                    aria-describedby="password" />
+                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberId" name="rememberId" value=""/>
+                  <label class="form-check-label" for="rememberId">
+                    아이디 저장
+                    <a href="javascript:void(0);">privacy policy & terms</a> 
+                  </label>
+                </div>
+              </div>
+              <button class="btn btn-primary d-grid w-100">로그인</button>
+            </form> -->
 
            <!--  <p class="text-center">
               <span>Already have an account?</span>
@@ -239,4 +281,82 @@
     <!-- Page JS -->
     <script src="../../assets/js/pages-auth.js"></script>
   </body>
+  
+  
+  <script>
+  	var msg = ${"msg"};
+  	if(msg != null){
+  		alert(msg);
+  	}
+	var loginChk = ${"loginChk"};
+  	if(loginChk != null){
+  		alert(loginChk);
+  	}
+  
+  	$(document).ready(function(){
+  		getRememberId();		
+  	});
+  
+  	function getRememberId() {
+		console.log(' click');
+		var cookieId = getCookie("rememberId");
+		console.log("cookieId : ",cookieId);
+		if(cookieId != ""){
+			$('#username').val(cookieId);
+			$('#rememberId').prop("checked", true);
+		}
+		console.log(document.cookie.length);
+	}
+  	
+  	function saveId() {
+        var expdate = new Date();
+        if ($("#rememberId").is(":checked")){
+	            expdate.setTime(expdate.getTime() + 1000 * 3600 * 24 * 30);	// 쿠키 유효기간을 30일로
+	            setCookie("rememberId", $("#username").val(), expdate);
+            }else{
+	          	expdate.setTime(expdate.getTime() - 1000 * 3600 * 24 * 30);
+	            setCookie("rememberId", $("#username").val(), expdate);
+        }
+    }
+  	function setCookie(name, value, expiredays) {
+        var todayDate = new Date();
+        todayDate.setTime(todayDate.getTime() + 0);	// 현재시간을 그대로 사용하기 위해 0을 더함
+        if(todayDate > expiredays){
+        	console.log(todayDate , expiredays);
+            document.cookie = name + "=" + escape(value) + "; path=/; expires=" + expiredays + ";";
+        }else if(todayDate < expiredays){                                                  
+        	console.log(todayDate , expiredays);
+            todayDate.setDate(todayDate.getDate() + expiredays);
+            document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+        }
+        
+        
+        console.log(document.cookie);
+    }
+  	
+    function getCookie(Name) {
+        var search = Name + "=";
+        console.log("search : " + search);
+        
+        if (document.cookie.length > 0) { // 쿠키가 설정되어 있다면 
+            offset = document.cookie.indexOf(search);
+            console.log("offset : " + offset);
+            if (offset != -1) { // 쿠키가 존재하면 
+                offset += search.length;
+                // set index of beginning of value
+                end = document.cookie.indexOf(";", offset);
+                console.log("end : " + end);
+                // 쿠키 값의 마지막 위치 인덱스 번호 설정 
+                if (end == -1)
+                    end = document.cookie.length;
+                console.log("end위치  : " + end);
+                
+                return unescape(document.cookie.substring(offset, end));
+            }
+        }
+        return "";
+    }
+  </script>
+  
+  
 </html>

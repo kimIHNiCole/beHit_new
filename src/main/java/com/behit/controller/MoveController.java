@@ -21,9 +21,8 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping(value="/")
 	public String home() {
-		return "index";
+		return "login";
 	}
-	
 	@GetMapping(value="/{page}.go")
 	public String pageMove(@PathVariable String page) {
 		logger.info("page : "+page);
@@ -39,5 +38,8 @@ Logger logger = LoggerFactory.getLogger(getClass());
 	public String pageMove(@PathVariable String root, @PathVariable String page,@PathVariable String sub) {
 		return root+"/"+sub+"/"+page;
 	}
+	
+	
+
 
 }

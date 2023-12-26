@@ -15,7 +15,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Account settings - Account | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
+    <title>eCommerce Category List - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+========
+    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <meta name="description" content="" />
 
@@ -42,12 +46,22 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
 
     <!-- Page CSS -->
+
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-ecommerce.css" />
+========
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -56,6 +70,89 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        #taskList {
+            max-width: 760px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .date-header {
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            color: white;
+            background-color: green;
+            text-align: center; 
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .task-item span {
+		    align-self: flex-start;
+		    margin-left: 10px; /* 원하는 만큼의 왼쪽 마진을 추가합니다. */
+		}
+		
+		.form-check-input:checked, .form-check-input[type=checkbox]:indeterminate {
+		    background-color: #71dd37;
+		    border-color: #71dd37;
+		    box-shadow: 0 2px 4px 0 rgba(113, 221, 55, 0.4);
+		}
+
+        .delete-btn {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+========
+    <!-- 커스텀 스타일 -->
+    <style>
+.btn.btn-primary.btn-toggle-sidebar{
+	width: 70px;
+	font-size: 13px;
+	padding : 2px;
+	
+	margin-left: auto;
+	
+}
+.col.app-calendar-sidebar{
+	font-size: 13px;
+	margin: 15px;
+	padding : 2px;
+}
+.text-body.mb-0.me-auto.calendar{
+	margin-bottom: 10px;
+}
+.all-select{
+	margin-top: 10px;
+	margin-right: 8px;
+}
+    
+    
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
+    </style>
+    
   </head>
 
   <body>
@@ -270,7 +367,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -283,7 +380,7 @@
               </a>
             </li>
             <!-- e-commerce-app menu start -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cart-alt"></i>
                 <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
@@ -294,7 +391,7 @@
                     <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active open">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="Products">Products</div>
                   </a>
@@ -309,7 +406,7 @@
                         <div class="text-truncate" data-i18n="Add Product">Add Product</div>
                       </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item active">
                       <a href="app-ecommerce-category-list.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Category List">Category List</div>
                       </a>
@@ -558,10 +655,10 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
+                <div class="text-truncate" data-i18n="Pages">Pages</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -591,12 +688,12 @@
                     </li>
                   </ul>
                 </li>
-                <li class="menu-item active open">
+                <li class="menu-item">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>
                   </a>
                   <ul class="menu-sub">
-                    <li class="menu-item active">
+                    <li class="menu-item">
                       <a href="pages-account-settings-account.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Account">Account</div>
                       </a>
@@ -1760,191 +1857,180 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 /</span> 직원 등록</h4>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <!-- <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> 기본 정보</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-security.go"
-                        ><i class="bx bx-lock-alt me-1"></i> 상세 정보</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-billing.go"
-                        ><i class="bx bx-detail me-1"></i> 부서 / 직급</a
-                      >
-                    </li>
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
+              <h4 class="py-3 mb-4">완료한 히스토리</h4>
+                <!-- Category List Table -->
+					<div id="taskList">
+					<div class="date-header" style="color:green; background-color:white; text-align:left;" >완료한 개수 160개</div>
+					</div>
+					<!-- 원래의 카드영역부분 -->
+                <!-- 
+                 <div class="card">
+                </div>
+                 -->
+========
+              <div class="card app-calendar-wrapper">
+                <div class="row g-0">
+                  <!-- Calendar Sidebar -->
+                  
+                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
+                  
                     
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-notifications.go"
-                        ><i class="bx bx-bell me-1"></i> Notifications</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-connections.go"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                      >
-                    </li>
-                  </ul> -->
-                  <div class="card mb-4">
-                    <h5 class="card-header">직원 등록</h5>
-                    <!-- Account -->
-                    <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img
-                          src="../../assets/img/avatars/1.png"
-                          alt="user-avatar"
-                          class="d-block rounded"
-                          height="100"
-                          width="100"
-                          id="uploadedAvatar" />
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">사진 등록</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                              type="file"
-                              id="upload"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg" />
-                          </label>
-                          <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">초기화</span>
-                          </button>
+                    <h6 class="text-body mb-0 me-auto calendar">근무시간 전체등록</h6>
+                    <div class="all-select">
+                    <div class="d-flex cal-select">
+				        <select class="form-select">
+				            <option value="option1">07:00~16:00</option>
+				            <option value="option2">08:00~17:00</option>
+				            <option value="option3">09:00~18:00</option>
+				            <option value="option4">10:00~19:00</option>
+				            <option value="option5">11:00~20:00</option>
+				        </select>
+				        <button class="btn btn-primary btn-toggle-sidebar" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
+				            <span class="align-middle">등록</span>
+				        </button>
+				    </div>
+				    </div>
+                    
+                    <div class="p-4">
+                      <!-- inline calendar (flatpicker) -->
 
-                          <p class="text-muted mb-0">업로드는 JPG, GIF 또는 PNG만 가능하고, 최대 사이즈는 800KB입니다.</p>
-                        </div>
+
+                     
+                    </div>
+                  </div>
+                  <!-- /Calendar Sidebar -->
+
+                  <!-- Calendar & Modal -->
+                  <div class="col app-calendar-content">
+                    <div class="card shadow-none border-0">
+                      <div class="card-body pb-0">
+                        <!-- FullCalendar -->
+                        <div id="calendar"></div>
                       </div>
                     </div>
-                    <hr class="my-0" />
-                    <div class="card-body">
-                      <form id="formAccountSettings" method="GET" onsubmit="return false">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">아이디</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="emp_id"
-                              name="emp_id"
-                              placeholder="Honggildong"
-                              autofocus />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">임시 비밀번호</label>
-                            <input class="form-control" type="text" name="password" id="password" placeholder="****" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">이메일</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
-                              placeholder="admin@example.com" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="organization" class="form-label">이름</label>
+                    <div class="app-overlay"></div>
+                    <!-- FullCalendar Offcanvas -->
+                    <div
+                      class="offcanvas offcanvas-end event-sidebar"
+                      tabindex="-1"
+                      id="addEventSidebar"
+                      aria-labelledby="addEventSidebarLabel">
+                      <div class="offcanvas-header border-bottom">
+                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
+                        <button
+                          type="button"
+                          class="btn-close text-reset"
+                          data-bs-dismiss="offcanvas"
+                          aria-label="Close"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
+                          <div class="mb-3">
+                            <label class="form-label" for="eventTitle">Title</label>
                             <input
                               type="text"
                               class="form-control"
-                              id="emp_name"
-                              name="emp_name"
-                              placeholder="홍길동" />
+                              id="eventTitle"
+                              name="eventTitle"
+                              placeholder="Event Title" />
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="cp_phone">사내 번호</label>
-                            <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="cp_phone"
-                                name="cp_phone"
-                                class="form-control"
-                                placeholder="02-000-0000" />
+                          <div class="mb-3">
+                            <label class="form-label" for="eventLabel">Label</label>
+                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
+                              <option data-label="primary" value="Business" selected>Business</option>
+                              <option data-label="danger" value="Personal">Personal</option>
+                              <option data-label="warning" value="Family">Family</option>
+                              <option data-label="success" value="Holiday">Holiday</option>
+                              <option data-label="info" value="ETC">ETC</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventStartDate">Start Date</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventStartDate"
+                              name="eventStartDate"
+                              placeholder="Start Date" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventEndDate">End Date</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventEndDate"
+                              name="eventEndDate"
+                              placeholder="End Date" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="switch">
+                              <input type="checkbox" class="switch-input allDay-switch" />
+                              <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                              </span>
+                              <span class="switch-label">All Day</span>
+                            </label>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventURL">Event URL</label>
+                            <input
+                              type="url"
+                              class="form-control"
+                              id="eventURL"
+                              name="eventURL"
+                              placeholder="https://www.google.com" />
+                          </div>
+                          <div class="mb-3 select2-primary">
+                            <label class="form-label" for="eventGuests">Add Guests</label>
+                            <select
+                              class="select2 select-event-guests form-select"
+                              id="eventGuests"
+                              name="eventGuests"
+                              multiple>
+                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
+                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
+                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
+                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
+                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
+                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventLocation">Location</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventLocation"
+                              name="eventLocation"
+                              placeholder="Enter Location" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventDescription">Description</label>
+                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
+                          </div>
+                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
+                            <div>
+                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
+                              <button
+                                type="reset"
+                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                                data-bs-dismiss="offcanvas">
+                                Cancel
+                              </button>
                             </div>
+                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label">주소</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="주소" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber">휴대폰 번호</label>
-                            <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="moblie-phone"
-                                name="	moblie-phone"
-                                class="form-control"
-                                placeholder="010-0000-0000" />
-                            </div>
-                          </div>                        
-                          <div class="mb-3 col-md-6">
-                            <label for="zipCode" class="form-label">상세 주소</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="detail-addr"
-                              name="detail-addr"
-                              placeholder="상세 주소"
-                              maxlength="6" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="state" class="form-label">부서</label>
-                            <select id="department" class="select2 form-select">
-                              <option value=""></option>
-                              <option value="finance">재무</option>
-                              <option value="personnel">인사</option>
-                              <option value="management">매니지먼트 / 기획</option>
-                              <option value="business">사업 기획</option>
-                              <option value="marketing">마케팅</option>
-                            </select>
-                          </div> 
-                        <div class="col-md-6 col-12 mb-4">
-                          <label for="flatpickr-date" class="form-label">입사일</label>
-                          <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" />
-                        </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="job" class="form-label">직책</label>
-                            <select id="job" class="select2 form-select">
-                              <option value=""></option>
-                              <option value="member">팀원</option>
-                              <option value="leader">팀장</option>
-                              <option value="dm_manager">실장</option>
-                              <option value="hq_manager">본부장</option>
-                            </select>
-                          </div>
-                        <div class="col-md-6 col-12 mb-4">
-                          <label for="flatpickr-date" class="form-label">생년 월일</label>
-                          <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="emp_birth" />
-                        </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">직급</label>
-                            <select id="position" class="select2 form-select">
-                              <option value=""></option>
-                              <option value="staff">사원</option>
-                              <option value="associate">주임</option>
-                              <option value="As_manager">대리</option>
-                              <option value="manager">과장</option>
-                              <option value="sn_manager">차장</option>
-                              <option value="gn_manager">부장</option>
-                              <option value="director">이사</option>
-                            </select>
-                          </div>    
-                        </div>
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">직원 등록</button>
-                          <button type="reset" class="btn btn-label-secondary">등록 취소 </button>
-                        </div>
-                      </form>
+                        </form>
+                      </div>
                     </div>
-                    <!-- /Account -->
                   </div>
+                  <!-- /Calendar & Modal -->
+                </div>
+              </div>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
+            </div>
             <!-- / Content -->
 
             <!-- Footer -->
@@ -2010,18 +2096,65 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
+    <script src="../../assets/vendor/libs/quill/katex.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script>
+========
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/pages-account-settings-account.js"></script>
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
+    <script src="../../assets/js/app-ecommerce-category-list.js"></script>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // AJAX를 통해 데이터를 받아올 경우를 가정한 예시 코드
+        // 실제로는 서버에서 데이터를 받아와야 합니다.
+        const mockData = [
+            { date: "2023-12-15", tasks: ["양치하기", "결재하기", "Task 3", "Task 3", "Task 3", "Task 3"] },
+            { date: "2023-12-14", tasks: ["Task 4", "Task 5"] }
+        ];
+
+        // 데이터를 기반으로 테이블을 생성하는 함수
+        function renderTaskList(data) {
+            const taskListDiv = $("#taskList");
+
+            data.forEach(item => {
+                const dateHeader = $("<div>").addClass("date-header").text(item.date);
+                taskListDiv.append(dateHeader);
+
+                item.tasks.forEach(task => {
+                    const taskItemDiv = $("<div>").addClass("task-item");
+                    const checkbox = $("<input>").attr({ type: "checkbox" }).addClass("form-check-input input-filter");
+                    const taskContent = $("<span>").text(task);
+                    const deleteBtn = $("<button>").addClass("delete-btn").append("<i class='bx bx-trash'></i>");
+
+                    taskItemDiv.append(checkbox, taskContent, deleteBtn);
+                    taskListDiv.append(taskItemDiv);
+                });
+            });
+        }
+
+        // 모의 AJAX 호출 후 데이터 렌더링
+        renderTaskList(mockData);
+    });
+</script>
+    
+========
+    <script src="../../assets/js/app-calendar-events.js"></script>
+    <script src="../../assets/js/app-calendar.js"></script>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
   </body>
 </html>
