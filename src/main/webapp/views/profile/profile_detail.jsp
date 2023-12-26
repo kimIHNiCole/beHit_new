@@ -15,17 +15,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Settings Store Details - eCommerce | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User Profile - Profile | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
-    
-    <!-- bootstrap 아이콘 -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-		<!-- pretendard 폰트 -->
-		<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,79 +42,35 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-		<link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-		<!-- Row Group CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
-    <!-- Form Validation -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
-	
+
     <!-- Page CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
+    <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
-    <!-- custom CSS -->
-    <style>
-    .col-lg-4{
-    	width:20%;
+<style>
+img.rounded-top{
+	height: 95px;
     }
-    
-    .col-lg-8{
-     width:80%;
-    }
-    
-    .mb-1{
-    	margin-bottom:0.1rem !important;
-    }
-    
-    h5{
-    	font-family:pretendard;
-    	font-weight:600;
-    }
-    
-    h4{
-    	font-family:pretendard;
-    	font-weight:600;
-    }
-    
-    .apv-home{
-    	color:#c20000;
-    	margin-bottom:2rem;
-    }
-    
-    .apv-title{
-    	margin-top:0.125rem;
-    } 
-   
-    .apv-menu{
-    	margin-top: 1rem;
-    }
-    
-    .align-middle{
-    	font-family:pretendard;
-    	font-weight:500;
-    }
-    
-    .card{
-    	margin-bottom:3rem;
-    }
-    
-    .btn.btn-secondary{
-    	margin-top:1rem;
-   		font-family:pretendard;
-    	margin-bottom:0.625rem;
-    }
-    
-    </style>
+.btn.btn-primary.text-nowrap.photo{
+	width: 70px;
+	height: 30px;
+	margin-bottom: 7px;
+	background-color: #969696;
+	border-color: #969696;
+	font-size: 13px;
+}
+
+</style>    
     
     
   </head>
@@ -128,8 +79,10 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
+        <!-- 여기서부터 붙여넣기 -->
+      
         <!-- Menu -->
-
+        
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="../home.go" class="app-brand-link">
@@ -147,14 +100,14 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="../home.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div class="text-truncate" data-i18n="홈">홈</div>
               </a>
             </li>
             
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="../approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
@@ -252,8 +205,8 @@
 
         <!-- Layout container -->
         <div class="layout-page">
-        
-        <!-- Navbar -->
+          <!-- Navbar -->
+
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
@@ -266,22 +219,26 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
+                
               </div>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Language -->
                 <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+                  
                 </li>
                 <!-- /Language -->
 
                 <!-- Quick links  -->
                 <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+                  
                 </li>
                 <!-- Quick links -->
 
                 <!-- Style Switcher -->
                 <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                  
                 </li>
                 <!-- / Style Switcher-->
 
@@ -297,7 +254,6 @@
                     <span class="badge bg-danger rounded-pill badge-notifications">5</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end py-0">
-                  
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
                         <h5 class="text-body mb-0 me-auto">알림</h5>
@@ -311,7 +267,6 @@
                         ></a>
                       </div>
                     </li>
-                    
                     <li class="dropdown-notifications-list scrollable-container">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
@@ -337,11 +292,9 @@
                         </li>
                       </ul>
                     </li>
-                    
                     <li class="dropdown-menu-footer border-top p-3">
                       <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
                     </li>
-                    
                   </ul>
                 </li>
                 <!--/ Notification -->
@@ -354,7 +307,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="pages-account-settings-account.go">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
@@ -382,124 +335,257 @@
                 <!--/ User -->
               </ul>
             </div>
+
+            <!-- Search Small Screens -->
+            
           </nav>
 
           <!-- / Navbar -->
+          
+          <!-- 여기까지 붙여넣기 -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- <h4 class="py-3 mb-4">전자 결재</h4> -->
 
-              <div class="row g-4">
-                <!-- Navigation -->
-                <div class="col-12 col-lg-4">
-                  <div class="d-flex justify-content-between flex-column mb-3 mb-md-0">
-                    <ul class="nav nav-align-left nav-pills flex-column">
-                    
-                    	<li class="nav-item mb-1">
-                    		<h4 class="apv-title">
-                    			전자 결재
-                    		</h4>
-                    	</li>
-                    	
-                    	<li class="nav-item mb-1">
-                    		<button type="button" class="btn btn-secondary">새 결재 작성</button>
-                    	</li>
-                    
-                    	<li class="nav-item mb-1">
-                    		<h5 class="apv-menu">
-                    			<i class="menu-icon tf-icons bx bx-food-menu"></i>
-                    			결재하기
-                    		</h5>
-                    	</li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="getApproval_list.go">
-                          <span class="align-middle">결재 요청 받은 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="compApproval_list.go">
-                          <span class="align-middle">결재 완료한 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="viewApproval_list.go">
-                          <span class="align-middle">열람 가능한 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                    		<h5 class="apv-menu">
-                    			<i class="menu-icon tf-icons bx bx-food-menu"></i>
-                    			상신한 결재
-                    		</h5>
-                    	</li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link active" href="requestApproval_list.go">
-                          <span class="align-middle">결재 요청한 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="finishApproval_list.go">
-                          <span class="align-middle">결재 완료된 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="temporaryApproval_list.go">
-                          <span class="align-middle">임시 저장된 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="rejectedApproval_list.go">
-                          <span class="align-middle">반려된 문서</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- /Navigation -->
-
-                <!-- Options -->
-                <div class="col-12 col-lg-8 pt-4 pt-lg-0">
-                	<h4 class="apv-home">
-                		결재 요청한 문서
-                	</h4>
-                  <div class="tab-content p-0">
-                    <!-- Store Details Tab -->
-                    <div class="tab-pane fade show active" id="store_details" role="tabpanel">
-        
-				              <div class="card">
-				                <h5 class="card-header"> 결재 요청한 문서 리스트 </h5>
-				                <div class="card-datatable table-responsive">
-				                  <table class="dt-multilingual2 table border-top">
-				                    <thead>
-				                      <tr>
-				                        <th></th>
-				                        <th>문서양식</th>
-				                        <th>문서제목</th>
-				                        <th>상신일</th>
-				                        <th>마지막 결재일</th>
-				                        <th>현 결재자</th>
-				                        <th>결재 상태</th>
-				                      </tr>
-				                    </thead>
-				                  </table>
-				                </div>
-				              </div>
-
-
+              <!-- Header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mb-4">
+                    <div class="user-profile-header-banner">
+                      <img src="../../assets/img/pages/profile-banner.png" alt="Banner image" class="rounded-top" />
+                    </div>
+                    <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                      <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                        <img
+                          src="../../assets/img/avatars/1.png"
+                          alt="user image"
+                          class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                      </div>
+                      <div class="flex-grow-1 mt-3 mt-sm-5">
+                        <div
+                          class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                          <div class="user-profile-info">
+                            <div class="col-md-6">
+           						 <h4>한가인</h4>
+        					</div>
+	        					<div>
+					            	<button class="btn btn-primary text-nowrap photo">사진 변경</button>
+					            	<button class="btn btn-primary text-nowrap photo">초기화</button>
+					          </div>
+        					
+                            <ul
+                              class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                              <li class="list-inline-item fw-medium"><i class='bx bx-user' ></i> 아이디 : HanGain_02</li>
+                            </ul>
+                          </div>
+                          
+                          <a href="javascript:void(0)" class="btn btn-primary text-nowrap">비밀번호 변경</a>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <!-- /Options-->
               </div>
+              <!--/ Header -->
+
+              <!-- Navbar pills -->
+<!--               <div class="row">
+                <div class="col-md-12">
+                  <ul class="nav nav-pills flex-column flex-sm-row mb-4">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-teams.go"><i class="bx bx-group me-1"></i> Teams</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-projects.go"
+                        ><i class="bx bx-grid-alt me-1"></i> Projects</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="pages-profile-connections.go"
+                        ><i class="bx bx-link-alt me-1"></i> Connections</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+              <!--/ Navbar pills -->
+              <!-- User Profile Content -->
+               <!-- Form with Tabs -->
+              <div class="row">
+                <div class="col">
+                  <div class="nav-align-top mb-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
+                        <button
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-personal"
+                          role="tab"
+                          aria-selected="true">
+                          기본 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-account"
+                          role="tab"
+                          aria-selected="false">
+                          상세 정보
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-social"
+                          role="tab"
+                          aria-selected="false">
+                          부서 직급
+                        </button>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-first-name">이름</label>
+                              <p id="formtabs-first-name">한가인</p>
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="email">이메일</label>
+                              <p id="email">admin0@naver.com</p>
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="password">사내 전화번호</label>
+                              <p id="password">02-111-1111</p>
+                            </div>
+                           <div class="col-md-6">
+                              <label class="form-label" for="formtabs-last-name">휴대폰 번호</label>
+                              <p id="formtabs-last-name">010-1111-1111</p>
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="formtabs-birthdate">생년월일</label>
+                              <p id="emp_birth">2000-12-21</p>
+                            </div>
+                          
+                         </div>
+						<!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">             
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                            <div class="col-md-6">
+                              <label class="form-label" for="address">주소</label>
+                              <p id="address">서울특별시 금천구 가신디지털단지2로 11-1</p>
+                            </div>
+                            <div class="col-md-6">
+                              <label class="form-label" for="detail-addr">상세 주소</label>
+                              <p id="detail-addr">OO아파트 1111동 111호</p>
+                            </div>
+                            <div class="mb-3 col-md-6">
+	                            <label for="hiredate" class="form-label">입사일</label>
+	 							<p id="hiredate" name="hiredate">2000-01-01</p>
+	                        </div>
+	                        <div class="mb-3 col-md-6">
+	                            <label for="leavedate" class="form-label">퇴사일</label>
+	 							<p id="leavedate" name="leavedate">-</p>
+	                         </div>
+                          </div>
+                          
+                          <!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">
+		                  
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
+                        <form>
+                          <div class="row g-3">
+                          <div class="mb-3 col-md-6">
+                            <label for="department" class="form-label">부서</label>
+                            <p>인사팀</p>
+                          </div> 
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="position">직급</label>
+                            <p>대리</p>
+                          </div>
+                           <div class="mb-3 col-md-6">
+                            <label for="job" class="form-label">직책</label>
+                            <p>팀원</p>
+                          </div>
+                          </div>
+                          
+                          <!-- Activity Timeline -->
+						<br>
+		                <div class="row.g-3">
+		                 
+		                </div>
+	                <!--/ Activity Timeline -->
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>      
+              </div>
+              <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="tab-content">
+              	<div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+              		
+	              	</div> 	
+	              </div>
+	       		</div>
             </div>
             <!-- / Content -->
-            
-            
-            
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  Â©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with â¤ï¸ by
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
+                </div>
+                <div class="d-none d-lg-inline-block">
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                  <a
+                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+                    target="_blank"
+                    class="footer-link"
+                    >Documentation</a
+                  >
+
+                  <a
+                    href="https://themeselection.com/support/"
+                    target="_blank"
+                    class="footer-link d-none d-sm-inline-block"
+                    >Support</a
+                  >
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -530,131 +616,12 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <!-- Flat Picker -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    
-    <!-- Form Validation -->
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-ecommerce-settings.js"></script>
-    
-    <!-- custom JS -->
-    <script>
-    
-    $(function () {
-  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-  	  dt_multilingual_table2 = $('.dt-multilingual2');
-
-  	  // Multilingual DataTable
-  	  // --------------------------------------------------------------------
-
-  	  var lang = 'English';
-  	  if (dt_multilingual_table2.length) {
-  	    var table_language = dt_multilingual_table2.DataTable({
-  	      ajax: assetsPath + 'json/table-datatable.json',
-  	      columns: [
-  	        { data: '' },
-  	        { data: 'full_name' },
-  	        { data: 'post' },
-  	        { data: 'start_date' },
-  	      	{ data: 'start_date' },
-  	        { data: 'status' },
-  	        { data: '' }
-  	      ],
-  	      columnDefs: [
-  	        {
-  	          // For Responsive
-  	          className: 'control',
-  	          orderable: false,
-  	          targets: 0,
-  	          searchable: false,
-  	          render: function (data, type, full, meta) {
-  	            return '';
-  	          }
-  	        },
-  	        {
-  	          // Label
-  	          targets: -1,
-  	          render: function (data, type, full, meta) {
-  	            var $status_number = full['status'];
-  	            var $status = {
-  	              1: { title: 'Current', class: 'bg-label-primary' },
-  	              2: { title: 'Professional', class: ' bg-label-success' },
-  	              3: { title: 'Rejected', class: ' bg-label-danger' },
-  	              4: { title: 'Resigned', class: ' bg-label-warning' },
-  	              5: { title: 'Applied', class: ' bg-label-info' }
-  	            };
-  	            if (typeof $status[$status_number] === 'undefined') {
-  	              return data;
-  	            }
-  	            return (
-  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-  	            );
-  	          }
-  	        }
-  	      ],
-  	      language: {
-  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-  	      },
-  	      //paging: false,
-  	      displayLength: 10,
-  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-  	      lengthMenu: [10],
-  	      searching: false,
-  	      responsive: {
-  	        details: {
-  	          display: $.fn.dataTable.Responsive.display.modal({
-  	            header: function (row) {
-  	              var data = row.data();
-  	              return 'Details of ' + data['full_name'];
-  	            }
-  	          }),
-  	          type: 'column',
-  	          renderer: function (api, rowIdx, columns) {
-  	            var data = $.map(columns, function (col, i) {
-  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-  	                ? '<tr data-dt-row="' +
-  	                    col.rowIndex +
-  	                    '" data-dt-column="' +
-  	                    col.columnIndex +
-  	                    '">' +
-  	                    '<td>' +
-  	                    col.title +
-  	                    ':' +
-  	                    '</td> ' +
-  	                    '<td>' +
-  	                    col.data +
-  	                    '</td>' +
-  	                    '</tr>'
-  	                : '';
-  	            }).join('');
-
-  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-  	          }
-  	        }
-  	      }
-  	    });
-  	  }
-
-  	  // Filter form control to default size
-  	  // ? setTimeout used for multilingual table initialization
-  	  setTimeout(() => {
-  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  	  }, 300);
-  	});
-    
-    </script>
+    <script src="../../assets/js/app-user-view-account.js"></script>
   </body>
 </html>

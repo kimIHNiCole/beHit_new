@@ -15,17 +15,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Settings Store Details - eCommerce | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
-    
-    <!-- bootstrap 아이콘 -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-		<!-- pretendard 폰트 -->
-		<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,80 +42,41 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-		<link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-		<!-- Row Group CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
-    <!-- Form Validation -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
-	
+
     <!-- Page CSS -->
+
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
+    <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
-    <!-- custom CSS -->
     <style>
-    .col-lg-4{
-    	width:20%;
-    }
-    
-    .col-lg-8{
-     width:80%;
-    }
-    
-    .mb-1{
-    	margin-bottom:0.1rem !important;
-    }
-    
-    h5{
-    	font-family:pretendard;
-    	font-weight:600;
-    }
-    
-    h4{
-    	font-family:pretendard;
-    	font-weight:600;
-    }
-    
-    .apv-home{
-    	color:#c20000;
-    	margin-bottom:2rem;
-    }
-    
-    .apv-title{
-    	margin-top:0.125rem;
-    } 
-   
-    .apv-menu{
-    	margin-top: 1rem;
-    }
-    
-    .align-middle{
-    	font-family:pretendard;
-    	font-weight:500;
-    }
-    
-    .card{
-    	margin-bottom:3rem;
-    }
-    
-    .btn.btn-secondary{
-    	margin-top:1rem;
-   		font-family:pretendard;
-    	margin-bottom:0.625rem;
-    }
+
+
+/* 필터 글자  */
+.mb-4{
+	margin-bottom: 0.5rem !important;
+}
+/* 내일정보기랑 버튼 사이 마진 */
+.text-muted.text-uppercase{
+	margin-right: 1rem;
+}
+/* 내일정보기와 체크필터 사이 마진 */
+.checkFilter{
+	margin-bottom: 1rem;
+}
     
     </style>
-    
     
   </head>
 
@@ -128,8 +84,10 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
+        <!-- 여기서부터 붙여넣기 -->
+      
         <!-- Menu -->
-
+        
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="../home.go" class="app-brand-link">
@@ -154,7 +112,7 @@
               </a>
             </li>
             
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="../approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
@@ -175,7 +133,7 @@
               </a>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="../calendar/calendar.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="캘린더">캘린더</div>
@@ -252,8 +210,8 @@
 
         <!-- Layout container -->
         <div class="layout-page">
-        
-        <!-- Navbar -->
+          <!-- Navbar -->
+
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
@@ -266,22 +224,26 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
+                
               </div>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Language -->
                 <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+                  
                 </li>
                 <!-- /Language -->
 
                 <!-- Quick links  -->
                 <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+                  
                 </li>
                 <!-- Quick links -->
 
                 <!-- Style Switcher -->
                 <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                  
                 </li>
                 <!-- / Style Switcher-->
 
@@ -297,7 +259,6 @@
                     <span class="badge bg-danger rounded-pill badge-notifications">5</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end py-0">
-                  
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
                         <h5 class="text-body mb-0 me-auto">알림</h5>
@@ -311,7 +272,6 @@
                         ></a>
                       </div>
                     </li>
-                    
                     <li class="dropdown-notifications-list scrollable-container">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item list-group-item-action dropdown-notifications-item">
@@ -337,11 +297,9 @@
                         </li>
                       </ul>
                     </li>
-                    
                     <li class="dropdown-menu-footer border-top p-3">
                       <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
                     </li>
-                    
                   </ul>
                 </li>
                 <!--/ Notification -->
@@ -354,7 +312,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="pages-account-settings-account.go">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
@@ -371,6 +329,7 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
+                    
                     <li>
                       <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
                         <i class="bx bx-power-off me-2"></i>
@@ -382,124 +341,241 @@
                 <!--/ User -->
               </ul>
             </div>
+
+            <!-- Search Small Screens -->
+            
           </nav>
 
           <!-- / Navbar -->
+          
+          <!-- 여기까지 붙여넣기 -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- <h4 class="py-3 mb-4">전자 결재</h4> -->
+              <div class="card app-calendar-wrapper">
+                <div class="row g-0">
+                  <!-- Calendar Sidebar -->
+                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
+                    <div class="border-bottom p-4 my-sm-0 mb-3">
+                      <div class="d-grid">
+                        <button
+                          class="btn btn-primary btn-toggle-sidebar"
+                          data-bs-toggle="offcanvas"
+                          data-bs-target="#addEventSidebar"
+                          aria-controls="addEventSidebar">
+                          <i class="bx bx-plus me-1"></i>
+                          <span class="align-middle">일정 추가</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="p-4">
+                      <!-- inline calendar (flatpicker) -->
+                      <div class="ms-n2">
+                        <div class="inline-calendar"></div>
+                      </div>
 
-              <div class="row g-4">
-                <!-- Navigation -->
-                <div class="col-12 col-lg-4">
-                  <div class="d-flex justify-content-between flex-column mb-3 mb-md-0">
-                    <ul class="nav nav-align-left nav-pills flex-column">
-                    
-                    	<li class="nav-item mb-1">
-                    		<h4 class="apv-title">
-                    			전자 결재
-                    		</h4>
-                    	</li>
-                    	
-                    	<li class="nav-item mb-1">
-                    		<button type="button" class="btn btn-secondary">새 결재 작성</button>
-                    	</li>
-                    
-                    	<li class="nav-item mb-1">
-                    		<h5 class="apv-menu">
-                    			<i class="menu-icon tf-icons bx bx-food-menu"></i>
-                    			결재하기
-                    		</h5>
-                    	</li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="getApproval_list.go">
-                          <span class="align-middle">결재 요청 받은 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="compApproval_list.go">
-                          <span class="align-middle">결재 완료한 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="viewApproval_list.go">
-                          <span class="align-middle">열람 가능한 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                    		<h5 class="apv-menu">
-                    			<i class="menu-icon tf-icons bx bx-food-menu"></i>
-                    			상신한 결재
-                    		</h5>
-                    	</li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link active" href="requestApproval_list.go">
-                          <span class="align-middle">결재 요청한 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="finishApproval_list.go">
-                          <span class="align-middle">결재 완료된 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="temporaryApproval_list.go">
-                          <span class="align-middle">임시 저장된 문서</span>
-                        </a>
-                      </li>
-                      <li class="nav-item mb-1">
-                        <a class="nav-link" href="rejectedApproval_list.go">
-                          <span class="align-middle">반려된 문서</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- /Navigation -->
+                      <hr class="container-m-nx my-4" />
 
-                <!-- Options -->
-                <div class="col-12 col-lg-8 pt-4 pt-lg-0">
-                	<h4 class="apv-home">
-                		결재 요청한 문서
-                	</h4>
-                  <div class="tab-content p-0">
-                    <!-- Store Details Tab -->
-                    <div class="tab-pane fade show active" id="store_details" role="tabpanel">
-        
-				              <div class="card">
-				                <h5 class="card-header"> 결재 요청한 문서 리스트 </h5>
-				                <div class="card-datatable table-responsive">
-				                  <table class="dt-multilingual2 table border-top">
-				                    <thead>
-				                      <tr>
-				                        <th></th>
-				                        <th>문서양식</th>
-				                        <th>문서제목</th>
-				                        <th>상신일</th>
-				                        <th>마지막 결재일</th>
-				                        <th>현 결재자</th>
-				                        <th>결재 상태</th>
-				                      </tr>
-				                    </thead>
-				                  </table>
-				                </div>
-				              </div>
+                      <!-- Filter -->
+                      <div class="mb-4">
+                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
+                      </div>
+                      <div class="checkFilter">
+	                      <label class="switch">
+                              <input type="checkbox" class="switch-input allDay-switch">
+                              <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                              </span>
+                              <span class="switch-label">내 일정만 보기</span>
+                            </label>
+					  </div>
+                      <div class="form-check mb-2">
+                        <input
+                          class="form-check-input select-all"
+                          type="checkbox"
+                          id="selectAll"
+                          data-value="all"
+                          checked />
+                        <label class="form-check-label" for="selectAll">모든 일정</label>
+                      </div>
 
-
+                      <div class="app-calendar-events-filter">
+                        <div class="form-check form-check-danger mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-personal"
+                            data-value="personal"
+                            checked />
+                          <label class="form-check-label" for="select-personal">내 일정</label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-business"
+                            data-value="business"
+                            checked />
+                          <label class="form-check-label" for="select-business">프로젝트 일정</label>
+                        </div>
+                        <div class="form-check form-check-warning mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-family"
+                            data-value="family"
+                            checked />
+                          <label class="form-check-label" for="select-family">회의실 예약</label>
+                        </div>
+                        
+                      </div>
                     </div>
                   </div>
+                  <!-- /Calendar Sidebar -->
+
+                  <!-- Calendar & Modal -->
+                  <div class="col app-calendar-content">
+                    <div class="card shadow-none border-0">
+                      <div class="card-body pb-0">
+                        <!-- FullCalendar -->
+                        <div id="calendar"></div>
+                      </div>
+                    </div>
+                    <div class="app-overlay"></div>
+                    <!-- FullCalendar Offcanvas -->
+                    <div
+                      class="offcanvas offcanvas-end event-sidebar"
+                      tabindex="-1"
+                      id="addEventSidebar"
+                      aria-labelledby="addEventSidebarLabel">
+                      <div class="offcanvas-header border-bottom">
+                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">일정 상세</h5>
+                        <button
+                          type="button"
+                          class="btn-close text-reset"
+                          data-bs-dismiss="offcanvas"
+                          aria-label="Close"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
+                          <div class="mb-3">
+                            <label class="form-label" for="eventTitle">제목</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventTitle"
+                              name="eventTitle"
+                              placeholder="제목을 입력하세요" />
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label class="form-label" for="eventStartDate">일정 시작</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventStartDate"
+                              name="eventStartDate"
+                              placeholder="입력" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventEndDate">일정 끝</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventEndDate"
+                              name="eventEndDate"
+                              placeholder="입력" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="switch">
+                              <input type="checkbox" class="switch-input allDay-switch" />
+                              <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                              </span>
+                              <span class="switch-label">종일</span>
+                            </label>
+                          </div>
+                          
+                          <div class="mb-3 select2-primary">
+                            <label class="form-label" for="eventGuests">참여자 추가</label>
+                            <select
+                              class="select2 select-event-guests form-select"
+                              id="eventGuests"
+                              name="eventGuests"
+                              multiple>
+                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
+                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
+                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
+                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
+                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
+                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
+                            </select>
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label class="form-label" for="eventDescription">설명</label>
+                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
+                          </div>
+                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
+                            <div>
+                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">완료</button>
+                              <button
+                                type="reset"
+                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                                data-bs-dismiss="offcanvas">
+                                취소
+                              </button>
+                            </div>
+                            <div><button class="btn btn-label-danger btn-delete-event d-none">삭제</button></div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Calendar & Modal -->
                 </div>
-                <!-- /Options-->
               </div>
             </div>
             <!-- / Content -->
-            
-            
-            
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  Â©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with â¤ï¸ by
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
+                </div>
+                <div class="d-none d-lg-inline-block">
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                  <a
+                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+                    target="_blank"
+                    class="footer-link"
+                    >Documentation</a
+                  >
+
+                  <a
+                    href="https://themeselection.com/support/"
+                    target="_blank"
+                    class="footer-link d-none d-sm-inline-block"
+                    >Support</a
+                  >
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -530,131 +606,19 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <!-- Flat Picker -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    
-    <!-- Form Validation -->
+    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-ecommerce-settings.js"></script>
-    
-    <!-- custom JS -->
-    <script>
-    
-    $(function () {
-  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-  	  dt_multilingual_table2 = $('.dt-multilingual2');
-
-  	  // Multilingual DataTable
-  	  // --------------------------------------------------------------------
-
-  	  var lang = 'English';
-  	  if (dt_multilingual_table2.length) {
-  	    var table_language = dt_multilingual_table2.DataTable({
-  	      ajax: assetsPath + 'json/table-datatable.json',
-  	      columns: [
-  	        { data: '' },
-  	        { data: 'full_name' },
-  	        { data: 'post' },
-  	        { data: 'start_date' },
-  	      	{ data: 'start_date' },
-  	        { data: 'status' },
-  	        { data: '' }
-  	      ],
-  	      columnDefs: [
-  	        {
-  	          // For Responsive
-  	          className: 'control',
-  	          orderable: false,
-  	          targets: 0,
-  	          searchable: false,
-  	          render: function (data, type, full, meta) {
-  	            return '';
-  	          }
-  	        },
-  	        {
-  	          // Label
-  	          targets: -1,
-  	          render: function (data, type, full, meta) {
-  	            var $status_number = full['status'];
-  	            var $status = {
-  	              1: { title: 'Current', class: 'bg-label-primary' },
-  	              2: { title: 'Professional', class: ' bg-label-success' },
-  	              3: { title: 'Rejected', class: ' bg-label-danger' },
-  	              4: { title: 'Resigned', class: ' bg-label-warning' },
-  	              5: { title: 'Applied', class: ' bg-label-info' }
-  	            };
-  	            if (typeof $status[$status_number] === 'undefined') {
-  	              return data;
-  	            }
-  	            return (
-  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-  	            );
-  	          }
-  	        }
-  	      ],
-  	      language: {
-  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-  	      },
-  	      //paging: false,
-  	      displayLength: 10,
-  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-  	      lengthMenu: [10],
-  	      searching: false,
-  	      responsive: {
-  	        details: {
-  	          display: $.fn.dataTable.Responsive.display.modal({
-  	            header: function (row) {
-  	              var data = row.data();
-  	              return 'Details of ' + data['full_name'];
-  	            }
-  	          }),
-  	          type: 'column',
-  	          renderer: function (api, rowIdx, columns) {
-  	            var data = $.map(columns, function (col, i) {
-  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-  	                ? '<tr data-dt-row="' +
-  	                    col.rowIndex +
-  	                    '" data-dt-column="' +
-  	                    col.columnIndex +
-  	                    '">' +
-  	                    '<td>' +
-  	                    col.title +
-  	                    ':' +
-  	                    '</td> ' +
-  	                    '<td>' +
-  	                    col.data +
-  	                    '</td>' +
-  	                    '</tr>'
-  	                : '';
-  	            }).join('');
-
-  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-  	          }
-  	        }
-  	      }
-  	    });
-  	  }
-
-  	  // Filter form control to default size
-  	  // ? setTimeout used for multilingual table initialization
-  	  setTimeout(() => {
-  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  	  }, 300);
-  	});
-    
-    </script>
+    <script src="../../assets/js/app-calendar-events.js"></script>
+    <script src="../../assets/js/app-calendar.js"></script>
   </body>
 </html>

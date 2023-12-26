@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Email - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,15 +42,13 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
 
     <!-- Page CSS -->
 
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-email.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -59,6 +57,17 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <style>
+    
+    .container-xxl.flex-grow-1.container-p-y{
+    	width: 900px;
+    	padding-right: 120px;
+    	margin-right: 650px;
+    }
+    
+    </style>
+    
   </head>
 
   <body>
@@ -261,7 +270,7 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text" data-i18n="Apps & Pages">Apps &amp; Pages</span>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="app-email.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-envelope"></i>
                 <div class="text-truncate" data-i18n="Email">Email</div>
@@ -273,7 +282,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -1763,232 +1772,651 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
-                <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
-                        </button>
+              <div class="app-email card">
+                <div class="border-0">
+                  <div class="row g-0">
+                    
+                    <!-- Emails List -->
+                    <div class="col app-emails-list">
+                      <div class="card shadow-none border-0">
+                        <div class="card-body emails-list-header p-3 py-lg-3 py-2">
+                          <!-- Email List: Search -->
+                          
+                          <hr class="mx-n3 emails-list-header-hr" />
+                          <!-- Email List: Actions -->
+                          
+                        </div>
+                        <hr class="container-m-nx m-0" />
+                        <!-- Email List: Items -->
+                        <div class="email-list pt-0">
+                          <ul class="list-unstyled m-0">
+                          	
+                            
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    장비 구매 결재 재촉 세 번째</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    회식 장소 예약하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    장비 구매 결재 재촉하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    오킹 미팅 날짜 잡기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    양치하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            <li
+                              class="email-list-item email-marked-read"
+                              data-starred="true"
+                              data-bs-toggle="sidebar"
+                              data-target="#app-email-view">
+                              <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                  <input class="email-list-item-input form-check-input" type="checkbox" id="email-1" />
+                                  <label class="form-check-label" for="email-1"></label>
+                                </div>
+                                
+                                <div class="email-list-item-content ms-2 ms-sm-0 me-2">
+                                  <span class="email-list-item-username me-2 h6"></span>
+                                  <span class="email-list-item-subject d-xl-inline-block d-block">
+                                    장비 구매 결재 재촉하기</span
+                                  >
+                                </div>
+                                <div class="email-list-item-meta ms-auto d-flex align-items-center">
+                                  
+                                  <ul class="list-inline email-list-item-actions">
+                                    <li class="list-inline-item email-delete"><i class="bx bx-trash-alt fs-4"></i></li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </li>
+                            
+                            
+                          </ul>
+                          <ul class="list-unstyled m-0">
+                            <li class="email-list-empty text-center d-none">No items found.</li>
+                          </ul>
+                        </div>
                       </div>
+                      <div class="app-overlay"></div>
                     </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
-                      </div>
+                    <!-- /Emails List -->
 
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- Email View -->
+                    
+                    <!-- Email View -->
                   </div>
-                  <!-- /Calendar Sidebar -->
+                </div>
 
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
+                <!-- Compose Email -->
+                <div
+                  class="app-email-compose modal"
+                  id="emailComposeSidebar"
+                  tabindex="-1"
+                  aria-labelledby="emailComposeSidebarLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog m-0 me-md-4 mb-4 modal-lg">
+                    <div class="modal-content p-0">
+                      <div class="modal-header py-3 bg-body">
+                        <h5 class="modal-title fs-5">Compose Mail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                    </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
-                        <button
-                          type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
+                      <div class="modal-body flex-grow-1 pb-sm-0 p-4 py-2">
+                        <form class="email-compose-form">
+                          <div class="email-compose-to d-flex justify-content-between align-items-center">
+                            <label class="form-label mb-2" for="emailContacts">To:</label>
+                            <div class="select2-primary border-0 shadow-none flex-grow-1 mx-2">
+                              <select
+                                class="select2 select-email-contacts form-select"
+                                id="emailContacts"
+                                name="emailContacts"
+                                multiple>
+                                <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
+                                <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
+                                <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
+                                <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
+                                <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
+                                <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
+                              </select>
+                            </div>
+                            <div class="email-compose-toggle-wrapper mb-2">
+                              <a class="email-compose-toggle-cc text-body" href="javascript:void(0);">Cc |</a>
+                              <a class="email-compose-toggle-bcc text-body" href="javascript:void(0);">Bcc</a>
+                            </div>
+                          </div>
+
+                          <div class="email-compose-cc d-none">
+                            <hr class="mx-n4 my-2" />
+                            <div class="d-flex align-items-center">
+                              <label for="email-cc" class="form-label mb-0">Cc:</label>
+                              <input
+                                type="text"
+                                class="form-control border-0 shadow-none flex-grow-1 mx-2"
+                                id="email-cc"
+                                placeholder="someone@email.com" />
+                            </div>
+                          </div>
+                          <div class="email-compose-bcc d-none">
+                            <hr class="mx-n4 my-2" />
+                            <div class="d-flex align-items-center">
+                              <label for="email-bcc" class="form-label mb-0">Bcc:</label>
+                              <input
+                                type="text"
+                                class="form-control border-0 shadow-none flex-grow-1 mx-2"
+                                id="email-bcc"
+                                placeholder="someone@email.com" />
+                            </div>
+                          </div>
+                          <hr class="mx-n4 my-0" />
+                          <div class="email-compose-subject d-flex align-items-center my-1">
+                            <label for="email-subject" class="form-label mb-0">Subject:</label>
                             <input
                               type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
+                              class="form-control border-0 shadow-none flex-grow-1 mx-2"
+                              id="email-subject" />
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
+                          <div class="email-compose-message mx-n4">
+                            <div class="d-flex justify-content-end">
+                              <div class="email-editor-toolbar border-0 w-100 border-top">
+                                <span class="ql-formats me-0">
+                                  <button class="ql-bold"></button>
+                                  <button class="ql-italic"></button>
+                                  <button class="ql-underline"></button>
+                                  <button class="ql-list" value="ordered"></button>
+                                  <button class="ql-list" value="bullet"></button>
+                                  <button class="ql-link"></button>
+                                  <button class="ql-image"></button>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="email-editor border-0 border-top"></div>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
+                          <hr class="mx-n4 mt-0 mb-2" />
+                          <div
+                            class="email-compose-actions d-flex justify-content-between align-items-center my-2 py-1">
+                            <div class="d-flex align-items-center">
+                              <div class="btn-group">
+                                <button type="reset" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
+                                  Send
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                  data-bs-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">
+                                  <span class="visually-hidden">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="javascript:void(0);">Schedule send</a></li>
+                                  <li><a class="dropdown-item" href="javascript:void(0);">Save draft</a></li>
+                                </ul>
+                              </div>
+                              <label for="attach-file"><i class="bx bx-paperclip cursor-pointer ms-2"></i></label>
+                              <input type="file" name="file-input" class="d-none" id="attach-file" />
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <div class="dropdown">
+                                <button
+                                  class="btn p-0"
+                                  type="button"
+                                  id="dropdownMoreActions"
+                                  data-bs-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMoreActions">
+                                  <li><button type="button" class="dropdown-item">Add Label</button></li>
+                                  <li><button type="button" class="dropdown-item">Plain text mode</button></li>
+                                  <li>
+                                    <hr class="dropdown-divider" />
+                                  </li>
+                                  <li><button type="button" class="dropdown-item">Print</button></li>
+                                  <li><button type="button" class="dropdown-item">Check Spelling</button></li>
+                                </ul>
+                              </div>
+                              <button type="reset" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="bx bx-trash-alt"></i>
                               </button>
                             </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
-                  <!-- /Calendar & Modal -->
                 </div>
+                <!-- /Compose Email -->
               </div>
             </div>
             <!-- / Content -->
@@ -2056,19 +2484,15 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="../../assets/vendor/libs/quill/katex.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script>
     <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/block-ui/block-ui.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+    <script src="../../assets/js/app-email.js"></script>
   </body>
 </html>

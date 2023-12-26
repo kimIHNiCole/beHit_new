@@ -109,10 +109,22 @@
     	margin-bottom:3rem;
     }
     
+    .card.apv-modal-folder{
+    	min-width: 15.625rem;
+    }
+    
     .btn.btn-secondary{
     	margin-top:1rem;
    		font-family:pretendard;
     	margin-bottom:0.625rem;
+    }
+    
+    .modal{
+    	--bs-modal-width: 24.625rem;
+    }
+    
+    .bx.bxs-file-blank{
+    	color:#C20000;
     }
     
     </style>
@@ -125,10 +137,10 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        
+
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.go" class="app-brand-link">
+            <a href="../home.go" class="app-brand-link">
               <span class="app-brand-logo demo">
               	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
               </span>
@@ -144,42 +156,42 @@
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../home.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div class="text-truncate" data-i18n="홈">홈</div>
               </a>
             </li>
             
-            <li class="menu-item">
-              <a href="test" class="menu-link">
+            <li class="menu-item active">
+              <a href="../approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../creators/creator_list_all.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-slideshow"></i>
                 <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../project/project_main.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-customize"></i>
                 <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../calendar/calendar.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="캘린더">캘린더</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../reserve/reserveRoom_list.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-time-five"></i>
                 <div class="text-truncate" data-i18n="예약">예약</div>
               </a>
@@ -193,12 +205,12 @@
 
               <ul class="menu-sub">
               	<li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="../myHr/mhr_timeline.go" class="menu-link">
                     <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="../myHr/mhr_vacation.go" class="menu-link">
                     <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
                   </a>
                 </li>
@@ -206,7 +218,7 @@
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../chat/messenger.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-chat"></i>
                 <div class="text-truncate" data-i18n="메신저">메신저</div>
               </a>
@@ -219,7 +231,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="../employee/employee_list.go" class="menu-link">
                     <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
                   </a>
                 </li>
@@ -229,12 +241,12 @@
                   </a>
                   <ul class="menu-sub">
                     <li class="menu-item">
-                      <a href="#" class="menu-link">
+                      <a href="../employee/workHour_list.go" class="menu-link">
                         <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
                       </a>
                     </li>
                     <li class="menu-item">
-                      <a href="#" class="menu-link">
+                      <a href="../employee/vacation_list.go" class="menu-link">
                         <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
                       </a>
                     </li>
@@ -296,7 +308,7 @@
                   
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Notification</h5>
+                        <h5 class="text-body mb-0 me-auto">알림</h5>
                         <a
                           href="javascript:void(0)"
                           class="dropdown-notifications-all text-body"
@@ -466,13 +478,12 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       <div class="text-start mb-4">
                         <h3>결재 양식</h3>
-                        <p>적용할 결재 양식을 선택해주세요</p>
                       </div>
                       
                       <div>
                       	<div class="col-md-6 col-12">
-													<div class="card mb-md-0 mb-4">
-														<h5 class="card-header">Checkboxes</h5>
+													<div class="card mb-md-0 mb-4 apv-modal-folder">
+														<h5 class="card-header">문서양식</h5>
 														<div class="card-body">
 															<div id="jstree-checkbox"></div>
 														</div>
@@ -481,7 +492,7 @@
                       </div>
 
                       <div class="col-12 text-center">
-                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3">선택</button>
+                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">선택</button>
                         <button
                           type="reset"
                           class="btn btn-label-secondary btn-reset mt-3"
@@ -794,7 +805,7 @@
     	});
     
     
-    
+    // 새 결재 작성 모달창
     $(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
     	    checkboxTree = $('#jstree-checkbox');
@@ -838,7 +849,7 @@
     	          },
     	        ]
     	      },
-    	      plugins: ['types', 'checkbox', 'wholerow'],
+    	      plugins: ['types','checkbox', 'wholerow'],
     	      types: {
     	        default: {
     	          icon: 'bx bx-folder'
@@ -847,7 +858,25 @@
     	          icon: 'bx bxs-file-blank'
     	        }
     	      }
-    	    });
+    	    }).on('select_node.jstree', function (e, data) {
+    	        // 현재 선택된 노드의 ID 확인
+    	        var selectedNodeId = data.node.id;
+    	        
+    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
+    	        $('.apv-doc-select').off('click');
+    	        
+    	        // id 값에 따라 페이지 이동
+    	        $('.apv-doc-select').on('click',function(){
+    	        			if(selectedNodeId == 'j1_2'){
+    	        					location.href="approval_write.go";
+    	        			}else if(selectedNodeId == 'j1_3'){
+    	        				location.href="approval_write.go";
+    	        			}else if(selectedNodeId == 'j1_5'){
+    	        				location.href="approval_write.go";
+    	        			}
+    	        });
+    	        
+    	      });
     	  }
 
     	});

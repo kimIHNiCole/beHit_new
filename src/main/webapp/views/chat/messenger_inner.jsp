@@ -59,11 +59,11 @@
     
     <!-- 커스텀 -->
     <style>
-    /* 프로젝트 추가 버튼 */
+    /* 채팅방 추가 버튼 */
     .btn.btn-primary.text-nowrap{
     	margin-left: 5px;
-    	width: 25rem;
-    	font-size: 1rem;
+    	width: 130px;
+    	font-size: 13px;
     }
     /* 채팅 리스트 글씨 */
     .text-primary.mb-0{
@@ -81,99 +81,22 @@
     .text-muted.text-uppercase{
     	width: 150px;
     }
-
-	/* 사이드 바 폭 조정 */
-/* .app-chat .app-chat-contacts{
-flex-basis: 18rem;
-} */
-
-/* 채팅리스트 영역 조정 */
-.app-chat .app-chat-contacts .sidebar-body {
-  height: calc(calc(100vh - 10.5rem) - 4.49rem);
-}	
-	/* 채팅 내역 영역 전체 조정 */
-.col.app-chat-history{
-height: calc(100vh - 10rem);
-}
-	/* 채팅 내역 안쪽 영역 조정 */
+	/* 메시지 전송 버튼 */
+	.btn.btn-primary.d-flex.send-msg-btn{
+		width: 95px;
+	}    
+	
+	/* 영역 조정 */
 	.app-chat .app-chat-history .chat-history-body{
-		height: calc(100vh - 16rem);
+		height: calc(100vh - 20.1rem);
   		padding: 1.25rem 1.25rem;
   		overflow: hidden;
-  		margin-bottom: 1rem;
 	}
-
 .app-chat {
   position: relative;
   height: calc(100vh - 11rem);
 }
 
-.btn.btn-primary.text-nowrap.go{
-	width: 70px;
-	height: 30px;
-	margin-bottom: 7px;
-	background-color: #23a62e;
-	border-color: #23a62e;
-	font-size: 13px;
-	border-radius:0.3rem;
-}
-.btn.btn-primary.text-nowrap.wait{
-	width: 70px;
-	height: 30px;
-	margin-bottom: 7px;
-	background-color: #4974e3;
-	border-color: #4974e3;
-	font-size: 13px;
-	border-radius:0.3rem;
-}
-.btn.btn-primary.text-nowrap.end{
-	width: 70px;
-	height: 30px;
-	margin-bottom: 7px;
-	background-color: #969696;
-	border-color: #969696;
-	font-size: 13px;
-	border-radius :0.3rem;
-}
-.d-flex.justify-content-center{
-	margin-top: 1rem;
-}
-
-
-.chat-contact-list-item.pro {
-    border: 1px solid #DCDCDC;
-}
-.chat-contact-info.flex-grow-1.ms-3{
-	margin-left: 0.2rem !important
-}
-.py-3.mb-4{
-	margin-bottom: 1rem !important;
-}
-
-.text-muted.fw-light{
-	margin-left: 1.5rem;
-}
-
-/* 대시보드 부분 */
-.card.mb-4{
-	margin-bottom: 1rem !important
-}
-.card-header{
-	margin: 0rem;
-	padding: 0.8rem;
-	font-size: 13px;
-}
-
-.table-responsive{
-	min-height: 16rem !important;
-}
-/* 선택 탭과 셀렉트 박스 */
-    .form-select.create{
-    	width: 15rem;
-    	height: 3rem;
-    	margin: 0.5rem;
-
-    }
     
     </style>
   </head>
@@ -224,7 +147,7 @@ height: calc(100vh - 10rem);
               </a>
             </li>
             
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="../project/project_main.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-customize"></i>
                 <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
@@ -265,7 +188,7 @@ height: calc(100vh - 10rem);
               </ul>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="../chat/messenger.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-chat"></i>
                 <div class="text-truncate" data-i18n="메신저">메신저</div>
@@ -427,6 +350,7 @@ height: calc(100vh - 10rem);
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
+                    
                     <li>
                       <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
                         <i class="bx bx-power-off me-2"></i>
@@ -564,9 +488,21 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                     id="app-chat-contacts">
                     <div class="sidebar-header pt-3 px-3 mx-1">
                       <div class="d-flex align-items-center me-3 me-lg-0">
-                        
-                        
-                        <button class="btn btn-primary text-nowrap">프로젝트 추가</button>
+                        <div
+                          class="flex-shrink-0 avatar avatar-online me-2"
+                          data-bs-toggle="sidebar"
+                          data-overlay="app-overlay-ex"
+                          data-target="#app-chat-sidebar-left">
+                          <img
+                            class="user-avatar rounded-circle cursor-pointer"
+                            src="../../assets/img/avatars/1.png"
+                            alt="Avatar" />
+                        </div>
+                        <div class="text-muted text-uppercase">
+                        	<span class="chat-contact-name text-truncate m-0">한가인</span>
+                        	<div><span class="m-0">매니지먼트팀</span></div>
+                        	</div>
+                        <button class="btn btn-primary text-nowrap">채팅방 추가</button>
                        </div>
                     </div>
                     <hr class="container-m-nx mt-3 mb-0" />
@@ -574,7 +510,7 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                       <!-- Chats -->
                       <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <li class="chat-contact-list-item chat-contact-list-item-title">
-                          
+                          <h6 class="text-primary mb-0">채팅 리스트</h6>
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
                           <span class="input-group-text" id="basic-addon-search31"
                             ><i class="bx bx-search fs-4"></i
@@ -586,151 +522,170 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                             aria-label="Search..."
                             aria-describedby="basic-addon-search31" />
                         </div>
-                        
                         </li>
-                        <li>
-						    <div class="d-flex justify-content-center">
-						        <button class="btn btn-primary text-nowrap go">진행중</button>
-						        <button class="btn btn-primary text-nowrap wait">대기</button>
-						        <button class="btn btn-primary text-nowrap end">완료</button>
-						    </div>
-						</li>
                         <li class="chat-contact-list-item chat-list-item-0 d-none">
-                          <h6 class="text-muted mb-0">No Project Found</h6>
+                          <h6 class="text-muted mb-0">No Chats Found</h6>
                         </li>
-                        <li class="chat-contact-list-item pro active">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">크리에이터 영입</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2023-12-27</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                전은호</p>
+                        <!-- 온라인일 경우 표시 -->
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
                             </div>
-                            <small class="text-muted mb-auto">진행중</small>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">전은호</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                어디로 보내면 될까요?
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">16:05</small>
                           </a>
                         </li>
+                        <!-- 오프라인일 경우 표시 -->
+                        <li class="chat-contact-list-item active">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-offline">
+                              <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">김세연</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                11시 반에 시킬까?
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">10:58</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">오현비</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                너무 추워서 얼어죽어버릴 것만 같아요
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">9:11</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">이도훈</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                다 확인했지? 테이블 이대로 생성할게
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <!-- 바쁨 상태일 때(안 쓸 예정) 
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-busy">
+                              <span class="avatar-initial rounded-circle bg-label-success">CM</span>
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">Calvin Moore</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                If it takes long you can mail inbox user
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">1 Day</small>
+                          </a>
+                        </li>
+                        -->
                         
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호, 글씨테스트, 글씨테스트</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">진짜인지 가짜인지 모를 사나이 글씨테스트테스트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-02-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                김인혜</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
+                        
                       </ul>
                       
                     </div>
@@ -738,182 +693,193 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                   <!-- /Chat contacts -->
 
                   <!-- Chat History -->
-                   <!-- Content -->
-					<div class="col app-chat-history">
-						<div class ="top-tap-select" style="display: flex; justify-content: space-between;">
-					    <h4 class="py-3 mb-4"><span class="text-muted fw-light">프로젝트 현황 </span></h4>
-						   <select class="form-select create">
-		                     <option value="name">이도훈(본인)</option>
-		                     <option value="id">한가인</option>
-		                     <option value="department">정우성</option>
-		                     <option value="position">황정민</option>
-		                     <option value="title">정성화</option>
-		                </select>
-		                </div>
-					   
-					    <div class="chat-history-wrapper">
-					        <div class="chat-history-body">
-					            <div class="row">
-					                <!-- 첫 번째 줄 -->
-					                <div class="col-md-6">
-					                    <div class="card mb-4">
-					                        <div class="row">
-					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #f2d200; font-weight: bold;">즉시 작업</h5>
-					                            </div>
-					                        </div>
-					                        <div class="table-responsive mb-3pro">
-					                            <table class="table datatable-project">
-					                                <thead class="table-light">
-					                                    <tr>
-					                                        <th>종료일</th>
-					                                        <th>프로젝트명</th>
-					                                    </tr>
-					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    
-					                                </tbody>
-					                            </table>
-					                        </div>
-					                    </div>
-					                </div>
-					
-					                <div class="col-md-6">
-					                    <div class="card mb-4">
-					                        <div class="row">
-					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #4974e3; font-weight: bold;">대기</h5>
-					                            </div>
-					                        </div>
-					                        <div class="table-responsive mb-3">
-					                            <table class="table datatable-project">
-					                                <thead class="table-light">
-					                                    <tr>
-					                                        <th>시작일</th>
-					                                        <th>프로젝트명</th>
-					                                    </tr>
-					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                </tbody>
-					                            </table>
-					                        </div>
-					                    </div>
-					                </div>
-					            </div>
-					
-					            <!-- 두 번째 줄 -->
-					            <div class="row">
-					                <div class="col-md-6">
-					                    <div class="card mb-4">
-					                        <div class="row">
-					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #23a62e; font-weight: bold;">진행중</h5>
-					                            </div>
-					                        </div>
-					                        <div class="table-responsive mb-3">
-					                            <table class="table datatable-project">
-					                                <thead class="table-light">
-					                                    <tr>
-					                                        <th>시작일</th>
-					                                        <th>프로젝트명</th>
-					                                    </tr>
-					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                </tbody>
-					                            </table>
-					                        </div>
-					                    </div>
-					                </div>
-					
-					                <div class="col-md-6">
-					                    <div class="card mb-4">
-					                        <div class="row">
-					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #C20000; font-weight: bold;">지연</h5>
-					                            </div>
-					                        </div>
-					                        <div class="table-responsive mb-3">
-					                            <table class="table datatable-project">
-					                                <thead class="table-light">
-					                                    <tr>
-					                                        <th>종료일</th>
-					                                        <th>프로젝트명</th>
-					                                    </tr>
-					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                </tbody>
-					                            </table>
-					                        </div>
-					                    </div>
-					                </div>
-					                
-					                
-					                
-					            </div>
-					        </div>
-					    </div>
-					</div>
-                  
+                  <div class="col app-chat-history">
+                    <div class="chat-history-wrapper">
+                      <div class="chat-history-header border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex overflow-hidden align-items-center">
+                            <i
+                              class="bx bx-menu bx-sm cursor-pointer d-lg-none d-block me-2"
+                              data-bs-toggle="sidebar"
+                              data-overlay
+                              data-target="#app-chat-contacts"></i>
+                            <div class="flex-shrink-0 avatar">
+                              <img
+                                src="../../assets/img/avatars/2.png"
+                                alt="Avatar"
+                                class="rounded-circle"
+                                data-bs-toggle="sidebar"
+                                data-overlay
+                                data-target="#app-chat-sidebar-right" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="m-0">김세연</h6>
+                              <small class="user-status text-muted">인사팀</small>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                      <div class="chat-history-body">
+                        <ul class="list-unstyled chat-history mb-0">
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">보여줄게 완전히 달라진 나</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">
+                                  <i class="bx bx-check-double text-success"></i>
+                                  <small>09:00 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message">
+                            <div class="d-flex overflow-hidden">
+                              <div class="user-avatar flex-shrink-0 me-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">오늘은 지각을 조금밖에 안 했구만</p>
+                                  <p class="mb-0">이 정도만 해도 만족스러워😊</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">제군들 부대장은 실망했다</p>
+                                </div>
+                                <div class="text-muted mt-1">
+                                  <small>09:02 AM</small>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">얍얍</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">
+                                  <i class="bx bx-check-double text-success"></i>
+                                  <small>10:03 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message">
+                            <div class="d-flex overflow-hidden">
+                              <div class="user-avatar flex-shrink-0 me-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">아무 말 대잔치</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">배는 안 고픈데 맛있는 게 먹고 싶다</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">맥도날드❤️❤️❤️❤️</p>
+                                </div>
+                                <div class="text-muted mt-1">
+                                  <small>10:11 AM</small>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">신메뉴 맛있었으면 좋겠넹</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">
+                                  <i class="bx bx-check-double text-success"></i>
+                                  <small>10:12 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message">
+                            <div class="d-flex overflow-hidden">
+                              <div class="user-avatar flex-shrink-0 me-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">히스토리 너무 길어</p>
+                                </div>
+                                <div class="chat-message-text mt-2">
+                                  <p class="mb-0">삭제하겠습니다!</p>
+                                </div>
+                                <div class="text-muted mt-1">
+                                  <small>10:20 AM</small>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="chat-message chat-message-right">
+                            <div class="d-flex overflow-hidden">
+                              <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                  <p class="mb-0">네엡</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">                             
+                                  <small>11:00 AM</small>
+                                </div>
+                              </div>
+                              <div class="user-avatar flex-shrink-0 ms-3">
+                                <div class="avatar avatar-sm">
+                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                      <!-- Chat message form -->
+                      <div class="chat-history-footer">
+                        <form class="form-send-message d-flex justify-content-between align-items-center">
+                          <input
+                            class="form-control message-input border-0 me-3 shadow-none"
+                            placeholder="메시지를 입력하세요..." />
+                          <div class="message-actions d-flex align-items-center">                      
+                            <label for="attach-doc" class="form-label mb-0">
+                              <i class="bx bx-paperclip bx-sm cursor-pointer mx-3 text-body"></i>
+                              <input type="file" id="attach-doc" hidden />
+                            </label>
+                            <button class="btn btn-primary d-flex send-msg-btn">
+                              <i class="bx bx-paper-plane me-md-1 me-0"></i>
+                              <span class="align-middle d-md-inline-block d-none">전송</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                   <!-- /Chat History -->
 
                   <!-- Sidebar Right -->

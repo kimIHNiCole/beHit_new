@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Dashboard - CRM | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,16 +42,16 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
-
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
-
+	<style>
+		.project_main_title{
+			border-bottom: 1px solid gray;
+		}
+	</style>
+	
+	
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -131,7 +131,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
@@ -143,7 +143,7 @@
                     <div class="text-truncate" data-i18n="Analytics">Analytics</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="dashboards-crm.go" class="menu-link">
                     <div class="text-truncate" data-i18n="CRM">CRM</div>
                   </a>
@@ -273,7 +273,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -1761,234 +1761,1202 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
+            
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card app-calendar-wrapper">
-                <div class="row g-0">
-                  <!-- Calendar Sidebar -->
-                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                    <div class="border-bottom p-4 my-sm-0 mb-3">
-                      <div class="d-grid">
-                        <button
-                          class="btn btn-primary btn-toggle-sidebar"
-                          data-bs-toggle="offcanvas"
-                          data-bs-target="#addEventSidebar"
-                          aria-controls="addEventSidebar">
-                          <i class="bx bx-plus me-1"></i>
-                          <span class="align-middle">Add Event</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
-                      <div class="ms-n2">
-                        <div class="inline-calendar"></div>
-                      </div>
+            <div class="project_main_title">
+	       		<h3>프로젝트 현황</h3>
+            </div>
+              <div class="row">
 
-                      <hr class="container-m-nx my-4" />
-
-                      <!-- Filter -->
-                      <div class="mb-4">
-                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
-                      </div>
-
-							<label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-							
-                      <div class="form-check mb-2">
-                        <input
-                          class="form-check-input select-all"
-                          type="checkbox"
-                          id="selectAll"
-                          data-value="all"
-                          checked />
-                        <label class="form-check-label" for="selectAll">View All</label>
-                      </div>
-
-                      <div class="app-calendar-events-filter">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">Personal</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">Business</label>
-                        </div>
-                        <div class="form-check form-check-warning mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-family"
-                            data-value="family"
-                            checked />
-                          <label class="form-check-label" for="select-family">Family</label>
-                        </div>
-                        <div class="form-check form-check-success mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-holiday"
-                            data-value="holiday"
-                            checked />
-                          <label class="form-check-label" for="select-holiday">Holiday</label>
-                        </div>
-                        <div class="form-check form-check-info">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-etc"
-                            data-value="etc"
-                            checked />
-                          <label class="form-check-label" for="select-etc">ETC</label>
-                        </div>
-                      </div>
+                <!-- 즉시 작업 테이블 -->
+                <div class="col-md-6 col-lg-5 mb-0">
+                  <div class="card">
+                    <div class="card-datatable table-responsive">
+                      <table class="invoice-list-table table">
+                        <thead>
+                          <tr>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th class="cell-fit">Paid By</th>
+                            <th class="cell-fit">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Henry Barnes</a
+                                  >
+                                  <small class="text-truncate text-muted">jok@puc.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$459.65</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/20.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Hallie Warner</a
+                                  >
+                                  <small class="text-truncate text-muted">hellie@war.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$93.81</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Gerald Flowers</a
+                                  >
+                                  <small class="text-truncate text-muted">initus@odemi.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$934.35</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/14.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >John Davidson</a
+                                  >
+                                  <small class="text-truncate text-muted">jtum@upkesja.gov</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$794.97</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <span class="avatar-initial rounded-circle bg-label-warning">JH</span>
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Jayden Harris</a
+                                  >
+                                  <small class="text-truncate text-muted">wipare@tin.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$19.49</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/8.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Rena Ferguson</a
+                                  >
+                                  <small class="text-truncate text-muted">nur@kaomor.edu</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$636.27</td>
+                            <td><span class="badge bg-label-danger"> Failed </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                  <!-- /Calendar Sidebar -->
-
-                  <!-- Calendar & Modal -->
-                  <div class="col app-calendar-content">
-                    <div class="card shadow-none border-0">
-                      <div class="card-body pb-0">
-                        <!-- FullCalendar -->
-                        <div id="calendar"></div>
-                      </div>
-                    </div>
-                    <div class="app-overlay"></div>
-                    <!-- FullCalendar Offcanvas -->
-                    <div
-                      class="offcanvas offcanvas-end event-sidebar"
-                      tabindex="-1"
-                      id="addEventSidebar"
-                      aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
-                        <button
-                          type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
-                            </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Calendar & Modal -->
                 </div>
+                <!--/ 즉시 작업 테이블 -->
+                <!-- 대기 테이블 -->
+                <div class="col-md-6 col-lg-5 mb-0">
+                  <div class="card">
+                    <div class="card-datatable table-responsive">
+                      <table class="invoice-list-table table">
+                        <thead>
+                          <tr>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th class="cell-fit">Paid By</th>
+                            <th class="cell-fit">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Henry Barnes</a
+                                  >
+                                  <small class="text-truncate text-muted">jok@puc.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$459.65</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/20.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Hallie Warner</a
+                                  >
+                                  <small class="text-truncate text-muted">hellie@war.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$93.81</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Gerald Flowers</a
+                                  >
+                                  <small class="text-truncate text-muted">initus@odemi.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$934.35</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/14.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >John Davidson</a
+                                  >
+                                  <small class="text-truncate text-muted">jtum@upkesja.gov</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$794.97</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <span class="avatar-initial rounded-circle bg-label-warning">JH</span>
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Jayden Harris</a
+                                  >
+                                  <small class="text-truncate text-muted">wipare@tin.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$19.49</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/8.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Rena Ferguson</a
+                                  >
+                                  <small class="text-truncate text-muted">nur@kaomor.edu</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$636.27</td>
+                            <td><span class="badge bg-label-danger"> Failed </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--/ 대기 테이블 -->
+                <!-- 진행중 테이블 -->
+                <div class="col-md-6 col-lg-5 mb-0">
+                  <div class="card">
+                    <div class="card-datatable table-responsive">
+                      <table class="invoice-list-table table">
+                        <thead>
+                          <tr>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th class="cell-fit">Paid By</th>
+                            <th class="cell-fit">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Henry Barnes</a
+                                  >
+                                  <small class="text-truncate text-muted">jok@puc.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$459.65</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/20.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Hallie Warner</a
+                                  >
+                                  <small class="text-truncate text-muted">hellie@war.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$93.81</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Gerald Flowers</a
+                                  >
+                                  <small class="text-truncate text-muted">initus@odemi.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$934.35</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/14.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >John Davidson</a
+                                  >
+                                  <small class="text-truncate text-muted">jtum@upkesja.gov</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$794.97</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <span class="avatar-initial rounded-circle bg-label-warning">JH</span>
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Jayden Harris</a
+                                  >
+                                  <small class="text-truncate text-muted">wipare@tin.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$19.49</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/8.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Rena Ferguson</a
+                                  >
+                                  <small class="text-truncate text-muted">nur@kaomor.edu</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$636.27</td>
+                            <td><span class="badge bg-label-danger"> Failed </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--/ 진행중 테이블 -->
+                <!-- 지연 테이블 -->
+                <div class="col-md-6 col-lg-5 mb-0">
+                  <div class="card">
+                    <div class="card-datatable table-responsive">
+                      <table class="invoice-list-table table">
+                        <thead>
+                          <tr>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th class="cell-fit">Paid By</th>
+                            <th class="cell-fit">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Henry Barnes</a
+                                  >
+                                  <small class="text-truncate text-muted">jok@puc.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$459.65</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/20.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Hallie Warner</a
+                                  >
+                                  <small class="text-truncate text-muted">hellie@war.co.uk</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$93.81</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Gerald Flowers</a
+                                  >
+                                  <small class="text-truncate text-muted">initus@odemi.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$934.35</td>
+                            <td><span class="badge bg-label-warning"> Pending </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/visa-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="visaCard"
+                                data-app-light-img="icons/payments/visa-light.png"
+                                data-app-dark-img="icons/payments/visa-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/14.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >John Davidson</a
+                                  >
+                                  <small class="text-truncate text-muted">jtum@upkesja.gov</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$794.97</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <span class="avatar-initial rounded-circle bg-label-warning">JH</span>
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Jayden Harris</a
+                                  >
+                                  <small class="text-truncate text-muted">wipare@tin.com</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$19.49</td>
+                            <td><span class="badge bg-label-success"> Paid </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/master-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="masterCard"
+                                data-app-light-img="icons/payments/master-light.png"
+                                data-app-dark-img="icons/payments/master-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-2">
+                                    <img src="../../assets/img/avatars/8.png" alt="Avatar" class="rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                  <a href="pages-profile-user.go" class="text-body text-truncate fw-medium"
+                                    >Rena Ferguson</a
+                                  >
+                                  <small class="text-truncate text-muted">nur@kaomor.edu</small>
+                                </div>
+                              </div>
+                            </td>
+                            <td>$636.27</td>
+                            <td><span class="badge bg-label-danger"> Failed </span></td>
+                            <td>
+                              <img
+                                src="../../assets/img/icons/payments/paypal-light.png"
+                                class="img-fluid"
+                                width="50"
+                                alt="paypalCard"
+                                data-app-light-img="icons/payments/paypal-light.png"
+                                data-app-dark-img="icons/payments/paypal-dark.png" />
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="dropdown">
+                                  <a
+                                    href="javascript:;"
+                                    class="btn dropdown-toggle hide-arrow text-body p-0"
+                                    data-bs-toggle="dropdown"
+                                    ><i class="bx bx-dots-vertical-rounded"></i
+                                  ></a>
+                                  <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                    <a href="javascript:;" class="dropdown-item">Duplicate</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:;" class="dropdown-item delete-record text-danger">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--/ 지연 테이블 -->
+                
               </div>
             </div>
             <!-- / Content -->
@@ -2056,19 +3024,12 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-calendar-events.js"></script>
-    <script src="../../assets/js/app-calendar.js"></script>
+    <script src="../../assets/js/dashboards-crm.js"></script>
   </body>
 </html>

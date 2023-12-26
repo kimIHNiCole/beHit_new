@@ -1714,7 +1714,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h6> <a href="newcreator">전체리스트</a> | <a href="changecreator">나의 크리에이터</a></h6>
+            <h6> <a href="../creators/creator_list_my.go">전체리스트</a> | <a href="../creators/creator_detail.go">나의 크리에이터</a></h6>
               <div class="row g-4 mb-4">
                 <div class="col-sm-6 col-xl-3">
                   <div class="card">

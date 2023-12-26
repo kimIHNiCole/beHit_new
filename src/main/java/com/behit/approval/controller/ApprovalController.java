@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ApprovalController {
 	
 	
-	@GetMapping(value="/approval_main.go")
+	@GetMapping(value="approval/approval_main.go")
 	public String approval_main() {
 		return "approval_main";
 	}
@@ -44,5 +44,46 @@ public class ApprovalController {
 	public String rejectedApproval_list() {
 		return "rejectedApproval_list";
 	}
+	
+	@GetMapping(value="/approval_write.go")
+	public String approval_write() {
+		return "approval_write";
+	}
+	
+	@GetMapping(value="/requestApproval_detail.go")
+	public String requestApproval_detail() {
+		return "requestApproval_detail";
+	}
+	
+	@GetMapping(value="/getApproval_detail.go")
+	public String getApproval_detail() {
+		return "getApproval_detail";
+	}
+	
+	@GetMapping(value="/compApproval_detail.go")
+	public String compApproval_detail() {
+		return "compApproval_detail";
+	}
+	
+	@GetMapping(value="/viewApproval_detail.go")
+	public String viewApproval_detail() {
+		return "viewApproval_detail";
+	}
+	
+	@GetMapping(value="/finishApproval_detail.go")
+	public String finishApproval_detail() {
+		return "finishApproval_detail";
+	}
+	
+	@GetMapping(value="/temporaryApproval_detail.go")
+	public String temporaryApproval_detail() {
+		return "temporaryApproval_detail";
+	}
+	
+	@GetMapping(value="/rejectedApproval_detail.go")
+	public String rejectedApproval_detail() {
+		return "rejectedApproval_detail";
+	}
+
 
 }
