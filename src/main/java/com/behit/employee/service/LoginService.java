@@ -15,9 +15,15 @@ public class LoginService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public EmployeeDTO login(String emp_id, String password) {
-		logger.info("login() 실행 || prameter = "+emp_id+" / "+ password);
-		return dao.login(emp_id, password);
+	public String getPw(String emp_id) {
+		logger.info("getPw() 실행");
+		return dao.getPw(emp_id);
 	}
+	
+	public EmployeeDTO login(String emp_id) {
+		logger.info("login() 실행 || prameter = "+emp_id);
+		return dao.login(emp_id);
+	}
+
 
 }

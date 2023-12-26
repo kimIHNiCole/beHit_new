@@ -7,6 +7,9 @@ import com.behit.employee.dto.EmployeeDTO;
 @Mapper
 public interface LoginDAO {
 
-	EmployeeDTO login(String emp_id, String password);
+	String getPw(String emp_id);
+	
+	EmployeeDTO login(String emp_id);
+
 
 }
