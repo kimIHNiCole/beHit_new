@@ -1781,17 +1781,28 @@
         <div class="card-datatable table-responsive" style="overflow-x: hidden;">
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <!-- 탭 추가 -->
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="tab-active" href="#">재직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-on-leave" href="#">휴직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-resigned" href="#">퇴사자</a>
-                        </li>
+                    <!-- 탭 추가 -->                    
+                    <ul class="nav nav-pills" role="tablist">
+                      <li class="nav-item">
+                        <button
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-personal"
+                          role="tab"
+                          aria-selected="true">
+                          재직자
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-account"
+                          role="tab"
+                          aria-selected="false">
+                          퇴사자
+                        </button>
+                      </li>
                     </ul>
                 </div>
 
@@ -1817,21 +1828,47 @@
                     <button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
                 </div>
             </div>
-            <table class="datatables-basic table border-top" style="margin-top: -10px;">
-                <thead>
-                    <tr>
-                        <th colspan="2">이름 / 아이디</th>
-                        <th style="width: 200px;">부서</th>
-                        <th style="width: 200px;">직급</th>
-                        <th style="width: 200px;">직책</th>
-                        <th>채팅</th>
-                        <th>직원상세</th>
-                    </tr>
-                </thead>
-                <tbody id="elist">
-                
-                </tbody>
-            </table>
+            
+            <div class="tab-content">
+            	<div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
+                	<div class="row g-3">
+						<table class="datatables-basic table border-top" style="margin-top: -10px;">
+                			<thead>
+                    			<tr>
+			                        <th colspan="2">이름 / 아이디</th>
+			                        <th style="width: 200px;">부서</th>
+			                        <th style="width: 200px;">직급</th>
+			                        <th style="width: 200px;">직책</th>
+			                        <th>채팅</th>
+			                        <th>직원상세</th>
+			                    </tr>
+			                </thead>
+			                <tbody id="elist">
+			                
+			                </tbody>
+			            </table>
+                    </div>
+                </div>
+           		<div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
+                	<div class="row g-3">
+						<table class="datatables-basic table border-top" style="margin-top: -10px;">
+                			<thead>
+                    			<tr>
+			                        <th colspan="2">이름 / 아이디</th>
+			                        <th style="width: 200px;">부서</th>
+			                        <th style="width: 200px;">직급</th>
+			                        <th style="width: 200px;">직책</th>
+			                        <th>채팅</th>
+			                        <th>직원상세</th>
+			                    </tr>
+			                </thead>
+			                <tbody id="elist">
+			                
+			                </tbody>
+			            </table>                            
+                   	</div>
+              	</div>
+         	</div>
         </div>
 	    <div class="container" style="display: flex; justify-content: flex-end;">									
 			<nav aria-label="Page navigation" style="text-align:center">
@@ -1917,14 +1954,19 @@
 	function drawList(obj){
 		
 		var content = '';
+		var defaultdate = new Date('9999-10-10');
+		
 		
 		obj.elist.forEach(function(item, idx) {
-			if(item.department != 0) {
+			console.log(defaultdate);
+			console.log(item.leavedate);
+			
+			if(item.department != 0 && item.leavedate !== defaultdate) {
 				content += '<tr>';
 				content +='<td>'+'img'+'</td>';
 				content +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted">'+item.emp_id+'</small>'+'</div>'+'</td>';
+					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
 				switch (item.department) {
 				case 1:
 					content +='<td>'+'무소속'+'</td>';
@@ -1982,7 +2024,7 @@
 					content +='<td>'+'팀원'+'</td>';
 					break; }
 				content +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				content +='<td>'+'<a href="/empdetail.go" class="btn btn-sm btn-primary btn-view-details">'+'직원 상세보기'+'</a>'+'</td>';
+				content +='<td>'+'<button type ="button" class="btn btn-sm btn-primary btn-view-details" onclick="edetail()">'+'직원 상세보기'+'</button>'+'</td>';
 				content += '</tr>';
 			}
 		});
@@ -2003,8 +2045,26 @@
 				}
 			}
 		});
-		
 	}
+	
+/* 	function edetail(){
+		var emp_id = $(event.target).closest('tr').find('#emp_id').text();
+		console.log(emp_id);
+		
+		$.ajax({
+			type: 'get',
+			url: 'empid.add',
+			data: {'emp_id':emp_id},
+			dataType: 'json',
+			success:function(data){
+				console.log(data);
+				location.href = 'empdetail.go';
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	} */
 
      </script>
   </body>

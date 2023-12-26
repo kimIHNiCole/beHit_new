@@ -15,11 +15,16 @@
 		SELECT emp_id, emp_name, 
 					CAST(SUBSTRING(position_idx FROM 1 FOR 1) AS INT) AS department,
 					CAST(SUBSTRING(position_idx FROM 2 FOR 1) AS INT) AS rank,
-					CAST(SUBSTRING(position_idx FROM 3 FOR 1) AS INT) AS job FROM employee limit 10 offset #{param1};
+					CAST(SUBSTRING(position_idx FROM 3 FOR 1) AS INT) AS job,
+					leavedate FROM employee limit 10 offset #{param1};
 	</select>
 	
 	<select id="totalPage" resultType="int">
    		SELECT CEIL(COUNT(emp_id)/#{param1}) AS pages FROM employee;
     </select>
+    
+    <select id="detail" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT * FROM employee WHERE emp_id = #{emp_id};
+	</select>
 	
 </mapper>
