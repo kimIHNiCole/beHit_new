@@ -11,4 +11,8 @@
 	<select id="login" parameterType="String" resultType="employee">
 		SELECT * FROM employee WHERE emp_id = #{emp_id}  
 	</select>
+	
+	<update id="lockCnt" parameterType="String">
+		UPDATE INTO employee ()
+	</update>
 </mapper>

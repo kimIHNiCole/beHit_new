@@ -30,6 +30,7 @@ public class LoginController {
 		logger.info(emp_id+" / "+ password);
 		ModelAndView mav = new ModelAndView();
 		
+		int lockCnt = 0;
 		String hashPw = service.getPw(emp_id);
 		boolean success = encoder.matches(password, hashPw);
 		if(success) {
@@ -40,6 +41,7 @@ public class LoginController {
 			
 		}else {
 			logger.info("로그인 에러");
+			lockCnt = service.lockCnt(emp_id);
 			rAttr.addFlashAttribute("msg","비밀번호를 확인해주세요");
 			mav.setViewName("redirect:/");
 		}

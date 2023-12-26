@@ -11,5 +11,7 @@ public interface LoginDAO {
 	
 	EmployeeDTO login(String emp_id);
 
+	int lockCnt(String emp_id);
+
 
 }

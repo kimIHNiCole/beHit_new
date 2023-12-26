@@ -2,7 +2,6 @@ package com.behit.employee.controller;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,14 +30,14 @@ public class EmployeeController {
 		return "home";
 	}
 	
-	@GetMapping(value = "/join.go")
+	@GetMapping(value = "/empadd.go")
 	public String empAddGo() {
 		logger.info("직원 등록 페이지로 이동");
 		return "employee/employee_add";
 	}
 	
 	// 추후 경로 수정
-	@PostMapping(value = "/join.do")
+	@PostMapping(value = "/empadd.do")
 	public ModelAndView empjoin(@RequestParam HashMap<String, Object> params) {
 		
 		ModelAndView mav = new ModelAndView();
