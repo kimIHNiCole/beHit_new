@@ -1,5 +1,6 @@
 package com.behit.employee.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.behit.employee.dao.EmployeeDAO;
+import com.behit.employee.dto.EmployeeDTO;
 
 @Service
 public class EmployeeService {
@@ -28,5 +30,28 @@ public class EmployeeService {
 		params.put("position", position);
 		
 		return employeeDAO.join(params);
+	}
+
+	public HashMap<String, Object> list(String page) {
+		
+		int p = Integer.parseInt(page);
+		
+		int offset = (p-1) * 10;	
+		
+		ArrayList<EmployeeDTO> elist = employeeDAO.elist(offset);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int pages = employeeDAO.totalPage(10);
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
+		
+		if (p > pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages);
+		map.put("elist", elist);
+		
+		return map;
 	}
 }

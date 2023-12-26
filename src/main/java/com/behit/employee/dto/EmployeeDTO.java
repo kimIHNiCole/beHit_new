@@ -18,13 +18,36 @@ public class EmployeeDTO {
 	private Date leavedate;
 	private String address;
 	private String detail_addr;
+	private int position_idx;
+	private int department;
+	private int rank;
+	private int job;
 	private int login_lock;
 	private String insert_id;
 	private Date insert_date;
 	private String update_id;
 	private Date update_date;
-	private int position_idx;
 	
+	
+	public int getDepartment() {
+		return department;
+	}
+	public void setDepartment(int department) {
+		this.department = department;
+	}
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	public int getJob() {
+		return job;
+	}
+	public void setJob(int job) {
+		this.job = job;
+	}
+
 	public String getEmp_id() {
 		return emp_id;
 	}
@@ -127,7 +150,4 @@ public class EmployeeDTO {
 	public void setPosition_idx(int position_idx) {
 		this.position_idx = position_idx;
 	}
-	
-	
-	
 }
