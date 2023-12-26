@@ -85,6 +85,17 @@
 	.btn.btn-primary.d-flex.send-msg-btn{
 		width: 95px;
 	}    
+	
+	/* 영역 조정 */
+	.app-chat .app-chat-history .chat-history-body{
+		height: calc(100vh - 20.1rem);
+  		padding: 1.25rem 1.25rem;
+  		overflow: hidden;
+	}
+.app-chat {
+  position: relative;
+  height: calc(100vh - 11rem);
+}
 
     
     </style>
@@ -1995,6 +2006,76 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                               <h6 class="chat-contact-name text-truncate m-0">이도훈</h6>
                               <p class="chat-contact-status text-truncate mb-0 text-muted">
                                 다 확인했지? 테이블 이대로 생성할게
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">2023-12-22</small>
+                          </a>
+                        </li>
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">윤예성</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                회의실 3개 안 이상하다니까
                               </p>
                             </div>
                             <small class="text-muted mb-auto">2023-12-22</small>

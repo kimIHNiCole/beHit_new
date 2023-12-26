@@ -142,7 +142,7 @@
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../project/project_main.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-customize"></i>
                 <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
               </a>

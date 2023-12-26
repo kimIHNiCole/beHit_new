@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>User View - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User List - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,7 +42,9 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
@@ -55,6 +57,35 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <!-- 커스텀 -->
+    <style>
+    /* 선택 탭과 셀렉트 박스 */
+    .form-select.create{
+    	width: 15rem;
+    }
+    .top-tap-select{
+    	margin-bottom: 0.5rem;
+    }
+    .top-tap-only{
+    	margin-top: 0.7rem;
+    	font-size: 18px;
+    }
+    /* 중간 버튼 */
+	.d-flex.justify-content-end.pt-3{
+		margin-top: -1.3rem;
+	}
+	.btn.btn-label-danger.suspend-user{
+		margin-right: 0.7rem;
+	}
+	
+	.btn.btn-primary.me-3{
+		margin-right: 0rem !important;
+	}
+	
+    
+    </style>
+    
   </head>
 
   <body>
@@ -494,50 +525,10 @@
               </ul>
             </li>
             <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="changecreator" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="Users">Users</div>
+                <div class="text-truncate" data-i18n="Users">크리에이터</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-user-list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="List">List</div>
-                  </a>
-                </li>
-
-                <li class="menu-item active open">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="View">View</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-user-view-account.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Account">Account</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-security.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Security">Security</div>
-                      </a>
-                    </li>
-                    <li class="menu-item active">
-                      <a href="app-user-view-billing.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Billing & Plans">Billing & Plans</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-notifications.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-connections.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -1265,14 +1256,7 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item navbar-search-wrapper mb-0">
-                  <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
-                    <i class="bx bx-search bx-sm"></i>
-                    <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
-                  </a>
-                </div>
-              </div>
+
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -1754,987 +1738,155 @@
 
           <!-- / Navbar -->
 
-          <!-- Content wrapper -->
+          <!-- Content wrapper --> <!-- 여기서부터~~~~~ -->
           <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">User / View /</span> Billing & Plans</h4>
+            <div class ="top-tap-select" style="display: flex; justify-content: space-between;">
+			    <h6 class="top-tap-only"><a href="../creators/creator_list_my.go">전체리스트</a> | <a href="../creators/creator_detail.go">나의 크리에이터</a></h6>
+			    <select class="form-select create">
+                     <option value="name">이도훈(본인)</option>
+                     <option value="id">한가인</option>
+                     <option value="department">정우성</option>
+                     <option value="position">황정민</option>
+                     <option value="title">정성화</option>
+                </select>
+			</div>
+              <div class="row g-4 mb-4">
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>관리 크리에이터</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">41 명</h4>
+                          </div>
+                          <p class="mb-0">　</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>관리채널</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">88 개</h4>
+                          </div>
+                          <p class="mb-0">　</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>구독자 합계</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">221,207,208 명</h4>
+                          </div>
+                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>컨텐츠 합계</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">48,043개</h4>
+                          </div>
+                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 버튼들 -->
+              <div class="d-flex justify-content-end pt-3">
+			    <a href="javascript:;" class="btn btn-label-danger suspend-user" data-bs-target="#editUser" data-bs-toggle="modal">열람 권한</a>
+			    <a href="javascript:;" class="btn btn-primary me-3"><i class="bx bx-user-check me-1"></i>크리에이터 추가</a>
+			  </div>
+                     
+              
+              <!-- 크리에이터 카드들 -->
               <div class="row">
-                <!-- User Sidebar -->
-                <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
-                  <!-- User Card -->
-                  <div class="card mb-4">
+			    <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Card image cap" />
                     <div class="card-body">
-                      <div class="user-avatar-section">
-                        <div class="d-flex align-items-center flex-column">
-                          <img
-                            class="img-fluid rounded my-4"
-                            src="../../assets/img/avatars/10.png"
-                            height="110"
-                            width="110"
-                            alt="User avatar" />
-                          <div class="user-info text-center">
-                            <h4 class="mb-2">Violet Mendoza</h4>
-                            <span class="badge bg-label-secondary">Author</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-around flex-wrap my-4 py-3">
-                        <div class="d-flex align-items-start me-4 mt-3 gap-3">
-                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
-                          <div>
-                            <h5 class="mb-0">1.23k</h5>
-                            <span>Tasks Done</span>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-start mt-3 gap-3">
-                          <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
-                          <div>
-                            <h5 class="mb-0">568</h5>
-                            <span>Projects Done</span>
-                          </div>
-                        </div>
-                      </div>
-                      <h5 class="pb-2 border-bottom mb-4">Details</h5>
-                      <div class="info-container">
-                        <ul class="list-unstyled">
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Username:</span>
-                            <span>violet.dev</span>
-                          </li>
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Email:</span>
-                            <span>vafgot@vultukir.org</span>
-                          </li>
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Status:</span>
-                            <span class="badge bg-label-success">Active</span>
-                          </li>
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Role:</span>
-                            <span>Author</span>
-                          </li>
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Tax id:</span>
-                            <span>Tax-8965</span>
-                          </li>
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Contact:</span>
-                            <span>(123) 456-7890</span>
-                          </li>
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Languages:</span>
-                            <span>French</span>
-                          </li>
-                          <li class="mb-3">
-                            <span class="fw-medium me-2">Country:</span>
-                            <span>England</span>
-                          </li>
-                        </ul>
-                        <div class="d-flex justify-content-center pt-3">
-                          <a
-                            href="javascript:;"
-                            class="btn btn-primary me-3"
-                            data-bs-target="#editUser"
-                            data-bs-toggle="modal"
-                            >Edit</a
-                          >
-                          <a href="javascript:;" class="btn btn-label-danger suspend-user">Suspended</a>
-                        </div>
-                      </div>
+                      <h5 class="card-title">혜안</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
+                      <p class="card-text">구독자 수 | 3,319,001</p>
+                      <p class="card-text">| 게임, FUN |</p>
                     </div>
                   </div>
-                  <!-- /User Card -->
-                  <!-- Plan Card -->
-                  <div class="card mb-4">
+                </div>
+			
+			    <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/5.jpg" alt="Card image cap" />
                     <div class="card-body">
-                      <div class="d-flex justify-content-between align-items-start">
-                        <span class="badge bg-label-primary">Standard</span>
-                        <div class="d-flex justify-content-center">
-                          <sup class="h5 pricing-currency mt-3 mb-0 me-1 text-primary">$</sup>
-                          <h1 class="display-5 mb-0 text-primary">99</h1>
-                          <sub class="fs-6 pricing-duration mt-auto mb-3">/month</sub>
-                        </div>
-                      </div>
-                      <ul class="ps-3 g-2 my-4">
-                        <li class="mb-2">10 Users</li>
-                        <li class="mb-2">Up to 10 GB storage</li>
-                        <li>Basic Support</li>
-                      </ul>
-                      <div class="d-flex justify-content-between align-items-center mb-1">
-                        <span>Days</span>
-                        <span>80% Completed</span>
-                      </div>
-                      <div class="progress mb-1" style="height: 8px">
-                        <div
-                          class="progress-bar"
-                          role="progressbar"
-                          style="width: 80%"
-                          aria-valuenow="80"
-                          aria-valuemin="0"
-                          aria-valuemax="100"></div>
-                      </div>
-                      <span>6 days remaining</span>
-                      <div class="d-grid w-100 mt-4 pt-2">
-                        <button class="btn btn-primary" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">
-                          Upgrade Plan
-                        </button>
-                      </div>
+                      <h5 class="card-title">허팝</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 허팝</a></p>
+                      <p class="card-text">구독자 수 | 3,319,001</p>
+                      <p class="card-text">| 지식, 정보, 푸드, 먹방 |</p>
                     </div>
                   </div>
-                  <!-- /Plan Card -->
                 </div>
-                <!--/ User Sidebar -->
-
-                <!-- User Content -->
-                <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-                  <!-- User Pills -->
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link" href="app-user-view-account.go"><i class="bx bx-user me-1"></i>Account</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="app-user-view-security.go"
-                        ><i class="bx bx-lock-alt me-1"></i>Security</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"
-                        ><i class="bx bx-detail me-1"></i>Billing & Plans</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="app-user-view-notifications.go"
-                        ><i class="bx bx-bell me-1"></i>Notifications</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="app-user-view-connections.go"
-                        ><i class="bx bx-link-alt me-1"></i>Connections</a
-                      >
-                    </li>
-                  </ul>
-                  <!--/ User Pills -->
-
-                  <!-- Current Plan -->
-                  <div class="card mb-4">
-                    <h5 class="card-header">Current Plan</h5>
+			
+			   <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/18.jpg" alt="Card image cap" />
                     <div class="card-body">
-                      <div class="row">
-                        <div class="col-xl-6 order-1 order-xl-0">
-                          <div class="mb-4">
-                            <h6 class="mb-1">Your Current Plan is Basic</h6>
-                            <p>A simple start for everyone</p>
-                          </div>
-                          <div class="mb-4">
-                            <h6 class="mb-1">Active until Dec 09, 2021</h6>
-                            <p>We will send you a notification upon Subscription expiration</p>
-                          </div>
-                          <div class="mb-4">
-                            <h6 class="mb-1">
-                              <span class="me-2">$199 Per Month</span>
-                              <span class="badge bg-label-primary">Popular</span>
-                            </h6>
-                            <p>Standard plan for small to medium businesses</p>
-                          </div>
-                        </div>
-                        <div class="col-xl-6 order-0 order-xl-0">
-                          <div class="alert alert-warning mb-4" role="alert">
-                            <h6 class="alert-heading mb-1">We need your attention!</h6>
-                            <span>Your plan requires update</span>
-                          </div>
-                          <div class="plan-statistics">
-                            <div class="d-flex justify-content-between">
-                              <h6 class="mb-2">Days</h6>
-                              <h6 class="mb-2">24 of 30 Days</h6>
-                            </div>
-                            <div class="progress mb-1">
-                              <div
-                                class="progress-bar w-75"
-                                role="progressbar"
-                                aria-valuenow="75"
-                                aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                            </div>
-                            <p>6 days remaining until your plan requires update</p>
-                          </div>
-                        </div>
-                        <div class="col-12 order-2 order-xl-0">
-                          <button
-                            class="btn btn-primary me-2 my-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#upgradePlanModal">
-                            Upgrade Plan
-                          </button>
-                          <button class="btn btn-label-danger cancel-subscription">Cancel Subscription</button>
-                        </div>
-                      </div>
+                      <h5 class="card-title">히빱</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 많이 먹어도 살 안 쪄서 좋겠당</a></p>
+                      <p class="card-text">구독자 수 | 2,319,001</p>
+                      <p class="card-text">| 먹방, 코믹 |</p>
                     </div>
                   </div>
-                  <!-- /Current Plan -->
-
-                  <!-- Payment Methods -->
-                  <div class="card card-action mb-4">
-                    <div class="card-header align-items-center">
-                      <h5 class="card-action-title mb-0">Payment Methods</h5>
-                      <div class="card-action-element">
-                        <button
-                          class="btn btn-primary btn-sm"
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#addNewCCModal">
-                          <i class="bx bx-plus bx-xs me-1"></i>Add Card
-                        </button>
-                      </div>
-                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Card image cap" />
                     <div class="card-body">
-                      <div class="added-cards">
-                        <div class="cardMaster border p-3 rounded mb-3">
-                          <div class="d-flex justify-content-between flex-sm-row flex-column">
-                            <div class="card-information">
-                              <img
-                                class="mb-3 img-fluid"
-                                src="../../assets/img/icons/payments/mastercard.png"
-                                alt="Master Card" />
-                              <h6 class="mb-1">Kaith Morrison</h6>
-                              <span class="card-number"
-                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
-                                9856</span
-                              >
-                            </div>
-                            <div class="d-flex flex-column text-start text-lg-end">
-                              <div class="d-flex order-sm-0 order-1">
-                                <button
-                                  class="btn btn-label-primary me-3"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#editCCModal">
-                                  Edit
-                                </button>
-                                <button class="btn btn-label-secondary">Delete</button>
-                              </div>
-                              <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 12/26</small>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="cardMaster border p-3 rounded mb-3">
-                          <div class="d-flex justify-content-between flex-sm-row flex-column">
-                            <div class="card-information">
-                              <img
-                                class="mb-3 img-fluid"
-                                src="../../assets/img/icons/payments/visa.png"
-                                alt="Master Card" />
-                              <div class="d-flex align-items-center mb-1">
-                                <h6 class="mb-0 me-3">Tom McBride</h6>
-                                <span class="badge bg-label-primary me-1">Primary</span>
-                              </div>
-                              <span class="card-number"
-                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
-                                6542</span
-                              >
-                            </div>
-                            <div class="d-flex flex-column text-start text-lg-end">
-                              <div class="d-flex order-sm-0 order-1">
-                                <button
-                                  class="btn btn-label-primary me-3"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#editCCModal">
-                                  Edit
-                                </button>
-                                <button class="btn btn-label-secondary">Delete</button>
-                              </div>
-                              <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 10/24</small>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="cardMaster border p-3 rounded">
-                          <div class="d-flex justify-content-between flex-sm-row flex-column">
-                            <div class="card-information">
-                              <img
-                                class="mb-3 img-fluid"
-                                src="../../assets/img/icons/payments/american-express-logo.png"
-                                alt="Visa Card" />
-                              <h6 class="mb-1">Mildred Wagner</h6>
-                              <span class="card-number"
-                                >&#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727; &#8727;&#8727;&#8727;&#8727;
-                                5896</span
-                              >
-                            </div>
-                            <div class="d-flex flex-column text-start text-lg-end">
-                              <div class="d-flex order-sm-0 order-1">
-                                <button
-                                  class="btn btn-label-primary me-3"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#editCCModal">
-                                  Edit
-                                </button>
-                                <button class="btn btn-label-secondary">Delete</button>
-                              </div>
-                              <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 10/27</small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!--/ Payment Methods -->
-
-                  <!-- Billing Address -->
-                  <div class="card card-action mb-4">
-                    <div class="card-header align-items-center">
-                      <h5 class="card-action-title mb-0">Billing Address</h5>
-                      <div class="card-action-element">
-                        <button
-                          class="btn btn-primary btn-sm edit-address"
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#addNewAddress">
-                          Edit address
-                        </button>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-xl-7 col-12">
-                          <dl class="row mb-0">
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Company Name:</dt>
-                            <dd class="col-sm-8">Sneat</dd>
-
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Billing Email:</dt>
-                            <dd class="col-sm-8">user@ex.com</dd>
-
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Tax ID:</dt>
-                            <dd class="col-sm-8">TAX-357378</dd>
-
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">VAT Number:</dt>
-                            <dd class="col-sm-8">SDF754K77</dd>
-
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Billing Address:</dt>
-                            <dd class="col-sm-8">
-                              100 Water Plant <br />Avenue, Building 1303<br />
-                              Wake Island
-                            </dd>
-                          </dl>
-                        </div>
-                        <div class="col-xl-5 col-12">
-                          <dl class="row mb-0">
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Contact:</dt>
-                            <dd class="col-sm-8">+1 (605) 977-32-65</dd>
-
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Country:</dt>
-                            <dd class="col-sm-8">Wake Island</dd>
-
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">State:</dt>
-                            <dd class="col-sm-8">Capholim</dd>
-
-                            <dt class="col-sm-4 fw-medium mb-3 text-nowrap">Zipcode:</dt>
-                            <dd class="col-sm-8">403114</dd>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!--/ Billing Address -->
-                </div>
-                <!--/ User Content -->
-              </div>
-
-              <!-- Modal -->
-              <!-- Edit User Modal -->
-              <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-                  <div class="modal-content p-3 p-md-5">
-                    <div class="modal-body">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <div class="text-center mb-4">
-                        <h3>Edit User Information</h3>
-                        <p>Updating user details will receive a privacy audit.</p>
-                      </div>
-                      <form id="editUserForm" class="row g-3" onsubmit="return false">
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditUserFirstName">First Name</label>
-                          <input
-                            type="text"
-                            id="modalEditUserFirstName"
-                            name="modalEditUserFirstName"
-                            class="form-control"
-                            placeholder="John" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditUserLastName">Last Name</label>
-                          <input
-                            type="text"
-                            id="modalEditUserLastName"
-                            name="modalEditUserLastName"
-                            class="form-control"
-                            placeholder="Doe" />
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label" for="modalEditUserName">Username</label>
-                          <input
-                            type="text"
-                            id="modalEditUserName"
-                            name="modalEditUserName"
-                            class="form-control"
-                            placeholder="john.doe.007" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditUserEmail">Email</label>
-                          <input
-                            type="text"
-                            id="modalEditUserEmail"
-                            name="modalEditUserEmail"
-                            class="form-control"
-                            placeholder="example@domain.com" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditUserStatus">Status</label>
-                          <select
-                            id="modalEditUserStatus"
-                            name="modalEditUserStatus"
-                            class="form-select"
-                            aria-label="Default select example">
-                            <option selected>Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Inactive</option>
-                            <option value="3">Suspended</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditTaxID">Tax ID</label>
-                          <input
-                            type="text"
-                            id="modalEditTaxID"
-                            name="modalEditTaxID"
-                            class="form-control modal-edit-tax-id"
-                            placeholder="123 456 7890" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditUserPhone">Phone Number</label>
-                          <div class="input-group input-group-merge">
-                            <span class="input-group-text">+1</span>
-                            <input
-                              type="text"
-                              id="modalEditUserPhone"
-                              name="modalEditUserPhone"
-                              class="form-control phone-number-mask"
-                              placeholder="202 555 0111" />
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditUserLanguage">Language</label>
-                          <select
-                            id="modalEditUserLanguage"
-                            name="modalEditUserLanguage"
-                            class="select2 form-select"
-                            multiple>
-                            <option value="">Select</option>
-                            <option value="english" selected>English</option>
-                            <option value="spanish">Spanish</option>
-                            <option value="french">French</option>
-                            <option value="german">German</option>
-                            <option value="dutch">Dutch</option>
-                            <option value="hebrew">Hebrew</option>
-                            <option value="sanskrit">Sanskrit</option>
-                            <option value="hindi">Hindi</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditUserCountry">Country</label>
-                          <select
-                            id="modalEditUserCountry"
-                            name="modalEditUserCountry"
-                            class="select2 form-select"
-                            data-allow-clear="true">
-                            <option value="">Select</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Belarus">Belarus</option>
-                            <option value="Brazil">Brazil</option>
-                            <option value="Canada">Canada</option>
-                            <option value="China">China</option>
-                            <option value="France">France</option>
-                            <option value="Germany">Germany</option>
-                            <option value="India">India</option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Israel">Israel</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Japan">Japan</option>
-                            <option value="Korea">Korea, Republic of</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Philippines">Philippines</option>
-                            <option value="Russia">Russian Federation</option>
-                            <option value="South Africa">South Africa</option>
-                            <option value="Thailand">Thailand</option>
-                            <option value="Turkey">Turkey</option>
-                            <option value="Ukraine">Ukraine</option>
-                            <option value="United Arab Emirates">United Arab Emirates</option>
-                            <option value="United Kingdom">United Kingdom</option>
-                            <option value="United States">United States</option>
-                          </select>
-                        </div>
-                        <div class="col-12">
-                          <label class="switch">
-                            <input type="checkbox" class="switch-input" />
-                            <span class="switch-toggle-slider">
-                              <span class="switch-on"></span>
-                              <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label">Use as a billing address?</span>
-                          </label>
-                        </div>
-                        <div class="col-12 text-center">
-                          <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                          <button
-                            type="reset"
-                            class="btn btn-label-secondary"
-                            data-bs-dismiss="modal"
-                            aria-label="Close">
-                            Cancel
-                          </button>
-                        </div>
-                      </form>
+                      <h5 class="card-title">혜안</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
+                      <p class="card-text">구독자 수 | 3,319,001</p>
+                      <p class="card-text">| 게임, FUN |</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!--/ Edit User Modal -->
-
-              <!-- Add New Credit Card Modal -->
-              <div class="modal fade" id="editCCModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-simple modal-add-new-cc">
-                  <div class="modal-content p-3 p-md-5">
-                    <div class="modal-body">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <div class="text-center mb-4">
-                        <h3>Edit Card</h3>
-                        <p>Edit your saved card details</p>
-                      </div>
-                      <form id="editCCForm" class="row g-3" onsubmit="return false">
-                        <div class="col-12">
-                          <label class="form-label w-100" for="modalEditCard">Card Number</label>
-                          <div class="input-group input-group-merge">
-                            <input
-                              id="modalEditCard"
-                              name="modalEditCard"
-                              class="form-control credit-card-mask-edit"
-                              type="text"
-                              placeholder="4356 3215 6548 7898"
-                              value="4356 3215 6548 7898"
-                              aria-describedby="modalEditCard2" />
-                            <span class="input-group-text cursor-pointer p-1" id="modalEditCard2"
-                              ><span class="card-type-edit"></span
-                            ></span>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalEditName">Name</label>
-                          <input
-                            type="text"
-                            id="modalEditName"
-                            class="form-control"
-                            placeholder="John Doe"
-                            value="John Doe" />
-                        </div>
-                        <div class="col-6 col-md-3">
-                          <label class="form-label" for="modalEditExpiryDate">Exp. Date</label>
-                          <input
-                            type="text"
-                            id="modalEditExpiryDate"
-                            class="form-control expiry-date-mask-edit"
-                            placeholder="MM/YY"
-                            value="08/28" />
-                        </div>
-                        <div class="col-6 col-md-3">
-                          <label class="form-label" for="modalEditCvv">CVV Code</label>
-                          <div class="input-group input-group-merge">
-                            <input
-                              type="text"
-                              id="modalEditCvv"
-                              class="form-control cvv-code-mask-edit"
-                              maxlength="3"
-                              placeholder="654"
-                              value="XXX" />
-                            <span class="input-group-text cursor-pointer" id="modalEditCvv2"
-                              ><i
-                                class="bx bx-help-circle text-muted"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Card Verification Value"></i
-                            ></span>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <label class="switch">
-                            <input type="checkbox" class="switch-input" />
-                            <span class="switch-toggle-slider">
-                              <span class="switch-on"></span>
-                              <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label">Set as primary card</span>
-                          </label>
-                        </div>
-                        <div class="col-12 text-center">
-                          <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3">Submit</button>
-                          <button
-                            type="reset"
-                            class="btn btn-label-secondary mt-3"
-                            data-bs-dismiss="modal"
-                            aria-label="Close">
-                            Cancel
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--/ Add New Credit Card Modal -->
-
-              <!-- Add New Address Modal -->
-              <div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
-                  <div class="modal-content p-3 p-md-5">
-                    <div class="modal-body">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <div class="text-center mb-4">
-                        <h3 class="address-title">Add New Address</h3>
-                        <p class="address-subtitle">Add new address for express delivery</p>
-                      </div>
-                      <form id="addNewAddressForm" class="row g-3" onsubmit="return false">
-                        <div class="col-12">
-                          <div class="row">
-                            <div class="col-md mb-md-0 mb-3">
-                              <div class="form-check custom-option custom-option-icon">
-                                <label class="form-check-label custom-option-content" for="customRadioHome">
-                                  <span class="custom-option-body">
-                                    <i class="bx bx-home"></i>
-                                    <span class="custom-option-title">Home</span>
-                                    <small> Delivery time (9am â 9pm) </small>
-                                  </span>
-                                  <input
-                                    name="customRadioIcon"
-                                    class="form-check-input"
-                                    type="radio"
-                                    value=""
-                                    id="customRadioHome"
-                                    checked />
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md mb-md-0 mb-3">
-                              <div class="form-check custom-option custom-option-icon">
-                                <label class="form-check-label custom-option-content" for="customRadioOffice">
-                                  <span class="custom-option-body">
-                                    <i class="bx bx-briefcase"></i>
-                                    <span class="custom-option-title"> Office </span>
-                                    <small> Delivery time (9am â 5pm) </small>
-                                  </span>
-                                  <input
-                                    name="customRadioIcon"
-                                    class="form-check-input"
-                                    type="radio"
-                                    value=""
-                                    id="customRadioOffice" />
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalAddressFirstName">First Name</label>
-                          <input
-                            type="text"
-                            id="modalAddressFirstName"
-                            name="modalAddressFirstName"
-                            class="form-control"
-                            placeholder="John" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalAddressLastName">Last Name</label>
-                          <input
-                            type="text"
-                            id="modalAddressLastName"
-                            name="modalAddressLastName"
-                            class="form-control"
-                            placeholder="Doe" />
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label" for="modalAddressCountry">Country</label>
-                          <select
-                            id="modalAddressCountry"
-                            name="modalAddressCountry"
-                            class="select2 form-select"
-                            data-allow-clear="true">
-                            <option value="">Select</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Belarus">Belarus</option>
-                            <option value="Brazil">Brazil</option>
-                            <option value="Canada">Canada</option>
-                            <option value="China">China</option>
-                            <option value="France">France</option>
-                            <option value="Germany">Germany</option>
-                            <option value="India">India</option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Israel">Israel</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Japan">Japan</option>
-                            <option value="Korea">Korea, Republic of</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Philippines">Philippines</option>
-                            <option value="Russia">Russian Federation</option>
-                            <option value="South Africa">South Africa</option>
-                            <option value="Thailand">Thailand</option>
-                            <option value="Turkey">Turkey</option>
-                            <option value="Ukraine">Ukraine</option>
-                            <option value="United Arab Emirates">United Arab Emirates</option>
-                            <option value="United Kingdom">United Kingdom</option>
-                            <option value="United States">United States</option>
-                          </select>
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label" for="modalAddressAddress1">Address Line 1</label>
-                          <input
-                            type="text"
-                            id="modalAddressAddress1"
-                            name="modalAddressAddress1"
-                            class="form-control"
-                            placeholder="12, Business Park" />
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label" for="modalAddressAddress2">Address Line 2</label>
-                          <input
-                            type="text"
-                            id="modalAddressAddress2"
-                            name="modalAddressAddress2"
-                            class="form-control"
-                            placeholder="Mall Road" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalAddressLandmark">Landmark</label>
-                          <input
-                            type="text"
-                            id="modalAddressLandmark"
-                            name="modalAddressLandmark"
-                            class="form-control"
-                            placeholder="Nr. Hard Rock Cafe" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalAddressCity">City</label>
-                          <input
-                            type="text"
-                            id="modalAddressCity"
-                            name="modalAddressCity"
-                            class="form-control"
-                            placeholder="Los Angeles" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalAddressLandmark">State</label>
-                          <input
-                            type="text"
-                            id="modalAddressState"
-                            name="modalAddressState"
-                            class="form-control"
-                            placeholder="California" />
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalAddressZipCode">Zip Code</label>
-                          <input
-                            type="text"
-                            id="modalAddressZipCode"
-                            name="modalAddressZipCode"
-                            class="form-control"
-                            placeholder="99950" />
-                        </div>
-                        <div class="col-12">
-                          <label class="switch">
-                            <input type="checkbox" class="switch-input" />
-                            <span class="switch-toggle-slider">
-                              <span class="switch-on"></span>
-                              <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label">Use as a billing address?</span>
-                          </label>
-                        </div>
-                        <div class="col-12 text-center">
-                          <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                          <button
-                            type="reset"
-                            class="btn btn-label-secondary"
-                            data-bs-dismiss="modal"
-                            aria-label="Close">
-                            Cancel
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--/ Add New Address Modal -->
-
-              <!-- Add New Credit Card Modal -->
-              <div class="modal fade" id="addNewCCModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
-                  <div class="modal-content p-3 p-md-5">
-                    <div class="modal-body">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <div class="text-center mb-4">
-                        <h3>Add New Card</h3>
-                        <p>Add new card to complete payment</p>
-                      </div>
-                      <form id="addNewCCForm" class="row g-3" onsubmit="return false">
-                        <div class="col-12">
-                          <label class="form-label w-100" for="modalAddCard">Card Number</label>
-                          <div class="input-group input-group-merge">
-                            <input
-                              id="modalAddCard"
-                              name="modalAddCard"
-                              class="form-control credit-card-mask"
-                              type="text"
-                              placeholder="1356 3215 6548 7898"
-                              aria-describedby="modalAddCard2" />
-                            <span class="input-group-text cursor-pointer p-1" id="modalAddCard2"
-                              ><span class="card-type"></span
-                            ></span>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label class="form-label" for="modalAddCardName">Name</label>
-                          <input type="text" id="modalAddCardName" class="form-control" placeholder="John Doe" />
-                        </div>
-                        <div class="col-6 col-md-3">
-                          <label class="form-label" for="modalAddCardExpiryDate">Exp. Date</label>
-                          <input
-                            type="text"
-                            id="modalAddCardExpiryDate"
-                            class="form-control expiry-date-mask"
-                            placeholder="MM/YY" />
-                        </div>
-                        <div class="col-6 col-md-3">
-                          <label class="form-label" for="modalAddCardCvv">CVV Code</label>
-                          <div class="input-group input-group-merge">
-                            <input
-                              type="text"
-                              id="modalAddCardCvv"
-                              class="form-control cvv-code-mask"
-                              maxlength="3"
-                              placeholder="654" />
-                            <span class="input-group-text cursor-pointer" id="modalAddCardCvv2"
-                              ><i
-                                class="bx bx-help-circle text-muted"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Card Verification Value"></i
-                            ></span>
-                          </div>
-                        </div>
-                        <div class="col-12">
-                          <label class="switch">
-                            <input type="checkbox" class="switch-input" />
-                            <span class="switch-toggle-slider">
-                              <span class="switch-on"></span>
-                              <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label">Save card for future billing?</span>
-                          </label>
-                        </div>
-                        <div class="col-12 text-center">
-                          <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3">Submit</button>
-                          <button
-                            type="reset"
-                            class="btn btn-label-secondary btn-reset mt-3"
-                            data-bs-dismiss="modal"
-                            aria-label="Close">
-                            Cancel
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--/ Add New Credit Card Modal -->
-
-              <!-- Add New Credit Card Modal -->
-              <div class="modal fade" id="upgradePlanModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-simple modal-upgrade-plan">
-                  <div class="modal-content p-3 p-md-5">
-                    <div class="modal-body">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <div class="text-center mb-4">
-                        <h3>Upgrade Plan</h3>
-                        <p>Choose the best plan for user.</p>
-                      </div>
-                      <form id="upgradePlanForm" class="row g-3" onsubmit="return false">
-                        <div class="col-sm-9">
-                          <label class="form-label" for="choosePlan">Choose Plan</label>
-                          <select id="choosePlan" name="choosePlan" class="form-select" aria-label="Choose Plan">
-                            <option selected>Choose Plan</option>
-                            <option value="standard">Standard - $99/month</option>
-                            <option value="exclusive">Exclusive - $249/month</option>
-                            <option value="Enterprise">Enterprise - $499/month</option>
-                          </select>
-                        </div>
-                        <div class="col-sm-3 d-flex align-items-end">
-                          <button type="submit" class="btn btn-primary">Upgrade</button>
-                        </div>
-                      </form>
-                    </div>
-                    <hr class="mx-md-n5 mx-n3" />
-                    <div class="modal-body">
-                      <h6 class="mb-0">User current plan is standard plan</h6>
-                      <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <div class="d-flex justify-content-center me-2 mt-3">
-                          <sup class="h5 pricing-currency pt-1 mt-3 mb-0 me-1 text-primary">$</sup>
-                          <h1 class="display-3 mb-0 text-primary">99</h1>
-                          <sub class="h5 pricing-duration mt-auto mb-2">/month</sub>
-                        </div>
-                        <button class="btn btn-label-danger cancel-subscription mt-3">Cancel Subscription</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--/ Add New Credit Card Modal -->
-
-              <!-- /Modal -->
+                
+			
+			
+			    <!-- 다음 카드들도 유사하게 추가 -->
+			</div>
+              
+              
             </div>
             <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  Â©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with â¤ï¸ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://themeselection.com/support/"
-                    target="_blank"
-                    class="footer-link d-none d-sm-inline-block"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -2766,23 +1918,239 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script> <!-- 페이징들어있는거 -->
     <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/modal-edit-user.js"></script>
-    <script src="../../assets/js/modal-edit-cc.js"></script>
-    <script src="../../assets/js/modal-add-new-cc.js"></script>
-    <script src="../../assets/js/modal-add-new-address.js"></script>
-    <script src="../../assets/js/app-user-view.js"></script>
-    <script src="../../assets/js/app-user-view-billing.js"></script>
+    <!-- 
+    <script src="../../assets/js/app-user-list.js"></script>
+     --> 
+    <script>
+    'use strict';
+
+    $(function () {
+      var dataTablePermissions = $('.datatables-permissions'),
+        dt_permission,
+        userList = 
+  		"data": [
+			{
+				"id": 1,
+				"full_name": "Galen Slixby",
+				"role": "Editor",
+				"username": "gslixby0",
+				"email": "gslixby0@abc.net.au",
+				"current_plan": "Enterprise",
+				"billing": "Manual - Credit Card",
+				"status": 3,
+				"avatar": ""
+			},
+			{
+				"id": 2,
+				"full_name": "Halsey Redmore",
+				"role": "Author",
+				"username": "hredmore1",
+				"email": "hredmore1@imgur.com",
+				"current_plan": "Team",
+				"billing": "Manual - Paypal",
+				"status": 1,
+				"avatar": "10.png"
+			}
+		]
+
+      // Users List datatable
+      if (dataTablePermissions.length) {
+        dt_permission = dataTablePermissions.DataTable({
+          ajax: assetsPath + 'json/permissions-list.json', // JSON file to add data
+          columns: [
+            // columns according to JSON
+            { data: '' },
+            { data: 'id' },
+            { data: 'name' },
+            { data: 'assigned_to' },
+            { data: 'created_date' },
+            { data: '' }
+          ],
+          columnDefs: [
+            {
+              // For Responsive
+              className: 'control',
+              orderable: false,
+              searchable: false,
+              responsivePriority: 2,
+              targets: 0,
+              render: function (data, type, full, meta) {
+                return '';
+              }
+            },
+            {
+              targets: 1,
+              searchable: false,
+              visible: false
+            },
+            {
+              // Name
+              targets: 2,
+              render: function (data, type, full, meta) {
+                var $name = full['name'];
+                return '<span class="text-nowrap">' + $name + '</span>';
+              }
+            },
+            {
+              // User Role
+              targets: 3,
+              orderable: false,
+              render: function (data, type, full, meta) {
+                var $assignedTo = full['assigned_to'],
+                  $output = '';
+                var roleBadgeObj = {
+                  Admin: '<a href="' + userList + '"><span class="badge  bg-label-primary m-1">Administrator</span></a>',
+                  Manager: '<a href="' + userList + '"><span class="badge  bg-label-warning m-1">Manager</span></a>',
+                  Users: '<a href="' + userList + '"><span class="badge  bg-label-success m-1">Users</span></a>',
+                  Support: '<a href="' + userList + '"><span class="badge  bg-label-info m-1">Support</span></a>',
+                  Restricted:
+                    '<a href="' + userList + '"><span class="badge  bg-label-danger m-1">Restricted User</span></a>'
+                };
+                for (var i = 0; i < $assignedTo.length; i++) {
+                  var val = $assignedTo[i];
+                  $output += roleBadgeObj[val];
+                }
+                return '<span class="text-nowrap">' + $output + '</span>';
+              }
+            },
+            {
+              // remove ordering from Name
+              targets: 4,
+              orderable: false,
+              render: function (data, type, full, meta) {
+                var $date = full['created_date'];
+                return '<span class="text-nowrap">' + $date + '</span>';
+              }
+            },
+            {
+              // Actions
+              targets: -1,
+              searchable: false,
+              title: 'Actions',
+              orderable: false,
+              render: function (data, type, full, meta) {
+                return (
+                  '<span class="text-nowrap"><button class="btn btn-sm btn-icon me-2" data-bs-target="#editPermissionModal" data-bs-toggle="modal" data-bs-dismiss="modal"><i class="bx bx-edit"></i></button>' +
+                  '<button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button></span>'
+                );
+              }
+            }
+          ],
+          order: [[1, 'asc']],
+          dom:
+            '<"row mx-1"' +
+            '<"col-sm-12 col-md-3" l>' +
+            '<"col-sm-12 col-md-9"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-md-end justify-content-center flex-wrap me-1"<"me-3"f>B>>' +
+            '>t' +
+            '<"row mx-2"' +
+            '<"col-sm-12 col-md-6"i>' +
+            '<"col-sm-12 col-md-6"p>' +
+            '>',
+          language: {
+            sLengthMenu: '_MENU_',
+            search: 'Search',
+            searchPlaceholder: 'Search..'
+          },
+          // Buttons with Dropdown
+          buttons: [
+            {
+              text: 'Add Permission',
+              className: 'add-new btn btn-primary mb-3 mb-md-0',
+              attr: {
+                'data-bs-toggle': 'modal',
+                'data-bs-target': '#addPermissionModal'
+              },
+              init: function (api, node, config) {
+                $(node).removeClass('btn-secondary');
+              }
+            }
+          ],
+          // For responsive popup
+          responsive: {
+            details: {
+              display: $.fn.dataTable.Responsive.display.modal({
+                header: function (row) {
+                  var data = row.data();
+                  return 'Details of ' + data['name'];
+                }
+              }),
+              type: 'column',
+              renderer: function (api, rowIdx, columns) {
+                var data = $.map(columns, function (col, i) {
+                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                    ? '<tr data-dt-row="' +
+                        col.rowIndex +
+                        '" data-dt-column="' +
+                        col.columnIndex +
+                        '">' +
+                        '<td>' +
+                        col.title +
+                        ':' +
+                        '</td> ' +
+                        '<td>' +
+                        col.data +
+                        '</td>' +
+                        '</tr>'
+                    : '';
+                }).join('');
+
+                return data ? $('<table class="table"/><tbody />').append(data) : false;
+              }
+            }
+          },
+          initComplete: function () {
+            // Adding role filter once table initialized
+            this.api()
+              .columns(3)
+              .every(function () {
+                var column = this;
+                var select = $(
+                  '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option></select>'
+                )
+                  .appendTo('.user_role')
+                  .on('change', function () {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                  });
+
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (d, j) {
+                    select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
+                  });
+              });
+          }
+        });
+      }
+
+      // Delete Record
+      $('.datatables-permissions tbody').on('click', '.delete-record', function () {
+        dt_permission.row($(this).parents('tr')).remove().draw();
+      });
+
+      // Filter form control to default size
+      // ? setTimeout used for multilingual table initialization
+      setTimeout(() => {
+        $('.dataTables_filter .form-control').removeClass('form-control-sm');
+        $('.dataTables_length .form-select').removeClass('form-select-sm');
+      }, 300);
+    });
+    </script>
+    
   </body>
 </html>
