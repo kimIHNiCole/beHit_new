@@ -1,5 +1,7 @@
 package com.behit.employee.dao;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.behit.employee.dto.EmployeeDTO;
@@ -11,7 +13,10 @@ public interface LoginDAO {
 	
 	EmployeeDTO login(String emp_id);
 
-	int lockCnt(String emp_id);
+	int getLockChk(String emp_id);
+	
+	void lockCnt(HashMap<String, Object> params);
+
 
 
 }

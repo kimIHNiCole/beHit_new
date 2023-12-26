@@ -12,7 +12,23 @@
 		SELECT * FROM employee WHERE emp_id = #{emp_id}  
 	</select>
 	
-	<update id="lockCnt" parameterType="String">
-		UPDATE INTO employee ()
+	<select id="getLockChk" parameterType="String" resultType="int">
+		SELECT login_lock FROM employee WHERE emp_id = #{emp_id}
+	</select>
+	
+	<update id="lockCnt" parameterType="HashMap" >
+		<selectKey keyProperty="lockCnt" resultType="int" order="AFTER">
+			SELECT login_lock FROM employee WHERE emp_id = #{emp_id}
+		</selectKey>
+		UPDATE employee SET login_lock = 
+		<choose>
+			<when test="success == true">
+				0 
+			</when>
+			<otherwise>
+				(login_lock+1) 
+			</otherwise>
+		</choose>
+		WHERE emp_id = #{emp_id};
 	</update>
 </mapper>
