@@ -188,7 +188,7 @@ height: calc(100vh - 10rem);
         
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.go" class="app-brand-link">
+            <a href="../home.go" class="app-brand-link">
               <span class="app-brand-logo demo">
               	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
               </span>
