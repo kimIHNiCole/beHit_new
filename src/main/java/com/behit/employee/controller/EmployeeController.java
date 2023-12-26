@@ -37,7 +37,7 @@ public class EmployeeController {
 	}
 
 	// 추후 경로 수정
-	@PostMapping(value = "/views/employee/empadd.do")
+	@PostMapping(value = "/empadd.do")
 	public ModelAndView empjoin(@RequestParam HashMap<String, Object> params) {
 			
 		ModelAndView mav = new ModelAndView();

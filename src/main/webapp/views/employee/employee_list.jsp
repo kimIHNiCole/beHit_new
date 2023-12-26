@@ -166,7 +166,7 @@
               </a>
             </li>
             
-            <li class="menu-item active">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>

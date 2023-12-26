@@ -21,7 +21,7 @@ public class InterCeptorConfig implements WebMvcConfigurer{
 		List<String> excludeList = new ArrayList<String>();
 		excludeList.add("/");
 		excludeList.add("/login.*");		// login. 뒤에 뭐가 오던지
-		excludeList.add("/empadd*");			// join 뒤에 뭐가 오던지 
+		excludeList.add("/empadd.*");			// empadd 뒤에 뭐가 오던지 
 		excludeList.add("/logout");
 		excludeList.add("/assets/**");	// resource 하위 모두
 		

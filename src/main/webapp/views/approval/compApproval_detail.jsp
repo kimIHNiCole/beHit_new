@@ -48,11 +48,18 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
 		<link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    
+    
 		<!-- Row Group CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
     <!-- Form Validation -->
@@ -69,6 +76,17 @@
     
     <!-- custom CSS -->
     <style>
+    
+    button{
+			background: inherit;
+			border:none;
+			box-shadow:none;
+			border-radius:0;
+			padding:0;
+			overflow:visible;
+			cursor:pointer;
+			}
+   
     .col-lg-4{
     	width:20%;
     }
@@ -109,8 +127,19 @@
     	font-weight:500;
     }
     
+    .apv-form-menu{
+    	display:flex;
+    	justify-content: flex-end;
+    }
+    
+    .apv-form-menu .apv-form-menu-cnt{
+    	margin-left:1rem;
+    	margin-bottom:1rem;
+    }
+    
     .card{
     	margin-bottom:3rem;
+    	display:flex;
     }
     
     .btn.btn-secondary{
@@ -119,6 +148,237 @@
     	margin-bottom:0.625rem;
     }
     
+    
+    /*휴가신청서*/
+    
+    .apv-form-vac{
+    	margin: 1rem;
+    	display:flex;
+    	justify-content: center;
+    }
+    
+    .apv-form-vac .table-header,
+    .apv-form-vac .table-content{
+    	width: 800px;
+    	color: black;
+    	background: white;
+    	font-size: 12px;
+    }
+    
+    .apv-form-vac .table-subject{
+    	width: 300px;
+	    padding: 3px !important;
+	    border: 0px solid black;
+	    height: 90px !important;
+	    font-size: 22px;
+	    font-weight: 600;
+	    text-align: center;
+	    vertical-align: middle;
+    }
+    
+    .apv-form-vac .table-header-left{
+    	width:250px;
+    }
+    
+    .apv-form-vac .table-header-left-table{
+	    border: 1px solid black;
+	    font-size: 12px;
+	    border-collapse: collapse !important;
+    }
+    
+    .apv-form-vac .table-header-left-table-left{
+    	width: 100px;
+	    height: 22px;
+	    vertical-align: middle;
+	    border: 1px solid black;
+	    text-align: center;
+	    font-weight: bold;
+	    background: rgb(221, 221, 221);
+	    padding: 3px !important;
+    }
+    
+    .apv-form-vac .table-header-left-table-right{
+    	width: 150px;
+	    height: 22px;
+	    vertical-align: middle;
+	    border: 1px solid black;
+	    text-align: left;
+	    padding: 3px !important;
+    }
+    
+    .apv-form-vac .table-header-right{
+			width: 500px;
+	    text-align: right;
+	    padding: 0px!important;
+	    border: 0!important;
+	    vertical-align: top !important;
+    }
+    
+    .apv-form-vac .apv-sign{
+    	display: inline-block;
+    	margin-right: -1px;
+    }
+    
+    .apv-form-vac .apv-sign-table{
+    	border:1px solid black;
+	    border-collapse: collapse;
+    }
+    
+    .apv-form-vac .apv-sign-table tbody tr th{
+    	width: 15px;
+	    padding: 6px;
+	    text-align: center;
+	    word-break: break-word;
+	    white-space: normal;
+	    background: rgb(221, 221, 221);
+    }
+    
+    .apv-form-vac .apv-sign-table tbody tr td{
+			padding: 0!important;
+    }
+    
+    .apv-form-vac .apv-sign-table-right tbody tr{
+    	border-bottom:1px solid black;
+    	border-left:1px solid black;
+	    border-collapse: collapse;
+    }
+    
+    .apv-form-vac .apv-sign-table-right tbody tr.last{
+    	border-bottom:0;
+    }
+    
+    
+    .apv-form-vac .apv-sign-line{
+    	height: 26px;
+	    min-height: 26px;
+    }
+    
+    .apv-form-vac .apv-sign-line-dept,
+    .apv-form-vac .apv-sign-line-name,
+    .apv-form-vac .apv-sign-line-date
+     {
+    	display: block;
+	    text-align: center;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    width: 70px;
+	    font-size: 12px;
+	    padding: 2px 4px;
+    }
+    
+    .apv-form-vac .apv-sign-line-name{
+    	height: 74px;
+    	text-align: center;
+    }
+    
+    /*table-content*/
+    
+    .apv-form-vac .table-content-left{
+    	background: rgb(221, 221, 221);
+	    padding: 5px;
+	    border: 1px solid black;
+	    height: 25px;
+	    text-align: center;
+	    color: rgb(0, 0, 0);
+	    font-size: 14px;
+	    font-weight: bold;
+	    vertical-align: middle;
+    }
+    
+    .apv-form-vac .table-content-right{
+    	padding: 3px;
+	    border: 1px solid black;
+	    width: 700px;
+	    height: 38px;
+	    text-align: left;
+	    color: rgb(0, 0, 0);
+	    font-size: 12px;
+	    vertical-align: middle;
+	    background: rgb(255, 255, 255);
+    }
+    
+    .apv-form-vac .table-content-right.reason{
+	    height: 282px;
+    }
+    
+    .table-content-right .form-control{
+    	display: inline-block;
+    	width: 30%;
+    }
+    
+    .table-upload{
+    	width: 100%;
+    	margin-top:4rem;
+    }
+    
+    .table-upload-left{
+    	height: 38px;
+	    width: 100px;
+	    text-align: center;
+	    color:black;
+    }
+   
+    
+    .table-upload-right .form-control{
+    	display: inline-block;
+    	width: 100%;
+    }
+    
+    .table-reason{
+    	width: 800px;
+    	border:1px solid black;
+	    border-collapse: collapse;
+	    margin-top:4rem;
+	    color:black;
+    }
+    
+    .table-reason .table-reason-left{
+    	background: rgb(221, 221, 221);
+	    padding: 5px;
+	    border: 1px solid black;
+	    height: 38px;
+	    text-align: center;
+	    color: rgb(0, 0, 0);
+	    font-size: 14px;
+	    font-weight: bold;
+	    vertical-align: middle;
+    }
+    
+    .table-reason .table-reason-right{
+	    padding: 3px;
+	    border: 1px solid black;
+	    width: 700px;
+	    height: 38px;
+	    text-align: left;
+	    color: rgb(0, 0, 0);
+	    font-size: 12px;
+	    vertical-align: middle;
+    }
+    
+    .apv-form-button{
+    	display:flex;
+    	justify-content: flex-end;
+    	margin: 1rem 0;
+    	font-family:pretendard;
+    }
+    
+    .apv-form-button button[type="submit"]{
+    	margin-right: 5.125rem;
+    }
+    
+    .apv-form-button button[type="reset"]{
+    	margin-right:1rem;
+    }
+    
+    .text-truncate{
+    	font-family:pretendard;
+    }
+    
+    
+    
+
+
     </style>
     
     
@@ -437,7 +697,7 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link active" href="requestApproval_list.go">
+                        <a class="nav-link" href="requestApproval_list.go">
                           <span class="align-middle">결재 요청한 문서</span>
                         </a>
                       </li>
@@ -463,30 +723,140 @@
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
-                	<h4 class="apv-home">
-                		결재 요청한 문서
-                	</h4>
+                	<h4 class="apv-home">휴가 신청서</h4>
+                	<div class="apv-form-menu">
+                		<span class="text-truncate">
+                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bx-plus'></i> 열람자 추가</button>
+                		</span>
+                	</div>
                   <div class="tab-content p-0">
                     <!-- Store Details Tab -->
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
         
 				              <div class="card">
-				                <h5 class="card-header"> 결재 요청한 문서 리스트 </h5>
-				                <div class="card-datatable table-responsive">
-				                  <table class="dt-multilingual2 table border-top">
-				                    <thead>
-				                      <tr>
-				                        <th></th>
-				                        <th>문서양식</th>
-				                        <th>문서제목</th>
-				                        <th>상신일</th>
-				                        <th>마지막 결재일</th>
-				                        <th>현 결재자</th>
-				                        <th>결재 상태</th>
-				                      </tr>
-				                    </thead>
-				                  </table>
+				              	<div class="apv-form-vac">
+					              	<form>
+					              		<table class="table-header">
+					              			<tbody>
+					              				<tr>
+					              					<td class="table-subject" colspan="2">연차신청서</td>
+					              				</tr>
+					              				<tr>
+					              					<td class="table-header-left">
+					              						<table class="table-header-left-table">
+					              							<tbody>
+					              								<tr>
+					              									<td class="table-header-left-table-left">기안자</td>
+					              									<td class="table-header-left-table-right">김민지</td>
+					              								</tr>
+					              								<tr>
+					              									<td class="table-header-left-table-left">부서</td>
+					              									<td class="table-header-left-table-right">인사팀</td>
+					              								</tr>
+					              								<tr>
+					              									<td class="table-header-left-table-left">기안일</td>
+					              									<td class="table-header-left-table-right">2023-12-22</td>
+					              								</tr>
+					              								<tr>
+					              									<td class="table-header-left-table-left">문서번호</td>
+					              									<td class="table-header-left-table-right"></td>
+					              								</tr>
+					              							</tbody>
+					              						</table>
+					              					</td>
+					              					<td class="table-header-right">
+					              						<div class="apv-sign">
+					              							<table class="apv-sign-table">
+					              								<tbody>
+					              									<tr>
+					              										<th>승인</th>
+					              										
+					              										<!-- 결재선 추가 -->
+					              										<td class="apv-sign-table-right">
+					              											<table>
+					              												<tbody>
+					              												
+					              													<tr>
+					              														<td>
+					              															<span class="apv-sign-line-dept">대리</span>
+					              														</td>
+					              													</tr>
+					              													
+					              													<tr>
+					              														<td>
+					              															<span class="apv-sign-line-name">이유빈</span>
+					              														</td>
+					              													</tr>
+					              													
+					              													<tr class="last">
+					              														<td>
+					              															<span class="apv-sign-line-date">2023-12-12</span>
+					              														</td>
+					              													</tr>
+					              													
+					              												</tbody>
+					              											</table>
+					              										</td>
+					              										
+					              									</tr>
+					              								</tbody>
+					              							</table>
+					              						</div>
+					              					</td>
+					              				</tr>
+					              			</tbody>
+					              		</table>
+					              		<table class="table-content">
+					              			<tbody>
+					              				<tr>
+					              					<td class="table-content-left">연차 종류</td>
+					              					<td class="table-content-right">
+					              						<span>종일</span>
+					              					</td>
+					              				</tr>
+					              				<tr>
+					              					<td class="table-content-left">연차 기간</td>
+					              					<td class="table-content-right">
+					              						<span>2023-12-14</span>
+					              						<span>~</span>
+					              						<span>2023-12-26</span>
+					              						<span class="vac-time">16시간</span>
+					              					</td>
+					              				</tr>
+					              				<tr>
+					              					<td class="table-content-left">연차 사유</td>
+					              					<td class="table-content-right reason">
+						              					<div>
+								                      이러이러한 이유로 휴가를 신청합니다.
+	                    							</div>
+					              					</td>
+					              				</tr>
+					              			</tbody>
+					              		</table>
+					              		
+					              		<table class="table-upload">
+					              			<tbody>
+					              				<tr>
+					              					<td class="table-upload-left">파일 첨부</td>
+					              					<td class="table-upload-right">
+					              						<span>logo.png</span>
+					              					</td>
+					              				</tr>
+					              			</tbody>
+					              		</table>
+					              		<table class="table-reason">
+					              			<tbody>
+					              				<tr>
+					              					<td class="table-reason-left">결재 사유</td>
+					              					<td class="table-reason-right">결재</td>
+					              				</tr>
+					              			</tbody>
+					              		</table>
+					              	</form>
 				                </div>
+				                
+				                <div class="pt-4 apv-form-button">
+				                
 				              </div>
 
 
@@ -534,6 +904,15 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+    <script src="../../assets/vendor/libs/quill/katex.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
@@ -548,9 +927,67 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/app-ecommerce-settings.js"></script>
+    <script src="../../assets/js/forms-editors.js"></script>
     
     <!-- custom JS -->
     <script>
+    
+    // sweetAlert
+    
+(function () {
+  const confirmText = document.querySelector('#confirm-text');
+    
+    if (confirmText) {
+        confirmText.onclick = function () {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            customClass: {
+              confirmButton: 'btn btn-primary me-3',
+              cancelButton: 'btn btn-label-secondary'
+            },
+            buttonsStyling: false
+          }).then(function (result) {
+            if (result.value) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Your file has been deleted.',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+              });
+            }
+          });
+        };
+      }
+})();
+    
+    
+    // 날짜 input
+    (function () {
+    	  // Flat Picker
+    	  // --------------------------------------------------------------------
+    	  const flatpickrDateBefore = document.querySelector('#flatpickr-date-before');
+    	  const flatpickrDateAfter = document.querySelector('#flatpickr-date-after');
+
+    	  // Date
+    	  if (flatpickrDateBefore) {
+    	    flatpickrDateBefore.flatpickr({
+    	      monthSelectorType: 'static'
+    	    });
+    	  }
+    	  
+    	  if (flatpickrDateAfter) {
+      	    flatpickrDateAfter.flatpickr({
+      	      monthSelectorType: 'static'
+      	    });
+      	  }
+    	  
+    })();
     
     $(function () {
   	  var dt_multilingual_table1 = $('.dt-multilingual1'),
