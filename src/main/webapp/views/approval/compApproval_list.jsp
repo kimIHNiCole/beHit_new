@@ -155,7 +155,7 @@
             </li>
             
             <li class="menu-item active">
-              <a href="test" class="menu-link">
+              <a href="approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
               </a>
