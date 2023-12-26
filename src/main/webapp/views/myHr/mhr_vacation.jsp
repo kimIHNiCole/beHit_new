@@ -135,7 +135,7 @@
               </a>
             </li>
             
-            <li class="menu-item active">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
                 <div class="text-truncate" data-i18n="근태관리">근태관리</div>

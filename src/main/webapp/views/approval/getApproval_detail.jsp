@@ -360,7 +360,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.go" class="app-brand-link">
+            <a href="../home.go" class="app-brand-link">
               <span class="app-brand-logo demo">
               	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
               </span>
@@ -376,42 +376,42 @@
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../home.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div class="text-truncate" data-i18n="홈">홈</div>
               </a>
             </li>
             
             <li class="menu-item active">
-              <a href="approval_main.go" class="menu-link">
+              <a href="../approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../creators/creator_list_all.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-slideshow"></i>
                 <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../project/project_main.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-customize"></i>
                 <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../calendar/calendar.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="캘린더">캘린더</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../reserve/reserveRoom_list.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-time-five"></i>
                 <div class="text-truncate" data-i18n="예약">예약</div>
               </a>
@@ -425,12 +425,12 @@
 
               <ul class="menu-sub">
               	<li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="../myHr/mhr_timeline.go" class="menu-link">
                     <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="../myHr/mhr_vacation.go" class="menu-link">
                     <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
                   </a>
                 </li>
@@ -438,7 +438,7 @@
             </li>
             
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="../chat/messenger.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-chat"></i>
                 <div class="text-truncate" data-i18n="메신저">메신저</div>
               </a>
@@ -451,7 +451,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="../employee/employee_list.go" class="menu-link">
                     <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
                   </a>
                 </li>
@@ -461,12 +461,12 @@
                   </a>
                   <ul class="menu-sub">
                     <li class="menu-item">
-                      <a href="#" class="menu-link">
+                      <a href="../employee/workHour_list.go" class="menu-link">
                         <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
                       </a>
                     </li>
                     <li class="menu-item">
-                      <a href="#" class="menu-link">
+                      <a href="../employee/vacation_list.go" class="menu-link">
                         <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
                       </a>
                     </li>
@@ -528,7 +528,7 @@
                   
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Notification</h5>
+                        <h5 class="text-body mb-0 me-auto">알림</h5>
                         <a
                           href="javascript:void(0)"
                           class="dropdown-notifications-all text-body"
