@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>DataTables - Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>User List - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -44,12 +44,8 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <!-- Row Group CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
-    <!-- Form Validation -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
     <!-- Page CSS -->
@@ -62,12 +58,32 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
-    
-    <!-- custom CSS -->
+    <!-- 커스텀 -->
     <style>
-    	.col-md-4{
-    		margin-top:3.625rem;
-    	}
+    /* 선택 탭과 셀렉트 박스 */
+    .form-select.create{
+    	width: 15rem;
+    }
+    .top-tap-select{
+    	margin-bottom: 0.5rem;
+    }
+    .top-tap-only{
+    	margin-top: 0.7rem;
+    	font-size: 18px;
+    }
+    /* 중간 버튼 */
+	.d-flex.justify-content-end.pt-3{
+		margin-top: -1.3rem;
+	}
+	.btn.btn-label-danger.suspend-user{
+		margin-right: 0.7rem;
+	}
+	
+	.btn.btn-primary.me-3{
+		margin-right: 0rem !important;
+	}
+	
+    
     </style>
     
   </head>
@@ -111,7 +127,7 @@
               </a>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="../creators/creator_list_all.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-slideshow"></i>
                 <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
@@ -166,13 +182,13 @@
               </a>
             </li>
             
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="../employee/employee_list.go" class="menu-link">
                     <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
                   </a>
@@ -342,81 +358,155 @@
           
           <!-- 여기까지 붙여넣기 -->
 
-          <!-- Content wrapper -->
+          <!-- Content wrapper --> <!-- 여기서부터~~~~~ -->
           <div class="content-wrapper">
-          
-           <!-- Content -->
-<div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 </span></h4>
+            <!-- Content -->
 
-    <!-- DataTable with Buttons -->
-    <div class="card">
-        <div class="card-datatable table-responsive" style="overflow-x: hidden;">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <!-- 탭 추가 -->
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="tab-active" href="#">재직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-on-leave" href="#">휴직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-resigned" href="#">퇴사자</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4">
-                    <!-- 검색박스 및 셀렉트 박스 -->
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <select class="form-select">
-                                <option value="name">이름</option>
-                                <option value="id">아이디</option>
-                                <option value="department">부서</option>
-                                <option value="position">직급</option>
-                                <option value="title">직책</option>
-                            </select>
+            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class ="top-tap-select" style="display: flex; justify-content: space-between;">
+			    <h6 class="top-tap-only"><a href="../creators/creator_list_my.go">전체리스트</a> | <a href="../creators/creator_detail.go">나의 크리에이터</a></h6>
+			    <select class="form-select create">
+                     <option value="name">이도훈(본인)</option>
+                     <option value="id">한가인</option>
+                     <option value="department">정우성</option>
+                     <option value="position">황정민</option>
+                     <option value="title">정성화</option>
+                </select>
+			</div>
+              <div class="row g-4 mb-4">
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>관리 크리에이터</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">41 명</h4>
+                          </div>
+                          <p class="mb-0">　</p>
                         </div>
-                        <input type="text" class="form-control" placeholder="검색어 입력">
-                        <button class="btn btn-primary" type="button">검색</button>
+                      </div>
                     </div>
+                  </div>
                 </div>
-
-                <div class="col-md-4 text-end">
-                    <!-- 직원 등록 버튼 -->
-                    <button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>관리채널</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">88 개</h4>
+                          </div>
+                          <p class="mb-0">　</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <table class="datatables-basic table border-top" style="margin-top: -10px;">
-                <thead>
-                    <tr>
-                        <th colspan="2">이름 / 아이디</th>
-                        <th style="width: 200px;">부서</th>
-                        <th style="width: 200px;">직급</th>
-                        <th style="width: 200px;">직책</th>
-                        <th>채팅</th>
-                        <th>직원상세</th>
-                    </tr>
-                </thead>
-                <tbody id="elist">
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>구독자 합계</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">221,207,208 명</h4>
+                          </div>
+                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start justify-content-between">
+                        <div class="content-left">
+                          <span>컨텐츠 합계</span>
+                          <div class="d-flex align-items-end mt-2">
+                            <h4 class="mb-0 me-2">48,043개</h4>
+                          </div>
+                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 버튼들 -->
+              <div class="d-flex justify-content-end pt-3">
+			    <a href="javascript:;" class="btn btn-label-danger suspend-user" data-bs-target="#editUser" data-bs-toggle="modal">열람 권한</a>
+			    <a href="javascript:;" class="btn btn-primary me-3"><i class="bx bx-user-check me-1"></i>크리에이터 추가</a>
+			  </div>
+                     
+              
+              <!-- 크리에이터 카드들 -->
+              <div class="row">
+			    <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Card image cap" />
+                    <div class="card-body">
+                      <h5 class="card-title">혜안</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
+                      <p class="card-text">구독자 수 | 3,319,001</p>
+                      <p class="card-text">| 게임, FUN |</p>
+                    </div>
+                  </div>
+                </div>
+			
+			    <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/5.jpg" alt="Card image cap" />
+                    <div class="card-body">
+                      <h5 class="card-title">허팝</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 허팝</a></p>
+                      <p class="card-text">구독자 수 | 3,319,001</p>
+                      <p class="card-text">| 지식, 정보, 푸드, 먹방 |</p>
+                    </div>
+                  </div>
+                </div>
+			
+			   <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/18.jpg" alt="Card image cap" />
+                    <div class="card-body">
+                      <h5 class="card-title">히빱</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 많이 먹어도 살 안 쪄서 좋겠당</a></p>
+                      <p class="card-text">구독자 수 | 2,319,001</p>
+                      <p class="card-text">| 먹방, 코믹 |</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <h6 class="mt-2 text-muted"></h6>
+                  <div class="card">
+                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Card image cap" />
+                    <div class="card-body">
+                      <h5 class="card-title">혜안</h5>
+                      <br/>
+                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
+                      <p class="card-text">구독자 수 | 3,319,001</p>
+                      <p class="card-text">| 게임, FUN |</p>
+                    </div>
+                  </div>
+                </div>
                 
-                </tbody>
-            </table>
-        </div>
-	    <div class="container" style="display: flex; justify-content: flex-end;">									
-			<nav aria-label="Page navigation" style="text-align:center">
-				<ul class="pagination" id="pagination"></ul>
-			</nav>					
-		</div>
-    </div>
-    <hr class="my-5" />
-</div>
-<!-- / Content -->
-
-           
+			
+			
+			    <!-- 다음 카드들도 유사하게 추가 -->
+			</div>
+              
+              
+            </div>
+            <!-- / Content -->
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -448,137 +538,239 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <!-- Form Validation -->
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script> <!-- 페이징들어있는거 -->
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <!-- pagenation -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/jquery.twbsPagination.js" type="text/javascript"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
-     <script>
-     var showPage = 1;
-     
- 	listCall(showPage);
-	
-	function listCall(page){
-		$.ajax({
-			type: 'get',
-			url: 'emplist.do',
-			data: {'page':page},
-			dataType: 'json',
-			success:function(data){
-				console.log(data);
-				drawList(data);		
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});
-	} 
-	
-	function drawList(obj){
-		
-		var content = '';
-		
-		obj.elist.forEach(function(item, idx) {
-			if(item.department != 0) {
-				content += '<tr>';
-				content +='<td>'+'img'+'</td>';
-				content +='<td>'+'<div class="d-flex flex-column">'+
-					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted">'+item.emp_id+'</small>'+'</div>'+'</td>';
-				switch (item.department) {
-				case 1:
-					content +='<td>'+'무소속'+'</td>';
-					break;
-				case 2:
-					content +='<td>'+'인사'+'</td>';
-					break;
-				case 3:
-					content +='<td>'+'재무'+'</td>';
-					break;
-				case 4:
-					content +='<td>'+'사업기획'+'</td>';
-					break;
-				case 5:
-					content +='<td>'+'마케팅'+'</td>';
-					break;
-				case 6:
-					content +='<td>'+'매니지먼트'+'</td>';
-					break; }
-				
-				switch (item.rank) {
-				case 1:
-					content +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					content +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					content +='<td>'+'부장'+'</td>';
-					break;
-				case 4:
-					content +='<td>'+'차장'+'</td>';
-					break;
-				case 5:
-					content +='<td>'+'과장'+'</td>';
-					break;
-				case 6:
-					content +='<td>'+'대리'+'</td>';
-					break; 
-				case 7:
-					content +='<td>'+'사원'+'</td>';
-					break; }
-				
-				switch (item.job) {
-				case 1:
-					content +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					content +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					content +='<td>'+'팀장'+'</td>';
-					break;
-				case 4:
-					content +='<td>'+'팀원'+'</td>';
-					break; }
-				content +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				content +='<td>'+'<a href="/empdetail.go" class="btn btn-sm btn-primary btn-view-details">'+'직원 상세보기'+'</a>'+'</td>';
-				content += '</tr>';
-			}
-		});
-		$('#elist').empty();
-		$('#elist').append(content);
-		
-		// 페이징 처리 UI 그리기(플러그인 사용)		
-		$('#pagination').twbsPagination({
-			startPage:obj.currPage, // 보여줄 페이지
-			totalPages:obj.pages, // 총 페이지 수 (총 갯수 / 페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
-			visiblePages:5, // [1],[2],[3],[4],[5]
-			onPageClick:function(e, page){
-				// console.log(e);
-				if (showPage != page) {
-					console.log(page);
-					showPage = page;
-					listCall(page);
-				}
-			}
-		});
-		
-	}
+    <!-- 
+    <script src="../../assets/js/app-user-list.js"></script>
+     --> 
+    <script>
+    'use strict';
 
-     </script>
+    $(function () {
+      var dataTablePermissions = $('.datatables-permissions'),
+        dt_permission,
+        userList = 
+  		"data": [
+			{
+				"id": 1,
+				"full_name": "Galen Slixby",
+				"role": "Editor",
+				"username": "gslixby0",
+				"email": "gslixby0@abc.net.au",
+				"current_plan": "Enterprise",
+				"billing": "Manual - Credit Card",
+				"status": 3,
+				"avatar": ""
+			},
+			{
+				"id": 2,
+				"full_name": "Halsey Redmore",
+				"role": "Author",
+				"username": "hredmore1",
+				"email": "hredmore1@imgur.com",
+				"current_plan": "Team",
+				"billing": "Manual - Paypal",
+				"status": 1,
+				"avatar": "10.png"
+			}
+		]
+
+      // Users List datatable
+      if (dataTablePermissions.length) {
+        dt_permission = dataTablePermissions.DataTable({
+          ajax: assetsPath + 'json/permissions-list.json', // JSON file to add data
+          columns: [
+            // columns according to JSON
+            { data: '' },
+            { data: 'id' },
+            { data: 'name' },
+            { data: 'assigned_to' },
+            { data: 'created_date' },
+            { data: '' }
+          ],
+          columnDefs: [
+            {
+              // For Responsive
+              className: 'control',
+              orderable: false,
+              searchable: false,
+              responsivePriority: 2,
+              targets: 0,
+              render: function (data, type, full, meta) {
+                return '';
+              }
+            },
+            {
+              targets: 1,
+              searchable: false,
+              visible: false
+            },
+            {
+              // Name
+              targets: 2,
+              render: function (data, type, full, meta) {
+                var $name = full['name'];
+                return '<span class="text-nowrap">' + $name + '</span>';
+              }
+            },
+            {
+              // User Role
+              targets: 3,
+              orderable: false,
+              render: function (data, type, full, meta) {
+                var $assignedTo = full['assigned_to'],
+                  $output = '';
+                var roleBadgeObj = {
+                  Admin: '<a href="' + userList + '"><span class="badge  bg-label-primary m-1">Administrator</span></a>',
+                  Manager: '<a href="' + userList + '"><span class="badge  bg-label-warning m-1">Manager</span></a>',
+                  Users: '<a href="' + userList + '"><span class="badge  bg-label-success m-1">Users</span></a>',
+                  Support: '<a href="' + userList + '"><span class="badge  bg-label-info m-1">Support</span></a>',
+                  Restricted:
+                    '<a href="' + userList + '"><span class="badge  bg-label-danger m-1">Restricted User</span></a>'
+                };
+                for (var i = 0; i < $assignedTo.length; i++) {
+                  var val = $assignedTo[i];
+                  $output += roleBadgeObj[val];
+                }
+                return '<span class="text-nowrap">' + $output + '</span>';
+              }
+            },
+            {
+              // remove ordering from Name
+              targets: 4,
+              orderable: false,
+              render: function (data, type, full, meta) {
+                var $date = full['created_date'];
+                return '<span class="text-nowrap">' + $date + '</span>';
+              }
+            },
+            {
+              // Actions
+              targets: -1,
+              searchable: false,
+              title: 'Actions',
+              orderable: false,
+              render: function (data, type, full, meta) {
+                return (
+                  '<span class="text-nowrap"><button class="btn btn-sm btn-icon me-2" data-bs-target="#editPermissionModal" data-bs-toggle="modal" data-bs-dismiss="modal"><i class="bx bx-edit"></i></button>' +
+                  '<button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button></span>'
+                );
+              }
+            }
+          ],
+          order: [[1, 'asc']],
+          dom:
+            '<"row mx-1"' +
+            '<"col-sm-12 col-md-3" l>' +
+            '<"col-sm-12 col-md-9"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-md-end justify-content-center flex-wrap me-1"<"me-3"f>B>>' +
+            '>t' +
+            '<"row mx-2"' +
+            '<"col-sm-12 col-md-6"i>' +
+            '<"col-sm-12 col-md-6"p>' +
+            '>',
+          language: {
+            sLengthMenu: '_MENU_',
+            search: 'Search',
+            searchPlaceholder: 'Search..'
+          },
+          // Buttons with Dropdown
+          buttons: [
+            {
+              text: 'Add Permission',
+              className: 'add-new btn btn-primary mb-3 mb-md-0',
+              attr: {
+                'data-bs-toggle': 'modal',
+                'data-bs-target': '#addPermissionModal'
+              },
+              init: function (api, node, config) {
+                $(node).removeClass('btn-secondary');
+              }
+            }
+          ],
+          // For responsive popup
+          responsive: {
+            details: {
+              display: $.fn.dataTable.Responsive.display.modal({
+                header: function (row) {
+                  var data = row.data();
+                  return 'Details of ' + data['name'];
+                }
+              }),
+              type: 'column',
+              renderer: function (api, rowIdx, columns) {
+                var data = $.map(columns, function (col, i) {
+                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                    ? '<tr data-dt-row="' +
+                        col.rowIndex +
+                        '" data-dt-column="' +
+                        col.columnIndex +
+                        '">' +
+                        '<td>' +
+                        col.title +
+                        ':' +
+                        '</td> ' +
+                        '<td>' +
+                        col.data +
+                        '</td>' +
+                        '</tr>'
+                    : '';
+                }).join('');
+
+                return data ? $('<table class="table"/><tbody />').append(data) : false;
+              }
+            }
+          },
+          initComplete: function () {
+            // Adding role filter once table initialized
+            this.api()
+              .columns(3)
+              .every(function () {
+                var column = this;
+                var select = $(
+                  '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option></select>'
+                )
+                  .appendTo('.user_role')
+                  .on('change', function () {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                  });
+
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (d, j) {
+                    select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
+                  });
+              });
+          }
+        });
+      }
+
+      // Delete Record
+      $('.datatables-permissions tbody').on('click', '.delete-record', function () {
+        dt_permission.row($(this).parents('tr')).remove().draw();
+      });
+
+      // Filter form control to default size
+      // ? setTimeout used for multilingual table initialization
+      setTimeout(() => {
+        $('.dataTables_filter .form-control').removeClass('form-control-sm');
+        $('.dataTables_length .form-select').removeClass('form-select-sm');
+      }, 300);
+    });
+    </script>
+    
   </body>
 </html>
