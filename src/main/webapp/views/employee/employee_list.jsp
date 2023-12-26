@@ -351,7 +351,7 @@
 
     <!-- DataTable with Buttons -->
     <div class="card">
-        <div class="card-datatable table-responsive">
+        <div class="card-datatable table-responsive" style="overflow-x: hidden;">
             <div class="row mb-3">
                 <div class="col-md-4">
                     <!-- 탭 추가 -->
@@ -387,27 +387,31 @@
 
                 <div class="col-md-4 text-end">
                     <!-- 직원 등록 버튼 -->
-                    <button class="btn btn-primary">직원 등록</button>
+                    <button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
                 </div>
             </div>
             <table class="datatables-basic table border-top" style="margin-top: -10px;">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>no.</th>
-                        <th></th>
-                        <th>이름 / 아이디</th>
-                        <th>부서</th>
-                        <th>직급</th>
-                        <th>직책</th>
+                        <th colspan="2">이름 / 아이디</th>
+                        <th style="width: 200px;">부서</th>
+                        <th style="width: 200px;">직급</th>
+                        <th style="width: 200px;">직책</th>
                         <th>채팅</th>
                         <th>직원상세</th>
                     </tr>
                 </thead>
+                <tbody id="elist">
+                
+                </tbody>
             </table>
         </div>
+	    <div class="container" style="display: flex; justify-content: flex-end;">									
+			<nav aria-label="Page navigation" style="text-align:center">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>					
+		</div>
     </div>
-
     <hr class="my-5" />
 </div>
 <!-- / Content -->
@@ -452,6 +456,10 @@
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <!-- pagenation -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/jquery.twbsPagination.js" type="text/javascript"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
@@ -459,192 +467,117 @@
     <!-- Page JS -->
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
      <script>
-     /**
-      * DataTables Basic
-      */
-
-     'use strict';
-
-     let fv, offCanvasEl;
+     var showPage = 1;
      
-     // datatable (jquery)
-     $(function () {
-       var dt_basic_table = $('.datatables-basic'),
-       dt_basic;
-
-       
-       // DataTable with buttons
-       // --------------------------------------------------------------------
-
-       if (dt_basic_table.length) {
-         dt_basic = dt_basic_table.DataTable({
-           ajax: assetsPath + 'json/table-datatable.json',
-           columns: [
-             { data: '' },
-             { data: 'id' },
-             { data: 'id' },
-             { data: 'full_name' },
-             { data: 'email' },
-             { data: 'start_date' },
-             { data: 'salary' },
-             { data: 'status' },
-             { data: '' }
-           ],
-           columnDefs: [
-             {
-               // For Responsive
-               className: 'control',
-               orderable: false,
-               searchable: false,
-               responsivePriority: 2,
-               targets: 0,
-               render: function (data, type, full, meta) {
-                 return '';
-               }
-             },
-             
-             {
-               targets: 2,
-               searchable: false,
-               visible: false
-             },
-             {
-               // Avatar image/badge, Name and post
-               targets: 3,
-               responsivePriority: 4,
-               render: function (data, type, full, meta) {
-                 var $user_img = full['avatar'],
-                   $name = full['full_name'],
-                   $post = full['post'];
-                 if ($user_img) {
-                   // For Avatar image
-                   var $output =
-                     '<img src="' + assetsPath + 'img/avatars/' + $user_img + '" alt="Avatar" class="rounded-circle">';
-                 } else {
-                   // For Avatar badge
-                   var stateNum = Math.floor(Math.random() * 6);
-                   var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                   var $state = states[stateNum],
-                     $name = full['full_name'],
-                     $initials = $name.match(/\b\w/g) || [];
-                   $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                   $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-                 }
-                 // Creates full output for row
-                 var $row_output =
-                   '<div class="d-flex justify-content-start align-items-center user-name">' +
-                   '<div class="avatar-wrapper">' +
-                   '<div class="avatar me-2">' +
-                   $output +
-                   '</div>' +
-                   '</div>' +
-                   '<div class="d-flex flex-column">' +
-                   '<span class="emp_name text-truncate">' +
-                   $name +
-                   '</span>' +
-                   '<small class="emp_post text-truncate text-muted">' +
-                   $post +
-                   '</small>' +
-                   '</div>' +
-                   '</div>';
-                 return $row_output;
-               }
-             },
-             {
-               responsivePriority: 1,
-               targets: 4
-             },
-             {
-               // Label
-               targets: -2,
-               render: function (data, type, full, meta) {
-                 var $status_number = full['status'];
-                 var $status = {
-                   1: { title: 'Current', class: 'bg-label-primary' },
-                   2: { title: 'Professional', class: ' bg-label-success' },
-                   3: { title: 'Rejected', class: ' bg-label-danger' },
-                   4: { title: 'Resigned', class: ' bg-label-warning' },
-                   5: { title: 'Applied', class: ' bg-label-info' }
-                 };
-                 if (typeof $status[$status_number] === 'undefined') {
-                   return data;
-                 }
-                 return (
-                		 '<span>&#x1F4AC;</span>'
-                 );
-               }
-             },
-             {
-               // Actions
-               targets: -1,
-               title: '직원 상세 보기',
-               orderable: false,
-               searchable: false,
-               render: function (data, type, full, meta) {
-                 return (
-                		 '<a href="javascript:;" class="btn btn-sm btn-primary btn-view-details">직원 상세보기</a>'
-                 );
-               }
-             }
-           ],
-           
-           order: [[2, 'desc']],
-           dom: '<<"head-label text-center">><"row">t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-           
-           displayLength: 10,
-           lengthMenu: [10],
-           
-           
-           responsive: {
-             details: {
-               display: $.fn.dataTable.Responsive.display.modal({
-                 header: function (row) {
-                   var data = row.data();
-                   return 'Details of ' + data['full_name'];
-                 }
-               }),
-               type: 'column',
-               renderer: function (api, rowIdx, columns) {
-                 var data = $.map(columns, function (col, i) {
-                   return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                     ? '<tr data-dt-row="' +
-                         col.rowIndex +
-                         '" data-dt-column="' +
-                         col.columnIndex +
-                         '">' +
-                         '<td>' +
-                         col.title +
-                         ':' +
-                         '</td> ' +
-                         '<td>' +
-                         col.data +
-                         '</td>' +
-                         '</tr>'
-                     : '';
-                 }).join('');
-
-                 return data ? $('<table class="table"/><tbody />').append(data) : false;
-               }
-             }
-           }
-         });
-         
-         
-         
-       }
-
-
-      
-
-       
-
-       // Filter form control to default size
-       // ? setTimeout used for multilingual table initialization
-       setTimeout(() => {
-         $('.dataTables_filter .form-control').removeClass('form-control-sm');
-         $('.dataTables_length .form-select').removeClass('form-select-sm');
-       }, 300);
-     });
+ 	listCall(showPage);
+	
+	function listCall(page){
+		$.ajax({
+			type: 'get',
+			url: 'emplist.do',
+			data: {'page':page},
+			dataType: 'json',
+			success:function(data){
+				console.log(data);
+				drawList(data);		
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	} 
+	
+	function drawList(obj){
+		
+		var content = '';
+		
+		obj.elist.forEach(function(item, idx) {
+			if(item.department != 0) {
+				content += '<tr>';
+				content +='<td>'+'img'+'</td>';
+				content +='<td>'+'<div class="d-flex flex-column">'+
+					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
+					'<small class="emp_post text-truncate text-muted">'+item.emp_id+'</small>'+'</div>'+'</td>';
+				switch (item.department) {
+				case 1:
+					content +='<td>'+'무소속'+'</td>';
+					break;
+				case 2:
+					content +='<td>'+'인사'+'</td>';
+					break;
+				case 3:
+					content +='<td>'+'재무'+'</td>';
+					break;
+				case 4:
+					content +='<td>'+'사업기획'+'</td>';
+					break;
+				case 5:
+					content +='<td>'+'마케팅'+'</td>';
+					break;
+				case 6:
+					content +='<td>'+'매니지먼트'+'</td>';
+					break; }
+				
+				switch (item.rank) {
+				case 1:
+					content +='<td>'+'대표'+'</td>';
+					break;
+				case 2:
+					content +='<td>'+'이사'+'</td>';
+					break;
+				case 3:
+					content +='<td>'+'부장'+'</td>';
+					break;
+				case 4:
+					content +='<td>'+'차장'+'</td>';
+					break;
+				case 5:
+					content +='<td>'+'과장'+'</td>';
+					break;
+				case 6:
+					content +='<td>'+'대리'+'</td>';
+					break; 
+				case 7:
+					content +='<td>'+'사원'+'</td>';
+					break; }
+				
+				switch (item.job) {
+				case 1:
+					content +='<td>'+'대표'+'</td>';
+					break;
+				case 2:
+					content +='<td>'+'이사'+'</td>';
+					break;
+				case 3:
+					content +='<td>'+'팀장'+'</td>';
+					break;
+				case 4:
+					content +='<td>'+'팀원'+'</td>';
+					break; }
+				content +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
+				content +='<td>'+'<a href="/empdetail.go" class="btn btn-sm btn-primary btn-view-details">'+'직원 상세보기'+'</a>'+'</td>';
+				content += '</tr>';
+			}
+		});
+		$('#elist').empty();
+		$('#elist').append(content);
+		
+		// 페이징 처리 UI 그리기(플러그인 사용)		
+		$('#pagination').twbsPagination({
+			startPage:obj.currPage, // 보여줄 페이지
+			totalPages:obj.pages, // 총 페이지 수 (총 갯수 / 페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
+			visiblePages:5, // [1],[2],[3],[4],[5]
+			onPageClick:function(e, page){
+				// console.log(e);
+				if (showPage != page) {
+					console.log(page);
+					showPage = page;
+					listCall(page);
+				}
+			}
+		});
+		
+	}
 
      </script>
   </body>

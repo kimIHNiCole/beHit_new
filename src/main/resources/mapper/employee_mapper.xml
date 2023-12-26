@@ -5,7 +5,21 @@
 
 <mapper namespace="com.behit.employee.dao.EmployeeDAO">
 	<insert id="join" parameterType="HashMap">
-		INSERT INTO employee (emp_id, emp_name, password, emp_birth, email, cp_phone, mobile_phone, address, detail_addr, position_idx)
-			VALUES(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr}, 0);
+		INSERT INTO employee 
+			(emp_id, emp_name, password, emp_birth, email, cp_phone, mobile_phone, address, detail_addr, insert_id, update_id, position_idx)
+			VALUES
+			(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr},#{emp_id}, #{emp_id}, #{position});
 	</insert>
+	
+	<select id="elist" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT emp_id, emp_name, 
+					CAST(SUBSTRING(position_idx FROM 1 FOR 1) AS INT) AS department,
+					CAST(SUBSTRING(position_idx FROM 2 FOR 1) AS INT) AS rank,
+					CAST(SUBSTRING(position_idx FROM 3 FOR 1) AS INT) AS job FROM employee limit 10 offset #{param1};
+	</select>
+	
+	<select id="totalPage" resultType="int">
+   		SELECT CEIL(COUNT(emp_id)/#{param1}) AS pages FROM employee;
+    </select>
+	
 </mapper>
