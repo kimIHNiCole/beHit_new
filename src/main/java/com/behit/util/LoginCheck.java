@@ -1,5 +1,7 @@
 package com.behit.util;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,7 +36,8 @@ public class LoginCheck implements HandlerInterceptor{
 			logger.info("[session : loginInfo ] IS NULL");
 			pass = false;
 			
-			response.sendRedirect("/");
+			String encodedMessage = URLEncoder.encode("로그인이 필요한 서비스 입니다.", "UTF-8");
+			response.sendRedirect("/?msg=" + encodedMessage);
 		}
 		return pass;
 	} 

@@ -34,6 +34,7 @@ public class LoginController {
 		
 		ModelAndView mav = new ModelAndView("redirect:/");
 		
+		// 로그인 시도가 5회를 이미 초과했을때
 		int lockCnt = service.getLockChk(emp_id);
 		if(lockCnt >= 5) {
 			logger.info("@@@ 로그인 시도 5회 이상 @@@");
@@ -59,7 +60,10 @@ public class LoginController {
 			logger.info("로그인 에러");
 			lockCnt = service.lockCnt(params);
 			logger.info("lockCnt = "+lockCnt);
-			rAttr.addFlashAttribute("msg","비밀번호를 확인해주세요");
+			if(lockCnt < 5) {
+				rAttr.addFlashAttribute("msg","비밀번호를 "+lockCnt+"회 잘못 입력하였습니다"
+						+ " 비밀번호를 확인해주세요");
+			}
 		}
 	 
 		return mav; 
