@@ -413,22 +413,7 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                             <small class="text-muted mb-auto">2023-12-22</small>
                           </a>
                         </li>
-                        <!-- 바쁨 상태일 때(안 쓸 예정) 
-                        <li class="chat-contact-list-item">
-                          <a class="d-flex align-items-center">
-                            <div class="flex-shrink-0 avatar avatar-busy">
-                              <span class="avatar-initial rounded-circle bg-label-success">CM</span>
-                            </div>
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Calvin Moore</h6>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                If it takes long you can mail inbox user
-                              </p>
-                            </div>
-                            <small class="text-muted mb-auto">1 Day</small>
-                          </a>
-                        </li>
-                        -->
+                        
                         
                         
                       </ul>
@@ -518,6 +503,18 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                 </div>
               </div>
             </div>
+            <!--  챗GPT가 알려준 코드
+                <div id="content"></div>
+    <form id="messageForm">
+        <input type="text" id="message" placeholder="Type your message..." />
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/js/app.js"></script>
+     -->
             <!-- / Content -->
 
             
@@ -560,4 +557,49 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
   </body>
+  <script>
+  
+ /* 챗GPT 가 알려준 코드 */ 
+/*   var stompClient = null;
+
+  function connect() {
+      var socket = new SockJS('/chat');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+          console.log('Connected: ' + frame);
+          stompClient.subscribe('/topic/public', function (message) {
+              showMessage(JSON.parse(message.body));
+          });
+      });
+  }
+
+  function disconnect() {
+      if (stompClient !== null) {
+          stompClient.disconnect();
+      }
+      console.log("Disconnected");
+  }
+
+  function sendMessage() {
+      var messageContent = $('#message').val();
+      var messageSender = $('#sender').val();
+      stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({ content: messageContent, sender: messageSender }));
+  }
+
+  function showMessage(message) {
+      $('#content').append('<p>' + message.sender + ': ' + message.content + '</p>');
+  }
+
+  $(function () {
+      connect();
+      $('form').submit(function (e) {
+          e.preventDefault();
+      });
+      $('#send').click(function () {
+          sendMessage();
+          $('#message').val('');
+      });
+  });
+   */
+  </script>
 </html>
