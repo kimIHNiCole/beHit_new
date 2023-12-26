@@ -59,6 +59,8 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    <style>
+    </style>
   </head>
 
   <body>
@@ -1772,30 +1774,30 @@
                         <small class="text-small text-muted text-uppercase align-middle">근무시간 전체 등록</small>
                       </div>
 
-                      <div class="form-check mb-2">
-				     	<select value="07:00~16:00">
-				     		 <option value="07:00~16:00">07:00~16:00</option>
-                         	 <option value="08:00~17:00">08:00~17:00</option>
-                        	 <option value="09:00~18:00">09:00~18:00</option>
-                        	 <option value="10:00~19:00">10:00~19:00</option>
-                       		 <option value="11:00~20:00">11:00~20:00</option>
-                        </select>
-                        <button>등록</button>
-                      </div>
+					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;">
+					        <select class="form-select" value="07:00~16:00" style="flex: 1; margin-right: 8px;">
+						        <option value="07:00~16:00">07:00~16:00</option>
+						        <option value="08:00~17:00">08:00~17:00</option>
+						        <option value="09:00~18:00">09:00~18:00</option>
+						        <option value="10:00~19:00">10:00~19:00</option>
+						        <option value="11:00~20:00">11:00~20:00</option>
+						    </select>
+						    <button class="btn btn-primary">등록</button>
+					  </div>
                       <div class="mb-1">
                         <small class="text-small text-muted text-uppercase align-middle">근무시간 선택일(선택일값)변경</small>
                       </div>
 
-                      <div class="form-check mb-2">
-				     	<select value="07:00~16:00">
-				     		 <option value="07:00~16:00">07:00~16:00</option>
-                         	 <option value="08:00~17:00">08:00~17:00</option>
-                        	 <option value="09:00~18:00">09:00~18:00</option>
-                        	 <option value="10:00~19:00">10:00~19:00</option>
-                       		 <option value="11:00~20:00">11:00~20:00</option>
-                        </select>
-                        <button>등록</button>
-                      </div>
+					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;">
+					    <select class="form-select" value="07:00~16:00" style="flex: 1; margin-right: 8px;">
+					        <option value="07:00~16:00">07:00~16:00</option>
+					        <option value="08:00~17:00">08:00~17:00</option>
+					        <option value="09:00~18:00">09:00~18:00</option>
+					        <option value="10:00~19:00">10:00~19:00</option>
+					        <option value="11:00~20:00">11:00~20:00</option>
+					    </select>
+					    <button class="btn btn-primary">변경</button>
+					  </div>
 
                     </div>
                   </div>

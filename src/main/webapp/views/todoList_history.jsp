@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>User List - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>eCommerce Category List - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -47,8 +47,13 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
 
     <!-- Page CSS -->
+
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-ecommerce.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -57,6 +62,62 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        #taskList {
+            max-width: 760px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .date-header {
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            color: white;
+            background-color: green;
+            text-align: center; 
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .task-item span {
+		    align-self: flex-start;
+		    margin-left: 10px; /* 원하는 만큼의 왼쪽 마진을 추가합니다. */
+		}
+		
+		.form-check-input:checked, .form-check-input[type=checkbox]:indeterminate {
+		    background-color: #71dd37;
+		    border-color: #71dd37;
+		    box-shadow: 0 2px 4px 0 rgba(113, 221, 55, 0.4);
+		}
+
+        .delete-btn {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+    
   </head>
 
   <body>
@@ -132,7 +193,8 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="Dashboards">대시보드</div>
+                <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
+                <span class="badge badge-center rounded-pill bg-danger ms-auto">5</span>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -283,7 +345,7 @@
               </a>
             </li>
             <!-- e-commerce-app menu start -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cart-alt"></i>
                 <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
@@ -294,7 +356,7 @@
                     <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active open">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="Products">Products</div>
                   </a>
@@ -309,7 +371,7 @@
                         <div class="text-truncate" data-i18n="Add Product">Add Product</div>
                       </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item active">
                       <a href="app-ecommerce-category-list.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Category List">Category List</div>
                       </a>
@@ -494,11 +556,51 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
-              <a href="creator.go" class="menu-link">
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="Users">크리에이터</div>
+                <div class="text-truncate" data-i18n="Users">Users</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-user-list.go" class="menu-link">
+                    <div class="text-truncate" data-i18n="List">List</div>
+                  </a>
+                </li>
+
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div class="text-truncate" data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.go" class="menu-link">
+                        <div class="text-truncate" data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.go" class="menu-link">
+                        <div class="text-truncate" data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.go" class="menu-link">
+                        <div class="text-truncate" data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.go" class="menu-link">
+                        <div class="text-truncate" data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.go" class="menu-link">
+                        <div class="text-truncate" data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -1229,6 +1331,8 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item navbar-search-wrapper mb-0">
                   <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
+                    <i class="bx bx-search bx-sm"></i>
+                    <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
                   </a>
                 </div>
               </div>
@@ -1718,203 +1822,16 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h6> <a href="#">전체리스트</a> | <a href="#">나의 크리에이터</a></h6>
-              <div class="row g-4 mb-4">
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>관리크리에이터</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">238 명</h4>
-                          </div>
-                          <p class="mb-0">　</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <h4 class="py-3 mb-4">완료한 히스토리</h4>
+                <!-- Category List Table -->
+					<div id="taskList">
+					<div class="date-header" style="color:green; background-color:white; text-align:left;" >완료한 개수 160개</div>
+					</div>
+					<!-- 원래의 카드영역부분 -->
+                <!-- 
+                 <div class="card">
                 </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>관리채널</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">346 개</h4>
-                          </div>
-                          <p class="mb-0">　</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>구독자 합계</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">3,221,207,208 명</h4>
-                          </div>
-                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>컨텐츠 합계</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">348,043개</h4>
-                          </div>
-                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Users List Table -->
-              <div class="card">
-                <div class="card-header border-bottom">
-                <h5 class="card-title">Search Filter</h5>
-                  <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-                  <!-- 왜안돼 -->
-                    <div class="col-md-4 user_plan"></div>
-                    <div class="col-md-4 user_status"></div>
-                  </div>
-                </div>
-                <div class="card-datatable table-responsive">
-                  <table class="datatables-users table border-top">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th align="left" width="700px">CREATOR</th>
-                        <th>CATEGORY</th>
-                        <th>대표채널</th>
-                        <th>담당매니저</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-                <!-- Offcanvas to add new user -->
-                <div
-                  class="offcanvas offcanvas-end"
-                  tabindex="-1"
-                  id="offcanvasAddUser"
-                  aria-labelledby="offcanvasAddUserLabel">
-                  <div class="offcanvas-header">
-                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                    <button
-                      type="button"
-                      class="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body mx-0 flex-grow-0">
-                    <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="add-user-fullname"
-                          placeholder="John Doe"
-                          name="userFullname"
-                          aria-label="John Doe" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input
-                          type="text"
-                          id="add-user-email"
-                          class="form-control"
-                          placeholder="john.doe@example.com"
-                          aria-label="john.doe@example.com"
-                          name="userEmail" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input
-                          type="text"
-                          id="add-user-contact"
-                          class="form-control phone-mask"
-                          placeholder="+1 (609) 988-44-11"
-                          aria-label="john.doe@example.com"
-                          name="userContact" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="add-user-company">Company</label>
-                        <input
-                          type="text"
-                          id="add-user-company"
-                          class="form-control"
-                          placeholder="Web Developer"
-                          aria-label="jdoe1"
-                          name="companyName" />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="country">Country</label>
-                        <select id="country" class="select2 form-select">
-                          <option value="">Select</option>
-                          <option value="Australia">Australia</option>
-                          <option value="Bangladesh">Bangladesh</option>
-                          <option value="Belarus">Belarus</option>
-                          <option value="Brazil">Brazil</option>
-                          <option value="Canada">Canada</option>
-                          <option value="China">China</option>
-                          <option value="France">France</option>
-                          <option value="Germany">Germany</option>
-                          <option value="India">India</option>
-                          <option value="Indonesia">Indonesia</option>
-                          <option value="Israel">Israel</option>
-                          <option value="Italy">Italy</option>
-                          <option value="Japan">Japan</option>
-                          <option value="Korea">Korea, Republic of</option>
-                          <option value="Mexico">Mexico</option>
-                          <option value="Philippines">Philippines</option>
-                          <option value="Russia">Russian Federation</option>
-                          <option value="South Africa">South Africa</option>
-                          <option value="Thailand">Thailand</option>
-                          <option value="Turkey">Turkey</option>
-                          <option value="Ukraine">Ukraine</option>
-                          <option value="United Arab Emirates">United Arab Emirates</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="United States">United States</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="user-role">User Role</label>
-                        <select id="user-role" class="form-select">
-                          <option value="subscriber">Subscriber</option>
-                          <option value="editor">Editor</option>
-                          <option value="maintainer">Maintainer</option>
-                          <option value="author">Author</option>
-                          <option value="admin">Admin</option>
-                        </select>
-                      </div>
-                      <div class="mb-4">
-                        <label class="form-label" for="user-plan">Select Plan</label>
-                        <select id="user-plan" class="form-select">
-                          <option value="basic">Basic</option>
-                          <option value="enterprise">Enterprise</option>
-                          <option value="company">Company</option>
-                          <option value="team">Team</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                      <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
+                 -->
             </div>
             <!-- / Content -->
 
@@ -1968,8 +1885,7 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-	<!-- 
-	 -->
+
     <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../assets/vendor/libs/popper/popper.js"></script>
     <script src="../../assets/vendor/js/bootstrap.js"></script>
@@ -1982,25 +1898,56 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <!-- 
-     -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="../../assets/vendor/libs/quill/katex.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script>
 
     <!-- Main JS -->
-    <!-- 
-     -->
-	    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <!-- 주석처리 
-     -->
-     	<script src="../../assets/js/app-user-list.js"></script>
+    <script src="../../assets/js/app-ecommerce-category-list.js"></script>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // AJAX를 통해 데이터를 받아올 경우를 가정한 예시 코드
+        // 실제로는 서버에서 데이터를 받아와야 합니다.
+        const mockData = [
+            { date: "2023-12-15", tasks: ["양치하기", "결재하기", "Task 3", "Task 3", "Task 3", "Task 3"] },
+            { date: "2023-12-14", tasks: ["Task 4", "Task 5"] }
+        ];
+
+        // 데이터를 기반으로 테이블을 생성하는 함수
+        function renderTaskList(data) {
+            const taskListDiv = $("#taskList");
+
+            data.forEach(item => {
+                const dateHeader = $("<div>").addClass("date-header").text(item.date);
+                taskListDiv.append(dateHeader);
+
+                item.tasks.forEach(task => {
+                    const taskItemDiv = $("<div>").addClass("task-item");
+                    const checkbox = $("<input>").attr({ type: "checkbox" }).addClass("form-check-input input-filter");
+                    const taskContent = $("<span>").text(task);
+                    const deleteBtn = $("<button>").addClass("delete-btn").append("<i class='bx bx-trash'></i>");
+
+                    taskItemDiv.append(checkbox, taskContent, deleteBtn);
+                    taskListDiv.append(taskItemDiv);
+                });
+            });
+        }
+
+        // 모의 AJAX 호출 후 데이터 렌더링
+        renderTaskList(mockData);
+    });
+</script>
+    
   </body>
 </html>

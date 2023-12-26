@@ -57,6 +57,15 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    <style>
+    .mx-2 {
+	    margin-right: 0.5rem !important;
+	    margin-left: 0.5rem !important;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+    </style>
   </head>
 
   <body>
@@ -1778,33 +1787,13 @@
                 </div>
               </div>
               <!-- Users List Table --> <!-- 유저 리스트 테이블 -->
-              <div class="card">
-                <div class="card-header border-bottom"> <!-- 카테고리 -->
-                  <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-                  	<div class="col-md-4"><input type="search"/ value="검색"></div>
-                    <div class="col-md-4 user_role">
-						<select id="category">
-							<option value>카테고리</option>
-							<option value="game">게임</option>
-							<option value="food">음식</option>
-							<option value="life">일상</option>
-							<option value="asmr">ASMR</option>
-						</select>                    
-                    </div>
-                    <div class="col-md-4 user_plan">
-                    	<select id="canread">
-                    		<option value>전체선택</option>
-                    		<option value="can">열람가능</option>
-                    	</select>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-datatable table-responsive"> <!-- 리스트 -->
+				<div class="card">
+                <div class="card-datatable table-responsive">
                   <table class="datatables-users table border-top">
                     <thead>
                       <tr>
                         <th></th>
-                        <th>크리에이터</th>
+                        <th>User</th>
                         <th>CATEGORY</th>
                         <th>대표채널</th>
                         <th>담당매니저</th>
@@ -1812,7 +1801,6 @@
                     </thead>
                   </table>
                 </div>
-                <tbody></tbody>
               </div>
             </div>
             <!-- / Content -->
@@ -1864,56 +1852,62 @@
     <script src="../../assets/js/app-user-list.js"></script>
      --> 
     <script>
+    /**
+     * Page User List
+     */
+
     'use strict';
 
+    // Datatable (jquery)
     $(function () {
-      var dataTablePermissions = $('.datatables-permissions'),
-        dt_permission,
-        userList = 
-  		"data": [
-			{
-				"id": 1,
-				"full_name": "Galen Slixby",
-				"role": "Editor",
-				"username": "gslixby0",
-				"email": "gslixby0@abc.net.au",
-				"current_plan": "Enterprise",
-				"billing": "Manual - Credit Card",
-				"status": 3,
-				"avatar": ""
-			},
-			{
-				"id": 2,
-				"full_name": "Halsey Redmore",
-				"role": "Author",
-				"username": "hredmore1",
-				"email": "hredmore1@imgur.com",
-				"current_plan": "Team",
-				"billing": "Manual - Paypal",
-				"status": 1,
-				"avatar": "10.png"
-			}
-		]
+      let borderColor, bodyBg, headingColor;
 
-      // Users List datatable
-      if (dataTablePermissions.length) {
-        dt_permission = dataTablePermissions.DataTable({
-          ajax: assetsPath + 'json/permissions-list.json', // JSON file to add data
+      if (isDarkStyle) {
+        borderColor = config.colors_dark.borderColor;
+        bodyBg = config.colors_dark.bodyBg;
+        headingColor = config.colors_dark.headingColor;
+      } else {
+        borderColor = config.colors.borderColor;
+        bodyBg = config.colors.bodyBg;
+        headingColor = config.colors.headingColor;
+      }
+
+      // Variable declaration for table
+      var dt_user_table = $('.datatables-users'),
+        select2 = $('.select2'),
+        userView = 'app-user-view-account.go',
+        statusObj = {
+          1: { title: 'Pending', class: 'bg-label-warning' },
+          2: { title: 'Active', class: 'bg-label-success' },
+          3: { title: 'Inactive', class: 'bg-label-secondary' }
+        };
+
+      if (select2.length) {
+        var $this = select2;
+        $this.wrap('<div class="position-relative"></div>').select2({
+          placeholder: 'Select Country',
+          dropdownParent: $this.parent()
+        });
+      }
+
+      // Users datatable
+      if (dt_user_table.length) {
+        var dt_user = dt_user_table.DataTable({
+          ajax: assetsPath + 'json/creator-list.json', // JSON file to add data
           columns: [
             // columns according to JSON
             { data: '' },
-            { data: 'id' },
-            { data: 'name' },
-            { data: 'assigned_to' },
-            { data: 'created_date' },
-            { data: '' }
+            { data: 'full_name' },
+            { data: 'role' },
+            { data: 'current_plan' },
+            { data: 'billing' }
           ],
           columnDefs: [
             {
               // For Responsive
               className: 'control',
-              orderable: false,
               searchable: false,
+              orderable: false,
               responsivePriority: 2,
               targets: 0,
               render: function (data, type, full, meta) {
@@ -1921,99 +1915,135 @@
               }
             },
             {
+              // User full name and email
               targets: 1,
-              searchable: false,
-              visible: false
-            },
-            {
-              // Name
-              targets: 2,
+              responsivePriority: 4,
               render: function (data, type, full, meta) {
-                var $name = full['name'];
-                return '<span class="text-nowrap">' + $name + '</span>';
+                var $name = full['full_name'],
+                  $email = full['email'],
+                  $image = full['avatar'];
+                if ($image) {
+                  // For Avatar image
+                  var $output =
+                    '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
+                } else {
+                  // For Avatar badge
+                  var stateNum = Math.floor(Math.random() * 6);
+                  var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
+                  var $state = states[stateNum],
+                    $name = full['full_name'],
+                    $initials = $name.match(/\b\w/g) || [];
+                  $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+                  $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
+                }
+                // Creates full output for row
+                var $row_output =
+                  '<div class="d-flex justify-content-start align-items-center user-name">' +
+                  '<div class="avatar-wrapper">' +
+                  '<div class="avatar avatar-sm me-3">' +
+                  $output +
+                  '</div>' +
+                  '</div>' +
+                  '<div class="d-flex flex-column">' +
+                  '<a href="' +
+                  userView +
+                  '" class="text-body text-truncate"><span class="fw-medium">' +
+                  $name +
+                  '</span></a>' +
+                  '<small class="text-muted">' +
+                  $email +
+                  '</small>' +
+                  '</div>' +
+                  '</div>';
+                return $row_output;
               }
             },
             {
               // User Role
-              targets: 3,
-              orderable: false,
+              targets: 2,
               render: function (data, type, full, meta) {
-                var $assignedTo = full['assigned_to'],
-                  $output = '';
+                var $role = full['role'];
                 var roleBadgeObj = {
-                  Admin: '<a href="' + userList + '"><span class="badge  bg-label-primary m-1">Administrator</span></a>',
-                  Manager: '<a href="' + userList + '"><span class="badge  bg-label-warning m-1">Manager</span></a>',
-                  Users: '<a href="' + userList + '"><span class="badge  bg-label-success m-1">Users</span></a>',
-                  Support: '<a href="' + userList + '"><span class="badge  bg-label-info m-1">Support</span></a>',
-                  Restricted:
-                    '<a href="' + userList + '"><span class="badge  bg-label-danger m-1">Restricted User</span></a>'
+                  Subscriber:
+                    '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="bx bx-user bx-xs"></i></span>',
+                  Author:
+                    '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="bx bx-cog bx-xs"></i></span>',
+                  Maintainer:
+                    '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="bx bx-pie-chart-alt bx-xs"></i></span>',
+                  Editor:
+                    '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="bx bx-edit bx-xs"></i></span>',
+                  Admin:
+                    '<span class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 me-2"><i class="bx bx-mobile-alt bx-xs"></i></span>'
                 };
-                for (var i = 0; i < $assignedTo.length; i++) {
-                  var val = $assignedTo[i];
-                  $output += roleBadgeObj[val];
-                }
-                return '<span class="text-nowrap">' + $output + '</span>';
+                return "<span class='text-truncate d-flex align-items-center'>" + roleBadgeObj[$role] + $role + '</span>';
               }
             },
             {
-              // remove ordering from Name
-              targets: 4,
-              orderable: false,
+              // Plans
+              targets: 3,
               render: function (data, type, full, meta) {
-                var $date = full['created_date'];
-                return '<span class="text-nowrap">' + $date + '</span>';
+                var $plan = full['current_plan'];
+
+                return '<span class="fw-medium">' + $plan + '</span>';
+              }
+            },
+            // 삭제할부분
+            {
+              // User Status
+              targets: 5,
+              render: function (data, type, full, meta) {
+                var $status = full['status'];
+
+                return '<span class="badge ' + statusObj[$status].class + '">' + statusObj[$status].title + '</span>';
               }
             },
             {
               // Actions
               targets: -1,
-              searchable: false,
               title: 'Actions',
+              searchable: false,
               orderable: false,
               render: function (data, type, full, meta) {
                 return (
-                  '<span class="text-nowrap"><button class="btn btn-sm btn-icon me-2" data-bs-target="#editPermissionModal" data-bs-toggle="modal" data-bs-dismiss="modal"><i class="bx bx-edit"></i></button>' +
-                  '<button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button></span>'
+                  '<div class="d-inline-block text-nowrap">' +
+                  '<button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button>' +
+                  '<button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button>' +
+                  '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button>' +
+                  '<div class="dropdown-menu dropdown-menu-end m-0">' +
+                  '<a href="' +
+                  userView +
+                  '" class="dropdown-item">View</a>' +
+                  '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
+                  '</div>' +
+                  '</div>'
                 );
               }
             }
+            // 여기까지
           ],
-          order: [[1, 'asc']],
+          order: [[1, 'desc']],
           dom:
-            '<"row mx-1"' +
-            '<"col-sm-12 col-md-3" l>' +
-            '<"col-sm-12 col-md-9"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-md-end justify-content-center flex-wrap me-1"<"me-3"f>B>>' +
-            '>t' +
-            '<"row mx-2"' +
-            '<"col-sm-12 col-md-6"i>' +
-            '<"col-sm-12 col-md-6"p>' +
-            '>',
+        	    '<"row mx-2"' +
+        	    '<"col-md-4"<"dt-action-buttons text-start d-flex align-items-center justify-content-between flex-md-row flex-column mb-3 mb-md-0"f>>' +
+                '<"col-md-4 user_role">'+
+                '<"col-md-4 user_plan">'+
+        	    '>t' +
+        	    '<"row mx-2"' +
+        	    '<"col-sm-12 col-md-6"i>' +
+        	    '<"col-sm-12 col-md-6"p>' +
+              	
+        	    '>',
           language: {
             sLengthMenu: '_MENU_',
-            search: 'Search',
-            searchPlaceholder: 'Search..'
+            search: '',
+            searchPlaceholder: '검색'
           },
-          // Buttons with Dropdown
-          buttons: [
-            {
-              text: 'Add Permission',
-              className: 'add-new btn btn-primary mb-3 mb-md-0',
-              attr: {
-                'data-bs-toggle': 'modal',
-                'data-bs-target': '#addPermissionModal'
-              },
-              init: function (api, node, config) {
-                $(node).removeClass('btn-secondary');
-              }
-            }
-          ],
-          // For responsive popup
           responsive: {
             details: {
               display: $.fn.dataTable.Responsive.display.modal({
                 header: function (row) {
                   var data = row.data();
-                  return 'Details of ' + data['name'];
+                  return 'Details of ' + data['full_name'];
                 }
               }),
               type: 'column',
@@ -2043,11 +2073,11 @@
           initComplete: function () {
             // Adding role filter once table initialized
             this.api()
-              .columns(3)
+              .columns(2)
               .every(function () {
                 var column = this;
                 var select = $(
-                  '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option></select>'
+                  '<select id="UserRole" class="form-select text-capitalize"><option value=""> 카테고리 </option></select>'
                 )
                   .appendTo('.user_role')
                   .on('change', function () {
@@ -2060,16 +2090,69 @@
                   .unique()
                   .sort()
                   .each(function (d, j) {
-                    select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
+                    select.append('<option value="' + d + '">' + d + '</option>');
                   });
               });
+            // Adding plan filter once table initialized
+            this.api()
+              .columns(3)
+              .every(function () {
+                var column = this;
+                var select = $(
+                  '<select id="UserPlan" class="form-select text-capitalize"><option value=""> 전체보기 </option></select>'
+                )
+                  .appendTo('.user_plan')
+                  .on('change', function () {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                  });
+
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                  });
+              });
+            // Adding status filter once table initialized
+            // 삭제할 부분
+            this.api()
+              .columns(5)
+              .every(function () {
+                var column = this;
+                var select = $(
+                  '<select id="FilterTransaction" class="form-select text-capitalize"><option value=""> Select Status </option></select>'
+                )
+                  .appendTo('.user_status')
+                  .on('change', function () {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                  });
+
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (d, j) {
+                    select.append(
+                      '<option value="' +
+                        statusObj[d].title +
+                        '" class="text-capitalize">' +
+                        statusObj[d].title +
+                        '</option>'
+                    );
+                  });
+              }); // 여기까지 삭제
           }
         });
+        // To remove default btn-secondary in export buttons
+        $('.dt-buttons > .btn-group > button').removeClass('btn-secondary');
       }
-
+      
       // Delete Record
-      $('.datatables-permissions tbody').on('click', '.delete-record', function () {
-        dt_permission.row($(this).parents('tr')).remove().draw();
+      $('.datatables-users tbody').on('click', '.delete-record', function () {
+        dt_user.row($(this).parents('tr')).remove().draw();
       });
 
       // Filter form control to default size
@@ -2079,6 +2162,60 @@
         $('.dataTables_length .form-select').removeClass('form-select-sm');
       }, 300);
     });
+
+    // Validation & Phone mask
+    (function () {
+      const phoneMaskList = document.querySelectorAll('.phone-mask'),
+        addNewUserForm = document.getElementById('addNewUserForm');
+
+      // Phone Number
+      if (phoneMaskList) {
+        phoneMaskList.forEach(function (phoneMask) {
+          new Cleave(phoneMask, {
+            phone: true,
+            phoneRegionCode: 'US'
+          });
+        });
+      }
+      // Add New User Form Validation
+      const fv = FormValidation.formValidation(addNewUserForm, {
+        fields: {
+          userFullname: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter fullname '
+              }
+            }
+          },
+          userEmail: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your email'
+              },
+              emailAddress: {
+                message: 'The value is not a valid email address'
+              }
+            }
+          }
+        },
+        plugins: {
+          trigger: new FormValidation.plugins.Trigger(),
+          bootstrap5: new FormValidation.plugins.Bootstrap5({
+            // Use this for enabling/changing valid/invalid class
+            eleValidClass: '',
+            rowSelector: function (field, ele) {
+              // field is the field name & ele is the field element
+              return '.mb-3';
+            }
+          }),
+          submitButton: new FormValidation.plugins.SubmitButton(),
+          // Submit the form when all fields are valid
+          // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+          autoFocus: new FormValidation.plugins.AutoFocus()
+        }
+      });
+    })();
+
     </script>
     
   </body>
