@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Add - Invoice | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,11 +42,15 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
     <!-- Page CSS -->
 
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-invoice.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -55,6 +59,33 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <!-- 커스텀 스타일 -->
+    <style>
+.btn.btn-primary.btn-toggle-sidebar{
+	width: 70px;
+	font-size: 13px;
+	padding : 2px;
+	
+	margin-left: auto;
+	
+}
+.col.app-calendar-sidebar{
+	font-size: 13px;
+	margin: 15px;
+	padding : 2px;
+}
+.text-body.mb-0.me-auto.calendar{
+	margin-bottom: 10px;
+}
+.all-select{
+	margin-top: 10px;
+	margin-right: 8px;
+}
+    
+    
+    </style>
+    
   </head>
 
   <body>
@@ -269,7 +300,7 @@
                 <div class="text-truncate" data-i18n="Chat">Chat</div>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="app-calendar.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="Calendar">Calendar</div>
@@ -464,7 +495,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="Invoice">Invoice</div>
@@ -486,7 +517,7 @@
                     <div class="text-truncate" data-i18n="Edit">Edit</div>
                   </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="app-invoice-add.go" class="menu-link">
                     <div class="text-truncate" data-i18n="Add">Add</div>
                   </a>
@@ -1759,194 +1790,167 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            
-              <div class="row invoice-add" style="height : 100%;">
-                <!-- Invoice Add-->
-                <div class="col-lg-9 col-12 mb-lg-0 mb-4" style="width: 100%; height : 100%;">
-                  <br><br><br>
-                  <div style="width: 20%"> 																																																																																																																																																									
-                  	<h5 class="card-header" style="font-size: 24px; font-weight: bold; color: #C20000;">회의실 예약</h5>
-                  </div>
-                  <br><br><br>
-                  <div class="card invoice-preview-card" style="height: 80%; justify-content: center; display: flex; overflow: auto;">
-                  <div class="card" style="box-shadow: none; background-color: none; max-height: 400px;" >
-                   <div class="card-body">
-						<!-- Date Picker-->
-						<div style="align-items: center; justify-content: center; display: flex;">
-							<div class="col-md-6 col-12 mb-4" style="width:200px;">
-			                	<input type="text" class="form-control" value="YYYY-MM-DD" id="flatpickr-date" 
-			                		style="text-align: center; border-color: transparent; width:200px; font-size:25px;"/>
-			                </div>
-						</div>
-		                <!-- /Date Picker -->               
-                    <div class="table-responsive text-nowrap">
-                    	<table class="table table-bordered text-center text-nowrap" style="white-space: normal;">
-	                      <thead>
-	                        <tr>
-	                          <th></th>
-	                          <th colspan="2">7</th>
-	                          <th colspan="2">8</th>
-	                          <th colspan="2">9</th>
-	                          <th colspan="2">10</th>
-	                          <th colspan="2">11</th>
-	                          <th colspan="2">12</th>
-	                          <th colspan="2">13</th>
-	                          <th colspan="2">14</th>
-	                          <th colspan="2">15</th>
-	                          <th colspan="2">16</th>
-	                          <th colspan="2">17</th>
-	                          <th colspan="2">18</th>
-	                          <th colspan="2">19</th>
-	                        </tr>
-	                      </thead>
-	                      <tbody>
-	                        <tr>
-	                        	<th class="text-start">회의실 1 (10명)</th>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>     	
-	                        </tr>
-	                        <tr>
-	                        	<th class="text-start">회의실 2 (20명)</th>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                         	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>                         	
-	                        </tr>
-	                        <tr>
-	                        	<th class="text-start">대   회의실 (30명)</th>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>           
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>
-	                        	<td></td>        	
-	                        </tr>
-	                      </tbody>
-                    	</table>
-                    </div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- /Invoice Add-->
-              </div>
-              <!-- 모달창 정보 -->
+              <div class="card app-calendar-wrapper">
+                <div class="row g-0">
+                  <!-- Calendar Sidebar -->
+                  
+                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
+                  
+                    
+                    <h6 class="text-body mb-0 me-auto calendar">근무시간 전체등록</h6>
+                    <div class="all-select">
+                    <div class="d-flex cal-select">
+				        <select class="form-select">
+				            <option value="option1">07:00~16:00</option>
+				            <option value="option2">08:00~17:00</option>
+				            <option value="option3">09:00~18:00</option>
+				            <option value="option4">10:00~19:00</option>
+				            <option value="option5">11:00~20:00</option>
+				        </select>
+				        <button class="btn btn-primary btn-toggle-sidebar" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
+				            <span class="align-middle">등록</span>
+				        </button>
+				    </div>
+				    </div>
+                    
+                    <div class="p-4">
+                      <!-- inline calendar (flatpicker) -->
 
-              <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-                <div class="modal-dialog modal-lg modal-simple modal-edit-user"  style="display: flex; justify-content: center; align-items: center; height: 100%;" >
-                  <div class="modal-content p-3 p-md-5">
-                    <div class="modal-body" style="width: 100%">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <h3 class="mb-5">회의실 예약</h3>
-                      <div class="text-start" style="display: flex;">
-                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
-                      		<h5 style="margin-bottom: 0rem;">예약일</h5>
-                      	</div>
-                      	<div class="col-md-6 col-12" style="width: 150px; padding: 10 10">
-                      		<label for="reservelabel" class="form-label">날짜 선택</label>
-                        	<input type="text" class="form-control"/>
-                        </div>
-              			<div class="col-md-6 col-12" style="width: 150px; padding: 10 10">
-				            <label for="flatpickr-time" class="form-label">시작 시간</label>
-				            <input type="text" class="form-control" placeholder="HH:MM" id="flatpickr-time" data-bs-backdrop="static" />
-			            </div>
-			            <div class="col-md-6 col-12" style="width: 150px; padding: 10 10">
-				            <label for="flatpickr-time" class="form-label">종료 시간</label>
-				            <input type="text" class="form-control" placeholder="HH:MM" id="flatpickr-time" data-bs-backdrop="static" />
-			            </div>
+
+                     
+                    </div>
+                  </div>
+                  <!-- /Calendar Sidebar -->
+
+                  <!-- Calendar & Modal -->
+                  <div class="col app-calendar-content">
+                    <div class="card shadow-none border-0">
+                      <div class="card-body pb-0">
+                        <!-- FullCalendar -->
+                        <div id="calendar"></div>
                       </div>
-                      <div class="text-start mt-4" style="display: flex;">
-                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
-                      		<h5 style="margin-bottom: 0rem;">예약자</h5>
-                      	</div>
-                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
-                      		<h5 style="margin-bottom: 0rem;">???</h5>
-                      	</div>
+                    </div>
+                    <div class="app-overlay"></div>
+                    <!-- FullCalendar Offcanvas -->
+                    <div
+                      class="offcanvas offcanvas-end event-sidebar"
+                      tabindex="-1"
+                      id="addEventSidebar"
+                      aria-labelledby="addEventSidebarLabel">
+                      <div class="offcanvas-header border-bottom">
+                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
+                        <button
+                          type="button"
+                          class="btn-close text-reset"
+                          data-bs-dismiss="offcanvas"
+                          aria-label="Close"></button>
                       </div>
-                      <div class="text-start mt-4" style="display: flex;">
-                      	<div class="col-md-6 col-12" style="width: 100px; display:flex; align-items: center; justify-content: center;">
-                      		<h5 style="margin-bottom: 0rem;">사용 목적</h5>
-                      	</div>
-                      	<div class="col-md-6 col-12" style="padding: 10 10">
-                      		<label for="reservelabel" class="form-label"></label>
-                        	<input type="text" class="form-control"/>
-                        </div>
-                      </div>
-                      <div class="text-end">
-                      	<button type="button" class="btn rounded-pill btn-primary" data-bs-dismiss="modal">
-                              <span class="tf-icons bx bx-pie-chart-alt me-1"></span>예약
-                        </button>
+                      <div class="offcanvas-body">
+                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
+                          <div class="mb-3">
+                            <label class="form-label" for="eventTitle">Title</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventTitle"
+                              name="eventTitle"
+                              placeholder="Event Title" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventLabel">Label</label>
+                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
+                              <option data-label="primary" value="Business" selected>Business</option>
+                              <option data-label="danger" value="Personal">Personal</option>
+                              <option data-label="warning" value="Family">Family</option>
+                              <option data-label="success" value="Holiday">Holiday</option>
+                              <option data-label="info" value="ETC">ETC</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventStartDate">Start Date</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventStartDate"
+                              name="eventStartDate"
+                              placeholder="Start Date" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventEndDate">End Date</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventEndDate"
+                              name="eventEndDate"
+                              placeholder="End Date" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="switch">
+                              <input type="checkbox" class="switch-input allDay-switch" />
+                              <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                              </span>
+                              <span class="switch-label">All Day</span>
+                            </label>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventURL">Event URL</label>
+                            <input
+                              type="url"
+                              class="form-control"
+                              id="eventURL"
+                              name="eventURL"
+                              placeholder="https://www.google.com" />
+                          </div>
+                          <div class="mb-3 select2-primary">
+                            <label class="form-label" for="eventGuests">Add Guests</label>
+                            <select
+                              class="select2 select-event-guests form-select"
+                              id="eventGuests"
+                              name="eventGuests"
+                              multiple>
+                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
+                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
+                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
+                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
+                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
+                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventLocation">Location</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventLocation"
+                              name="eventLocation"
+                              placeholder="Enter Location" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventDescription">Description</label>
+                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
+                          </div>
+                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
+                            <div>
+                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
+                              <button
+                                type="reset"
+                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                                data-bs-dismiss="offcanvas">
+                                Cancel
+                              </button>
+                            </div>
+                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
+                  <!-- /Calendar & Modal -->
                 </div>
               </div>
+            </div>
             <!-- / Content -->
 
             <!-- Footer -->
@@ -2012,43 +2016,19 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-    <script src="../../assets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
-    <script>
-    
-    	// 날짜 선택
-	    var flatpickrDate = document.querySelector("#flatpickr-date");
-	
-	    flatpickrDate.flatpickr({
-	      monthSelectorType: "static"
-	    });
-	    
-	    // 시간 선택
-	    var flatpickrTime = document.querySelector("#flatpickr-time");
-		
-		flatpickrTime.flatpickr({
-		  enableTime: true,
-		  noCalendar: true
-		});
-	    
-	    // 모달 실행 명령어
-	    document.addEventListener('DOMContentLoaded', function () {
-	        var allTds = document.querySelectorAll('td');
-
-	        allTds.forEach(function (td) {
-	            td.setAttribute('data-bs-toggle', 'modal');
-	            td.setAttribute('data-bs-target', '#editUser');
-	        });
-	    });
-    </script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/offcanvas-send-invoice.js"></script>
-    <script src="../../assets/js/app-invoice-add.js"></script>
+    <script src="../../assets/js/app-calendar-events.js"></script>
+    <script src="../../assets/js/app-calendar.js"></script>
   </body>
 </html>

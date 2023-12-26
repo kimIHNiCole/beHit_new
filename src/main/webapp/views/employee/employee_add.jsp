@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
 
     <!-- Page CSS -->
 
@@ -1824,7 +1825,7 @@
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" method="GET" onsubmit="return false">
+                      <form id="formAccountSettings" action="empadd.do" method="post">
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="firstName" class="form-label">아이디</label>
@@ -1876,12 +1877,7 @@
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="phoneNumber">휴대폰 번호</label>
                             <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="moblie-phone"
-                                name="	moblie-phone"
-                                class="form-control"
-                                placeholder="010-0000-0000" />
+                              <input type="text" id="mobile_phone" name="mobile_phone" class="form-control" placeholder="010-0000-0000" />
                             </div>
                           </div>                        
                           <div class="mb-3 col-md-6">
@@ -1889,51 +1885,52 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="detail-addr"
-                              name="detail-addr"
+                              id="detail_addr"
+                              name="detail_addr"
                               placeholder="상세 주소"
                               maxlength="6" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="state" class="form-label">부서</label>
-                            <select id="department" class="select2 form-select">
+                            <label for="department" class="form-label">부서</label>
+                            <select id="department" class="select2 form-select" name="department">
                               <option value=""></option>
-                              <option value="finance">재무</option>
-                              <option value="personnel">인사</option>
-                              <option value="management">매니지먼트 / 기획</option>
-                              <option value="business">사업 기획</option>
-                              <option value="marketing">마케팅</option>
+                              <option value="100">무소속</option>
+                              <option value="200">인사</option>
+                              <option value="300">재무</option>
+                              <option value="400">사업 기획</option>
+                              <option value="500">마케팅</option>
+                              <option value="600">매니지먼트</option>
                             </select>
                           </div> 
-                        <div class="col-md-6 col-12 mb-4">
-                          <label for="flatpickr-date" class="form-label">입사일</label>
-                          <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" />
-                        </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="job" class="form-label">직책</label>
-                            <select id="job" class="select2 form-select">
+	                        <div class="col-md-6 col-12 mb-4">
+	                          <label for="flatpickr-date" class="form-label">입사일</label>
+	                          <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" name="hiredate" />
+	                        </div>
+                            <div class="mb-3 col-md-6">
+                            <label class="form-label" for="position">직급</label>
+                            <select id="rank" class="select2 form-select" name="rank">
                               <option value=""></option>
-                              <option value="member">팀원</option>
-                              <option value="leader">팀장</option>
-                              <option value="dm_manager">실장</option>
-                              <option value="hq_manager">본부장</option>
+                              <option value="10">대표</option>
+                              <option value="20">이사</option>
+                              <option value="30">부장</option>
+                              <option value="40">차장</option>
+                              <option value="50">과장</option>
+                              <option value="60">대리</option>
+                              <option value="70">사원</option>
                             </select>
                           </div>
                         <div class="col-md-6 col-12 mb-4">
                           <label for="flatpickr-date" class="form-label">생년 월일</label>
-                          <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="emp_birth" />
+                          <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpick-date" name="emp_birth" />
                         </div>
-                            <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">직급</label>
-                            <select id="position" class="select2 form-select">
+                         <div class="mb-3 col-md-6">
+                            <label for="job" class="form-label">직책</label>
+                            <select id="job" class="select2 form-select" name="job">
                               <option value=""></option>
-                              <option value="staff">사원</option>
-                              <option value="associate">주임</option>
-                              <option value="As_manager">대리</option>
-                              <option value="manager">과장</option>
-                              <option value="sn_manager">차장</option>
-                              <option value="gn_manager">부장</option>
-                              <option value="director">이사</option>
+                              <option value="1">대표</option>
+                              <option value="2">이사</option>
+                              <option value="3">팀장</option>
+                              <option value="4">팀원</option>
                             </select>
                           </div>    
                         </div>
@@ -2017,6 +2014,34 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+    	// 날짜 선택
+	    var flatpickrDate = document.querySelector("#flatpickr-date");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+	    
+	    var flatpickrDate = document.querySelector("#flatpick-date");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+	    
+	    window.onload = function(){
+	        document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	            //카카오 지도 발생
+	            new daum.Postcode({
+	                oncomplete: function(data) { //선택시 입력값 세팅
+	                    document.getElementById("address").value = data.address; // 주소 넣기
+	                    document.querySelector("input[name=detail_addr]").focus(); //상세입력 포커싱
+	                }
+	            }).open();
+	        });
+	    }
+    </script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>

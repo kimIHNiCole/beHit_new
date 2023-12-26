@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>DataTables - Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
@@ -42,17 +42,15 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/fullcalendar/fullcalendar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <!-- Row Group CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
-    <!-- Form Validation -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
     <!-- Page CSS -->
+
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -62,12 +60,22 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
-    
-    <!-- custom CSS -->
     <style>
-    	.col-md-4{
-    		margin-top:3.625rem;
-    	}
+
+
+/* 필터 글자  */
+.mb-4{
+	margin-bottom: 0.5rem !important;
+}
+/* 내일정보기랑 버튼 사이 마진 */
+.text-muted.text-uppercase{
+	margin-right: 1rem;
+}
+/* 내일정보기와 체크필터 사이 마진 */
+.checkFilter{
+	margin-bottom: 1rem;
+}
+    
     </style>
     
   </head>
@@ -125,7 +133,7 @@
               </a>
             </li>
             
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="../calendar/calendar.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="캘린더">캘린더</div>
@@ -166,13 +174,13 @@
               </a>
             </li>
             
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="../employee/employee_list.go" class="menu-link">
                     <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
                   </a>
@@ -344,79 +352,229 @@
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          
-           <!-- Content -->
-<div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 </span></h4>
+            <!-- Content -->
 
-    <!-- DataTable with Buttons -->
-    <div class="card">
-        <div class="card-datatable table-responsive" style="overflow-x: hidden;">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <!-- 탭 추가 -->
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="tab-active" href="#">재직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-on-leave" href="#">휴직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-resigned" href="#">퇴사자</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4">
-                    <!-- 검색박스 및 셀렉트 박스 -->
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <select class="form-select">
-                                <option value="name">이름</option>
-                                <option value="id">아이디</option>
-                                <option value="department">부서</option>
-                                <option value="position">직급</option>
-                                <option value="title">직책</option>
-                            </select>
-                        </div>
-                        <input type="text" class="form-control" placeholder="검색어 입력">
-                        <button class="btn btn-primary" type="button">검색</button>
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="card app-calendar-wrapper">
+                <div class="row g-0">
+                  <!-- Calendar Sidebar -->
+                  <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
+                    <div class="border-bottom p-4 my-sm-0 mb-3">
+                      <div class="d-grid">
+                        <button
+                          class="btn btn-primary btn-toggle-sidebar"
+                          data-bs-toggle="offcanvas"
+                          data-bs-target="#addEventSidebar"
+                          aria-controls="addEventSidebar">
+                          <i class="bx bx-plus me-1"></i>
+                          <span class="align-middle">일정 추가</span>
+                        </button>
+                      </div>
                     </div>
-                </div>
+                    <div class="p-4">
+                      <!-- inline calendar (flatpicker) -->
+                      <div class="ms-n2">
+                        <div class="inline-calendar"></div>
+                      </div>
 
-                <div class="col-md-4 text-end">
-                    <!-- 직원 등록 버튼 -->
-                    <button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
+                      <hr class="container-m-nx my-4" />
+
+                      <!-- Filter -->
+                      <div class="mb-4">
+                        <small class="text-small text-muted text-uppercase align-middle">Filter</small>
+                      </div>
+                      <div class="checkFilter">
+	                      <label class="switch">
+                              <input type="checkbox" class="switch-input allDay-switch">
+                              <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                              </span>
+                              <span class="switch-label">내 일정만 보기</span>
+                            </label>
+					  </div>
+                      <div class="form-check mb-2">
+                        <input
+                          class="form-check-input select-all"
+                          type="checkbox"
+                          id="selectAll"
+                          data-value="all"
+                          checked />
+                        <label class="form-check-label" for="selectAll">모든 일정</label>
+                      </div>
+
+                      <div class="app-calendar-events-filter">
+                        <div class="form-check form-check-danger mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-personal"
+                            data-value="personal"
+                            checked />
+                          <label class="form-check-label" for="select-personal">내 일정</label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-business"
+                            data-value="business"
+                            checked />
+                          <label class="form-check-label" for="select-business">프로젝트 일정</label>
+                        </div>
+                        <div class="form-check form-check-warning mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-family"
+                            data-value="family"
+                            checked />
+                          <label class="form-check-label" for="select-family">회의실 예약</label>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Calendar Sidebar -->
+
+                  <!-- Calendar & Modal -->
+                  <div class="col app-calendar-content">
+                    <div class="card shadow-none border-0">
+                      <div class="card-body pb-0">
+                        <!-- FullCalendar -->
+                        <div id="calendar"></div>
+                      </div>
+                    </div>
+                    <div class="app-overlay"></div>
+                    <!-- FullCalendar Offcanvas -->
+                    <div
+                      class="offcanvas offcanvas-end event-sidebar"
+                      tabindex="-1"
+                      id="addEventSidebar"
+                      aria-labelledby="addEventSidebarLabel">
+                      <div class="offcanvas-header border-bottom">
+                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">일정 상세</h5>
+                        <button
+                          type="button"
+                          class="btn-close text-reset"
+                          data-bs-dismiss="offcanvas"
+                          aria-label="Close"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
+                          <div class="mb-3">
+                            <label class="form-label" for="eventTitle">제목</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventTitle"
+                              name="eventTitle"
+                              placeholder="제목을 입력하세요" />
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label class="form-label" for="eventStartDate">일정 시작</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventStartDate"
+                              name="eventStartDate"
+                              placeholder="입력" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="eventEndDate">일정 끝</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="eventEndDate"
+                              name="eventEndDate"
+                              placeholder="입력" />
+                          </div>
+                          <div class="mb-3">
+                            <label class="switch">
+                              <input type="checkbox" class="switch-input allDay-switch" />
+                              <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                              </span>
+                              <span class="switch-label">종일</span>
+                            </label>
+                          </div>
+                          
+                          <div class="mb-3 select2-primary">
+                            <label class="form-label" for="eventGuests">참여자 추가</label>
+                            <select
+                              class="select2 select-event-guests form-select"
+                              id="eventGuests"
+                              name="eventGuests"
+                              multiple>
+                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
+                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
+                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
+                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
+                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
+                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
+                            </select>
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label class="form-label" for="eventDescription">설명</label>
+                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
+                          </div>
+                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
+                            <div>
+                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">완료</button>
+                              <button
+                                type="reset"
+                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
+                                data-bs-dismiss="offcanvas">
+                                취소
+                              </button>
+                            </div>
+                            <div><button class="btn btn-label-danger btn-delete-event d-none">삭제</button></div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Calendar & Modal -->
                 </div>
+              </div>
             </div>
-            <table class="datatables-basic table border-top" style="margin-top: -10px;">
-                <thead>
-                    <tr>
-                        <th colspan="2">이름 / 아이디</th>
-                        <th style="width: 200px;">부서</th>
-                        <th style="width: 200px;">직급</th>
-                        <th style="width: 200px;">직책</th>
-                        <th>채팅</th>
-                        <th>직원상세</th>
-                    </tr>
-                </thead>
-                <tbody id="elist">
-                
-                </tbody>
-            </table>
-        </div>
-	    <div class="container" style="display: flex; justify-content: flex-end;">									
-			<nav aria-label="Page navigation" style="text-align:center">
-				<ul class="pagination" id="pagination"></ul>
-			</nav>					
-		</div>
-    </div>
-    <hr class="my-5" />
-</div>
-<!-- / Content -->
+            <!-- / Content -->
 
-           
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  Â©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with â¤ï¸ by
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
+                </div>
+                <div class="d-none d-lg-inline-block">
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                  <a
+                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+                    target="_blank"
+                    class="footer-link"
+                    >Documentation</a
+                  >
+
+                  <a
+                    href="https://themeselection.com/support/"
+                    target="_blank"
+                    class="footer-link d-none d-sm-inline-block"
+                    >Support</a
+                  >
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -448,137 +606,19 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <!-- Flat Picker -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <!-- Form Validation -->
+    <script src="../../assets/vendor/libs/fullcalendar/fullcalendar.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-    <!-- pagenation -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/jquery.twbsPagination.js" type="text/javascript"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
-     <script>
-     var showPage = 1;
-     
- 	listCall(showPage);
-	
-	function listCall(page){
-		$.ajax({
-			type: 'get',
-			url: 'emplist.do',
-			data: {'page':page},
-			dataType: 'json',
-			success:function(data){
-				console.log(data);
-				drawList(data);		
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});
-	} 
-	
-	function drawList(obj){
-		
-		var content = '';
-		
-		obj.elist.forEach(function(item, idx) {
-			if(item.department != 0) {
-				content += '<tr>';
-				content +='<td>'+'img'+'</td>';
-				content +='<td>'+'<div class="d-flex flex-column">'+
-					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted">'+item.emp_id+'</small>'+'</div>'+'</td>';
-				switch (item.department) {
-				case 1:
-					content +='<td>'+'무소속'+'</td>';
-					break;
-				case 2:
-					content +='<td>'+'인사'+'</td>';
-					break;
-				case 3:
-					content +='<td>'+'재무'+'</td>';
-					break;
-				case 4:
-					content +='<td>'+'사업기획'+'</td>';
-					break;
-				case 5:
-					content +='<td>'+'마케팅'+'</td>';
-					break;
-				case 6:
-					content +='<td>'+'매니지먼트'+'</td>';
-					break; }
-				
-				switch (item.rank) {
-				case 1:
-					content +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					content +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					content +='<td>'+'부장'+'</td>';
-					break;
-				case 4:
-					content +='<td>'+'차장'+'</td>';
-					break;
-				case 5:
-					content +='<td>'+'과장'+'</td>';
-					break;
-				case 6:
-					content +='<td>'+'대리'+'</td>';
-					break; 
-				case 7:
-					content +='<td>'+'사원'+'</td>';
-					break; }
-				
-				switch (item.job) {
-				case 1:
-					content +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					content +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					content +='<td>'+'팀장'+'</td>';
-					break;
-				case 4:
-					content +='<td>'+'팀원'+'</td>';
-					break; }
-				content +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				content +='<td>'+'<a href="/empdetail.go" class="btn btn-sm btn-primary btn-view-details">'+'직원 상세보기'+'</a>'+'</td>';
-				content += '</tr>';
-			}
-		});
-		$('#elist').empty();
-		$('#elist').append(content);
-		
-		// 페이징 처리 UI 그리기(플러그인 사용)		
-		$('#pagination').twbsPagination({
-			startPage:obj.currPage, // 보여줄 페이지
-			totalPages:obj.pages, // 총 페이지 수 (총 갯수 / 페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
-			visiblePages:5, // [1],[2],[3],[4],[5]
-			onPageClick:function(e, page){
-				// console.log(e);
-				if (showPage != page) {
-					console.log(page);
-					showPage = page;
-					listCall(page);
-				}
-			}
-		});
-		
-	}
-
-     </script>
+    <script src="../../assets/js/app-calendar-events.js"></script>
+    <script src="../../assets/js/app-calendar.js"></script>
   </body>
 </html>
