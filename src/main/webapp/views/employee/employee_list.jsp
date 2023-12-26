@@ -1982,7 +1982,7 @@
 					content +='<td>'+'팀원'+'</td>';
 					break; }
 				content +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				content +='<td>'+'<a href="/empdetail.go;" class="btn btn-sm btn-primary btn-view-details">'+'직원 상세보기'+'</a>'+'</td>';
+				content +='<td>'+'<a href="/empdetail.go" class="btn btn-sm btn-primary btn-view-details">'+'직원 상세보기'+'</a>'+'</td>';
 				content += '</tr>';
 			}
 		});

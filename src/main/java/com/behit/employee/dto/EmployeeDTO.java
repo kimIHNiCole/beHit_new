@@ -1,15 +1,10 @@
 package com.behit.employee.dto;
 
-<<<<<<< HEAD
-import java.sql.Date;
-
-=======
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
 @Alias("employee")
->>>>>>> origin/main
 public class EmployeeDTO {
 
 	private String emp_id;

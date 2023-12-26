@@ -2,8 +2,6 @@ package com.behit.employee.controller;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +37,9 @@ public class EmployeeController {
 	}
 
 	// 추후 경로 수정
-	@PostMapping(value = "/empadd.do")
+	@PostMapping(value = "/views/employee/empadd.do")
 	public ModelAndView empjoin(@RequestParam HashMap<String, Object> params) {
-		
+			
 		ModelAndView mav = new ModelAndView();
 		
 		logger.info("params: "+params);
@@ -52,17 +50,17 @@ public class EmployeeController {
 		logger.info("encoded password : "+params.get("password"));
 		employeeService.join(params);
 		
-		mav.setViewName("employee/employee_list");
+		mav.setViewName("redirect:/views/employee/employee_list");
 
 		return mav;
 	}
 
 	@GetMapping(value = "/emplist.go")
 	public String emplistgo() {
-		return "redirect:/views/employee/employee_list.jsp";
+		return "employee/employee_list";
 	}
 
-	@GetMapping(value = "/views/employee/emplist.do")
+	@GetMapping(value = "/emplist.do")
 	@ResponseBody
 	public HashMap<String, Object> emplist(@RequestParam String page) {
 
@@ -71,7 +69,7 @@ public class EmployeeController {
 
 	@GetMapping(value = "/empdetail.go")
 	public String empdetailgo() {
-		return "redirect:/views/employee/employee_detail.jsp";
+		return "employee/employee_detail";
 	}
 
 }
