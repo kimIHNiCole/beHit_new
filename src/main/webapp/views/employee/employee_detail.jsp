@@ -352,10 +352,10 @@ img.rounded-top{
                         <div
                           class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                           <div class="user-profile-info">
-                            <h4>관리자</h4>
+                            <h4>${empdetail.emp_name}</h4>
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-                              <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : admin0</li>
+                              <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : ${empdetail.emp_id}</li>
                             </ul>
                           </div>
                           <a href="javascript:void(0)" class="btn btn-primary text-nowrap">
@@ -368,31 +368,6 @@ img.rounded-top{
                 </div>
               </div>
               <!--/ Header -->
-
-              <!-- Navbar pills -->
-<!--               <div class="row">
-                <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Profile</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-teams.go"><i class="bx bx-group me-1"></i> Teams</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-projects.go"
-                        ><i class="bx bx-grid-alt me-1"></i> Projects</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-connections.go"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div> -->
-              <!--/ Navbar pills -->
               <!-- User Profile Content -->
                <!-- Form with Tabs -->
               <div class="row">
@@ -432,35 +407,36 @@ img.rounded-top{
                     </ul>
                     <div class="tab-content">
                       <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
-                        <form>
+                      <form>                 
                           <div class="row g-3">
                             <div class="col-md-6">
                               <label class="form-label" for="formtabs-first-name">이름</label>
-                              <input type="text" id="formtabs-first-name" class="form-control" placeholder="관리자" />
+                              <input type="text" id="emp_name" name="emp_name" class="form-control" value="${empdetail.emp_name}" />
                             </div>
                             <div class="col-md-6">
-                              <label class="form-label" for="emp_id">임시 비밀번호</label>
-                              <input type="text" id="emp_id" class="form-control" />
+                              <label class="form-label" for="password">임시 비밀번호</label>
+                              <input type="text" id="password" name="password" class="form-control" value=""/>
                             </div>
                            <div class="col-md-6">
-                              <label class="form-label" for="password">사내 전화번호</label>
-                              <input type="text" id="password" class="form-control" placeholder="02-000-0000" />
+                              <label class="form-label" for="cp_phone">사내 전화번호</label>
+                              <input type="text" id="cp_phone" name="cp_phone" class="form-control" value="${empdetail.cp_phone}" />
                             </div>
                            <div class="col-md-6">
-                              <label class="form-label" for="formtabs-last-name">휴대폰 번호</label>
-                              <input type="text" id="formtabs-last-name" class="form-control" placeholder="010-0000-0000" />
+                              <label class="form-label" for="mobile_phone">휴대폰 번호</label>
+                              <input type="text" id="mobile_phone" name="mobile_phone" class="form-control" value="${empdetail.mobile_phone}" />
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="formtabs-birthdate">생년 월일</label>
                               <input
                                 type="text"
                                 id="emp_birth"
+                                name="emp_birth"
                                 class="form-control dob-picker"
-                                placeholder="YYYY-MM-DD" />
+                                value="${empdetail.emp_birth}"/>
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="email">이메일</label>
-                              <input type="text" id="email" class="form-control" placeholder="admin@example.com"/>
+                              <input type="text" id="email" name="email" class="form-control" value="${empdetail.email}"/>
                             </div>
                           <div class="pt-4">
                             <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
@@ -509,27 +485,27 @@ img.rounded-top{
 		                    </div>
 		                  </div>
 		                </div>
+		                </form>
 	                <!--/ Activity Timeline -->
-                        </form>
                       </div>
                       <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
                         <form>
                           <div class="row g-3">
                             <div class="col-md-6">
                               <label class="form-label" for="address">주소</label>
-                              <input type="text" id="address" class="form-control" placeholder="서울특별시 금천구 가신디지털단지2로 11-1" />
+                              <input type="text" id="address" name="address" class="form-control" value="${empdetail.address}" />
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="detail-addr">상세 주소</label>
-                              <input type="text" id="detail-addr" class="form-control" placeholder="OO아파트 1111동 111호" />
+                              <input type="text" id="detail-addr" name="detail-addr" class="form-control" value="${empdetail.detail-addr}" />
                             </div>
                             <div class="mb-3 col-md-6">
 	                            <label for="hiredate" class="form-label">입사일</label>
-	 							<input type="date" class="form-control" id="hiredate" name="hiredate" value="2000-01-01">
+	 							<input type="date" class="form-control" id="hiredate" name="hiredate" value="${empdetail.hiredate}">
 	                        </div>
 	                        <div class="mb-3 col-md-6">
 	                            <label for="leavedate" class="form-label">퇴사일</label>
-	 							<input type="date" class="form-control" id="leavedate" name="leavedate">
+	 							<input type="date" class="form-control" id="leavedate" name="leavedate" value="${empdetail.leavedate}">
 	                         </div>
                           </div>
                           <div class="pt-4">
@@ -587,7 +563,7 @@ img.rounded-top{
                           <div class="mb-3 col-md-6">
                             <label for="department" class="form-label">부서</label>
                             <select id="department" class="select2 form-select">
-                              <option value="">인사</option>
+                              <option value="">${empdetail.department}</option>
                               <option value="finance">재무</option>
                               <option value="personnel">인사</option>
                               <option value="management">매니지먼트 / 기획</option>
@@ -597,8 +573,8 @@ img.rounded-top{
                           </div> 
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="position">직급</label>
-                            <select id="position" class="select2 form-select">
-                              <option value="">이사</option>
+                            <select id="position" class="position">
+                              <option value="">${empdetail.position}</option>
                               <option value="staff">사원</option>
                               <option value="associate">주임</option>
                               <option value="As_manager">대리</option>
@@ -610,8 +586,8 @@ img.rounded-top{
                           </div>
                            <div class="mb-3 col-md-6">
                             <label for="job" class="form-label">직책</label>
-                            <select id="job" class="select2 form-select">
-                              <option value="">본부장</option>
+                            <select id="job" class="job">
+                              <option value="">${empdetail.job}</option>
                               <option value="member">팀원</option>
                               <option value="leader">팀장</option>
                               <option value="dm_manager">실장</option>
@@ -746,6 +722,11 @@ img.rounded-top{
 
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script>
+    	var emp_id = ${detail.emp_id};
+    	console.log(emp_id);
+    
+    </script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>

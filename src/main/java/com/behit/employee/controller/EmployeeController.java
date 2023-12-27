@@ -2,13 +2,12 @@ package com.behit.employee.controller;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,33 +58,32 @@ public class EmployeeController {
 
 		return mav;
 	}
-	
-	@GetMapping(value = "/emplist.go") 
-	public String emplistgo() { 
-		  
-		return"employee/employee_list"; 
-		  
+
+	@GetMapping(value = "/emplist.go")
+	public String emplistgo() {
+
+		return "employee/employee_list";
+
 	}
-	  
-	
+
 	@GetMapping(value = "/employee/emplist.do")
-	@ResponseBody 
+	@ResponseBody
 	public HashMap<String, Object> emplist(@RequestParam String page) {
-	  
-		return employeeService.list(page); 
+
+		return employeeService.list(page);
 	}
+
+
+	 @GetMapping(value = "/employee/empdetail") 
+	 public String empdetail(@RequestParam String emp_id, Model model) {
+		 
+		 EmployeeDTO dto = employeeService.detail(emp_id);
+		 
+		 model.addAttribute("empdetail", dto);
+		 
+		 return "employee/employee_detail"; 
+	 }
 	 
-	/*
-	 * @GetMapping(value = "/empdetail.go") public String empdetailgo(@RequestParam
-	 * String emp_id, HttpSession session) {
-	 * 
-	 * String result = new String();
-	 * 
-	 * logger.info("emp_id : "+emp_id);
-	 * 
-	 * session.setAttribute("emp_id", emp_id);
-	 * 
-	 * return result; }
-	 */
+	 
 
 }
