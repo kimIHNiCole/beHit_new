@@ -849,7 +849,7 @@
     	          },
     	        ]
     	      },
-    	      plugins: ['types','checkbox', 'wholerow'],
+    	      plugins: ['types','wholerow'],
     	      types: {
     	        default: {
     	          icon: 'bx bx-folder'
