@@ -56,8 +56,8 @@ public class LoginCheck implements HandlerInterceptor{
 		 * logger.info("employeeDTO IS NULL");
 		 * mav.addObject("loginCheck","로그인이 필요한 서비스 입니다."); }
 		 */
-		
-	}
+	
+	} 
 
 	
 	

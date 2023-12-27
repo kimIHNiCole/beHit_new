@@ -6,9 +6,9 @@
 <mapper namespace="com.behit.employee.dao.EmployeeDAO">
 	<insert id="join" parameterType="HashMap">
 		INSERT INTO employee 
-			(emp_id, emp_name, password, emp_birth, email, cp_phone, mobile_phone, address, detail_addr, insert_id, update_id, position_idx)
+			(emp_id, emp_name, password, emp_birth, email, cp_phone, mobile_phone, address, detail_addr, emp_dept_idx, emp_position_idx, emp_grade_idx, emp_id_in, emp_id_up)
 			VALUES
-			(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr},#{emp_id}, #{emp_id}, #{position});
+			(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr}, #{emp_dept_idx}, #{emp_position_idx} ,#{emp_grade_idx}, '관리자', '관리자');
 	</insert>
 	
 	<select id="elist" resultType="com.behit.employee.dto.EmployeeDTO">
