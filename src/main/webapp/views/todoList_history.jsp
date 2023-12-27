@@ -15,7 +15,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>BeHit</title>
+<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
+    <title>eCommerce Category List - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+========
+    <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+>>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <meta name="description" content="" />
 

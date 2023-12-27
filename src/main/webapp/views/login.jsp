@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Register Cover - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>BeHit</title>
 
 	<!-- JQuery 추가 -->
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>

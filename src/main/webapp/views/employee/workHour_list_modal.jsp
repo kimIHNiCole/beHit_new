@@ -18,8 +18,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/locales/bootstrap-datepicker.ko.min.js" rel="stylesheet">
 
-    <title>DataTables - Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
-
+	<title>BeHit</title>
+	
     <meta name="description" content="" />
 
     <!-- Favicon -->

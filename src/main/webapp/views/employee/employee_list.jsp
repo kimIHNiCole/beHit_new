@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>DataTables - Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>BeHit</title>
 
     <meta name="description" content="" />
 
@@ -277,7 +277,7 @@
                               <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
                               <small class="text-muted">11:00</small>
                             </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                            <div class="flex-shrink-0 dr	opdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"
                                 ><span class="badge badge-dot"></span
                               ></a>
@@ -354,17 +354,29 @@
         <div class="card-datatable table-responsive" style="overflow-x: hidden;">
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <!-- 탭 추가 -->
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="tab-active" href="#">재직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-on-leave" href="#">휴직자</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-resigned" href="#">퇴사자</a>
-                        </li>
+                    <!-- 탭 추가 -->                    
+                    <ul class="nav nav-pills" role="tablist">
+                      <li class="nav-item">
+                        <button
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-first"
+                          role="tab"
+                          aria-selected="true">
+                          재직자
+                        </button>
+                      </li>
+                      <li class="nav-item">
+                        <button
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#form-tabs-secend"
+                          role="tab"
+                          aria-selected="false"
+                          onclick="tabsecend()">
+                          퇴사자
+                        </button>
+                      </li>
                     </ul>
                 </div>
 
@@ -390,21 +402,47 @@
                     <button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
                 </div>
             </div>
-            <table class="datatables-basic table border-top" style="margin-top: -10px;">
-                <thead>
-                    <tr>
-                        <th colspan="2">이름 / 아이디</th>
-                        <th style="width: 200px;">부서</th>
-                        <th style="width: 200px;">직급</th>
-                        <th style="width: 200px;">직책</th>
-                        <th>채팅</th>
-                        <th>직원상세</th>
-                    </tr>
-                </thead>
-                <tbody id="elist">
-                
-                </tbody>
-            </table>
+            
+            <div class="tab-content">
+            	<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
+                	<div class="row g-3">
+						<table class="datatables-basic table border-top" style="margin-top: -10px;">
+                			<thead>
+                    			<tr>
+			                        <th colspan="2" style="width:350px;">이름 / 아이디</th>
+			                        <th style="width: 200px;">부서</th>
+			                        <th style="width: 200px;">직급</th>
+			                        <th style="width: 200px;">직책</th>
+			                        <th style="width: 100px;">채팅</th>
+			                        <th style="width: 150px;">직원상세</th>
+			                    </tr>
+			                </thead>
+			                <tbody id="eflist">
+			                
+			                </tbody>
+			            </table>
+                    </div>
+                </div>
+           		<div class="tab-pane fade" id="form-tabs-secend" role="tabpanel">
+                	<div class="row g-3">
+						<table class="datatables-basic table border-top" style="margin-top: -10px;">
+                			<thead>
+                    			<tr>
+			                        <th colspan="2" style="width:350px;">이름 / 아이디</th>
+			                        <th style="width: 200px;">부서</th>
+			                        <th style="width: 200px;">직급</th>
+			                        <th style="width: 200px;">직책</th>
+			                        <th style="width: 100px;">채팅</th>
+			                        <th style="">직원상세</th>
+			                    </tr>
+			                </thead>
+			                <tbody id="eslist">
+			                
+			                </tbody>
+			            </table>                            
+                   	</div>
+              	</div>
+         	</div>
         </div>
 	    <div class="container" style="display: flex; justify-content: flex-end;">									
 			<nav aria-label="Page navigation" style="text-align:center">
@@ -466,12 +504,13 @@
 
     <!-- Page JS -->
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
-     <script>
-     var showPage = 1;
+	<script>
+    var showPage = 1;
+	var defaultdate = '9999-10-10';
      
- 	listCall(showPage);
+ 	flistCall(showPage);
 	
-	function listCall(page){
+	function flistCall(page){
 		$.ajax({
 			type: 'get',
 			url: 'emplist.do',
@@ -489,78 +528,149 @@
 	
 	function drawList(obj){
 		
-		var content = '';
+		var fcontent = '';
+		var scontent = '';
 		
 		obj.elist.forEach(function(item, idx) {
-			if(item.department != 0) {
-				content += '<tr>';
-				content +='<td>'+'img'+'</td>';
-				content +='<td>'+'<div class="d-flex flex-column">'+
+			console.log(defaultdate);
+			console.log(item.leavedate);
+			
+			if(item.leavedate == defaultdate) {
+				fcontent += '<tr>';
+				fcontent +='<td>'+'img'+'</td>';
+				fcontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted">'+item.emp_id+'</small>'+'</div>'+'</td>';
+					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
 				switch (item.department) {
 				case 1:
-					content +='<td>'+'무소속'+'</td>';
+					fcontent +='<td>'+'무소속'+'</td>';
 					break;
 				case 2:
-					content +='<td>'+'인사'+'</td>';
+					fcontent +='<td>'+'인사'+'</td>';
 					break;
 				case 3:
-					content +='<td>'+'재무'+'</td>';
+					fcontent +='<td>'+'재무'+'</td>';
 					break;
 				case 4:
-					content +='<td>'+'사업기획'+'</td>';
+					fcontent +='<td>'+'사업기획'+'</td>';
 					break;
 				case 5:
-					content +='<td>'+'마케팅'+'</td>';
+					fcontent +='<td>'+'마케팅'+'</td>';
 					break;
 				case 6:
-					content +='<td>'+'매니지먼트'+'</td>';
+					fcontent +='<td>'+'매니지먼트'+'</td>';
 					break; }
 				
 				switch (item.rank) {
 				case 1:
-					content +='<td>'+'대표'+'</td>';
+					fcontent +='<td>'+'대표'+'</td>';
 					break;
 				case 2:
-					content +='<td>'+'이사'+'</td>';
+					fcontent +='<td>'+'이사'+'</td>';
 					break;
 				case 3:
-					content +='<td>'+'부장'+'</td>';
+					fcontent +='<td>'+'부장'+'</td>';
 					break;
 				case 4:
-					content +='<td>'+'차장'+'</td>';
+					fcontent +='<td>'+'차장'+'</td>';
 					break;
 				case 5:
-					content +='<td>'+'과장'+'</td>';
+					fcontent +='<td>'+'과장'+'</td>';
 					break;
 				case 6:
-					content +='<td>'+'대리'+'</td>';
+					fcontent +='<td>'+'대리'+'</td>';
 					break; 
 				case 7:
-					content +='<td>'+'사원'+'</td>';
+					fcontent +='<td>'+'사원'+'</td>';
 					break; }
 				
 				switch (item.job) {
 				case 1:
-					content +='<td>'+'대표'+'</td>';
+					fcontent +='<td>'+'대표'+'</td>';
 					break;
 				case 2:
-					content +='<td>'+'이사'+'</td>';
+					fcontent +='<td>'+'이사'+'</td>';
 					break;
 				case 3:
-					content +='<td>'+'팀장'+'</td>';
+					fcontent +='<td>'+'팀장'+'</td>';
 					break;
 				case 4:
-					content +='<td>'+'팀원'+'</td>';
+					fcontent +='<td>'+'팀원'+'</td>';
 					break; }
-				content +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				content +='<td>'+'<a href="/empdetail.go" class="btn btn-sm btn-primary btn-view-details">'+'직원 상세보기'+'</a>'+'</td>';
-				content += '</tr>';
+				fcontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
+				fcontent +='<td>'+'<button type ="button" class="btn btn-sm btn-primary btn-view-details" onclick="edetail()">'+'직원 상세보기'+'</button>'+'</td>';
+				fcontent += '</tr>';
+			} else {
+				scontent += '<tr>';
+				scontent +='<td>'+'img'+'</td>';
+				scontent +='<td>'+'<div class="d-flex flex-column">'+
+					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
+					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
+				switch (item.department) {
+				case 1:
+					scontent +='<td>'+'무소속'+'</td>';
+					break;
+				case 2:
+					scontent +='<td>'+'인사'+'</td>';
+					break;
+				case 3:
+					scontent +='<td>'+'재무'+'</td>';
+					break;
+				case 4:
+					scontent +='<td>'+'사업기획'+'</td>';
+					break;
+				case 5:
+					scontent +='<td>'+'마케팅'+'</td>';
+					break;
+				case 6:
+					scontent +='<td>'+'매니지먼트'+'</td>';
+					break; }
+				
+				switch (item.rank) {
+				case 1:
+					scontent +='<td>'+'대표'+'</td>';
+					break;
+				case 2:
+					scontent +='<td>'+'이사'+'</td>';
+					break;
+				case 3:
+					scontent +='<td>'+'부장'+'</td>';
+					break;
+				case 4:
+					scontent +='<td>'+'차장'+'</td>';
+					break;
+				case 5:
+					scontent +='<td>'+'과장'+'</td>';
+					break;
+				case 6:
+					scontent +='<td>'+'대리'+'</td>';
+					break; 
+				case 7:
+					scontent +='<td>'+'사원'+'</td>';
+					break; }
+				
+				switch (item.job) {
+				case 1:
+					scontent +='<td>'+'대표'+'</td>';
+					break;
+				case 2:
+					scontent +='<td>'+'이사'+'</td>';
+					break;
+				case 3:
+					scontent +='<td>'+'팀장'+'</td>';
+					break;
+				case 4:
+					scontent +='<td>'+'팀원'+'</td>';
+					break; }
+				scontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
+				scontent +='<td>'+'<button type ="button" class="btn btn-sm btn-primary btn-view-details" onclick="edetail()">'+'직원 상세보기'+'</button>'+'</td>';
+				scontent += '</tr>';
 			}
 		});
-		$('#elist').empty();
-		$('#elist').append(content);
+		$('#eflist').empty();
+		$('#eflist').append(fcontent);
+		$('#eslist').empty();
+		$('#eslist').append(scontent);
 		
 		// 페이징 처리 UI 그리기(플러그인 사용)		
 		$('#pagination').twbsPagination({
@@ -576,8 +686,26 @@
 				}
 			}
 		});
-		
 	}
+	
+/* 	function edetail(){
+		var emp_id = $(event.target).closest('tr').find('#emp_id').text();
+		console.log(emp_id);
+		
+		$.ajax({
+			type: 'get',
+			url: 'empid.add',
+			data: {'emp_id':emp_id},
+			dataType: 'json',
+			success:function(data){
+				console.log(data);
+				location.href = 'empdetail.go';
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	} */
 
      </script>
   </body>

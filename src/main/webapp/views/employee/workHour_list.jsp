@@ -17,8 +17,8 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iKt6iOp+J8r+longdZlF/YJ83QpvL+fm9ifktD5tr5Q/f1vZ/EKUnDSny" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-    <title>DataTables - Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
-
+	<title>BeHit</title>
+	
     <meta name="description" content="" />
 
     <!-- Favicon -->
