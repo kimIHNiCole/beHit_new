@@ -16,8 +16,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iKt6iOp+J8r+longdZlF/YJ83QpvL+fm9ifktD5tr5Q/f1vZ/EKUnDSny" crossorigin="anonymous">
-    <title>Real-time Clock Example</title>
-    <title>User Profile - Profile | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>BeHit</title>
 
     <meta name="description" content="" />
 
