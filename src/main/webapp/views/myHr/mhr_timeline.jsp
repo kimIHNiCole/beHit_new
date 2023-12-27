@@ -15,11 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
-    <title>eCommerce Category List - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
-========
     <title>Fullcalendar - Apps | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
->>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <meta name="description" content="" />
 
@@ -51,17 +47,10 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
 
     <!-- Page CSS -->
 
-<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-ecommerce.css" />
-========
     <link rel="stylesheet" href="../../assets/vendor/css/pages/app-calendar.css" />
->>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -70,89 +59,8 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
-    
-<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-        }
-
-        #taskList {
-            max-width: 760px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .date-header {
-            font-size: 18px;
-            font-weight: bold;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            color: white;
-            background-color: green;
-            text-align: center; 
-        }
-
-        .task-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .task-item span {
-		    align-self: flex-start;
-		    margin-left: 10px; /* 원하는 만큼의 왼쪽 마진을 추가합니다. */
-		}
-		
-		.form-check-input:checked, .form-check-input[type=checkbox]:indeterminate {
-		    background-color: #71dd37;
-		    border-color: #71dd37;
-		    box-shadow: 0 2px 4px 0 rgba(113, 221, 55, 0.4);
-		}
-
-        .delete-btn {
-            background-color: white;
-            color: black;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-========
-    <!-- 커스텀 스타일 -->
     <style>
-.btn.btn-primary.btn-toggle-sidebar{
-	width: 70px;
-	font-size: 13px;
-	padding : 2px;
-	
-	margin-left: auto;
-	
-}
-.col.app-calendar-sidebar{
-	font-size: 13px;
-	margin: 15px;
-	padding : 2px;
-}
-.text-body.mb-0.me-auto.calendar{
-	margin-bottom: 10px;
-}
-.all-select{
-	margin-top: 10px;
-	margin-right: 8px;
-}
-    
-    
->>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
     </style>
-    
   </head>
 
   <body>
@@ -380,7 +288,7 @@
               </a>
             </li>
             <!-- e-commerce-app menu start -->
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cart-alt"></i>
                 <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
@@ -391,7 +299,7 @@
                     <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
                   </a>
                 </li>
-                <li class="menu-item active open">
+                <li class="menu-item">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div class="text-truncate" data-i18n="Products">Products</div>
                   </a>
@@ -406,7 +314,7 @@
                         <div class="text-truncate" data-i18n="Add Product">Add Product</div>
                       </a>
                     </li>
-                    <li class="menu-item active">
+                    <li class="menu-item">
                       <a href="app-ecommerce-category-list.go" class="menu-link">
                         <div class="text-truncate" data-i18n="Category List">Category List</div>
                       </a>
@@ -1857,46 +1765,40 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
-              <h4 class="py-3 mb-4">완료한 히스토리</h4>
-                <!-- Category List Table -->
-					<div id="taskList">
-					<div class="date-header" style="color:green; background-color:white; text-align:left;" >완료한 개수 160개</div>
-					</div>
-					<!-- 원래의 카드영역부분 -->
-                <!-- 
-                 <div class="card">
-                </div>
-                 -->
-========
               <div class="card app-calendar-wrapper">
                 <div class="row g-0">
                   <!-- Calendar Sidebar -->
-                  
                   <div class="col app-calendar-sidebar" id="app-calendar-sidebar">
-                  
-                    
-                    <h6 class="text-body mb-0 me-auto calendar">근무시간 전체등록</h6>
-                    <div class="all-select">
-                    <div class="d-flex cal-select">
-				        <select class="form-select">
-				            <option value="option1">07:00~16:00</option>
-				            <option value="option2">08:00~17:00</option>
-				            <option value="option3">09:00~18:00</option>
-				            <option value="option4">10:00~19:00</option>
-				            <option value="option5">11:00~20:00</option>
-				        </select>
-				        <button class="btn btn-primary btn-toggle-sidebar" data-bs-toggle="offcanvas" data-bs-target="#addEventSidebar" aria-controls="addEventSidebar">
-				            <span class="align-middle">등록</span>
-				        </button>
-				    </div>
-				    </div>
-                    
                     <div class="p-4">
-                      <!-- inline calendar (flatpicker) -->
+                      <div class="mb-1">
+                        <small class="text-small text-muted text-uppercase align-middle">근무시간 전체 등록</small>
+                      </div>
 
+					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;">
+					        <select class="form-select" value="07:00~16:00" style="flex: 1; margin-right: 8px;">
+						        <option value="07:00~16:00">07:00~16:00</option>
+						        <option value="08:00~17:00">08:00~17:00</option>
+						        <option value="09:00~18:00">09:00~18:00</option>
+						        <option value="10:00~19:00">10:00~19:00</option>
+						        <option value="11:00~20:00">11:00~20:00</option>
+						    </select>
+						    <button class="btn btn-primary">등록</button>
+					  </div>
+                      <div class="mb-1">
+                        <small class="text-small text-muted text-uppercase align-middle">근무시간 선택일(선택일값)변경</small>
+                      </div>
 
-                     
+					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;">
+					    <select class="form-select" value="07:00~16:00" style="flex: 1; margin-right: 8px;">
+					        <option value="07:00~16:00">07:00~16:00</option>
+					        <option value="08:00~17:00">08:00~17:00</option>
+					        <option value="09:00~18:00">09:00~18:00</option>
+					        <option value="10:00~19:00">10:00~19:00</option>
+					        <option value="11:00~20:00">11:00~20:00</option>
+					    </select>
+					    <button class="btn btn-primary">변경</button>
+					  </div>
+
                     </div>
                   </div>
                   <!-- /Calendar Sidebar -->
@@ -1907,6 +1809,16 @@
                       <div class="card-body pb-0">
                         <!-- FullCalendar -->
                         <div id="calendar"></div>
+                        <!-- 맨위에 달,주,일,리스트 없애려면 -->
+                        <!--
+                        app-calendar.js 부분의 아래 코드에서↓
+                        
+                        headerToolbar: {
+				        start: 'sidebarToggle, prev,next, title',
+				        end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth' -> 이부분을 end: ''로 변경
+				        
+				      	}, 
+                        -->
                       </div>
                     </div>
                     <div class="app-overlay"></div>
@@ -1916,120 +1828,12 @@
                       tabindex="-1"
                       id="addEventSidebar"
                       aria-labelledby="addEventSidebarLabel">
-                      <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title mb-2" id="addEventSidebarLabel">Add Event</h5>
-                        <button
-                          type="button"
-                          class="btn-close text-reset"
-                          data-bs-dismiss="offcanvas"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body">
-                        <form class="event-form pt-0" id="eventForm" onsubmit="return false">
-                          <div class="mb-3">
-                            <label class="form-label" for="eventTitle">Title</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventTitle"
-                              name="eventTitle"
-                              placeholder="Event Title" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLabel">Label</label>
-                            <select class="select2 select-event-label form-select" id="eventLabel" name="eventLabel">
-                              <option data-label="primary" value="Business" selected>Business</option>
-                              <option data-label="danger" value="Personal">Personal</option>
-                              <option data-label="warning" value="Family">Family</option>
-                              <option data-label="success" value="Holiday">Holiday</option>
-                              <option data-label="info" value="ETC">ETC</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventStartDate">Start Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventStartDate"
-                              name="eventStartDate"
-                              placeholder="Start Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventEndDate">End Date</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventEndDate"
-                              name="eventEndDate"
-                              placeholder="End Date" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input allDay-switch" />
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">All Day</span>
-                            </label>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventURL">Event URL</label>
-                            <input
-                              type="url"
-                              class="form-control"
-                              id="eventURL"
-                              name="eventURL"
-                              placeholder="https://www.google.com" />
-                          </div>
-                          <div class="mb-3 select2-primary">
-                            <label class="form-label" for="eventGuests">Add Guests</label>
-                            <select
-                              class="select2 select-event-guests form-select"
-                              id="eventGuests"
-                              name="eventGuests"
-                              multiple>
-                              <option data-avatar="1.png" value="Jane Foster">Jane Foster</option>
-                              <option data-avatar="3.png" value="Donna Frank">Donna Frank</option>
-                              <option data-avatar="5.png" value="Gabrielle Robertson">Gabrielle Robertson</option>
-                              <option data-avatar="7.png" value="Lori Spears">Lori Spears</option>
-                              <option data-avatar="9.png" value="Sandy Vega">Sandy Vega</option>
-                              <option data-avatar="11.png" value="Cheryl May">Cheryl May</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventLocation">Location</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="eventLocation"
-                              name="eventLocation"
-                              placeholder="Enter Location" />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="eventDescription">Description</label>
-                            <textarea class="form-control" name="eventDescription" id="eventDescription"></textarea>
-                          </div>
-                          <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                            <div>
-                              <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Add</button>
-                              <button
-                                type="reset"
-                                class="btn btn-label-secondary btn-cancel me-sm-0 me-1"
-                                data-bs-dismiss="offcanvas">
-                                Cancel
-                              </button>
-                            </div>
-                            <div><button class="btn btn-label-danger btn-delete-event d-none">Delete</button></div>
-                          </div>
-                        </form>
-                      </div>
+                      
                     </div>
                   </div>
                   <!-- /Calendar & Modal -->
                 </div>
               </div>
->>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
             </div>
             <!-- / Content -->
 
@@ -2100,61 +1904,15 @@
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
-    <script src="../../assets/vendor/libs/quill/katex.js"></script>
-    <script src="../../assets/vendor/libs/quill/quill.js"></script>
-========
     <script src="../../assets/vendor/libs/select2/select2.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
->>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-<<<<<<<< HEAD:src/main/webapp/views/todoList_history.jsp
-    <script src="../../assets/js/app-ecommerce-category-list.js"></script>
-    
-    
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // AJAX를 통해 데이터를 받아올 경우를 가정한 예시 코드
-        // 실제로는 서버에서 데이터를 받아와야 합니다.
-        const mockData = [
-            { date: "2023-12-15", tasks: ["양치하기", "결재하기", "Task 3", "Task 3", "Task 3", "Task 3"] },
-            { date: "2023-12-14", tasks: ["Task 4", "Task 5"] }
-        ];
-
-        // 데이터를 기반으로 테이블을 생성하는 함수
-        function renderTaskList(data) {
-            const taskListDiv = $("#taskList");
-
-            data.forEach(item => {
-                const dateHeader = $("<div>").addClass("date-header").text(item.date);
-                taskListDiv.append(dateHeader);
-
-                item.tasks.forEach(task => {
-                    const taskItemDiv = $("<div>").addClass("task-item");
-                    const checkbox = $("<input>").attr({ type: "checkbox" }).addClass("form-check-input input-filter");
-                    const taskContent = $("<span>").text(task);
-                    const deleteBtn = $("<button>").addClass("delete-btn").append("<i class='bx bx-trash'></i>");
-
-                    taskItemDiv.append(checkbox, taskContent, deleteBtn);
-                    taskListDiv.append(taskItemDiv);
-                });
-            });
-        }
-
-        // 모의 AJAX 호출 후 데이터 렌더링
-        renderTaskList(mockData);
-    });
-</script>
-    
-========
     <script src="../../assets/js/app-calendar-events.js"></script>
     <script src="../../assets/js/app-calendar.js"></script>
->>>>>>>> origin/main:src/main/webapp/views/myHr/mhr_timelineTest.jsp
   </body>
 </html>

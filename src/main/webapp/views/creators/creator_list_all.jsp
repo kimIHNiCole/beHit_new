@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 
 <html
-  lang="en"
+  lang="kr"
   class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../../assets/"
   data-template="vertical-menu-template">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -57,67 +57,31 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    <style>
+    .mx-2 {
+	    margin-right: 0.5rem !important;
+	    margin-left: 0.5rem !important;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+    </style>
   </head>
 
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
+        <!-- 여기서부터 붙여넣기 -->
+      
         <!-- Menu -->
-
+        
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.go" class="app-brand-link">
+            <a href="../home.go" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <svg
-                  width="25"
-                  viewBox="0 0 25 42"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <defs>
-                    <path
-                      d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
-                      id="path-1"></path>
-                    <path
-                      d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z"
-                      id="path-3"></path>
-                    <path
-                      d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z"
-                      id="path-4"></path>
-                    <path
-                      d="M20.6,7.13333333 L25.6,13.8 C26.2627417,14.6836556 26.0836556,15.9372583 25.2,16.6 C24.8538077,16.8596443 24.4327404,17 24,17 L14,17 C12.8954305,17 12,16.1045695 12,15 C12,14.5672596 12.1403557,14.1461923 12.4,13.8 L17.4,7.13333333 C18.0627417,6.24967773 19.3163444,6.07059163 20.2,6.73333333 C20.3516113,6.84704183 20.4862915,6.981722 20.6,7.13333333 Z"
-                      id="path-5"></path>
-                  </defs>
-                  <g id="g-app-brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Brand-Logo" transform="translate(-27.000000, -15.000000)">
-                      <g id="Icon" transform="translate(27.000000, 15.000000)">
-                        <g id="Mask" transform="translate(0.000000, 8.000000)">
-                          <mask id="mask-2" fill="white">
-                            <use xlink:href="#path-1"></use>
-                          </mask>
-                          <use fill="#C20000" xlink:href="#path-1"></use>
-                          <g id="Path-3" mask="url(#mask-2)">
-                            <use fill="#C20000" xlink:href="#path-3"></use>
-                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-3"></use>
-                          </g>
-                          <g id="Path-4" mask="url(#mask-2)">
-                            <use fill="#C20000" xlink:href="#path-4"></use>
-                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-4"></use>
-                          </g>
-                        </g>
-                        <g
-                          id="Triangle"
-                          transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) ">
-                          <use fill="#C20000" xlink:href="#path-5"></use>
-                          <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-5"></use>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
+              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
               </span>
-              <span class="app-brand-text demo menu-text fw-bold ms-2">Sneat</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -130,1083 +94,103 @@
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="../home.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="Dashboards">Dashboards</div>
-                <span class="badge badge-center rounded-pill bg-danger ms-auto">5</span>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="dashboards-analytics.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Analytics">Analytics</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="dashboards-crm.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="CRM">CRM</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-dashboard.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-logistics-dashboard.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Logistics">Logistics</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-academy-dashboard.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Academy">Academy</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Layouts -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div class="text-truncate" data-i18n="Layouts">Layouts</div>
-              </a>
-
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="layouts-collapsed-menu.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Collapsed menu">Collapsed menu</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-content-navbar.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Content navbar">Content navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-content-navbar-with-sidebar.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Content nav + Sidebar">Content nav + Sidebar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../horizontal-menu-template" class="menu-link" target="_blank">
-                    <div class="text-truncate" data-i18n="Horizontal">Horizontal</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-without-menu.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Without menu">Without menu</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Without navbar">Without navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-fluid.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Fluid">Fluid</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-container.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Container">Container</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-blank.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Blank">Blank</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Front Pages -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-store"></i>
-                <div class="text-truncate" data-i18n="Front Pages">Front Pages</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../front-pages/landing-page.go" class="menu-link" target="_blank">
-                    <div class="text-truncate" data-i18n="Landing">Landing</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../front-pages/pricing-page.go" class="menu-link" target="_blank">
-                    <div class="text-truncate" data-i18n="Pricing">Pricing</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../front-pages/payment-page.go" class="menu-link" target="_blank">
-                    <div class="text-truncate" data-i18n="Payment">Payment</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../front-pages/checkout-page.go" class="menu-link" target="_blank">
-                    <div class="text-truncate" data-i18n="Checkout">Checkout</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../front-pages/help-center-landing.go" class="menu-link" target="_blank">
-                    <div class="text-truncate" data-i18n="Help Center">Help Center</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Apps & Pages -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text" data-i18n="Apps & Pages">Apps &amp; Pages</span>
-            </li>
-            <li class="menu-item">
-              <a href="app-email.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-envelope"></i>
-                <div class="text-truncate" data-i18n="Email">Email</div>
+                <div class="text-truncate" data-i18n="홈">홈</div>
               </a>
             </li>
+            
             <li class="menu-item">
-              <a href="app-chat.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="Chat">Chat</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-calendar.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="Calendar">Calendar</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-kanban.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-grid"></i>
-                <div class="text-truncate" data-i18n="Kanban">Kanban</div>
-              </a>
-            </li>
-            <!-- e-commerce-app menu start -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cart-alt"></i>
-                <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-ecommerce-dashboard.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Products">Products</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-ecommerce-product-list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Product List">Product List</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-product-add.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Add Product">Add Product</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-category-list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Category List">Category List</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Order">Order</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-ecommerce-order-list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Order List">Order List</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-order-details.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Order Details">Order Details</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Customer">Customer</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-ecommerce-customer-all.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="All Customers">All Customers</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <div class="text-truncate" data-i18n="Customer Details">Customer Details</div>
-                      </a>
-                      <ul class="menu-sub">
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-overview.go" class="menu-link">
-                            <div class="text-truncate" data-i18n="Overview">Overview</div>
-                          </a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-security.go" class="menu-link">
-                            <div class="text-truncate" data-i18n="Security">Security</div>
-                          </a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-billing.go" class="menu-link">
-                            <div class="text-truncate" data-i18n="Address & Billing">Address & Billing</div>
-                          </a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-notifications.go" class="menu-link">
-                            <div class="text-truncate" data-i18n="Notifications">Notifications</div>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-manage-reviews.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Manage Reviews">Manage Reviews</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-referral.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Referrals">Referrals</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Settings">Settings</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-detail.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Store Details">Store Details</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-payments.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Payments">Payments</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-checkout.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Checkout">Checkout</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-shipping.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Shipping & Delivery">Shipping & Delivery</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-locations.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Locations">Locations</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-notifications.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <!-- e-commerce-app menu end -->
-            <!-- Academy menu start -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-book-open"></i>
-                <div class="text-truncate" data-i18n="Academy">Academy</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-academy-dashboard.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-academy-course.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="My Course">My Course</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-academy-course-details.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Course Details">Course Details</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <!-- Academy menu end -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-car"></i>
-                <div class="text-truncate" data-i18n="Logistics">Logistics</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-logistics-dashboard.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-logistics-fleet.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Fleet">Fleet</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="../approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="Invoice">Invoice</div>
-                <span class="badge badge-center rounded-pill bg-success ms-auto">4</span>
+                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
               </a>
+            </li>
+            
+            <li class="menu-item active">
+              <a href="../creators/creator_list_all.go" class="menu-link">
+                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
+                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
+              </a>
+            </li>
+            
+            <li class="menu-item">
+              <a href="../project/project_main.go" class="menu-link">
+                 <i class="menu-icon tf-icons bx bx-customize"></i>
+                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
+              </a>
+            </li>
+            
+            <li class="menu-item">
+              <a href="../calendar/calendar.go" class="menu-link">
+                 <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
+              </a>
+            </li>
+            
+            <li class="menu-item">
+              <a href="../reserve/reserveRoom_list.go" class="menu-link">
+                 <i class="menu-icon tf-icons bx bx-time-five"></i>
+                <div class="text-truncate" data-i18n="예약">예약</div>
+              </a>
+            </li>
+            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
+                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
+              </a>
+
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-invoice-list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="List">List</div>
+              	<li class="menu-item">
+                  <a href="../myHr/mhr_timeline.go" class="menu-link">
+                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="app-invoice-preview.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Preview">Preview</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-invoice-edit.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Edit">Edit</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-invoice-add.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Add">Add</div>
+                  <a href="../myHr/mhr_vacation.go" class="menu-link">
+                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
-              <a href="changecreator" class="menu-link">
+            
+            <li class="menu-item">
+              <a href="../chat/messenger.go" class="menu-link">
+                 <i class="menu-icon tf-icons bx bx-chat"></i>
+                <div class="text-truncate" data-i18n="메신저">메신저</div>
+              </a>
+            </li>
+            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="Users">크리에이터</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-check-shield"></i>
-                <div class="text-truncate" data-i18n="Roles & Permissions">Roles & Permissions</div>
+                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="app-access-roles.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Roles">Roles</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-access-permission.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Permission">Permission</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div class="text-truncate" data-i18n="Pages">Pages</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="User Profile">User Profile</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="pages-profile-user.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Profile">Profile</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-profile-teams.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Teams">Teams</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-profile-projects.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Projects">Projects</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-profile-connections.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="pages-account-settings-account.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Account">Account</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-security.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Security">Security</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-billing.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Billing & Plans">Billing & Plans</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-notifications.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-connections.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-faq.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="FAQ">FAQ</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-pricing.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Pricing">Pricing</div>
+                  <a href="../employee/employee_list.go" class="menu-link">
+                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Misc">Misc</div>
+                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
                   </a>
                   <ul class="menu-sub">
                     <li class="menu-item">
-                      <a href="pages-misc-error.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Error">Error</div>
+                      <a href="../employee/workHour_list.go" class="menu-link">
+                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
                       </a>
                     </li>
                     <li class="menu-item">
-                      <a href="pages-misc-under-maintenance.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Under Maintenance">Under Maintenance</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-misc-comingsoon.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Coming Soon">Coming Soon</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-misc-not-authorized.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Not Authorized">Not Authorized</div>
+                      <a href="../employee/vacation_list.go" class="menu-link">
+                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
                       </a>
                     </li>
                   </ul>
                 </li>
               </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div class="text-truncate" data-i18n="Authentications">Authentications</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Login">Login</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-login-basic.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-login-cover.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Register">Register</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-register-basic.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-register-cover.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-register-multisteps.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Multi-steps">Multi-steps</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Verify Email">Verify Email</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-verify-email-basic.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-verify-email-cover.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Reset Password">Reset Password</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-reset-password-basic.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-reset-password-cover.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Forgot Password">Forgot Password</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-forgot-password-basic.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-forgot-password-cover.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Two Steps">Two Steps</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-two-steps-basic.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-two-steps-cover.go" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
-                <div class="text-truncate" data-i18n="Wizard Examples">Wizard Examples</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="wizard-ex-checkout.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Checkout">Checkout</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="wizard-ex-property-listing.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Property Listing">Property Listing</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="wizard-ex-create-deal.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Create Deal">Create Deal</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="modal-examples.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-window-open"></i>
-                <div class="text-truncate" data-i18n="Modal Examples">Modal Examples</div>
-              </a>
-            </li>
-
-            <!-- Components -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text" data-i18n="Components">Components</span>
-            </li>
-            <!-- Cards -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div class="text-truncate" data-i18n="Cards">Cards</div>
-                <span class="badge badge-center rounded-pill bg-danger ms-auto">6</span>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="cards-basic.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Basic">Basic</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="cards-advance.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Advance">Advance</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="cards-statistics.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Statistics">Statistics</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="cards-analytics.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Analytics">Analytics</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="cards-gamifications.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Gamifications">Gamifications</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="cards-actions.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Actions">Actions</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <!-- User interface -->
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div class="text-truncate" data-i18n="User interface">User interface</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="ui-accordion.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Accordion">Accordion</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-alerts.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Alerts">Alerts</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-badges.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Badges">Badges</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-buttons.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Buttons">Buttons</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-carousel.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Carousel">Carousel</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-collapse.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Collapse">Collapse</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-dropdowns.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Dropdowns">Dropdowns</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-footer.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Footer">Footer</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-list-groups.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="List Groups">List groups</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-modals.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Modals">Modals</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-navbar.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Navbar">Navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-offcanvas.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Offcanvas">Offcanvas</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-pagination-breadcrumbs.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Pagination & Breadcrumbs">Pagination &amp; Breadcrumbs</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-progress.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Progress">Progress</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-spinners.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Spinners">Spinners</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-tabs-pills.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Tabs & Pills">Tabs &amp; Pills</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-toasts.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Toasts">Toasts</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-tooltips-popovers.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Tooltips & Popovers">Tooltips &amp; Popovers</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-typography.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Typography">Typography</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Extended components -->
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-copy"></i>
-                <div class="text-truncate" data-i18n="Extended UI">Extended UI</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="extended-ui-avatar.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Avatar">Avatar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-blockui.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="BlockUI">BlockUI</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-drag-and-drop.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Drag & Drop">Drag &amp; Drop</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-media-player.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Media Player">Media Player</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-perfect-scrollbar.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Perfect Scrollbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-star-ratings.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Star Ratings">Star Ratings</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-sweetalert2.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="SweetAlert2">SweetAlert2</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-text-divider.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Text Divider">Text Divider</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="Timeline">Timeline</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="extended-ui-timeline-basic.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="extended-ui-timeline-fullscreen.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="Fullscreen">Fullscreen</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-tour.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Tour">Tour</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-treeview.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Treeview">Treeview</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-misc.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Miscellaneous">Miscellaneous</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Icons -->
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-crown"></i>
-                <div class="text-truncate" data-i18n="Icons">Icons</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="icons-boxicons.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Boxicons">Boxicons</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="icons-font-awesome.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Fontawesome">Fontawesome</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text" data-i18n="Forms & Tables">Forms &amp; Tables</span>
-            </li>
-            <!-- Forms -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div class="text-truncate" data-i18n="Form Elements">Form Elements</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="forms-basic-inputs.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Basic Inputs">Basic Inputs</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-input-groups.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Input groups">Input groups</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-custom-options.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Custom Options">Custom Options</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-editors.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Editors">Editors</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-file-upload.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="File Upload">File Upload</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-pickers.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Pickers">Pickers</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-selects.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Select & Tags">Select &amp; Tags</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-sliders.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Sliders">Sliders</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-switches.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Switches">Switches</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-extras.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Extras">Extras</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div class="text-truncate" data-i18n="Form Layouts">Form Layouts</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="form-layouts-vertical.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Vertical Form">Vertical Form</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="form-layouts-horizontal.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Horizontal Form">Horizontal Form</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="form-layouts-sticky.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Sticky Actions">Sticky Actions</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-carousel"></i>
-                <div class="text-truncate" data-i18n="Form Wizard">Form Wizard</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="form-wizard-numbered.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Numbered">Numbered</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="form-wizard-icons.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Icons">Icons</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="form-validation.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-list-check"></i>
-                <div class="text-truncate" data-i18n="Form Validation">Form Validation</div>
-              </a>
-            </li>
-            <!-- Tables -->
-            <li class="menu-item">
-              <a href="tables-basic.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div class="text-truncate" data-i18n="Tables">Tables</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-grid"></i>
-                <div class="text-truncate" data-i18n="Datatables">Datatables</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="tables-datatables-basic.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Basic">Basic</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="tables-datatables-advanced.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Advanced">Advanced</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="tables-datatables-extensions.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Extensions">Extensions</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Charts & Maps -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text" data-i18n="Charts & Maps">Charts &amp; Maps</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-chart"></i>
-                <div class="text-truncate" data-i18n="Charts">Charts</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="charts-apex.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="Apex Charts">Apex Charts</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="charts-chartjs.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="ChartJS">ChartJS</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="maps-leaflet.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-map-alt"></i>
-                <div class="text-truncate" data-i18n="Leaflet Maps">Leaflet Maps</div>
-              </a>
-            </li>
-
-            <!-- Misc -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text" data-i18n="Misc">Misc</span>
-            </li>
-            <li class="menu-item">
-              <a href="https://themeselection.com/support/" target="_blank" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-support"></i>
-                <div class="text-truncate" data-i18n="Support">Support</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a
-                href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank"
-                class="menu-link">
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div class="text-truncate" data-i18n="Documentation">Documentation</div>
-              </a>
             </li>
           </ul>
         </aside>
@@ -1227,156 +211,27 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-
+              <div class="navbar-nav align-items-center">
+                
+              </div>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Language -->
                 <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <i class="bx bx-globe bx-sm"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                        <span class="align-middle">English</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                        <span class="align-middle">French</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                        <span class="align-middle">Arabic</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                        <span class="align-middle">German</span>
-                      </a>
-                    </li>
-                  </ul>
+                  
                 </li>
                 <!-- /Language -->
 
                 <!-- Quick links  -->
                 <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-grid-alt bx-sm"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end py-0">
-                    <div class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-shortcuts-add text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Add shortcuts"
-                          ><i class="bx bx-sm bx-plus-circle"></i
-                        ></a>
-                      </div>
-                    </div>
-                    <div class="dropdown-shortcuts-list scrollable-container">
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-calendar fs-4"></i>
-                          </span>
-                          <a href="app-calendar.go" class="stretched-link">Calendar</a>
-                          <small class="text-muted mb-0">Appointments</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-food-menu fs-4"></i>
-                          </span>
-                          <a href="app-invoice-list.go" class="stretched-link">Invoice App</a>
-                          <small class="text-muted mb-0">Manage Accounts</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-user fs-4"></i>
-                          </span>
-                          <a href="app-user-list.go" class="stretched-link">User App</a>
-                          <small class="text-muted mb-0">Manage Users</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-check-shield fs-4"></i>
-                          </span>
-                          <a href="app-access-roles.go" class="stretched-link">Role Management</a>
-                          <small class="text-muted mb-0">Permission</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-pie-chart-alt-2 fs-4"></i>
-                          </span>
-                          <a href="index.go" class="stretched-link">Dashboard</a>
-                          <small class="text-muted mb-0">User Profile</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-cog fs-4"></i>
-                          </span>
-                          <a href="pages-account-settings-account.go" class="stretched-link">Setting</a>
-                          <small class="text-muted mb-0">Account Settings</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-help-circle fs-4"></i>
-                          </span>
-                          <a href="pages-faq.go" class="stretched-link">FAQs</a>
-                          <small class="text-muted mb-0">FAQs & Articles</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                            <i class="bx bx-window-open fs-4"></i>
-                          </span>
-                          <a href="modal-examples.go" class="stretched-link">Modals</a>
-                          <small class="text-muted mb-0">Useful Popups</small>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </li>
                 <!-- Quick links -->
 
                 <!-- Style Switcher -->
                 <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <i class="bx bx-sm"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
-                        <span class="align-middle"><i class="bx bx-sun me-2"></i>Light</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
-                        <span class="align-middle"><i class="bx bx-moon me-2"></i>Dark</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
-                        <span class="align-middle"><i class="bx bx-desktop me-2"></i>System</span>
-                      </a>
-                    </li>
-                  </ul>
+                  
                 </li>
                 <!-- / Style Switcher-->
 
@@ -1394,7 +249,7 @@
                   <ul class="dropdown-menu dropdown-menu-end py-0">
                     <li class="dropdown-menu-header border-bottom">
                       <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Notification</h5>
+                        <h5 class="text-body mb-0 me-auto">알림</h5>
                         <a
                           href="javascript:void(0)"
                           class="dropdown-notifications-all text-body"
@@ -1415,191 +270,8 @@
                               </div>
                             </div>
                             <div class="flex-grow-1">
-                              <h6 class="mb-1">Congratulation Lettie ð</h6>
-                              <p class="mb-0">Won the monthly best seller gold badge</p>
-                              <small class="text-muted">1h ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Charles Franklin</h6>
-                              <p class="mb-0">Accepted your connection</p>
-                              <small class="text-muted">12hr ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">New Message âï¸</h6>
-                              <p class="mb-0">You have new message from Natalie</p>
-                              <small class="text-muted">1h ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                  ><i class="bx bx-cart"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Whoo! You have new order ð</h6>
-                              <p class="mb-0">ACME Inc. made new order $1,154</p>
-                              <small class="text-muted">1 day ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Application has been approved ð</h6>
-                              <p class="mb-0">Your ABC project application has been approved.</p>
-                              <small class="text-muted">2 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                  ><i class="bx bx-pie-chart-alt"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Monthly report is generated</h6>
-                              <p class="mb-0">July monthly financial report is generated</p>
-                              <small class="text-muted">3 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">Send connection request</h6>
-                              <p class="mb-0">Peter sent you connection request</p>
-                              <small class="text-muted">4 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">New message from Jane</h6>
-                              <p class="mb-0">Your have new message from Jane</p>
-                              <small class="text-muted">5 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-warning"
-                                  ><i class="bx bx-error"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">CPU is running high</h6>
-                              <p class="mb-0">CPU Utilization Percent is currently at 88.63%,</p>
-                              <small class="text-muted">5 days ago</small>
+                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
+                              <small class="text-muted">11:00</small>
                             </div>
                             <div class="flex-shrink-0 dropdown-notifications-actions">
                               <a href="javascript:void(0)" class="dropdown-notifications-read"
@@ -1614,7 +286,7 @@
                       </ul>
                     </li>
                     <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
+                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
                     </li>
                   </ul>
                 </li>
@@ -1645,45 +317,7 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-profile-user.go">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-billing.go">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-faq.go">
-                        <i class="bx bx-help-circle me-2"></i>
-                        <span class="align-middle">FAQ</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-pricing.go">
-                        <i class="bx bx-dollar me-2"></i>
-                        <span class="align-middle">Pricing</span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
+                    
                     <li>
                       <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
                         <i class="bx bx-power-off me-2"></i>
@@ -1697,24 +331,19 @@
             </div>
 
             <!-- Search Small Screens -->
-            <div class="navbar-search-wrapper search-input-wrapper d-none">
-              <input
-                type="text"
-                class="form-control search-input container-xxl border-0"
-                placeholder="Search..."
-                aria-label="Search..." />
-              <i class="bx bx-x bx-sm search-toggler cursor-pointer"></i>
-            </div>
+            
           </nav>
 
           <!-- / Navbar -->
+          
+          <!-- 여기까지 붙여넣기 -->
 
           <!-- Content wrapper --> <!-- 여기서부터~~~~~ -->
           <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h6> <a href="../creators/creator_list_my.go">전체리스트</a> | <a href="../creators/creator_detail.go">나의 크리에이터</a></h6>
+            <h6> <a href="creator_list_all.go">전체리스트</a> | <a href="creator_list_my.go">나의 크리에이터</a></h6>
               <div class="row g-4 mb-4">
                 <div class="col-sm-6 col-xl-3">
                   <div class="card">
@@ -1778,33 +407,13 @@
                 </div>
               </div>
               <!-- Users List Table --> <!-- 유저 리스트 테이블 -->
-              <div class="card">
-                <div class="card-header border-bottom"> <!-- 카테고리 -->
-                  <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-                  	<div class="col-md-4"><input type="search"/ value="검색"></div>
-                    <div class="col-md-4 user_role">
-						<select id="category">
-							<option value>카테고리</option>
-							<option value="game">게임</option>
-							<option value="food">음식</option>
-							<option value="life">일상</option>
-							<option value="asmr">ASMR</option>
-						</select>                    
-                    </div>
-                    <div class="col-md-4 user_plan">
-                    	<select id="canread">
-                    		<option value>전체선택</option>
-                    		<option value="can">열람가능</option>
-                    	</select>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-datatable table-responsive"> <!-- 리스트 -->
+				<div class="card">
+                <div class="card-datatable table-responsive">
                   <table class="datatables-users table border-top">
                     <thead>
                       <tr>
                         <th></th>
-                        <th>크리에이터</th>
+                        <th>CREATOR</th>
                         <th>CATEGORY</th>
                         <th>대표채널</th>
                         <th>담당매니저</th>
@@ -1812,7 +421,6 @@
                     </thead>
                   </table>
                 </div>
-                <tbody></tbody>
               </div>
             </div>
             <!-- / Content -->
@@ -1864,56 +472,64 @@
     <script src="../../assets/js/app-user-list.js"></script>
      --> 
     <script>
+    /**
+     * Page User List
+     */
+	
     'use strict';
-
+	
+    // Datatable (jquery)
     $(function () {
-      var dataTablePermissions = $('.datatables-permissions'),
-        dt_permission,
-        userList = 
-  		"data": [
-			{
-				"id": 1,
-				"full_name": "Galen Slixby",
-				"role": "Editor",
-				"username": "gslixby0",
-				"email": "gslixby0@abc.net.au",
-				"current_plan": "Enterprise",
-				"billing": "Manual - Credit Card",
-				"status": 3,
-				"avatar": ""
-			},
-			{
-				"id": 2,
-				"full_name": "Halsey Redmore",
-				"role": "Author",
-				"username": "hredmore1",
-				"email": "hredmore1@imgur.com",
-				"current_plan": "Team",
-				"billing": "Manual - Paypal",
-				"status": 1,
-				"avatar": "10.png"
-			}
-		]
+      var lang = 'English';
+      let borderColor, bodyBg, headingColor;
 
-      // Users List datatable
-      if (dataTablePermissions.length) {
-        dt_permission = dataTablePermissions.DataTable({
-          ajax: assetsPath + 'json/permissions-list.json', // JSON file to add data
+      if (isDarkStyle) {
+        borderColor = config.colors_dark.borderColor;
+        bodyBg = config.colors_dark.bodyBg;
+        headingColor = config.colors_dark.headingColor;
+      } else {
+        borderColor = config.colors.borderColor;
+        bodyBg = config.colors.bodyBg;
+        headingColor = config.colors.headingColor;
+      }
+
+      // Variable declaration for table
+      var dt_user_table = $('.datatables-users'),
+        select2 = $('.select2'),
+        userView = 'app-user-view-account.go',
+        statusObj = {
+          1: { title: 'Pending', class: 'bg-label-warning' },
+          2: { title: 'Active', class: 'bg-label-success' },
+          3: { title: 'Inactive', class: 'bg-label-secondary' }
+        };
+
+      if (select2.length) {
+        var $this = select2;
+        $this.wrap('<div class="position-relative"></div>').select2({
+          placeholder: 'Select Country',
+          dropdownParent: $this.parent()
+        });
+      }
+
+      // Users datatable
+      var lang = 'English';
+      if (dt_user_table.length) {
+        var dt_user = dt_user_table.DataTable({
+          ajax: assetsPath + 'json/creator-list.json', // JSON file to add data
           columns: [
             // columns according to JSON
             { data: '' },
-            { data: 'id' },
-            { data: 'name' },
-            { data: 'assigned_to' },
-            { data: 'created_date' },
-            { data: '' }
+            { data: 'email' }, // 기존 { data: 'full_name' },인데 변경
+            { data: 'role' },
+            { data: 'current_plan' },
+            { data: 'billing' },
           ],
           columnDefs: [
             {
               // For Responsive
               className: 'control',
-              orderable: false,
               searchable: false,
+              orderable: false,
               responsivePriority: 2,
               targets: 0,
               render: function (data, type, full, meta) {
@@ -1921,99 +537,105 @@
               }
             },
             {
+              // User full name and email
               targets: 1,
-              searchable: false,
-              visible: false
-            },
-            {
-              // Name
-              targets: 2,
+              responsivePriority: 4,
               render: function (data, type, full, meta) {
-                var $name = full['name'];
-                return '<span class="text-nowrap">' + $name + '</span>';
+                var $name = full['full_name'],
+                  $email = full['email'],
+                  $image = full['avatar'];
+                if ($image) {
+                  // For Avatar image
+                  var $output =
+                    '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
+                } else {
+                  // For Avatar badge
+                  var stateNum = Math.floor(Math.random() * 6);
+                  var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
+                  var $state = states[stateNum],
+                    $name = full['full_name'],
+                    $initials = $name.match(/\b\w/g) || [];
+                  $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+                  $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
+                }
+                // Creates full output for row
+                var $row_output =
+                  '<div class="d-flex justify-content-start align-items-center user-name">' +
+                  '<div class="avatar-wrapper">' +
+                  '<div class="avatar avatar-sm me-3">' +
+                  $output +
+                  '</div>' +
+                  '</div>' +
+                  '<div class="d-flex flex-column">' +
+                  '<a href="' +
+                  userView +
+                  '" class="text-body text-truncate"><span class="fw-medium">' +
+                  $name +
+                  '</span></a>' +
+                  '<small class="text-muted">' +
+                  $email +
+                  '</small>' +
+                  '</div>' +
+                  '</div>';
+                return $row_output;
               }
             },
             {
               // User Role
-              targets: 3,
-              orderable: false,
+              targets: 2,
               render: function (data, type, full, meta) {
-                var $assignedTo = full['assigned_to'],
-                  $output = '';
+                var $role = full['role'];
                 var roleBadgeObj = {
-                  Admin: '<a href="' + userList + '"><span class="badge  bg-label-primary m-1">Administrator</span></a>',
-                  Manager: '<a href="' + userList + '"><span class="badge  bg-label-warning m-1">Manager</span></a>',
-                  Users: '<a href="' + userList + '"><span class="badge  bg-label-success m-1">Users</span></a>',
-                  Support: '<a href="' + userList + '"><span class="badge  bg-label-info m-1">Support</span></a>',
-                  Restricted:
-                    '<a href="' + userList + '"><span class="badge  bg-label-danger m-1">Restricted User</span></a>'
+                  Subscriber:
+                    '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="bx bx-user bx-xs"></i></span>',
+                  Author:
+                    '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="bx bx-cog bx-xs"></i></span>',
+                  Maintainer:
+                    '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="bx bx-pie-chart-alt bx-xs"></i></span>',
+                  Editor:
+                    '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="bx bx-edit bx-xs"></i></span>',
+                  Admin:
+                    '<span class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 me-2"><i class="bx bx-mobile-alt bx-xs"></i></span>'
                 };
-                for (var i = 0; i < $assignedTo.length; i++) {
-                  var val = $assignedTo[i];
-                  $output += roleBadgeObj[val];
-                }
-                return '<span class="text-nowrap">' + $output + '</span>';
+                return "<span class='text-truncate d-flex align-items-center'>" + roleBadgeObj[$role] + $role + '</span>';
               }
             },
             {
-              // remove ordering from Name
-              targets: 4,
-              orderable: false,
+              // Plans
+              targets: 3,
               render: function (data, type, full, meta) {
-                var $date = full['created_date'];
-                return '<span class="text-nowrap">' + $date + '</span>';
+                var $plan = full['current_plan'];
+
+                return '<span class="fw-medium">' + $plan + '</span>';
               }
             },
-            {
-              // Actions
-              targets: -1,
-              searchable: false,
-              title: 'Actions',
-              orderable: false,
-              render: function (data, type, full, meta) {
-                return (
-                  '<span class="text-nowrap"><button class="btn btn-sm btn-icon me-2" data-bs-target="#editPermissionModal" data-bs-toggle="modal" data-bs-dismiss="modal"><i class="bx bx-edit"></i></button>' +
-                  '<button class="btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></button></span>'
-                );
-              }
-            }
+            // 삭제할부분
+            
+            // 여기까지
           ],
-          order: [[1, 'asc']],
+          order: [[1, 'desc']],
           dom:
-            '<"row mx-1"' +
-            '<"col-sm-12 col-md-3" l>' +
-            '<"col-sm-12 col-md-9"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-md-end justify-content-center flex-wrap me-1"<"me-3"f>B>>' +
-            '>t' +
-            '<"row mx-2"' +
-            '<"col-sm-12 col-md-6"i>' +
-            '<"col-sm-12 col-md-6"p>' +
-            '>',
+        	    '<"row mx-2"' +
+        	    '<"col-md-4"<"dt-action-buttons text-start d-flex align-items-center justify-content-between flex-md-row flex-column mb-3 mb-md-0"f>>' +
+                '<"col-md-4 user_role">'+
+                '<"col-md-4 user_plan">'+
+        	    '>t' +
+        	    '<"row mx-2"' +
+        	    '<"col-sm-12 col-md-6"i>' +
+        	    '<"col-sm-12 col-md-6"p>' +
+              	
+        	    '>',
           language: {
             sLengthMenu: '_MENU_',
-            search: 'Search',
-            searchPlaceholder: 'Search..'
+            search: '',
+            searchPlaceholder: '검색'
           },
-          // Buttons with Dropdown
-          buttons: [
-            {
-              text: 'Add Permission',
-              className: 'add-new btn btn-primary mb-3 mb-md-0',
-              attr: {
-                'data-bs-toggle': 'modal',
-                'data-bs-target': '#addPermissionModal'
-              },
-              init: function (api, node, config) {
-                $(node).removeClass('btn-secondary');
-              }
-            }
-          ],
-          // For responsive popup
           responsive: {
             details: {
               display: $.fn.dataTable.Responsive.display.modal({
                 header: function (row) {
                   var data = row.data();
-                  return 'Details of ' + data['name'];
+                  return 'Details of ' + data['full_name'];
                 }
               }),
               type: 'column',
@@ -2043,11 +665,11 @@
           initComplete: function () {
             // Adding role filter once table initialized
             this.api()
-              .columns(3)
+              .columns(2)
               .every(function () {
                 var column = this;
                 var select = $(
-                  '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option></select>'
+                  '<select id="UserRole" class="form-select text-capitalize"><option value=""> 카테고리 </option></select>'
                 )
                   .appendTo('.user_role')
                   .on('change', function () {
@@ -2060,16 +682,40 @@
                   .unique()
                   .sort()
                   .each(function (d, j) {
-                    select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                  });
+              });
+            // Adding plan filter once table initialized
+            this.api()
+              .columns(1)
+              .every(function () {
+                var column = this;
+                var select = $(
+                  '<select id="UserPlan" class="form-select text-capitalize"><option value=""> 전체보기 </option></select>'
+                )
+                  .appendTo('.user_plan')
+                  .on('change', function () {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                  });
+
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
                   });
               });
           }
         });
+        // To remove default btn-secondary in export buttons
+        $('.dt-buttons > .btn-group > button').removeClass('btn-secondary');
       }
-
+      
       // Delete Record
-      $('.datatables-permissions tbody').on('click', '.delete-record', function () {
-        dt_permission.row($(this).parents('tr')).remove().draw();
+      $('.datatables-users tbody').on('click', '.delete-record', function () {
+        dt_user.row($(this).parents('tr')).remove().draw();
       });
 
       // Filter form control to default size
@@ -2079,6 +725,60 @@
         $('.dataTables_length .form-select').removeClass('form-select-sm');
       }, 300);
     });
+
+    // Validation & Phone mask
+    (function () {
+      const phoneMaskList = document.querySelectorAll('.phone-mask'),
+        addNewUserForm = document.getElementById('addNewUserForm');
+
+      // Phone Number
+      if (phoneMaskList) {
+        phoneMaskList.forEach(function (phoneMask) {
+          new Cleave(phoneMask, {
+            phone: true,
+            phoneRegionCode: 'US'
+          });
+        });
+      }
+      // Add New User Form Validation
+      const fv = FormValidation.formValidation(addNewUserForm, {
+        fields: {
+          userFullname: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter fullname '
+              }
+            }
+          },
+          userEmail: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your email'
+              },
+              emailAddress: {
+                message: 'The value is not a valid email address'
+              }
+            }
+          }
+        },
+        plugins: {
+          trigger: new FormValidation.plugins.Trigger(),
+          bootstrap5: new FormValidation.plugins.Bootstrap5({
+            // Use this for enabling/changing valid/invalid class
+            eleValidClass: '',
+            rowSelector: function (field, ele) {
+              // field is the field name & ele is the field element
+              return '.mb-3';
+            }
+          }),
+          submitButton: new FormValidation.plugins.SubmitButton(),
+          // Submit the form when all fields are valid
+          // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+          autoFocus: new FormValidation.plugins.AutoFocus()
+        }
+      });
+    })();
+
     </script>
     
   </body>
