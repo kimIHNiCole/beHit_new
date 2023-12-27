@@ -326,6 +326,7 @@
 	            setCookie("rememberId", $("#username").val(), expdate);
         }
     }
+  	
   	function setCookie(name, value, expiredays) {
         var todayDate = new Date();
         todayDate.setTime(todayDate.getTime() + 0);	// 현재시간을 그대로 사용하기 위해 0을 더함

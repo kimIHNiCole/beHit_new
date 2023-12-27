@@ -4,5 +4,7 @@
 >
 
 <mapper namespace="com.behit.commons.dao.CommonsDAO">
-
+	<select id="getOrgList" resultType="employee">
+		SELECT * FROM employee;
+	</select>
 </mapper>
