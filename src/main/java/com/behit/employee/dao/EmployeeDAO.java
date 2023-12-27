@@ -17,4 +17,6 @@ public interface EmployeeDAO {
 
 	int totalPage(int pn);
 
+	EmployeeDTO detail(String emp_id);
+
 }
