@@ -1,5 +1,10 @@
 package com.behit.todo.dao;
 
-public interface TodoDAO {
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
+public interface TodoDAO {
+	
+	
+	
 }

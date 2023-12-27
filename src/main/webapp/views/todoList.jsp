@@ -72,7 +72,7 @@
     <div id="modalContent">
         <div>
             <span id="remainingTasks">할일 0개 남음</span>
-            <a href="#" onclick="showCompletedHistory()">완료된 히스토리 보기</a>
+            <a href="todoList_history" onclick="showCompletedHistory()">완료된 히스토리 보기</a>
             <span style="float: right;"><button onclick="closeTodoModal()">X</button></span>
         </div>
         <div id="todoListContainer">
