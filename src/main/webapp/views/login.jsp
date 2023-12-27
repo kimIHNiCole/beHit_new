@@ -284,15 +284,23 @@
   
   
   <script>
-  	var msg = ${"msg"};
+  	// 현재 페이지의 URL 가져오기
+  	var currentUrl = new URL(window.location.href);
+  	console.log('currentUrl',currentUrl);
+  	// 파라미터 값 추출
+  	var searchParams = currentUrl.searchParams;
+  	console.log('searchParams',searchParams.get('msg'));
+  	var msg = searchParams.get('msg');
+  	
+  	console.log('msg',decodeURIComponent(msg));
+  	
   	if(msg != null){
   		alert(msg);
   	}
-	var loginChk = ${"loginChk"};
-  	if(loginChk != null){
-  		alert(loginChk);
-  	}
-  
+  	
+  	
+
+  	// 쿠키에 아이디 저장
   	$(document).ready(function(){
   		getRememberId();		
   	});
