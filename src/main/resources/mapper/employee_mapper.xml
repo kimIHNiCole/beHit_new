@@ -13,10 +13,13 @@
 	
 	<select id="elist" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT emp_id, emp_name, 
-					CAST(SUBSTRING(position_idx FROM 1 FOR 1) AS INT) AS department,
-					CAST(SUBSTRING(position_idx FROM 2 FOR 1) AS INT) AS rank,
-					CAST(SUBSTRING(position_idx FROM 3 FOR 1) AS INT) AS job,
-					leavedate FROM employee limit 10 offset #{param1};
+		    CAST(SUBSTRING(position_idx FROM 1 FOR 1) AS INT) AS department,
+		    CAST(SUBSTRING(position_idx FROM 2 FOR 1) AS INT) AS rank,
+		    CAST(SUBSTRING(position_idx FROM 3 FOR 1) AS INT) AS job,
+		    leavedate
+		FROM employee
+		WHERE CAST(SUBSTRING(position_idx FROM 1 FOR 1) AS INT) != 0
+		LIMIT 10 OFFSET #{param1};
 	</select>
 	
 	<select id="totalPage" resultType="int">

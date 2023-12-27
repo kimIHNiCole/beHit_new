@@ -68,7 +68,7 @@ public class EmployeeController {
 	}
 	  
 	
-	@GetMapping(value = "/emplist.do")
+	@GetMapping(value = "/employee/emplist.do")
 	@ResponseBody 
 	public HashMap<String, Object> emplist(@RequestParam String page) {
 	  
