@@ -1,5 +1,7 @@
 package com.behit.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,10 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {	// 암호화를 하기 위한 빈 등록
@@ -25,5 +30,7 @@ public class SecurityConfig {
 		http.httpBasic().disable().csrf().disable(); // 로그인을 비롯한 기본 기능 사용
 		return http.build();
 	}
+	
+	
 
 }

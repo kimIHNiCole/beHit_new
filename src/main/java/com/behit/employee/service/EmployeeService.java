@@ -54,4 +54,8 @@ public class EmployeeService {
 		
 		return map;
 	}
+
+	public EmployeeDTO detail(String emp_id) {
+		return employeeDAO.detail(emp_id);
+	}
 }

@@ -1,6 +1,6 @@
 package com.behit.employee.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
