@@ -58,6 +58,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
     
     
 		<!-- Row Group CSS -->
@@ -343,6 +344,18 @@
     	font-family:pretendard;
     }
     
+    /*modal*/
+    .modal{
+    	--bs-modal-width: 24.625rem;
+    }
+    
+    .modal .bx.bxs-file-blank{
+    	color:#C20000;
+    }
+    
+    .card.apv-modal-folder{
+    	min-width: 15.625rem;
+    }
     
     
 
@@ -634,7 +647,7 @@
                     	</li>
                     	
                     	<li class="nav-item mb-1">
-                    		<button type="button" class="btn btn-secondary">새 결재 작성</button>
+                    		<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#apv-modal">새 결재 작성</button>
                     	</li>
                     
                     	<li class="nav-item mb-1">
@@ -709,7 +722,7 @@
         
 				              <div class="card">
 				              	<div class="apv-form-vac">
-					              	<form>
+					              	<form action="approval_write.do" method="post" enctype="multipart/form-data">
 					              		<table class="table-header">
 					              			<tbody>
 					              				<tr>
@@ -869,6 +882,46 @@
             <!-- / Content -->
             
             
+            <!-- modal -->
+								<!-- 새 결제 작성 모달 -->
+              <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-start mb-4">
+                        <h3>결재 양식</h3>
+                      </div>
+                      
+                      <div>
+                      	<div class="col-md-6 col-12">
+													<div class="card mb-md-0 mb-4 apv-modal-folder">
+														<h5 class="card-header">문서양식</h5>
+														<div class="card-body">
+															<div id="jstree-checkbox"></div>
+														</div>
+													</div>
+												</div>
+                      </div>
+
+                      <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">선택</button>
+                        <button
+                          type="reset"
+                          class="btn btn-label-secondary btn-reset mt-3"
+                          data-bs-dismiss="modal"
+                          aria-label="Close">
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ 새 결제 작성 모달 -->
+            
+            
+            
             
             <div class="content-backdrop fade"></div>
           </div>
@@ -912,6 +965,7 @@
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
     
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
@@ -932,39 +986,60 @@
     <!-- custom JS -->
     <script>
     
+    // 미리보기
+		function showPreview() {
+     $.ajax({
+         url: "apv_form_vac.jsp",
+         type: "GET",
+         dataType: "html",
+         success: function(data) {
+             // 새 창 열기
+             var previewWindow = window.open("", "_blank", "width=600,height=400");
+
+             // 휴가신청서 양식의 내용을 미리보기 창에 추가
+             previewWindow.document.write("<html><head><title>Vacation Request Form Preview</title></head><body>");
+             previewWindow.document.write(data);
+             previewWindow.document.write("</body></html>");
+         },
+         error: function() {
+             alert("Failed to load the form.");
+         }
+     });
+		}
+    
+    
     // sweetAlert
-    
-(function () {
-  const confirmText = document.querySelector('#confirm-text');
-    
-    if (confirmText) {
-        confirmText.onclick = function () {
-          Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            customClass: {
-              confirmButton: 'btn btn-primary me-3',
-              cancelButton: 'btn btn-label-secondary'
-            },
-            buttonsStyling: false
-          }).then(function (result) {
-            if (result.value) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                customClass: {
-                  confirmButton: 'btn btn-success'
-                }
-              });
-            }
-          });
-        };
-      }
-})();
+		(function () {
+		  const confirmText = document.querySelector('#confirm-text');
+		    
+		    if (confirmText) {
+		        confirmText.onclick = function () {
+		          Swal.fire({
+		            title: 'Are you sure?',
+		            text: "You won't be able to revert this!",
+		            icon: 'warning',
+		            showCancelButton: true,
+		            confirmButtonText: 'Yes, delete it!',
+		            customClass: {
+		              confirmButton: 'btn btn-primary me-3',
+		              cancelButton: 'btn btn-label-secondary'
+		            },
+		            buttonsStyling: false
+		          }).then(function (result) {
+		            if (result.value) {
+		              Swal.fire({
+		                icon: 'success',
+		                title: 'Deleted!',
+		                text: 'Your file has been deleted.',
+		                customClass: {
+		                  confirmButton: 'btn btn-success'
+		                }
+		              });
+		            }
+		          });
+		        };
+		      }
+		})();
     
     
     // 날짜 input
@@ -989,108 +1064,81 @@
     	  
     })();
     
+
+ 		// 새 결재 작성 모달창
     $(function () {
-  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-  	  dt_multilingual_table2 = $('.dt-multilingual2');
+    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+    	    checkboxTree = $('#jstree-checkbox');
 
-  	  // Multilingual DataTable
-  	  // --------------------------------------------------------------------
-
-  	  var lang = 'English';
-  	  if (dt_multilingual_table2.length) {
-  	    var table_language = dt_multilingual_table2.DataTable({
-  	      ajax: assetsPath + 'json/table-datatable.json',
-  	      columns: [
-  	        { data: '' },
-  	        { data: 'full_name' },
-  	        { data: 'post' },
-  	        { data: 'start_date' },
-  	      	{ data: 'start_date' },
-  	        { data: 'status' },
-  	        { data: '' }
-  	      ],
-  	      columnDefs: [
-  	        {
-  	          // For Responsive
-  	          className: 'control',
-  	          orderable: false,
-  	          targets: 0,
-  	          searchable: false,
-  	          render: function (data, type, full, meta) {
-  	            return '';
-  	          }
-  	        },
-  	        {
-  	          // Label
-  	          targets: -1,
-  	          render: function (data, type, full, meta) {
-  	            var $status_number = full['status'];
-  	            var $status = {
-  	              1: { title: 'Current', class: 'bg-label-primary' },
-  	              2: { title: 'Professional', class: ' bg-label-success' },
-  	              3: { title: 'Rejected', class: ' bg-label-danger' },
-  	              4: { title: 'Resigned', class: ' bg-label-warning' },
-  	              5: { title: 'Applied', class: ' bg-label-info' }
-  	            };
-  	            if (typeof $status[$status_number] === 'undefined') {
-  	              return data;
-  	            }
-  	            return (
-  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-  	            );
-  	          }
-  	        }
-  	      ],
-  	      language: {
-  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-  	      },
-  	      //paging: false,
-  	      displayLength: 10,
-  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-  	      lengthMenu: [10],
-  	      searching: false,
-  	      responsive: {
-  	        details: {
-  	          display: $.fn.dataTable.Responsive.display.modal({
-  	            header: function (row) {
-  	              var data = row.data();
-  	              return 'Details of ' + data['full_name'];
-  	            }
-  	          }),
-  	          type: 'column',
-  	          renderer: function (api, rowIdx, columns) {
-  	            var data = $.map(columns, function (col, i) {
-  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-  	                ? '<tr data-dt-row="' +
-  	                    col.rowIndex +
-  	                    '" data-dt-column="' +
-  	                    col.columnIndex +
-  	                    '">' +
-  	                    '<td>' +
-  	                    col.title +
-  	                    ':' +
-  	                    '</td> ' +
-  	                    '<td>' +
-  	                    col.data +
-  	                    '</td>' +
-  	                    '</tr>'
-  	                : '';
-  	            }).join('');
-
-  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-  	          }
-  	        }
-  	      }
-  	    });
-  	  }
-
-  	  // Filter form control to default size
-  	  // ? setTimeout used for multilingual table initialization
-  	  setTimeout(() => {
-  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  	  }, 300);
-  	});
+    	  // Checkbox
+    	  // --------------------------------------------------------------------
+    	  if (checkboxTree.length) {
+    	    checkboxTree.jstree({
+    	      core: {
+    	        themes: {
+    	          name: theme
+    	        },
+    	        data: [
+    	          {
+    	            text: '근태',
+    	            state: {
+      	              opened: true
+      	            },
+    	            children: [
+    	              {
+    	                text: '휴가 신청서',
+    	                type: 'docs'
+    	              },
+    	              {
+      	              text: '사후 휴가 신청서',
+      	              type: 'docs'
+      	            }
+    	            ]
+    	          },
+    	          {
+    	            text: '일반 ',
+    	            state: {
+    	              opened: true
+    	            },
+    	            children: [
+    	              {
+    	                text: '사업 기안서',
+    	                type: 'docs'
+    	              }
+    	            ]
+    	          },
+    	        ]
+    	      },
+    	      plugins: ['types','wholerow'],
+    	      types: {
+    	        default: {
+    	          icon: 'bx bx-folder'
+    	        },
+    	        docs: {
+    	          icon: 'bx bxs-file-blank'
+    	        }
+    	      }
+    	    }).on('select_node.jstree', function (e, data) {
+    	        // 현재 선택된 노드의 ID 확인
+    	        var selectedNodeId = data.node.id;
+    	        
+    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
+    	        $('.apv-doc-select').off('click');
+    	        
+    	        // id 값에 따라 페이지 이동
+    	        $('.apv-doc-select').on('click',function(){
+    	        			if(selectedNodeId == 'j1_2'){
+    	        					location.href="approval_write.go";
+    	        			}else if(selectedNodeId == 'j1_3'){
+    	        				location.href="approval_write.go";
+    	        			}else if(selectedNodeId == 'j1_5'){
+    	        				location.href="approval_write.go";
+    	        			}
+    	        });
+    	        
+    	      });
+    	  }
+    	});
     
     </script>
   </body>
