@@ -1,6 +1,9 @@
 package com.behit.employee.controller;
 
 import java.util.HashMap;
+import java.util.Objects;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +53,7 @@ public class EmployeeController {
 		logger.info("params: " + params.get("mobile_phone"));
 
 		String hash = encoder.encode((CharSequence) params.get("password"));
-		params.put("password", hash);
+		params.put("password", hash);	
 		logger.info("encoded password : " + params.get("password"));
 		employeeService.join(params);
 
@@ -68,20 +71,74 @@ public class EmployeeController {
 
 	@GetMapping(value = "/employee/emplist.do")
 	@ResponseBody
-	public HashMap<String, Object> emplist(@RequestParam String page) {
+	public HashMap<String, Object> emplist(@RequestParam String page, HttpSession session) {
+		
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		logger.info("로그인 아이디 : "+login_id);
 
 		return employeeService.list(page);
 	}
 
 
 	 @GetMapping(value = "/employee/empdetail") 
-	 public String empdetail(@RequestParam String emp_id, Model model) {
+	 public ModelAndView empdetail(@RequestParam String emp_id, Model model) {
 		 
-		 EmployeeDTO dto = employeeService.detail(emp_id);
+		 return employeeService.detail(emp_id);
+	 }
+	 
+	 // 기본정보 수정
+	 @PostMapping(value="/employee/bempupdate.do")
+	 public ModelAndView empupdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+
 		 
-		 model.addAttribute("empdetail", dto);
+		 logger.info("params : "+params);
 		 
-		 return "employee/employee_detail"; 
+		 EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		 String login_id = loginInfo.getEmp_id();
+		 logger.info("로그인 아이디 : "+login_id);
+		 
+		 params.put("login_id", login_id);
+		 
+		 if (params.get("password") != null) {
+			 
+			 String hash = encoder.encode((CharSequence) params.get("password"));
+			 params.put("password", hash);	
+		 }
+		 
+		 return employeeService.bupdate(params);
+	 }
+	 
+	 // 상세정보 수정
+	 @PostMapping(value="/employee/dempupdate.do")
+	 public ModelAndView dempupdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+
+		 
+		 logger.info("params : "+params);
+		 
+		 EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		 String login_id = loginInfo.getEmp_id();
+		 logger.info("로그인 아이디 : "+login_id);
+		 
+		 params.put("login_id", login_id);
+		 
+		 return employeeService.dupdate(params);
+	 }
+	 
+	 // 부서정보 수정
+	 @PostMapping(value="/employee/pempupdate.do")
+	 public ModelAndView pempupdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+
+		 
+		 logger.info("params : "+params);
+		 
+		 EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		 String login_id = loginInfo.getEmp_id();
+		 logger.info("로그인 아이디 : "+login_id);
+		 
+		 params.put("login_id", login_id);
+		 
+		 return employeeService.pupdate(params);
 	 }
 	 
 	 

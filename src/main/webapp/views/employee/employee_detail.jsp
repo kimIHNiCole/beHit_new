@@ -45,6 +45,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
@@ -409,6 +410,7 @@ img.rounded-top{
                       <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
                       <form>                 
                           <div class="row g-3">
+                          	<input type="hidden" name="emp_id" value="${empdetail.emp_id}">
                             <div class="col-md-6">
                               <label class="form-label" for="formtabs-first-name">이름</label>
                               <input type="text" id="emp_name" name="emp_name" class="form-control" value="${empdetail.emp_name}" />
@@ -425,22 +427,17 @@ img.rounded-top{
                               <label class="form-label" for="mobile_phone">휴대폰 번호</label>
                               <input type="text" id="mobile_phone" name="mobile_phone" class="form-control" value="${empdetail.mobile_phone}" />
                             </div>
-                            <div class="col-md-6">
-                              <label class="form-label" for="formtabs-birthdate">생년 월일</label>
-                              <input
-                                type="text"
-                                id="emp_birth"
-                                name="emp_birth"
-                                class="form-control dob-picker"
-                                value="${empdetail.emp_birth}"/>
-                            </div>
+	                       	<div class="col-md-6 col-12 mb-4">
+	                          	<label for="flatpickr-date" class="form-label">생년 월일</label>
+	                         	<input type="text" class="form-control" id="emp_birth" name="emp_birth" value="${empdetail.emp_birth}" />
+	                       	</div>
                             <div class="col-md-6">
                               <label class="form-label" for="email">이메일</label>
                               <input type="text" id="email" name="email" class="form-control" value="${empdetail.email}"/>
                             </div>
                           <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                            <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="bsubmit()">수정 등록</button>
+                            <button type="reset" class="btn btn-label-secondary">취소</button>
                           </div>
                          </div>
 						<!-- Activity Timeline -->
@@ -491,13 +488,14 @@ img.rounded-top{
                       <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
                         <form>
                           <div class="row g-3">
+                          	<input type="hidden" name="emp_id" value="${empdetail.emp_id}">
                             <div class="col-md-6">
                               <label class="form-label" for="address">주소</label>
                               <input type="text" id="address" name="address" class="form-control" value="${empdetail.address}" />
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="detail-addr">상세 주소</label>
-                              <input type="text" id="detail-addr" name="detail-addr" class="form-control" value="${empdetail.detail-addr}" />
+                              <input type="text" id="detail-addr" name="detail_addr" class="form-control" value="${empdetail.detail_addr}" />
                             </div>
                             <div class="mb-3 col-md-6">
 	                            <label for="hiredate" class="form-label">입사일</label>
@@ -509,7 +507,7 @@ img.rounded-top{
 	                         </div>
                           </div>
                           <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">수정 등록</button>
+                            <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="dsubmit()">수정 등록</button>
                             <button type="reset" class="btn btn-label-secondary">취소</button>
                           </div>
                           <!-- Activity Timeline -->
@@ -560,43 +558,34 @@ img.rounded-top{
                       <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
                         <form>
                           <div class="row g-3">
+                          <input type="hidden" name="emp_id" placeholder="${empdetail.emp_id}">
                           <div class="mb-3 col-md-6">
                             <label for="department" class="form-label">부서</label>
-                            <select id="department" class="select2 form-select">
-                              <option value="">${empdetail.department}</option>
-                              <option value="finance">재무</option>
-                              <option value="personnel">인사</option>
-                              <option value="management">매니지먼트 / 기획</option>
-                              <option value="business">사업 기획</option>
-                              <option value="marketing">마케팅</option>
+                            <select id="department" name="department" class="select2 form-select">
+                            	<c:forEach var="deptList" items="${deptList}">
+                            		<option value="${deptList.emp_dept_idx}">${deptList.dept_name}</option>
+                            	</c:forEach>
                             </select>
                           </div> 
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="position">직급</label>
-                            <select id="position" class="position">
-                              <option value="">${empdetail.position}</option>
-                              <option value="staff">사원</option>
-                              <option value="associate">주임</option>
-                              <option value="As_manager">대리</option>
-                              <option value="manager">과장</option>
-                              <option value="sn_manager">차장</option>
-                              <option value="gn_manager">부장</option>
-                              <option value="director">이사</option>
+                            <label for="job" class="form-label">직책</label>
+                            <select id="position" name="position" class="select2 form-select">
+                            	<c:forEach var="positionList" items="${positionList}">
+                            		<option value="${positionList.common_code_idx}">${positionList.position_name}</option>
+                            	</c:forEach>
                             </select>
                           </div>
-                           <div class="mb-3 col-md-6">
-                            <label for="job" class="form-label">직책</label>
-                            <select id="job" class="job">
-                              <option value="">${empdetail.job}</option>
-                              <option value="member">팀원</option>
-                              <option value="leader">팀장</option>
-                              <option value="dm_manager">실장</option>
-                              <option value="hq_manager">본부장</option>
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="position">직급</label>
+                            <select id="grade" name="grade" class="select2 form-select">
+                            	<c:forEach var="gradeList" items="${gradeList}">
+                            		<option value="${gradeList.common_code_idx}">${gradeList.grade_name}</option>
+                            	</c:forEach>
                             </select>
                           </div>
                           </div>
                           <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">수정 등록</button>
+                            <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="psubmit()">수정 등록</button>
                             <button type="reset" class="btn btn-label-secondary">취소</button>
                           </div>
                           <!-- Activity Timeline -->
@@ -649,11 +638,6 @@ img.rounded-top{
                 </div>      
               </div>
               <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
-              <div class="tab-content">
-              	<div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
-              		
-	              	</div> 	
-	              </div>
 	       		</div>
             </div>
             <!-- / Content -->
@@ -722,9 +706,166 @@ img.rounded-top{
 
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script>
-    	var emp_id = ${detail.emp_id};
+		// 생일 선택
+	    var flatpickrDate = document.querySelector("#emp_birth");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+	    
+	    // 입사일 선택
+	   	var flatpickrDate = document.querySelector("#hiredate");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+	    
+	    // 퇴사일 선택
+	    var flatpickrDate = document.querySelector("#leavedate");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+    
+    
+    
+    	var emp_id = '${empdetail.emp_id}';
     	console.log(emp_id);
+    	
+    	function bsubmit(){
+    		
+    		var emp_name = $('input[name="emp_name"]').val();
+    		var password = $('input[name="password"]').val();
+    		var cp_phone = $('input[name="cp_phone"]').val();
+    		var mobile_phone = $('input[name="mobile_phone"]').val();
+    		var emp_birth = $('input[name="emp_birth"]').val();
+    		var email = $('input[name="email"]').val();
+    		
+    		var param = {};
+    		
+    		if (emp_name != '${empdetail.emp_name}') {
+    			param.emp_name = emp_name;
+    		}
+			if (password != '') {
+				param.password = password;
+			}
+			if (cp_phone !== '${empdetail.cp_phone}') {
+				param.cp_phone = cp_phone;
+			}
+			if (mobile_phone !== '${empdetail.mobile_phone}') {
+				param.mobile_phone = mobile_phone;
+			}				
+			if (emp_birth !== '${empdetail.emp_birth}') {
+				param.emp_birth = emp_birth;
+			}
+			if (email !== '${empdetail.email}') {
+				param.email = email;
+			}
+			if (!$.isEmptyObject(param)){
+				
+				param.emp_id= emp_id;
+				
+	    		$.ajax({
+	    			type: "POST",
+	    			url: "bempupdate.do",
+	    			data: param,
+	    			success: function(data){
+	    				console.log(data);	
+	    			},
+	    			error: function(e){
+	    				console.log(e)
+	    			}
+	    		});
+			} else{
+				alert('내용을 수정해 주세요');
+			}		
+    	}
+    	
+    	function dsubmit(){
+    		
+    		var address = $('input[name="address"]').val();
+    		var detail_addr = $('input[name="detail_addr"]').val();
+    		var hiredate = $('input[name="hiredate"]').val();
+    		var leavedate = $('input[name="leavedate"]').val();
+    		
+    		var param = {};
+    		
+    		if (address !== '${empdetail.address}') {
+    			param.address = address;
+    		}
+			if (detail_addr !== '${empdetail.detail_addr}') {
+				param.detail_addr = detail_addr;
+			}
+			if (hiredate !== '${empdetail.hiredate}') {
+				param.hiredate = hiredate;
+			}
+			if (leavedate !== '${empdetail.leavedate}') {
+				param.leavedate = leavedate;
+			}
+			
+			console.log(param);
+			
+			if (!$.isEmptyObject(param)){
+				
+				param.emp_id= emp_id;
+				
+	    		$.ajax({
+	    			type: "POST",
+	    			url: "dempupdate.do",
+	    			data: param,
+	    			success: function(data){
+	    				console.log(data);	
+	    			},
+	    			error: function(e){
+	    				console.log(e)
+	    			}
+	    		});
+			} else{
+				alert('내용을 수정해 주세요');
+			}		
+    	}
+    	
+    	function psubmit(){
+    		
+    		var emp_dept_idx = $('select[name="department"]').val();
+    		var emp_position_idx = $('select[name="position"]').val();
+    		var emp_grade_idx = $('select[name="grade"]').val();
+    		
+    		var param = {};
+    		
+    		if (emp_dept_idx !== '${empdetail.emp_dept_idx}') {
+    			param.emp_dept_idx = emp_dept_idx;
+    		}
+			if (emp_position_idx !== '${empdetail.emp_position_idx}') {
+				param.emp_position_idx = emp_position_idx;
+			}
+			if (emp_grade_idx !== '${empdetail.emp_grade_idx}') {
+				param.emp_grade_idx = emp_grade_idx;
+			}
+			
+			console.log(param);
+			
+			if (!$.isEmptyObject(param)){
+				
+				param.emp_id= emp_id;
+				
+	    		$.ajax({
+	    			type: "POST",
+	    			url: "pempupdate.do",
+	    			data: param,
+	    			success: function(data){
+	    				console.log(data);	
+	    			},
+	    			error: function(e){
+	    				console.log(e)
+	    			}
+	    		});
+			} else{
+				alert('내용을 수정해 주세요');
+			}		
+    	}
     
     </script>
 
