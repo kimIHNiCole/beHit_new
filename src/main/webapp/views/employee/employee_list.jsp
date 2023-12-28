@@ -68,6 +68,9 @@
     	.col-md-4{
     		margin-top:3.625rem;
     	}
+    	.row {
+    		--bs-gutter-x: -0.175rem;
+    	}
     </style>
     
   </head>
@@ -339,123 +342,112 @@
           </nav>
 
           <!-- / Navbar -->
-          
-          <!-- 여기까지 붙여넣기 -->
-
           <!-- Content wrapper -->
           <div class="content-wrapper">
-          
-           <!-- Content -->
-<div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 </span></h4>
-
-    <!-- DataTable with Buttons -->
-    <div class="card">
-        <div class="card-datatable table-responsive" style="overflow-x: hidden;">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <!-- 탭 추가 -->                    
-                    <ul class="nav nav-pills" role="tablist">
-                      <li class="nav-item">
-                        <button
-                          class="nav-link active"
-                          data-bs-toggle="tab"
-                          data-bs-target="#form-tabs-first"
-                          role="tab"
-                          aria-selected="true">
-                          재직자
-                        </button>
-                      </li>
-                      <li class="nav-item">
-                        <button
-                          class="nav-link"
-                          data-bs-toggle="tab"
-                          data-bs-target="#form-tabs-secend"
-                          role="tab"
-                          aria-selected="false"
-                          onclick="tabsecend()">
-                          퇴사자
-                        </button>
-                      </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4">
-                    <!-- 검색박스 및 셀렉트 박스 -->
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <select class="form-select">
-                                <option value="name">이름</option>
-                                <option value="id">아이디</option>
-                                <option value="department">부서</option>
-                                <option value="position">직급</option>
-                                <option value="title">직책</option>
-                            </select>
-                        </div>
-                        <input type="text" class="form-control" placeholder="검색어 입력">
-                        <button class="btn btn-primary" type="button">검색</button>
-                    </div>
-                </div>
-
-                <div class="col-md-4 text-end">
-                    <!-- 직원 등록 버튼 -->
-                    <button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
-                </div>
-            </div>
-            
-            <div class="tab-content">
-            	<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
-                	<div class="row g-3">
-						<table class="datatables-basic table border-top" style="margin-top: -10px;">
-                			<thead>
-                    			<tr>
-			                        <th colspan="2" style="width:350px;">이름 / 아이디</th>
-			                        <th style="width: 200px;">부서</th>
-			                        <th style="width: 200px;">직급</th>
-			                        <th style="width: 200px;">직책</th>
-			                        <th style="width: 100px;">채팅</th>
-			                        <th style="width: 150px;">직원상세</th>
-			                    </tr>
-			                </thead>
-			                <tbody id="eflist">
+          	<!-- Content -->
+				<div class="container-xxl flex-grow-1 container-p-y mt-2">
+   				<h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 </span></h4>
+    			<!-- DataTable with Buttons -->
+    			<div class="card">
+       				<div class="card-datatable table-responsive" style="overflow-x: hidden; align-items: center;">
+            			<div class="row mb-3" style="width: 100%;">
+                			<div class="col-md-4">
+                    			<!-- 탭 추가 -->                    
+                    			<ul class="nav nav-pills" role="tablist">
+	                      			<li class="nav-item">
+		                        		<button
+		                          			class="nav-link active"
+		                          			data-bs-toggle="tab"
+		                          			data-bs-target="#form-tabs-first"
+		                          			role="tab"
+		                          			aria-selected="true">
+		                          			재직자
+		                        		</button>
+	                      			</li>
+	                      			<li class="nav-item">
+	                        			<button
+	                          				class="nav-link"
+	                          				data-bs-toggle="tab"
+	                          				data-bs-target="#form-tabs-secend"
+	                          				role="tab"
+	                          				aria-selected="false"
+	                          				onclick="tabsecend()">
+	                          				퇴사자
+	                       			 	</button>
+	                      			</li>
+                    			</ul>
+                			</div>
+                			<div class="col-md-4">
+                    			<!-- 검색박스 및 셀렉트 박스 -->
+                    			<div class="input-group">
+                        			<div class="input-group-prepend">
+                            			<select class="form-select">
+                                			<option value="name">이름</option>
+                                			<option value="id">아이디</option>
+                                			<option value="department">부서</option>
+                                			<option value="position">직급</option>
+                                			<option value="title">직책</option>
+                            			</select>
+                       	 			</div>
+                        			<input type="text" class="form-control" placeholder="검색어 입력">
+                        			<button class="btn btn-primary" type="button">검색</button>
+                    			</div>
+                			</div>
+                			<div class="col-md-4 text-end">
+                    			<!-- 직원 등록 버튼 -->
+                    			<button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
+                			</div>
+            			</div>
+            			<div class="tab-content">
+            				<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
+                				<div class="row g-3">
+									<table class="datatables-basic table border-top" style="margin-top: -10px;">
+                						<thead>
+                    						<tr>
+						                        <th colspan="2" style="width:350px;">이름 / 아이디</th>
+						                        <th style="width: 200px;">부서</th>
+						                        <th style="width: 200px;">직급</th>
+						                        <th style="width: 200px;">직책</th>
+						                        <th style="width: 100px;">채팅</th>
+						                        <th style="width: 200px;">직원상세</th>
+			                    			</tr>
+			                			</thead>
+			                			<tbody id="eflist">
 			                
-			                </tbody>
-			            </table>
-                    </div>
-                </div>
-           		<div class="tab-pane fade" id="form-tabs-secend" role="tabpanel">
-                	<div class="row g-3">
-						<table class="datatables-basic table border-top" style="margin-top: -10px;">
-                			<thead>
-                    			<tr>
-			                        <th colspan="2" style="width:350px;">이름 / 아이디</th>
-			                        <th style="width: 200px;">부서</th>
-			                        <th style="width: 200px;">직급</th>
-			                        <th style="width: 200px;">직책</th>
-			                        <th style="width: 100px;">채팅</th>
-			                        <th style="">직원상세</th>
-			                    </tr>
-			                </thead>
-			                <tbody id="eslist">
+			                			</tbody>
+			            			</table>
+                    			</div>
+                			</div>
+           					<div class="tab-pane fade" id="form-tabs-secend" role="tabpanel">
+                				<div class="row g-3">
+									<table class="datatables-basic table border-top" style="margin-top: -10px;">
+                						<thead>
+                    						<tr>
+			                        			<th colspan="2" style="width:350px;">이름 / 아이디</th>
+			                        			<th style="width: 200px;">부서</th>
+			                        			<th style="width: 200px;">직급</th>
+			                        			<th style="width: 200px;">직책</th>
+			                        			<th style="width: 100px;">채팅</th>
+			                        			<th style="width: 200px;">직원상세</th>
+			                    			</tr>
+			                			</thead>
+			                			<tbody id="eslist">
 			                
-			                </tbody>
-			            </table>                            
-                   	</div>
-              	</div>
-         	</div>
-        </div>
-	    <div class="container" style="display: flex; justify-content: flex-end;">									
-			<nav aria-label="Page navigation" style="text-align:center">
-				<ul class="pagination" id="pagination"></ul>
-			</nav>					
-		</div>
-    </div>
-    <hr class="my-5" />
-</div>
-<!-- / Content -->
-
-           
-
+			                			</tbody>
+			            			</table>                            
+                   				</div>
+              				</div>
+         				</div>
+        			</div>
+	    			<div class="container" style="display: flex; justify-content: flex-end;">									
+						<nav aria-label="Page navigation" style="text-align:center">
+							<ul class="pagination" id="pagination"></ul>
+						</nav>					
+					</div>
+    			</div>
+    			<hr class="my-5" />
+			</div>
+			<!-- / Content -->
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -537,7 +529,7 @@
 			
 			if(item.leavedate == defaultdate) {
 				fcontent += '<tr>';
-				fcontent +='<td>'+'img'+'</td>';
+				fcontent +='<td style="width:100px;">'+'<img src="../../assets/img/avatars/1.png" width="50px" height="50px">'+'</td>';
 				fcontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
 					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
@@ -598,11 +590,11 @@
 					fcontent +='<td>'+'팀원'+'</td>';
 					break; }
 				fcontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				fcontent +='<td>'+'<button type ="button" class="btn btn-sm btn-primary btn-view-details" onclick="edetail()">'+'직원 상세보기'+'</button>'+'</td>';
+				fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 				fcontent += '</tr>';
 			} else {
 				scontent += '<tr>';
-				scontent +='<td>'+'img'+'</td>';
+				scontent +='<td style="width:100px;">'+'img'+'</td>';
 				scontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
 					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
@@ -663,7 +655,7 @@
 					scontent +='<td>'+'팀원'+'</td>';
 					break; }
 				scontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				scontent +='<td>'+'<button type ="button" class="btn btn-sm btn-primary btn-view-details" onclick="edetail()">'+'직원 상세보기'+'</button>'+'</td>';
+				scontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 				scontent += '</tr>';
 			}
 		});
@@ -688,7 +680,7 @@
 		});
 	}
 	
-/* 	function edetail(){
+/*  	function edetail(){
 		var emp_id = $(event.target).closest('tr').find('#emp_id').text();
 		console.log(emp_id);
 		
