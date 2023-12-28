@@ -1,5 +1,16 @@
 package com.behit.chat.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.behit.chat.dto.ChatRoomDTO;
+
+@Mapper
 public interface ChatDAO {
+
+	String deptName(int emp_dept_idx);
+
+	ArrayList<ChatRoomDTO> chatRoomList(String emp_id);
 
 }

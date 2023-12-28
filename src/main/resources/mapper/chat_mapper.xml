@@ -5,4 +5,31 @@
 
 <mapper namespace="com.behit.chat.dao.ChatDAO">
 
+	<select id="deptName" resultType="String">
+		SELECT emp_dept_name from department where emp_dept_idx = #{param1};
+	</select>
+	
+	<select id="chatRoomList" resultType="chatRoom">
+		SELECT
+		    cr.chat_room_idx,
+		    cr.chat_room_name,
+		    cr.chat_room_date,
+		    cp.emp_id
+			FROM
+			    chat_room cr
+			JOIN
+			    chat_pp cp ON cr.chat_room_idx = cp.chat_room_idx
+			WHERE
+			    cr.chat_room_idx IN (
+			        SELECT
+			            chat_room_idx
+			        FROM
+			            chat_pp
+			        WHERE
+			            emp_id = #{param1}
+			            ORDER BY cr.chat_room_date DESC
+			    );
+	
+	</select>
+	
 </mapper>

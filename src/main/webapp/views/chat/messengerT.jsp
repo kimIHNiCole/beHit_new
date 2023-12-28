@@ -97,66 +97,143 @@
   </head>
 
   <body>
- 
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        
+        
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
 
-<div id="content"></div>
-    <form id="messageForm">
-        <input type="text" id="message" placeholder="Type your message..." />
-        <button type="submit">Send</button>
-    </form>
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="app-chat overflow-hidden card">
+                <div class="row g-0">
+                  
 
-    
+                  <!-- Chat & Contacts -->
+                  <div
+                    class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
+                    id="app-chat-contacts">
+                    <div class="sidebar-header pt-3 px-3 mx-1">
+                      <div class="d-flex align-items-center me-3 me-lg-0">
+                        <div
+                          class="flex-shrink-0 avatar avatar-online me-2"
+                          data-bs-toggle="sidebar"
+                          data-overlay="app-overlay-ex"
+                          data-target="#app-chat-sidebar-left">
+                          <img
+                            class="user-avatar rounded-circle cursor-pointer"
+                            src="../../assets/img/avatars/1.png"
+                            alt="Avatar" />
+                        </div>
+                        <div class="text-muted text-uppercase">
+                        	<span class="chat-contact-name text-truncate m-0">${emp_name}</span>
+                        	<div><span class="m-0">${emp_dept_name}</span></div>
+                        	</div>
+                        <button class="btn btn-primary text-nowrap">채팅방 추가</button>
+                       </div>
+                    </div>
+                    <hr class="container-m-nx mt-3 mb-0" />
+                    <div class="sidebar-body">
+                      <!-- Chats -->
+                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
+                        <li class="chat-contact-list-item chat-contact-list-item-title">
+                          <h6 class="text-primary mb-0">채팅 리스트</h6>
+                          <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
+                          <span class="input-group-text" id="basic-addon-search31"
+                            ><i class="bx bx-search fs-4"></i
+                          ></span>
+                          <input
+                            type="text"
+                            class="form-control chat-search-input"
+                            placeholder="Search..."
+                            aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
+                        </div>
+                        </li>
+                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                          <h6 class="text-muted mb-0">No Chats Found</h6>
+                        </li>
+                        <!-- 온라인일 경우 표시 -->
+                        <li class="chat-contact-list-item">
+                          <a class="d-flex align-items-center">
+                            <div class="flex-shrink-0 avatar avatar-online">
+                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div class="chat-contact-info flex-grow-1 ms-3">
+                              <h6 class="chat-contact-name text-truncate m-0">채팅방 이름</h6>
+                              <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                채팅방 참여자 리스트
+                              </p>
+                            </div>
+                            <small class="text-muted mb-auto">채팅방 생성시간</small>
+                          </a>
+                        </li>                       
+                      </ul>
+                      
+                    </div>
+                  </div>
+                  <!-- /Chat contacts -->
 
-	<script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/stompjs"></script>
-    <script src="/js/app.js"></script>
+                  <!-- Chat History -->
+                  <div class="col app-chat-history">
+                    <i class='bx bx-message-dots chat' ></i>
+                      
+                    </div>
+                  </div>
+                  <!-- /Chat History -->
+
+                  <div class="app-overlay"></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- / Content -->
+
+            
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+
+      <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+      <div class="drag-target"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../../assets/js/app-chat.js"></script>
   </body>
-  
   <script>
+
   
-
-   var stompClient = null;
-
-  function connect() {
-      var socket = new SockJS('/chat');
-      stompClient = Stomp.over(socket);
-      stompClient.connect({}, function (frame) {
-          console.log('Connected: ' + frame);
-          stompClient.subscribe('/topic/public', function (message) {
-              showMessage(JSON.parse(message.body));
-          });
-      });
-  }
-
-  function disconnect() {
-      if (stompClient !== null) {
-          stompClient.disconnect();
-      }
-      console.log("Disconnected");
-  }
-
-  function sendMessage() {
-      var messageContent = $('#message').val();
-      var messageSender = $('#sender').val();
-      stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({ content: messageContent, sender: messageSender }));
-  }
-
-  function showMessage(message) {
-      $('#content').append('<p>' + message.sender + ': ' + message.content + '</p>');
-  }
-
-  $(function () {
-      connect();
-      $('form').submit(function (e) {
-          e.preventDefault();
-      });
-      $('#send').click(function () {
-          sendMessage();
-          $('#message').val('');
-      });
-  });
-
+  
   </script>
 </html>
