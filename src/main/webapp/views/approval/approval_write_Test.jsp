@@ -745,7 +745,7 @@
 				                </div>
 				                
 				                <canvas id="the-canvas">
-					              		hello
+					              		왜 작동을 하지 않지??
 					              		</canvas>
 					              		
 					              		
@@ -850,7 +850,7 @@
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
-    <script src="//mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
+    <script src="../../apv_library/build/pdf.js" type="module"></script>
 
     
     <!-- Flat Picker -->
@@ -869,7 +869,7 @@
     <script src="../../assets/js/app-ecommerce-settings.js"></script>
     <script src="../../assets/js/forms-editors.js"></script>
     
-    <!--  -->
+    <!--pdf 파일을 가져와 로딩하는 방법..삽질함-->
     <script type="module">
 		  // If absolute URL from the remote server is provided, configure the CORS
 		  // header on that server.
@@ -880,7 +880,7 @@
 		
 		  // The workerSrc property shall be specified.
 			// PDF.js의 CMap 및 폰트 데이터 로딩 설정
-		  pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
+ 			pdfjsLib.GlobalWorkerOptions.workerSrc = '../../apv_library/build/pdf.worker.js';
 		
 		  // Asynchronous download of PDF
 		  var loadingTask = pdfjsLib.getDocument(url);
