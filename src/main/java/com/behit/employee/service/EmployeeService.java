@@ -19,16 +19,6 @@ public class EmployeeService {
 	
 	public int join(HashMap<String, Object> params) {
 		
-		int department = Integer.parseInt(params.get("department").toString());
-		int rank = Integer.parseInt(params.get("rank").toString());
-		int job = Integer.parseInt(params.get("job").toString());
-		
-		int position = department + rank + job;
-		
-		logger.info("position : "+position);
-		
-		params.put("position", position);
-		
 		return employeeDAO.join(params);
 	}
 
