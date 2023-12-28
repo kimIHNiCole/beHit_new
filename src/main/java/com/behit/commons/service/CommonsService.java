@@ -1,6 +1,7 @@
 package com.behit.commons.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.behit.commons.dao.CommonsDAO;
-import com.behit.employee.dto.EmployeeDTO;
+import com.behit.commons.dto.OrgChartDTO;
 
 @Service
 public class CommonsService {
@@ -17,10 +18,15 @@ public class CommonsService {
 	
 	@Autowired CommonsDAO commonsDAO;
 
-	public ArrayList<EmployeeDTO> getOrgList() {
+	public ArrayList<Object> getOrgList() {
 		logger.info("getOrgList() 실행");
-		commonsDAO.getOrgList();
-		return null;
+		return commonsDAO.getOrgList();
+		
+	}
+
+	public ArrayList<Object> getDeptSum() {
+		logger.info("getDeptSum() 실행");
+		return commonsDAO.getDeptSum();
 	}
 	
 }

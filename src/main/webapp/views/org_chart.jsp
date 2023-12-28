@@ -71,7 +71,7 @@
               <!-- JSTree -->
               <div class="row">
                 <!-- Checkbox -->
-                <div class="col-md-3 col-12">
+                <div class="col-md-4 col-12">
                   <div class="card mb-md-0 mb-4">
                     <h5 class="card-header">조직도</h5>
                     <div class="card-body">
@@ -154,7 +154,112 @@
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/extended-ui-treeview.js"></script>
-    
+   <!--  <script src="../../assets/js/extended-ui-treeview.js"></script> -->
+    <script>
+    	
+    	$.ajax({
+    		type: 'get',
+        	url: 'getOrgList',
+        	data: {},
+        	dataType: 'JSON',
+	        success : function(data){
+	          console.log(data);
+              drawOrg(data.orgList, data.deptKind);
+	        } ,
+	        error : function(e){
+	          console.log(e);
+	        }
+    	});
+    	
+    	function drawOrg(orgList, deptKind) {
+    		console.log('orgList', orgList);
+    		console.log('deptKind',deptKind);
+    		
+    		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+    			    checkboxTree = $('#jstree-checkbox');
+         
+    		if (checkboxTree.length) {
+    			
+    			var serverData = [];
+    			
+    			for (var i = 0; i < deptKind.length; i++) {
+    			    var deptname = {
+    			        text: deptKind[i],
+    			        type: 'depart',
+    			        children: []
+    			    };
+    			    console.log("deptKind",deptKind[i]);
+    			    
+    			    var empLength = function(){
+    			    	var cnt=0;
+   			    		for(var k=0; k < orgList.length; k++){
+   			    			if(orgList[k].dept == deptKind[i]){
+   			    				cnt++;
+   			    				console.log("cnt", cnt);
+   			    			}
+   			    		}
+   			    		return cnt;
+    			    };
+    			    var empInfo = function(index){
+    			    	var info=[];
+   			    		for(var k=0; k < orgList.length; k++){
+   			    			if(orgList[k].dept == deptKind[i]){
+   			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
+   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade);
+   			    			}
+   			    		}
+   			    		return info[index];
+    			    };
+    			    
+    			    for (var j = 0; j < empLength(); j++) {
+    			    	console.log("empInfo("+j+")",empInfo(j));
+    			        var emp = {
+    			            text: empInfo(j)
+    			        };
+    			        deptname.children.push(emp);
+    			    } 
+
+    			    // 부모 데이터를 배열에 추가
+   			    	serverData.push(deptname); 
+    			}
+
+    			console.log(serverData); 
+
+    			  // jstree에서 사용할 데이터 구성
+    			  var jstreeData = serverData.map(function (parent) {
+    			    var parentNode = {
+    			      text: parent.text,
+    			      type: 'depart',
+    			      children: parent.children.map(function (child) {
+    			        return {
+    			          text: child.text
+    			        };
+    			      })
+    			    };
+    			    return parentNode;
+    			  });
+
+    			  checkboxTree.jstree({
+    			    core: {
+    			      themes: {
+    			        name: theme
+    			      },
+    			      data: jstreeData
+    			    },
+    			    plugins: ['types', 'checkbox', 'wholerow'],
+    			    types: {
+    			      default: {
+    			        icon: 'bx bx-user'
+    			      },
+    			      depart: {
+    			    	icon: 'bx bx-folder'
+    			      }
+    			    }
+    			  });
+    			}
+    		
+    	}  
+	  
+    </script>
   </body>
 </html>

@@ -4,7 +4,24 @@
 >
 
 <mapper namespace="com.behit.commons.dao.CommonsDAO">
-	<select id="getOrgList" resultType="employee">
-		SELECT * FROM employee;
+	
+	
+	<select id="getOrgList" resultType="orgchart">
+		SELECT e.emp_id, e.emp_name, 
+			(d.emp_dept_name) AS dept, 
+			(select c.common_code_name 
+			FROM commons_code c 
+			WHERE c.common_code_idx = e.emp_grade_idx ) AS grade 
+		FROM employee e JOIN department d 
+		WHERE e.emp_dept_idx = d.emp_dept_idx AND e.emp_id NOT IN ("master")
+		ORDER BY e.emp_dept_idx ASC, e.emp_grade_idx ASC
+	</select>
+	
+	<select id="getDeptSum" resultType="String">
+		SELECT DISTINCT
+			(d.emp_dept_name) AS dept 
+		FROM employee e JOIN department d 
+		WHERE e.emp_dept_idx = d.emp_dept_idx AND e.emp_id NOT IN ("master")
+		ORDER BY e.emp_dept_idx ASC
 	</select>
 </mapper>
