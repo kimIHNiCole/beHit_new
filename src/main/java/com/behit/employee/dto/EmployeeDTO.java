@@ -27,7 +27,35 @@ public class EmployeeDTO {
 	private Date emp_date;
 	private String emp_id_up;
 	private Date emp_date_up;
+	private String dept_name;
+	private String grade_name;
+	private String position_name;
+	private int common_code_idx;
 	
+	public int getCommon_code_idx() {
+		return common_code_idx;
+	}
+	public void setCommon_code_idx(int common_code_idx) {
+		this.common_code_idx = common_code_idx;
+	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getGrade_name() {
+		return grade_name;
+	}
+	public void setGrade_name(String grade_name) {
+		this.grade_name = grade_name;
+	}
+	public String getPosition_name() {
+		return position_name;
+	}
+	public void setPosition_name(String position_name) {
+		this.position_name = position_name;
+	}
 	public String getEmp_id() {
 		return emp_id;
 	}

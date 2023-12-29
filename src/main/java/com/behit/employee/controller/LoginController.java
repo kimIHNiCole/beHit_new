@@ -24,7 +24,7 @@ public class LoginController {
 
 	@Autowired PasswordEncoder encoder;
 	@Autowired LoginService service;
-
+	
 
 	@PostMapping(value="/login.do")
 	public ModelAndView login(@RequestParam String emp_id, @RequestParam String password,

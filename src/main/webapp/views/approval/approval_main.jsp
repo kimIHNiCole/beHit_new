@@ -123,7 +123,7 @@
     	--bs-modal-width: 24.625rem;
     }
     
-    .bx.bxs-file-blank{
+    .modal .bx.bxs-file-blank{
     	color:#C20000;
     }
     
@@ -470,7 +470,7 @@
                 <!-- /Navigation -->
 
 								<!-- modal -->
-								<!-- Add New Credit Card Modal -->
+								<!-- 새 결제 작성 모달 -->
               <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
                   <div class="modal-content p-3 p-md-5">
@@ -505,7 +505,7 @@
                   </div>
                 </div>
               </div>
-              <!--/ Add New Credit Card Modal -->
+              <!--/ 새 결제 작성 모달 -->
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
@@ -622,13 +622,10 @@
     <script>
     
     
-    
+    // 데이터 리스트
     $(function () {
     	  var dt_multilingual_table1 = $('.dt-multilingual1'),
     	  dt_multilingual_table2 = $('.dt-multilingual2');
-
-    	  // Multilingual DataTable
-    	  // --------------------------------------------------------------------
     	  
     	  var lang = 'English';
     	  if (dt_multilingual_table1.length) {
@@ -849,7 +846,7 @@
     	          },
     	        ]
     	      },
-    	      plugins: ['types','checkbox', 'wholerow'],
+    	      plugins: ['types','wholerow'],
     	      types: {
     	        default: {
     	          icon: 'bx bx-folder'

@@ -574,30 +574,6 @@
 	            }).open();
 	        });
 	    }
-/* 	    
-	    // 사진	    
-	    function sendImageSrc() {
-	        // 이미지 엘리먼트를 선택
-	        var uploadedAvatar = document.getElementById('uploadedAvatar');
-
-	        // 이미지의 src 값을 가져옴
-	        var imageSrc = uploadedAvatar.src;
-	        
-	        console.log(imageSrc);
-
-	        // Ajax를 사용하여 서버로 이미지 src를 전송
-	        $.ajax({
-	            type: 'post',
-	            url: 'your-controller-url',  // 실제 컨트롤러의 URL로 변경해야 함
-	            data: { imageSrc: imageSrc },
-	            success: function(data) {
-	                console.log(data);
-	            },
-	            error: function(error) {
-	                console.log(error);
-	            }
-	        });
-	    } */
     </script>
 
     <!-- Main JS -->
