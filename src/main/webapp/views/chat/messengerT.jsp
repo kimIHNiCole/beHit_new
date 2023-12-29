@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 
 <html
@@ -91,7 +92,8 @@
 	margin-top : 20rem;
 	margin-left: 27rem;
 	}
-
+	.chat-contact-status.text-truncate.mb-0.text-muted{
+	}
     
     </style>
   </head>
@@ -156,20 +158,28 @@
                           <h6 class="text-muted mb-0">No Chats Found</h6>
                         </li>
                         <!-- 온라인일 경우 표시 -->
+                        <c:forEach items="${ChatRoomAll}" var="ChatRoomAll" varStatus="loop">
                         <li class="chat-contact-list-item">
                           <a class="d-flex align-items-center">
                             <div class="flex-shrink-0 avatar avatar-online">
                               <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
                             </div>
                             <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">채팅방 이름</h6>
+                              <h6 class="chat-contact-name text-truncate m-0">${ChatRoomAll.chat_room_name}</h6>
                               <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                채팅방 참여자 리스트
-                              </p>
-                            </div>
-                            <small class="text-muted mb-auto">채팅방 생성시간</small>
+							    <c:forEach items="${ChatRoomAll.chatMb}" var="chatMb" varStatus="loop">
+							        <span>${chatMb.emp_id}</span>
+							        <c:if test="${not loop.last}">
+							            <!-- Add "," only if it's not the last element -->
+							            ,
+							        </c:if>
+							    </c:forEach>
+							</p>
+                            </div>                         
+                            <small class="text-muted mb-auto">${ChatRoomAll.chat_room_date}</small>
                           </a>
-                        </li>                       
+                        </li>
+                        </c:forEach>                      
                       </ul>
                       
                     </div>

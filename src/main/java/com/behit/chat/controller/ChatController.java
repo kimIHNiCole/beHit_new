@@ -31,8 +31,10 @@ public class ChatController {
 		logger.info("emp_dept_idx"+emp_dept_idx);
 		String emp_dept_name =chatService.deptName(emp_dept_idx);
 		
-		ArrayList<ChatRoomDTO> ChatRoomDTO=chatService.chatRoomList(emp_id);
-		logger.info(""+ChatRoomDTO);
+		ArrayList<ChatRoomDTO> ChatRoomAll=chatService.chatRoomList(emp_id);
+		logger.info(""+ChatRoomAll);
+		
+		mav.addObject("ChatRoomAll", ChatRoomAll);
 		
 		mav.addObject("emp_id", emp_id);
 		mav.addObject("emp_name", emp_name);

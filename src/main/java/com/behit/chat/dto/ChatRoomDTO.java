@@ -1,6 +1,7 @@
 package com.behit.chat.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
@@ -15,7 +16,14 @@ public class ChatRoomDTO {
 	private String emp_dept_name;
 	private Date chat_room_date;
 	private List<String> members;
+	private ArrayList<ChatRoomDTO> chatMb;
 	
+	public ArrayList<ChatRoomDTO> getChatMb() {
+		return chatMb;
+	}
+	public void setChatMb(ArrayList<ChatRoomDTO> chatMb) {
+		this.chatMb = chatMb;
+	}
 	public int getChat_room_idx() {
 		return chat_room_idx;
 	}

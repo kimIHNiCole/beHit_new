@@ -13,4 +13,6 @@ public interface ChatDAO {
 
 	ArrayList<ChatRoomDTO> chatRoomList(String emp_id);
 
+	ArrayList<ChatRoomDTO> chatMember(int chat_room_idx);
+
 }
