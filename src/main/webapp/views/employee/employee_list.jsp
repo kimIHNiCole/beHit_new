@@ -406,8 +406,8 @@
                     						<tr>
 						                        <th colspan="2" style="width:350px;">이름 / 아이디</th>
 						                        <th style="width: 200px;">부서</th>
-						                        <th style="width: 200px;">직급</th>
 						                        <th style="width: 200px;">직책</th>
+						                        <th style="width: 200px;">직급</th>
 						                        <th style="width: 100px;">채팅</th>
 						                        <th style="width: 200px;">직원상세</th>
 			                    			</tr>
@@ -425,8 +425,8 @@
                     						<tr>
 			                        			<th colspan="2" style="width:350px;">이름 / 아이디</th>
 			                        			<th style="width: 200px;">부서</th>
-			                        			<th style="width: 200px;">직급</th>
 			                        			<th style="width: 200px;">직책</th>
+			                        			<th style="width: 200px;">직급</th>
 			                        			<th style="width: 100px;">채팅</th>
 			                        			<th style="width: 200px;">직원상세</th>
 			                    			</tr>
@@ -532,63 +532,10 @@
 				fcontent +='<td style="width:100px;">'+'<img src="../../assets/img/avatars/1.png" width="50px" height="50px">'+'</td>';
 				fcontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
-				switch (item.department) {
-				case 1:
-					fcontent +='<td>'+'무소속'+'</td>';
-					break;
-				case 2:
-					fcontent +='<td>'+'인사'+'</td>';
-					break;
-				case 3:
-					fcontent +='<td>'+'재무'+'</td>';
-					break;
-				case 4:
-					fcontent +='<td>'+'사업기획'+'</td>';
-					break;
-				case 5:
-					fcontent +='<td>'+'마케팅'+'</td>';
-					break;
-				case 6:
-					fcontent +='<td>'+'매니지먼트'+'</td>';
-					break; }
-				
-				switch (item.rank) {
-				case 1:
-					fcontent +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					fcontent +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					fcontent +='<td>'+'부장'+'</td>';
-					break;
-				case 4:
-					fcontent +='<td>'+'차장'+'</td>';
-					break;
-				case 5:
-					fcontent +='<td>'+'과장'+'</td>';
-					break;
-				case 6:
-					fcontent +='<td>'+'대리'+'</td>';
-					break; 
-				case 7:
-					fcontent +='<td>'+'사원'+'</td>';
-					break; }
-				
-				switch (item.job) {
-				case 1:
-					fcontent +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					fcontent +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					fcontent +='<td>'+'팀장'+'</td>';
-					break;
-				case 4:
-					fcontent +='<td>'+'팀원'+'</td>';
-					break; }
+					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
+				fcontent +='<td>'+item.dept_name+'</td>'
+				fcontent +='<td>'+item.position_name+'</td>'
+				fcontent +='<td>'+item.grade_name+'</td>'
 				fcontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
 				fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 				fcontent += '</tr>';
@@ -598,62 +545,9 @@
 				scontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
 					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
-				switch (item.department) {
-				case 1:
-					scontent +='<td>'+'무소속'+'</td>';
-					break;
-				case 2:
-					scontent +='<td>'+'인사'+'</td>';
-					break;
-				case 3:
-					scontent +='<td>'+'재무'+'</td>';
-					break;
-				case 4:
-					scontent +='<td>'+'사업기획'+'</td>';
-					break;
-				case 5:
-					scontent +='<td>'+'마케팅'+'</td>';
-					break;
-				case 6:
-					scontent +='<td>'+'매니지먼트'+'</td>';
-					break; }
-				
-				switch (item.rank) {
-				case 1:
-					scontent +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					scontent +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					scontent +='<td>'+'부장'+'</td>';
-					break;
-				case 4:
-					scontent +='<td>'+'차장'+'</td>';
-					break;
-				case 5:
-					scontent +='<td>'+'과장'+'</td>';
-					break;
-				case 6:
-					scontent +='<td>'+'대리'+'</td>';
-					break; 
-				case 7:
-					scontent +='<td>'+'사원'+'</td>';
-					break; }
-				
-				switch (item.job) {
-				case 1:
-					scontent +='<td>'+'대표'+'</td>';
-					break;
-				case 2:
-					scontent +='<td>'+'이사'+'</td>';
-					break;
-				case 3:
-					scontent +='<td>'+'팀장'+'</td>';
-					break;
-				case 4:
-					scontent +='<td>'+'팀원'+'</td>';
-					break; }
+				scontent +='<td>'+item.dept_name+'</td>'
+				scontent +='<td>'+item.position_name+'</td>'
+				scontent +='<td>'+item.grade_name+'</td>'
 				scontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
 				scontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 				scontent += '</tr>';

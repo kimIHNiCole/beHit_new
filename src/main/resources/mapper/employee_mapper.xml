@@ -12,14 +12,19 @@
 	</insert>
 	
 	<select id="elist" resultType="com.behit.employee.dto.EmployeeDTO">
-		SELECT emp_id, emp_name, 
-		    CAST(SUBSTRING(position_idx FROM 1 FOR 1) AS INT) AS department,
-		    CAST(SUBSTRING(position_idx FROM 2 FOR 1) AS INT) AS rank,
-		    CAST(SUBSTRING(position_idx FROM 3 FOR 1) AS INT) AS job,
+		SELECT 
+		    e.emp_id, 
+		    e.emp_name, 
+		    d.emp_dept_name AS 'dept_name',
+		    cc_grade.common_code_name AS 'grade_name',
+		    cc_position.common_code_name AS 'position_name',
 		    leavedate
-		FROM employee
-		WHERE CAST(SUBSTRING(position_idx FROM 1 FOR 1) AS INT) != 0
-		LIMIT 10 OFFSET #{param1};
+		FROM 
+		    employee e
+		    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		    JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
+		    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+		    WHERE emp_id NOT IN ('master');
 	</select>
 	
 	<select id="totalPage" resultType="int">
@@ -27,7 +32,108 @@
     </select>
     
     <select id="detail" resultType="com.behit.employee.dto.EmployeeDTO">
-		SELECT * FROM employee WHERE emp_id = #{emp_id};
+		SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobile_phone, e.hiredate, e.leavedate, e.address, e.detail_addr,
+					d.emp_dept_name AS 'dept_name',
+				    cc_position.common_code_name AS 'position_name',
+				    cc_grade.common_code_name AS 'grade_name',
+				    e.emp_dept_idx, e.emp_position_idx, e.emp_grade_idx
+				FROM 
+    				employee e
+			    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+			    JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
+			    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+		WHERE e.emp_id = #{emp_id};
 	</select>
 	
+	<select id="deptList" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT emp_dept_idx, emp_dept_name AS dept_name
+		FROM department
+		ORDER BY
+			CASE WHEN emp_dept_name = #{dept_name} THEN 0 ELSE 1 END,
+			emp_dept_idx ASC;
+	</select>
+	
+	<select id="positionList" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT common_code_idx, common_code_name AS position_name
+		FROM commons_code
+		WHERE common_code_kind = 2
+		ORDER BY
+		  CASE WHEN common_code_name = #{position_name} THEN 0 ELSE 1 END,
+		  common_code_idx;
+	</select>
+
+	<select id="gradeList" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT common_code_idx, common_code_name AS grade_name
+		FROM commons_code
+		WHERE common_code_kind = 1
+		ORDER BY
+			CASE WHEN common_code_name = #{grade_name} THEN 0 ELSE 1 END,
+			common_code_idx ;
+	</select>	
+	
+	<update id="bupdate" parameterType="HashMap">
+		UPDATE employee
+			<set>
+				<if test="emp_name != null">
+					emp_name = #{emp_name}, 
+				</if>
+				<if test="password != null">
+					password = #{password}, 
+				</if>
+				<if test="cp_phone != null">
+					cp_phone = #{cp_phone}, 
+				</if>
+				<if test="mobile_phone != null">
+					mobile_phone = #{mobile_phone}, 
+				</if>
+				<if test="emp_birth != null">
+					emp_birth = #{emp_birth}, 
+				</if>
+				<if test="email != null">
+					email = #{email}, 
+				</if>
+					emp_id_up = #{login_id},
+					emp_date_up = NOW()
+			</set>
+		WHERE emp_id = #{emp_id}
+	</update>
+	
+	<update id="dupdate" parameterType="HashMap">
+		UPDATE employee
+			<set>
+				<if test="address != null">
+					address = #{address}, 
+				</if>
+				<if test="detail_addr != null">
+					detail_addr = #{detail_addr}, 
+				</if>
+				<if test="hiredate != null">
+					hiredate = #{hiredate}, 
+				</if>
+				<if test="leavedate != null">
+					leavedate = #{leavedate}, 
+				</if>
+					emp_id_up = #{login_id},
+					emp_date_up = NOW()
+			</set>
+		WHERE emp_id = #{emp_id}
+	</update>
+	
+		<update id="pupdate" parameterType="HashMap">
+		UPDATE employee
+			<set>
+				<if test="emp_dept_idx != null">
+					emp_dept_idx = #{emp_dept_idx}, 
+				</if>
+				<if test="emp_position_idx != null">
+					emp_position_idx = #{emp_position_idx}, 
+				</if>
+				<if test="emp_grade_idx != null">
+					emp_grade_idx = #{emp_grade_idx}, 
+				</if>
+					emp_id_up = #{login_id},
+					emp_date_up = NOW()
+			</set>
+		WHERE emp_id = #{emp_id}
+	</update>	
 </mapper>
