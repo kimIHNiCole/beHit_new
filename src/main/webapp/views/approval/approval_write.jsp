@@ -61,6 +61,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
     
     
+    
 		<!-- Row Group CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
     <!-- Form Validation -->
@@ -303,7 +304,8 @@
 	    height: 282px;
     }
     
-    .table-content-right .form-control{
+    .table-content-right .form-vac-time-start,
+    .table-content-right .form-vac-time-end{
     	display: inline-block;
     	width: 30%;
     }
@@ -357,6 +359,11 @@
     	min-width: 15.625rem;
     }
     
+    #the-canvas {
+			  border: 1px solid black;
+			  direction: ltr;
+			}
+    
     
 
 
@@ -396,7 +403,7 @@
             </li>
             
             <li class="menu-item active">
-              <a href="../approval/approval_main.go" class="menu-link">
+              <a href="../../approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
               </a>
@@ -710,7 +717,9 @@
                 			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bx-plus'></i> 결재선 추가</button>
                 		</span>
                 		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-file-blank'></i> 미리보기</button>
+                			<button type="button" id="confirm-text" class="apv-form-menu-cnt approval-preview">
+                			<i class='bx bxs-file-blank'></i> 미리보기
+                			</button>
                 		</span>
                 		<span class="text-truncate">
                 			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
@@ -723,133 +732,19 @@
 				              <div class="card">
 				              	<div class="apv-form-vac">
 					              	<form action="approval_write.do" method="post" enctype="multipart/form-data">
-					              		<table class="table-header">
-					              			<tbody>
-					              				<tr>
-					              					<td class="table-subject" colspan="2">연차신청서</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-header-left">
-					              						<table class="table-header-left-table">
-					              							<tbody>
-					              								<tr>
-					              									<td class="table-header-left-table-left">기안자</td>
-					              									<td class="table-header-left-table-right">김민지</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">부서</td>
-					              									<td class="table-header-left-table-right">인사팀</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">기안일</td>
-					              									<td class="table-header-left-table-right">2023-12-22</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">문서번호</td>
-					              									<td class="table-header-left-table-right"></td>
-					              								</tr>
-					              							</tbody>
-					              						</table>
-					              					</td>
-					              					<td class="table-header-right">
-					              						<div class="apv-sign">
-					              							<table class="apv-sign-table">
-					              								<tbody>
-					              									<tr>
-					              										<th>승인</th>
-					              										
-					              										<!-- 결재선 추가 -->
-					              										<td class="apv-sign-table-right">
-					              											<table>
-					              												<tbody>
-					              												
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-dept">대리</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-name">이유빈</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr class="last">
-					              														<td>
-					              															<span class="apv-sign-line-date">2023-12-12</span>
-					              														</td>
-					              													</tr>
-					              													
-					              												</tbody>
-					              											</table>
-					              										</td>
-					              										
-					              									</tr>
-					              								</tbody>
-					              							</table>
-					              						</div>
-					              					</td>
-					              				</tr>
-					              			</tbody>
-					              		</table>
-					              		<table class="table-content">
-					              			<tbody>
-					              				<tr>
-					              					<td class="table-content-left">연차 종류</td>
-					              					<td class="table-content-right">
-					              						<select id="selectpickerBasic" class="selectpicker w-20" data-style="btn-default">
-					                            <option>종일</option>
-					                            <option>시간</option>
-					                          </select>
-					              					</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-content-left">연차 기간</td>
-					              					<td class="table-content-right">
-					              						<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
-					              						<span>~</span>
-					              						<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
-					              						<span class="vac-time">시간</span>
-					              					</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-content-left">연차 사유</td>
-					              					<td class="table-content-right reason">
-						              					<div>
-								                      <div id="snow-toolbar">
-								                        <span class="ql-formats">
-								                          <select class="ql-font"></select>
-								                          <select class="ql-size"></select>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-bold"></button>
-								                          <button class="ql-italic"></button>
-								                          <button class="ql-underline"></button>
-								                          <button class="ql-strike"></button>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <select class="ql-color"></select>
-								                          <select class="ql-background"></select>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-script" value="sub"></button>
-								                          <button class="ql-script" value="super"></button>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-header" value="1"></button>
-								                          <button class="ql-header" value="2"></button>
-								                          <button class="ql-blockquote"></button>
-								                          <button class="ql-code-block"></button>
-								                        </span>
-								                      </div>
-								                      <div id="snow-editor">
-								                      </div>
-	                    							</div>
-					              					</td>
-					              				</tr>
-					              			</tbody>
-					              		</table>
+					              	
+					              		<c:choose>
+													    <c:when test="${form == 'vac'}">
+													        <jsp:include page="apv_form_vac.jsp" />
+													    </c:when>
+													    <c:when test="${form == 'biz'}">
+													        <jsp:include page="apv_form_biz.jsp" />
+													    </c:when>
+													    <c:when test="${form == 'vac_after'}">
+													        <jsp:include page="apv_form_vac.jsp" />
+													    </c:when>
+													</c:choose>
+					              		
 					              		
 					              		<table class="table-upload">
 					              			<tbody>
@@ -864,7 +759,7 @@
 					              		
 					              	</form>
 				                </div>
-				                
+
 				                <div class="pt-4 apv-form-button">
 			                    <button type="reset" class="btn btn-label-secondary">취소</button>
 			                    <button type="submit" class="btn btn-primary">상신</button>
@@ -966,6 +861,7 @@
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
+
     
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
@@ -985,29 +881,56 @@
     
     <!-- custom JS -->
     <script>
-    
-    // 미리보기
-		function showPreview() {
-     $.ajax({
-         url: "apv_form_vac.jsp",
-         type: "GET",
-         dataType: "html",
-         success: function(data) {
-             // 새 창 열기
-             var previewWindow = window.open("", "_blank", "width=600,height=400");
 
-             // 휴가신청서 양식의 내용을 미리보기 창에 추가
-             previewWindow.document.write("<html><head><title>Vacation Request Form Preview</title></head><body>");
-             previewWindow.document.write(data);
-             previewWindow.document.write("</body></html>");
-         },
-         error: function() {
-             alert("Failed to load the form.");
-         }
-     });
-		}
-    
-    
+    // 미리보기
+		 $('.approval-preview').on('click',function(){
+			
+		    var $name = $('.table-header-left-table .name').html(),
+		    $dept = $('.table-header-left-table .dept').html(),
+		    $date = $('.table-header-left-table .date').html(),
+		    $number = $('.table-header-left-table .number').html(),
+		    $form_vac_time = $('.form-vac-time').val(),
+		    $form_vac_time_start = $('.form-vac-time-start').val(),
+		    $form_vac_time_end = $('.form-vac-time-end').val(),
+		    $snow_editor = $('#snow-editor').html();
+
+		    var width = 1000;
+		    var height = 800;
+		    var left = (window.innerWidth - width) / 2;
+		    var top = (window.innerHeight - height) / 2;
+	
+		    // 창의 속성 설정
+		    var previewWindow = window.open('', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+		
+		    
+		 		// AJAX를 이용하여 페이지 내용 가져오기
+		    $.ajax({
+            	url: '../approval_preview.go',
+            	method: 'GET',
+		        	success: function (data){
+		        			previewWindow.document.open();
+			            previewWindow.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>미리보기</title></head><body>');
+			            previewWindow.document.write(data);
+			            previewWindow.document.write('<script>');
+			            previewWindow.document.write('$(".table-header-left-table-right.name").html("'+$name+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.dept").html("'+$dept+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.date").html("'+$date+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.number").html("'+$number+'");');
+			            previewWindow.document.write('$(".form-vac-time").html("'+$form_vac_time+'");');
+			            previewWindow.document.write('$(".form-vac-time-start").html("'+$form_vac_time_start+'");');
+			            previewWindow.document.write('$(".form-vac-time-end").html("'+$form_vac_time_end+'");');
+			            previewWindow.document.write('$("#snow-editor").html(\'' + $snow_editor.replace(/'/g, "\\'") + '\');');
+			            previewWindow.document.write('$(".ql-editor").attr("contenteditable", "false");');
+			            previewWindow.document.write('<\/script>');
+			            previewWindow.document.write('</body></html>');
+			            previewWindow.document.close();
+		          },
+		          error: function (xhr, status, error) {
+			            console.error('AJAX request failed:', status, error);
+			        }
+        		});
+    });
+
     // sweetAlert
 		(function () {
 		  const confirmText = document.querySelector('#confirm-text');
@@ -1041,7 +964,6 @@
 		      }
 		})();
     
-    
     // 날짜 input
     (function () {
     	  // Flat Picker
@@ -1061,10 +983,8 @@
       	      monthSelectorType: 'static'
       	    });
       	  }
-    	  
     })();
     
-
  		// 새 결재 작성 모달창
     $(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
@@ -1128,18 +1048,17 @@
     	        // id 값에 따라 페이지 이동
     	        $('.apv-doc-select').on('click',function(){
     	        			if(selectedNodeId == 'j1_2'){
-    	        					location.href="approval_write.go";
+    	        					location.href="../approval_write.go/vac";
     	        			}else if(selectedNodeId == 'j1_3'){
-    	        				location.href="approval_write.go";
+    	        				location.href="../approval_write.go/vac_after";
     	        			}else if(selectedNodeId == 'j1_5'){
-    	        				location.href="approval_write.go";
+    	        				location.href="../approval_write.go/biz";
     	        			}
     	        });
     	        
     	      });
     	  }
     	});
-    
     </script>
   </body>
 </html>
