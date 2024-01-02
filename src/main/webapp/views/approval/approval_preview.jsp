@@ -47,23 +47,9 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-		<link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
-    
-    
-		<!-- Row Group CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
-    <!-- Form Validation -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 	
     <!-- Page CSS -->
 
@@ -108,19 +94,6 @@
     .apv-home{
     	color:#c20000;
     	margin-bottom:2rem;
-    }
-    
-    .apv-title{
-    	margin-top:0.125rem;
-    } 
-   
-    .apv-menu{
-    	margin-top: 1rem;
-    }
-    
-    .align-middle{
-    	font-family:pretendard;
-    	font-weight:500;
     }
     
     .apv-form-menu{
@@ -186,7 +159,7 @@
     	width: 100px;
 	    height: 22px;
 	    vertical-align: middle;
-	    border: 1px solid black;
+	    border: 2px solid black;
 	    text-align: center;
 	    font-weight: bold;
 	    background: rgb(221, 221, 221);
@@ -197,7 +170,7 @@
     	width: 150px;
 	    height: 22px;
 	    vertical-align: middle;
-	    border: 1px solid black;
+	    border: 2px solid black;
 	    text-align: left;
 	    padding: 3px !important;
     }
@@ -216,7 +189,7 @@
     }
     
     .apv-form-vac .apv-sign-table{
-    	border:1px solid black;
+    	border:2px solid black;
 	    border-collapse: collapse;
     }
     
@@ -234,8 +207,8 @@
     }
     
     .apv-form-vac .apv-sign-table-right tbody tr{
-    	border-bottom:1px solid black;
-    	border-left:1px solid black;
+    	border-bottom:2px solid black;
+    	border-left:2px solid black;
 	    border-collapse: collapse;
     }
     
@@ -273,7 +246,7 @@
     .apv-form-vac .table-content-left{
     	background: rgb(221, 221, 221);
 	    padding: 5px;
-	    border: 1px solid black;
+	    border: 2px solid black;
 	    height: 25px;
 	    text-align: center;
 	    color: rgb(0, 0, 0);
@@ -284,7 +257,7 @@
     
     .apv-form-vac .table-content-right{
     	padding: 3px;
-	    border: 1px solid black;
+	    border: 2px solid black;
 	    width: 700px;
 	    height: 38px;
 	    text-align: left;
@@ -327,13 +300,12 @@
     	font-family:pretendard;
     }
     
+    .light-style .ql-snow.ql-container{
+    	border:none;
+    }
     
-    
-
-
     </style>
-    
-    
+
   </head>
 
   <body>
@@ -357,7 +329,7 @@
                 	<h4 class="apv-home">휴가 신청서</h4>
                 	<div class="apv-form-menu">
                 		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bx-plus'></i> 결재선 추가</button>
+                			<button type="button" id="confirm-text" class="apv-form-menu-cnt pdf-save"><i class='bx bx-plus'></i> pdf 저장</button>
                 		</span>
                 	</div>
                   <div class="tab-content p-0">
@@ -448,9 +420,9 @@
 					              				<tr>
 					              					<td class="table-content-left">연차 기간</td>
 					              					<td class="table-content-right">
-					              						<span>2023-12-14</span>
+					              						<span class="form-vac-time-start"></span>
 					              						<span>~</span>
-					              						<span>2023-12-26</span>
+					              						<span class="form-vac-time-end"></span>
 					              						<span class="vac-time">16시간</span>
 					              					</td>
 					              				</tr>
@@ -508,202 +480,80 @@
     <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="../../assets/vendor/js/menu.js"></script>
+    <script src="../../apv_library/build/jspdf.js"></script>
+    <script src="../../apv_library/build/jspdf.plugin.autotable.js"></script>
+    <script src="../../apv_library/build/html2canvas.js"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
-    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
-    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
-    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     
-    <!-- Flat Picker -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     
-    <!-- Form Validation -->
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
     <script src="../../assets/js/app-ecommerce-settings.js"></script>
     <script src="../../assets/js/forms-editors.js"></script>
-    
     <!-- custom JS -->
     <script>
     
-    // sweetAlert
+    window.jsPDF = window.jspdf.jsPDF;
     
-(function () {
-  const confirmText = document.querySelector('#confirm-text');
-    
-    if (confirmText) {
-        confirmText.onclick = function () {
-          Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            customClass: {
-              confirmButton: 'btn btn-primary me-3',
-              cancelButton: 'btn btn-label-secondary'
-            },
-            buttonsStyling: false
-          }).then(function (result) {
-            if (result.value) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                customClass: {
-                  confirmButton: 'btn btn-success'
+    $('.pdf-save').on('click',function(){
+    	
+    	html2canvas($('.apv-form-vac'), {
+		    			scale: 3,
+		    	    logging: true, // 디버깅을 위한 로그 출력
+		    	    useCORS: true, // CORS 사용 여부
+		    	    allowTaint: true, // cross-origin allow
+		    	    imageTimeout: 5000, // 이미지 로딩 타임아웃
+		    	    letterRendering: true, // 글자 렌더링 사용 여부
+           		 onrendered: function (canvas) {
+                // 캔버스를 이미지로 변환
+                
+                var newCanvas = document.createElement('canvas');
+                newCanvas.width = canvas.width * 3;  // 두 배로 크기를 늘림
+                newCanvas.height = canvas.height * 3;  // 두 배로 크기를 늘림
+                
+                console.log(newCanvas.width);
+                console.log(newCanvas.height);
+
+                var imgWidth = 190; // 이미지 가로 길이(mm) A4 기준
+                var pageHeight = imgWidth * 1.414; // 출력 페이지 세로 길이 계산 A4 기준
+                var imgHeight = newCanvas.height * imgWidth / newCanvas.width;
+                var heightLeft = imgHeight;
+
+                var doc = new jsPDF('p', 'mm', 'a4');
+                var position = 0;
+                
+                doc.setProperties({
+                    marginLeft: 10, // 좌측 여백 조절 (단위: mm)
+                });
+
+                var imgData = canvas.toDataURL('image/png');
+                // 첫 페이지 출력
+                doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                // 한 페이지 이상일 경우 루프 돌면서 출력
+                while (heightLeft >= 20) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
                 }
-              });
+
+                // 파일 저장
+                doc.save('sample.pdf');
             }
-          });
-        };
-      }
-})();
+        });
+    			 
+    });
     
-    
-    // 날짜 input
-    (function () {
-    	  // Flat Picker
-    	  // --------------------------------------------------------------------
-    	  const flatpickrDateBefore = document.querySelector('#flatpickr-date-before');
-    	  const flatpickrDateAfter = document.querySelector('#flatpickr-date-after');
 
-    	  // Date
-    	  if (flatpickrDateBefore) {
-    	    flatpickrDateBefore.flatpickr({
-    	      monthSelectorType: 'static'
-    	    });
-    	  }
-    	  
-    	  if (flatpickrDateAfter) {
-      	    flatpickrDateAfter.flatpickr({
-      	      monthSelectorType: 'static'
-      	    });
-      	  }
-    	  
-    })();
-    
-    $(function () {
-  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-  	  dt_multilingual_table2 = $('.dt-multilingual2');
-
-  	  // Multilingual DataTable
-  	  // --------------------------------------------------------------------
-
-  	  var lang = 'English';
-  	  if (dt_multilingual_table2.length) {
-  	    var table_language = dt_multilingual_table2.DataTable({
-  	      ajax: assetsPath + 'json/table-datatable.json',
-  	      columns: [
-  	        { data: '' },
-  	        { data: 'full_name' },
-  	        { data: 'post' },
-  	        { data: 'start_date' },
-  	      	{ data: 'start_date' },
-  	        { data: 'status' },
-  	        { data: '' }
-  	      ],
-  	      columnDefs: [
-  	        {
-  	          // For Responsive
-  	          className: 'control',
-  	          orderable: false,
-  	          targets: 0,
-  	          searchable: false,
-  	          render: function (data, type, full, meta) {
-  	            return '';
-  	          }
-  	        },
-  	        {
-  	          // Label
-  	          targets: -1,
-  	          render: function (data, type, full, meta) {
-  	            var $status_number = full['status'];
-  	            var $status = {
-  	              1: { title: 'Current', class: 'bg-label-primary' },
-  	              2: { title: 'Professional', class: ' bg-label-success' },
-  	              3: { title: 'Rejected', class: ' bg-label-danger' },
-  	              4: { title: 'Resigned', class: ' bg-label-warning' },
-  	              5: { title: 'Applied', class: ' bg-label-info' }
-  	            };
-  	            if (typeof $status[$status_number] === 'undefined') {
-  	              return data;
-  	            }
-  	            return (
-  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-  	            );
-  	          }
-  	        }
-  	      ],
-  	      language: {
-  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-  	      },
-  	      //paging: false,
-  	      displayLength: 10,
-  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-  	      lengthMenu: [10],
-  	      searching: false,
-  	      responsive: {
-  	        details: {
-  	          display: $.fn.dataTable.Responsive.display.modal({
-  	            header: function (row) {
-  	              var data = row.data();
-  	              return 'Details of ' + data['full_name'];
-  	            }
-  	          }),
-  	          type: 'column',
-  	          renderer: function (api, rowIdx, columns) {
-  	            var data = $.map(columns, function (col, i) {
-  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-  	                ? '<tr data-dt-row="' +
-  	                    col.rowIndex +
-  	                    '" data-dt-column="' +
-  	                    col.columnIndex +
-  	                    '">' +
-  	                    '<td>' +
-  	                    col.title +
-  	                    ':' +
-  	                    '</td> ' +
-  	                    '<td>' +
-  	                    col.data +
-  	                    '</td>' +
-  	                    '</tr>'
-  	                : '';
-  	            }).join('');
-
-  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-  	          }
-  	        }
-  	      }
-  	    });
-  	  }
-
-  	  // Filter form control to default size
-  	  // ? setTimeout used for multilingual table initialization
-  	  setTimeout(() => {
-  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  	  }, 300);
-  	});
-    
     </script>
   </body>
 </html>

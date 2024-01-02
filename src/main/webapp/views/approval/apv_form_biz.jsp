@@ -3,7 +3,7 @@
 		<table class="table-header">
 			<tbody>
 				<tr>
-					<td class="table-subject" colspan="2">연차신청서</td>
+					<td class="table-subject" colspan="2">사업기안서</td>
 				</tr>
 				<tr>
 					<td class="table-header-left">
@@ -74,7 +74,7 @@
 															
 															<tr>
 																<td>
-																	<span class="apv-sign-line-name">홍길동</span>
+																	<span class="apv-sign-line-name">이유빈</span>
 																</td>
 															</tr>
 															
@@ -99,37 +99,24 @@
 				<table class="table-content">
 					<tbody>
 						<tr>
-							<td class="table-content-left">연차 종류</td>
+							<td class="table-content-left">제목</td>
 							<td class="table-content-right">
-								<select id="selectpickerBasic" class="selectpicker w-20 form-vac-time" data-style="btn-default">
-                   <option>종일</option>
-                   <option>시간</option>
-						    </select>
+								<input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="제목을 입력하세요."
+                          aria-describedby="defaultFormControlHelp" />
 							</td>
 						</tr>
 						<tr>
-							<td class="table-content-left">연차 기간</td>
-							<td class="table-content-right time">
-								<span class="vac-time-input">
-									<span>
-										<input type="text" class="form-control form-vac-time-start" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
-										<span class="text"> ~ </span>
-										<input type="text" class="form-control form-vac-time-end" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
-									</span>
-									<span>
-										<input
-		                          type="text"
-		                          class="form-control vac-time"
-		                          id="defaultFormControlInput"
-		                          aria-describedby="defaultFormControlHelp" />
-										
-										<span class="text"> 시간</span>
-								</span>
-								</span>
+							<td class="table-content-left">사업 개요</td>
+							<td class="table-content-right">
+								<textarea class="form-control" id="exampleFormControlTextarea1" placeholder="내용을 입력하세요." rows="3" style="resize: none"></textarea>
 							</td>
 						</tr>
 						<tr>
-							<td class="table-content-left">연차 사유</td>
+							<td class="table-content-left">내용</td>
 							<td class="table-content-right reason">
 								<div>
 						      <div id="snow-toolbar">

@@ -802,7 +802,7 @@
     	});
     
     
-    // 새 결재 작성 모달창
+ // 새 결재 작성 모달창
     $(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
     	    checkboxTree = $('#jstree-checkbox');
@@ -865,17 +865,16 @@
     	        // id 값에 따라 페이지 이동
     	        $('.apv-doc-select').on('click',function(){
     	        			if(selectedNodeId == 'j1_2'){
-    	        					location.href="approval_write.go";
+    	        					location.href="approval_write.go/vac";
     	        			}else if(selectedNodeId == 'j1_3'){
-    	        				location.href="approval_write.go";
+    	        				location.href="approval_write.go/vac_after";
     	        			}else if(selectedNodeId == 'j1_5'){
-    	        				location.href="approval_write.go";
+    	        				location.href="approval_write.go/biz";
     	        			}
     	        });
     	        
     	      });
     	  }
-
     	});
     
     </script>
