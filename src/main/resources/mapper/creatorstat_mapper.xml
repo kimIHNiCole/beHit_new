@@ -4,5 +4,14 @@
 >
 
 <mapper namespace="com.behit.creator.dao.CreatorStatDAO">
-
+	
+	<select id="getChannelId" resultType="String">
+		SELECT channel_id FROM channel; 
+	</select>
+	
+	<insert id="saveChannelData" parameterType="String">
+		INSERT INTO channeldata (
+			channel_id, subscriber, views, contents
+		)
+	</insert>
 </mapper>
