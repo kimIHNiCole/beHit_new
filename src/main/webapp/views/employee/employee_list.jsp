@@ -541,7 +541,7 @@
 				fcontent += '</tr>';
 			} else {
 				scontent += '<tr>';
-				scontent +='<td style="width:100px;">'+'img'+'</td>';
+				scontent +='<td style="width:100px;">'+'<img src="../../assets/img/avatars/1.png" width="50px" height="50px">'+'</td>';
 				scontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
 					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
@@ -573,25 +573,6 @@
 			}
 		});
 	}
-	
-/*  	function edetail(){
-		var emp_id = $(event.target).closest('tr').find('#emp_id').text();
-		console.log(emp_id);
-		
-		$.ajax({
-			type: 'get',
-			url: 'empid.add',
-			data: {'emp_id':emp_id},
-			dataType: 'json',
-			success:function(data){
-				console.log(data);
-				location.href = 'empdetail.go';
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});
-	} */
 
      </script>
   </body>

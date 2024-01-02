@@ -45,6 +45,11 @@
 		WHERE e.emp_id = #{emp_id};
 	</select>
 	
+	<select id="HisList" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT psn_his_kind, psn_his_befoInfo, psn_his_aftrInfo, psn_his_date, category FROM personnel_history
+			WHERE emp_id = #{emp_id} ORDER BY psn_his_idx DESC;
+	</select>
+	
 	<select id="deptList" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT emp_dept_idx, emp_dept_name AS dept_name
 		FROM department
@@ -119,7 +124,7 @@
 		WHERE emp_id = #{emp_id}
 	</update>
 	
-		<update id="pupdate" parameterType="HashMap">
+	<update id="pupdate" parameterType="HashMap">
 		UPDATE employee
 			<set>
 				<if test="emp_dept_idx != null">
@@ -135,5 +140,44 @@
 					emp_date_up = NOW()
 			</set>
 		WHERE emp_id = #{emp_id}
-	</update>	
+	</update>
+	
+	<insert id="bupdateHistory" parameterType="HashMap">
+		INSERT INTO personnel_history (emp_id, psn_his_kind, psn_his_befoInfo, psn_his_aftrInfo, emp_id_up, category)
+			VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="emp_name != null">#{emp_id}, '이름 수정', #{defaultname}, #{emp_name}, #{login_id}, '기본 정보',</if>
+				<if test="cp_phone != null">#{emp_id}, '사원번호 수정', #{defaultphone}, #{cp_phone}, #{login_id}, '기본 정보',</if>
+				<if test="mobile_phone != null">#{emp_id}, '휴대폰번호 수정', #{defaultmobile}, #{mobile_phone}, #{login_id}, '기본 정보',</if>
+				<if test="emp_birth != null">#{emp_id}, '생년월일 수정', #{defaultbirth}, #{emp_birth}, #{login_id}, '기본 정보',</if>
+				<if test="email != null">#{emp_id}, '이메일 수정', #{defaultemail}, #{email}, #{login_id}, '기본 정보',</if>
+			</trim>
+	</insert>
+	
+		<insert id="dupdateHistory" parameterType="HashMap">
+		INSERT INTO personnel_history (emp_id, psn_his_kind, psn_his_befoInfo, psn_his_aftrInfo, emp_id_up, category)
+			VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="address != null">#{emp_id}, '주소 수정', #{defaultaddr}, #{address}, #{login_id}, '상세 정보',</if>
+				<if test="detail_addr != null">#{emp_id}, '상세주소 수정', #{defaultdaddr}, #{detail_addr}, #{login_id}, '상세 정보',</if>
+				<if test="hiredate != null">#{emp_id}, '입사일 수정', #{defaulthiredate}, #{hiredate}, #{login_id}, '상세 정보',</if>
+				<if test="leavedate != null">#{emp_id}, '퇴사일 수정', #{defaultleavedate}, #{leavedate}, #{login_id}, '상세 정보',</if>
+			</trim>
+	</insert>	
+	
+		<insert id="pupdateHistory" parameterType="HashMap">
+		INSERT INTO personnel_history (emp_id, psn_his_kind, psn_his_befoInfo, psn_his_aftrInfo, emp_id_up, category)
+			VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="emp_dept_idx != null">#{emp_id}, '부서 수정', #{defaultdeptname}, #{dept_name}, #{login_id}, '부서 정보',</if>
+				<if test="emp_position_idx != null">#{emp_id}, '직책 수정', #{defaultpositionname}, #{position_name}, #{login_id}, '부서 정보',</if>
+				<if test="emp_grade_idx != null">#{emp_id}, '직급 수정', #{defaultgradename}, #{grade_name}, #{login_id}, '부서 정보',</if>
+			</trim>
+	</insert>
+	
+	<update id="chkClear" parameterType="String">
+		UPDATE employee
+			SET login_lock = 0
+		WHERE emp_id = #{emp_id};
+	</update>		
 </mapper>
