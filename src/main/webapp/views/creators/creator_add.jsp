@@ -15,10 +15,58 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>BeHit</title>
+	<title>BeHit - 크리에이터 관리</title>
 	
     <meta name="description" content="" />
-
+	<style>
+		.ch-form{
+			margin: 3px;
+		}
+		.ch-area{
+			width:500px;
+		}
+		.btn-outline-primary{
+			border: none !important;
+			margin-left: 20px !important;
+		}
+		.ch-card{
+			padding: 11px 5px !important;
+		    border-radius: 10px;
+		    margin: 13px 8px;
+		    box-shadow: 4px 2px 14px 1px lightgray
+		}
+		
+		.act-form{
+			margin: 2px;
+		}
+		.act-card{
+			padding: 11px 5px !important;
+		    border-radius: 10px;
+		    margin: 13px 8px;
+		    box-shadow: 4px 2px 14px 1px lightgray;
+		    justify-content: space-between;
+	        margin-left: 5px !important;
+    		width: 93% !important;
+		}
+		.org-tree{
+			width: 300px !important;
+			height: 450px;
+    		margin: 0 auto;
+		}
+		.org-header{
+			border-bottom: 1px solid #c20000 !important;
+    		padding-bottom: 15px !important;
+		}
+		.org-body{
+			overflow-y : scroll;
+			overflow-x : hidden;	
+			padding: 7px !important;
+		}
+		
+		#cre_specifics{
+			resize: none;
+		}
+	</style>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
@@ -55,6 +103,8 @@
     <!-- Page CSS -->
     <!-- 생성추가 -->
     <link rel="stylesheet" href="../../assets/vendor/css/pages/app-invoice.css" />
+    <!-- jstree CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -63,6 +113,8 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    <!-- DAUM 주소 검색 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </head>
 
   <body>
@@ -384,17 +436,16 @@
                       </div>
                     </div>
                     <div class="bs-stepper-content">
-                      <form onSubmit="return false">
+                      <!-- <form action="creatorAdd.do" method="post"> -->
                         <!-- Account Details -->
                         <div id="account-details" class="content">
                           <div class="row g-3">
                     
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                     <div class="card-body">
 					<div action="/upload" class="dropzone needsclick" id="dropzone-basic">
 					  <div class="dz-message needsclick">
-					    Drop files here or click to upload
-					    <span class="note needsclick">(This is just a demo dropzone. Selected files are <span class="fw-medium">not</span> actually uploaded.)</span>
+					    Drop Image or click here
 					  </div>
 					  <div class="fallback">
 					    <input name="file" type="file" />
@@ -403,245 +454,169 @@
                     </div>
                     <div>
                        	<label class="form-label">성별</label>
-                           <div style="display: flex; gap: 20px;">
+                           <div style="display: flex; gap: 50px; justify-content: space-evenly;">
                             	<div class="form-check custom mb-2">
-                           			<input
-	                                type="radio"
-	                                id="formValidationGender"
-	                                name="formValidationGender"
-	                                class="form-check-input"
-	                                checked />
-                            		<label class="form-check-label" for="formValidationGender">남자</label>
+                           			<input type="radio" id="cre-male" class="form-check-input" name="cre_gender" value="${genders[0].code_name}" checked />
+                            		<label class="form-check-label" for="cre-male">${genders[0].code_name}</label>
                             	 </div>
                            		 <div class="form-check custom">
-	                            	<input
-	                              	type="radio"
-	                              	id="formValidationGender2"
-	                              	name="formValidationGender"
-	                              	class="form-check-input" />
-	                            	<label class="form-check-label" for="formValidationGender2">여자</label>
+	                            	<input type="radio" id="cre-female" class="form-check-input" name="cre_gender" value="${genders[1].code_name}"/>
+	                            	<label class="form-check-label" for="cre-female">${genders[1].code_name}</label>
                             	</div>
                             </div>
                        </div>
                   </div>
                   <div class="col-sm-4">
                             <div>
-                              <label class="form-label" for="username">이름</label>
-                              <input type="text" id="username" class="form-control" placeholder="실명 또는 활동명" />
+                              <label class="form-label" for="username" ><span style="color:#c20000">*</span> 이름</label>
+                              <input type="text" id="username" class="form-control" name="cre_name" placeholder="실명 또는 활동명"  />
                             </div>
                             <div>
-                              <label class="form-label" for="email">이메일</label>
- 							  <input type="text" id="email" class="form-control"/>
+                              <label class="form-label" for="nickname"><span style="color:#c20000">*</span> 활동명</label>
+                              <input type="text" id="nickname" class="form-control" name="cre_nick_name"
+                              		placeholder="활동명" />
                             </div>
+                            
 							<div>
-                            	<label class="form-label" for="formValidationDob">생년월일</label>
+                            	<label class="form-label" for="formValidationDob"><span style="color:#c20000">*</span> 생년월일</label>
 	                       		<input
-	                            	type="text"
-	                            	class="form-control flatpickr-validation"
-	                            	name="formValidationDob"
-	                            	id="formValidationDob"
-	                            	placeholder="YYYY-MM-DD"
-	                            	required />
+	                            	type="text" id="birthdate" class="form-control flatpickr-validation" name="cre_birthday"
+	                            	placeholder="YYYY-MM-DD"  />
                       		</div>
                       		<div>
-                              <label class="form-label" for="phone">주소</label>
- 							  <input type="text" id="phone" class="form-control"/>
+ 							  <label class="form-label" for="address" ><span style="color:#c20000">*</span> 주소</label>
+                        	  <input type="text" id="address" class="form-control" name="cre_address" placeholder="주소" />
                             </div>
                             <div>
-                              <label class="form-label" for="phone">상세주소</label>
- 							  <input type="text" id="phone" class="form-control"/>
+                              <label class="form-label" for="detail_addr"><span style="color:#c20000">*</span> 상세주소</label>
+ 							  <input type="text" id="detail_addr" class="form-control" name="address_detail" 
+ 							  		placeholder="상세주소를 입력해주세요" />
                             </div>
                       	</div>
                       	<div class="col-sm-4">
                       	    <div>
-                              <label class="form-label" for="nickname">활동명</label>
-                              <input type="text" id="nickname" class="form-control" placeholder="활동명" />
+                              <label class="form-label" for="email"><span style="color:#c20000">*</span> 이메일</label>
+ 							  <input type="text" id="email" class="form-control" name="cre_email" 
+ 							  		placeholder="이메일을 입력해주세요" />
                             </div>
                             <div>
-                              <label class="form-label" for="phone">연락처</label>
- 							  <input type="text" id="phone" class="form-control"/>
+                              <label class="form-label" for="phone"><span style="color:#c20000">*</span> 연락처</label>
+ 							  <input type="text" id="phone" class="form-control" name="cre_phone" 
+ 							  		placeholder="연락처를 입력해주세요" />
                             </div>
                       		<div>
-                         		<label class="form-label" for="formValidationSelect2">국적</label>
-	                          	<select
-		                            id="formValidationSelect2"
-		                            name="formValidationSelect2"
-		                            class="form-select select2"
-		                            data-allow-clear="true">
-		                            <option value="">국적 선택</option>
-		                            <option value="Australia">Australia</option>
-		                            <option value="Bangladesh">Bangladesh</option>
-		                            <option value="Belarus">Belarus</option>
-		                            <option value="Brazil">Brazil</option>
-		                            <option value="Canada">Canada</option>
-		                            <option value="China">China</option>
-		                            <option value="France">France</option>
-		                            <option value="Germany">Germany</option>
-		                            <option value="India">India</option>
-		                            <option value="Indonesia">Indonesia</option>
-		                            <option value="Israel">Israel</option>
-		                            <option value="Italy">Italy</option>
-		                            <option value="Japan">Japan</option>
-		                            <option value="Korea">Korea, Republic of</option>
-		                            <option value="Mexico">Mexico</option>
-		                            <option value="Philippines">Philippines</option>
-		                            <option value="Russia">Russian Federation</option>
-		                            <option value="South Africa">South Africa</option>
-		                            <option value="Thailand">Thailand</option>
-		                            <option value="Turkey">Turkey</option>
-		                            <option value="Ukraine">Ukraine</option>
-		                            <option value="United Arab Emirates">United Arab Emirates</option>
-		                            <option value="United Kingdom">United Kingdom</option>
-		                            <option value="United States">United States</option>
+                         		<label class="form-label" for="country" ><span style="color:#c20000">*</span> 국적</label>
+	                          	<select id="country" class="form-select select2" name="cre_country"
+		                            	data-allow-clear="false">
+		                            <c:forEach var="country" items="${countries}" >
+			                            <option value="${country.code_name}">${country.code_name}</option>
+		                            </c:forEach>
 	                        	</select>
                       		</div>
                       		
                             <div>
-                            	<label class="form-label" for="formValidationDob">계약시작일</label>
-	                       		<input
-	                            	type="text"
-	                            	class="form-control flatpickr-validation"
-	                            	name="formValidationDob"
-	                            	id="startcontract"
-	                            	placeholder="YYYY-MM-DD"
-	                            	required />
+                            	<label class="form-label" for="start-contract"><span style="color:#c20000">*</span> 계약시작일</label>
+	                       		<input type="text" id="start-contract" class="form-control flatpickr-validation" name="cre_contract_start"
+	                            	placeholder="YYYY-MM-DD"  />
                       		</div>
-
                       		<div>
-                            	<label class="form-label" for="formValidationDob">계약만료일</label>
-	                       		<input
-	                            	type="text"
-	                            	class="form-control flatpickr-validation"
-	                            	name="formValidationDob"
-	                            	id="endcontract"
-	                            	placeholder="YYYY-MM-DD"
-	                            	required />
+                            	<label class="form-label" for="end-contract"><span style="color:#c20000">*</span> 계약만료일</label>
+	                       		<input type="text" id="end-contract" class="form-control flatpickr-validation" name="cre_contract_end" 
+	                       			placeholder="YYYY-MM-DD"  />
                       		</div>
                             </div>
 
                             <div class="col-12 d-flex justify-content-between">
-                              <button class="btn btn-label-secondary btn-prev" disabled>
+                              <button type="button" class="btn btn-label-secondary btn-prev" disabled>
                                 <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
                                 <span class="align-middle d-sm-inline-block d-none">이전</span>
                               </button>
-                              <button class="btn btn-primary btn-next">
+                              <button type="button" class="btn btn-primary btn-next">
                                 <span class="align-middle d-sm-inline-block d-none me-sm-1">다음</span>
                                 <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                               </button>
                             </div>
                           </div>
                         </div>
-                        <!-- Personal Info --> <!-- 두번째 -->
+                        <!-- ADD CREATOR Chapter 2 --> 
                         <div id="personal-info" class="content">
-                          <div class="row g-3">
+                          <div class="row g-3" style="justify-content: space-around";>
                           
-                       <div class="col-6">
-                          <div style="display: flex; justify-content: space-between; align-items: center;">
-                          	<span>유튜브 링크 (대표채널을 선택해 주세요)</span>
-                            <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
-                            <span class="tf-icons bx bx-plus"></span>
+                       <div class="col-6 ch-area">
+                          <div style="display: flex; justify-content: space-between;">
+                          	<span><span style="color:#c20000">*</span> 유튜브 채널 정보 (대표채널을 선택해 주세요)</span>
+                            <button type="button" class="btn btn-sm btn-icon btn-outline-primary mb-1"
+                            		onclick="addChItem()">
+                       			<i class='bx bx-plus bx-burst-hover'></i>
                           </button>                    	
                           </div>
-                        <div class="mb-5" data-repeater-list="group-a">
+                        <div id="ch-item-list" class="mb-6" data-repeater-list="group-a">
                         <!-- 채널명, 가입일, 카테고리, 채널링크 div-->
                           <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item>
                             <div class="d-flex position-relative pe-0">
-				            <div style="width:30px;" class="d-flex position-relative pe-0 align-items-center justify-content-center">
+				            <div style="margin: 0 20px;" class="d-flex position-relative pe-0 align-items-center justify-content-center">
 				                <!-- 여기에 라디오 버튼 추가 -->
 				                <label class="form-check-label">
-				                    <input type="radio" name="radioGroup" class="form-check-input" />
+				                    <input type="radio" name="rep_channel" class="form-check-input rep-channel" checked="checked"/>
 				                </label>
 				            </div>
-                              <div class="row w-100">
-                                
-                          	 	<div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="채널명" />
-                           		</div>
-                                <div class="col-sm-3">
-	                       		<input
-	                            	type="text"
-	                            	class="form-control flatpickr-validation"
-	                            	name="formValidationDob"
-	                            	id="startch"
-	                            	placeholder="채널가입일"
-	                            	required />
-                      			</div>
-                                
-		                        <div class="col-sm-9" style="padding-left:0px">
-									<input id="TagifyCustomInlineSuggestion" name="TagifyCustomInlineSuggestion" class="form-control" placeholder="select technologies" value="css, html, javascript">
-		                        </div>
-		                        
-		                        <div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="채널 링크를 입력하세요" />
-                           		</div>
-
-
+			                  <!-- 채널 정보 영역 -->
+                              <div class="row w-100 ch-card">
+	                          	 	<div>
+	                          		    <input type="text" id="ch-name" class="form-control ch-form ch-name" name="channel_name" placeholder="채널명" />
+	                           		</div>
+	                                <div class="col-sm-3">
+		                       		<input type="text" id="start-ch" class="form-control flatpickr-validation ch-form start-ch" name="channel_date"
+		                            	placeholder="채널가입일"/>
+	                      			</div>
+	                                
+			                        <div class="col-sm-9" style="padding-left:0px">
+										<input  id="TagifyCustomInlineSuggestion"  class="form-control ch-form TagifyCustomInlineSuggestion" name="channel_cate" placeholder="채널 카테고리를 선택하세요" >
+			                        </div>
+			                        
+			                        <div> 
+	                          		    <input type="text" id="channel-url" class="form-control ch-form channel-url" name="channel_url" placeholder="채널 링크를 입력하세요" />
+	                           		</div>
+	                           		<div> 
+	                          		    <input type="text" id="rep-video" class="form-control ch-form rep-video" name="rep_video" placeholder="대표 영상 링크를 입력하세요" />
+	                           		</div>
                               </div>
-						  <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
-							   <span class="tf-icons bx bx-minus"></span>
-                          </button>
+                              <div class="d-flex position-relative pe-0 align-items-center justify-content-center">
+	                              <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1"
+	                              		onclick="delChItem()">
+	                              		<i class='bx bx-minus-circle'></i>
+		                          </button>
+				              </div>
+                              <!-- / 채널 정보 영역 -->
                             </div>
                           </div>
-                          
-                          <!-- 위에꺼랑 같은거 -->
-                          <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item="">
-                            <div class="d-flex position-relative pe-0">
-				            <div style="width:30px;" class="d-flex position-relative pe-0 align-items-center justify-content-center">
-				                <!-- 여기에 라디오 버튼 추가 -->
-				                <label class="form-check-label">
-				                    <input type="radio" name="radioGroup" class="form-check-input">
-				                </label>
-				            </div>
-                              <div class="row w-100">
-                                
-                          	 	<div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="채널명">
-                           		</div>
-                                <div class="col-sm-3">
-	                       		<input type="text" class="form-control flatpickr-validation flatpickr-input" name="formValidationDob" id="startch1" placeholder="채널가입일" required="" readonly="readonly">
-                      			</div>
-                                
-		                        <div class="col-sm-9" style="padding-left:0px">
-		                          <input id="TagifyCustomInlineSuggestion1" name="TagifyCustomInlineSuggestion1" class="form-control" placeholder="select technologies" value="css, html, javascript">
-		                        </div>
-		                        
-		                        <div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="채널 링크를 입력하세요">
-                           		</div>
-
-
-                              </div>
-						  <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
-							   <span class="tf-icons bx bx-minus"></span>
-                          </button>
-                            </div>
-                          </div>
-                          <!-- 위에꺼랑 같은거 -->
-                          
+                          <!-- / 채널명, 가입일, 카테고리, 채널링크 div-->
                      	 </div>
 
                       </div>
-                      <div class="col-6">
+                      <div class="col-6 ch-area">
                           <div style="display: flex; justify-content: space-between; align-items: center;">
                           	<span>기타 SNS 링크(인스타그램, 페이스북)</span>
-                            <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
-                            <span class="tf-icons bx bx-plus"></span>
+                            <button type="button" class="btn btn-sm btn-icon btn-outline-primary mb-1">
+                            <i class='bx bx-plus bx-burst-hover'></i>
                           </button>                    	
                           </div>
-                        <div class="mb-5" data-repeater-list="group-a">
+                        <div id="sns-item-list" class="mb-5" data-repeater-list="group-a">
                           <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item>
                             <div class="d-flex position-relative pe-0">
                               <div class="row w-100">
                                 
                             <div>
-                              <input type="text" id="snslink" class="form-control" placeholder="SNS 링크 입력" />
+                              <input type="text" id="snsUrl" class="form-control ch-form snsUrl" name="sns_url" placeholder="SNS 링크 입력" />
                             </div>
 
 
                               </div>
- 								<button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
-							   <span class="tf-icons bx bx-minus"></span>
-                     	     </button>
+ 								<div class="d-flex position-relative pe-0 align-items-center justify-content-center">
+	                              <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
+	                              		<i class='bx bx-minus-circle'></i>
+		                          </button>
+				              </div>
                             </div>
                           </div>
                         </div>
@@ -649,154 +624,77 @@
                       </div>	
                             
                             <div class="col-12 d-flex justify-content-between">
-                              <button class="btn btn-primary btn-prev">
+                              <button type="button" class="btn btn-primary btn-prev">
                                 <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
                                 <span class="align-middle d-sm-inline-block d-none">이전</span>
                               </button>
-                              <button class="btn btn-primary btn-next">
+                              <button type="button" class="btn btn-primary btn-next">
                                 <span class="align-middle d-sm-inline-block d-none me-sm-1">다음</span>
                                 <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                               </button>
                             </div>
                           </div>
                         </div>
-                        <!-- Social Links --> <!-- 세번째 -->
+                        <!-- ADD CREATOR Chapter 3  -->
                         <div id="social-links" class="content">
                           <div class="row g-3">
                           	
-                          	<!-- 내용 -->
-                          	<div class="col-6">
-                          <div style="width: 630px; display: flex; justify-content: space-between; align-items: center;">
+                        <!-- 내용 -->
+                        
+                        
+                       	<div class="col-6">
+                   		  <span>담당 매니저 선택</span>
+                   		  <div class="mb-3 mt-3 select-mng-box" style="width:250px">
+                             <input type="text" id="managerName" class="form-control act-form" name="mng_name"
+                              data-bs-toggle="modal" data-bs-target="#modalCenter" 
+                              readonly="readonly" placeholder="매니저 선택" />
+                              <input type="hidden" id="managerId"/>
+                   		  </div>
+                          <div style="display: flex; justify-content: space-between; align-items: center;">
                           	<span>활동 이력</span>
                             <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
-                            <span class="tf-icons bx bx-plus"></span>
-                          </button>                    	
+                              <span class="tf-icons bx bx-plus"></span>
+                            </button>                    	
                           </div>
-                        <div class="mb-5" data-repeater-list="group-a"
-	                        style="width: 662px;
-						    height: 281.625px;
-						    overflow-y: auto;">
-                        <!-- 채널명, 가입일, 카테고리, 채널링크 div-->
-                          <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item>
-                            <div class="d-flex position-relative pe-0">
-                              <div class="row w-100">
-                                
-                                <div class="col-sm-3">
-	                       		<input
-	                            	type="text"
-	                            	class="form-control flatpickr-validation"
-	                            	name="formValidationDob"
-	                            	id="elday"
-	                            	placeholder="이력일자"
-	                            	value="2023-06-08"
-	                            	required />
-                      			</div>
-                      			
-                      			<div class="col-sm-6"></div>
-                                
-		                        <div class="col-sm-3" style="padding-left:0px">
-			                        <select id="defaultSelect" class="form-select">
-			                          <option>분류</option>
-			                          <option value="1">구독자</option>
-			                          <option value="2">조회수</option>
-			                          <option value="3">버튼달성</option>
-			                          <option value="4">수상</option>
-			                        </select>
-		                        </div>
-                          	 	<div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="채널명 또는 크리에이터명" />
-                           		</div>
-		                        
-		                        <div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="구독자 10만 달성" />
-                           		</div>
-
-
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <!-- 위에꺼랑 같은거 -->
-                          <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item="">
-                            <div class="d-flex position-relative pe-0">
-                              <div class="row w-100">
-                                
-                                <div class="col-sm-3">
-	                       		<input
-	                            	type="text"
-	                            	class="form-control flatpickr-validation"
-	                            	name="formValidationDob"
-	                            	id="elday1"
-	                            	placeholder="이력일자"
-	                            	value="2023-12-08"
-	                            	required />
-                      			</div>
-                      			
-                      			<div class="col-sm-6"></div>
-                                
-		                        <div class="col-sm-3" style="padding-left:0px">
-			                        <select id="defaultSelect" class="form-select">
-			                          <option>분류</option>
-			                          <option value="1">구독자</option>
-			                          <option value="2">조회수</option>
-			                          <option value="3">버튼달성</option>
-			                          <option value="4">수상</option>
-			                        </select>
-		                        </div>
-                          	 	<div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="채널명 또는 크리에이터명" />
-                           		</div>
-		                        
-		                        <div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="유튜브 크리에이터 어워즈 대상" />
-                           		</div>
-                           		
-                              </div>
-                            </div>
-                          </div>
-                          <!-- 위에꺼랑 같은거 -->
-                                                    <!-- 위에꺼랑 같은거 -->
-                          <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item="">
-                            <div class="d-flex position-relative pe-0">
-                              <div class="row w-100">
-                                
-                                <div class="col-sm-3">
-	                       		<input
-	                            	type="text"
-	                            	class="form-control flatpickr-validation"
-	                            	name="formValidationDob"
-	                            	id="elday2"
-	                            	placeholder="이력일자"
-	                            	value="2023-12-08"
-	                            	required />
-                      			</div>
-                      			
-                      			<div class="col-sm-6"></div>
-                                
-		                        <div class="col-sm-3" style="padding-left:0px">
-			                        <select id="defaultSelect" class="form-select">
-			                          <option>분류</option>
-			                          <option value="1">구독자</option>
-			                          <option value="2">조회수</option>
-			                          <option value="3">버튼달성</option>
-			                          <option value="4">수상</option>
-			                        </select>
-		                        </div>
-                          	 	<div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="채널명 또는 크리에이터명" />
-                           		</div>
-		                        
-		                        <div>
-                          		    <input type="text" id="snslink" class="form-control" placeholder="유튜브 크리에이터 어워즈 대상" />
-                           		</div>
-                           		
-                              </div>
-                            </div>
-                          </div>
-                          <!-- 위에꺼랑 같은거 -->
-                          
+                          <div id="his-item-list" class="mb-5" data-repeater-list="group-a" 
+                          	style="height: 281.625px;overflow-y: auto;">
+						    
+	                          <!-- 활동이력 영역-->
+	                          <div class="repeater-wrapper position-relative pt-0 pt-md-4" data-repeater-item>
+	                            <div class="d-flex position-relative pe-0">
+	                              <div class="row act-card" >
+	                                
+	                                <div class="col-sm-3">
+			                       		<input type="text" id="hisDate" class="form-control flatpickr-validation act-form hisDate"
+			                            	name="history_date" placeholder="날짜 선택" />
+	                      			</div>
+	                                
+			                        <div class="col-sm-3" style="padding-left:0px">
+				                        <select id="typeSelect" class="form-select act-form typeSelect">
+				                        	<option value="" disabled selected hidden >분류 선택</option>
+				                          <option value="구독자">구독자</option>
+				                          <option value="조회수">조회수</option>
+				                          <option value="버튼달성">버튼달성</option>
+				                          <option value="수상">수상</option>
+				                        </select>
+			                        </div>
+			                       
+	                          	 	<div>
+	                          		    <input type="text" id="hisTitle" class="form-control act-form hisTitle" placeholder="채널명 또는 크리에이터명" />
+	                           		</div>
+			                        <div>
+	                          		    <input type="text" id="hisContent" class="form-control act-form hisContent" placeholder="ex) 구독자 10만 달성, 올해의 크리에이터 최우수상" />
+	                           		</div>
+	                              </div>
+	                              <div class="d-flex position-relative pe-0 align-items-center justify-content-center">
+		                              <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
+		                              		<i class='bx bx-minus-circle'></i>
+			                          </button>
+			              		  </div>
+	                            </div>
+	                             
+	                          </div>
                      	 </div>
-
                       </div>
                       <div class="col-6">
                           <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -809,9 +707,9 @@
                                 
                                 <div>
 			                       <textarea class="form-control" 
-			                       id="exampleFormControlTextarea1" rows="3" 
+			                       id="cre_specifics" rows="3" 
 			                       placeholder="특이사항 및 참고사항을 입력해주세요"
-			                       style="height:264px"></textarea>
+			                       style="height:264px" name="cre_specifics"></textarea>
 			                    </div>
 
                               </div>
@@ -821,22 +719,19 @@
 
                       </div>	
                             
-                            <div style="width:250px">
-                              <input type="text" id="manegername" class="form-control" placeholder="매니저 선택" />
-                            </div>
+                            
                             
                             <div class="col-12 d-flex justify-content-between">
-                              <button class="btn btn-primary btn-prev">
+                              <button type="button" class="btn btn-primary btn-prev">
                                 <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
                                 <span class="align-middle d-sm-inline-block d-none">이전</span>
                               </button>
-                              <button class="btn btn-success btn-submit">완료</button>
+                              <button class="btn btn-success" onclick="creatorAddDo()">완료</button>
                             </div>
 							
                           </div>
                         </div>
-                 		<!-- 세번쨰 -->
-                      </form>
+                      <!-- </form> -->
                       <!-- 1~3 폼제출 -->
                     </div>
                   </div>
@@ -860,14 +755,58 @@
       <div class="drag-target"></div>
     </div>
     <!-- / Layout wrapper -->
+	
+	<!-- Modal -->
+    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content org-tree">
+          <div class="modal-header org-header">
+            <h5 class="modal-title" id="modalCenterTitle">조직도</h5>
+           
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body org-body">
+            <div class="row" style="justify-content: center;">
+            	  <!-- JSTree -->
+              <div class="row">
+                <!-- Checkbox -->
+                <div class="col-md-12 col-12">
+                  <div class="card mb-md-0 mb-4" style="padding: 10px 5px; box-shadow: none;">
+                    <div >
+                      <div id="jstree-checkbox"></div>
+                    </div>
+                  </div>
+                  <div class="ps__rail-y" style="top: 755px;height: 232px;right: 0px;">
+                  	<div class="ps__thumb-y" tabindex="0" style="top: 110px; height: 33px;">
+                  	</div>
+                  </div>
+                </div>
+                <!-- /Checkbox -->
+              </div>
+              <!-- /JSTree -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary"
+				data-bs-dismiss="modal"aria-label="Close"
+            	onclick="selectMng()">완료</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
+	
+	
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
     <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../assets/vendor/libs/popper/popper.js"></script>
     <script src="../../assets/vendor/js/bootstrap.js"></script>
-    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
     <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
@@ -890,150 +829,260 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
     
-    <script>
-       var flatpickrDate = document.querySelector("#formValidationDob"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script>
-       var flatpickrDate = document.querySelector("#startcontract"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script>
-       var flatpickrDate = document.querySelector("#endcontract"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script>
-       var flatpickrDate = document.querySelector("#startch"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script>
-       var flatpickrDate = document.querySelector("#startch1"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script>
-       var flatpickrDate = document.querySelector("#elday"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script>
-       var flatpickrDate = document.querySelector("#elday1"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script>
-       var flatpickrDate = document.querySelector("#elday2"); // 캘린더
-   
-       flatpickrDate.flatpickr({
-         monthSelectorType: "static"
-       });
-    </script>
-    <script> // 이미지드랍
-    const myDropzone = new Dropzone('#dropzone-basic', {
-    	  previewTemplate: previewTemplate,
-    	  parallelUploads: 1,
-    	  maxFilesize: 5,
-    	  addRemoveLinks: true,
-    	  maxFiles: 1
+    <!-- Page JS -->
+    <script src="../../assets/js/extended-ui-perfect-scrollbar.js"></script> <!-- scroll -->
+    
+    
+    <!-- custom script -->
+  	<script>
+	
+  	 $(document).ready(function() {
+		// DAUM 주소 검색 창
+        document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+            //카카오 지도 발생
+            new daum.Postcode({
+                oncomplete: function(data) { //선택시 입력값 세팅
+                    document.getElementById("address").value = data.address; // 주소 넣기
+                    document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+                }
+            }).open();
+        });
+        $(document).on('focus', '.flatpickr-validation', function() {
+		  // 날짜 선택 폼
+	      var flatpickrElements = document.querySelectorAll(".flatpickr-validation");
+	      
+	      flatpickrElements.forEach(function (element) {
+	        flatpickr(element, {
+	          monthSelectorType: "static"
+	        });
+	      });
     	});
-    </script>
-    <script> // select css,java 어쩌구 
-    const TagifyCustomInlineSuggestionEl = document.querySelector("#TagifyCustomInlineSuggestion");
-
-    const whitelist = [
-      "A# .NET",
-      "A# (Axiom)",
-      "A-0 System",
-      "A+",
-      "A++",
-      "ABAP",
-      "ABC",
-      "ABC ALGOL",
-      "ABSET",
-      "ABSYS",
-      "ACC",
-      "Accent",
-      "Ace DASL",
-      "ACL2",
-      "Avicsoft",
-      "ACT-III",
-      "Action!",
-      "ActionScript",
-      "Ada",
-      "Adenine",
-    ];
-    // Inline
-    let TagifyCustomInlineSuggestion = new Tagify(TagifyCustomInlineSuggestionEl, {
-      whitelist: whitelist,
-      maxTags: 10, // allows to select max items
-      dropdown: {
-        maxItems: 20, // display max items
-        classname: "tags-inline", // Custom inline class
-        enabled: 0,
-        closeOnSelect: false
-      }
+	    // 이미지 DROP
+	    const myDropzone = new Dropzone('#dropzone-basic', {
+	      previewTemplate: previewTemplate,
+	      parallelUploads: 1,
+	      maxFilesize: 5,
+	      addRemoveLinks: true,
+	      maxFiles: 1
+	    });
+        
     });
-    </script>
-    <script>
-    const TagifyCustomInlineSuggestionEl1 = document.querySelector("#TagifyCustomInlineSuggestion1");
+  	 
+  	
+  	function creatorAddDo() {
+		  console.log('creatorAddDo event !! ');
+  		
+		  // var creatorForm = new creatorForm();
+      
+      // CreatorDTO
+      console.log($("#managerId").val());
+      var creatorDTO = {
+        mng_id : $("#managerId").val(),
+        cre_gender : $("input[name='cre_gender']:checked").val(),
+        cre_name : $("#username").val(),
+        cre_nick_name : $("#nickname").val(),
+        cre_email : $("#email").val(),
+        cre_phone : $("#phone").val(),
+        cre_birthday : $("#birthdate").val(),
+        cre_country : $("#country").val(),
+        cre_address : $("#address").val(),
+        cre_address_detail : $("#detail_addr").val(),
+        cre_contract_start : $("#start-contract").val(),
+        cre_contract_end :$("#end-contract").val(),
+        cre_specifics : $("#cre_specifics").val()
+      };
+      console.log("creatorDTO",creatorDTO);
+      
+      // Channel
+      var channelDTOList = [];
+      console.log($('#ch-item-list .repeater-wrapper[data-repeater-item]'));
+      $('#ch-item-list .repeater-wrapper[data-repeater-item]').each(function(index, element) {
+        var channelDTO = {
+            channel_name: $(element).find('.ch-name').val(),
+            channel_url: $(element).find('.channel-url').val(),
+            rep_channel: $(element).find('.rep-channel').is(':checked') ? 1 : 0,
+            channel_date: $(element).find('.start-ch').val(),
+            channel_cate: selectedTags.join(","),
+            rep_video: $(element).find('.rep-video').val()
+        };
+        
+        
+        channelDTOList.push(channelDTO);
+      });
+      console.log("channelDTOList",channelDTOList);
 
-    const whitelist1 = [
-      "A# .NET",
-      "A# (Axiom)",
-      "A-0 System",
-      "A+",
-      "A++",
-      "ABAP",
-      "ABC",
-      "ABC ALGOL",
-      "ABSET",
-      "ABSYS",
-      "ACC",
-      "Accent",
-      "Ace DASL",
-      "ACL2",
-      "Avicsoft",
-      "ACT-III",
-      "Action!",
-      "ActionScript",
-      "Ada",
-      "Adenine",
-      "Agda",
-    ];
-    // Inline
-    let TagifyCustomInlineSuggestion1 = new Tagify(TagifyCustomInlineSuggestionEl1, {
-      whitelist: whitelist1,
-      maxTags: 10, // allows to select max items
-      dropdown: {
-        maxItems: 20, // display max items
-        classname: "tags-inline", // Custom inline class
-        enabled: 0,
-        closeOnSelect: false
-      }
+      // SNS
+      var snsDTOList = [];
+      $('#sns-item-list .repeater-wrapper[data-repeater-item]').each(function(index, element){
+        var snsDTO = {
+          sns_url : $(element).find('.snsUrl').val()
+        }
+        snsDTOList.push(snsDTO);
+      });
+      console.log("snsDTOList",snsDTOList);
+      // CreatorHistory
+      var creHistDTOList = [];
+      $('#his-item-list .repeater-wrapper[data-repeater-item]').each(function(index, element){
+        var creHistDTO = {
+          cre_his_title : $(element).find('.hisTitle').val(),
+          cre_his_cate : $(element).find('.typeSelect').val(),
+          cre_his_content : $(element).find('.hisContent').val(),
+          history_date : $(element).find('.hisDate').val()
+        }
+        creHistDTOList.push(creHistDTO);
+      });
+      console.log("creHistDTOList",creHistDTOList);
+      
+		$.ajax({
+			type : 'post',
+			url : 'creatorAdd.ajax.do',
+			data: JSON.stringify({
+			        creatorDTO: creatorDTO,
+			        channelDTOList: channelDTOList,
+			        snsDTOList: snsDTOList,
+			        creHistDTOList: creHistDTOList
+		    }),
+        	contentType: 'application/json;charset=UTF-8',
+	    	dataType : 'JSON',
+	    	success : function(data){
+	    		console.log(data);
+	    	},
+	    	error : function(e){
+	    		console.log(e);
+	    	}
+			
+		});
+	}
+  	 
+    
+ 	// 채널 카테고리 Input
+    $.ajax({
+    	type : 'get',
+    	url : 'getChCate.ajax.do',
+    	data : {},
+    	dataType : 'JSON',
+    	success : function(data){
+    		console.log(data.chCategory);
+    		drawChCate(data.chCategory);
+    	},
+    	error : function(e){
+    		console.log(e);
+    	}
     });
-    </script>
-    <script>
-    eval("// jquery.repeater version 1.2.1\n// https://github.com/DubFriend/jquery.repeater\n// (MIT) 09-10-2016\n// Brian Detering <BDeterin@gmail.com> (http://www.briandetering.net/)\n(function ($) {\n'use strict';\n\nvar identity = function (x) {\n    return x;\n};\n\nvar isArray = function (value) {\n    return $.isArray(value);\n};\n\nvar isObject = function (value) {\n    return !isArray(value) && (value instanceof Object);\n};\n\nvar isNumber = function (value) {\n    return value instanceof Number;\n};\n\nvar isFunction = function (value) {\n    return value instanceof Function;\n};\n\nvar indexOf = function (object, value) {\n    return $.inArray(value, object);\n};\n\nvar inArray = function (array, value) {\n    return indexOf(array, value) !== -1;\n};\n\nvar foreach = function (collection, callback) {\n    for(var i in collection) {\n        if(collection.hasOwnProperty(i)) {\n            callback(collection[i], i, collection);\n        }\n    }\n};\n\n\nvar last = function (array) {\n    return array[array.length - 1];\n};\n\nvar argumentsToArray = function (args) {\n    return Array.prototype.slice.call(args);\n};\n\nvar extend = function () {\n    var extended = {};\n    foreach(argumentsToArray(arguments), function (o) {\n        foreach(o, function (val, key) {\n            extended[key] = val;\n        });\n    });\n    return extended;\n};\n\nvar mapToArray = function (collection, callback) {\n    var mapped = [];\n    foreach(collection, function (value, key, coll) {\n        mapped.push(callback(value, key, coll));\n    });\n    return mapped;\n};\n\nvar mapToObject = function (collection, callback, keyCallback) {\n    var mapped = {};\n    foreach(collection, function (value, key, coll) {\n        key = keyCallback ? keyCallback(key, value) : key;\n        mapped[key] = callback(value, key, coll);\n    });\n    return mapped;\n};\n\nvar map = function (collection, callback, keyCallback) {\n    return isArray(collection) ?\n        mapToArray(collection, callback) :\n        mapToObject(collection, callback, keyCallback);\n};\n\nvar pluck = function (arrayOfObjects, key) {\n    return map(arrayOfObjects, function (val) {\n        return val[key];\n    });\n};\n\nvar filter = function (collection, callback) {\n    var filtered;\n\n    if(isArray(collection)) {\n        filtered = [];\n        foreach(collection, function (val, key, coll) {\n            if(callback(val, key, coll)) {\n                filtered.push(val);\n            }\n        });\n    }\n    else {\n        filtered = {};\n        foreach(collection, function (val, key, coll) {\n            if(callback(val, key, coll)) {\n                filtered[key] = val;\n            }\n        });\n    }\n\n    return filtered;\n};\n\nvar call = function (collection, functionName, args) {\n    return map(collection, function (object, name) {\n        return object[functionName].apply(object, args || []);\n    });\n};\n\n//execute callback immediately and at most one time on the minimumInterval,\n//ignore block attempts\nvar throttle = function (minimumInterval, callback) {\n    var timeout = null;\n    return function () {\n        var that = this, args = arguments;\n        if(timeout === null) {\n            timeout = setTimeout(function () {\n                timeout = null;\n            }, minimumInterval);\n            callback.apply(that, args);\n        }\n    };\n};\n\n\nvar mixinPubSub = function (object) {\n    object = object || {};\n    var topics = {};\n\n    object.publish = function (topic, data) {\n        foreach(topics[topic], function (callback) {\n            callback(data);\n        });\n    };\n\n    object.subscribe = function (topic, callback) {\n        topics[topic] = topics[topic] || [];\n        topics[topic].push(callback);\n    };\n\n    object.unsubscribe = function (callback) {\n        foreach(topics, function (subscribers) {\n            var index = indexOf(subscribers, callback);\n            if(index !== -1) {\n                subscribers.splice(index, 1);\n            }\n        });\n    };\n\n    return object;\n};\n\n// jquery.input version 0.0.0\n// https://github.com/DubFriend/jquery.input\n// (MIT) 09-04-2014\n// Brian Detering <BDeterin@gmail.com> (http://www.briandetering.net/)\n(function ($) {\n'use strict';\n\nvar createBaseInput = function (fig, my) {\n    var self = mixinPubSub(),\n        $self = fig.$;\n\n    self.getType = function () {\n        throw 'implement me (return type. \"text\", \"radio\", etc.)';\n    };\n\n    self.$ = function (selector) {\n        return selector ? $self.find(selector) : $self;\n    };\n\n    self.disable = function () {\n        self.$().prop('disabled', true);\n        self.publish('isEnabled', false);\n    };\n\n    self.enable = function () {\n        self.$().prop('disabled', false);\n        self.publish('isEnabled', true);\n    };\n\n    my.equalTo = function (a, b) {\n        return a === b;\n    };\n\n    my.publishChange = (function () {\n        var oldValue;\n        return function (e, domElement) {\n            var newValue = self.get();\n            if(!my.equalTo(newValue, oldValue)) {\n                self.publish('change', { e: e, domElement: domElement });\n            }\n            oldValue = newValue;\n        };\n    }());\n\n    return self;\n};\n\n\nvar createInput = function (fig, my) {\n    var self = createBaseInput(fig, my);\n\n    self.get = function () {\n        return self.$().val();\n    };\n\n    self.set = function (newValue) {\n        self.$().val(newValue);\n    };\n\n    self.clear = function () {\n        self.set('');\n    };\n\n    my.buildSetter = function (callback) {\n        return function (newValue) {\n            callback.call(self, newValue);\n        };\n    };\n\n    return self;\n};\n\nvar inputEqualToArray = function (a, b) {\n    a = isArray(a) ? a : [a];\n    b = isArray(b) ? b : [b];\n\n    var isEqual = true;\n    if(a.length !== b.length) {\n        isEqual = false;\n    }\n    else {\n        foreach(a, function (value) {\n            if(!inArray(b, value)) {\n                isEqual = false;\n            }\n        });\n    }\n\n    return isEqual;\n};\n\nvar createInputButton = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'button';\n    };\n\n    self.$().on('change', function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputCheckbox = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'checkbox';\n    };\n\n    self.get = function () {\n        var values = [];\n        self.$().filter(':checked').each(function () {\n            values.push($(this).val());\n        });\n        return values;\n    };\n\n    self.set = function (newValues) {\n        newValues = isArray(newValues) ? newValues : [newValues];\n\n        self.$().each(function () {\n            $(this).prop('checked', false);\n        });\n\n        foreach(newValues, function (value) {\n            self.$().filter('[value=\"' + value + '\"]')\n                .prop('checked', true);\n        });\n    };\n\n    my.equalTo = inputEqualToArray;\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputEmail = function (fig) {\n    var my = {},\n        self = createInputText(fig, my);\n\n    self.getType = function () {\n        return 'email';\n    };\n\n    return self;\n};\n\nvar createInputFile = function (fig) {\n    var my = {},\n        self = createBaseInput(fig, my);\n\n    self.getType = function () {\n        return 'file';\n    };\n\n    self.get = function () {\n        return last(self.$().val().split('\\\\'));\n    };\n\n    self.clear = function () {\n        // http://stackoverflow.com/questions/1043957/clearing-input-type-file-using-jquery\n        this.$().each(function () {\n            $(this).wrap('<form>').closest('form').get(0).reset();\n            $(this).unwrap();\n        });\n    };\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n        // self.publish('change', self);\n    });\n\n    return self;\n};\n\nvar createInputHidden = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'hidden';\n    };\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\nvar createInputMultipleFile = function (fig) {\n    var my = {},\n        self = createBaseInput(fig, my);\n\n    self.getType = function () {\n        return 'file[multiple]';\n    };\n\n    self.get = function () {\n        // http://stackoverflow.com/questions/14035530/how-to-get-value-of-html-5-multiple-file-upload-variable-using-jquery\n        var fileListObject = self.$().get(0).files || [],\n            names = [], i;\n\n        for(i = 0; i < (fileListObject.length || 0); i += 1) {\n            names.push(fileListObject[i].name);\n        }\n\n        return names;\n    };\n\n    self.clear = function () {\n        // http://stackoverflow.com/questions/1043957/clearing-input-type-file-using-jquery\n        this.$().each(function () {\n            $(this).wrap('<form>').closest('form').get(0).reset();\n            $(this).unwrap();\n        });\n    };\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputMultipleSelect = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'select[multiple]';\n    };\n\n    self.get = function () {\n        return self.$().val() || [];\n    };\n\n    self.set = function (newValues) {\n        self.$().val(\n            newValues === '' ? [] : isArray(newValues) ? newValues : [newValues]\n        );\n    };\n\n    my.equalTo = inputEqualToArray;\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputPassword = function (fig) {\n    var my = {},\n        self = createInputText(fig, my);\n\n    self.getType = function () {\n        return 'password';\n    };\n\n    return self;\n};\n\nvar createInputRadio = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'radio';\n    };\n\n    self.get = function () {\n        return self.$().filter(':checked').val() || null;\n    };\n\n    self.set = function (newValue) {\n        if(!newValue) {\n            self.$().each(function () {\n                $(this).prop('checked', false);\n            });\n        }\n        else {\n            self.$().filter('[value=\"' + newValue + '\"]').prop('checked', true);\n        }\n    };\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputRange = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'range';\n    };\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputSelect = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'select';\n    };\n\n    self.$().change(function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputText = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'text';\n    };\n\n    self.$().on('change keyup keydown', function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputTextarea = function (fig) {\n    var my = {},\n        self = createInput(fig, my);\n\n    self.getType = function () {\n        return 'textarea';\n    };\n\n    self.$().on('change keyup keydown', function (e) {\n        my.publishChange(e, this);\n    });\n\n    return self;\n};\n\nvar createInputURL = function (fig) {\n    var my = {},\n        self = createInputText(fig, my);\n\n    self.getType = function () {\n        return 'url';\n    };\n\n    return self;\n};\n\nvar buildFormInputs = function (fig) {\n    var inputs = {},\n        $self = fig.$;\n\n    var constructor = fig.constructorOverride || {\n        button: createInputButton,\n        text: createInputText,\n        url: createInputURL,\n        email: createInputEmail,\n        password: createInputPassword,\n        range: createInputRange,\n        textarea: createInputTextarea,\n        select: createInputSelect,\n        'select[multiple]': createInputMultipleSelect,\n        radio: createInputRadio,\n        checkbox: createInputCheckbox,\n        file: createInputFile,\n        'file[multiple]': createInputMultipleFile,\n        hidden: createInputHidden\n    };\n\n    var addInputsBasic = function (type, selector) {\n        var $input = isObject(selector) ? selector : $self.find(selector);\n\n        $input.each(function () {\n            var name = $(this).attr('name');\n            inputs[name] = constructor[type]({\n                $: $(this)\n            });\n        });\n    };\n\n    var addInputsGroup = function (type, selector) {\n        var names = [],\n            $input = isObject(selector) ? selector : $self.find(selector);\n\n        if(isObject(selector)) {\n            inputs[$input.attr('name')] = constructor[type]({\n                $: $input\n            });\n        }\n        else {\n            // group by name attribute\n            $input.each(function () {\n                if(indexOf(names, $(this).attr('name')) === -1) {\n                    names.push($(this).attr('name'));\n                }\n            });\n\n            foreach(names, function (name) {\n                inputs[name] = constructor[type]({\n                    $: $self.find('input[name=\"' + name + '\"]')\n                });\n            });\n        }\n    };\n\n\n    if($self.is('input, select, textarea')) {\n        if($self.is('input[type=\"button\"], button, input[type=\"submit\"]')) {\n            addInputsBasic('button', $self);\n        }\n        else if($self.is('textarea')) {\n            addInputsBasic('textarea', $self);\n        }\n        else if(\n            $self.is('input[type=\"text\"]') ||\n            $self.is('input') && !$self.attr('type')\n        ) {\n            addInputsBasic('text', $self);\n        }\n        else if($self.is('input[type=\"password\"]')) {\n            addInputsBasic('password', $self);\n        }\n        else if($self.is('input[type=\"email\"]')) {\n            addInputsBasic('email', $self);\n        }\n        else if($self.is('input[type=\"url\"]')) {\n            addInputsBasic('url', $self);\n        }\n        else if($self.is('input[type=\"range\"]')) {\n            addInputsBasic('range', $self);\n        }\n        else if($self.is('select')) {\n            if($self.is('[multiple]')) {\n                addInputsBasic('select[multiple]', $self);\n            }\n            else {\n                addInputsBasic('select', $self);\n            }\n        }\n        else if($self.is('input[type=\"file\"]')) {\n            if($self.is('[multiple]')) {\n                addInputsBasic('file[multiple]', $self);\n            }\n            else {\n                addInputsBasic('file', $self);\n            }\n        }\n        else if($self.is('input[type=\"hidden\"]')) {\n            addInputsBasic('hidden', $self);\n        }\n        else if($self.is('input[type=\"radio\"]')) {\n            addInputsGroup('radio', $self);\n        }\n        else if($self.is('input[type=\"checkbox\"]')) {\n            addInputsGroup('checkbox', $self);\n        }\n        else {\n            //in all other cases default to a \"text\" input interface.\n            addInputsBasic('text', $self);\n        }\n    }\n    else {\n        addInputsBasic('button', 'input[type=\"button\"], button, input[type=\"submit\"]');\n        addInputsBasic('text', 'input[type=\"text\"]');\n        addInputsBasic('password', 'input[type=\"password\"]');\n        addInputsBasic('email', 'input[type=\"email\"]');\n        addInputsBasic('url', 'input[type=\"url\"]');\n        addInputsBasic('range', 'input[type=\"range\"]');\n        addInputsBasic('textarea', 'textarea');\n        addInputsBasic('select', 'select:not([multiple])');\n        addInputsBasic('select[multiple]', 'select[multiple]');\n        addInputsBasic('file', 'input[type=\"file\"]:not([multiple])');\n        addInputsBasic('file[multiple]', 'input[type=\"file\"][multiple]');\n        addInputsBasic('hidden', 'input[type=\"hidden\"]');\n        addInputsGroup('radio', 'input[type=\"radio\"]');\n        addInputsGroup('checkbox', 'input[type=\"checkbox\"]');\n    }\n\n    return inputs;\n};\n\n$.fn.inputVal = function (newValue) {\n    var $self = $(this);\n\n    var inputs = buildFormInputs({ $: $self });\n\n    if($self.is('input, textarea, select')) {\n        if(typeof newValue === 'undefined') {\n            return inputs[$self.attr('name')].get();\n        }\n        else {\n            inputs[$self.attr('name')].set(newValue);\n            return $self;\n        }\n    }\n    else {\n        if(typeof newValue === 'undefined') {\n            return call(inputs, 'get');\n        }\n        else {\n            foreach(newValue, function (value, inputName) {\n                inputs[inputName].set(value);\n            });\n            return $self;\n        }\n    }\n};\n\n$.fn.inputOnChange = function (callback) {\n    var $self = $(this);\n    var inputs = buildFormInputs({ $: $self });\n    foreach(inputs, function (input) {\n        input.subscribe('change', function (data) {\n            callback.call(data.domElement, data.e);\n        });\n    });\n    return $self;\n};\n\n$.fn.inputDisable = function () {\n    var $self = $(this);\n    call(buildFormInputs({ $: $self }), 'disable');\n    return $self;\n};\n\n$.fn.inputEnable = function () {\n    var $self = $(this);\n    call(buildFormInputs({ $: $self }), 'enable');\n    return $self;\n};\n\n$.fn.inputClear = function () {\n    var $self = $(this);\n    call(buildFormInputs({ $: $self }), 'clear');\n    return $self;\n};\n\n}(jQuery));\n\n$.fn.repeaterVal = function () {\n    var parse = function (raw) {\n        var parsed = [];\n\n        foreach(raw, function (val, key) {\n            var parsedKey = [];\n            if(key !== \"undefined\") {\n                parsedKey.push(key.match(/^[^\\[]*/)[0]);\n                parsedKey = parsedKey.concat(map(\n                    key.match(/\\[[^\\]]*\\]/g),\n                    function (bracketed) {\n                        return bracketed.replace(/[\\[\\]]/g, '');\n                    }\n                ));\n\n                parsed.push({\n                    val: val,\n                    key: parsedKey\n                });\n            }\n        });\n\n        return parsed;\n    };\n\n    var build = function (parsed) {\n        if(\n            parsed.length === 1 &&\n            (parsed[0].key.length === 0 || parsed[0].key.length === 1 && !parsed[0].key[0])\n        ) {\n            return parsed[0].val;\n        }\n\n        foreach(parsed, function (p) {\n            p.head = p.key.shift();\n        });\n\n        var grouped = (function () {\n            var grouped = {};\n\n            foreach(parsed, function (p) {\n                if(!grouped[p.head]) {\n                    grouped[p.head] = [];\n                }\n                grouped[p.head].push(p);\n            });\n\n            return grouped;\n        }());\n\n        var built;\n\n        if(/^[0-9]+$/.test(parsed[0].head)) {\n            built = [];\n            foreach(grouped, function (group) {\n                built.push(build(group));\n            });\n        }\n        else {\n            built = {};\n            foreach(grouped, function (group, key) {\n                built[key] = build(group);\n            });\n        }\n\n        return built;\n    };\n\n    return build(parse($(this).inputVal()));\n};\n\n$.fn.repeater = function (fig) {\n    fig = fig || {};\n\n    var setList;\n\n    $(this).each(function () {\n\n        var $self = $(this);\n\n        var show = fig.show || function () {\n            $(this).show();\n        };\n\n        var hide = fig.hide || function (removeElement) {\n            removeElement();\n        };\n\n        var $list = $self.find('[data-repeater-list]').first();\n\n        var $filterNested = function ($items, repeaters) {\n            return $items.filter(function () {\n                return repeaters ?\n                    $(this).closest(\n                        pluck(repeaters, 'selector').join(',')\n                    ).length === 0 : true;\n            });\n        };\n\n        var $items = function () {\n            return $filterNested($list.find('[data-repeater-item]'), fig.repeaters);\n        };\n\n        var $itemTemplate = $list.find('[data-repeater-item]')\n                                 .first().clone().hide();\n\n        var $firstDeleteButton = $filterNested(\n            $filterNested($(this).find('[data-repeater-item]'), fig.repeaters)\n            .first().find('[data-repeater-delete]'),\n            fig.repeaters\n        );\n\n        if(fig.isFirstItemUndeletable && $firstDeleteButton) {\n            $firstDeleteButton.remove();\n        }\n\n        var getGroupName = function () {\n            var groupName = $list.data('repeater-list');\n            return fig.$parent ?\n                fig.$parent.data('item-name') + '[' + groupName + ']' :\n                groupName;\n        };\n\n        var initNested = function ($listItems) {\n            if(fig.repeaters) {\n                $listItems.each(function () {\n                    var $item = $(this);\n                    foreach(fig.repeaters, function (nestedFig) {\n                        $item.find(nestedFig.selector).repeater(extend(\n                            nestedFig, { $parent: $item }\n                        ));\n                    });\n                });\n            }\n        };\n\n        var $foreachRepeaterInItem = function (repeaters, $item, cb) {\n            if(repeaters) {\n                foreach(repeaters, function (nestedFig) {\n                    cb.call($item.find(nestedFig.selector)[0], nestedFig);\n                });\n            }\n        };\n\n        var setIndexes = function ($items, groupName, repeaters) {\n            $items.each(function (index) {\n                var $item = $(this);\n                $item.data('item-name', groupName + '[' + index + ']');\n                $filterNested($item.find('[name]'), repeaters)\n                .each(function () {\n                    var $input = $(this);\n                    // match non empty brackets (ex: \"[foo]\")\n                    var matches = $input.attr('name').match(/\\[[^\\]]+\\]/g);\n\n                    var name = matches ?\n                        // strip \"[\" and \"]\" characters\n                        last(matches).replace(/\\[|\\]/g, '') :\n                        $input.attr('name');\n\n\n                    var newName = groupName + '[' + index + '][' + name + ']' +\n                        ($input.is(':checkbox') || $input.attr('multiple') ? '[]' : '');\n\n                    $input.attr('name', newName);\n\n                    $foreachRepeaterInItem(repeaters, $item, function (nestedFig) {\n                        var $repeater = $(this);\n                        setIndexes(\n                            $filterNested($repeater.find('[data-repeater-item]'), nestedFig.repeaters || []),\n                            groupName + '[' + index + ']' +\n                                        '[' + $repeater.find('[data-repeater-list]').first().data('repeater-list') + ']',\n                            nestedFig.repeaters\n                        );\n                    });\n                });\n            });\n\n            $list.find('input[name][checked]')\n                .removeAttr('checked')\n                .prop('checked', true);\n        };\n\n        setIndexes($items(), getGroupName(), fig.repeaters);\n        initNested($items());\n        if(fig.initEmpty) {\n            $items().remove();\n        }\n\n        if(fig.ready) {\n            fig.ready(function () {\n                setIndexes($items(), getGroupName(), fig.repeaters);\n            });\n        }\n\n        var appendItem = (function () {\n            var setItemsValues = function ($item, data, repeaters) {\n                if(data || fig.defaultValues) {\n                    var inputNames = {};\n                    $filterNested($item.find('[name]'), repeaters).each(function () {\n                        var key = $(this).attr('name').match(/\\[([^\\]]*)(\\]|\\]\\[\\])$/)[1];\n                        inputNames[key] = $(this).attr('name');\n                    });\n\n                    $item.inputVal(map(\n                        filter(data || fig.defaultValues, function (val, name) {\n                            return inputNames[name];\n                        }),\n                        identity,\n                        function (name) {\n                            return inputNames[name];\n                        }\n                    ));\n                }\n\n\n                $foreachRepeaterInItem(repeaters, $item, function (nestedFig) {\n                    var $repeater = $(this);\n                    $filterNested(\n                        $repeater.find('[data-repeater-item]'),\n                        nestedFig.repeaters\n                    )\n                    .each(function () {\n                        var fieldName = $repeater.find('[data-repeater-list]').data('repeater-list');\n                        if(data && data[fieldName]) {\n                            var $template = $(this).clone();\n                            $repeater.find('[data-repeater-item]').remove();\n                            foreach(data[fieldName], function (data) {\n                                var $item = $template.clone();\n                                setItemsValues(\n                                    $item,\n                                    data,\n                                    nestedFig.repeaters || []\n                                );\n                                $repeater.find('[data-repeater-list]').append($item);\n                            });\n                        }\n                        else {\n                            setItemsValues(\n                                $(this),\n                                nestedFig.defaultValues,\n                                nestedFig.repeaters || []\n                            );\n                        }\n                    });\n                });\n\n            };\n\n            return function ($item, data) {\n                $list.append($item);\n                setIndexes($items(), getGroupName(), fig.repeaters);\n                $item.find('[name]').each(function () {\n                    $(this).inputClear();\n                });\n                setItemsValues($item, data || fig.defaultValues, fig.repeaters);\n            };\n        }());\n\n        var addItem = function (data) {\n            var $item = $itemTemplate.clone();\n            appendItem($item, data);\n            if(fig.repeaters) {\n                initNested($item);\n            }\n            show.call($item.get(0));\n        };\n\n        setList = function (rows) {\n            $items().remove();\n            foreach(rows, addItem);\n        };\n\n        $filterNested($self.find('[data-repeater-create]'), fig.repeaters).click(function () {\n            addItem();\n        });\n\n        $list.on('click', '[data-repeater-delete]', function () {\n            var self = $(this).closest('[data-repeater-item]').get(0);\n            hide.call(self, function () {\n                $(self).remove();\n                setIndexes($items(), getGroupName(), fig.repeaters);\n            });\n        });\n    });\n\n    this.setList = setList;\n\n    return this;\n};\n\n}(jQuery));\n\n//# sourceURL=webpack://Sneat/./node_modules/jquery.repeater/jquery.repeater.js?");
-    </script>
-  
+ 	
+    var selectedTags = [];  // 카테고리 선택 태그
+
+    function drawChCate(cateList) {
+		console.log("parameter value : ",cateList);
+	    const TagifyCustomInlineSuggestionEl = document.querySelector("#TagifyCustomInlineSuggestion");
+		const whitelist = cateList || [] ;
+	    
+		// Inline
+
+	    let TagifyCustomInlineSuggestion = new Tagify(TagifyCustomInlineSuggestionEl, {
+	      whitelist: whitelist,
+        enforceWhitelist: true,
+	      maxTags: 10, // allows to select max items
+	      dropdown: {
+	        maxItems: 20, // display max items
+	        classname: "tags-inline", // Custom inline class
+	        enabled: 0,
+	        closeOnSelect: false
+	      },
+        callbacks: {
+        add: onTagAdd,
+        remove: onTagRemove
+        }
+	    });
+      function onTagAdd(e) {
+        selectedTags.push(e.detail.data.value);
+        console.log("Selected Tags:", selectedTags);
+      }
+
+      function onTagRemove(e) {
+        const removedTag = e.detail.data.value;
+        selectedTags = selectedTags.filter(tag => tag !== removedTag);
+        console.log("Selected Tags:", selectedTags);
+      }
+	}
+   
+    // 조직도에서 매니저 선택시 호출 함수
+  	function selectMng() {
+      console.log('selectMng event');
+      var selectedTags = $("#jstree-checkbox [aria-level=2][aria-selected=true]");
+    
+      var selectedMng = selectedTags.map(function() {// 선택된 태그들을 새로운 배열로 만들어줌
+        return $(this).text();
+      }).get();
+
+      var selectMngId = selectedTags.map(function(){
+        console.log($(this).find('#mng_id').val());
+        return $(this).find('#mng_id').val();
+      }).get();
+
+        console.log(selectedMng+" / "+selectMngId);
+
+      if(selectedMng.length > 1){
+        alert('담당 매니저는 한 명만 선택 해 주세요');
+        return false;
+      }
+      $('#managerName').val(selectedMng);
+      $('#managerId').val(selectMngId);
+	  }
+  	/* 
+    var checkboxTree = $('#jstree-checkbox');
+    checkboxTree.on('select_node.jstree', function (e, data) {
+        // 클릭한 노드의 부모 노드를 가져오기
+        var parentNode = checkboxTree.jstree(true).get_node(data.node.parent);
+
+        // 클릭한 노드의 부모 노드를 열기 (자식 요소 보이게 하기)
+        checkboxTree.jstree(true).open_node(parentNode);
+      }); */
+      
+     // 채널 정보 항목 추가 이벤트
+     function addChItem(){
+    	console.log('addChItem event !!');  
+    	
+        var clonedWrapper = $(".repeater-wrapper:first").clone();
+        clonedWrapper.find('input').val('');
+        
+        clonedWrapper.find('input[type="radio"]').prop('checked', false);
+		
+        $("#ch-item-list").append(clonedWrapper);
+     };
+      
+     // 채널 정보 항목 제거 이벤트
+     function delChItem() {
+		var repeaterWrapper = $(event.currentTarget).closest(".repeater-wrapper");
+		
+	    // 채널 정보 입력 항목 최소 한개 유지
+	    var repeatWrapperCount = $('#ch-item-list .repeater-wrapper').length;
+	    if (repeatWrapperCount === 1) {
+	        alert('채널 정보는 최소 1개가 필요합니다.');
+	    }
+	    
+	    // 라디오 버튼 체크되어 있는 항목 삭제시 동작
+	    var isRadioChecked = repeaterWrapper.find(':radio').prop('checked');
+	    if (isRadioChecked) {
+	        $('#ch-item-list .repeater-wrapper:first :radio').prop('checked', true);
+	    }
+	
+	    // 입력된 정보가 있을 경우에 동작
+	    var inputValues = repeaterWrapper.find('input').filter(function() {
+	        return $(this).val() !== '';
+	    });
+	    if (inputValues.length > 0) {
+	        var confirmed = confirm("입력된 정보가 삭제됩니다. 정말 삭제하시겠습니까?");
+	
+	        if (confirmed) {
+	            repeaterWrapper.remove();
+	        }
+	    } else {
+	        repeaterWrapper.remove();
+	    }
+	}
+	</script>
+    
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
@@ -1043,5 +1092,119 @@
     <script src="../../assets/js/form-wizard-numbered.js"></script>
     <script src="../../assets/js/form-wizard-validation.js"></script>
     <script src="../../assets/js/forms-file-upload.js"></script>
+    
+    <!-- jstree -->
+    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
+    <!-- scroll-bar -->
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    
+    <!-- 조직도 -->
+    <script>
+	    // 조직도 
+	    $.ajax({
+			type: 'get',
+	    	url: 'getOrgList',
+	    	data: {},
+	    	dataType: 'JSON',
+	        success : function(data){
+	          console.log(data);
+	          drawOrg(data.orgList, data.deptKind);
+	        } ,
+	        error : function(e){
+	          console.log(e);
+	        }
+		});
+		
+		function drawOrg(orgList, deptKind) {
+			console.log('orgList', orgList);
+			console.log('deptKind',deptKind);
+			
+			var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+				    checkboxTree = $('#jstree-checkbox');
+	     
+			if (checkboxTree.length) {
+				
+				var serverData = [];
+				
+				for (var i = 0; i < deptKind.length; i++) {
+				    var deptname = {
+				        text: deptKind[i],
+				        type: 'depart',
+				        children: []
+				    };
+				    console.log("deptKind",deptKind[i]);
+				    
+				    var empLength = function(){
+				    	var cnt=0;
+				    		for(var k=0; k < orgList.length; k++){
+				    			if(orgList[k].dept == deptKind[i]){
+				    				cnt++;
+				    				console.log("cnt", cnt);
+				    			}
+				    		}
+				    		return cnt;
+				    };
+				    var empInfo = function(index){
+				    	var info=[];
+				    		for(var k=0; k < orgList.length; k++){
+				    			if(orgList[k].dept == deptKind[i]){
+				    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
+				    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='text' id='mng_id' name='mng_id' value='"+orgList[k].emp_id+"'/>");
+				    			}
+				    		}
+				    		return info[index];
+				    };
+				    
+				    for (var j = 0; j < empLength(); j++) {
+				    	console.log("empInfo("+j+")",empInfo(j));
+				        var emp = {
+				            text: empInfo(j)
+				        };
+				        deptname.children.push(emp);
+				    } 
+	
+				    // 부모 데이터를 배열에 추가
+				    	serverData.push(deptname); 
+				}
+	
+				console.log(serverData); 
+	
+				  // jstree에서 사용할 데이터 구성
+				  var jstreeData = serverData.map(function (parent) {
+				    var parentNode = {
+				      text: parent.text,
+				      type: 'depart',
+				      children: parent.children.map(function (child) {
+				        return {
+				          text: child.text
+				        };
+				      })
+				    };
+				    return parentNode;
+				  });
+	
+				  checkboxTree.jstree({
+				    core: {
+				      themes: {
+				        name: theme
+				      },
+				      data: jstreeData
+				    },
+				    plugins: ['types', 'checkbox', 'wholerow'],
+				    types: {
+				      default: {
+				        icon: 'bx bx-user'
+				      },
+				      depart: {
+				    	icon: 'bx bx-folder'
+				      }
+				    }
+				  });
+				}
+		}  
+		// /조직도 
+    </script>
   </body>
+  
+  
 </html>

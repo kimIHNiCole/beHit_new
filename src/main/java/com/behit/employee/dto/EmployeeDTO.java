@@ -31,7 +31,42 @@ public class EmployeeDTO {
 	private String grade_name;
 	private String position_name;
 	private int common_code_idx;
+	private String psn_his_kind;
+	private String psn_his_befoInfo;
+	private String psn_his_aftrInfo;
+	private Date psn_his_date;
+	private String category;
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public Date getPsn_his_date() {
+		return psn_his_date;
+	}
+	public void setPsn_his_date(Date psn_his_date) {
+		this.psn_his_date = psn_his_date;
+	}
+	public String getPsn_his_kind() {
+		return psn_his_kind;
+	}
+	public void setPsn_his_kind(String psn_his_kind) {
+		this.psn_his_kind = psn_his_kind;
+	}
+	public String getPsn_his_befoInfo() {
+		return psn_his_befoInfo;
+	}
+	public void setPsn_his_befoInfo(String psn_his_befoInfo) {
+		this.psn_his_befoInfo = psn_his_befoInfo;
+	}
+	public String getPsn_his_aftrInfo() {
+		return psn_his_aftrInfo;
+	}
+	public void setPsn_his_aftrInfo(String psn_his_aftrInfo) {
+		this.psn_his_aftrInfo = psn_his_aftrInfo;
+	}
 	public int getCommon_code_idx() {
 		return common_code_idx;
 	}

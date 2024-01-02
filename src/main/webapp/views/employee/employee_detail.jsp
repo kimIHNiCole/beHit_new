@@ -359,9 +359,7 @@ img.rounded-top{
                               <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : ${empdetail.emp_id}</li>
                             </ul>
                           </div>
-                          <a href="javascript:void(0)" class="btn btn-primary text-nowrap">
-                            <i class="bx bx-user-check me-1"></i>로그인 제한 해제
-                          </a>
+                          	<button type="button" class="btn btn-primary me-sm-3 me-1" onclick="chkClear()">로그인 제한 해제</button>
                         </div>
                       </div>
                     </div>
@@ -450,30 +448,22 @@ img.rounded-top{
 		                    <div class="card-body">
 		                      <!-- Activity Timeline -->
 		                      <ul class="timeline">
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-primary"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">이메일 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">solluna9@example.com -> admin@example.com</p>
-		                          </div>
-		                        </li>
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-warning"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">이름 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">아무개 -> 홍길동</p>
-		                          </div>
-		                        </li>
+		                      	<c:forEach var="HisList" items="${HisList}">
+			                      	<c:if test="${HisList.category eq '기본 정보'}">
+				                        <li class="timeline-item timeline-item-transparent">
+				                          <span class="timeline-point-wrapper">
+				                          	<span class="timeline-point timeline-point-primary"></span>
+				                          </span>
+				                          <div class="timeline-event">
+				                            <div class="timeline-header mb-1">
+				                              <h6 class="mb-0">${HisList.psn_his_kind}</h6>
+				                              <small class="text-muted">${HisList.psn_his_date}</small>
+				                            </div>
+				                            <p class="mb-2">${HisList.psn_his_befoInfo} -> ${HisList.psn_his_aftrInfo}</p>
+				                          </div>
+				                        </li>
+			                      	</c:if>
+		                      	</c:forEach>
 		                        <li class="timeline-end-indicator">
 		                          <i class="bx bx-check-circle"></i>
 		                        </li>
@@ -520,30 +510,22 @@ img.rounded-top{
 		                    <div class="card-body">
 		                      <!-- Activity Timeline -->
 		                      <ul class="timeline">
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-primary"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">상세주소 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">OO아파트 1111동 001호 -> OO아파트 1111동 111호</p>
-		                          </div>
-		                        </li>
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-warning"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">입사일 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">2001-01-01 -> 2000-01-01</p>
-		                          </div>
-		                        </li>
+		                      <c:forEach var="HisList" items="${HisList}">
+		                      	<c:if test="${HisList.category eq '상세 정보'}">
+			                        <li class="timeline-item timeline-item-transparent">
+			                          <span class="timeline-point-wrapper">
+			                          	<span class="timeline-point timeline-point-primary"></span>
+			                          </span>
+			                          <div class="timeline-event">
+			                            <div class="timeline-header mb-1">
+			                              <h6 class="mb-0">${HisList.psn_his_kind}</h6>
+			                              <small class="text-muted">${HisList.psn_his_date}</small>
+			                            </div>
+			                            <p class="mb-2">${HisList.psn_his_befoInfo} -> ${HisList.psn_his_aftrInfo}</p>
+			                          </div>
+			                        </li>
+		                      	</c:if>
+		                      </c:forEach>
 		                        <li class="timeline-end-indicator">
 		                          <i class="bx bx-check-circle"></i>
 		                        </li>
@@ -598,30 +580,22 @@ img.rounded-top{
 		                    <div class="card-body">
 		                      <!-- Activity Timeline -->
 		                      <ul class="timeline">
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-primary"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">직책 정보 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">실장 -> 본부장</p>
-		                          </div>
-		                        </li>
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-warning"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">직급 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">부장 -> 이사</p>
-		                          </div>
-		                        </li>
+		                      <c:forEach var="HisList" items="${HisList}">
+			                      <c:if test="${HisList.category eq '부서 정보'}">
+			                        <li class="timeline-item timeline-item-transparent">
+			                          <span class="timeline-point-wrapper">
+			                          	<span class="timeline-point timeline-point-primary"></span>
+			                          </span>
+			                          <div class="timeline-event">
+			                            <div class="timeline-header mb-1">
+			                              <h6 class="mb-0">${HisList.psn_his_kind}</h6>
+			                              <small class="text-muted">${HisList.psn_his_date}</small>
+			                            </div>
+			                            <p class="mb-2">${HisList.psn_his_befoInfo} -> ${HisList.psn_his_aftrInfo}</p>
+			                          </div>
+			                        </li>
+			                      </c:if>
+		                      </c:forEach>
 		                        <li class="timeline-end-indicator">
 		                          <i class="bx bx-check-circle"></i>
 		                        </li>
@@ -732,6 +706,19 @@ img.rounded-top{
     
     
     	var emp_id = '${empdetail.emp_id}';
+    	var defaultname = '${empdetail.emp_name}';
+    	var defaultpass = '${empdetail.password}';
+    	var defaultphone = '${empdetail.cp_phone}';
+    	var defaultmobile = '${empdetail.mobile_phone}';
+    	var defaultbirth = '${empdetail.emp_birth}';
+    	var defaultemail = '${empdetail.email}';
+    	var defaultaddr = '${empdetail.address}';
+    	var defaultdaddr = '${empdetail.detail_addr}';
+    	var defaulthiredate = '${empdetail.hiredate}';
+    	var defaultleavedate = '${empdetail.leavedate}';
+    	var defaultdept = '${empdetail.dept_name}';
+    	var defaultposition = '${empdetail.position_name}';
+    	var defaultgrade = '${empdetail.grade_name}';
     	console.log(emp_id);
     	
     	function bsubmit(){
@@ -747,21 +734,27 @@ img.rounded-top{
     		
     		if (emp_name != '${empdetail.emp_name}') {
     			param.emp_name = emp_name;
+    			param.defaultname = defaultname;
     		}
 			if (password != '') {
 				param.password = password;
+				param.defaultpass = defaultpass;
 			}
 			if (cp_phone !== '${empdetail.cp_phone}') {
 				param.cp_phone = cp_phone;
+				param.defaultphone = defaultphone;
 			}
 			if (mobile_phone !== '${empdetail.mobile_phone}') {
 				param.mobile_phone = mobile_phone;
+				param.defaultmobile = defaultmobile;
 			}				
 			if (emp_birth !== '${empdetail.emp_birth}') {
 				param.emp_birth = emp_birth;
+				param.defaultbirth = defaultbirth;
 			}
 			if (email !== '${empdetail.email}') {
 				param.email = email;
+				param.defaultemail = defaultemail;
 			}
 			if (!$.isEmptyObject(param)){
 				
@@ -772,7 +765,9 @@ img.rounded-top{
 	    			url: "bempupdate.do",
 	    			data: param,
 	    			success: function(data){
-	    				console.log(data);	
+	    				console.log(data);
+	    				alert('수정되었습니다.');
+	    				location.reload();
 	    			},
 	    			error: function(e){
 	    				console.log(e)
@@ -794,15 +789,19 @@ img.rounded-top{
     		
     		if (address !== '${empdetail.address}') {
     			param.address = address;
+    			param.defaultaddr = defaultaddr;
     		}
 			if (detail_addr !== '${empdetail.detail_addr}') {
 				param.detail_addr = detail_addr;
+				param.defaultdaddr = defaultdaddr;
 			}
 			if (hiredate !== '${empdetail.hiredate}') {
 				param.hiredate = hiredate;
+				param.defaulthiredate = defaulthiredate;
 			}
 			if (leavedate !== '${empdetail.leavedate}') {
 				param.leavedate = leavedate;
+				param.defaultleavedate = defaultleavedate;
 			}
 			
 			console.log(param);
@@ -816,7 +815,9 @@ img.rounded-top{
 	    			url: "dempupdate.do",
 	    			data: param,
 	    			success: function(data){
-	    				console.log(data);	
+	    				console.log(data);
+	    				alert('수정되었습니다.');
+	    				location.reload();
 	    			},
 	    			error: function(e){
 	    				console.log(e)
@@ -837,12 +838,18 @@ img.rounded-top{
     		
     		if (emp_dept_idx !== '${empdetail.emp_dept_idx}') {
     			param.emp_dept_idx = emp_dept_idx;
+    			param.dept_name = $('select[name="department"] option:selected').text();
+    			param.defaultdeptname= defaultdept;
     		}
 			if (emp_position_idx !== '${empdetail.emp_position_idx}') {
 				param.emp_position_idx = emp_position_idx;
+				param.position_name = $('select[name="position"] option:selected').text();
+				param.defaultpositionname= defaultposition;
 			}
 			if (emp_grade_idx !== '${empdetail.emp_grade_idx}') {
 				param.emp_grade_idx = emp_grade_idx;
+				param.grade_name = $('select[name="grade"] option:selected').text();
+				param.defaultgradename = defaultgrade;
 			}
 			
 			console.log(param);
@@ -856,7 +863,9 @@ img.rounded-top{
 	    			url: "pempupdate.do",
 	    			data: param,
 	    			success: function(data){
-	    				console.log(data);	
+	    				console.log(data);
+	    				alert('수정되었습니다.');
+	    				location.reload();
 	    			},
 	    			error: function(e){
 	    				console.log(e)
@@ -865,6 +874,24 @@ img.rounded-top{
 			} else{
 				alert('내용을 수정해 주세요');
 			}		
+    	}
+    	
+    	function chkClear(){
+    		
+    		$.ajax({
+    			type: "GET",
+    			url: "chkClear.do",
+    			data: {"emp_id":emp_id},
+    			success: function(data){
+    				console.log(data);
+    				alert('로그인 제한이 해제되었습니다.');
+    				location.reload();
+    			},
+    			error: function(e){
+    				console.log(e)
+    			}
+    		});
+    		
     	}
     
     </script>

@@ -397,7 +397,7 @@
                               <li class="list-inline-item fw-medium"><i class='bx bx-time-five' ></i> 잔여 연차 : 12시간</li>
                             </ul>
                           </div>
-                          <a href="../profile/profile_detail.go" class="btn btn-primary text-nowrap">
+                          <a href="../profile/profiledetail" class="btn btn-primary text-nowrap">
                             <i class="bx bx-user-check me-1"></i>내 정보 보기
                           </a>
                         </div>
