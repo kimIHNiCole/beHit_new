@@ -50,7 +50,7 @@
     <script src="../../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="../../assets/vendor/js/template-customizer.js"></script>
+    <!-- <script src="../../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
   </head>
@@ -86,40 +86,8 @@
             </div>
             <!-- / Content -->
 
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  Â©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with â¤ï¸ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
 
-                  <a
-                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://themeselection.com/support/"
-                    target="_blank"
-                    class="footer-link d-none d-sm-inline-block"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
+            <!-- <div class="content-backdrop fade"></div> -->
           </div>
           <!-- Content wrapper -->
         </div>
@@ -151,10 +119,8 @@
     <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
 
     <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
+    <!-- <script src="../../assets/js/main.js"></script> -->
 
-    <!-- Page JS -->
-   <!--  <script src="../../assets/js/extended-ui-treeview.js"></script> -->
     <script>
     	
     	$.ajax({
@@ -205,7 +171,7 @@
    			    		for(var k=0; k < orgList.length; k++){
    			    			if(orgList[k].dept == deptKind[i]){
    			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
-   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade);
+   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
    			    			}
    			    		}
    			    		return info[index];

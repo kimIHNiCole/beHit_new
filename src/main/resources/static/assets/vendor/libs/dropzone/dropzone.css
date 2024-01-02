@@ -253,10 +253,10 @@
 @media (min-width: 576px) {
   .light-style .dz-preview {
     display: inline-block;
-    width: 11.25rem;
+    width: 15.25rem;	/* 원래 값 = 11.25rem*/
   }
   .light-style .dz-thumbnail {
-    width: 10rem;
+    width: 14rem;	/* 원래 값 = 10rem*/
   }
 }
 

@@ -438,7 +438,7 @@
               <!-- 버튼들 -->
               <div class="d-flex justify-content-end pt-3">
 			    <a href="javascript:;" class="btn btn-label-danger suspend-user" data-bs-target="#editUser" data-bs-toggle="modal">열람 권한</a>
-			    <a href="javascript:;" class="btn btn-primary me-3"><i class="bx bx-user-check me-1"></i>크리에이터 추가</a>
+			    <a href="/creatorAdd.go" class="btn btn-primary me-3"><i class="bx bx-user-check me-1"></i>크리에이터 추가</a>
 			  </div>
                      
               

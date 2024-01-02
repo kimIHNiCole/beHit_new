@@ -2,7 +2,72 @@
 <!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
-
+<!-- code : 3 = gender, 4 : country -->
 <mapper namespace="com.behit.creator.dao.CreatorDAO">
-
+	<select id="getGenders" resultType="commcre">
+		SELECT (common_code_idx) AS code_idx, 
+			(common_code_kind) AS code_kind,
+			(common_code_name) AS code_name
+		FROM commons_code WHERE common_code_kind = 3
+	</select>
+	<select id="getCountries" resultType="commcre">
+		SELECT (common_code_idx) AS code_idx, 
+			(common_code_kind) AS code_kind,
+			(common_code_name) AS code_name
+		FROM commons_code WHERE common_code_kind = 4 
+		ORDER BY common_code_name ASC
+	</select>
+	<select id="getChCategory" resultType="String">
+		SELECT (common_code_name) AS code_name
+		FROM commons_code WHERE common_code_kind = 5
+	</select>
+	
+	<!-- 크리에이터 등록 -->
+	
+	<!-- insert Creator -->
+	<insert useGeneratedKeys="true" keyProperty="cre_idx"
+		id="creatorInsert" parameterType="creator">
+		INSERT INTO creator (
+			emp_id,cre_name,cre_nick_name,cre_gender
+			,cre_email,cre_phone,cre_birthday,cre_country
+			,cre_address,cre_address_detail, cre_contract_start
+			,cre_contract_end, cre_specifics,emp_id_in,emp_id_up
+		) 
+		VALUES (
+			#{mng_id}, #{cre_name},#{cre_nick_name}, #{cre_gender}
+			,#{cre_email},#{cre_phone},#{cre_birthday}, #{cre_country},
+			#{cre_address},#{cre_address_detail},#{cre_contract_start}
+			,#{cre_contract_end},#{cre_specifics},#{emp_id_in},#{emp_id_up}
+		)
+	</insert>
+	<!-- insert Channel  -->
+	<insert id="channelInsert" parameterType="channel">
+		INSERT INTO channel (
+			channel_id, cre_idx, channel_name, channel_url, rep_channel
+			,channel_date, channel_cate, rep_video, emp_id,emp_id_up
+		)
+		VALUES (
+			#{channel_id},#{cre_idx},#{channel_name},#{channel_url},#{rep_channel}
+			,#{channel_date},#{channel_cate}, #{rep_video},#{emp_id},#{emp_id_up}
+		)
+	</insert>
+	<insert id="snsInsert" parameterType="sns">
+		INSERT INTO creatorsns	(
+			cre_idx, sns_url, sns_cate, emp_id, emp_id_up
+		)
+		VALUES (
+			#{cre_idx},#{sns_url},#{sns_cate},#{emp_id},#{emp_id_up}
+		);
+	</insert>
+	<insert id="creHisInsert" parameterType="creHistory">
+		INSERT INTO creatorhistory (
+			cre_idx, cre_his_title, cre_his_cate, cre_his_content, history_date
+			,emp_id, emp_id_up
+		)
+		VALUES (
+			#{cre_idx}, #{cre_his_title}, #{cre_his_cate}, #{cre_his_content}
+			, #{history_date}, #{emp_id}, #{emp_id_up}
+		)
+	</insert>
+	
 </mapper>

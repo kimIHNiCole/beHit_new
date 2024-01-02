@@ -31,7 +31,16 @@
 		
 		
 		<!-- 라이브러리 추가 -->	
-					 
+		
+				 
+		<!-- Lombok -->
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+
 		<!-- jasper -->
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper -->
 		<dependency>
@@ -69,7 +78,12 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		
+		<!-- youtube data api -->
+	    <dependency>
+	        <groupId>com.google.apis</groupId>
+	        <artifactId>google-api-services-youtube</artifactId>
+	        <version>v3-rev222-1.25.0</version>
+	    </dependency>
 		
 		
 
