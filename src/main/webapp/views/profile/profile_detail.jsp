@@ -359,30 +359,40 @@ img.rounded-top{
                     </div>
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                        <img
-                          src="../../assets/img/avatars/1.png"
-                          alt="user image"
-                          class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
-                      </div>
+						<c:choose>
+						    <c:when test="${not empty photos and not empty photos[0].new_file_name}">
+						        <img src="/photo/${photos[0].new_file_name}" alt="${photos[0].ori_file_name}" 
+						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						    </c:when>
+						    <c:otherwise>
+						        <img src="../../assets/img/avatars/1.png" alt="user image" 
+						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						    </c:otherwise>
+						</c:choose>
+					  </div>
                       <div class="flex-grow-1 mt-3 mt-sm-5">
                         <div
                           class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                           <div class="user-profile-info">
                             <div class="col-md-6">
-           						 <h4>한가인</h4>
+           						 <h4 style="white-space: nowrap;">${profiledetail.emp_name}</h4>
         					</div>
-	        					<div>
-					            	<button class="btn btn-primary text-nowrap photo">사진 변경</button>
-					            	<button class="btn btn-primary text-nowrap photo">초기화</button>
-					          </div>
-        					
+	        				<div style="white-space: nowrap; width:150px; display: flex;">
+					            <form action="upload.do" method="post" enctype="multipart/form-data">
+									<input type="file" name="uploadFile" id="uploadFile"/>
+									<button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-right: 5px;">전송</button>
+								</form>
+					            <button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-left: 5px;">초기화</button>
+					        </div>       					
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-                              <li class="list-inline-item fw-medium"><i class='bx bx-user' ></i> 아이디 : HanGain_02</li>
+                              <li class="list-inline-item fw-medium"><i class='bx bx-user' ></i> 아이디 : ${profiledetail.emp_id}</li>
                             </ul>
                           </div>
                           
-                          <a href="javascript:void(0)" class="btn btn-primary text-nowrap">비밀번호 변경</a>
+                          <a href="javascript:void(0)" class="btn btn-primary text-nowrap"                           
+	                          data-bs-toggle="modal"
+	                          data-bs-target="#modalCenter">비밀번호 변경</a>
                         </div>
                       </div>
                     </div>
@@ -390,31 +400,6 @@ img.rounded-top{
                 </div>
               </div>
               <!--/ Header -->
-
-              <!-- Navbar pills -->
-<!--               <div class="row">
-                <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Profile</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-teams.go"><i class="bx bx-group me-1"></i> Teams</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-projects.go"
-                        ><i class="bx bx-grid-alt me-1"></i> Projects</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-connections.go"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div> -->
-              <!--/ Navbar pills -->
               <!-- User Profile Content -->
                <!-- Form with Tabs -->
               <div class="row">
@@ -458,23 +443,23 @@ img.rounded-top{
                           <div class="row g-3">
                             <div class="col-md-6">
                               <label class="form-label" for="formtabs-first-name">이름</label>
-                              <p id="formtabs-first-name">한가인</p>
+                              <p id="formtabs-first-name">${profiledetail.emp_name}</p>
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="email">이메일</label>
-                              <p id="email">admin0@naver.com</p>
+                              <p id="email">${profiledetail.email}</p>
                             </div>
                            <div class="col-md-6">
                               <label class="form-label" for="password">사내 전화번호</label>
-                              <p id="password">02-111-1111</p>
+                              <p id="password">${profiledetail.cp_phone}</p>
                             </div>
                            <div class="col-md-6">
                               <label class="form-label" for="formtabs-last-name">휴대폰 번호</label>
-                              <p id="formtabs-last-name">010-1111-1111</p>
+                              <p id="formtabs-last-name">${profiledetail.mobile_phone}</p>
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="formtabs-birthdate">생년월일</label>
-                              <p id="emp_birth">2000-12-21</p>
+                              <p id="emp_birth">${profiledetail.emp_birth}</p>
                             </div>
                           
                          </div>
@@ -490,19 +475,19 @@ img.rounded-top{
                           <div class="row g-3">
                             <div class="col-md-6">
                               <label class="form-label" for="address">주소</label>
-                              <p id="address">서울특별시 금천구 가신디지털단지2로 11-1</p>
+                              <p id="address">${profiledetail.address}</p>
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="detail-addr">상세 주소</label>
-                              <p id="detail-addr">OO아파트 1111동 111호</p>
+                              <p id="detail-addr">${profiledetail.detail_addr}</p>
                             </div>
                             <div class="mb-3 col-md-6">
 	                            <label for="hiredate" class="form-label">입사일</label>
-	 							<p id="hiredate" name="hiredate">2000-01-01</p>
+	 							<p id="hiredate" name="hiredate">${profiledetail.hiredate}</p>
 	                        </div>
 	                        <div class="mb-3 col-md-6">
 	                            <label for="leavedate" class="form-label">퇴사일</label>
-	 							<p id="leavedate" name="leavedate">-</p>
+	 							<p id="leavedate" name="leavedate">${profiledetail.leavedate}</p>
 	                         </div>
                           </div>
                           
@@ -519,15 +504,15 @@ img.rounded-top{
                           <div class="row g-3">
                           <div class="mb-3 col-md-6">
                             <label for="department" class="form-label">부서</label>
-                            <p>인사팀</p>
+                            <p>${profiledetail.dept_name}</p>
                           </div> 
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="position">직급</label>
-                            <p>대리</p>
+                            <p>${profiledetail.position_name}</p>
                           </div>
                            <div class="mb-3 col-md-6">
                             <label for="job" class="form-label">직책</label>
-                            <p>팀원</p>
+                            <p>${profiledetail.grade_name}</p>
                           </div>
                           </div>
                           
@@ -544,47 +529,63 @@ img.rounded-top{
                 </div>      
               </div>
               <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+              <div class="col-lg-4 col-md-6">
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">비밀번호 변경</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="mb-3 form-password-toggle">
+					                <label class="form-label" for="password">비밀번호</label>
+					                <div class="input-group input-group-merge">
+					                  <input
+					                    type="password"
+					                    id="password"
+					                    class="form-control"
+					                    name="password"
+					                    placeholder="비밀번호를 입력하세요."
+					                    aria-describedby="password" />
+					                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+					                </div>
+					              </div>
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="nameWithTitle" class="form-label">비밀번호 확인</label>
+                                    <input
+                                      type="password"
+                                      id="confirmPassword"
+                                      class="form-control"
+                                      aria-describedby="password"/>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                                  취소
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="passChange()">비밀번호 변경</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              
               <div class="tab-content">
               	<div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
               		
 	              	</div> 	
 	              </div>
 	       		</div>
-            </div>
             <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  Â©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with â¤ï¸ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://themeselection.com/support/"
-                    target="_blank"
-                    class="footer-link d-none d-sm-inline-block"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -617,6 +618,33 @@ img.rounded-top{
 
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    
+    <script>
+    	function passChange() {
+    		var password = $('input[name="password"]').val();
+    		
+    		$.ajax({
+    			type: "POST",
+    			url: "passChange.do",
+    			data: {"password":password},
+    			dataType:"json",
+    			success: function(data){
+    				console.log(data.success);
+    				if (data.success == true){
+    					alert("비밀번호가 변경되었습니다. 다시 로그인해 주세요");
+    					location.href="redirect:/login.jsp";
+    				} else {
+    					alert("기존 비밀번호와 일치합니다.");
+    					location.reload();
+    				}
+    				
+    			},
+    			error: function(e){
+    				console.log(e)
+    			}
+    		});
+    	}
+	</script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
