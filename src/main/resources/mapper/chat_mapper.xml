@@ -5,4 +5,40 @@
 
 <mapper namespace="com.behit.chat.dao.ChatDAO">
 
+	<select id="deptName" resultType="String">
+		SELECT emp_dept_name from department where emp_dept_idx = #{param1};
+	</select>
+	
+	<select id="chatRoomList" resultType="chatRoom">
+		SELECT
+		cr.chat_room_idx,
+		cr.chat_room_name,
+		cr.chat_room_date,
+		cp.emp_id
+		from chat_room cr
+			join chat_pp cp on cr.chat_room_idx = cp.chat_room_idx
+			where cp.emp_id = #{param1} ORDER BY cr.chat_room_date DESC;
+	
+	</select>
+	<select id="chatMember" resultType="chatRoom">
+		SELECT emp_id from chat_pp cp where chat_room_idx = #{param1};
+	</select>
+	
+	<insert
+	useGeneratedKeys="true"
+  	keyColumn="chat_room_idx"
+  	keyProperty="chat_room_idx"
+	id="createRoom" parameterType="chatRoom">
+		INSERT into chat_room
+		(chat_room_name, emp_id, chat_room_date)
+		VALUES
+		(#{chat_room_name}, #{emp_id}, current_timestamp);	
+	</insert>
+	<insert id="insertIntoChatPp">
+	insert into chat_pp
+	(chat_room_idx, emp_id)
+	VALUES
+	(#{param1}, #{param2});
+	
+	</insert>
 </mapper>

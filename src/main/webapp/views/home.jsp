@@ -184,7 +184,7 @@
             </li>
             
             <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
+              <a href="../chat/messenger_his.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-chat"></i>
                 <div class="text-truncate" data-i18n="메신저">메신저</div>
               </a>
@@ -346,7 +346,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
+                      <a class="dropdown-item" href="../login.go" target="_blank">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
