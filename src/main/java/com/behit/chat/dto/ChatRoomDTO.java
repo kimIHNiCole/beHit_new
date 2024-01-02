@@ -70,6 +70,10 @@ public class ChatRoomDTO {
 	public void addMember(String emp_id) {
         members.add(emp_id);
     }
+	public void addUser(String emp_id2) {
+		// TODO Auto-generated method stub
+		
+	}
 
     
 	

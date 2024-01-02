@@ -24,4 +24,21 @@
 		SELECT emp_id from chat_pp cp where chat_room_idx = #{param1};
 	</select>
 	
+	<insert
+	useGeneratedKeys="true"
+  	keyColumn="chat_room_idx"
+  	keyProperty="chat_room_idx"
+	id="createRoom" parameterType="chatRoom">
+		INSERT into chat_room
+		(chat_room_name, emp_id, chat_room_date)
+		VALUES
+		(#{chat_room_name}, #{emp_id}, current_timestamp);	
+	</insert>
+	<insert id="insertIntoChatPp">
+	insert into chat_pp
+	(chat_room_idx, emp_id)
+	VALUES
+	(#{param1}, #{param2});
+	
+	</insert>
 </mapper>

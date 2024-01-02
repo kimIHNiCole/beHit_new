@@ -15,4 +15,8 @@ public interface ChatDAO {
 
 	ArrayList<ChatRoomDTO> chatMember(int chat_room_idx);
 
+	void createRoom(ChatRoomDTO chatRoom);
+
+	void insertIntoChatPp(int chat_room_idx, String empId);
+
 }

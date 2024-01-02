@@ -133,7 +133,8 @@
                         	<span class="chat-contact-name text-truncate m-0">${emp_name}</span>
                         	<div><span class="m-0">${emp_dept_name}</span></div>
                         	</div>
-                        <button class="btn btn-primary text-nowrap">채팅방 추가</button>
+                        	<button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#apv-modal">채팅방 추가</button>
+                       <!--  <button class="btn btn-primary text-nowrap">채팅방 추가</button> -->
                        </div>
                     </div>
                     <hr class="container-m-nx mt-3 mb-0" />
@@ -165,6 +166,7 @@
                               <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
                             </div>
                             <div class="chat-contact-info flex-grow-1 ms-3">
+                            <input type=hidden value="${ChatRoomAll.chat_room_idx}"/>
                               <h6 class="chat-contact-name text-truncate m-0">${ChatRoomAll.chat_room_name}</h6>
                               <p class="chat-contact-status text-truncate mb-0 text-muted">
 							    <c:forEach items="${ChatRoomAll.chatMb}" var="chatMb" varStatus="loop">
@@ -201,15 +203,42 @@
             
             <!-- / Content -->
 
-            
+			<!-- modal -->
+			<!-- 조직도 모달 -->
+              <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                       
+			              <div class="list">
+			                
+			              </div>
+			              
+
+                      <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">선택</button>
+                        <button
+                          type="reset"
+                          class="btn btn-label-secondary btn-reset mt-3"
+                          data-bs-dismiss="modal"
+                          aria-label="Close">
+                          취소</button>
+                       </div>
+                       </div>
+            	</div>
+            	</div>
+            	</div>
 
             <div class="content-backdrop fade"></div>
           </div>
-          <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-      </div>
 
+        </div>
+
+      </div>
+      </div>
+      </div>
+<!-- 여기까지인 듯?  -->
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
 
@@ -234,16 +263,157 @@
 
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
+    
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
-  </body>
-  <script>
+    
+    <!-- 소켓 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+$(function () {
+    connect();
+});
+//문서가 로드될 때 실행되는 함수, 'connect' 함수를 호출하여 웹소켓 연결을 수행
 
-  
-  
-  </script>
+var stompClient = null; //웹소켓 통신을 위한 Stomp 클라이언트를 저장하는 변수
+var username = "";  // 사용자의 이름을 저장하는 변수로, 초기에는 비어 있는 상태
+
+function connect() {
+	// 웹소켓 연결을 수행하는 함수
+    var socket = new SockJS('/chat');
+	// SockJS 를 통해 서버의 웹소켓 엔드포인트에 연결
+    stompClient = Stomp.over(socket);
+	// Stomp 클라이언트 생성
+    stompClient.connect({}, function (frame) {
+    	// 연결이 성공하면 콜백 함수에서 로그 출력
+        console.log('Connected: ' + frame);
+    });
+}
+
+
+</script>
+    
+    
+    
+    <script>
+    
+    // 클릭한 채팅방 빨간색으로 활성화
+    $(document).ready(function() {
+        // 각 리스트 아이템에 클릭 이벤트 리스너 추가
+        $('.chat-contact-list-item').click(function() {
+            // 기존 active 클래스를 모두 제거
+            $('.chat-contact-list-item').removeClass('active');
+            
+            // 클릭한 리스트에 active 클래스 추가
+            $(this).addClass('active');
+        });
+    });
+    
+    
+    // 직원 리스트 모달 시작
+    	$.ajax({
+    		type: 'get',
+        	url: '../getOrgList',
+        	data: {},
+        	dataType: 'JSON',
+	        success : function(data){
+	          console.log(data);
+              drawOrg(data.orgList, data.deptKind);
+	        } ,
+	        error : function(e){
+	          console.log(e);
+	        }
+    	});
+    	
+    	function drawOrg(orgList, deptKind) {
+    	    var modalBody = $('#apv-modal .modal-body .list');
+
+    	    // 리스트 초기화
+    	    modalBody.empty();
+
+    	    // 각각의 데이터를 리스트에 추가
+    	    orgList.forEach(function (employee) {
+    	        var listItem = $('<div class="list-item"></div>');
+    	        listItem.append('<input type="checkbox" class="emp-checkbox" data-emp-id="' + employee.emp_id + '">');
+    	        listItem.append('<span class="emp-id">' + employee.emp_id + '</span>');
+    	        listItem.append(' | <span class="emp-name">' + employee.emp_name + '</span>');
+
+
+    	        // 리스트 아이템을 모달 바디에 추가
+    	        modalBody.append(listItem);
+    	    });
+
+    	    // 체크박스 변경 시 처리
+    	    modalBody.on('change', '.emp-checkbox', function () {
+    	        var isChecked = $(this).prop('checked');
+    	        var empId = $(this).data('emp-id');
+
+    	        // 선택된 정보를 사용하여 원하는 동작 수행
+    	        console.log('Employee ID:', empId, 'Checked:', isChecked);
+    	    });
+
+    	    // 선택 버튼 클릭 시 처리
+    	    $('.apv-doc-select').click(function () {
+    	        var selectedEmpIds = [];
+
+    	        // 체크된 항목의 emp_id 가져오기
+    	        modalBody.find('.list-item input:checked').each(function () {
+    	            selectedEmpIds.push($(this).data('emp-id'));
+    	        });
+
+    	        // 선택된 정보를 사용하여 원하는 동작 수행
+    	        console.log('Selected Employee IDs:', selectedEmpIds);
+    	        
+    	        // 채팅방 이름 첫 번째 선택한 사람 외 1명으로 변경하여 서버에 값 보내기
+    	        // 셀렉트한 emp_id 들 값들 서버로 보내기
+    	        // 생성자는 서버에서 세션 id 받아서 저장하기
+    	        // 생성일은 커런트 타임 스탬프로 넣기
+    	        // 채팅방 제너레이트키 사용해서 채팅방 참여자 테이블에 참여자들 id 넣기
+    	        
+    	        
+    	        $.ajax({
+				    type: 'GET',
+				    url: '/createRoom',
+				    data: { emp_ids: selectedEmpIds },
+				    traditional: true,
+				    success: function (data) {
+				        console.log(data);
+				        if(data.idx > 0){
+				        	console.log("생성");
+				        	location.href='../chat/messengerT.go';
+				        }
+				    },
+				    error: function (error) {
+				        console.error('Error:', error);
+				    }
+				});
+    	        
+
+    	        // 모달 닫기
+    	        $('#apv-modal').modal('hide');
+    	        
+    	    });
+    	    
+    		 // 모달이 닫힐 때 체크박스 상태 초기화
+    	    $('#apv-modal').on('hidden.bs.modal', function () {
+    	        modalBody.find('.emp-checkbox').prop('checked', false);
+    	        checkboxStates = {}; // 체크박스 상태 초기화
+    	    });
+    	    
+    	}
+    	
+    	/*/직원 리스트 모달 끝 */
+	  
+    </script>
+    
+    
+  </body>
+
 </html>
