@@ -11,15 +11,15 @@
 							<tbody>
 								<tr>
 									<td class="table-header-left-table-left">기안자</td>
-									<td class="table-header-left-table-right name">김민지</td>
+									<td class="table-header-left-table-right name">${login_name}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">부서</td>
-									<td class="table-header-left-table-right dept">인사</td>
+									<td class="table-header-left-table-right dept">${dept_name}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">기안일</td>
-									<td class="table-header-left-table-right date">2023-12-22</td>
+									<td class="table-header-left-table-right date">${emp_date}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">문서번호</td>
@@ -74,7 +74,7 @@
 															
 															<tr>
 																<td>
-																	<span class="apv-sign-line-name">이유빈</span>
+																	<span class="apv-sign-line-name">홍길동</span>
 																</td>
 															</tr>
 															
@@ -109,11 +109,23 @@
 						</tr>
 						<tr>
 							<td class="table-content-left">연차 기간</td>
-							<td class="table-content-right">
-								<input type="text" class="form-control form-vac-time-start" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
-								<span>~</span>
-								<input type="text" class="form-control form-vac-time-end" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
-								<span class="vac-time">시간</span>
+							<td class="table-content-right time">
+								<span class="vac-time-input">
+									<span>
+										<input type="text" class="form-control form-vac-time-start" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
+										<span class="text"> ~ </span>
+										<input type="text" class="form-control form-vac-time-end" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
+									</span>
+									<span>
+										<input
+		                          type="text"
+		                          class="form-control vac-time"
+		                          id="defaultFormControlInput"
+		                          aria-describedby="defaultFormControlHelp" />
+										
+										<span class="text"> 시간</span>
+								</span>
+								</span>
 							</td>
 						</tr>
 						<tr>

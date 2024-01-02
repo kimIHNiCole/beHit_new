@@ -3,7 +3,7 @@
 		<table class="table-header">
 			<tbody>
 				<tr>
-					<td class="table-subject" colspan="2">연차신청서</td>
+					<td class="table-subject" colspan="2">사업기안서</td>
 				</tr>
 				<tr>
 					<td class="table-header-left">
@@ -11,15 +11,15 @@
 							<tbody>
 								<tr>
 									<td class="table-header-left-table-left">기안자</td>
-									<td class="table-header-left-table-right name">김민지</td>
+									<td class="table-header-left-table-right name">${login_name}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">부서</td>
-									<td class="table-header-left-table-right dept">인사</td>
+									<td class="table-header-left-table-right dept">${dept_name}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">기안일</td>
-									<td class="table-header-left-table-right date">2023-12-22</td>
+									<td class="table-header-left-table-right date">${emp_date}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">문서번호</td>

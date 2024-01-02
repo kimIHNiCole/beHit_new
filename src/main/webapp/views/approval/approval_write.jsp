@@ -150,6 +150,12 @@
     	margin-bottom:0.625rem;
     }
     
+    .text{
+    	font-family:pretendard;
+    	font-weight:600;
+    	font-size:1rem;
+    }
+    
     
     /*휴가신청서*/
     
@@ -304,10 +310,19 @@
 	    height: 282px;
     }
     
+    .table-content-right.time .vac-time-input{
+    	display:flex;
+    }
+    
     .table-content-right .form-vac-time-start,
     .table-content-right .form-vac-time-end{
     	display: inline-block;
-    	width: 30%;
+    	width: 40%;
+    }
+    
+    .table-content-right.time .vac-time{
+    	display: inline-block;
+    	width: 20%;
     }
     
     .table-upload{
@@ -711,7 +726,7 @@
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
-                	<h4 class="apv-home">휴가 신청서 작성</h4>
+                	<h4 class="apv-home">결재 작성</h4>
                 	<div class="apv-form-menu">
                 		<span class="text-truncate">
                 			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bx-plus'></i> 결재선 추가</button>
@@ -881,6 +896,23 @@
     
     <!-- custom JS -->
     <script>
+    
+    //종일, 시간 선택에 따라 연차 달라짐 구분
+    $(".form-vac-time").on("change", function() {
+        // 선택된 옵션의 텍스트 가져오기
+        var selectedOption = $(this).find("option:selected").text();
+
+        // 선택된 옵션에 따라 원하는 작업 수행
+        if (selectedOption === "종일") {
+            // "종일"이 선택된 경우의 동작
+            console.log("종일이 선택되었습니다.");
+        } else if (selectedOption === "시간") {
+            // "시간"이 선택된 경우의 동작
+            console.log("시간이 선택되었습니다.");
+        }
+        // 추가적으로 필요한 작업을 수행할 수 있습니다.
+    });
+    
 
     // 미리보기
 		 $('.approval-preview').on('click',function(){
