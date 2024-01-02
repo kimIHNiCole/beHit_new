@@ -31,6 +31,8 @@ public class ApprovalController {
 		
 		EmployeeDTO dto = service.approval_write(emp_id);
 		
+		
+		
 		String dept_name = dto.getDept_name();
 		String login_name = loginInfo.getEmp_name();
 		Date emp_date = dto.getEmp_date();
