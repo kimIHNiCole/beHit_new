@@ -87,11 +87,11 @@
 		width: 95px;
 	}
 	
-/* 	.bx.bx-message-dots.chat{
+	.bx.bx-message-dots.chat{
 	font-size: 10rem;
 	margin-top : 20rem;
 	margin-left: 27rem;
-	} */
+	}
 	.chat-contact-status.text-truncate.mb-0.text-muted{
 	}
     
@@ -141,7 +141,7 @@
                     <div class="sidebar-body">
                       <!-- Chats -->
                       <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
-                        <li class="chat-contact-list-item">
+                        <li class="chat-contact-list-item chat-contact-list-item-title">
                           <h6 class="text-primary mb-0">채팅 리스트</h6>
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
                           <span class="input-group-text" id="basic-addon-search31"
@@ -189,107 +189,12 @@
                   <!-- /Chat contacts -->
 
                   <!-- Chat History -->
-                 <!--  <div class="col app-chat-history">
+                  <div class="col app-chat-history">
                     <i class='bx bx-message-dots chat' ></i>
                       
                     </div>
-                  </div> -->
-                  <!-- /Chat History -->
-                  <!-- Chat History -->
-                  <div class="col app-chat-history">
-                    <div class="chat-history-wrapper">
-                      <div class="chat-history-header border-bottom">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex overflow-hidden align-items-center">
-                            <i
-                              class="bx bx-menu bx-sm cursor-pointer d-lg-none d-block me-2"
-                              data-bs-toggle="sidebar"
-                              data-overlay
-                              data-target="#app-chat-contacts"></i>
-                            <div class="flex-shrink-0 avatar">
-                              <img
-                                src="../../assets/img/avatars/2.png"
-                                alt="Avatar"
-                                class="rounded-circle"
-                                data-bs-toggle="sidebar"
-                                data-overlay
-                                data-target="#app-chat-sidebar-right" />
-                            </div>
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="m-0">김세연</h6>
-                              <small class="user-status text-muted">인사팀</small>
-                            </div>
-                          </div>
-                          
-                        </div>
-                      </div>
-                      <div class="chat-history-body">
-                        <ul class="list-unstyled chat-history mb-0">
-                          <li class="chat-message chat-message-right">
-                            <div class="d-flex overflow-hidden">
-                              <div class="chat-message-wrapper flex-grow-1">
-                                <div class="chat-message-text">
-                                  <p class="mb-0">보여줄게 완전히 달라진 나</p>
-                                </div>
-                                <div class="text-end text-muted mt-1">
-                                  <i class="bx bx-check-double text-success"></i>
-                                  <small>09:00 AM</small>
-                                </div>
-                              </div>
-                              <div class="user-avatar flex-shrink-0 ms-3">
-                                <div class="avatar avatar-sm">
-                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li class="chat-message">
-                            <div class="d-flex overflow-hidden">
-                              <div class="user-avatar flex-shrink-0 me-3">
-                                <div class="avatar avatar-sm">
-                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
-                                </div>
-                              </div>
-                              <div class="chat-message-wrapper flex-grow-1">
-                                <div class="chat-message-text">
-                                  <p class="mb-0">오늘은 지각을 조금밖에 안 했구만</p>
-                                  <p class="mb-0">이 정도만 해도 만족스러워😊</p>
-                                </div>
-                                <div class="chat-message-text mt-2">
-                                  <p class="mb-0">제군들 부대장은 실망했다</p>
-                                </div>
-                                <div class="text-muted mt-1">
-                                  <small>09:02 AM</small>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          
-                          
-                        </ul>
-                      </div>
-                      <!-- Chat message form -->
-                      <div class="chat-history-footer">
-                        <form class="form-send-message d-flex justify-content-between align-items-center">
-                          <input
-                            class="form-control message-input border-0 me-3 shadow-none"
-                            placeholder="메시지를 입력하세요..." />
-                          <div class="message-actions d-flex align-items-center">                      
-                            <label for="attach-doc" class="form-label mb-0">
-                              <i class="bx bx-paperclip bx-sm cursor-pointer mx-3 text-body"></i>
-                              <input type="file" id="attach-doc" hidden />
-                            </label>
-                            <button class="btn btn-primary d-flex send-msg-btn">
-                              <i class="bx bx-paper-plane me-md-1 me-0"></i>
-                              <span class="align-middle d-md-inline-block d-none">전송</span>
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
                   </div>
                   <!-- /Chat History -->
-                  
 
                   <div class="app-overlay"></div>
                 </div>
@@ -371,7 +276,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script>/* 웹소켓 스크립트  */
+    <script>
 $(function () {
     connect();
 });
@@ -482,7 +387,7 @@ function connect() {
 				        console.log(data);
 				        if(data.idx > 0){
 				        	console.log("생성");
-				        	location.href='../chat/messenger_his.go';
+				        	location.href='../chat/messengerT.go';
 				        }
 				    },
 				    error: function (error) {
