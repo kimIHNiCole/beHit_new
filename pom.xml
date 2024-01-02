@@ -99,7 +99,11 @@
 		    <version>2.7</version>
 		</dependency>
 		
-		
+		<!-- Spring WebSocket and STOMP -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
 		
 		
 
@@ -129,6 +133,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		
 		
 		
 		<!-- api 인증키 인식 -->
