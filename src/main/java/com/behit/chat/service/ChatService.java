@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.behit.chat.dao.ChatDAO;
+import com.behit.chat.dto.ChatDTO;
 import com.behit.chat.dto.ChatRoomDTO;
 
 @Service
@@ -22,6 +23,7 @@ public class ChatService {
 		return chatDao.deptName(emp_dept_idx);
 		
 	}
+
 	public ArrayList<ChatRoomDTO> chatRoomList(String emp_id) {
 		logger.info(emp_id);
 		
@@ -79,6 +81,13 @@ public class ChatService {
 		
 	}
 	
-	
+	public List<ChatDTO> chatList(int chatRoomIdx) {
+        return chatDao.chatList(chatRoomIdx);
+    }
 
+
+	public void saveChat(ChatDTO message) {
+		chatDao.saveChat(message);
+		
+	}
 }

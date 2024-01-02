@@ -13,18 +13,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.behit.chat.dto.ChatDTO;
 import com.behit.chat.dto.ChatRoomDTO;
 import com.behit.chat.service.ChatService;
 import com.behit.employee.dto.EmployeeDTO;
+
+import lombok.Getter;
 
 @Controller
 public class ChatController {
@@ -55,16 +60,8 @@ public class ChatController {
 		mav.setViewName("chat/messenger_his");
 		return mav;
 	}
-	/*
-	@GetMapping(value = "/createRoom")
-	public void createRoom(@RequestParam(name = "emp_ids") List<String> emp_ids, HttpSession session) {
-	    logger.info("" + emp_ids);
-	    EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
-		String emp_id=empdto.getEmp_id();
-		chatService.createRoom(emp_id, emp_ids);
-	    
-	}
-	*/
+
+	
 	
 	@RequestMapping(value = "/createRoom")
 	@ResponseBody
@@ -79,7 +76,40 @@ public class ChatController {
 			result.put("idx", idx);
 			return result;
 		}
-		
-	}
+	
+	@RequestMapping(value = "/chatList")
+    @ResponseBody
+    public HashMap<String, Object> chatList(HttpSession session,
+    		@RequestParam int chatRoomIdx){
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		logger.info("db저장리스트불러올idx"+chatRoomIdx);
+		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+		String loginId=empdto.getEmp_id();
+        // chatRoomIdx를 이용하여 채팅 리스트를 가져오는 서비스 메서드 호출
+        List<ChatDTO> chatList = chatService.chatList(chatRoomIdx);
+        result.put("loginId", loginId);
+        result.put("chatList", chatList);
+        return result;
+    }
+	
+	@MessageMapping("/chatRoom/{roomId}")
+	@SendTo("/topic/chatRoom/{roomId}")
+	public ChatDTO sendMessageToRoom(@DestinationVariable String roomId, ChatDTO message) {
+        // sendMessageToRoom 메서드는 클라이언트가 채팅방에 메시지를 전송할 때 호출되는 메서드
+    	// @DestinationVariable 어노테이션을 사용하여 URL 패턴에서 변수(roomId)를 추출
+    	// 메시지 객체를 반환
+    	// 이는 /topic/chatRoom/{roomId} 토픽으로 전송되어 클라이언트에게 메시지가 전달됩니다.
+    	logger.info(roomId);
+    	logger.info(message.getEmp_id());
+    	logger.info(message.getMessage());
+    	logger.info(""+message.getMessage_date());
+    	
+    	chatService.saveChat(message);
+    	
+        return message;
+    }
+
+
+}
 	
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 
 <html
@@ -84,19 +85,15 @@
 	/* 메시지 전송 버튼 */
 	.btn.btn-primary.d-flex.send-msg-btn{
 		width: 95px;
-	}    
-	
-	/* 영역 조정 */
-	.app-chat .app-chat-history .chat-history-body{
-		height: calc(100vh - 20.1rem);
-  		padding: 1.25rem 1.25rem;
-  		overflow: hidden;
 	}
-.app-chat {
-  position: relative;
-  height: calc(100vh - 11rem);
-}
-
+	
+/* 	.bx.bx-message-dots.chat{
+	font-size: 10rem;
+	margin-top : 20rem;
+	margin-left: 27rem;
+	} */
+	.chat-contact-status.text-truncate.mb-0.text-muted{
+	}
     
     </style>
   </head>
@@ -105,272 +102,8 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        <!-- 여기서부터 붙여넣기 -->
-      
-        <!-- Menu -->
         
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../creators/creator_list_all.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item active">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
-        <!-- / Menu -->
-
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
-
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-
-            <!-- Search Small Screens -->
-            
-          </nav>
-
-          <!-- / Navbar -->
-          
-          <!-- 여기까지 붙여넣기 -->
-
+        
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -378,109 +111,7 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="app-chat overflow-hidden card">
                 <div class="row g-0">
-                  <!-- Sidebar Left -->
-                  <div class="col app-chat-sidebar-left app-sidebar overflow-hidden" id="app-chat-sidebar-left">
-                    <div
-                      class="chat-sidebar-left-user sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap p-4 mt-2">
-                      <div class="avatar avatar-xl avatar-online">
-                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                      </div>
-                      <h5 class="mt-3 mb-1">John Doe</h5>
-                      <small class="text-muted">UI/UX Designer</small>
-                      <i
-                        class="bx bx-x bx-sm cursor-pointer close-sidebar me-1 fs-4"
-                        data-bs-toggle="sidebar"
-                        data-overlay
-                        data-target="#app-chat-sidebar-left"></i>
-                    </div>
-                    <div class="sidebar-body px-4 pb-4">
-                      <div class="my-3">
-                        <span class="text-muted text-uppercase">About</span>
-                        <textarea
-                          id="chat-sidebar-left-user-about"
-                          class="form-control chat-sidebar-left-user-about mt-2"
-                          rows="4"
-                          maxlength="120">
-Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.</textarea
-                        >
-                      </div>
-                      <div class="my-4">
-                        <span class="text-muted text-uppercase">Status</span>
-                        <div class="d-grid gap-1 mt-2">
-                          <div class="form-check form-check-success">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="active"
-                              id="user-active"
-                              checked />
-                            <label class="form-check-label" for="user-active">Active</label>
-                          </div>
-                          <div class="form-check form-check-danger">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="busy"
-                              id="user-busy" />
-                            <label class="form-check-label" for="user-busy">Busy</label>
-                          </div>
-                          <div class="form-check form-check-warning">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="away"
-                              id="user-away" />
-                            <label class="form-check-label" for="user-away">Away</label>
-                          </div>
-                          <div class="form-check form-check-secondary">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="offline"
-                              id="user-offline" />
-                            <label class="form-check-label" for="user-offline">Offline</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="my-4">
-                        <span class="text-muted text-uppercase">Settings</span>
-                        <ul class="list-unstyled d-grid gap-2 mt-2">
-                          <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                              <i class="bx bx-check-circle me-1"></i>
-                              <span class="align-middle">Two-step Verification</span>
-                            </div>
-                            <div class="form-check form-switch mb-0">
-                              <input class="form-check-input" type="checkbox" id="twoStepVerification" />
-                            </div>
-                          </li>
-                          <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                              <i class="bx bx-bell me-1"></i>
-                              <span class="align-middle">Notification</span>
-                            </div>
-                            <div class="form-check form-switch mb-0">
-                              <input class="form-check-input" type="checkbox" id="switchNotification" checked />
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="d-flex mt-4">
-                        <button
-                          class="btn btn-primary"
-                          data-bs-toggle="sidebar"
-                          data-overlay
-                          data-target="#app-chat-sidebar-left">
-                          Logout
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Sidebar Left-->
+                  
 
                   <!-- Chat & Contacts -->
                   <div
@@ -612,7 +243,7 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                               <!-- <i class="bx bx-paperclip bx-sm cursor-pointer mx-3 text-body"></i> -->
                               <input type="file" id="attach-doc" hidden />
                             </label>
-                            <button class="btn btn-primary d-flex send-msg-btn"  onclick="sendMessage()">
+                            <button class="btn btn-primary d-flex send-msg-btn" onclick="sendMessage()">
                               <i class="bx bx-paper-plane me-md-1 me-0"></i>
                               <span class="align-middle d-md-inline-block d-none" >전송</span>
                             </button>
@@ -622,82 +253,15 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                     </div>
                   </div>
                   <!-- /Chat History -->
-
-                  <!-- Sidebar Right -->
-                  <div class="col app-chat-sidebar-right app-sidebar overflow-hidden" id="app-chat-sidebar-right">
-                    <div
-                      class="sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap p-4 mt-2">
-                      <div class="avatar avatar-xl avatar-online">
-                        <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
-                      </div>
-                      <h6 class="mt-3 mb-1">Felecia Rower</h6>
-                      <small class="text-muted">NextJS Developer</small>
-                      <i
-                        class="bx bx-x bx-sm cursor-pointer close-sidebar me-1 fs-4 d-block"
-                        data-bs-toggle="sidebar"
-                        data-overlay
-                        data-target="#app-chat-sidebar-right"></i>
-                    </div>
-                    <div class="sidebar-body px-4 pb-4">
-                      <div class="my-3">
-                        <span class="text-muted text-uppercase">About</span>
-                        <p class="mb-0 mt-2">
-                          A Next. js developer is a software developer who uses the Next. js framework alongside ReactJS
-                          to build web applications.
-                        </p>
-                      </div>
-                      <div class="my-4">
-                        <span class="text-muted text-uppercase">Personal Information</span>
-                        <ul class="list-unstyled d-grid gap-2 mt-2">
-                          <li class="d-flex align-items-center">
-                            <i class="bx bx-envelope"></i>
-                            <span class="align-middle ms-2">josephGreen@email.com</span>
-                          </li>
-                          <li class="d-flex align-items-center">
-                            <i class="bx bx-phone-call"></i>
-                            <span class="align-middle ms-2">+1(123) 456 - 7890</span>
-                          </li>
-                          <li class="d-flex align-items-center">
-                            <i class="bx bx-time-five"></i>
-                            <span class="align-middle ms-2">Mon - Fri 10AM - 8PM</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="mt-4">
-                        <span class="text-muted text-uppercase">Options</span>
-                        <ul class="list-unstyled d-grid gap-2 mt-2">
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="bx bx-bookmark"></i>
-                            <span class="align-middle ms-2">Add Tag</span>
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="bx bx-star"></i>
-                            <span class="align-middle ms-2">Important Contact</span>
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="bx bx-image-alt"></i>
-                            <span class="align-middle ms-2">Shared Media</span>
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="bx bx-trash-alt"></i>
-                            <span class="align-middle ms-2">Delete Contact</span>
-                          </li>
-                          <li class="cursor-pointer d-flex align-items-center">
-                            <i class="bx bx-block"></i>
-                            <span class="align-middle ms-2">Block Contact</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Sidebar Right -->
+                  
 
                   <div class="app-overlay"></div>
                 </div>
               </div>
             </div>
+            
             <!-- / Content -->
-			
+
 			<!-- modal -->
 			<!-- 조직도 모달 -->
               <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
@@ -724,15 +288,16 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
             	</div>
             	</div>
             	</div>
-            
 
             <div class="content-backdrop fade"></div>
           </div>
-          <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-      </div>
 
+        </div>
+
+      </div>
+      </div>
+      </div>
+<!-- 여기까지인 듯?  -->
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
 
@@ -782,18 +347,42 @@ var stompClient = null; //웹소켓 통신을 위한 Stomp 클라이언트를 �
 var emp_id = "";
 var loginId ="";
 
-function connect() {
+
+var currentChatRoomIdx = null; // 현재 연결된 채팅방의 인덱스 저장 변수
+
+function connect(chatRoomIdx) {
+	
+	// 이전 채팅방의 구독 해제
+    unsubscribeFromPreviousRoom();
+	
 	// 웹소켓 연결을 수행하는 함수
-    var socket = new SockJS('/chat/messenger_inner');
+    var socket = new SockJS('/chat/messenger_his');
 	// SockJS 를 통해 서버의 웹소켓 엔드포인트에 연결
     stompClient = Stomp.over(socket);
 	// Stomp 클라이언트 생성
     stompClient.connect({}, function (frame) {
     	// 연결이 성공하면 콜백 함수에서 로그 출력
         console.log('Connected: ' + frame);
+    	
+    	
+     // 현재 채팅방에 대한 구독 설정
+        if (chatRoomIdx) {
+            stompClient.subscribe('/topic/chat/' + chatRoomIdx, function (message) {
+                console.log('Received message: ' + message.body);
+            });
+            // 현재 채팅방 인덱스 저장
+            currentChatRoomIdx = chatRoomIdx;
+        }
+    	
     });
 }
 
+function unsubscribeFromPreviousRoom() {
+    // 이전 채팅방에서의 구독 해제
+    if (currentChatRoomIdx) {
+        stompClient.unsubscribe('/topic/chat/' + currentChatRoomIdx);
+    }
+}
 
     
  // 채팅방 생성
@@ -867,7 +456,7 @@ function drawOrg(orgList, deptKind) {
 		        console.log(data);
 		        if(data.idx > 0){
 		        	console.log("생성");
-		        	location.href='../chat/messenger_inner.go';
+		        	location.href='../chat/messenger_his.go';
 		        }
 		    },
 		    error: function (error) {
@@ -891,58 +480,56 @@ function drawOrg(orgList, deptKind) {
 
 /*/직원 리스트 모달 끝 */
 
-var currentSubscription = null;
-var chatRoomIdx = '';
+    
     
  // 채팅방 구독
     
 // 클릭한 채팅방 빨간색으로 활성화
 $(document).ready(function() {
-        // 각 리스트 아이템에 클릭 이벤트 리스너 추가
-        $('.chat-contact-list-item').click(function() {
-        	
-        	$('#webChatMessage').empty();
-            // 기존 active 클래스를 모두 제거
-            $('.chat-contact-list-item').removeClass('active');
-            
-            // 클릭한 리스트에 active 클래스 추가
-            $(this).addClass('active');
-            
-         // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
-            chatRoomIdx = $(this).find('input[type=hidden]').val();
-            console.log(chatRoomIdx);
+	
 
-            if (currentSubscription) {
-                // 현재 구독이 있으면 해지
-                currentSubscription.unsubscribe();
-            }
 
-            currentSubscription = stompClient.subscribe("/topic/chatRoom/" + chatRoomIdx, function (webMessage) {
-                console.log('특정 방에 뿌림', webMessage);
-                showMessage(JSON.parse(webMessage.body));
-            });
-            
-            $.ajax({
-                type: 'GET',
-                url: '/chatList', // 서버에서 처리할 요청 URL
-                data: { chatRoomIdx: chatRoomIdx }, // 전송할 데이터 (chatRoomIdx)
-                success: function(data) {
-                    // 서버에서 받은 데이터(response)를 처리
-                    console.log('채팅 리스트 가져오기 성공', data);
+    // 각 리스트 아이템에 클릭 이벤트 리스너 추가
+    $('.chat-contact-list-item').click(function() {
+    	
+        // 기존 active 클래스를 모두 제거
+        $('.chat-contact-list-item').removeClass('active');
 
-                    loginId= data.loginId;
-                    // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
-                    showMessageList(data.chatList, loginId);
-                },
-                error: function(error) {
-                    console.error('채팅 리스트 가져오기 실패', error);
-                }
-            });
-            
-            
-            
-        });
+        // 클릭한 리스트에 active 클래스 추가
+        $(this).addClass('active');
         
+  
+        // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
+        var newChatRoomIdx = $(this).find('input[type=hidden]').val();
+        console.log(newChatRoomIdx);
+        
+
+        connect(newChatRoomIdx);
+
+        stompClient.subscribe("/topic/chatRoom/" + newChatRoomIdx, function (webMessage) {
+            // 실시간으로 클라이언트에서 구독을 했다.
+            console.log('특정 방에 뿌림',webMessage);
+            // 새로운 메시지 도착 시 처리
+            showMessage(JSON.parse(webMessage.body));
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/chatList', // 서버에서 처리할 요청 URL
+            data: { chatRoomIdx: newChatRoomIdx }, // 전송할 데이터 (chatRoomIdx)
+            success: function(data) {
+                // 서버에서 받은 데이터(response)를 처리
+                console.log('채팅 리스트 가져오기 성공', data);
+
+                loginId= data.loginId;
+                // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
+                showMessageList(data.chatList, loginId);
+            },
+            error: function(error) {
+                console.error('채팅 리스트 가져오기 실패', error);
+            }
+        });
+    });
 });
 
 
@@ -1102,5 +689,6 @@ function getWebMessageHtml(webMessage, loginId) {
 </script>
     
     
-  </body>
+</body>
+
 </html>
