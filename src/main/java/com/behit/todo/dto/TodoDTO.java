@@ -12,7 +12,21 @@ public class TodoDTO {
 	private Date todo_update;
 	private String todo_state;
 	private Date todo_date;
+	private int todoN;
+	private int todoY;
 	
+	public int getTodoN() {
+		return todoN;
+	}
+	public void setTodoN(int todoN) {
+		this.todoN = todoN;
+	}
+	public int getTodoY() {
+		return todoY;
+	}
+	public void setTodoY(int todoY) {
+		this.todoY = todoY;
+	}
 	public int getTodo_idx() {
 		return todo_idx;
 	}
