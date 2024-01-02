@@ -5,4 +5,18 @@
 
 <mapper namespace="com.behit.approval.dao.ApprovalDAO">
 
+<select id="approval_write" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT 
+		    d.emp_dept_name AS 'dept_name',
+		    cc_grade.common_code_name AS 'grade_name',
+		    cc_position.common_code_name AS 'position_name',
+		    NOW() AS 'emp_date'
+		FROM 
+		    employee e
+		    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		    JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
+		    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+		    WHERE e.emp_id = #{emp_id};
+	</select>
+
 </mapper>

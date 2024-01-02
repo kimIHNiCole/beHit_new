@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.employee.dao.EmployeeDAO;
 import com.behit.employee.dto.EmployeeDTO;
@@ -18,16 +19,6 @@ public class EmployeeService {
 	@Autowired EmployeeDAO employeeDAO;
 	
 	public int join(HashMap<String, Object> params) {
-		
-		int department = Integer.parseInt(params.get("department").toString());
-		int rank = Integer.parseInt(params.get("rank").toString());
-		int job = Integer.parseInt(params.get("job").toString());
-		
-		int position = department + rank + job;
-		
-		logger.info("position : "+position);
-		
-		params.put("position", position);
 		
 		return employeeDAO.join(params);
 	}
@@ -55,7 +46,74 @@ public class EmployeeService {
 		return map;
 	}
 
-	public EmployeeDTO detail(String emp_id) {
-		return employeeDAO.detail(emp_id);
+	public ModelAndView detail(String emp_id) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO dto = employeeDAO.detail(emp_id);
+		
+		String dept_name = dto.getDept_name();
+		String position_name = dto.getPosition_name();
+		String grade_name = dto.getGrade_name();
+
+		logger.info("1"+dept_name+position_name+grade_name);		
+		
+		ArrayList<EmployeeDTO> deptList = employeeDAO.deptList(dept_name);	
+		ArrayList<EmployeeDTO> positionList = employeeDAO.positionList(position_name);
+		ArrayList<EmployeeDTO> gradeList = employeeDAO.gradeList(grade_name);
+		
+		ArrayList<EmployeeDTO> HisList = employeeDAO.HisList(emp_id);
+		
+		mav.addObject("empdetail", dto);
+		mav.addObject("deptList", deptList);
+		mav.addObject("positionList", positionList);
+		mav.addObject("gradeList", gradeList);
+		mav.addObject("HisList", HisList);
+
+		mav.setViewName("/employee/employee_detail");
+		
+		return mav;
+	}
+
+	public ModelAndView bupdate(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("params : "+params);
+		
+		mav.setViewName("redirect:/employee/empdetail?emp_id="+params.get("emp_id"));
+		
+		employeeDAO.bupdate(params);
+		employeeDAO.bupdateHistory(params);
+		
+		return mav;
+		
+	}
+
+	public ModelAndView dupdate(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("params : "+params);
+		
+		mav.setViewName("redirect:/employee/empdetail?emp_id="+params.get("emp_id"));
+		
+		employeeDAO.dupdate(params);
+		employeeDAO.dupdateHistory(params);
+		
+		
+		return mav;
+	}
+
+	public ModelAndView pupdate(HashMap<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("params : "+params);
+		
+		mav.setViewName("redirect:/employee/empdetail?emp_id="+params.get("emp_id"));
+		
+		employeeDAO.pupdate(params);
+		employeeDAO.pupdateHistory(params);
+		
+		return mav;
+	}
+
+	public void chkClear(String emp_id) {
+		employeeDAO.chkClear(emp_id);		
 	}
 }

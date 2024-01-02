@@ -19,35 +19,78 @@ public class EmployeeDTO {
 	private String address;
 	private String detail_addr;
 	private int position_idx;
-	private int department;
-	private int rank;
-	private int job;
+	private int emp_dept_idx;
+	private int emp_position_idx;
+	private int emp_grade_idx;
 	private int login_lock;
-	private String insert_id;
-	private Date insert_date;
-	private String update_id;
-	private Date update_date;
+	private String emp_id_in;
+	private Date emp_date;
+	private String emp_id_up;
+	private Date emp_date_up;
+	private String dept_name;
+	private String grade_name;
+	private String position_name;
+	private int common_code_idx;
+	private String psn_his_kind;
+	private String psn_his_befoInfo;
+	private String psn_his_aftrInfo;
+	private Date psn_his_date;
+	private String category;
 	
-	
-	public int getDepartment() {
-		return department;
+	public String getCategory() {
+		return category;
 	}
-	public void setDepartment(int department) {
-		this.department = department;
+	public void setCategory(String category) {
+		this.category = category;
 	}
-	public int getRank() {
-		return rank;
+	public Date getPsn_his_date() {
+		return psn_his_date;
 	}
-	public void setRank(int rank) {
-		this.rank = rank;
+	public void setPsn_his_date(Date psn_his_date) {
+		this.psn_his_date = psn_his_date;
 	}
-	public int getJob() {
-		return job;
+	public String getPsn_his_kind() {
+		return psn_his_kind;
 	}
-	public void setJob(int job) {
-		this.job = job;
+	public void setPsn_his_kind(String psn_his_kind) {
+		this.psn_his_kind = psn_his_kind;
 	}
-
+	public String getPsn_his_befoInfo() {
+		return psn_his_befoInfo;
+	}
+	public void setPsn_his_befoInfo(String psn_his_befoInfo) {
+		this.psn_his_befoInfo = psn_his_befoInfo;
+	}
+	public String getPsn_his_aftrInfo() {
+		return psn_his_aftrInfo;
+	}
+	public void setPsn_his_aftrInfo(String psn_his_aftrInfo) {
+		this.psn_his_aftrInfo = psn_his_aftrInfo;
+	}
+	public int getCommon_code_idx() {
+		return common_code_idx;
+	}
+	public void setCommon_code_idx(int common_code_idx) {
+		this.common_code_idx = common_code_idx;
+	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getGrade_name() {
+		return grade_name;
+	}
+	public void setGrade_name(String grade_name) {
+		this.grade_name = grade_name;
+	}
+	public String getPosition_name() {
+		return position_name;
+	}
+	public void setPosition_name(String position_name) {
+		this.position_name = position_name;
+	}
 	public String getEmp_id() {
 		return emp_id;
 	}
@@ -114,40 +157,60 @@ public class EmployeeDTO {
 	public void setDetail_addr(String detail_addr) {
 		this.detail_addr = detail_addr;
 	}
-	public int getLogin_lock() {
-		return login_lock;
-	}
-	public void setLogin_lock(int login_lock) {
-		this.login_lock = login_lock;
-	}
-	public String getInsert_id() {
-		return insert_id;
-	}
-	public void setInsert_id(String insert_id) {
-		this.insert_id = insert_id;
-	}
-	public Date getInsert_date() {
-		return insert_date;
-	}
-	public void setInsert_date(Date insert_date) {
-		this.insert_date = insert_date;
-	}
-	public String getUpdate_id() {
-		return update_id;
-	}
-	public void setUpdate_id(String update_id) {
-		this.update_id = update_id;
-	}
-	public Date getUpdate_date() {
-		return update_date;
-	}
-	public void setUpdate_date(Date update_date) {
-		this.update_date = update_date;
-	}
 	public int getPosition_idx() {
 		return position_idx;
 	}
 	public void setPosition_idx(int position_idx) {
 		this.position_idx = position_idx;
 	}
+	public int getEmp_dept_idx() {
+		return emp_dept_idx;
+	}
+	public void setEmp_dept_idx(int emp_dept_idx) {
+		this.emp_dept_idx = emp_dept_idx;
+	}
+	public int getEmp_position_idx() {
+		return emp_position_idx;
+	}
+	public void setEmp_position_idx(int emp_position_idx) {
+		this.emp_position_idx = emp_position_idx;
+	}
+	public int getEmp_grade_idx() {
+		return emp_grade_idx;
+	}
+	public void setEmp_grade_idx(int emp_grade_idx) {
+		this.emp_grade_idx = emp_grade_idx;
+	}
+	public int getLogin_lock() {
+		return login_lock;
+	}
+	public void setLogin_lock(int login_lock) {
+		this.login_lock = login_lock;
+	}
+	public String getEmp_id_in() {
+		return emp_id_in;
+	}
+	public void setEmp_id_in(String emp_id_in) {
+		this.emp_id_in = emp_id_in;
+	}
+	public Date getEmp_date() {
+		return emp_date;
+	}
+	public void setEmp_date(Date emp_date) {
+		this.emp_date = emp_date;
+	}
+	public String getEmp_id_up() {
+		return emp_id_up;
+	}
+	public void setEmp_id_up(String emp_id_up) {
+		this.emp_id_up = emp_id_up;
+	}
+	public Date getEmp_date_up() {
+		return emp_date_up;
+	}
+	public void setEmp_date_up(Date emp_date_up) {
+		this.emp_date_up = emp_date_up;
+	}
+
+	
 }

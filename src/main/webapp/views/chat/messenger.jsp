@@ -109,109 +109,7 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="app-chat overflow-hidden card">
                 <div class="row g-0">
-                  <!-- Sidebar Left -->
-                  <div class="col app-chat-sidebar-left app-sidebar overflow-hidden" id="app-chat-sidebar-left">
-                    <div
-                      class="chat-sidebar-left-user sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap p-4 mt-2">
-                      <div class="avatar avatar-xl avatar-online">
-                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                      </div>
-                      <h5 class="mt-3 mb-1">John Doe</h5>
-                      <small class="text-muted">UI/UX Designer</small>
-                      <i
-                        class="bx bx-x bx-sm cursor-pointer close-sidebar me-1 fs-4"
-                        data-bs-toggle="sidebar"
-                        data-overlay
-                        data-target="#app-chat-sidebar-left"></i>
-                    </div>
-                    <div class="sidebar-body px-4 pb-4">
-                      <div class="my-3">
-                        <span class="text-muted text-uppercase">About</span>
-                        <textarea
-                          id="chat-sidebar-left-user-about"
-                          class="form-control chat-sidebar-left-user-about mt-2"
-                          rows="4"
-                          maxlength="120">
-Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.</textarea
-                        >
-                      </div>
-                      <div class="my-4">
-                        <span class="text-muted text-uppercase">Status</span>
-                        <div class="d-grid gap-1 mt-2">
-                          <div class="form-check form-check-success">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="active"
-                              id="user-active"
-                              checked />
-                            <label class="form-check-label" for="user-active">Active</label>
-                          </div>
-                          <div class="form-check form-check-danger">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="busy"
-                              id="user-busy" />
-                            <label class="form-check-label" for="user-busy">Busy</label>
-                          </div>
-                          <div class="form-check form-check-warning">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="away"
-                              id="user-away" />
-                            <label class="form-check-label" for="user-away">Away</label>
-                          </div>
-                          <div class="form-check form-check-secondary">
-                            <input
-                              name="chat-user-status"
-                              class="form-check-input"
-                              type="radio"
-                              value="offline"
-                              id="user-offline" />
-                            <label class="form-check-label" for="user-offline">Offline</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="my-4">
-                        <span class="text-muted text-uppercase">Settings</span>
-                        <ul class="list-unstyled d-grid gap-2 mt-2">
-                          <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                              <i class="bx bx-check-circle me-1"></i>
-                              <span class="align-middle">Two-step Verification</span>
-                            </div>
-                            <div class="form-check form-switch mb-0">
-                              <input class="form-check-input" type="checkbox" id="twoStepVerification" />
-                            </div>
-                          </li>
-                          <li class="d-flex justify-content-between align-items-center">
-                            <div>
-                              <i class="bx bx-bell me-1"></i>
-                              <span class="align-middle">Notification</span>
-                            </div>
-                            <div class="form-check form-switch mb-0">
-                              <input class="form-check-input" type="checkbox" id="switchNotification" checked />
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="d-flex mt-4">
-                        <button
-                          class="btn btn-primary"
-                          data-bs-toggle="sidebar"
-                          data-overlay
-                          data-target="#app-chat-sidebar-left">
-                          Logout
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /Sidebar Left-->
+                  
 
                   <!-- Chat & Contacts -->
                   <div
@@ -413,22 +311,7 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                             <small class="text-muted mb-auto">2023-12-22</small>
                           </a>
                         </li>
-                        <!-- 바쁨 상태일 때(안 쓸 예정) 
-                        <li class="chat-contact-list-item">
-                          <a class="d-flex align-items-center">
-                            <div class="flex-shrink-0 avatar avatar-busy">
-                              <span class="avatar-initial rounded-circle bg-label-success">CM</span>
-                            </div>
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Calvin Moore</h6>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                If it takes long you can mail inbox user
-                              </p>
-                            </div>
-                            <small class="text-muted mb-auto">1 Day</small>
-                          </a>
-                        </li>
-                        -->
+                        
                         
                         
                       </ul>
@@ -518,6 +401,18 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
                 </div>
               </div>
             </div>
+            <!--  챗GPT가 알려준 코드
+                <div id="content"></div>
+    <form id="messageForm">
+        <input type="text" id="message" placeholder="Type your message..." />
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/js/app.js"></script>
+     -->
             <!-- / Content -->
 
             
@@ -560,4 +455,49 @@ Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw 
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
   </body>
+  <script>
+  
+ /* 챗GPT 가 알려준 코드 */ 
+/*   var stompClient = null;
+
+  function connect() {
+      var socket = new SockJS('/chat');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+          console.log('Connected: ' + frame);
+          stompClient.subscribe('/topic/public', function (message) {
+              showMessage(JSON.parse(message.body));
+          });
+      });
+  }
+
+  function disconnect() {
+      if (stompClient !== null) {
+          stompClient.disconnect();
+      }
+      console.log("Disconnected");
+  }
+
+  function sendMessage() {
+      var messageContent = $('#message').val();
+      var messageSender = $('#sender').val();
+      stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({ content: messageContent, sender: messageSender }));
+  }
+
+  function showMessage(message) {
+      $('#content').append('<p>' + message.sender + ': ' + message.content + '</p>');
+  }
+
+  $(function () {
+      connect();
+      $('form').submit(function (e) {
+          e.preventDefault();
+      });
+      $('#send').click(function () {
+          sendMessage();
+          $('#message').val('');
+      });
+  });
+   */
+  </script>
 </html>

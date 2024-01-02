@@ -1,3 +1,4 @@
+/*
 package com.behit.config;
 
 import java.util.ArrayList;
@@ -31,3 +32,4 @@ public class InterCeptorConfig implements WebMvcConfigurer{
 	}
 
 }
+*/

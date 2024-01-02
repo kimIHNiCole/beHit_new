@@ -4,5 +4,39 @@
 >
 
 <mapper namespace="com.behit.profile.dao.ProfileDAO">
-
+	<select id="prodetail" resultType="employee">
+		SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobile_phone, e.hiredate, e.leavedate, e.address, e.detail_addr,
+					d.emp_dept_name AS 'dept_name',
+				    cc_position.common_code_name AS 'position_name',
+				    cc_grade.common_code_name AS 'grade_name',
+				    e.emp_dept_idx, e.emp_position_idx, e.emp_grade_idx
+				FROM 
+    				employee e
+			    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+			    JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
+			    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+		WHERE e.emp_id = #{login_id};
+	</select>
+	
+	<select id="passChange" parameterType="String">
+		UPDATE employee
+			SET password = #{hash}
+		WHERE emp_id = #{login_id};
+	</select>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		SELECT password FROM employee WHERE emp_id = #{login_id}
+	</select>
+	
+	<insert id="writePhoto" parameterType="String">
+		INSERT INTO file(file_kind, file_kind_idx, ori_file_name, new_file_name, emp_id)
+			VALUES(3, 1, #{oriFileName}, #{newFileName}, #{login_id});	
+	</insert>
+	
+	<select id="getPhoto" resultType="com.behit.profile.dto.FileDTO">
+		SELECT * FROM file 
+			WHERE emp_id = #{login_id} AND file_kind = 3 
+			ORDER BY file_idx DESC
+			LIMIT 1;
+	</select>
 </mapper>

@@ -123,7 +123,7 @@
     	--bs-modal-width: 24.625rem;
     }
     
-    .bx.bxs-file-blank{
+    .modal .bx.bxs-file-blank{
     	color:#C20000;
     }
     
@@ -470,7 +470,7 @@
                 <!-- /Navigation -->
 
 								<!-- modal -->
-								<!-- Add New Credit Card Modal -->
+								<!-- 새 결제 작성 모달 -->
               <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
                   <div class="modal-content p-3 p-md-5">
@@ -505,7 +505,7 @@
                   </div>
                 </div>
               </div>
-              <!--/ Add New Credit Card Modal -->
+              <!--/ 새 결제 작성 모달 -->
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
@@ -622,13 +622,10 @@
     <script>
     
     
-    
+    // 데이터 리스트
     $(function () {
     	  var dt_multilingual_table1 = $('.dt-multilingual1'),
     	  dt_multilingual_table2 = $('.dt-multilingual2');
-
-    	  // Multilingual DataTable
-    	  // --------------------------------------------------------------------
     	  
     	  var lang = 'English';
     	  if (dt_multilingual_table1.length) {
@@ -805,7 +802,7 @@
     	});
     
     
-    // 새 결재 작성 모달창
+ // 새 결재 작성 모달창
     $(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
     	    checkboxTree = $('#jstree-checkbox');
@@ -849,7 +846,7 @@
     	          },
     	        ]
     	      },
-    	      plugins: ['types','checkbox', 'wholerow'],
+    	      plugins: ['types','wholerow'],
     	      types: {
     	        default: {
     	          icon: 'bx bx-folder'
@@ -868,17 +865,16 @@
     	        // id 값에 따라 페이지 이동
     	        $('.apv-doc-select').on('click',function(){
     	        			if(selectedNodeId == 'j1_2'){
-    	        					location.href="approval_write.go";
+    	        					location.href="approval_write.go/vac";
     	        			}else if(selectedNodeId == 'j1_3'){
-    	        				location.href="approval_write.go";
+    	        				location.href="approval_write.go/vac_after";
     	        			}else if(selectedNodeId == 'j1_5'){
-    	        				location.href="approval_write.go";
+    	        				location.href="approval_write.go/biz";
     	        			}
     	        });
     	        
     	      });
     	  }
-
     	});
     
     </script>

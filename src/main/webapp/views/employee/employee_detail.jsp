@@ -45,6 +45,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
@@ -352,15 +353,13 @@ img.rounded-top{
                         <div
                           class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                           <div class="user-profile-info">
-                            <h4>관리자</h4>
+                            <h4>${empdetail.emp_name}</h4>
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-                              <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : admin0</li>
+                              <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : ${empdetail.emp_id}</li>
                             </ul>
                           </div>
-                          <a href="javascript:void(0)" class="btn btn-primary text-nowrap">
-                            <i class="bx bx-user-check me-1"></i>로그인 제한 해제
-                          </a>
+                          	<button type="button" class="btn btn-primary me-sm-3 me-1" onclick="chkClear()">로그인 제한 해제</button>
                         </div>
                       </div>
                     </div>
@@ -368,31 +367,6 @@ img.rounded-top{
                 </div>
               </div>
               <!--/ Header -->
-
-              <!-- Navbar pills -->
-<!--               <div class="row">
-                <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Profile</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-teams.go"><i class="bx bx-group me-1"></i> Teams</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-projects.go"
-                        ><i class="bx bx-grid-alt me-1"></i> Projects</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-profile-connections.go"
-                        ><i class="bx bx-link-alt me-1"></i> Connections</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div> -->
-              <!--/ Navbar pills -->
               <!-- User Profile Content -->
                <!-- Form with Tabs -->
               <div class="row">
@@ -432,39 +406,36 @@ img.rounded-top{
                     </ul>
                     <div class="tab-content">
                       <div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
-                        <form>
+                      <form>                 
                           <div class="row g-3">
+                          	<input type="hidden" name="emp_id" value="${empdetail.emp_id}">
                             <div class="col-md-6">
                               <label class="form-label" for="formtabs-first-name">이름</label>
-                              <input type="text" id="formtabs-first-name" class="form-control" placeholder="관리자" />
+                              <input type="text" id="emp_name" name="emp_name" class="form-control" value="${empdetail.emp_name}" />
                             </div>
                             <div class="col-md-6">
-                              <label class="form-label" for="emp_id">임시 비밀번호</label>
-                              <input type="text" id="emp_id" class="form-control" />
+                              <label class="form-label" for="password">임시 비밀번호</label>
+                              <input type="text" id="password" name="password" class="form-control" value=""/>
                             </div>
                            <div class="col-md-6">
-                              <label class="form-label" for="password">사내 전화번호</label>
-                              <input type="text" id="password" class="form-control" placeholder="02-000-0000" />
+                              <label class="form-label" for="cp_phone">사내 전화번호</label>
+                              <input type="text" id="cp_phone" name="cp_phone" class="form-control" value="${empdetail.cp_phone}" />
                             </div>
                            <div class="col-md-6">
-                              <label class="form-label" for="formtabs-last-name">휴대폰 번호</label>
-                              <input type="text" id="formtabs-last-name" class="form-control" placeholder="010-0000-0000" />
+                              <label class="form-label" for="mobile_phone">휴대폰 번호</label>
+                              <input type="text" id="mobile_phone" name="mobile_phone" class="form-control" value="${empdetail.mobile_phone}" />
                             </div>
-                            <div class="col-md-6">
-                              <label class="form-label" for="formtabs-birthdate">생년 월일</label>
-                              <input
-                                type="text"
-                                id="emp_birth"
-                                class="form-control dob-picker"
-                                placeholder="YYYY-MM-DD" />
-                            </div>
+	                       	<div class="col-md-6 col-12 mb-4">
+	                          	<label for="flatpickr-date" class="form-label">생년 월일</label>
+	                         	<input type="text" class="form-control" id="emp_birth" name="emp_birth" value="${empdetail.emp_birth}" />
+	                       	</div>
                             <div class="col-md-6">
                               <label class="form-label" for="email">이메일</label>
-                              <input type="text" id="email" class="form-control" placeholder="admin@example.com"/>
+                              <input type="text" id="email" name="email" class="form-control" value="${empdetail.email}"/>
                             </div>
                           <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                            <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                            <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="bsubmit()">수정 등록</button>
+                            <button type="reset" class="btn btn-label-secondary">취소</button>
                           </div>
                          </div>
 						<!-- Activity Timeline -->
@@ -477,30 +448,22 @@ img.rounded-top{
 		                    <div class="card-body">
 		                      <!-- Activity Timeline -->
 		                      <ul class="timeline">
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-primary"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">이메일 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">solluna9@example.com -> admin@example.com</p>
-		                          </div>
-		                        </li>
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-warning"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">이름 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">아무개 -> 홍길동</p>
-		                          </div>
-		                        </li>
+		                      	<c:forEach var="HisList" items="${HisList}">
+			                      	<c:if test="${HisList.category eq '기본 정보'}">
+				                        <li class="timeline-item timeline-item-transparent">
+				                          <span class="timeline-point-wrapper">
+				                          	<span class="timeline-point timeline-point-primary"></span>
+				                          </span>
+				                          <div class="timeline-event">
+				                            <div class="timeline-header mb-1">
+				                              <h6 class="mb-0">${HisList.psn_his_kind}</h6>
+				                              <small class="text-muted">${HisList.psn_his_date}</small>
+				                            </div>
+				                            <p class="mb-2">${HisList.psn_his_befoInfo} -> ${HisList.psn_his_aftrInfo}</p>
+				                          </div>
+				                        </li>
+			                      	</c:if>
+		                      	</c:forEach>
 		                        <li class="timeline-end-indicator">
 		                          <i class="bx bx-check-circle"></i>
 		                        </li>
@@ -509,31 +472,32 @@ img.rounded-top{
 		                    </div>
 		                  </div>
 		                </div>
+		                </form>
 	                <!--/ Activity Timeline -->
-                        </form>
                       </div>
                       <div class="tab-pane fade" id="form-tabs-account" role="tabpanel">
                         <form>
                           <div class="row g-3">
+                          	<input type="hidden" name="emp_id" value="${empdetail.emp_id}">
                             <div class="col-md-6">
                               <label class="form-label" for="address">주소</label>
-                              <input type="text" id="address" class="form-control" placeholder="서울특별시 금천구 가신디지털단지2로 11-1" />
+                              <input type="text" id="address" name="address" class="form-control" value="${empdetail.address}" />
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="detail-addr">상세 주소</label>
-                              <input type="text" id="detail-addr" class="form-control" placeholder="OO아파트 1111동 111호" />
+                              <input type="text" id="detail-addr" name="detail_addr" class="form-control" value="${empdetail.detail_addr}" />
                             </div>
                             <div class="mb-3 col-md-6">
 	                            <label for="hiredate" class="form-label">입사일</label>
-	 							<input type="date" class="form-control" id="hiredate" name="hiredate" value="2000-01-01">
+	 							<input type="date" class="form-control" id="hiredate" name="hiredate" value="${empdetail.hiredate}">
 	                        </div>
 	                        <div class="mb-3 col-md-6">
 	                            <label for="leavedate" class="form-label">퇴사일</label>
-	 							<input type="date" class="form-control" id="leavedate" name="leavedate">
+	 							<input type="date" class="form-control" id="leavedate" name="leavedate" value="${empdetail.leavedate}">
 	                         </div>
                           </div>
                           <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">수정 등록</button>
+                            <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="dsubmit()">수정 등록</button>
                             <button type="reset" class="btn btn-label-secondary">취소</button>
                           </div>
                           <!-- Activity Timeline -->
@@ -546,30 +510,22 @@ img.rounded-top{
 		                    <div class="card-body">
 		                      <!-- Activity Timeline -->
 		                      <ul class="timeline">
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-primary"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">상세주소 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">OO아파트 1111동 001호 -> OO아파트 1111동 111호</p>
-		                          </div>
-		                        </li>
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-warning"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">입사일 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">2001-01-01 -> 2000-01-01</p>
-		                          </div>
-		                        </li>
+		                      <c:forEach var="HisList" items="${HisList}">
+		                      	<c:if test="${HisList.category eq '상세 정보'}">
+			                        <li class="timeline-item timeline-item-transparent">
+			                          <span class="timeline-point-wrapper">
+			                          	<span class="timeline-point timeline-point-primary"></span>
+			                          </span>
+			                          <div class="timeline-event">
+			                            <div class="timeline-header mb-1">
+			                              <h6 class="mb-0">${HisList.psn_his_kind}</h6>
+			                              <small class="text-muted">${HisList.psn_his_date}</small>
+			                            </div>
+			                            <p class="mb-2">${HisList.psn_his_befoInfo} -> ${HisList.psn_his_aftrInfo}</p>
+			                          </div>
+			                        </li>
+		                      	</c:if>
+		                      </c:forEach>
 		                        <li class="timeline-end-indicator">
 		                          <i class="bx bx-check-circle"></i>
 		                        </li>
@@ -584,43 +540,34 @@ img.rounded-top{
                       <div class="tab-pane fade" id="form-tabs-social" role="tabpanel">
                         <form>
                           <div class="row g-3">
+                          <input type="hidden" name="emp_id" placeholder="${empdetail.emp_id}">
                           <div class="mb-3 col-md-6">
                             <label for="department" class="form-label">부서</label>
-                            <select id="department" class="select2 form-select">
-                              <option value="">인사</option>
-                              <option value="finance">재무</option>
-                              <option value="personnel">인사</option>
-                              <option value="management">매니지먼트 / 기획</option>
-                              <option value="business">사업 기획</option>
-                              <option value="marketing">마케팅</option>
+                            <select id="department" name="department" class="select2 form-select">
+                            	<c:forEach var="deptList" items="${deptList}">
+                            		<option value="${deptList.emp_dept_idx}">${deptList.dept_name}</option>
+                            	</c:forEach>
                             </select>
                           </div> 
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="position">직급</label>
-                            <select id="position" class="select2 form-select">
-                              <option value="">이사</option>
-                              <option value="staff">사원</option>
-                              <option value="associate">주임</option>
-                              <option value="As_manager">대리</option>
-                              <option value="manager">과장</option>
-                              <option value="sn_manager">차장</option>
-                              <option value="gn_manager">부장</option>
-                              <option value="director">이사</option>
+                            <label for="job" class="form-label">직책</label>
+                            <select id="position" name="position" class="select2 form-select">
+                            	<c:forEach var="positionList" items="${positionList}">
+                            		<option value="${positionList.common_code_idx}">${positionList.position_name}</option>
+                            	</c:forEach>
                             </select>
                           </div>
-                           <div class="mb-3 col-md-6">
-                            <label for="job" class="form-label">직책</label>
-                            <select id="job" class="select2 form-select">
-                              <option value="">본부장</option>
-                              <option value="member">팀원</option>
-                              <option value="leader">팀장</option>
-                              <option value="dm_manager">실장</option>
-                              <option value="hq_manager">본부장</option>
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="position">직급</label>
+                            <select id="grade" name="grade" class="select2 form-select">
+                            	<c:forEach var="gradeList" items="${gradeList}">
+                            		<option value="${gradeList.common_code_idx}">${gradeList.grade_name}</option>
+                            	</c:forEach>
                             </select>
                           </div>
                           </div>
                           <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">수정 등록</button>
+                            <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="psubmit()">수정 등록</button>
                             <button type="reset" class="btn btn-label-secondary">취소</button>
                           </div>
                           <!-- Activity Timeline -->
@@ -633,30 +580,22 @@ img.rounded-top{
 		                    <div class="card-body">
 		                      <!-- Activity Timeline -->
 		                      <ul class="timeline">
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-primary"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">직책 정보 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">실장 -> 본부장</p>
-		                          </div>
-		                        </li>
-		                        <li class="timeline-item timeline-item-transparent">
-		                          <span class="timeline-point-wrapper"
-		                            ><span class="timeline-point timeline-point-warning"></span
-		                          ></span>
-		                          <div class="timeline-event">
-		                            <div class="timeline-header mb-1">
-		                              <h6 class="mb-0">직급 수정</h6>
-		                              <small class="text-muted">2010-01-01 12:30</small>
-		                            </div>
-		                            <p class="mb-2">부장 -> 이사</p>
-		                          </div>
-		                        </li>
+		                      <c:forEach var="HisList" items="${HisList}">
+			                      <c:if test="${HisList.category eq '부서 정보'}">
+			                        <li class="timeline-item timeline-item-transparent">
+			                          <span class="timeline-point-wrapper">
+			                          	<span class="timeline-point timeline-point-primary"></span>
+			                          </span>
+			                          <div class="timeline-event">
+			                            <div class="timeline-header mb-1">
+			                              <h6 class="mb-0">${HisList.psn_his_kind}</h6>
+			                              <small class="text-muted">${HisList.psn_his_date}</small>
+			                            </div>
+			                            <p class="mb-2">${HisList.psn_his_befoInfo} -> ${HisList.psn_his_aftrInfo}</p>
+			                          </div>
+			                        </li>
+			                      </c:if>
+		                      </c:forEach>
 		                        <li class="timeline-end-indicator">
 		                          <i class="bx bx-check-circle"></i>
 		                        </li>
@@ -673,11 +612,6 @@ img.rounded-top{
                 </div>      
               </div>
               <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
-              <div class="tab-content">
-              	<div class="tab-pane fade active show" id="form-tabs-personal" role="tabpanel">
-              		
-	              	</div> 	
-	              </div>
 	       		</div>
             </div>
             <!-- / Content -->
@@ -746,6 +680,221 @@ img.rounded-top{
 
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script>
+		// 생일 선택
+	    var flatpickrDate = document.querySelector("#emp_birth");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+	    
+	    // 입사일 선택
+	   	var flatpickrDate = document.querySelector("#hiredate");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+	    
+	    // 퇴사일 선택
+	    var flatpickrDate = document.querySelector("#leavedate");
+		
+	    flatpickrDate.flatpickr({
+	      monthSelectorType: "static"
+	    });
+    
+    
+    
+    	var emp_id = '${empdetail.emp_id}';
+    	var defaultname = '${empdetail.emp_name}';
+    	var defaultpass = '${empdetail.password}';
+    	var defaultphone = '${empdetail.cp_phone}';
+    	var defaultmobile = '${empdetail.mobile_phone}';
+    	var defaultbirth = '${empdetail.emp_birth}';
+    	var defaultemail = '${empdetail.email}';
+    	var defaultaddr = '${empdetail.address}';
+    	var defaultdaddr = '${empdetail.detail_addr}';
+    	var defaulthiredate = '${empdetail.hiredate}';
+    	var defaultleavedate = '${empdetail.leavedate}';
+    	var defaultdept = '${empdetail.dept_name}';
+    	var defaultposition = '${empdetail.position_name}';
+    	var defaultgrade = '${empdetail.grade_name}';
+    	console.log(emp_id);
+    	
+    	function bsubmit(){
+    		
+    		var emp_name = $('input[name="emp_name"]').val();
+    		var password = $('input[name="password"]').val();
+    		var cp_phone = $('input[name="cp_phone"]').val();
+    		var mobile_phone = $('input[name="mobile_phone"]').val();
+    		var emp_birth = $('input[name="emp_birth"]').val();
+    		var email = $('input[name="email"]').val();
+    		
+    		var param = {};
+    		
+    		if (emp_name != '${empdetail.emp_name}') {
+    			param.emp_name = emp_name;
+    			param.defaultname = defaultname;
+    		}
+			if (password != '') {
+				param.password = password;
+				param.defaultpass = defaultpass;
+			}
+			if (cp_phone !== '${empdetail.cp_phone}') {
+				param.cp_phone = cp_phone;
+				param.defaultphone = defaultphone;
+			}
+			if (mobile_phone !== '${empdetail.mobile_phone}') {
+				param.mobile_phone = mobile_phone;
+				param.defaultmobile = defaultmobile;
+			}				
+			if (emp_birth !== '${empdetail.emp_birth}') {
+				param.emp_birth = emp_birth;
+				param.defaultbirth = defaultbirth;
+			}
+			if (email !== '${empdetail.email}') {
+				param.email = email;
+				param.defaultemail = defaultemail;
+			}
+			if (!$.isEmptyObject(param)){
+				
+				param.emp_id= emp_id;
+				
+	    		$.ajax({
+	    			type: "POST",
+	    			url: "bempupdate.do",
+	    			data: param,
+	    			success: function(data){
+	    				console.log(data);
+	    				alert('수정되었습니다.');
+	    				location.reload();
+	    			},
+	    			error: function(e){
+	    				console.log(e)
+	    			}
+	    		});
+			} else{
+				alert('내용을 수정해 주세요');
+			}		
+    	}
+    	
+    	function dsubmit(){
+    		
+    		var address = $('input[name="address"]').val();
+    		var detail_addr = $('input[name="detail_addr"]').val();
+    		var hiredate = $('input[name="hiredate"]').val();
+    		var leavedate = $('input[name="leavedate"]').val();
+    		
+    		var param = {};
+    		
+    		if (address !== '${empdetail.address}') {
+    			param.address = address;
+    			param.defaultaddr = defaultaddr;
+    		}
+			if (detail_addr !== '${empdetail.detail_addr}') {
+				param.detail_addr = detail_addr;
+				param.defaultdaddr = defaultdaddr;
+			}
+			if (hiredate !== '${empdetail.hiredate}') {
+				param.hiredate = hiredate;
+				param.defaulthiredate = defaulthiredate;
+			}
+			if (leavedate !== '${empdetail.leavedate}') {
+				param.leavedate = leavedate;
+				param.defaultleavedate = defaultleavedate;
+			}
+			
+			console.log(param);
+			
+			if (!$.isEmptyObject(param)){
+				
+				param.emp_id= emp_id;
+				
+	    		$.ajax({
+	    			type: "POST",
+	    			url: "dempupdate.do",
+	    			data: param,
+	    			success: function(data){
+	    				console.log(data);
+	    				alert('수정되었습니다.');
+	    				location.reload();
+	    			},
+	    			error: function(e){
+	    				console.log(e)
+	    			}
+	    		});
+			} else{
+				alert('내용을 수정해 주세요');
+			}		
+    	}
+    	
+    	function psubmit(){
+    		
+    		var emp_dept_idx = $('select[name="department"]').val();
+    		var emp_position_idx = $('select[name="position"]').val();
+    		var emp_grade_idx = $('select[name="grade"]').val();
+    		
+    		var param = {};
+    		
+    		if (emp_dept_idx !== '${empdetail.emp_dept_idx}') {
+    			param.emp_dept_idx = emp_dept_idx;
+    			param.dept_name = $('select[name="department"] option:selected').text();
+    			param.defaultdeptname= defaultdept;
+    		}
+			if (emp_position_idx !== '${empdetail.emp_position_idx}') {
+				param.emp_position_idx = emp_position_idx;
+				param.position_name = $('select[name="position"] option:selected').text();
+				param.defaultpositionname= defaultposition;
+			}
+			if (emp_grade_idx !== '${empdetail.emp_grade_idx}') {
+				param.emp_grade_idx = emp_grade_idx;
+				param.grade_name = $('select[name="grade"] option:selected').text();
+				param.defaultgradename = defaultgrade;
+			}
+			
+			console.log(param);
+			
+			if (!$.isEmptyObject(param)){
+				
+				param.emp_id= emp_id;
+				
+	    		$.ajax({
+	    			type: "POST",
+	    			url: "pempupdate.do",
+	    			data: param,
+	    			success: function(data){
+	    				console.log(data);
+	    				alert('수정되었습니다.');
+	    				location.reload();
+	    			},
+	    			error: function(e){
+	    				console.log(e)
+	    			}
+	    		});
+			} else{
+				alert('내용을 수정해 주세요');
+			}		
+    	}
+    	
+    	function chkClear(){
+    		
+    		$.ajax({
+    			type: "GET",
+    			url: "chkClear.do",
+    			data: {"emp_id":emp_id},
+    			success: function(data){
+    				console.log(data);
+    				alert('로그인 제한이 해제되었습니다.');
+    				location.reload();
+    			},
+    			error: function(e){
+    				console.log(e)
+    			}
+    		});
+    		
+    	}
+    
+    </script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>

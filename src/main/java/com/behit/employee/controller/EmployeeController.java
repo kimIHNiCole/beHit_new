@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +52,7 @@ public class EmployeeController {
 		logger.info("params: " + params.get("mobile_phone"));
 
 		String hash = encoder.encode((CharSequence) params.get("password"));
-		params.put("password", hash);
+		params.put("password", hash);	
 		logger.info("encoded password : " + params.get("password"));
 		employeeService.join(params);
 
@@ -59,33 +60,100 @@ public class EmployeeController {
 
 		return mav;
 	}
-	
-	@GetMapping(value = "/emplist.go") 
-	public String emplistgo() { 
-		  
-		return"employee/employee_list"; 
-		  
+
+	@GetMapping(value = "/emplist.go")
+	public String emplistgo() {
+
+		return "employee/employee_list";
+
 	}
-	  
-	
+
 	@GetMapping(value = "/employee/emplist.do")
-	@ResponseBody 
-	public HashMap<String, Object> emplist(@RequestParam String page) {
-	  
-		return employeeService.list(page); 
+	@ResponseBody
+	public HashMap<String, Object> emplist(@RequestParam String page, HttpSession session) {
+		
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		logger.info("로그인 아이디 : "+login_id);
+
+		return employeeService.list(page);
 	}
+
+
+	 @GetMapping(value = "/employee/empdetail") 
+	 public ModelAndView empdetail(@RequestParam String emp_id, Model model) {
+		 
+		 return employeeService.detail(emp_id);
+	 }
 	 
-	/*
-	 * @GetMapping(value = "/empdetail.go") public String empdetailgo(@RequestParam
-	 * String emp_id, HttpSession session) {
-	 * 
-	 * String result = new String();
-	 * 
-	 * logger.info("emp_id : "+emp_id);
-	 * 
-	 * session.setAttribute("emp_id", emp_id);
-	 * 
-	 * return result; }
-	 */
+	 // 기본정보 수정
+	 @PostMapping(value="/employee/bempupdate.do")
+	 public ModelAndView empupdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+
+		 
+		 logger.info("params : "+params);
+		 
+		 EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		 String login_id = loginInfo.getEmp_id();
+		 logger.info("로그인 아이디 : "+login_id);
+		 
+		 params.put("login_id", login_id);
+		 
+		 if (params.get("password") != null) {
+			 
+			 String hash = encoder.encode((CharSequence) params.get("password"));
+			 params.put("password", hash);	
+		 }
+		 
+		 return employeeService.bupdate(params);
+	 }
+	 
+	 // 상세정보 수정
+	 @PostMapping(value="/employee/dempupdate.do")
+	 public ModelAndView dempupdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+
+		 
+		 logger.info("params : "+params);
+		 
+		 EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		 String login_id = loginInfo.getEmp_id();
+		 logger.info("로그인 아이디 : "+login_id);
+		 
+		 params.put("login_id", login_id);
+		 
+		 return employeeService.dupdate(params);
+	 }
+	 
+	 // 부서정보 수정
+	 @PostMapping(value="/employee/pempupdate.do")
+	 public ModelAndView pempupdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+
+		 
+		 logger.info("params : "+params);
+		 
+		 EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		 String login_id = loginInfo.getEmp_id();
+		 logger.info("로그인 아이디 : "+login_id);
+		 
+		 params.put("login_id", login_id);
+		 
+		 return employeeService.pupdate(params);
+	 }
+	 
+	 @GetMapping(value="/employee/chkClear.do")
+	 public ModelAndView chkClear(@RequestParam String emp_id) {
+		 
+		 ModelAndView mav = new ModelAndView();
+		 
+		 logger.info("emp_id : "+ emp_id);	 
+		 
+		 employeeService.chkClear(emp_id);
+		 
+		 mav.setViewName("employee/employee_list");
+		 
+		 return mav;
+	 }
+	 
+	 
 
 }

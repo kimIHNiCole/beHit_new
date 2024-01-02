@@ -19,4 +19,28 @@ public interface EmployeeDAO {
 
 	EmployeeDTO detail(String emp_id);
 
+	ArrayList<EmployeeDTO> HisList(String emp_id);
+	
+	void bupdate(HashMap<String, Object> params);
+
+	void dupdate(HashMap<String, Object> params);
+	
+	ArrayList<EmployeeDTO> deptList(String dept_name);
+
+	ArrayList<EmployeeDTO> positionList(String position_name);
+
+	ArrayList<EmployeeDTO> gradeList(String grade_name);
+
+	void pupdate(HashMap<String, Object> params);
+
+	void bupdateHistory(HashMap<String, Object> params);
+
+	void dupdateHistory(HashMap<String, Object> params);
+
+	void pupdateHistory(HashMap<String, Object> params);
+
+	void chkClear(String emp_id);
+
+
+
 }

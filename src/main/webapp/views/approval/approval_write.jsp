@@ -58,6 +58,8 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
+    
     
     
 		<!-- Row Group CSS -->
@@ -146,6 +148,12 @@
     	margin-top:1rem;
    		font-family:pretendard;
     	margin-bottom:0.625rem;
+    }
+    
+    .text{
+    	font-family:pretendard;
+    	font-weight:600;
+    	font-size:1rem;
     }
     
     
@@ -302,9 +310,19 @@
 	    height: 282px;
     }
     
-    .table-content-right .form-control{
+    .table-content-right.time .vac-time-input{
+    	display:flex;
+    }
+    
+    .table-content-right .form-vac-time-start,
+    .table-content-right .form-vac-time-end{
     	display: inline-block;
-    	width: 30%;
+    	width: 40%;
+    }
+    
+    .table-content-right.time .vac-time{
+    	display: inline-block;
+    	width: 20%;
     }
     
     .table-upload{
@@ -343,6 +361,23 @@
     	font-family:pretendard;
     }
     
+    /*modal*/
+    .modal{
+    	--bs-modal-width: 24.625rem;
+    }
+    
+    .modal .bx.bxs-file-blank{
+    	color:#C20000;
+    }
+    
+    .card.apv-modal-folder{
+    	min-width: 15.625rem;
+    }
+    
+    #the-canvas {
+			  border: 1px solid black;
+			  direction: ltr;
+			}
     
     
 
@@ -383,7 +418,7 @@
             </li>
             
             <li class="menu-item active">
-              <a href="../approval/approval_main.go" class="menu-link">
+              <a href="../../approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
               </a>
@@ -634,7 +669,7 @@
                     	</li>
                     	
                     	<li class="nav-item mb-1">
-                    		<button type="button" class="btn btn-secondary">새 결재 작성</button>
+                    		<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#apv-modal">새 결재 작성</button>
                     	</li>
                     
                     	<li class="nav-item mb-1">
@@ -691,13 +726,15 @@
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
-                	<h4 class="apv-home">휴가 신청서 작성</h4>
+                	<h4 class="apv-home">결재 작성</h4>
                 	<div class="apv-form-menu">
                 		<span class="text-truncate">
                 			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bx-plus'></i> 결재선 추가</button>
                 		</span>
                 		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-file-blank'></i> 미리보기</button>
+                			<button type="button" id="confirm-text" class="apv-form-menu-cnt approval-preview">
+                			<i class='bx bxs-file-blank'></i> 미리보기
+                			</button>
                 		</span>
                 		<span class="text-truncate">
                 			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
@@ -709,134 +746,20 @@
         
 				              <div class="card">
 				              	<div class="apv-form-vac">
-					              	<form>
-					              		<table class="table-header">
-					              			<tbody>
-					              				<tr>
-					              					<td class="table-subject" colspan="2">연차신청서</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-header-left">
-					              						<table class="table-header-left-table">
-					              							<tbody>
-					              								<tr>
-					              									<td class="table-header-left-table-left">기안자</td>
-					              									<td class="table-header-left-table-right">김민지</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">부서</td>
-					              									<td class="table-header-left-table-right">인사팀</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">기안일</td>
-					              									<td class="table-header-left-table-right">2023-12-22</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">문서번호</td>
-					              									<td class="table-header-left-table-right"></td>
-					              								</tr>
-					              							</tbody>
-					              						</table>
-					              					</td>
-					              					<td class="table-header-right">
-					              						<div class="apv-sign">
-					              							<table class="apv-sign-table">
-					              								<tbody>
-					              									<tr>
-					              										<th>승인</th>
-					              										
-					              										<!-- 결재선 추가 -->
-					              										<td class="apv-sign-table-right">
-					              											<table>
-					              												<tbody>
-					              												
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-dept">대리</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-name">이유빈</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr class="last">
-					              														<td>
-					              															<span class="apv-sign-line-date">2023-12-12</span>
-					              														</td>
-					              													</tr>
-					              													
-					              												</tbody>
-					              											</table>
-					              										</td>
-					              										
-					              									</tr>
-					              								</tbody>
-					              							</table>
-					              						</div>
-					              					</td>
-					              				</tr>
-					              			</tbody>
-					              		</table>
-					              		<table class="table-content">
-					              			<tbody>
-					              				<tr>
-					              					<td class="table-content-left">연차 종류</td>
-					              					<td class="table-content-right">
-					              						<select id="selectpickerBasic" class="selectpicker w-20" data-style="btn-default">
-					                            <option>종일</option>
-					                            <option>시간</option>
-					                          </select>
-					              					</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-content-left">연차 기간</td>
-					              					<td class="table-content-right">
-					              						<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
-					              						<span>~</span>
-					              						<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
-					              						<span class="vac-time">시간</span>
-					              					</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-content-left">연차 사유</td>
-					              					<td class="table-content-right reason">
-						              					<div>
-								                      <div id="snow-toolbar">
-								                        <span class="ql-formats">
-								                          <select class="ql-font"></select>
-								                          <select class="ql-size"></select>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-bold"></button>
-								                          <button class="ql-italic"></button>
-								                          <button class="ql-underline"></button>
-								                          <button class="ql-strike"></button>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <select class="ql-color"></select>
-								                          <select class="ql-background"></select>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-script" value="sub"></button>
-								                          <button class="ql-script" value="super"></button>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-header" value="1"></button>
-								                          <button class="ql-header" value="2"></button>
-								                          <button class="ql-blockquote"></button>
-								                          <button class="ql-code-block"></button>
-								                        </span>
-								                      </div>
-								                      <div id="snow-editor">
-								                      </div>
-	                    							</div>
-					              					</td>
-					              				</tr>
-					              			</tbody>
-					              		</table>
+					              	<form action="approval_write.do" method="post" enctype="multipart/form-data">
+					              	
+					              		<c:choose>
+													    <c:when test="${form == 'vac'}">
+													        <jsp:include page="apv_form_vac.jsp" />
+													    </c:when>
+													    <c:when test="${form == 'biz'}">
+													        <jsp:include page="apv_form_biz.jsp" />
+													    </c:when>
+													    <c:when test="${form == 'vac_after'}">
+													        <jsp:include page="apv_form_vac.jsp" />
+													    </c:when>
+													</c:choose>
+					              		
 					              		
 					              		<table class="table-upload">
 					              			<tbody>
@@ -851,7 +774,7 @@
 					              		
 					              	</form>
 				                </div>
-				                
+
 				                <div class="pt-4 apv-form-button">
 			                    <button type="reset" class="btn btn-label-secondary">취소</button>
 			                    <button type="submit" class="btn btn-primary">상신</button>
@@ -867,6 +790,46 @@
               </div>
             </div>
             <!-- / Content -->
+            
+            
+            <!-- modal -->
+								<!-- 새 결제 작성 모달 -->
+              <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-start mb-4">
+                        <h3>결재 양식</h3>
+                      </div>
+                      
+                      <div>
+                      	<div class="col-md-6 col-12">
+													<div class="card mb-md-0 mb-4 apv-modal-folder">
+														<h5 class="card-header">문서양식</h5>
+														<div class="card-body">
+															<div id="jstree-checkbox"></div>
+														</div>
+													</div>
+												</div>
+                      </div>
+
+                      <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">선택</button>
+                        <button
+                          type="reset"
+                          class="btn btn-label-secondary btn-reset mt-3"
+                          data-bs-dismiss="modal"
+                          aria-label="Close">
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ 새 결제 작성 모달 -->
+            
             
             
             
@@ -912,6 +875,8 @@
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
+
     
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
@@ -932,40 +897,104 @@
     <!-- custom JS -->
     <script>
     
+    //종일, 시간 선택에 따라 연차 달라짐 구분
+    $(".form-vac-time").on("change", function() {
+        // 선택된 옵션의 텍스트 가져오기
+        var selectedOption = $(this).find("option:selected").text();
+
+        // 선택된 옵션에 따라 원하는 작업 수행
+        if (selectedOption === "종일") {
+            // "종일"이 선택된 경우의 동작
+            console.log("종일이 선택되었습니다.");
+        } else if (selectedOption === "시간") {
+            // "시간"이 선택된 경우의 동작
+            console.log("시간이 선택되었습니다.");
+        }
+        // 추가적으로 필요한 작업을 수행할 수 있습니다.
+    });
+    
+
+    // 미리보기
+		 $('.approval-preview').on('click',function(){
+			
+		    var $name = $('.table-header-left-table .name').html(),
+		    $dept = $('.table-header-left-table .dept').html(),
+		    $date = $('.table-header-left-table .date').html(),
+		    $number = $('.table-header-left-table .number').html(),
+		    $form_vac_time = $('.form-vac-time').val(),
+		    $form_vac_time_start = $('.form-vac-time-start').val(),
+		    $form_vac_time_end = $('.form-vac-time-end').val(),
+		    $snow_editor = $('#snow-editor').html();
+
+		    var width = 1000;
+		    var height = 800;
+		    var left = (window.innerWidth - width) / 2;
+		    var top = (window.innerHeight - height) / 2;
+	
+		    // 창의 속성 설정
+		    var previewWindow = window.open('', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+		
+		    
+		 		// AJAX를 이용하여 페이지 내용 가져오기
+		    $.ajax({
+            	url: '../approval_preview.go',
+            	method: 'GET',
+		        	success: function (data){
+		        			previewWindow.document.open();
+			            previewWindow.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>미리보기</title></head><body>');
+			            previewWindow.document.write(data);
+			            previewWindow.document.write('<script>');
+			            previewWindow.document.write('$(".table-header-left-table-right.name").html("'+$name+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.dept").html("'+$dept+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.date").html("'+$date+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.number").html("'+$number+'");');
+			            previewWindow.document.write('$(".form-vac-time").html("'+$form_vac_time+'");');
+			            previewWindow.document.write('$(".form-vac-time-start").html("'+$form_vac_time_start+'");');
+			            previewWindow.document.write('$(".form-vac-time-end").html("'+$form_vac_time_end+'");');
+			            previewWindow.document.write('$("#snow-editor").html(\'' + $snow_editor.replace(/'/g, "\\'") + '\');');
+			            previewWindow.document.write('$(".ql-editor").attr("contenteditable", "false");');
+			            previewWindow.document.write('<\/script>');
+			            previewWindow.document.write('</body></html>');
+			            previewWindow.document.close();
+		          },
+		          error: function (xhr, status, error) {
+			            console.error('AJAX request failed:', status, error);
+			        }
+        		});
+    });
+
     // sweetAlert
-    
-(function () {
-  const confirmText = document.querySelector('#confirm-text');
-    
-    if (confirmText) {
-        confirmText.onclick = function () {
-          Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            customClass: {
-              confirmButton: 'btn btn-primary me-3',
-              cancelButton: 'btn btn-label-secondary'
-            },
-            buttonsStyling: false
-          }).then(function (result) {
-            if (result.value) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                customClass: {
-                  confirmButton: 'btn btn-success'
-                }
-              });
-            }
-          });
-        };
-      }
-})();
-    
+		(function () {
+		  const confirmText = document.querySelector('#confirm-text');
+		    
+		    if (confirmText) {
+		        confirmText.onclick = function () {
+		          Swal.fire({
+		            title: 'Are you sure?',
+		            text: "You won't be able to revert this!",
+		            icon: 'warning',
+		            showCancelButton: true,
+		            confirmButtonText: 'Yes, delete it!',
+		            customClass: {
+		              confirmButton: 'btn btn-primary me-3',
+		              cancelButton: 'btn btn-label-secondary'
+		            },
+		            buttonsStyling: false
+		          }).then(function (result) {
+		            if (result.value) {
+		              Swal.fire({
+		                icon: 'success',
+		                title: 'Deleted!',
+		                text: 'Your file has been deleted.',
+		                customClass: {
+		                  confirmButton: 'btn btn-success'
+		                }
+		              });
+		            }
+		          });
+		        };
+		      }
+		})();
     
     // 날짜 input
     (function () {
@@ -986,112 +1015,82 @@
       	      monthSelectorType: 'static'
       	    });
       	  }
-    	  
     })();
     
+ 		// 새 결재 작성 모달창
     $(function () {
-  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-  	  dt_multilingual_table2 = $('.dt-multilingual2');
+    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+    	    checkboxTree = $('#jstree-checkbox');
 
-  	  // Multilingual DataTable
-  	  // --------------------------------------------------------------------
-
-  	  var lang = 'English';
-  	  if (dt_multilingual_table2.length) {
-  	    var table_language = dt_multilingual_table2.DataTable({
-  	      ajax: assetsPath + 'json/table-datatable.json',
-  	      columns: [
-  	        { data: '' },
-  	        { data: 'full_name' },
-  	        { data: 'post' },
-  	        { data: 'start_date' },
-  	      	{ data: 'start_date' },
-  	        { data: 'status' },
-  	        { data: '' }
-  	      ],
-  	      columnDefs: [
-  	        {
-  	          // For Responsive
-  	          className: 'control',
-  	          orderable: false,
-  	          targets: 0,
-  	          searchable: false,
-  	          render: function (data, type, full, meta) {
-  	            return '';
-  	          }
-  	        },
-  	        {
-  	          // Label
-  	          targets: -1,
-  	          render: function (data, type, full, meta) {
-  	            var $status_number = full['status'];
-  	            var $status = {
-  	              1: { title: 'Current', class: 'bg-label-primary' },
-  	              2: { title: 'Professional', class: ' bg-label-success' },
-  	              3: { title: 'Rejected', class: ' bg-label-danger' },
-  	              4: { title: 'Resigned', class: ' bg-label-warning' },
-  	              5: { title: 'Applied', class: ' bg-label-info' }
-  	            };
-  	            if (typeof $status[$status_number] === 'undefined') {
-  	              return data;
-  	            }
-  	            return (
-  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-  	            );
-  	          }
-  	        }
-  	      ],
-  	      language: {
-  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-  	      },
-  	      //paging: false,
-  	      displayLength: 10,
-  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-  	      lengthMenu: [10],
-  	      searching: false,
-  	      responsive: {
-  	        details: {
-  	          display: $.fn.dataTable.Responsive.display.modal({
-  	            header: function (row) {
-  	              var data = row.data();
-  	              return 'Details of ' + data['full_name'];
-  	            }
-  	          }),
-  	          type: 'column',
-  	          renderer: function (api, rowIdx, columns) {
-  	            var data = $.map(columns, function (col, i) {
-  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-  	                ? '<tr data-dt-row="' +
-  	                    col.rowIndex +
-  	                    '" data-dt-column="' +
-  	                    col.columnIndex +
-  	                    '">' +
-  	                    '<td>' +
-  	                    col.title +
-  	                    ':' +
-  	                    '</td> ' +
-  	                    '<td>' +
-  	                    col.data +
-  	                    '</td>' +
-  	                    '</tr>'
-  	                : '';
-  	            }).join('');
-
-  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-  	          }
-  	        }
-  	      }
-  	    });
-  	  }
-
-  	  // Filter form control to default size
-  	  // ? setTimeout used for multilingual table initialization
-  	  setTimeout(() => {
-  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  	  }, 300);
-  	});
-    
+    	  // Checkbox
+    	  // --------------------------------------------------------------------
+    	  if (checkboxTree.length) {
+    	    checkboxTree.jstree({
+    	      core: {
+    	        themes: {
+    	          name: theme
+    	        },
+    	        data: [
+    	          {
+    	            text: '근태',
+    	            state: {
+      	              opened: true
+      	            },
+    	            children: [
+    	              {
+    	                text: '휴가 신청서',
+    	                type: 'docs'
+    	              },
+    	              {
+      	              text: '사후 휴가 신청서',
+      	              type: 'docs'
+      	            }
+    	            ]
+    	          },
+    	          {
+    	            text: '일반 ',
+    	            state: {
+    	              opened: true
+    	            },
+    	            children: [
+    	              {
+    	                text: '사업 기안서',
+    	                type: 'docs'
+    	              }
+    	            ]
+    	          },
+    	        ]
+    	      },
+    	      plugins: ['types','wholerow'],
+    	      types: {
+    	        default: {
+    	          icon: 'bx bx-folder'
+    	        },
+    	        docs: {
+    	          icon: 'bx bxs-file-blank'
+    	        }
+    	      }
+    	    }).on('select_node.jstree', function (e, data) {
+    	        // 현재 선택된 노드의 ID 확인
+    	        var selectedNodeId = data.node.id;
+    	        
+    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
+    	        $('.apv-doc-select').off('click');
+    	        
+    	        // id 값에 따라 페이지 이동
+    	        $('.apv-doc-select').on('click',function(){
+    	        			if(selectedNodeId == 'j1_2'){
+    	        					location.href="../approval_write.go/vac";
+    	        			}else if(selectedNodeId == 'j1_3'){
+    	        				location.href="../approval_write.go/vac_after";
+    	        			}else if(selectedNodeId == 'j1_5'){
+    	        				location.href="../approval_write.go/biz";
+    	        			}
+    	        });
+    	        
+    	      });
+    	  }
+    	});
     </script>
   </body>
 </html>
