@@ -2,7 +2,6 @@ package com.behit.employee.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,6 +19,8 @@ public interface EmployeeDAO {
 
 	EmployeeDTO detail(String emp_id);
 
+	ArrayList<EmployeeDTO> HisList(String emp_id);
+	
 	void bupdate(HashMap<String, Object> params);
 
 	void dupdate(HashMap<String, Object> params);
@@ -31,6 +32,15 @@ public interface EmployeeDAO {
 	ArrayList<EmployeeDTO> gradeList(String grade_name);
 
 	void pupdate(HashMap<String, Object> params);
+
+	void bupdateHistory(HashMap<String, Object> params);
+
+	void dupdateHistory(HashMap<String, Object> params);
+
+	void pupdateHistory(HashMap<String, Object> params);
+
+	void chkClear(String emp_id);
+
 
 
 }

@@ -2,14 +2,12 @@ package com.behit.employee.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.behit.employee.dao.EmployeeDAO;
 import com.behit.employee.dto.EmployeeDTO;
@@ -60,15 +58,17 @@ public class EmployeeService {
 
 		logger.info("1"+dept_name+position_name+grade_name);		
 		
-		
 		ArrayList<EmployeeDTO> deptList = employeeDAO.deptList(dept_name);	
 		ArrayList<EmployeeDTO> positionList = employeeDAO.positionList(position_name);
 		ArrayList<EmployeeDTO> gradeList = employeeDAO.gradeList(grade_name);
+		
+		ArrayList<EmployeeDTO> HisList = employeeDAO.HisList(emp_id);
 		
 		mav.addObject("empdetail", dto);
 		mav.addObject("deptList", deptList);
 		mav.addObject("positionList", positionList);
 		mav.addObject("gradeList", gradeList);
+		mav.addObject("HisList", HisList);
 
 		mav.setViewName("/employee/employee_detail");
 		
@@ -82,6 +82,7 @@ public class EmployeeService {
 		mav.setViewName("redirect:/employee/empdetail?emp_id="+params.get("emp_id"));
 		
 		employeeDAO.bupdate(params);
+		employeeDAO.bupdateHistory(params);
 		
 		return mav;
 		
@@ -94,6 +95,8 @@ public class EmployeeService {
 		mav.setViewName("redirect:/employee/empdetail?emp_id="+params.get("emp_id"));
 		
 		employeeDAO.dupdate(params);
+		employeeDAO.dupdateHistory(params);
+		
 		
 		return mav;
 	}
@@ -105,7 +108,12 @@ public class EmployeeService {
 		mav.setViewName("redirect:/employee/empdetail?emp_id="+params.get("emp_id"));
 		
 		employeeDAO.pupdate(params);
+		employeeDAO.pupdateHistory(params);
 		
 		return mav;
+	}
+
+	public void chkClear(String emp_id) {
+		employeeDAO.chkClear(emp_id);		
 	}
 }

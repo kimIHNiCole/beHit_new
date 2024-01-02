@@ -1,7 +1,6 @@
 package com.behit.employee.controller;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
@@ -139,6 +138,20 @@ public class EmployeeController {
 		 params.put("login_id", login_id);
 		 
 		 return employeeService.pupdate(params);
+	 }
+	 
+	 @GetMapping(value="/employee/chkClear.do")
+	 public ModelAndView chkClear(@RequestParam String emp_id) {
+		 
+		 ModelAndView mav = new ModelAndView();
+		 
+		 logger.info("emp_id : "+ emp_id);	 
+		 
+		 employeeService.chkClear(emp_id);
+		 
+		 mav.setViewName("employee/employee_list");
+		 
+		 return mav;
 	 }
 	 
 	 
