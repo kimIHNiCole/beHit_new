@@ -23,7 +23,8 @@ public class ProfileService {
 	
 	@Autowired ProfileDAO profileDAO;
 	
-	private String root = "C:/upload/";
+	// 이거 수정
+	private String root = "C:/upload/employee/";
 	
 	public ModelAndView detail(String login_id) {
 		
@@ -48,7 +49,7 @@ public class ProfileService {
 		return profileDAO.getPw(login_id);
 	}
 
-	public void upload(MultipartFile uploadFile, String login_id) throws Exception {
+	public void upload(MultipartFile uploadFile, String emp_id, String login_id) throws Exception {
 		String oriFileName = uploadFile.getOriginalFilename(); // 파일명 추출
 		String ext = oriFileName.substring(oriFileName.lastIndexOf(".")); // 확장자 추출
 		String newFileName = System.currentTimeMillis()+ext; // 새 파일명 생성 + 확장자
@@ -62,7 +63,7 @@ public class ProfileService {
 		
 		String file_kind_idx = "employee/"+oriFileName;
 		
-		profileDAO.writePhoto(file_kind_idx, oriFileName, newFileName, login_id);
+		profileDAO.writePhoto(file_kind_idx, oriFileName, newFileName, emp_id, login_id);
 		
 	}
 

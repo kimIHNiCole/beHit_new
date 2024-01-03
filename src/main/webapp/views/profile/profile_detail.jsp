@@ -21,6 +21,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    
+    <!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -361,7 +364,7 @@ img.rounded-top{
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
 						<c:choose>
 						    <c:when test="${not empty photos and not empty photos[0].new_file_name}">
-						        <img src="/photo/${photos[0].new_file_name}" alt="${photos[0].ori_file_name}" 
+						        <img src="/photo/employee/${photos[0].new_file_name}" alt="${photos[0].ori_file_name}" 
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>

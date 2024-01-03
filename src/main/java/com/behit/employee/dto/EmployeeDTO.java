@@ -4,9 +4,8 @@ import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
-import lombok.Setter;
-
 import lombok.Getter;
+import lombok.Setter;
 
 @Alias("employee")
 @Getter
@@ -42,7 +41,7 @@ public class EmployeeDTO {
 	private String psn_his_aftrInfo;
 	private Date psn_his_date;
 	private String category;
-	
+	private String ori_file_name;
+	private String new_file_name;
 
-	
 }
