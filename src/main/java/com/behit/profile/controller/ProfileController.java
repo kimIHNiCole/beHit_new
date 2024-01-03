@@ -65,16 +65,18 @@ public class ProfileController {
 		return mav; 
 	}
 	
+	// 내정보 사진 수정
 	@PostMapping(value="/profile/upload.do")
 	public String upload(MultipartFile uploadFile, HttpSession session) throws Exception {
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
+		String emp_id = loginInfo.getEmp_id();
 		logger.info("로그인 아이디 : "+login_id);
 		
 		logger.info("uploadFile : "+uploadFile);
 		
-		profileService.upload(uploadFile, login_id);
+		profileService.upload(uploadFile, login_id, emp_id);
 		return "redirect:/profile/profiledetail";
 	}
 	

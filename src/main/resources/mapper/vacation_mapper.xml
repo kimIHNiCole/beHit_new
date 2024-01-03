@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.behit.employee.dao.VacationDAO">
+	<select id="vacalist" resultType="vacation">
+		SELECT 
+		    CAST(ROW_NUMBER() OVER (ORDER BY e.hiredate) AS SIGNED) AS idx,
+		    e.emp_id, 
+		    e.emp_name, 
+		    d.emp_dept_name, 
+		    e.hiredate,
+		    COALESCE(
+		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        'default'
+		    ) AS ori_file_name,
+		    COALESCE(
+		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        'default'
+		    ) AS new_file_name,
+		    COALESCE((SELECT SUM(ev.add_hour) FROM emp_vacation ev WHERE ev.emp_id = e.emp_id), 0) AS totalhour,
+		    COALESCE((SELECT SUM(vh.use_hour) FROM vacation_history vh WHERE vh.emp_id = e.emp_id), 0) AS usehour,	
+		    (COALESCE((SELECT SUM(ev.add_hour) FROM emp_vacation ev WHERE ev.emp_id = e.emp_id), 0) - 
+    		COALESCE((SELECT SUM(vh.use_hour) FROM vacation_history vh WHERE vh.emp_id = e.emp_id), 0)) AS remainhour
+		FROM 
+		    employee e
+		JOIN 
+		    department d ON e.emp_dept_idx = d.emp_dept_idx
+		    WHERE emp_id NOT IN ('master')
+		ORDER BY idx desc;	
+	</select>
+</mapper>

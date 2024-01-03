@@ -21,6 +21,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    
+    <!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -344,10 +347,16 @@ img.rounded-top{
                     </div>
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                        <img
-                          src="../../assets/img/avatars/1.png"
-                          alt="user image"
-                          class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                     	<c:choose>
+						    <c:when test="${not empty empdetail and not empty empdetail.new_file_name}">
+						        <img src="/photo/employee/${empdetail.new_file_name}" alt="${empdetail.ori_file_name}" 
+						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						    </c:when>
+						    <c:otherwise>
+						        <img src="../../assets/img/avatars/1.png" alt="user image" 
+						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						    </c:otherwise>
+						</c:choose>
                       </div>
                       <div class="flex-grow-1 mt-3 mt-sm-5">
                         <div
