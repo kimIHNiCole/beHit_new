@@ -86,11 +86,23 @@ public class CreatorController {
 		
 	}
 	
-	@GetMapping(value = "/creatorListMy.go")
-	public ModelAndView creatorlistAll(ModelAndView mav) {
-		logger.info("나의 크리에이터 리스트 페이지로 이동");
-		mav.setViewName("creators/creator_list_my");
-		return mav;
+	@GetMapping(value = "/creatorListAll.go")
+	public HashMap<String, Object> creatorlistMy() {
+		logger.info("전체 크리에이터 리스트 페이지로 이동");
+		HashMap<String, Object> totalInfo = creatorService.getTotalInfo();
+		ArrayList<HashMap<String, Object>> allList = creatorService.getAllList();
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("totalInfo", totalInfo);
+		result.put("allList", allList);
+		return result;
 	}
+	
+	/*
+	 * @GetMapping(value = "/creatorListMy.go") public HashMap<String, Object>
+	 * creatorlistAll() { logger.info("나의 크리에이터 리스트 페이지로 이동");
+	 * ArrayList<HashMap<String, Object>> creatorMyList =
+	 * creatorService.getCreatorMyList(); return creatorMyList; }
+	 */
 
 }

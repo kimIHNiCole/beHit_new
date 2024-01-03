@@ -18,6 +18,8 @@
 	<title>BeHit - 크리에이터 관리</title>
 	
     <meta name="description" content="" />
+    <!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 	<style>
 		.ch-form{
 			margin: 3px;
@@ -71,11 +73,11 @@
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet" /> -->
 
     <!-- Icons -->
     <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
@@ -947,7 +949,7 @@
 	    		console.log("응답 성공 | 상태 코드 : ", jqXHR.status);
 	    		console.log("textStatus : ",textStatus);
 	    		if(jqXHR.status == 200){
-	    			location.replace('/creatorListMy.go');
+	    			location.replace('http://localhost:8080/creators/creator_list_my.go');
 	    		}
 	    	},
 	    	error : function(data, textStatus, jqXHR){
