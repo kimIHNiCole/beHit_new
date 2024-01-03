@@ -364,7 +364,7 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
             <div class ="top-tap-select" style="display: flex; justify-content: space-between;">
-			    <h6 class="top-tap-only"><a href="../creators/creator_list_my.go">전체리스트</a> | <a href="../creators/creator_detail.go">나의 크리에이터</a></h6>
+			    <a href="../creators/creator_list_all.go">전체리스트</a> | <a href="../creators/creator_list_my.go">나의 크리에이터</a>
 			    <select class="form-select create">
                      <option value="name">이도훈(본인)</option>
                      <option value="id">한가인</option>

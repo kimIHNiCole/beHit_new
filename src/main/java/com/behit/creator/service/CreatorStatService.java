@@ -29,12 +29,12 @@ public class CreatorStatService {
 	
 	public void saveChannelData() {
 		logger.info("SCHEDULING :: saveChannelData() 실행");
-		// 채널 id 가져오기
+		// 채널 id 가져오기 ( 크리에이터당 대표 채널만 )
 		ArrayList<String> channelIdList = creatorStatDAO.getChannelId(); 
 		ChannelDataDTO channelDataDTO = new ChannelDataDTO();
 		
 		for(String channelId : channelIdList) {
-			logger.info("channelIdList"+channelId);
+			logger.info("channelIdList 하나씩 꺼내기 : "+channelId);
 			
 			// 각 채널마다 구독자수, 총 조회수, 총 컨텐츠 수 가져오기
 			try {
@@ -62,11 +62,10 @@ public class CreatorStatService {
 	            logger.info("subscriber = "+channelDataDTO.getSubscriber());
 	            logger.info("views"+channelDataDTO.getViews());
 	            logger.info("contents"+channelDataDTO.getContents());
-	            creatorStatDAO.saveChannelData(channelId);
 	            
-	            // 조회수추이값 계산하기
-	            // 스케쥴러로 현재날짜의 조회수 저장 후 비교 하기 위해 뒤로 뺌
-	            int view_trend = getViewTrend(channelId);
+	            // 조회수추이값 계산하기 
+	            // insert와 동시에 => 쿼리를 통해 수행
+	            creatorStatDAO.saveChannelData(channelDataDTO);
 	            
 
 	        } catch (Exception e) {
@@ -77,10 +76,5 @@ public class CreatorStatService {
 		
 	}
 
-	private int getViewTrend(String channelId) {
-		logger.info("조회수 추이값 추출 실행");
-		int todatViews = 0;	// 임시 
-		return 0;
-	}
 
 }

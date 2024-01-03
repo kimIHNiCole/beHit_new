@@ -1,5 +1,6 @@
 package com.behit.creator.controller;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -65,14 +69,28 @@ public class CreatorController {
 
 	@PostMapping(value = "/creatorAdd.ajax.do"
 			, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public HashMap<String, Object> creatorAddDO(
+	public ResponseEntity<Void> creatorAddDO(
 			@RequestBody CreatorRequestDTO creatorRequestDTO
 			, HttpSession session) {
 		logger.info("크리에이터 등록 요청 || prarms = {}", creatorRequestDTO);
-
-		creatorService.creatorAdd(creatorRequestDTO, session);
-
-		return null;
+		try {
+			// creatorAdd()가 정상적으로 수행되었을때
+			creatorService.creatorAdd(creatorRequestDTO, session);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			// 그렇지 않을때 
+			logger.info("creatorAdd()에서 오류 발생");
+			logger.error(e.getMessage(), e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
+	}
+	
+	@GetMapping(value = "/creatorListMy.go")
+	public ModelAndView creatorlistAll(ModelAndView mav) {
+		logger.info("나의 크리에이터 리스트 페이지로 이동");
+		mav.setViewName("creators/creator_list_my");
+		return mav;
 	}
 
 }

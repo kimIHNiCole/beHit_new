@@ -343,7 +343,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h6> <a href="creator_list_all.go">전체리스트</a> | <a href="creator_list_my.go">나의 크리에이터</a></h6>
+            <a href="creator_list_all.go"><span style="color">전체리스트</span></a> | <a href="creator_list_my.go"><span>나의 크리에이터</span></a>
               <div class="row g-4 mb-4">
                 <div class="col-sm-6 col-xl-3">
                   <div class="card">
