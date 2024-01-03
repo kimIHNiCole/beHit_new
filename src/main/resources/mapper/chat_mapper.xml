@@ -6,7 +6,7 @@
 <mapper namespace="com.behit.chat.dao.ChatDAO">
 
 	<select id="deptName" resultType="String">
-		SELECT emp_dept_name from department where emp_dept_idx = #{param1};
+		SELECT emp_dept_name from department where emp_dept_idx = #{param1}
 	</select>
 	
 	<select id="chatRoomList" resultType="chatRoom">
@@ -21,7 +21,7 @@
 	
 	</select>
 	<select id="chatMember" resultType="chatRoom">
-		SELECT emp_id from chat_pp cp where chat_room_idx = #{param1};
+		SELECT emp_id from chat_pp cp where chat_room_idx = #{param1}
 	</select>
 	
 	<insert
@@ -38,7 +38,20 @@
 	insert into chat_pp
 	(chat_room_idx, emp_id)
 	VALUES
-	(#{param1}, #{param2});
+	(#{param1}, #{param2})
 	
 	</insert>
+	
+  	<select id="chatList" resultType="chat">
+		select * from chat_msg where chat_room_idx = #{param1}
+	
+	</select> 
+
+	<insert id="saveChat">
+		INSERT into chat_msg
+		(chat_room_idx, emp_id, message, message_date)
+		VALUES
+		(#{chat_room_idx}, #{emp_id}, #{message}, current_timestamp);
+	</insert>
+
 </mapper>

@@ -943,12 +943,17 @@
 			        creHistDTOList: creHistDTOList
 		    }),
         	contentType: 'application/json;charset=UTF-8',
-	    	dataType : 'JSON',
-	    	success : function(data){
-	    		console.log(data);
+	    	success : function(data, textStatus, jqXHR){
+	    		console.log("응답 성공 | 상태 코드 : ", jqXHR.status);
+	    		console.log("textStatus : ",textStatus);
+	    		if(jqXHR.status == 200){
+	    			location.replace('/creatorListMy.go');
+	    		}
 	    	},
-	    	error : function(e){
-	    		console.log(e);
+	    	error : function(data, textStatus, jqXHR){
+	    		console.log("응답 실패 | 상태 코드 : ", jqXHR.status);
+	    		console.log("textStatus : ",textStatus);
+	    		
 	    	}
 			
 		});
