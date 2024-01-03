@@ -28,7 +28,7 @@ public class CommonsController {
 		return "org_chart";
 	}
 	
-	@GetMapping(value = "/getOrgList")
+	@GetMapping(value = {"/getOrgList", "/project/getOrgList"})
 	public HashMap<String, ArrayList<Object>> getOrgList(){
 		logger.info("getOrgList");
 		ArrayList<Object> getOrgs = commonsService.getOrgList();

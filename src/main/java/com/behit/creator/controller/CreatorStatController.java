@@ -18,7 +18,7 @@ public class CreatorStatController {
 	@Autowired CreatorStatService creatorStatService;
 	
 	@Scheduled(cron = "0 55 23 * * *")	// 매일 23시 55분에 실행
-//	@Scheduled(cron = "0/10 * * * * MON-FRI")	// 10초 마다 
+//	@Scheduled(cron = "0/30 * * * * *")	
 	public void saveChannelData() {
 		logger.info("SCHEDULING :: 채널 데이터 가져오기 실행");
 		
