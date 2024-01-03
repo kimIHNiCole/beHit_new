@@ -1,6 +1,8 @@
 package com.behit.chat.dto;
 
-import java.sql.Date;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
@@ -15,10 +17,10 @@ public class ChatDTO {
 	private int chatMsg_idx;
 	private int chat_room_idx;
 	private String emp_id;
+	private String emp_name;
 	private String message;
-	private Date message_date;
+	private String message_date;
 
-	
 
 	
 
