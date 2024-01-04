@@ -56,7 +56,7 @@
     <script src="../../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="../../assets/vendor/js/template-customizer.js"></script>
+     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
@@ -444,7 +444,7 @@
 				            <button type="button" class="btn btn-success" id="type-success">출근하기</button>
 				        </div>
 				        <div class="col-md-6 text-end">
-				            <button type="button" class="btn btn-warning" id="type-warning">퇴근하기</button>
+				            <button type="button" class="btn btn-warning" id="confirm-text">퇴근하기</button>
 				        </div>
 				    </div>
                     </div>
@@ -728,7 +728,7 @@
 
 
 	<!-- Page JS -->
-    <script src="../../assets/js/extended-ui-sweetalert2.js"></script>
+<!--     <script src="../../assets/js/extended-ui-sweetalert2.js"></script> -->
     <!-- Vendors JS -->
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>   
 
@@ -738,6 +738,151 @@
      
 
   </body>
+<script>
+/**
+ * Sweet Alerts 스크립트
+ */
+ 
+/*  var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	} */
+
+	  
+	var successMsg = "${successMsg}";
+	if(successMsg != ""){
+		Swal.fire({
+			/*         title: 'Good job!', */
+			        text: successMsg,
+			        icon: 'success',
+			        customClass: {
+			          confirmButton: 'btn btn-primary'
+			        },
+			        buttonsStyling: false
+			      });
+	}
+	
+	var warningMsg = "${warningMsg}";
+	if(msg != ""){
+		Swal.fire({
+	        text: warningMsg,
+	        icon: 'warning',
+	        customClass: {
+	          confirmButton: 'btn btn-primary'
+	        },
+	        buttonsStyling: false
+	      });
+	}
+	
+	var confirmMsg = "${confirmMsg}";
+	if(confirmMsg != ""){
+		Swal.fire({
+			/*         title: 'Are you sure?', */
+			        text: confirmMsg,
+			        icon: 'warning',
+			        showCancelButton: true,
+			        confirmButtonText: 'OK',
+			        customClass: {
+			          confirmButton: 'btn btn-primary me-3',
+			          cancelButton: 'btn btn-label-secondary'
+			        },
+			        buttonsStyling: false
+			      }).then(function (result) {
+			        if (result.value) {
+			          Swal.fire({
+			            icon: 'success',
+			/*             title: 'Deleted!', */
+			            text: '삭제되었습니다.',
+			            customClass: {
+			              confirmButton: 'btn btn-success'
+			            }
+			          });
+			        }
+			      });
+	}
+
+	
+	
+</script>
+<script>
+
+ 'use strict';
+
+(function () {
+  const 
+    iconSuccess = document.querySelector('#type-success'),
+    iconWarning = document.querySelector('#type-warning'),
+    confirmText = document.querySelector('#confirm-text');
+
+
+  // Alert Types
+  // --------------------------------------------------------------------
+
+  // Success Alert
+  if (iconSuccess) {
+    iconSuccess.onclick = function () {
+      Swal.fire({
+/*         title: 'Good job!', */
+        text: '저장이 완료되었습니다!',
+        icon: 'success',
+        customClass: {
+          confirmButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      });
+    };
+  }
+
+
+  // Warning Alert
+  if (iconWarning) {
+    iconWarning.onclick = function () {
+      Swal.fire({
+        title: 'Warning!',
+        text: ' You clicked the button!',
+        icon: 'warning',
+        customClass: {
+          confirmButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      });
+    };
+  }
+
+
+  // Alert With Functional Confirm Button
+  if (confirmText) {
+    confirmText.onclick = function () {
+      Swal.fire({
+/*         title: 'Are you sure?', */
+        text: "정말 삭제하시겠습니까?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'btn btn-primary me-3',
+          cancelButton: 'btn btn-label-secondary'
+        },
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+          Swal.fire({
+            icon: 'success',
+/*             title: 'Deleted!', */
+            text: '삭제되었습니다.',
+            customClass: {
+              confirmButton: 'btn btn-success'
+            }
+          });
+        }
+      });
+    };
+  }
+})();
+
+
+</script>
+  
 <script>
      document.addEventListener("DOMContentLoaded", function () {
          // 초 단위로 실시간으로 업데이트

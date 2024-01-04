@@ -163,6 +163,7 @@ font-size: 10px;
                         <li class="chat-contact-list-item chat-list-item-0 d-none">
                           <h6 class="text-muted mb-0">No Chats Found</h6>
                         </li>
+                        <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <!-- 온라인일 경우 표시 -->
                         <c:forEach items="${ChatRoomAll}" var="ChatRoomAll" varStatus="loop">
                         <li class="chat-contact-list-item">
@@ -186,7 +187,7 @@ font-size: 10px;
                             <small class="text-muted mb-auto">${ChatRoomAll.chat_room_date}</small>
                           </a>
                         </li>
-                        </c:forEach>                      
+                        </c:forEach>
                       </ul>
                       
                     </div>
@@ -365,6 +366,9 @@ function connect() {
 }
 
 
+
+
+
     
  // 채팅방 생성
 //직원 리스트 모달 시작
@@ -463,6 +467,8 @@ function drawOrg(orgList, deptKind) {
     
 }
 
+
+
 /*/직원 리스트 모달 끝 */
 
 var currentSubscription = null;
@@ -472,6 +478,7 @@ var chatRoomIdx = '';
     
 // 클릭한 채팅방 빨간색으로 활성화
 $(document).ready(function() {
+
         // 각 리스트 아이템에 클릭 이벤트 리스너 추가
         $('.chat-contact-list-item').click(function() {
         	//웹소켓 대화 삭제
