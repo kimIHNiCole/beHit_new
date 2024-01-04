@@ -21,6 +21,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    
+    <!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -344,14 +347,13 @@
           <div class="content-wrapper">
           
            <!-- Content -->
-<div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">연차 관리 </span></h4>
-	<span class="text-muted fw-light">연차는 시간 단위로 입력됩니다.</span>
-    <!-- DataTable with Buttons -->
-    <div class="card">
+	<div class="container-xxl flex-grow-1 container-p-y mt-2">
+	    <h4 class="py-3 mb-4"><span class="text-muted fw-light">연차 관리 </span></h4>
+		<span class="text-muted fw-light">연차는 시간 단위로 입력됩니다.</span>
+	    <!-- DataTable with Buttons -->
+	    <div class="card">
         <div class="card-datatable table-responsive">
             <div class="row mb-3">
-               
 				<div class="col-md-4 offset-md-8">
 				    <!-- 검색박스 및 셀렉트 박스 -->
 				    <div class="input-group">
@@ -366,16 +368,11 @@
 				        <button class="btn btn-primary" type="button">검색</button>
 				    </div>
 				</div>
-
-                
             </div>
             <table class="datatables-basic table border-top" style="margin-top: -10px;">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>no.</th>
-                        <th></th>
-                        <th>이름 / 아이디</th>
+                        <th colspan="3" style="width: 250px;">이름 / 아이디</th>
                         <th>부서</th>
                         <th>입사일</th>
                         <th>총 연차</th>
@@ -383,6 +380,37 @@
                         <th>잔여 연차</th>
                     </tr>
                 </thead>
+                <tbody>
+                	<c:forEach items="${vacalist}" var="vacalist">
+	                	<tr>
+	                	<td style="width: 100px;">
+		                	<c:choose>
+							    <c:when test="${not empty vacalist.new_file_name and vacalist.new_file_name ne 'default'}">
+							        <img src="/file/employee/${vacalist.new_file_name}" alt="${vacalist.ori_file_name}" 
+							            class="d-block h-auto ms-0 rounded user-profile-img"
+							            width="50px" height="50px" />
+							    </c:when>
+							    <c:otherwise>
+							        <img src="../../assets/img/avatars/1.png" alt="user image" 
+							            class="d-block h-auto ms-0 rounded user-profile-img"
+							            width="50px" height="50px" />
+							    </c:otherwise>
+							</c:choose>
+	                	</td>
+	                        <td colspan="2">
+	                        	<div class="d-flex flex-column">
+	                        		<span class="emp_name text-truncate">${vacalist.emp_name}</span>
+	                        		<small class="emp_post text-truncate text-muted">${vacalist.emp_id}</small>
+	                        	</div>
+	                        </td>
+	                        <td>${vacalist.emp_dept_name}</td>
+	                        <td>${vacalist.hiredate}</td>
+	                        <td>${vacalist.totalhour}</td>
+	                        <td>${vacalist.usehour}</td>
+	                        <td>${vacalist.remainhour}</td>
+	                    </tr>
+                	</c:forEach>
+                </tbody>
             </table>
         </div>
     </div>
@@ -438,192 +466,8 @@
     <!-- Page JS -->
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
      <script>
-     /**
-      * DataTables Basic
-      */
-
-     'use strict';
-
-     let fv, offCanvasEl;
-     
-     // datatable (jquery)
-     $(function () {
-       var dt_basic_table = $('.datatables-basic'),
-       dt_basic;
-
-       
-       // DataTable with buttons
-       // --------------------------------------------------------------------
-
-       if (dt_basic_table.length) {
-         dt_basic = dt_basic_table.DataTable({
-           ajax: assetsPath + 'json/table-datatable.json',
-           columns: [
-             { data: '' },
-             { data: 'id' },
-             { data: 'id' },
-             { data: 'full_name' },
-             { data: 'email' },
-             { data: 'start_date' },
-             { data: 'salary' },
-             { data: 'status' },
-             { data: '' }
-           ],
-           columnDefs: [
-             {
-               // For Responsive
-               className: 'control',
-               orderable: false,
-               searchable: false,
-               responsivePriority: 2,
-               targets: 0,
-               render: function (data, type, full, meta) {
-                 return '';
-               }
-             },
-             
-             {
-               targets: 2,
-               searchable: false,
-               visible: false
-             },
-             {
-               // Avatar image/badge, Name and post
-               targets: 3,
-               responsivePriority: 4,
-               render: function (data, type, full, meta) {
-                 var $user_img = full['avatar'],
-                   $name = full['full_name'],
-                   $post = full['post'];
-                 if ($user_img) {
-                   // For Avatar image
-                   var $output =
-                     '<img src="' + assetsPath + 'img/avatars/' + $user_img + '" alt="Avatar" class="rounded-circle">';
-                 } else {
-                   // For Avatar badge
-                   var stateNum = Math.floor(Math.random() * 6);
-                   var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                   var $state = states[stateNum],
-                     $name = full['full_name'],
-                     $initials = $name.match(/\b\w/g) || [];
-                   $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                   $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-                 }
-                 // Creates full output for row
-                 var $row_output =
-                   '<div class="d-flex justify-content-start align-items-center user-name">' +
-                   '<div class="avatar-wrapper">' +
-                   '<div class="avatar me-2">' +
-                   $output +
-                   '</div>' +
-                   '</div>' +
-                   '<div class="d-flex flex-column">' +
-                   '<span class="emp_name text-truncate">' +
-                   $name +
-                   '</span>' +
-                   '<small class="emp_post text-truncate text-muted">' +
-                   $post +
-                   '</small>' +
-                   '</div>' +
-                   '</div>';
-                 return $row_output;
-               }
-             },
-             {
-               responsivePriority: 1,
-               targets: 4
-             },
-             {
-               // Label
-               targets: -2,
-               render: function (data, type, full, meta) {
-                 var $status_number = full['status'];
-                 var $status = {
-                   1: { title: 'Current', class: 'bg-label-primary' },
-                   2: { title: 'Professional', class: ' bg-label-success' },
-                   3: { title: 'Rejected', class: ' bg-label-danger' },
-                   4: { title: 'Resigned', class: ' bg-label-warning' },
-                   5: { title: 'Applied', class: ' bg-label-info' }
-                 };
-                 if (typeof $status[$status_number] === 'undefined') {
-                   return data;
-                 }
-                 return (
-                		 '<span>사용 연차 int 값</span>'
-                 );
-               }
-             },
-             {
-               // Actions
-               targets: -1,
-               title: '잔여 연차',
-               orderable: false,
-               searchable: false,
-               render: function (data, type, full, meta) {
-                 return (
-                		 '<span>잔여 연차 int 값</span>'
-                 );
-               }
-             }
-           ],
-           
-           order: [[2, 'desc']],
-           dom: '<<"head-label text-center">><"row">t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-           
-           displayLength: 10,
-           lengthMenu: [10],
-           
-           
-           responsive: {
-             details: {
-               display: $.fn.dataTable.Responsive.display.modal({
-                 header: function (row) {
-                   var data = row.data();
-                   return 'Details of ' + data['full_name'];
-                 }
-               }),
-               type: 'column',
-               renderer: function (api, rowIdx, columns) {
-                 var data = $.map(columns, function (col, i) {
-                   return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                     ? '<tr data-dt-row="' +
-                         col.rowIndex +
-                         '" data-dt-column="' +
-                         col.columnIndex +
-                         '">' +
-                         '<td>' +
-                         col.title +
-                         ':' +
-                         '</td> ' +
-                         '<td>' +
-                         col.data +
-                         '</td>' +
-                         '</tr>'
-                     : '';
-                 }).join('');
-
-                 return data ? $('<table class="table"/><tbody />').append(data) : false;
-               }
-             }
-           }
-         });
-         
-         
-         
-       }
-
-
-      
-
-       
-
-       // Filter form control to default size
-       // ? setTimeout used for multilingual table initialization
-       setTimeout(() => {
-         $('.dataTables_filter .form-control').removeClass('form-control-sm');
-         $('.dataTables_length .form-select').removeClass('form-select-sm');
-       }, 300);
-     });
+		
+		
 
      </script>
   </body>

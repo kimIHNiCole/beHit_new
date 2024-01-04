@@ -70,4 +70,32 @@
 		)
 	</insert>
 	
+	<!-- 크리에이터 리스트 불러오기 -->
+	<!-- 토탈 정보 불러오기 -->
+	<select id="getTotalInfo" resultType="HashMap"> 
+		SELECT 
+		    (SELECT COUNT(*) FROM creator) as total_creators,
+		    (SELECT COUNT(*) FROM channel) as total_channels,
+		    SUM(latest_subscriber) as total_subscribers,
+		    SUM(latest_contents) as total_contents
+		FROM (
+		    SELECT 
+		        channel_id, 
+		        MAX(subscriber) as latest_subscriber, 
+		        MAX(contents) as latest_contents
+		    FROM channeldata
+		    GROUP BY channel_id
+		) as latest_channel_data;
+	</select>
+	<!-- 크리에이터 전체 리스트 -->
+	<select id="getAllList" resultType="HashMap">
+		SELECT c.cre_idx, c.cre_nick_name ,(e.emp_name)AS mng_name, 
+			ch.channel_url ,ch.channel_name, ch.channel_cate
+		FROM creator c 
+		JOIN channel ch ON c.cre_idx = ch.cre_idx AND ch.rep_channel =1
+		JOIN employee e ON c.emp_id = e.emp_id ;
+	</select>
+	
+	
+	
 </mapper>

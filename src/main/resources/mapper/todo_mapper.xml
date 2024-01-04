@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
-   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
->
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.behit.todo.dao.TodoDAO">
+	
+	<select id="todoList" resultType="todo">
+		SELECT *,
+			(SELECT COUNT(todo_idx) FROM todo WHERE todo_state = 'N' AND emp_id=#{param1}) AS todoN
+		FROM todo WHERE emp_id=#{param1} ORDER BY todo_idx DESC
+	</select>
+	
+	<select id="todohistory" resultType="todo">
+		SELECT *,
+			(SELECT COUNT(todo_idx) FROM todo WHERE todo_state = 'Y' AND emp_id=#{param1}) AS todoY
+		FROM todo WHERE emp_id=#{param1} and todo_state='Y' ORDER BY todo_update DESC
+	</select>
+	
+	<insert id="todowrite">
+		insert into todo (emp_id,todo_content)values(#{param1},#{param2});
+	</insert>
+	
+	<delete id="tododel">
+		DELETE FROM todo WHERE todo_idx=#{param1}
+	</delete>
+	
+	<update id="todocheckt">
+		UPDATE todo SET
+			todo_state = 'Y',
+			todo_update = now()
+        WHERE todo_idx = #{param1}	
+	</update>
+	
+	<update id="todocheckf">
+		UPDATE todo SET
+			todo_state = 'N',
+			todo_update = now()
+        WHERE todo_idx = #{param1}
+	</update>
 
 </mapper>

@@ -130,7 +130,7 @@
                             alt="Avatar" />
                         </div>
                         <div class="text-muted text-uppercase">
-                        	<span class="chat-contact-name text-truncate m-0">${emp_name}</span>
+                        	<span class="chat-contact-name text-truncate m-0">${emp_name}</span><span id="emp_id">${emp_id}</span>
                         	<div><span class="m-0">${emp_dept_name}</span></div>
                         	</div>
                         	<button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#apv-modal">채팅방 추가</button>
@@ -224,64 +224,28 @@
                         </div>
                       </div>
                       <div class="chat-history-body">
-                        <ul class="list-unstyled chat-history mb-0">
-                          <li class="chat-message chat-message-right">
-                            <div class="d-flex overflow-hidden">
-                              <div class="chat-message-wrapper flex-grow-1">
-                                <div class="chat-message-text">
-                                  <p class="mb-0">보여줄게 완전히 달라진 나</p>
-                                </div>
-                                <div class="text-end text-muted mt-1">
-                                  <i class="bx bx-check-double text-success"></i>
-                                  <small>09:00 AM</small>
-                                </div>
-                              </div>
-                              <div class="user-avatar flex-shrink-0 ms-3">
-                                <div class="avatar avatar-sm">
-                                  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li class="chat-message">
-                            <div class="d-flex overflow-hidden">
-                              <div class="user-avatar flex-shrink-0 me-3">
-                                <div class="avatar avatar-sm">
-                                  <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
-                                </div>
-                              </div>
-                              <div class="chat-message-wrapper flex-grow-1">
-                                <div class="chat-message-text">
-                                  <p class="mb-0">오늘은 지각을 조금밖에 안 했구만</p>
-                                  <p class="mb-0">이 정도만 해도 만족스러워😊</p>
-                                </div>
-                                <div class="chat-message-text mt-2">
-                                  <p class="mb-0">제군들 부대장은 실망했다</p>
-                                </div>
-                                <div class="text-muted mt-1">
-                                  <small>09:02 AM</small>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          
-                          
-                        </ul>
+                        
+                        <ul id="chatMessageList" class="list-unstyled chat-history mb-0">
+						    <!-- 채팅 메시지가 동적으로 추가될 곳 -->
+						</ul>
+						<ul id="webChatMessage" class="list-unstyled chat-history mb-0">
+						    <!-- 채팅 메시지가 동적으로 추가될 곳 -->
+						</ul>
                       </div>
                       <!-- Chat message form -->
                       <div class="chat-history-footer">
                         <form class="form-send-message d-flex justify-content-between align-items-center">
-                          <input
+                          <input id="chatSend"
                             class="form-control message-input border-0 me-3 shadow-none"
                             placeholder="메시지를 입력하세요..." />
                           <div class="message-actions d-flex align-items-center">                      
                             <label for="attach-doc" class="form-label mb-0">
-                              <i class="bx bx-paperclip bx-sm cursor-pointer mx-3 text-body"></i>
+                              <!-- <i class="bx bx-paperclip bx-sm cursor-pointer mx-3 text-body"></i> -->
                               <input type="file" id="attach-doc" hidden />
                             </label>
-                            <button class="btn btn-primary d-flex send-msg-btn">
+                            <button class="btn btn-primary d-flex send-msg-btn"  onclick="sendMessage()">
                               <i class="bx bx-paper-plane me-md-1 me-0"></i>
-                              <span class="align-middle d-md-inline-block d-none">전송</span>
+                              <span class="align-middle d-md-inline-block d-none" >전송</span>
                             </button>
                           </div>
                         </form>
@@ -371,18 +335,21 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script>/* 웹소켓 스크립트  */
+
+
+<script>/* 웹소켓 스크립트  */
 $(function () {
     connect();
 });
 //문서가 로드될 때 실행되는 함수, 'connect' 함수를 호출하여 웹소켓 연결을 수행
 
 var stompClient = null; //웹소켓 통신을 위한 Stomp 클라이언트를 저장하는 변수
-var username = "";  // 사용자의 이름을 저장하는 변수로, 초기에는 비어 있는 상태
+var emp_id = "";
+var loginId ="";
 
 function connect() {
 	// 웹소켓 연결을 수행하는 함수
-    var socket = new SockJS('/chat');
+    var socket = new SockJS('/chat/messenger_his');
 	// SockJS 를 통해 서버의 웹소켓 엔드포인트에 연결
     stompClient = Stomp.over(socket);
 	// Stomp 클라이언트 생성
@@ -393,122 +360,313 @@ function connect() {
 }
 
 
-</script>
     
+ // 채팅방 생성
+//직원 리스트 모달 시작
+$.ajax({
+	type: 'get',
+	url: '../getOrgList',
+	data: {},
+	dataType: 'JSON',
+    success : function(data){
+      console.log(data);
+      drawOrg(data.orgList, data.deptKind);
+    } ,
+    error : function(e){
+      console.log(e);
+    }
+});
+
+function drawOrg(orgList, deptKind) {
+    var modalBody = $('#apv-modal .modal-body .list');
+
+    // 리스트 초기화
+    modalBody.empty();
+
+    // 각각의 데이터를 리스트에 추가
+    orgList.forEach(function (employee) {
+        var listItem = $('<div class="list-item"></div>');
+        listItem.append('<input type="checkbox" class="emp-checkbox" data-emp-id="' + employee.emp_id + '">');
+        listItem.append('<span class="emp-id">' + employee.emp_id + '</span>');
+        listItem.append(' | <span class="emp-name">' + employee.emp_name + '</span>');
+
+
+        // 리스트 아이템을 모달 바디에 추가
+        modalBody.append(listItem);
+    });
+
+    // 체크박스 변경 시 처리
+    modalBody.on('change', '.emp-checkbox', function () {
+        var isChecked = $(this).prop('checked');
+        var empId = $(this).data('emp-id');
+
+        // 선택된 정보를 사용하여 원하는 동작 수행
+        console.log('Employee ID:', empId, 'Checked:', isChecked);
+    });
+
+    // 선택 버튼 클릭 시 처리
+    $('.apv-doc-select').click(function () {
+        var selectedEmpIds = [];
+
+        // 체크된 항목의 emp_id 가져오기
+        modalBody.find('.list-item input:checked').each(function () {
+            selectedEmpIds.push($(this).data('emp-id'));
+        });
+
+        // 선택된 정보를 사용하여 원하는 동작 수행
+        console.log('Selected Employee IDs:', selectedEmpIds);
+        
+        // 채팅방 이름 첫 번째 선택한 사람 외 1명으로 변경하여 서버에 값 보내기
+        // 셀렉트한 emp_id 들 값들 서버로 보내기
+        // 생성자는 서버에서 세션 id 받아서 저장하기
+        // 생성일은 커런트 타임 스탬프로 넣기
+        // 채팅방 제너레이트키 사용해서 채팅방 참여자 테이블에 참여자들 id 넣기
+        
+        
+        $.ajax({
+		    type: 'GET',
+		    url: '/createRoom',
+		    data: { emp_ids: selectedEmpIds },
+		    traditional: true,
+		    success: function (data) {
+		        console.log(data);
+		        if(data.idx > 0){
+		        	console.log("생성");
+		        	location.href='../chat/messenger_his.go';
+		        }
+		    },
+		    error: function (error) {
+		        console.error('Error:', error);
+		    }
+		});
+        
+
+        // 모달 닫기
+        $('#apv-modal').modal('hide');
+        
+    });
     
+	 // 모달이 닫힐 때 체크박스 상태 초기화
+    $('#apv-modal').on('hidden.bs.modal', function () {
+        modalBody.find('.emp-checkbox').prop('checked', false);
+        checkboxStates = {}; // 체크박스 상태 초기화
+    });
     
-    <script>
+}
+
+/*/직원 리스트 모달 끝 */
+
+var currentSubscription = null;
+var chatRoomIdx = '';
     
-    // 클릭한 채팅방 빨간색으로 활성화
-    $(document).ready(function() {
+ // 채팅방 구독
+    
+// 클릭한 채팅방 빨간색으로 활성화
+$(document).ready(function() {
         // 각 리스트 아이템에 클릭 이벤트 리스너 추가
         $('.chat-contact-list-item').click(function() {
+        	
+        	$('#webChatMessage').empty();
             // 기존 active 클래스를 모두 제거
             $('.chat-contact-list-item').removeClass('active');
             
             // 클릭한 리스트에 active 클래스 추가
             $(this).addClass('active');
+            
+         // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
+            chatRoomIdx = $(this).find('input[type=hidden]').val();
+            console.log(chatRoomIdx);
+
+            if (currentSubscription) {
+                // 현재 구독이 있으면 해지
+                currentSubscription.unsubscribe();
+            }
+
+            currentSubscription = stompClient.subscribe("/topic/chatRoom/" + chatRoomIdx, function (webMessage) {
+                console.log('특정 방에 뿌림', webMessage);
+                showMessage(JSON.parse(webMessage.body));
+            });
+            
+            $.ajax({
+                type: 'GET',
+                url: '/chatList', // 서버에서 처리할 요청 URL
+                data: { chatRoomIdx: chatRoomIdx }, // 전송할 데이터 (chatRoomIdx)
+                success: function(data) {
+                    // 서버에서 받은 데이터(response)를 처리
+                    console.log('채팅 리스트 가져오기 성공', data);
+
+                    loginId= data.loginId;
+                    // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
+                    showMessageList(data.chatList, loginId);
+                },
+                error: function(error) {
+                    console.error('채팅 리스트 가져오기 실패', error);
+                }
+            });
+            
+            
+            
         });
+        
+});
+
+
+
+   
+function showMessageList(chatList, loginId) {
+	$('#chatMessageList').empty();
+	console.log("쇼메시지리스트함수",chatList);
+	console.log("쇼메시지리스트함수",loginId);
+    // chatList를 순회하며 각 메시지에 대한 처리
+    chatList.forEach(function(message) {
+        // 적절한 메시지 형식을 선택하여 화면에 추가
+        var messageHtml = getMessageHtml(message, loginId);
+        
+        // 채팅 메시지 목록에 추가
+        $('#chatMessageList').append(messageHtml);
     });
+}
+
+function getMessageHtml(message, loginId) {
+	console.log("겟메시지함수",message);
+	console.log("겟메시지함수",loginId);
+    var messageHtml = '';
+
+    if (message.emp_id == loginId) {
+        // 로그인한 사용자의 메시지
+        messageHtml += '<li class="chat-message chat-message-right">';
+        messageHtml += '<div class="d-flex overflow-hidden">';
+        messageHtml += '<div class="chat-message-wrapper flex-grow-1">';
+        messageHtml += '<div class="chat-message-text">';
+        messageHtml += '<p class="mb-0">' + message.message + '</p>';
+        messageHtml += '</div>';
+        messageHtml += '<div class="text-end text-muted mt-1">';
+        messageHtml += '<small>' + message.message_date + '</small>';
+        messageHtml += '</div>';
+        messageHtml += '</div>';
+    } else {
+        // 다른 사용자의 메시지
+        messageHtml += '<li class="chat-message">';
+        messageHtml += '<div class="d-flex overflow-hidden">';
+        messageHtml += '<div class="user-avatar flex-shrink-0 me-3">';
+        messageHtml += '<div class="avatar avatar-sm">';
+        messageHtml += '<img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />';
+        messageHtml += '<span>' + message.emp_id + '</span>';
+        messageHtml += '</div>';
+        messageHtml += '</div>';
+        messageHtml += '<div class="chat-message-wrapper flex-grow-1">';
+        messageHtml += '<div class="chat-message-text">';
+        messageHtml += '<p class="mb-0">' + message.message + '</p>';
+        messageHtml += '</div>';
+        messageHtml += '<div class="text-muted mt-1">';
+        messageHtml += '<small>' + message.message_date + '</small>';
+        messageHtml += '</div>';
+        messageHtml += '</div>';
+    }
+
+
+    messageHtml += '</div>';
+    messageHtml += '</li>';
+
+    return messageHtml;
+}
+
+
+function sendMessage() {
+    // 메시지 내용 가져오기
+    var messageContent = $('#chatSend').val();
+    console.log(messageContent);
+    
+    // 선택된 채팅방의 chat_room_idx 가져오기
+    var chatRoomIdx = $('.chat-contact-list-item.active input[type=hidden]').val();
+    console.log(chatRoomIdx);
+    
+ // 현재 시간을 가져오기
+    var currentDate = new Date();
+
+    // 시간을 원하는 형식으로 변환 (예: "2024-01-02")
+    var formattedDate = currentDate.getFullYear() + "-" +
+                        padZero(currentDate.getMonth() + 1) + "-" +
+                        padZero(currentDate.getDate());
+    
+    console.log(formattedDate);
+    
+    console.log(loginId);
+    stompClient.send("/app/chatRoom/" + chatRoomIdx, {}, JSON.stringify({
+    	'chat_room_idx':chatRoomIdx,
+        'message': messageContent,
+        'emp_id': loginId,
+        'message_date': formattedDate
+    }));
+
+    // 메시지 전송 후 입력창 초기화
+    $('#chatSend').val('');
+}
+
+//숫자가 한 자리일 경우 앞에 0을 붙이는 함수
+function padZero(number) {
+    return (number < 10 ? '0' : '') + number;
+}
+
+
+function showMessage(webMessage) {
+	console.log("웹소켓쇼메시지",loginId);
+	var webMessageHtml = getWebMessageHtml(webMessage, loginId);
+	$('#webChatMessage').append(webMessageHtml);
+	
+	
+}
+
+function getWebMessageHtml(webMessage, loginId) {
+/* 	$('#webChatMessage').empty(); */
+	console.log("웹메시지함수",webMessage);
+	console.log("웹메시지함수",loginId);
+    var webMessageHtml = '';
+
+    if (webMessage.emp_id == loginId) {
+        // 로그인한 사용자의 메시지
+        webMessageHtml += '<li class="chat-message chat-message-right">';
+        webMessageHtml += '<div class="d-flex overflow-hidden">';
+        webMessageHtml += '<div class="chat-message-wrapper flex-grow-1">';
+        webMessageHtml += '<div class="chat-message-text">';
+        webMessageHtml += '<p class="mb-0">' + webMessage.message + '</p>';
+        webMessageHtml += '</div>';
+        webMessageHtml += '<div class="text-end text-muted mt-1">';
+        webMessageHtml += '<small>' + webMessage.message_date + '</small>';
+        webMessageHtml += '</div>';
+        webMessageHtml += '</div>';
+    } else {
+        // 다른 사용자의 메시지
+        webMessageHtml += '<li class="chat-message">';
+        webMessageHtml += '<div class="d-flex overflow-hidden">';
+        webMessageHtml += '<div class="user-avatar flex-shrink-0 me-3">';
+        webMessageHtml += '<div class="avatar avatar-sm">';
+        webMessageHtml += '<img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />';
+        webMessageHtml += '<span>' + webMessage.emp_id + '</span>';
+        webMessageHtml += '</div>';
+        webMessageHtml += '</div>';
+        webMessageHtml += '<div class="chat-message-wrapper flex-grow-1">';
+        webMessageHtml += '<div class="chat-message-text">';
+        webMessageHtml += '<p class="mb-0">' + webMessage.message + '</p>';
+        webMessageHtml += '</div>';
+        webMessageHtml += '<div class="text-muted mt-1">';
+        webMessageHtml += '<small>' + webMessage.message_date + '</small>';
+        webMessageHtml += '</div>';
+        webMessageHtml += '</div>';
+    }
+
+
+    webMessageHtml += '</div>';
+    webMessageHtml += '</li>';
+
+    return webMessageHtml;
+}
+
     
     
-    // 직원 리스트 모달 시작
-    	$.ajax({
-    		type: 'get',
-        	url: '../getOrgList',
-        	data: {},
-        	dataType: 'JSON',
-	        success : function(data){
-	          console.log(data);
-              drawOrg(data.orgList, data.deptKind);
-	        } ,
-	        error : function(e){
-	          console.log(e);
-	        }
-    	});
-    	
-    	function drawOrg(orgList, deptKind) {
-    	    var modalBody = $('#apv-modal .modal-body .list');
-
-    	    // 리스트 초기화
-    	    modalBody.empty();
-
-    	    // 각각의 데이터를 리스트에 추가
-    	    orgList.forEach(function (employee) {
-    	        var listItem = $('<div class="list-item"></div>');
-    	        listItem.append('<input type="checkbox" class="emp-checkbox" data-emp-id="' + employee.emp_id + '">');
-    	        listItem.append('<span class="emp-id">' + employee.emp_id + '</span>');
-    	        listItem.append(' | <span class="emp-name">' + employee.emp_name + '</span>');
-
-
-    	        // 리스트 아이템을 모달 바디에 추가
-    	        modalBody.append(listItem);
-    	    });
-
-    	    // 체크박스 변경 시 처리
-    	    modalBody.on('change', '.emp-checkbox', function () {
-    	        var isChecked = $(this).prop('checked');
-    	        var empId = $(this).data('emp-id');
-
-    	        // 선택된 정보를 사용하여 원하는 동작 수행
-    	        console.log('Employee ID:', empId, 'Checked:', isChecked);
-    	    });
-
-    	    // 선택 버튼 클릭 시 처리
-    	    $('.apv-doc-select').click(function () {
-    	        var selectedEmpIds = [];
-
-    	        // 체크된 항목의 emp_id 가져오기
-    	        modalBody.find('.list-item input:checked').each(function () {
-    	            selectedEmpIds.push($(this).data('emp-id'));
-    	        });
-
-    	        // 선택된 정보를 사용하여 원하는 동작 수행
-    	        console.log('Selected Employee IDs:', selectedEmpIds);
-    	        
-    	        // 채팅방 이름 첫 번째 선택한 사람 외 1명으로 변경하여 서버에 값 보내기
-    	        // 셀렉트한 emp_id 들 값들 서버로 보내기
-    	        // 생성자는 서버에서 세션 id 받아서 저장하기
-    	        // 생성일은 커런트 타임 스탬프로 넣기
-    	        // 채팅방 제너레이트키 사용해서 채팅방 참여자 테이블에 참여자들 id 넣기
-    	        
-    	        
-    	        $.ajax({
-				    type: 'GET',
-				    url: '/createRoom',
-				    data: { emp_ids: selectedEmpIds },
-				    traditional: true,
-				    success: function (data) {
-				        console.log(data);
-				        if(data.idx > 0){
-				        	console.log("생성");
-				        	location.href='../chat/messenger_his.go';
-				        }
-				    },
-				    error: function (error) {
-				        console.error('Error:', error);
-				    }
-				});
-    	        
-
-    	        // 모달 닫기
-    	        $('#apv-modal').modal('hide');
-    	        
-    	    });
-    	    
-    		 // 모달이 닫힐 때 체크박스 상태 초기화
-    	    $('#apv-modal').on('hidden.bs.modal', function () {
-    	        modalBody.find('.emp-checkbox').prop('checked', false);
-    	        checkboxStates = {}; // 체크박스 상태 초기화
-    	    });
-    	    
-    	}
-    	
-    	/*/직원 리스트 모달 끝 */
-	  
-    </script>
+</script>
     
     
-  </body>
+</body>
 
 </html>
