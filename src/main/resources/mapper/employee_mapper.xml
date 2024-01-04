@@ -8,23 +8,31 @@
 		INSERT INTO employee 
 			(emp_id, emp_name, password, emp_birth, email, cp_phone, mobile_phone, address, detail_addr, emp_dept_idx, emp_position_idx, emp_grade_idx, emp_id_in, emp_id_up)
 			VALUES
-			(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr}, #{emp_dept_idx}, #{emp_position_idx} ,#{emp_grade_idx}, '관리자', '관리자');
+			(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr}, #{emp_dept_idx}, #{emp_position_idx} ,#{emp_grade_idx}, #{login_id}, #{login_id});
 	</insert>
 	
 	<select id="elist" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT 
-		    e.emp_id, 
-		    e.emp_name, 
-		    d.emp_dept_name AS 'dept_name',
-		    cc_grade.common_code_name AS 'grade_name',
-		    cc_position.common_code_name AS 'position_name',
-		    leavedate
+			e.emp_id, 
+			e.emp_name, 
+			d.emp_dept_name AS 'dept_name',
+			cc_grade.common_code_name AS 'grade_name',
+			cc_position.common_code_name AS 'position_name',
+			leavedate,
+			COALESCE(
+		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        'default'
+		    ) AS ori_file_name,
+		    COALESCE(
+		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        'default'
+		    ) AS new_file_name
 		FROM 
-		    employee e
-		    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
-		    JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
-		    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
-		    WHERE emp_id NOT IN ('master');
+			employee e
+			JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+			JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
+			JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+		WHERE emp_id NOT IN ('master');
 	</select>
 	
 	<select id="totalPage" resultType="int">
@@ -36,7 +44,15 @@
 					d.emp_dept_name AS 'dept_name',
 				    cc_position.common_code_name AS 'position_name',
 				    cc_grade.common_code_name AS 'grade_name',
-				    e.emp_dept_idx, e.emp_position_idx, e.emp_grade_idx
+				    e.emp_dept_idx, e.emp_position_idx, e.emp_grade_idx,
+				    COALESCE(
+			        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+			        'default'
+			    	) AS ori_file_name,
+			   		COALESCE(
+			        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+			        'default'
+			    	) AS new_file_name
 				FROM 
     				employee e
 			    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx

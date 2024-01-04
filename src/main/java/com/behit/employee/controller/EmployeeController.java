@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.service.EmployeeService;
+import com.behit.profile.service.ProfileService;
 
 @Controller
 public class EmployeeController {
@@ -29,6 +31,10 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired 
+	ProfileService profileService;
+
 
 	@GetMapping(value = "/home.go")
 	public String homeGo() {
@@ -44,19 +50,27 @@ public class EmployeeController {
 
 	// 추후 경로 수정
 	@PostMapping(value = "/empadd.do")
-	public ModelAndView empjoin(@RequestParam HashMap<String, Object> params) {
+	public ModelAndView empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, MultipartFile uploadFile) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
 
 		logger.info("params: " + params);
 		logger.info("params: " + params.get("mobile_phone"));
+		
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		logger.info("로그인 아이디 : "+login_id);
 
 		String hash = encoder.encode((CharSequence) params.get("password"));
-		params.put("password", hash);	
+		params.put("password", hash);
+		params.put("login_id", login_id);
 		logger.info("encoded password : " + params.get("password"));
+		
 		employeeService.join(params);
+		String emp_id = (String) params.get("emp_id");
+		profileService.upload(uploadFile, emp_id, login_id);
 
-		mav.setViewName("employee/employee_list");
+		mav.setViewName("redirect:/emplist.go");
 
 		return mav;
 	}

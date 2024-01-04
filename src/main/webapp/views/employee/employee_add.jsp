@@ -334,6 +334,7 @@
                   		<div class="card mb-4">
                     		<h5 class="card-header">직원 등록</h5>
                     		<!-- Account -->
+                      		<form id="formAccountSettings" action="empadd.do" method="post" enctype="multipart/form-data">
 							<div class="card-body">
 								<div class="d-flex align-items-start align-items-sm-center gap-4">
 			                        <img
@@ -342,18 +343,11 @@
 			                          class="d-block rounded"
 			                          height="100"
 			                          width="100"
-			                          id="uploadedAvatar" />
+			                          id="preview" />
 	                        		<div class="button-wrapper">
-	                         			<label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-		                            		<span class="d-none d-sm-block">Upload new photo</span>
-		                            		<i class="bx bx-upload d-block d-sm-none"></i>
-				                            <input
-				                              type="file"
-				                              id="upload"
-				                              class="account-file-input"
-				                              hidden
-				                              accept="image/png, image/jpeg" />
-			                        	</label>
+	                         			<label for="uploadFile" class="btn btn-label-secondary account-image-reset mb-4">Upload new photo</label>
+		                            	<input type="file" name="uploadFile" id="uploadFile" style="display: none;" onchange="previewImage(event)"/>
+		                            	<i class="bx bx-upload d-block d-sm-none"></i>
 	                          		  	<button type="button" class="btn btn-label-secondary account-image-reset mb-4">
 	                   				  		<i class="bx bx-reset d-block d-sm-none"></i>
 	                                  		<span class="d-none d-sm-block">Reset</span>
@@ -364,7 +358,6 @@
                     		</div>
                     		<hr class="my-0" />
                     		<div class="card-body">
-                      			<form id="formAccountSettings" action="empadd.do" method="post" >
                         		<div class="row">
                           			<div class="mb-3 col-md-6">
                             			<label for="firstName" class="form-label">아이디</label>
@@ -479,40 +472,18 @@
 		                          		<button type="submit" class="btn btn-primary me-2">직원 등록</button>
 		                          		<button type="reset" class="btn btn-label-secondary">등록 취소 </button>
 		                        	</div>
-                      			</form>
                 			</div>
+                      	</form>
                			</div>
-               			<!-- 이거 없으면 사진 업로드가 안됨 -->
-               	<!-- 		<div class="card" style="display: none;">
-                    		<h5 class="card-header">Delete Account</h5>
-                   			<div class="card-body">
-                      			<div class="mb-3 col-12 mb-0">
-                        			<div class="alert alert-warning">
-                         				<h6 class="alert-heading fw-medium mb-1">Are you sure you want to delete your account?</h6>
-                          				<p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
-                        			</div>
-                      			</div>
-                      			<form id="formAccountDeactivation">
-                       				<div class="form-check mb-3">
-			                        	<input
-			                            	class="form-check-input"
-			                            	type="checkbox"
-			                            	name="accountActivation"
-			                            	id="accountActivation" />
-                          				<label class="form-check-label" for="accountActivation">I confirm my account deactivation</label>
-                        			</div>
-                        			<button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
-                      			</form>
-                    		</div>
-                  		</div>
-              		</div>
-             	</div>
-            </div> -->
+               			</div>
+               			
             <!-- / Content -->
 
             <div class="content-backdrop fade"></div>
           	</div>
           	<!-- Content wrapper -->
+        </div>
+        </div>
         </div>
         <!-- / Layout page -->
       </div>
@@ -573,6 +544,22 @@
 	                }
 	            }).open();
 	        });
+	    }
+	    
+	    // 파일 선택 시 미리보기를 위한 함수
+	    function previewImage(event) {
+	        const input = event.target;
+	        const preview = document.getElementById('preview');
+
+	        if (input.files && input.files[0]) {
+	            const reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                preview.src = e.target.result;
+	            };
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
 	    }
     </script>
 

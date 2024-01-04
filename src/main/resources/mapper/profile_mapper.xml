@@ -30,12 +30,12 @@
 	
 	<insert id="writePhoto" parameterType="String">
 		INSERT INTO file(file_kind, file_kind_idx, ori_file_name, new_file_name, emp_id)
-			VALUES(3, 1, #{oriFileName}, #{newFileName}, #{login_id});	
+			VALUES(5, #{emp_id}, #{oriFileName}, #{newFileName}, #{login_id});	
 	</insert>
 	
 	<select id="getPhoto" resultType="com.behit.profile.dto.FileDTO">
 		SELECT * FROM file 
-			WHERE emp_id = #{login_id} AND file_kind = 3 
+			WHERE emp_id = #{login_id} AND file_kind = 5 
 			ORDER BY file_idx DESC
 			LIMIT 1;
 	</select>

@@ -16,7 +16,7 @@ public interface ProfileDAO {
 
 	String getPw(String login_id);
 
-	void writePhoto(String file_kind_idx, String oriFileName, String newFileName, String login_id);
+	void writePhoto(String file_kind_idx, String oriFileName, String newFileName, String emp_id, String login_id);
 
 	ArrayList<FileDTO> getPhoto(String login_id);
 	
