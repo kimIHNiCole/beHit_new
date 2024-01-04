@@ -93,10 +93,15 @@
 	margin-left: 27rem;
 	}
 	
-	/* 채팅방 상단 이름 영역 맥스 사이즈 */
-/*  	.chat-contact-info.flex-grow-1.ms-3{
-	max-width: 50rem;
-	} */
+	.text-primary.mb-0{
+	margin: 1rem;
+	}
+	.flex-grow-1.input-group.input-group-merge.rounded-pill.ms-1{
+	margin-top: 1rem;
+	}
+	.chatListAndS{
+	margin-left: 1rem;
+	}
 .chat-names{
 font-size: 10px;
 }
@@ -144,9 +149,7 @@ font-size: 10px;
                     </div>
                     <hr class="container-m-nx mt-3 mb-0" />
                     <div class="sidebar-body">
-                      <!-- Chats -->
-                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
-                        <li class="chat-contact-list-item">
+                    	<div class="chatListAndS">
                           <h6 class="text-primary mb-0">채팅 리스트</h6>
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
                           <span class="input-group-text" id="basic-addon-search31"
@@ -159,36 +162,18 @@ font-size: 10px;
                             aria-label="Search..."
                             aria-describedby="basic-addon-search31" />
                         </div>
-                        </li>
+                        </div>
+                      <!-- Chats -->
+                      
+                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <li class="chat-contact-list-item chat-list-item-0 d-none">
                           <h6 class="text-muted mb-0">No Chats Found</h6>
                         </li>
-                        <!-- 온라인일 경우 표시 -->
-                        <c:forEach items="${ChatRoomAll}" var="ChatRoomAll" varStatus="loop">
-                        <li class="chat-contact-list-item">
-                          <a class="d-flex align-items-center">
-                            <div class="flex-shrink-0 avatar avatar-online">
-                              <img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                            <input type=hidden value="${ChatRoomAll.chat_room_idx}"/>
-                              <h6 class="chat-contact-name text-truncate m-0">${ChatRoomAll.chat_room_name}</h6>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-							    <c:forEach items="${ChatRoomAll.chatMb}" var="chatMb" varStatus="loop">
-							        <span>${chatMb.emp_id}</span>
-							        <c:if test="${not loop.last}">
-							            <!-- Add "," only if it's not the last element -->
-							            ,
-							        </c:if>
-							    </c:forEach>
-							</p>
-                            </div>                         
-                            <small class="text-muted mb-auto">${ChatRoomAll.chat_room_date}</small>
-                          </a>
+                        <li id="showChatRListOnChatMs" class="chat-contact-list-item">
+                        	
                         </li>
-                        </c:forEach>                      
+                        
                       </ul>
-                      
                       
                     </div>
                   </div>
@@ -352,22 +337,73 @@ var stompClient = null; //웹소켓 통신을 위한 Stomp 클라이언트를 �
 var emp_id = "";
 var loginId ="";
 var loginName="";
+var currentSubscription = null;
+let chatRoomIdx = '';
 
 function connect() {
-	// 웹소켓 연결을 수행하는 함수
-    var socket = new SockJS('/chat/messenger_his');
-	// SockJS 를 통해 서버의 웹소켓 엔드포인트에 연결
+    var socket = new SockJS('/chat');
     stompClient = Stomp.over(socket);
-	// Stomp 클라이언트 생성
+    
+    // 추가 코드: 디버깅을 위한 로그
+    console.log('Stomp 클라이언트 설정:', stompClient);
+
     stompClient.connect({}, function (frame) {
-    	// 연결이 성공하면 콜백 함수에서 로그 출력
-        console.log('Connected: ' + frame);
+        console.log('Connected:', frame);
     });
 }
 
+function chatRListOnChatMs(){
+	console.log('chatRListOnChatMs 호출됨');
+	$.ajax({
+		type: 'get',
+		url: '/chatRListOnChatMs',
+		data: {},
+		dataType: 'JSON',
+	    success : function(data){
+	      console.log(data);
+	      showChatRListOnChatMs(data);
+	    } ,
+	    error : function(e){
+	      console.log(e);
+	    }
+	});
+}
 
+function showChatRListOnChatMs(data) {
+    var chatListContainer = $('#chat-list');
+    var noChatsFoundItem = chatListContainer.find('.chat-list-item-0');
+    var chatRListOnChatMs = data.chatRListOnChatMs;
 
+    // 기존에 있던 내용을 비워줍니다.
+    chatListContainer.empty();
 
+    if (chatRListOnChatMs.length === 0) {
+        noChatsFoundItem.removeClass('d-none');
+        return;
+    } else {
+        noChatsFoundItem.addClass('d-none');
+    }
+
+    chatRListOnChatMs.forEach(function (chatRoom) {
+        var listItem = $('<li class="chat-contact-list-item"></li>');
+
+        // 리스트 아이템 내용 채우기
+        listItem.append('<a class="d-flex align-items-center">' +
+            '<div class="flex-shrink-0 avatar avatar-online">' +
+            '<img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />' +
+            '</div>' +
+            '<div class="chat-contact-info flex-grow-1 ms-3">' +
+            '<input type="hidden" value="' + chatRoom.chat_room_idx + '"/>' +
+            '<h6 class="chat-contact-name text-truncate m-0">' + chatRoom.chat_room_name + '</h6>' +
+            '<p class="chat-contact-status text-truncate mb-0 text-muted">' + chatRoom.last_message + '</p>' +
+            '</div>' +
+            '<small class="text-muted mb-auto">' + formattedDate(chatRoom.last_message_date) + '</small>' +
+            '</a>');
+
+        // 리스트 아이템을 부모 요소에 추가
+        chatListContainer.append(listItem);
+    });
+}
 
     
  // 채팅방 생성
@@ -467,86 +503,102 @@ function drawOrg(orgList, deptKind) {
     
 }
 
-
-
 /*/직원 리스트 모달 끝 */
 
-var currentSubscription = null;
-var chatRoomIdx = '';
     
  // 채팅방 구독
     
 // 클릭한 채팅방 빨간색으로 활성화
 $(document).ready(function() {
-
-        // 각 리스트 아이템에 클릭 이벤트 리스너 추가
-        $('.chat-contact-list-item').click(function() {
-        	//웹소켓 대화 삭제
-        	$('#webChatMessage').empty();
-            // 기존 active 클래스를 모두 제거
-            $('.chat-contact-list-item').removeClass('active');
-            
-            // 클릭한 리스트에 active 클래스 추가
-            $(this).addClass('active');
-            
-            //기본 채팅방 숨기기
-            $('#defaultChatHistory').css('display', 'none');
-            
-            // 선택된 채팅방 표시
-            $('#selectedChatHistory').css('display', 'block');
-            
-         // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
-            chatRoomIdx = $(this).find('input[type=hidden]').val();
-            console.log(chatRoomIdx);
-
-            if (currentSubscription) {
-                // 현재 구독이 있으면 해지
-                currentSubscription.unsubscribe();
-            }
-
-            currentSubscription = stompClient.subscribe("/topic/chatRoom/" + chatRoomIdx, function (webMessage) {
-                console.log('특정 방에 뿌림', webMessage);
-                showMessage(JSON.parse(webMessage.body));
-            });
-            
-            $.ajax({
-                type: 'GET',
-                url: '/chatList', // 서버에서 처리할 요청 URL
-                data: { chatRoomIdx: chatRoomIdx }, // 전송할 데이터 (chatRoomIdx)
-                success: function(data) {
-                    // 서버에서 받은 데이터(response)를 처리
-                    console.log('채팅 리스트 가져오기 성공', data);
-
-                    loginId= data.loginId;
-                    loginName= data.loginName;
-                 // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
-                    var roomNameToDisplay;
-
-                    // loginName을 제외한 emp_name이 하나라면 해당 이름을 사용, 그렇지 않으면 data.chatRoomName 사용
-                    var otherMembers = data.chatMbListInRoom.filter(function (chatMb) {
-                        return chatMb.emp_name != loginName;
-                    });
-
-                    if (otherMembers.length == 1) {
-                        roomNameToDisplay = otherMembers[0].emp_name;
-                    } else {
-                        roomNameToDisplay = data.chatRoomName;
-                    }
-
-                    $('#chatRoomNameInRoom').text(roomNameToDisplay);
-                    showChatMbListInRoom(data.chatMbListInRoom);
-                    showMessageList(data.chatList, loginId);
-                },
-                error: function(error) {
-                    console.error('채팅 리스트 가져오기 실패', error);
-                }
-            });
-            
-            
-            
-        });
+	chatRListOnChatMs();
+	registerClickEvent();
         
 });
+ 
+ 
+function registerClickEvent() {
+	// 각 리스트 아이템에 클릭 이벤트 리스너 추가
+    $(document).on('click', '.chat-contact-list-item', function() {
+
+    	console.log('리스트 아이템 클릭됨')
+    	//웹소켓 대화 삭제
+    	$('#webChatMessage').empty();
+        // 기존 active 클래스를 모두 제거
+        $('.chat-contact-list-item').removeClass('active');
+        
+        // 클릭한 리스트에 active 클래스 추가
+        $(this).addClass('active');
+        
+        //기본 채팅방 숨기기
+        $('#defaultChatHistory').css('display', 'none');
+        
+        // 선택된 채팅방 표시
+        $('#selectedChatHistory').css('display', 'block');
+        
+     // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
+        chatRoomIdx = $(this).find('input[type=hidden]').val();
+        console.log(chatRoomIdx);
+
+        if (currentSubscription) {
+            // 현재 구독이 있으면 해지
+            currentSubscription.unsubscribe();
+        }
+
+        currentSubscription = stompClient.subscribe("/topic/chatRoom/" + chatRoomIdx, function (webMessage) {
+            console.log('특정 방에 뿌림', webMessage);
+            console.log(chatRoomIdx);
+            chatRListOnChatMs();
+            showMessage(JSON.parse(webMessage.body));
+        });
+
+        
+        $.ajax({
+            type: 'GET',
+            url: '/chatList', // 서버에서 처리할 요청 URL
+            data: { chatRoomIdx: chatRoomIdx }, // 전송할 데이터 (chatRoomIdx)
+            success: function(data) {
+                // 서버에서 받은 데이터(response)를 처리
+                console.log('채팅 리스트 가져오기 성공', data);
+
+                loginId= data.loginId;
+                loginName= data.loginName;
+             // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
+                var roomNameToDisplay;
+
+                // loginName을 제외한 emp_name이 하나라면 해당 이름을 사용, 그렇지 않으면 data.chatRoomName 사용
+                var otherMembers = data.chatMbListInRoom.filter(function (chatMb) {
+                    return chatMb.emp_name != loginName;
+                });
+
+                if (otherMembers.length == 1) {
+                    roomNameToDisplay = otherMembers[0].emp_name;
+                } else {
+                    roomNameToDisplay = data.chatRoomName;
+                }
+
+                $('#chatRoomNameInRoom').text(roomNameToDisplay);
+                showChatMbListInRoom(data.chatMbListInRoom);
+                showMessageList(data.chatList, loginId);
+            },
+            error: function(error) {
+                console.error('채팅 리스트 가져오기 실패', error);
+            }
+        });
+        
+        
+        
+    });
+	
+	
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 function showChatMbListInRoom(chatMbListInRoom){
 
 	var empNames = chatMbListInRoom.map(function (chatMb) {
@@ -639,9 +691,7 @@ function sendMessage() {
     var messageContent = $('#chatSend').val();
     console.log(messageContent);
     
-    // 선택된 채팅방의 chat_room_idx 가져오기
-    var chatRoomIdx = $('.chat-contact-list-item.active input[type=hidden]').val();
-    console.log(chatRoomIdx);
+    
     
  // 현재 시간을 가져오기
     var currentDate = new Date();
@@ -655,8 +705,9 @@ function sendMessage() {
     console.log(formattedDate);
     
     console.log(loginId);
+    console.log('send:'+chatRoomIdx);
     stompClient.send("/app/chatRoom/" + chatRoomIdx, {}, JSON.stringify({
-    	'chat_room_idx':chatRoomIdx,
+        'chat_room_idx': chatRoomIdx,
         'message': messageContent,
         'emp_id': loginId,
         'emp_name': loginName,

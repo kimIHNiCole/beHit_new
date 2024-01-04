@@ -29,6 +29,8 @@ public interface ChatDAO {
 
 	void saveChat(ChatDTO message);
 
+	void insertIntoChatM(int chat_room_idx);
+
 	
 
 	

@@ -79,7 +79,12 @@
 	(chat_room_idx, emp_id)
 	VALUES
 	(#{param1}, #{param2})
-	
+	</insert>
+	<insert id="insertIntoChatM">
+	insert into chat_msg
+	(chat_room_idx, emp_id, message, message_date)
+	VALUES
+	(#{param1}, "system", "새 채팅방이 생성되었습니다.", current_timestamp)
 	</insert>
 	
   	<select id="chatList" resultType="chat">
