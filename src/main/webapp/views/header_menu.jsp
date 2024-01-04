@@ -1,6 +1,140 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script>
 
+/**
+ * Sweet Alerts 스크립트
+ */
+ 
+
+   var successMsg = "${successMsg}";
+   if(successMsg != ""){
+      Swal.fire({
+         /*         title: 'Good job!', */
+                 text: successMsg,
+                 icon: 'success',
+                 customClass: {
+                   confirmButton: 'btn btn-primary'
+                 },
+                 buttonsStyling: false
+               });
+   }
+   
+   var warningMsg = "${warningMsg}";
+   if(warningMsg != ""){
+      Swal.fire({
+           text: warningMsg,
+           icon: 'warning',
+           customClass: {
+             confirmButton: 'btn btn-primary'
+           },
+           buttonsStyling: false
+         });
+   }
+   
+   var confirmMsg = "${confirmMsg}";
+   if(confirmMsg != ""){
+      Swal.fire({
+         /*         title: 'Are you sure?', */
+                 text: confirmMsg,
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonText: 'OK',
+                 customClass: {
+                   confirmButton: 'btn btn-primary me-3',
+                   cancelButton: 'btn btn-label-secondary'
+                 },
+                 buttonsStyling: false
+               }).then(function (result) {
+                 if (result.value) {
+                   Swal.fire({
+                     icon: 'success',
+         /*             title: 'Deleted!', */
+                     text: '삭제되었습니다.',
+                     customClass: {
+                       confirmButton: 'btn btn-success'
+                     }
+                   });
+                 }
+               });
+   }
+
+
+
+(function () {
+  const 
+    iconSuccess = document.querySelector('#type-success'),
+    iconWarning = document.querySelector('#type-warning'),
+    confirmText = document.querySelector('#confirm-text');
+
+
+  // Alert Types
+  // --------------------------------------------------------------------
+
+  // Success Alert
+  if (iconSuccess) {
+    iconSuccess.onclick = function () {
+      Swal.fire({
+/*         title: 'Good job!', */
+        text: '저장이 완료되었습니다!',
+        icon: 'success',
+        customClass: {
+          confirmButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      });
+    };
+  }
+
+
+  // Warning Alert
+  if (iconWarning) {
+    iconWarning.onclick = function () {
+      Swal.fire({
+        title: 'Warning!',
+        text: ' You clicked the button!',
+        icon: 'warning',
+        customClass: {
+          confirmButton: 'btn btn-primary'
+        },
+        buttonsStyling: false
+      });
+    };
+  }
+
+
+  // Alert With Functional Confirm Button
+  if (confirmText) {
+    confirmText.onclick = function () {
+      Swal.fire({
+/*         title: 'Are you sure?', */
+        text: "정말 삭제하시겠습니까?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'btn btn-primary me-3',
+          cancelButton: 'btn btn-label-secondary'
+        },
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+          Swal.fire({
+            icon: 'success',
+/*             title: 'Deleted!', */
+            text: '삭제되었습니다.',
+            customClass: {
+              confirmButton: 'btn btn-success'
+            }
+          });
+        }
+      });
+    };
+  }
+})();
+
+
+</script>
 <!-- Menu -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
