@@ -101,12 +101,7 @@
 						<tr>
 							<td class="table-content-left">제목</td>
 							<td class="table-content-right">
-								<input
-                          type="text"
-                          class="form-control"
-                          id="defaultFormControlInput"
-                          placeholder="제목을 입력하세요."
-                          aria-describedby="defaultFormControlHelp" />
+								<input type="text" class="form-control" placeholder="제목을 입력하세요." />
 							</td>
 						</tr>
 						<tr>

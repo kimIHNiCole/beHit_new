@@ -5,8 +5,9 @@
 
 <mapper namespace="com.behit.approval.dao.ApprovalDAO">
 
-<select id="approval_write" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+<select id="approval_write_go" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT 
+				e.emp_name,
 		    d.emp_dept_name AS 'dept_name',
 		    cc_grade.common_code_name AS 'grade_name',
 		    cc_position.common_code_name AS 'position_name',

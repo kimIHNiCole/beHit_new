@@ -7,6 +7,6 @@ import com.behit.employee.dto.EmployeeDTO;
 @Mapper
 public interface ApprovalDAO {
 
-	EmployeeDTO approval_write(String emp_id);
+	EmployeeDTO approval_write_go(String emp_id);
 	
 }
