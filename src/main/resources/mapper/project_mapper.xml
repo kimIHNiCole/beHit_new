@@ -4,11 +4,25 @@
 
 <mapper namespace="com.behit.project.dao.ProjectDAO">
 	
-	<insert id="">
-		INSERT INTO project (emp_id,proj_subject,proj_start,proj_end,proj_content)VALUES(#{param1},#{param2},#{param3},#{param4},#{param5});
+	<insert id="projwrite">
+		INSERT INTO project (emp_id,proj_subject,proj_start,proj_end,proj_content)VALUES(#{param1},#{param2},#{param3},#{param4},#{param5})
 	</insert>
 	
+	<insert id="projteamD">
+		INSERT INTO project_team (proj_idx,emp_id,projT_contact)VALUES(#{param1},#{param2},'1')
+	</insert>
 	
+	<insert id="projteamC">
+		INSERT INTO project_team (proj_idx,emp_id,projT_contact)VALUES(#{param1},#{param2},'2')
+	</insert>
+	
+	<select id="projIdx" resultType="int">
+		SELECT proj_idx FROM project ORDER BY proj_idx DESC Limit 1;
+	</select>
+	
+	<insert id="writefile">
+		INSERT INTO file (file_kind,file_kind_idx,ori_file_name,new_file_name,emp_id)VALUES('4',#{param1},#{param2},#{param3},#{param4})
+	</insert>
 	
 
 </mapper>

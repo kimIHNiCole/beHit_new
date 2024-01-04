@@ -55,7 +55,6 @@ public class ProfileService {
 		
 		logger.info("!!"+oriFileName+"/"+ext+"/"+newFileName);
 		
-		
 		byte[] bytes = uploadFile.getBytes();
 		Path path = Paths.get(root+newFileName);
 		Files.write(path, bytes);
