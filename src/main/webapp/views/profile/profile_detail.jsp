@@ -21,6 +21,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    
+    <!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -361,7 +364,7 @@ img.rounded-top{
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
 						<c:choose>
 						    <c:when test="${not empty photos and not empty photos[0].new_file_name}">
-						        <img src="/photo/${photos[0].new_file_name}" alt="${photos[0].ori_file_name}" 
+						        <img src="/file/employee/${photos[0].new_file_name}" alt="${photos[0].ori_file_name}" 
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>
@@ -379,7 +382,7 @@ img.rounded-top{
         					</div>
 	        				<div style="white-space: nowrap; width:150px; display: flex;">
 					            <form action="upload.do" method="post" enctype="multipart/form-data">
-									<input type="file" name="uploadFile" id="uploadFile"/>
+									<input type="file" name="uploadFile" id="uploadFile" accept=".jpg, .jpeg, .gif, .png" onchange="checkFileSize(this)"/>
 									<button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-right: 5px;">전송</button>
 								</form>
 					            <button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-left: 5px;">초기화</button>
@@ -542,37 +545,39 @@ img.rounded-top{
                                   data-bs-dismiss="modal"
                                   aria-label="Close"></button>
                               </div>
-                              <div class="modal-body">
-                                <div class="mb-3 form-password-toggle">
-					                <label class="form-label" for="password">비밀번호</label>
-					                <div class="input-group input-group-merge">
-					                  <input
-					                    type="password"
-					                    id="password"
-					                    class="form-control"
-					                    name="password"
-					                    placeholder="비밀번호를 입력하세요."
-					                    aria-describedby="password" />
-					                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-					                </div>
-					              </div>
-                                <div class="row">
-                                  <div class="col mb-3">
-                                    <label for="nameWithTitle" class="form-label">비밀번호 확인</label>
-                                    <input
-                                      type="password"
-                                      id="confirmPassword"
-                                      class="form-control"
-                                      aria-describedby="password"/>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
-                                  취소
-                                </button>
-                                <button type="button" class="btn btn-primary" onclick="passChange()">비밀번호 변경</button>
-                              </div>
+                              <form action="passChange.do" method="post">
+	                              <div class="modal-body">
+	                                <div class="mb-3 form-password-toggle">
+						                <label class="form-label" for="password">비밀번호</label>
+						                <div class="input-group input-group-merge">
+						                  <input
+						                    type="password"
+						                    id="password"
+						                    class="form-control"
+						                    name="password"
+						                    placeholder="비밀번호를 입력하세요."
+						                    aria-describedby="password" />
+						                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+						                </div>
+						              </div>
+	                                <div class="row">
+	                                  <div class="col mb-3">
+	                                    <label for="nameWithTitle" class="form-label">비밀번호 확인</label>
+	                                    <input
+	                                      type="password"
+	                                      id="confirmPassword"
+	                                      class="form-control"
+	                                      aria-describedby="password"/>
+	                                  </div>
+	                                </div>
+	                              </div>
+	                              <div class="modal-footer">
+	                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+	                                  취소
+	                                </button>
+	                                <button type="submit" class="btn btn-primary">비밀번호 변경</button>
+	                              </div>
+                              </form>
                             </div>
                           </div>
                         </div>
@@ -620,30 +625,22 @@ img.rounded-top{
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     
     <script>
-    	function passChange() {
-    		var password = $('input[name="password"]').val();
-    		
-    		$.ajax({
-    			type: "POST",
-    			url: "passChange.do",
-    			data: {"password":password},
-    			dataType:"json",
-    			success: function(data){
-    				console.log(data.success);
-    				if (data.success == true){
-    					alert("비밀번호가 변경되었습니다. 다시 로그인해 주세요");
-    					location.href="redirect:/login.jsp";
-    				} else {
-    					alert("기존 비밀번호와 일치합니다.");
-    					location.reload();
-    				}
-    				
-    			},
-    			error: function(e){
-    				console.log(e)
-    			}
-    		});
-    	}
+		var msg = '${msg}';
+		if (msg!=''){
+			alert(msg);
+		}
+		
+		function checkFileSize(input) {
+		    const maxFileSizeInBytes = 1024 * 1024; // 예시: 1MB 제한
+
+		    if (input.files.length > 0) {
+		        const fileSize = input.files[0].size; // 파일 크기
+		        if (fileSize > maxFileSizeInBytes) {
+		            alert('파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.');
+		            input.value = ''; // 파일 선택 취소
+		        }
+		    }
+		}
 	</script>
 
     <!-- Main JS -->

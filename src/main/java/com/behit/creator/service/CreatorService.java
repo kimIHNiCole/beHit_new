@@ -1,6 +1,7 @@
 package com.behit.creator.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -136,5 +137,34 @@ public class CreatorService {
 	    logger.info("Channel ID: " + channelId);
 	    return channelId;
 	}
+	
+	// 크리에이터 전체 리스트
+	public HashMap<String, Object> getTotalInfo() {
+		logger.info("전체 정보 가져오기 실행");
+		HashMap<String, Object> totalInfo = creatorDAO.getTotalInfo(); 
+		if(totalInfo != null) {
+			logger.info("전체 정보 가져오기 성공");
+			logger.info("creatorAllList = "+totalInfo);
+		}
+		return totalInfo;
+	}
+
+	public ArrayList<HashMap<String, Object>> getAllList() {
+		logger.info("전체 크리에이터 리스트 가져오기 실행");
+		ArrayList<HashMap<String, Object>> allList = creatorDAO.getAllList();
+		if(allList != null) {
+			logger.info("전체 크리에이터 리스트 가져오기 성공");
+			logger.info("allList = "+allList);
+		}
+		return allList;
+	}
+	// 
+	
+	
+	public ArrayList<HashMap<String, Object>> getCreatorMyList() {
+		logger.info("나의 크리에이터 리스트 가져오기 실행");
+		return null;
+	}
+
 
 }

@@ -1,6 +1,7 @@
 package com.behit.creator.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,15 +15,16 @@ import com.behit.creator.dto.SnsDTO;
 public interface CreatorDAO {
 
 	ArrayList<CommCreDTO> getGenders();
-
 	ArrayList<CommCreDTO> getCountries();
-
 	ArrayList<String> getChCategory();
 
 	int creatorInsert(CreatorDTO creatorDTO);
 	int channelInsert(ChannelDTO channelDTO);
 	int snsInsert(SnsDTO snsDTO);
 	int creHisInsert(CreHistDTO creHistDTO);
+
+	HashMap<String, Object> getTotalInfo();
+	ArrayList<HashMap<String, Object>> getAllList();
 	
 
 }

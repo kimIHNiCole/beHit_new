@@ -18,7 +18,9 @@
 	<title>BeHit</title>
 	
     <meta name="description" content="" />
-
+	<!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
+	
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
@@ -343,7 +345,9 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h6> <a href="creator_list_all.go">전체리스트</a> | <a href="creator_list_my.go">나의 크리에이터</a></h6>
+            <h4>
+	            <a href="creator_list_all.go">전체리스트</a> | <a href="creator_list_my.go">나의 크리에이터</a>
+            </h4>
               <div class="row g-4 mb-4">
                 <div class="col-sm-6 col-xl-3">
                   <div class="card">
@@ -352,7 +356,7 @@
                         <div class="content-left">
                           <span>관리크리에이터</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">238 명</h4>
+                            <h4 id="total_creators" class="mb-0 me-2"></h4>
                           </div>
                           <p class="mb-0">　</p>
                         </div>
@@ -367,7 +371,7 @@
                         <div class="content-left">
                           <span>관리채널</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">346 개</h4>
+                            <h4 id="total_channels" class="mb-0 me-2"></h4>
                           </div>
                           <p class="mb-0">　</p>
                         </div>
@@ -382,7 +386,7 @@
                         <div class="content-left">
                           <span>구독자 합계</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">3,221,207,208 명</h4>
+                            <h4 id="total_subscribers" class="mb-0 me-2"></h4>
                           </div>
                           <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
                         </div>
@@ -397,7 +401,7 @@
                         <div class="content-left">
                           <span>컨텐츠 합계</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">348,043개</h4>
+                            <h4 id="total_contents" class="mb-0 me-2"></h4>
                           </div>
                           <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
                         </div>
@@ -409,16 +413,18 @@
               <!-- Users List Table --> <!-- 유저 리스트 테이블 -->
 				<div class="card">
                 <div class="card-datatable table-responsive">
-                  <table class="datatables-users table border-top">
+                  <table id="creatorList" class="datatables-users table border-top">
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>CREATOR</th>
-                        <th>CATEGORY</th>
+                      	<th>no</th>
+                        <th>크리에이터</th>
+                        <th>카테고리</th>
                         <th>대표채널</th>
                         <th>담당매니저</th>
                       </tr>
                     </thead>
+                    <tbody>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -470,315 +476,57 @@
     <!-- Page JS -->
     <!-- 
     <script src="../../assets/js/app-user-list.js"></script>
-     --> 
+     -->
     <script>
-    /**
-     * Page User List
-     */
-	
-    'use strict';
-	
-    // Datatable (jquery)
-    $(function () {
-      var lang = 'English';
-      let borderColor, bodyBg, headingColor;
-
-      if (isDarkStyle) {
-        borderColor = config.colors_dark.borderColor;
-        bodyBg = config.colors_dark.bodyBg;
-        headingColor = config.colors_dark.headingColor;
-      } else {
-        borderColor = config.colors.borderColor;
-        bodyBg = config.colors.bodyBg;
-        headingColor = config.colors.headingColor;
-      }
-
-      // Variable declaration for table
-      var dt_user_table = $('.datatables-users'),
-        select2 = $('.select2'),
-        userView = 'app-user-view-account.go',
-        statusObj = {
-          1: { title: 'Pending', class: 'bg-label-warning' },
-          2: { title: 'Active', class: 'bg-label-success' },
-          3: { title: 'Inactive', class: 'bg-label-secondary' }
-        };
-
-      if (select2.length) {
-        var $this = select2;
-        $this.wrap('<div class="position-relative"></div>').select2({
-          placeholder: 'Select Country',
-          dropdownParent: $this.parent()
-        });
-      }
-
-      // Users datatable
-      var lang = 'English';
-      if (dt_user_table.length) {
-        var dt_user = dt_user_table.DataTable({
-          ajax: assetsPath + 'json/creator-list.json', // JSON file to add data
-          columns: [
-            // columns according to JSON
-            { data: '' },
-            { data: 'email' }, // 기존 { data: 'full_name' },인데 변경
-            { data: 'role' },
-            { data: 'current_plan' },
-            { data: 'billing' },
-          ],
-          columnDefs: [
-            {
-              // For Responsive
-              className: 'control',
-              searchable: false,
-              orderable: false,
-              responsivePriority: 2,
-              targets: 0,
-              render: function (data, type, full, meta) {
-                return '';
-              }
-            },
-            {
-              // User full name and email
-              targets: 1,
-              responsivePriority: 4,
-              render: function (data, type, full, meta) {
-                var $name = full['full_name'],
-                  $email = full['email'],
-                  $image = full['avatar'];
-                if ($image) {
-                  // For Avatar image
-                  var $output =
-                    '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
-                } else {
-                  // For Avatar badge
-                  var stateNum = Math.floor(Math.random() * 6);
-                  var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                  var $state = states[stateNum],
-                    $name = full['full_name'],
-                    $initials = $name.match(/\b\w/g) || [];
-                  $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                  $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-                }
-                // Creates full output for row
-                var $row_output =
-                  '<div class="d-flex justify-content-start align-items-center user-name">' +
-                  '<div class="avatar-wrapper">' +
-                  '<div class="avatar avatar-sm me-3">' +
-                  $output +
-                  '</div>' +
-                  '</div>' +
-                  '<div class="d-flex flex-column">' +
-                  '<a href="' +
-                  userView +
-                  '" class="text-body text-truncate"><span class="fw-medium">' +
-                  $name +
-                  '</span></a>' +
-                  '<small class="text-muted">' +
-                  $email +
-                  '</small>' +
-                  '</div>' +
-                  '</div>';
-                return $row_output;
-              }
-            },
-            {
-              // User Role
-              targets: 2,
-              render: function (data, type, full, meta) {
-                var $role = full['role'];
-                var roleBadgeObj = {
-                  Subscriber:
-                    '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="bx bx-user bx-xs"></i></span>',
-                  Author:
-                    '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="bx bx-cog bx-xs"></i></span>',
-                  Maintainer:
-                    '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="bx bx-pie-chart-alt bx-xs"></i></span>',
-                  Editor:
-                    '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="bx bx-edit bx-xs"></i></span>',
-                  Admin:
-                    '<span class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 me-2"><i class="bx bx-mobile-alt bx-xs"></i></span>'
-                };
-                return "<span class='text-truncate d-flex align-items-center'>" + roleBadgeObj[$role] + $role + '</span>';
-              }
-            },
-            {
-              // Plans
-              targets: 3,
-              render: function (data, type, full, meta) {
-                var $plan = full['current_plan'];
-
-                return '<span class="fw-medium">' + $plan + '</span>';
-              }
-            },
-            // 삭제할부분
-            
-            // 여기까지
-          ],
-          order: [[1, 'desc']],
-          dom:
-        	    '<"row mx-2"' +
-        	    '<"col-md-4"<"dt-action-buttons text-start d-flex align-items-center justify-content-between flex-md-row flex-column mb-3 mb-md-0"f>>' +
-                '<"col-md-4 user_role">'+
-                '<"col-md-4 user_plan">'+
-        	    '>t' +
-        	    '<"row mx-2"' +
-        	    '<"col-sm-12 col-md-6"i>' +
-        	    '<"col-sm-12 col-md-6"p>' +
-              	
-        	    '>',
-          language: {
-            sLengthMenu: '_MENU_',
-            search: '',
-            searchPlaceholder: '검색'
-          },
-          responsive: {
-            details: {
-              display: $.fn.dataTable.Responsive.display.modal({
-                header: function (row) {
-                  var data = row.data();
-                  return 'Details of ' + data['full_name'];
-                }
-              }),
-              type: 'column',
-              renderer: function (api, rowIdx, columns) {
-                var data = $.map(columns, function (col, i) {
-                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                    ? '<tr data-dt-row="' +
-                        col.rowIndex +
-                        '" data-dt-column="' +
-                        col.columnIndex +
-                        '">' +
-                        '<td>' +
-                        col.title +
-                        ':' +
-                        '</td> ' +
-                        '<td>' +
-                        col.data +
-                        '</td>' +
-                        '</tr>'
-                    : '';
-                }).join('');
-
-                return data ? $('<table class="table"/><tbody />').append(data) : false;
-              }
-            }
-          },
-          initComplete: function () {
-            // Adding role filter once table initialized
-            this.api()
-              .columns(2)
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select id="UserRole" class="form-select text-capitalize"><option value=""> 카테고리 </option></select>'
-                )
-                  .appendTo('.user_role')
-                  .on('change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                    column.search(val ? '^' + val + '$' : '', true, false).draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                  });
-              });
-            // Adding plan filter once table initialized
-            this.api()
-              .columns(1)
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select id="UserPlan" class="form-select text-capitalize"><option value=""> 전체보기 </option></select>'
-                )
-                  .appendTo('.user_plan')
-                  .on('change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                    column.search(val ? '^' + val + '$' : '', true, false).draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>');
-                  });
-              });
-          }
-        });
-        // To remove default btn-secondary in export buttons
-        $('.dt-buttons > .btn-group > button').removeClass('btn-secondary');
-      }
-      
-      // Delete Record
-      $('.datatables-users tbody').on('click', '.delete-record', function () {
-        dt_user.row($(this).parents('tr')).remove().draw();
-      });
-
-      // Filter form control to default size
-      // ? setTimeout used for multilingual table initialization
-      setTimeout(() => {
-        $('.dataTables_filter .form-control').removeClass('form-control-sm');
-        $('.dataTables_length .form-select').removeClass('form-select-sm');
-      }, 300);
-    });
-
-    // Validation & Phone mask
-    (function () {
-      const phoneMaskList = document.querySelectorAll('.phone-mask'),
-        addNewUserForm = document.getElementById('addNewUserForm');
-
-      // Phone Number
-      if (phoneMaskList) {
-        phoneMaskList.forEach(function (phoneMask) {
-          new Cleave(phoneMask, {
-            phone: true,
-            phoneRegionCode: 'US'
-          });
-        });
-      }
-      // Add New User Form Validation
-      const fv = FormValidation.formValidation(addNewUserForm, {
-        fields: {
-          userFullname: {
-            validators: {
-              notEmpty: {
-                message: 'Please enter fullname '
-              }
-            }
-          },
-          userEmail: {
-            validators: {
-              notEmpty: {
-                message: 'Please enter your email'
-              },
-              emailAddress: {
-                message: 'The value is not a valid email address'
-              }
-            }
-          }
-        },
-        plugins: {
-          trigger: new FormValidation.plugins.Trigger(),
-          bootstrap5: new FormValidation.plugins.Bootstrap5({
-            // Use this for enabling/changing valid/invalid class
-            eleValidClass: '',
-            rowSelector: function (field, ele) {
-              // field is the field name & ele is the field element
-              return '.mb-3';
-            }
-          }),
-          submitButton: new FormValidation.plugins.SubmitButton(),
-          // Submit the form when all fields are valid
-          // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-          autoFocus: new FormValidation.plugins.AutoFocus()
-        }
-      });
-    })();
-
+    	$.ajax({
+		   type : 'get',
+		   url:'/creatorListAll.go',
+		   dataType:'json',
+		   success:function(result){
+			   console.log('result'+result);
+			   drawTotalAll(result.totalInfo);
+			   drawAllList(result.allList);
+		   },
+		   error:function(e){
+			   console.log(e);
+		   }
+    	});
+    	
+    	function drawTotalAll(totalInfo){
+    		console.log(totalInfo);
+    		$('#total_creators').text(totalInfo.total_creators+" 명");
+    		$('#total_channels').text(totalInfo.total_channels+" 개");
+    		$('#total_subscribers').text(totalInfo.total_subscribers+" 명");
+    		$('#total_contents').text(totalInfo.total_contents+" 개");
+    	}
+    	
+    	function drawAllList(allList) {
+    		console.log(allList);
+	    	var creatorTable = $("#creatorList").DataTable({
+	    		data : allList,
+	    		columns:[
+	    			{ width:'50px', data:'cre_idx'},
+	    			{ 
+	    				width:'200px', 
+	    				data: null,
+	    				render : function(data, type, row){
+	    					return '<a href=/creator_detail.go?cre_idx="' + row.cre_idx + '">'+row.cre_nick_name+'</a>';
+	    				}
+	    			},
+	    			{ width:'150px', data:'channel_cate'},
+	    			{ 
+	    				width:'100px', 
+	    				data: null,
+	    				render : function(data, type, row){
+	    					return  '<a href="' + row.channel_url + '">'+row.channel_name+'</a>';
+	    				}
+	    			},
+	    			{ width:'100px', data:'mng_name'}
+	    		]
+	    	});
+		}
+   
+    
     </script>
     
   </body>

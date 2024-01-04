@@ -20,6 +20,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    
+    <!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

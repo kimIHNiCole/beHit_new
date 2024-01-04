@@ -20,14 +20,14 @@
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
             <li class="menu-item">
-              <a href="../home.go" class="menu-link">
+              <a href="/home.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div class="text-truncate" data-i18n="홈">홈</div>
               </a>
             </li>
             
             <li class="menu-item">
-              <a href="../approval/approval_main.go" class="menu-link">
+              <a href="/approval/approval_main.go" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-food-menu"></i>
                 <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
               </a>

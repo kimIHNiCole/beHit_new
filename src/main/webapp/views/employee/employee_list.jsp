@@ -1,5 +1,7 @@
+<%@page import="com.behit.employee.dto.EmployeeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.behit.employee.dto.EmployeeDTO" %>
 <!DOCTYPE html>
 
 <html
@@ -21,6 +23,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    
+    <!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -299,6 +304,12 @@
                 </li>
                 <!--/ Notification -->
                 <!-- User -->
+             	<% 
+                	EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+                    if (loginInfo != null){
+                    String emp_id = loginInfo.getEmp_id();
+                    String emp_name = loginInfo.getEmp_name();
+               	%>
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
@@ -307,7 +318,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
+                      <a class="dropdown-item" href="../profile/profiledetail">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
@@ -315,8 +326,11 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-medium d-block"><%= emp_name %></span>
+                            <small class="text-muted"><%= emp_id %></small>
+                            <%
+                          		}
+                            %>
                           </div>
                         </div>
                       </a>
@@ -326,7 +340,7 @@
                     </li>
                     
                     <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
+                      <a class="dropdown-item" href="/">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -529,7 +543,13 @@
 			
 			if(item.leavedate == defaultdate) {
 				fcontent += '<tr>';
-				fcontent +='<td style="width:100px;">'+'<img src="../../assets/img/avatars/1.png" width="50px" height="50px">'+'</td>';
+				fcontent +='<td style="width:100px;">';
+				if (item.new_file_name != 'default'){
+					fcontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+				} else {
+					fcontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+				}
+				fcontent +='</td>';
 				fcontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
 					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
@@ -541,10 +561,16 @@
 				fcontent += '</tr>';
 			} else {
 				scontent += '<tr>';
-				scontent +='<td style="width:100px;">'+'<img src="../../assets/img/avatars/1.png" width="50px" height="50px">'+'</td>';
+				scontent +='<td style="width:100px;">';
+				if (item.new_file_name != 'default'){
+					scontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+				} else {
+					scontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+				}
+				scontent +='</td>';
 				scontent +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';
+					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
 				scontent +='<td>'+item.dept_name+'</td>'
 				scontent +='<td>'+item.position_name+'</td>'
 				scontent +='<td>'+item.grade_name+'</td>'
@@ -568,7 +594,7 @@
 				if (showPage != page) {
 					console.log(page);
 					showPage = page;
-					listCall(page);
+					flistCall(page);
 				}
 			}
 		});
