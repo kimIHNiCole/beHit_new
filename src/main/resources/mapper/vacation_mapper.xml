@@ -12,11 +12,11 @@
 		    d.emp_dept_name, 
 		    e.hiredate,
 		    COALESCE(
-		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
 		        'default'
 		    ) AS ori_file_name,
 		    COALESCE(
-		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
 		        'default'
 		    ) AS new_file_name,
 		    COALESCE((SELECT SUM(ev.add_hour) FROM emp_vacation ev WHERE ev.emp_id = e.emp_id), 0) AS totalhour,

@@ -347,14 +347,13 @@
           <div class="content-wrapper">
           
            <!-- Content -->
-<div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">연차 관리 </span></h4>
-	<span class="text-muted fw-light">연차는 시간 단위로 입력됩니다.</span>
-    <!-- DataTable with Buttons -->
-    <div class="card">
+	<div class="container-xxl flex-grow-1 container-p-y mt-2">
+	    <h4 class="py-3 mb-4"><span class="text-muted fw-light">연차 관리 </span></h4>
+		<span class="text-muted fw-light">연차는 시간 단위로 입력됩니다.</span>
+	    <!-- DataTable with Buttons -->
+	    <div class="card">
         <div class="card-datatable table-responsive">
             <div class="row mb-3">
-               
 				<div class="col-md-4 offset-md-8">
 				    <!-- 검색박스 및 셀렉트 박스 -->
 				    <div class="input-group">
@@ -369,8 +368,6 @@
 				        <button class="btn btn-primary" type="button">검색</button>
 				    </div>
 				</div>
-
-                
             </div>
             <table class="datatables-basic table border-top" style="margin-top: -10px;">
                 <thead>
@@ -389,7 +386,7 @@
 	                	<td style="width: 100px;">
 		                	<c:choose>
 							    <c:when test="${not empty vacalist.new_file_name and vacalist.new_file_name ne 'default'}">
-							        <img src="/photo/employee/${vacalist.new_file_name}" alt="${vacalist.ori_file_name}" 
+							        <img src="/file/employee/${vacalist.new_file_name}" alt="${vacalist.ori_file_name}" 
 							            class="d-block h-auto ms-0 rounded user-profile-img"
 							            width="50px" height="50px" />
 							    </c:when>

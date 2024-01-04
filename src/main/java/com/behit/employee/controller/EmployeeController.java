@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.service.EmployeeService;
-import com.behit.profile.service.ProfileService;
+import com.behit.util.service.UtilService;
 
 @Controller
 public class EmployeeController {
@@ -33,7 +33,7 @@ public class EmployeeController {
 	EmployeeService employeeService;
 	
 	@Autowired 
-	ProfileService profileService;
+	UtilService utilService;
 
 
 	@GetMapping(value = "/home.go")
@@ -50,16 +50,15 @@ public class EmployeeController {
 
 	// 추후 경로 수정
 	@PostMapping(value = "/empadd.do")
-	public ModelAndView empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, MultipartFile uploadFile) throws Exception {
+	public String empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, MultipartFile uploadFile) throws Exception {
 
-		ModelAndView mav = new ModelAndView();
 
 		logger.info("params: " + params);
-		logger.info("params: " + params.get("mobile_phone"));
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
 		logger.info("로그인 아이디 : "+login_id);
+		
 
 		String hash = encoder.encode((CharSequence) params.get("password"));
 		params.put("password", hash);
@@ -67,12 +66,17 @@ public class EmployeeController {
 		logger.info("encoded password : " + params.get("password"));
 		
 		employeeService.join(params);
-		String emp_id = (String) params.get("emp_id");
-		profileService.upload(uploadFile, emp_id, login_id);
+		
+		if(!uploadFile.isEmpty()) {
+			String emp_id = (String) params.get("emp_id");
+			HashMap<String, Object> file = new HashMap<String, Object>();
+			file.put("login_id", login_id);
+			file.put("emp_id", emp_id);
+			file.put("file_kind", 5);
+			utilService.upload(uploadFile, file);	
+		}
 
-		mav.setViewName("redirect:/emplist.go");
-
-		return mav;
+		return "redirect:/emplist.go";
 	}
 
 	@GetMapping(value = "/emplist.go")
