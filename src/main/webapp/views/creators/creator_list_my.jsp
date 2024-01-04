@@ -18,7 +18,10 @@
 	<title>BeHit</title>
 	
     <meta name="description" content="" />
-
+    
+	<!-- pretendard 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
+	
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
@@ -364,7 +367,7 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
             <div class ="top-tap-select" style="display: flex; justify-content: space-between;">
-			    <a href="../creators/creator_list_all.go">전체리스트</a> | <a href="../creators/creator_list_my.go">나의 크리에이터</a>
+			    <h5><a href="../creators/creator_list_all.go">전체리스트</a> | <a href="../creators/creator_list_my.go">나의 크리에이터</a></h5>
 			    <select class="form-select create">
                      <option value="name">이도훈(본인)</option>
                      <option value="id">한가인</option>
@@ -381,7 +384,7 @@
                         <div class="content-left">
                           <span>관리 크리에이터</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">41 명</h4>
+                            <h4 class="mb-0 me-2">${creatorAllList.total_creators} 명</h4>
                           </div>
                           <p class="mb-0">　</p>
                         </div>
@@ -396,7 +399,7 @@
                         <div class="content-left">
                           <span>관리채널</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">88 개</h4>
+                            <h4 class="mb-0 me-2">${creatorAllList.total_channels} 개</h4>
                           </div>
                           <p class="mb-0">　</p>
                         </div>
@@ -411,7 +414,7 @@
                         <div class="content-left">
                           <span>구독자 합계</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">221,207,208 명</h4>
+                            <h4 class="mb-0 me-2">${creatorAllList.total_subscribers} 명</h4>
                           </div>
                           <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
                         </div>
@@ -426,7 +429,7 @@
                         <div class="content-left">
                           <span>컨텐츠 합계</span>
                           <div class="d-flex align-items-end mt-2">
-                            <h4 class="mb-0 me-2">48,043개</h4>
+                            <h4 class="mb-0 me-2">${creatorAllList.total_contents} 개</h4>
                           </div>
                           <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
                         </div>
@@ -443,67 +446,24 @@
                      
               
               <!-- 크리에이터 카드들 -->
-              <div class="row">
-			    <div class="col-md-6 col-lg-4">
-                  <h6 class="mt-2 text-muted"></h6>
-                  <div class="card">
-                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">혜안</h5>
-                      <br/>
-                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
-                      <p class="card-text">구독자 수 | 3,319,001</p>
-                      <p class="card-text">| 게임, FUN |</p>
-                    </div>
-                  </div>
-                </div>
-			
-			    <div class="col-md-6 col-lg-4">
-                  <h6 class="mt-2 text-muted"></h6>
-                  <div class="card">
-                    <img class="card-img-top" src="../../assets/img/elements/5.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">허팝</h5>
-                      <br/>
-                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 허팝</a></p>
-                      <p class="card-text">구독자 수 | 3,319,001</p>
-                      <p class="card-text">| 지식, 정보, 푸드, 먹방 |</p>
-                    </div>
-                  </div>
-                </div>
-			
-			   <div class="col-md-6 col-lg-4">
-                  <h6 class="mt-2 text-muted"></h6>
-                  <div class="card">
-                    <img class="card-img-top" src="../../assets/img/elements/18.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">히빱</h5>
-                      <br/>
-                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 많이 먹어도 살 안 쪄서 좋겠당</a></p>
-                      <p class="card-text">구독자 수 | 2,319,001</p>
-                      <p class="card-text">| 먹방, 코믹 |</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                  <h6 class="mt-2 text-muted"></h6>
-                  <div class="card">
-                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                      <h5 class="card-title">혜안</h5>
-                      <br/>
-                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
-                      <p class="card-text">구독자 수 | 3,319,001</p>
-                      <p class="card-text">| 게임, FUN |</p>
-                    </div>
-                  </div>
-                </div>
-                
-			
-			
-			    <!-- 다음 카드들도 유사하게 추가 -->
-			</div>
-              
+              <c:forEach var="creator" items="${creatorAllList}">
+	              <div class="row">
+				    <div class="col-md-6 col-lg-4">
+	                  <h6 class="mt-2 text-muted"></h6>
+	                  <div class="card">
+	                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Creator_image" />
+	                    <div class="card-body">
+	                      <h5 class="card-title">혜안</h5>
+	                      <br/>
+	                      <p class="card-text">대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
+	                      <p class="card-text">구독자 수 | 3,319,001</p>
+	                      <p class="card-text">컨텐츠 수 | 319,001</p>
+	                      <p class="card-text">| 게임, FUN |</p>
+	                    </div>
+	                  </div>
+	                </div>
+				</div>
+              </c:forEach>
               
             </div>
             <!-- / Content -->
@@ -558,7 +518,8 @@
     'use strict';
 
     $(function () {
-      var dataTablePermissions = $('.datatables-permissions'),
+    	
+      /* var dataTablePermissions = $('.datatables-permissions'),
         dt_permission,
         userList = 
   		"data": [
@@ -584,9 +545,9 @@
 				"status": 1,
 				"avatar": "10.png"
 			}
-		]
+		] */
 
-      // Users List datatable
+/*       // Users List datatable
       if (dataTablePermissions.length) {
         dt_permission = dataTablePermissions.DataTable({
           ajax: assetsPath + 'json/permissions-list.json', // JSON file to add data
@@ -757,18 +718,18 @@
           }
         });
       }
-
+ */
       // Delete Record
-      $('.datatables-permissions tbody').on('click', '.delete-record', function () {
+   /*    $('.datatables-permissions tbody').on('click', '.delete-record', function () {
         dt_permission.row($(this).parents('tr')).remove().draw();
-      });
+      }); */
 
       // Filter form control to default size
       // ? setTimeout used for multilingual table initialization
-      setTimeout(() => {
+     /*  setTimeout(() => {
         $('.dataTables_filter .form-control').removeClass('form-control-sm');
         $('.dataTables_length .form-select').removeClass('form-select-sm');
-      }, 300);
+      }, 300); */
     });
     </script>
     

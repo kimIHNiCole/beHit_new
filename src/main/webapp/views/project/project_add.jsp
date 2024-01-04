@@ -676,6 +676,7 @@
 										<hr class="my-3" />
 										<!-- 지연된 프로젝트일시 -->
 										<!-- 프로젝트 제목 -->
+										<input id="createId" type="hidden" value="${sessionScope.loginInfo.getEmp_id()}"/>
 										<div class="fs-5 px-3 fw-semibold">프로젝트 제목</div>
 										<div class="project-subject col-12">
 											<span class="project-subject-left col-12">
@@ -712,10 +713,10 @@
 													<button onclick="addcham()" type="button" id="confirm-text" class="mx-2"><i class='bx bx-plus'></i> 추가</button>
 													<div id="projModal1" style="display: none">
 														<h5 class="card-header">조직도
-														<span style="float: right;"><button style="background: none; border: none;" onclick="closeChartModal()">X</button></span>
+														<span style="float: right;"><button style="background: none; border: none;" onclick="closeChartModal1()">X</button></span>
 														</h5>
 														<div class="card-body">
-														  <div id="jstree-checkbox"></div>
+														  <div id="jstree-checkbox1"></div>
 														</div>
 													</div>
 												</div>
@@ -844,7 +845,7 @@
     <script src="../../assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
     <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
-    <script src="../../assets/vendor/libs/quill/quill.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script> <!-- 주석할수도 -->
     <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
     
     <!-- Flat Picker -->
@@ -902,18 +903,57 @@
 <script> // 스크립트 내코드
 //선택된 노드 정보를 담을 배열
 var selectedNodes = [];
+var selectedNodes1 = [];
 
 	function et() {
 		var textsubject = $("#defaultInput").val(); // 제목
-		var startproj = $("#flatpickr-date-before").val();
-		var endproj = $("#flatpickr-date-after").val();
+		var startproj = $("#flatpickr-date-before").val(); // 시작날짜
+		var endproj = $("#flatpickr-date-after").val(); // 종료날짜
 		const textContent = snowEditor.getText(); // 내용
+		var createId = $("#createId").val(); // 생성자 emp_id
 		
+		// 파일 첨부
+	    var fileInput = document.getElementById('formFileMultiple');
+	    var files = fileInput.files;
+	    
+	    var formData = new FormData();
+		
+	    formData.append('createId', createId);
+	    formData.append('textsubject', textsubject);
+	    formData.append('startproj', startproj);
+	    formData.append('endproj', endproj);
+	    formData.append('textContent', textContent);
+	    if (files.length > 0) {
+		    for (var i = 0; i < files.length; i++) {
+		        formData.append('files[]', files[i]);
+		    }
+	    }
+	    formData.append('selectedNodes', JSON.stringify(selectedNodes));
+	    formData.append('selectedNodes1', JSON.stringify(selectedNodes1));
+	    
+	    /*
 		console.log(textContent);
 		console.log(textsubject);
 		console.log(startproj);
 		console.log(endproj);
 		console.log(selectedNodes);
+		console.log(selectedNodes1);
+		*/
+		
+	    $.ajax({
+	        type: 'POST',
+	        url: '/project/project_add.do',
+	        data: formData,
+	        processData: false, // 필수: FormData가 문자열로 변환되지 않도록 설정
+	        contentType: false, // 필수: Content-Type 헤더를 설정하지 않도록 설정
+	        success: function (data) {
+	            console.log('서버 응답:', data);
+	            window.location.href = '/project/project_main.go'; // 실제 페이지 경로로 수정
+	        },
+	        error: function (error) {
+	            console.error('오류 발생:', error);
+	        }
+	    });
 	}
 	
 	function adddam(){ // 담당자 추가버튼 클릭시
@@ -941,7 +981,7 @@ var selectedNodes = [];
 	    	dataType: 'JSON',
 	        success : function(data){
 	          console.log(data);
-	          drawOrg(data.orgList, data.deptKind);
+	          drawOrg1(data.orgList, data.deptKind);
 	        },
 	        error : function(e){
 	          console.log(e);
@@ -950,7 +990,7 @@ var selectedNodes = [];
 		document.getElementById('projModal1').style.display = 'block';
 	}
 	
-	function drawOrg(orgList, deptKind) {
+	function drawOrg(orgList, deptKind) { // 담당자 추가시 div영역에 그려주는거
 		console.log('orgList', orgList);
 		console.log('deptKind',deptKind);
 		
@@ -1036,14 +1076,105 @@ var selectedNodes = [];
 			    }
 			  });
 			}
+	}
+	
+	function drawOrg1(orgList, deptKind) { // 참조자 추가시 div영역에 그려주는거
+		console.log('orgList', orgList);
+		console.log('deptKind',deptKind);
 		
-	}  
+		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+			    checkboxTree = $('#jstree-checkbox1');
+     
+		if (checkboxTree.length) {
+			
+			var serverData = [];
+			
+			for (var i = 0; i < deptKind.length; i++) {
+			    var deptname = {
+			        text: deptKind[i],
+			        type: 'depart',
+			        children: []
+			    };
+			    console.log("deptKind",deptKind[i]);
+			    
+			    var empLength = function(){
+			    	var cnt=0;
+			    		for(var k=0; k < orgList.length; k++){
+			    			if(orgList[k].dept == deptKind[i]){
+			    				cnt++;
+			    				console.log("cnt", cnt);
+			    			}
+			    		}
+			    		return cnt;
+			    };
+			    var empInfo = function(index){
+			    	var info=[];
+			    		for(var k=0; k < orgList.length; k++){
+			    			if(orgList[k].dept == deptKind[i]){
+			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
+			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+			    			}
+			    		}
+			    		return info[index];
+			    };
+			    
+			    for (var j = 0; j < empLength(); j++) {
+			    	console.log("empInfo("+j+")",empInfo(j));
+			        var emp = {
+			            text: empInfo(j)
+			        };
+			        deptname.children.push(emp);
+			    } 
+
+			    // 부모 데이터를 배열에 추가
+			    	serverData.push(deptname); 
+			}
+
+			console.log(serverData); 
+
+			  // jstree에서 사용할 데이터 구성
+			  var jstreeData = serverData.map(function (parent) {
+			    var parentNode = {
+			      text: parent.text,
+			      type: 'depart',
+			      children: parent.children.map(function (child) {
+			        return {
+			          text: child.text
+			        };
+			      })
+			    };
+			    return parentNode;
+			  });
+
+			  checkboxTree.jstree({
+			    core: {
+			      themes: {
+			        name: theme
+			      },
+			      data: jstreeData
+			    },
+			    plugins: ['types', 'checkbox', 'wholerow'],
+			    types: {
+			      default: {
+			        icon: 'bx bx-user'
+			      },
+			      depart: {
+			    	icon: 'bx bx-folder'
+			      }
+			    }
+			  });
+			}
+	}
   
-	function closeChartModal() { // 모달창닫기
+	function closeChartModal() { // 담당자 모달창닫기
 		document.getElementById('projModal').style.display = 'none';
 	}
 	
-// 체크시 조직도 이벤트
+	function closeChartModal1() { // 참조자 모달창닫기
+		document.getElementById('projModal1').style.display = 'none';
+	}
+	
+// 체크시 조직도 이벤트 (담당자)
 $(document).ready(function () {
     $('#jstree-checkbox').on('click', '.jstree-anchor', function (event) {
         event.preventDefault();
@@ -1102,20 +1233,18 @@ $(document).ready(function () {
         }, 0);
     });
 
-    // 트리 노드 열림/닫힘 이벤트 리스너를 추가합니다.
+    // 트리 노드 열림/닫힘 이벤트 리스너를 추가
     $('#jstree-checkbox').on('after_open.jstree', function (event, data) {
-        // 열린 노드의 이름을 가져옵니다.
+        // 열린 노드의 이름
         var nodeName = $(data.node).find('> a').text().trim();
-
-        // 열린 노드의 이름과 열린 상태를 콘솔에 출력합니다.
+		
         // console.log('이름:', nodeName, ' 상태: 열림');
     });
 
     $('#jstree-checkbox').on('after_close.jstree', function (event, data) {
-        // 닫힌 노드의 이름을 가져옵니다.
+        // 닫힌 노드의 이름
         var nodeName = $(data.node).find('> a').text().trim();
 
-        // 닫힌 노드의 이름과 닫힌 상태를 콘솔에 출력합니다.
         // console.log('이름:', nodeName, ' 상태: 닫힘');
     });
 });
@@ -1137,7 +1266,100 @@ function removeNodeFromList(hiddenValue) {
     removeFromDamList(hiddenValue);
     console.log('Selected Nodes after removal:', selectedNodes);
 }
-	
+
+//체크시 조직도 이벤트 (참조자)
+$(document).ready(function () {
+    $('#jstree-checkbox1').on('click', '.jstree-anchor', function (event) {
+        event.preventDefault();
+
+        var $clickedNode = $(this);
+        var nodeName = $clickedNode.text().trim();
+        var nodeHidden = $clickedNode.find('input[type="hidden"]').val();
+        var isSelected = $clickedNode.attr('aria-selected') === 'true';
+
+        setTimeout(function () {
+            var currentSelected = $clickedNode.attr('aria-selected') === 'true';
+
+            var isParentNode = !$clickedNode.parent().hasClass('jstree-leaf');
+            if (isParentNode) {
+                var isOpen = $clickedNode.parent().hasClass('jstree-open');
+                if (!isOpen) {
+                    $clickedNode.parent().find('> .jstree-icon').click();
+                }
+
+                $clickedNode.parent().find('.jstree-children li').each(function () {
+                    var $childNode = $(this).find('> .jstree-anchor');
+                    var childNodeName = $childNode.text().trim();
+                    var childNodeSelected = $childNode.attr('aria-selected') === 'true';
+                    var ChildHidden = $childNode.find('input[type="hidden"]').val();
+
+                    // 배열에서 노드 정보 추가 또는 제외
+                    if (childNodeSelected) {
+                        if (!selectedNodes1.includes(ChildHidden)) {
+                            selectedNodes1.push(ChildHidden);
+                            addToChamList(childNodeName, ChildHidden);
+                        }
+                    } else {
+                        selectedNodes1 = selectedNodes1.filter(node => node !== ChildHidden);
+                        removeFromChamList(ChildHidden);
+                    }
+
+                    console.log('이름:', childNodeName, ' 클릭 후 체크 여부:', childNodeSelected, ' ChildHidden:', ChildHidden);
+                });
+            } else {
+                // 배열에서 노드 정보 추가 또는 제외
+                if (currentSelected) {
+                    if (!selectedNodes1.includes(nodeHidden)) {
+                        selectedNodes1.push(nodeHidden);
+                        addToChamList(nodeName, nodeHidden);
+                    }
+                } else {
+                    selectedNodes1 = selectedNodes1.filter(node => node !== nodeHidden);
+                    removeFromChamList(nodeHidden);
+                }
+
+                console.log('이름:', nodeName, ' 클릭 후 체크 여부:', currentSelected, ' nodeHidden:', nodeHidden);
+            }
+
+            // 출력 선택된 노드 배열
+            console.log('Selected Nodes1:', selectedNodes1);
+        }, 0);
+    });
+
+    // 트리 노드 열림/닫힘 이벤트 리스너를 추가
+    $('#jstree-checkbox1').on('after_open.jstree', function (event, data) {
+        // 열린 노드의 이름
+        var nodeName = $(data.node).find('> a').text().trim();
+		
+        // console.log('이름:', nodeName, ' 상태: 열림');
+    });
+
+    $('#jstree-checkbox1').on('after_close.jstree', function (event, data) {
+        // 닫힌 노드의 이름
+        var nodeName = $(data.node).find('> a').text().trim();
+        
+        // console.log('이름:', nodeName, ' 상태: 닫힘');
+    });
+});
+
+function addToChamList(name, hiddenValue) {
+    var $damList = $('#addChamList');
+    var Fname = name.split(' | ')[0];
+    var $badge = $('<span style="margin-right:5px" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList1(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
+    $damList.append($badge);
+}
+
+function removeFromChamList(hiddenValue) {
+    var $badgeToRemove = $('#addChamList').find('[onclick="removeNodeFromList1(\'' + hiddenValue + '\')"]').closest('.badge.bg-primary');
+    $badgeToRemove.remove();
+}
+
+function removeNodeFromList1(hiddenValue) {
+    selectedNodes1 = selectedNodes1.filter(node => node !== hiddenValue);
+    removeFromChamList(hiddenValue);
+    console.log('Selected Nodes1 after removal:', selectedNodes1);
+}
+
 </script>
 
 </html>
