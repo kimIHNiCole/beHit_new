@@ -153,7 +153,7 @@
 
   <ul class="menu-inner py-1">
     <!-- Dashboards -->
-    <li class="menu-item">
+    <li class="menu-item" id="home">
       <a href="/home.go" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div class="text-truncate" data-i18n="홈">홈</div>

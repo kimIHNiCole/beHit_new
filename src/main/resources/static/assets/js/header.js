@@ -8,6 +8,7 @@
 $(document).ready(function() {
 	var url = window.location.href;
 	var match = url.match(/\/([^\/]+)\/[^\/]+\.go$/);
+	var homeUrl = url.match(/\/([^\/]+)\.go$/)[1];
 	
 	var targetId = match ? match[1] : null;
 	console.log(targetId);
@@ -15,6 +16,10 @@ $(document).ready(function() {
 	if (targetId == 'approval') {
 		
 		$('#approval_main').addClass('active');
+		
+	}else if(homeUrl == 'home'){
+	
+		$('#home').addClass('active');
 		
 	}else if(targetId == 'creators'){
 		

@@ -1,6 +1,7 @@
 package com.behit.approval.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +19,7 @@ public class ApprovalDTO {
 	
 	int apv_idx;
 	String emp_id;
-	int apv_code;
+	String apv_code;
 	Date apv_date;
 	String apv_stmt;
 	String apv_num;
@@ -27,8 +28,8 @@ public class ApprovalDTO {
 	String apv_vac_type;
 	Date apv_start_day;
 	Date apv_end_day;
-	Date apv_start_time;
-	Date apv_end_time;
+	Timestamp apv_start_time;
+	Timestamp apv_end_time;
 	String apv_cnt;
 	String apv_approver;
 	

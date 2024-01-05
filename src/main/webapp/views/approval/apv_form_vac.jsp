@@ -57,7 +57,7 @@
 				<tr>
 					<td class="table-content-left">연차 종류</td>
 					<td class="table-content-right">
-						<select id="selectpickerBasic" class="selectpicker w-20 form-vac-time" data-style="btn-default">
+						<select id="selectpickerBasic" class="selectpicker w-20 form-vac-time" data-style="btn-default" name="apv_vac_type">
 		           <option selected>종일</option>
 		           <option>시간</option>
 				    </select>
@@ -84,8 +84,8 @@
 								
 							</div>
 							<div style="display:inline-block; margin-right:2rem;" >
-								<input type="text" class="form-control vac-time apv-vac-day" />
-								<input type="text" class="form-control vac-time apv-vac-time" />
+								<input type="text" class="form-control vac-time apv-vac-day" disabled />
+								<input type="text" class="form-control vac-time apv-vac-time" disabled />
 								<span class="text"> 시간</span>
 							</div>
 						</div>
