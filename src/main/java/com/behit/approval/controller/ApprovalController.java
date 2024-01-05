@@ -48,26 +48,8 @@ public class ApprovalController {
 	@PostMapping(value="/approval/approval_write.do")
 	public ModelAndView approval_write(HttpSession session, @RequestParam HashMap<String, String> params, MultipartFile[] files) {
 		
-		ModelAndView mav = new ModelAndView("approval/approval_main");
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		
-		String emp_id = loginInfo.getEmp_id();
-		String login_name = loginInfo.getEmp_name();
-		
-		String apv_start_day = params.get("apv_start_day");
-		String apv_end_day = params.get("apv_end_day");
-		String apv_start_time = params.get("apv_start_time");
-		String apv_end_time = params.get("apv_end_time");
-		String total_name = params.get("total_name");
-		String apv_cnt = params.get("apv_cnt");
-		
-		logger.info("apv_end_day : "+apv_end_day);
-		logger.info("apv_start_day : "+apv_start_day);
-		logger.info("apv_start_time : "+apv_start_time);
-		logger.info("apv_end_time : "+apv_end_time);
-		logger.info("total_name : "+total_name);
-		logger.info("apv_cnt : "+apv_cnt);
-
 		return service.approval_write(loginInfo,params,files);
 	}
 	

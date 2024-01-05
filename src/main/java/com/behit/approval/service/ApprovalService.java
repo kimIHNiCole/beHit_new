@@ -60,8 +60,30 @@ public class ApprovalService {
 		
 		ModelAndView mav = new ModelAndView("approval/approval_main");
 		
+		dao.approval_write(loginInfo,params);
 		
-		return null;
+		String emp_id = loginInfo.getEmp_id();
+		String login_name = loginInfo.getEmp_name();
+		
+		String apv_start_day = params.get("apv_start_day");
+		String apv_end_day = params.get("apv_end_day");
+		String apv_start_time = params.get("apv_start_time");
+		String apv_end_time = params.get("apv_end_time");
+		String total_name = params.get("total_name");
+		String apv_cnt = params.get("apv_cnt");
+		String apv_code = params.get("apv_code");
+		String apv_vac_type = params.get("apv_vac_type");
+		
+		logger.info("apv_end_day : "+apv_end_day);
+		logger.info("apv_start_day : "+apv_start_day);
+		logger.info("apv_start_time : "+apv_start_time);
+		logger.info("apv_end_time : "+apv_end_time);
+		logger.info("total_name : "+total_name);
+		logger.info("apv_cnt : "+apv_cnt);
+		logger.info("apv_vac_type : "+apv_vac_type);
+		
+		
+		return mav;
 	}
 
 }

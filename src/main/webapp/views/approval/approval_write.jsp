@@ -550,12 +550,15 @@
 						              		<c:choose>
 														    <c:when test="${form == 'vac'}">
 														        <jsp:include page="apv_form_vac.jsp" />
+														        <input type="hidden" name="apv_code" value="BFVC"/>
 														    </c:when>
 														    <c:when test="${form == 'biz'}">
 														        <jsp:include page="apv_form_biz.jsp" />
+														        <input type="hidden" name="apv_code" value="BSPN"/>
 														    </c:when>
 														    <c:when test="${form == 'vac_after'}">
 														        <jsp:include page="apv_form_vac.jsp" />
+														        <input type="hidden" name="apv_code" value="AFVC"/>
 														    </c:when>
 														</c:choose>
 						              		
@@ -770,9 +773,10 @@
     <!-- custom JS -->
     <script>
     
-    $('#apv-vac-time').hide();
-    
     //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
+    $('.apv-vac-time').hide();
+    input_modal();
+    
     $(".form-vac-time").on("change", function() {
     	
     		//$('.vac-time').val('');
@@ -788,14 +792,8 @@
             
             $('.apv-vac-time').hide();
             $('.apv-vac-day').show();
-            
-            /* 
-            content += '<input name="apv_start_day" type="text" class="form-control form-vac-time-start" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />'
-            content += '<span class="text"> ~ </span>'
-            content += '<input name="apv_end_day" type="text" class="form-control form-vac-time-end" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />'
-						
-            $(".vac-time-input-type").empty().append(content);
-             */
+            $('.apv-vac-time input').prop('disabled', true);
+            $('.apv-vac-day input').prop('disabled', false);
              
         } else if (selectedOption === "시간") {
             // "시간"이 선택된 경우의 동작
@@ -803,23 +801,12 @@
             
             $('.apv-vac-day').hide();
             $('.apv-vac-time').show();
-            
-            /* 
-            content += '<input name="apv_start_day" type="text" class="form-control form-vac-time-start" placeholder="YYYY-MM-DD" id="flatpickr-date" />';
-            content += '<input name="apv_start_time" type="text" id="timepicker-basic-before" placeholder="HH:MMam" class="form-control" />';
-            content += '<span class="text"> ~ </span>';
-            content += '<input name="apv_end_time" type="text" id="timepicker-basic-after" placeholder="HH:MMam" class="form-control" />';
-            
-            $(".vac-time-input-type").empty().append(content);
- */
+            $('.apv-vac-time input').prop('disabled', false);
+            $('.apv-vac-day input').prop('disabled', true);
         }
-        
      		// 날짜 시간 input 모달
         input_modal();
-        
     });
-    
-    input_modal();
     
  		// 날짜 시간 input 모달
     function input_modal(){
@@ -885,25 +872,25 @@
   	var startTime = '';
   	var endTime = '';
     
-    $('#apv-vac-day').on('change', '#flatpickr-date-before', function() {
+    $('.apv-vac-day').on('change', '#flatpickr-date-before', function() {
 		    startDay = $(this).val();
 		    console.log('시작 날짜:', startDay);
 		    calculateDateDifference();
 		});
 		
-		$('#apv-vac-day').on('change', '#flatpickr-date-after', function() {
+		$('.apv-vac-day').on('change', '#flatpickr-date-after', function() {
 		    endDay = $(this).val();
 		    console.log('마지막 날짜:', endDay);
 		    calculateDateDifference();
 		});
 		
-		$('#apv-vac-time').on('change', '#timepicker-basic-before', function() {
+		$('.apv-vac-time').on('change', '#timepicker-basic-before', function() {
 		    startTime = $(this).val();
 		    console.log('시작 시간:', startTime);
 		    calculateTimeDifference();
 		});
 		
-		$('#apv-vac-time').on('change', '#timepicker-basic-after', function() {
+		$('.apv-vac-time').on('change', '#timepicker-basic-after', function() {
 		   	endTime = $(this).val();
 		    console.log('마지막 시간:', endTime);
 		    calculateTimeDifference();
@@ -915,7 +902,7 @@
 		        var endDate = new Date(endDay);
 
 		        var dateDifference = endDate - startDate;
-		        var daysDifference = (dateDifference / (24 * 60 * 60 * 1000)) * 8;
+		        var daysDifference = (dateDifference / (24 * 60 * 60 * 1000) +1 ) * 8;
 
 		        console.log('날짜 차이 (일):', daysDifference);
 		        $('.apv-vac-day').val(daysDifference);
