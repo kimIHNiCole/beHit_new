@@ -374,7 +374,7 @@ var loginName="";
 
 function connect() {
 	// 웹소켓 연결을 수행하는 함수
-    var socket = new SockJS('/chat/messenger_his');
+    var socket = new SockJS('/chat');
 	// SockJS 를 통해 서버의 웹소켓 엔드포인트에 연결
     stompClient = Stomp.over(socket);
 	// Stomp 클라이언트 생성
