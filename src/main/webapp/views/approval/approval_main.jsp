@@ -22,8 +22,6 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
     
-    <!-- bootstrap 아이콘 -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 		<!-- pretendard 폰트 -->
 		<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 

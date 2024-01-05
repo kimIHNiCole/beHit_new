@@ -1,6 +1,5 @@
 package com.behit.approval.controller;
 
-import java.sql.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.behit.approval.dto.ApprovalDTO;
 import com.behit.approval.service.ApprovalService;
 import com.behit.employee.dto.EmployeeDTO;
 
