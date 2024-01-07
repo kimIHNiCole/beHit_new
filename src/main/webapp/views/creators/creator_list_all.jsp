@@ -67,6 +67,38 @@
 	    justify-content: center;
 	    align-items: center;
 	}
+	.cardListTop{
+		display:flex;
+		justify-content: flex-end;
+	}
+	.cardListTop div:nth-child(1) a{
+	    margin: 5px 5px;
+	    padding: 7px 15px;
+	    background: #FFF;
+	    border: 2px solid #a2a2a2;
+	    border-radius: 7px;
+	    color:#a2a2a2;
+	}
+	.cardListTop div:nth-child(1) a:hover{
+		background: #a2a2a2;
+		color: #FFF;
+	}
+	.cardListTop div:nth-child(2) a{
+	    margin: 5px 5px;
+	    padding: 7px 15px;
+	    background: #FFF;
+	    border: 2px solid #C20000;
+	    border-radius: 7px;
+	}
+	.cardListTop div:nth-child(2) a:hover{
+		background: #C20000;
+		color:#FFFFFF;
+	}
+	.creCardTitle{
+		color: black;
+		font-weight: 600;
+		font-size: 23px;
+	}
     </style>
   </head>
 
@@ -74,265 +106,17 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        <!-- 여기서부터 붙여넣기 -->
       
         <!-- Menu -->
-        
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item active">
-              <a href="/creatorListAll.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
-        <!-- / Menu -->
-
+      	<jsp:include page="/views/header_menu.jsp" />
         <!-- Layout container -->
         <div class="layout-page">
-          <!-- Navbar -->
-
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </nav>
-
-        
+	      <!-- Navbar -->
+		  <jsp:include page="/views/header_navbar.jsp" /> 
+       
+          <!-- Content wrapper -->
           <div class="content-wrapper">
+          	<!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
             	<h4 class="py-3 mb-4"><span class="text-muted fw-light">크리에이터</span></h4>
             <div class="col-md-4">
@@ -447,24 +231,20 @@
 	              	</div>
 	              		<!-- 나의 크리에이터 -->
 			              <div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
-	             			<div class="row g-3">
-	             			 <!-- 크리에이터 카드들 -->
-					              <div class="row">
-								    <div class="col-md-6 col-lg-4">
-					                  <h6 class="mt-2 text-muted"></h6>
-					                  <div class="card">
-					                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Creator_image" />
-					                    <div class="card-body">
-					                      <h5 class="card-title">acreator</h5>
-					                      <br/>
-					                      <p class="card-text"> 대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
-					                      <p class="card-teallListxt"> 구독자 수 | 3,319,001</p>
-					                      <p class="card-text"> 컨텐츠 수 | 319,001</p>
-					                      <p class="card-text">|게임, FUN |</p>
-					                    </div>
-					                  </div>
-					                </div>
-								</div>
+		              		<div class="cardListTop">
+		              		 <div>
+		              		   <a href="showOrgModal()">열람 권한자 등록</a>
+		              		  </div>
+		              		  <div>
+			              	   <a href="/creatorAdd.go">
+			              	   	<i class="bx bx-user-check me-1"></i>
+			              	   	크리에이터 등록</a>
+		              		  </div>
+		              		</div>
+	             			<div id="creCardList" class="row g-3 mt-4">
+	             			  <div class="row">
+	             			   <!-- 크리에이터 카드영역 -->
+	             			  </div>
 	             			</div>
 	             		  </div>
 			             <!-- / 나의 크리에이터 -->
@@ -472,9 +252,10 @@
 	            </div>  
               </div>
             </div>
+            <!-- / Content -->
             <div class="content-backdrop fade"></div>
           </div>
-          <!-- Content wrapper -->
+          <!-- / Content wrapper -->
         </div>
         <!-- / Layout page -->
       </div>
@@ -515,9 +296,9 @@
     <script>
    		
     
-    		$.ajax({
+    	$.ajax({
 		   type : 'get',
-		   url:'/creatorListAll.go',
+		   url:'/getCreatorlist',
 		   dataType:'json',
 		   success:function(result){
 			   console.log('result'+result);
@@ -528,7 +309,7 @@
 		   error:function(e){
 			   console.log(e);
 		   }
-    	});
+    	}); 
     	
     	function drawTotalAll(totalInfo){
     		console.log(totalInfo);
@@ -581,6 +362,47 @@
     	
     	function drawMyList(myList) {
 			console.log("myList : " , myList);
+			$.each(myList, function (index, myCre) {
+		        // HTML 문자열 생성 및 추가
+		        var htmlString = 
+		        	'<div class="col-md-6 col-lg-4">' +
+		            '<h6 class="mt-2 text-muted"></h6>' +
+		            '<div class="card">' +
+		            '<a href="/creatorDetail.go?cre_idx='+myCre.cre_idx+'"><img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Creator_image"/></a>' +
+		            '<div class="card-body">' +
+		            '<h5 class="card-title"><a href="/creatorDetail.go?cre_idx='+myCre.cre_idx+'" class="creCardTitle">' + myCre.cre_nick_name + '</a></h5>' +
+		            '<table>' +
+		            '<tr>' +
+		            '<td colspan="2"><input type="hidden" value="'+ myCre.cre_idx +'"/></td>' +
+		            '</tr>'+
+		            '<tr>'+
+		            	'<td><label class="card-text"> 대표 채널</label></td>' + 
+		            	'<td><label>| <i class="bx bxl-youtube" style="color:#ff0000"></i> ' +
+		            	'<a href="'+myCre.channel_url+'" class="card-link">' + myCre.channel_name + '</a></label></td>' +
+		            '</tr>'+
+		            	'<td><label class="card-text"> 총 구독자수</label></td>' + 
+		            	'<td><label>| ' + myCre.last_subscriber + ' 명</label>' +
+		            '</tr>'+
+		            '<tr>'+
+		            	'<td><label class="card-text"> 총 컨텐츠수</label></td>' +
+		            	'<td><label>| ' + myCre.last_contents + ' 개</label>' +
+		            '</tr>'+
+		            '<tr>'+
+		            	'<td><label class="card-text"> 총 조회수</label></td>' +
+		            	'<td><label>| ' + myCre.last_views + ' 회</label>' +
+		            '</tr>'+
+		            '<tr>'+
+		            	'<td><label class="card-text"> 카테고리</label></td>' +
+		            	'<td><label>| ' + myCre.channel_cate + '</label>' +
+		            '</tr>'+
+		            '</table>' +
+		            '</div>' +
+		            '</div>' +
+		            '</div>';
+
+		        // 생성된 HTML을 #contentContainer에 추가
+		        $("#creCardList .row").append(htmlString);
+		    });
 			
 		} 
    

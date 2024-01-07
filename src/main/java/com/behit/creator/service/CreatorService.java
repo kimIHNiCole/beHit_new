@@ -31,11 +31,9 @@ public class CreatorService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Value("${GOOGLE-KEY}")
-	String secret_key;
+	@Value("${GOOGLE-KEY}") String secret_key;
 	
-	@Autowired
-	CreatorDAO creatorDAO;
+	@Autowired CreatorDAO creatorDAO;
 
 	public ArrayList<CommCreDTO> getGenders() {
 		logger.info("getGenders() 실행");
@@ -53,13 +51,14 @@ public class CreatorService {
 	}
 
 	@Transactional
-	public void creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) {
+	public String creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) {
 		logger.info("creatorAdd() 실행");
 		
 		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
 		logger.info("loginInfo = "+ loginInfo);
 		
 		int cre_idx = 0;
+		String repChannelId = "";
 		
 		// Creator tbl insert
 		CreatorDTO creatorDTO = creatorRequestDTO.getCreatorDTO();
@@ -73,13 +72,16 @@ public class CreatorService {
 		
 		// Channel tbl insert
 		ArrayList<ChannelDTO> channelDTOs = creatorRequestDTO.getChannelDTOList();
+		int channelRow = 0;
 		for(ChannelDTO channelDTO : channelDTOs) {
 			try {
 				String videoUrl = channelDTO.getRep_video();
 			    
 				HashMap<String, String> channelInfo = getChannelInfo(videoUrl);
 				String channelId = channelInfo.get("channelId");
-				
+				if(channelDTO.getRep_channel() == 1) {
+					repChannelId = channelInfo.get("channelId");
+				}
 				channelDTO.setChannel_id(channelId);	// dto에 채널 id set
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -90,11 +92,12 @@ public class CreatorService {
 			channelDTO.setCre_idx(cre_idx);
 			channelDTO.setEmp_id(loginInfo.getEmp_id());
 			channelDTO.setEmp_id_up(loginInfo.getEmp_id());
-			int channelRow = creatorDAO.channelInsert(channelDTO);
+			channelRow += creatorDAO.channelInsert(channelDTO);
 			logger.info("channelInsert result :: "+channelRow);
 		}
 		// Sns tbl insert
 		ArrayList<SnsDTO> snsDTOs = creatorRequestDTO.getSnsDTOList();
+		int snsRow = 0;
 		for(SnsDTO snsDTO : snsDTOs) {
 			// url에서 platform명 뽑아내기
 			String url = snsDTO.getSns_url()
@@ -110,20 +113,31 @@ public class CreatorService {
 			snsDTO.setCre_idx(cre_idx);
 			snsDTO.setEmp_id(loginInfo.getEmp_id());
 			snsDTO.setEmp_id_up(loginInfo.getEmp_id());
-			int snsRow = creatorDAO.snsInsert(snsDTO);
+			snsRow += creatorDAO.snsInsert(snsDTO);
 			logger.info("snsInsert result :: "+snsRow);
 		}
 		
 		// CreatorHistory tbl insert
 		ArrayList<CreHistDTO> creHistDTOs = creatorRequestDTO.getCreHistDTOList();
+		int creHisRow = 0;
 		for(CreHistDTO creHistDTO : creHistDTOs) {
 			creHistDTO.setCre_idx(cre_idx);
 			creHistDTO.setEmp_id(loginInfo.getEmp_id());
 			creHistDTO.setEmp_id_up(loginInfo.getEmp_id());
-			int creHisRow = creatorDAO.creHisInsert(creHistDTO);
+			creHisRow += creatorDAO.creHisInsert(creHistDTO);
 			logger.info("creHisInsert result :: "+creHisRow);
 		}
+		// 확인
+		if(creatorRow > 0 && channelRow > 0 && snsRow > 0 && creHisRow > 0) {
+			logger.info("creatorRow="+creatorRow);
+			logger.info("channelRow="+channelRow);
+			logger.info("snsRow="+snsRow);
+			logger.info("creHisRow="+creHisRow);
+			return repChannelId;
+		}
+		return "";
 	}
+	
 	
 	// 채널정보 가져오기
 	public HashMap<String,String> getChannelInfo(String videoURL) throws Exception {
@@ -165,8 +179,8 @@ public class CreatorService {
 	    logger.info("Channel ID: " + channelId);
 
 	    return channelInfo;
-	    
 	}
+	
 	
 	// 크리에이터 전체 리스트
 	public HashMap<String, Object> getTotalInfo() {

@@ -1,6 +1,5 @@
 package com.behit.creator.controller;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,38 +8,32 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.behit.creator.dto.ChannelDTO;
 import com.behit.creator.dto.CommCreDTO;
-import com.behit.creator.dto.CreHistDTO;
-import com.behit.creator.dto.CreatorDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
-import com.behit.creator.dto.CreatorStatDTO;
-import com.behit.creator.dto.SnsDTO;
 import com.behit.creator.service.CreatorService;
+import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
 
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 public class CreatorController {
 	Logger logger = LoggerFactory.getLogger(getClass());
-	@Autowired
-	CreatorService creatorService;
-
+	
+	@Autowired CreatorService creatorService;
+	@Autowired CreatorStatController creatorStatController;
+	
 	@GetMapping(value = "/creatorAdd.go")
 	public ModelAndView creatorAddGo(ModelAndView mav) {
 		logger.info("크리에이터 등록 페이지로 이동 요청");
@@ -87,13 +80,18 @@ public class CreatorController {
 	public ResponseEntity<Void> creatorAddDO(@RequestBody CreatorRequestDTO creatorRequestDTO, HttpSession session) {
 		logger.info("크리에이터 등록 요청 || prarms = {}", creatorRequestDTO);
 		try {
+			String repChannelId = creatorService.creatorAdd(creatorRequestDTO, session);
+			logger.info("등록 요청 결과 : "+ repChannelId);
+			
+			if(!repChannelId.isEmpty()) {
+				creatorStatController.saveChannelDataOne(repChannelId);
+			}
+			
 			// creatorAdd()가 정상적으로 수행되었을때
-			creatorService.creatorAdd(creatorRequestDTO, session);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			// 그렇지 않을때
 			logger.info("creatorAdd()에서 오류 발생");
-			logger.error(e.getMessage(), e);
+			// 그렇지 않을때
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
@@ -117,9 +115,16 @@ public class CreatorController {
 //		return mav;
 //	}
 	
-	@GetMapping(value = "/creatorListAll.go")
-	public HashMap<String, Object> creatorlistMy(HttpSession session) {
-		logger.info("전체 크리에이터 리스트 페이지로 이동");
+	@GetMapping(value = "/creatorList.go")
+	public ModelAndView cratorListGo(ModelAndView mav) {
+		logger.info("크리에이터 리스트 페이지로 이동 요청");
+		mav.setViewName("creators/creator_list_all");
+		return mav;
+	}
+	
+	@GetMapping(value = "/getCreatorlist")
+	public HashMap<String, Object> getCreatorList(HttpSession session) {
+		logger.info("크리에이터 리스트 가져오기");
 		
 		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
 		String loginId = loginInfo.getEmp_id();
@@ -134,6 +139,16 @@ public class CreatorController {
 		result.put("myList", myList);
 		return result;
 	}
+	
+	
+	@GetMapping(value = "/creatorDetail.go")
+	public ModelAndView creatorDetailGo(@RequestParam int cre_idx ,ModelAndView mav) {
+		logger.info("크리에이터 상세 페이지 요청 || cre_idx = "+cre_idx);
+		mav.setViewName("creators/creator_detail");
+		return mav;
+	}
+	
+	
 
 
 }

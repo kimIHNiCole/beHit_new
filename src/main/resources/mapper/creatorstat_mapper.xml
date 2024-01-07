@@ -10,20 +10,21 @@
 	</select>
 	
 	<insert id="saveChannelData" parameterType="channeldata">
-		INSERT INTO channeldata (
-        	channel_id, subscriber, views, contents, view_trend
-	    )
-	    SELECT 
-	        #{channel_id}, #{subscriber}, #{views}, #{contents}, 
-	       	IFNULL( 
-	       		(#{views} - (
-		            SELECT views FROM (
-		                SELECT * FROM channeldata 
-		                WHERE channel_id = #{channel_id}
-		                ORDER BY channel_data_date DESC LIMIT 1
-		            ) AS tmp
-	        	) )
-	        ,0)
+		INSERT IGNORE INTO channeldata (
+		    channel_id, subscriber, views, contents, view_trend, channel_data_date
+		) VALUES (
+		     #{channel_id}, #{subscriber}, #{views}, #{contents},
+		    IFNULL(
+		        (#{views} - (
+		            SELECT IFNULL(views, 0) 
+		            FROM channeldata c2
+		            WHERE channel_id = #{channel_id}
+		            ORDER BY channel_data_date DESC LIMIT 1
+		        )),
+		        0
+		    ),
+		    CURDATE()
+		)
 	</insert>
 	
 	
