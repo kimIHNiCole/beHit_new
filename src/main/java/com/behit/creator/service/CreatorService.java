@@ -23,6 +23,7 @@ import com.behit.employee.dto.EmployeeDTO;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.ChannelListResponse;
 import com.google.api.services.youtube.model.VideoListResponse;
 
 @Service
@@ -74,15 +75,18 @@ public class CreatorService {
 		ArrayList<ChannelDTO> channelDTOs = creatorRequestDTO.getChannelDTOList();
 		for(ChannelDTO channelDTO : channelDTOs) {
 			try {
-				String channelUrl = channelDTO.getRep_video();
-			    String videoId = channelUrl.split("v=")[1];
-				String channelId = getChannelId(videoId);
+				String videoUrl = channelDTO.getRep_video();
+			    
+				HashMap<String, String> channelInfo = getChannelInfo(videoUrl);
+				String channelId = channelInfo.get("channelId");
+				
 				channelDTO.setChannel_id(channelId);	// dto에 채널 id set
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.warn("영상링크가 없거나 잘못된 링크");
 				// 잘못되면 등록 취소 시키기 로직 구현
 			}
+			// client에서 자동을 가져오지 않는 정보 직접 set
 			channelDTO.setCre_idx(cre_idx);
 			channelDTO.setEmp_id(loginInfo.getEmp_id());
 			channelDTO.setEmp_id_up(loginInfo.getEmp_id());
@@ -93,9 +97,13 @@ public class CreatorService {
 		ArrayList<SnsDTO> snsDTOs = creatorRequestDTO.getSnsDTOList();
 		for(SnsDTO snsDTO : snsDTOs) {
 			// url에서 platform명 뽑아내기
-			String snsUrl = snsDTO.getSns_url();
-			String domain = snsUrl.split("/")[2];
-			String snsCate = domain.split("\\.")[1];
+			String url = snsDTO.getSns_url()
+							.replace("http://", "")
+							.replace("https://", "")
+							.replace("www.", "");
+			String[] parts = url.split("\\.");
+			String snsCate = parts[0];
+			
 			logger.info("snsCate = "+snsCate);
 			
 			snsDTO.setSns_cate(snsCate);
@@ -117,25 +125,47 @@ public class CreatorService {
 		}
 	}
 	
-	// 채널ID 가져오기
-	public String getChannelId(String videoId) throws Exception {
+	// 채널정보 가져오기
+	public HashMap<String,String> getChannelInfo(String videoURL) throws Exception {
+		logger.info("채널 정보 가져오기 실행");
+		logger.info("videoURL = "+videoURL);
+
+		String videoId = videoURL.split("v=")[1];
+		
 	    YouTube youtube = new YouTube.Builder(
 	            GoogleNetHttpTransport.newTrustedTransport(),
 	            JacksonFactory.getDefaultInstance(),
 	            null)
 	            .setApplicationName("BeHit")
 	            .build();
-
 	    YouTube.Videos.List request = youtube.videos()
 	            .list("snippet")
 	            .setId(videoId)
 	            .setKey(secret_key);
-
+	    logger.info("youtube api getInfo request result : ",request);
 	    VideoListResponse response = request.execute();
+	    logger.info("youtube api getInfo response result: ",request);
 	    String channelId = response.getItems().get(0).getSnippet().getChannelId();
+	    
+	    YouTube.Channels.List channelRequest = youtube.channels()
+	            .list("snippet")
+	            .setId(channelId)
+	            .setKey(secret_key);
 
+	    ChannelListResponse channelResponse = channelRequest.execute();
+	    String channelDate = channelResponse.getItems().get(0).getSnippet().getPublishedAt().toStringRfc3339();
+	    String channelName = channelResponse.getItems().get(0).getSnippet().getTitle();
+
+	    HashMap<String, String> channelInfo = new HashMap<String, String>();
+	    channelInfo.put("channelId" , channelId);
+	    channelInfo.put("channelUrl" , "https://www.youtube.com/channel/" + channelId);
+	    channelInfo.put("channelDate", channelDate);
+	    channelInfo.put("channelName", channelName);
+	    
 	    logger.info("Channel ID: " + channelId);
-	    return channelId;
+
+	    return channelInfo;
+	    
 	}
 	
 	// 크리에이터 전체 리스트
@@ -151,20 +181,32 @@ public class CreatorService {
 
 	public ArrayList<HashMap<String, Object>> getAllList() {
 		logger.info("전체 크리에이터 리스트 가져오기 실행");
-		ArrayList<HashMap<String, Object>> allList = creatorDAO.getAllList();
-		if(allList != null) {
+		ArrayList<HashMap<String, Object>> allList = new ArrayList<HashMap<String,Object>>();
+		try {
+			allList = creatorDAO.getAllList();
 			logger.info("전체 크리에이터 리스트 가져오기 성공");
 			logger.info("allList = "+allList);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 		return allList;
 	}
-	// 
-	
-	
-	public ArrayList<HashMap<String, Object>> getCreatorMyList() {
+
+	public ArrayList<HashMap<String, Object>> getMyList(String loginId) {
 		logger.info("나의 크리에이터 리스트 가져오기 실행");
-		return null;
+		ArrayList<HashMap<String, Object>> myList = creatorDAO.getMyList(loginId);
+		try {
+			myList = creatorDAO.getMyList(loginId);
+			logger.info("전체 크리에이터 리스트 가져오기 성공");
+			logger.info("allList = "+myList);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return myList;
 	}
+
+	
+	
 
 
 }

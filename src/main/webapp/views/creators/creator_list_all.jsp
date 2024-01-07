@@ -110,7 +110,7 @@
             </li>
             
             <li class="menu-item active">
-              <a href="../creators/creator_list_all.go" class="menu-link">
+              <a href="/creatorListAll.go" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-slideshow"></i>
                 <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
               </a>
@@ -319,7 +319,6 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
-                    
                     <li>
                       <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
                         <i class="bx bx-power-off me-2"></i>
@@ -328,33 +327,46 @@
                     </li>
                   </ul>
                 </li>
-                <!--/ User -->
               </ul>
             </div>
-
-            <!-- Search Small Screens -->
-            
           </nav>
 
-          <!-- / Navbar -->
-          
-          <!-- 여기까지 붙여넣기 -->
-
-          <!-- Content wrapper --> <!-- 여기서부터~~~~~ -->
+        
           <div class="content-wrapper">
-            <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h4>
-	            <a href="creator_list_all.go">전체리스트</a> | <a href="creator_list_my.go">나의 크리에이터</a>
-            </h4>
+            	<h4 class="py-3 mb-4"><span class="text-muted fw-light">크리에이터</span></h4>
+            <div class="col-md-4">
+   			  <!-- 탭 추가 -->                    
+   			  <ul class="nav nav-pills" role="tablist">
+   			    <li class="nav-item">
+       		      <button 
+       		      		class="nav-link active" 
+       		      		data-bs-toggle="tab" 
+       		      		data-bs-target="#form-tabs-first" 
+       		      		role="tab" 
+       		      		aria-selected="true">
+         				크리에이터 리스트
+       		      </button>
+   			    </li>
+   			    <li class="nav-item">
+     			  <button 
+     			  		class="nav-link" 
+     			  		data-bs-toggle="tab" 
+     			  		data-bs-target="#form-tabs-second" 
+     			  		role="tab" 
+     			  		aria-selected="false" >
+       				크리에이터 관리
+    			  </button>
+   			    </li>
+   			  </ul>
+   			</div>
               <div class="row g-4 mb-4">
                 <div class="col-sm-6 col-xl-3">
                   <div class="card">
                     <div class="card-body">
                       <div class="d-flex align-items-start justify-content-between">
                         <div class="content-left">
-                          <span>관리크리에이터</span>
+                          <span>관리 크리에이터</span>
                           <div class="d-flex align-items-end mt-2">
                             <h4 id="total_creators" class="mb-0 me-2"></h4>
                           </div>
@@ -410,27 +422,56 @@
                   </div>
                 </div>
               </div>
-              <!-- Users List Table --> <!-- 유저 리스트 테이블 -->
-				<div class="card">
-                <div class="card-datatable table-responsive">
-                  <table id="creatorList" class="datatables-users table border-top">
-                    <thead>
-                      <tr>
-                      	<th>no</th>
-                        <th>크리에이터</th>
-                        <th>카테고리</th>
-                        <th>대표채널</th>
-                        <th>담당매니저</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                </div>
+              <div class="card">
+       			<div class="card-datatable table-responsive" style="overflow-x: hidden; align-items: center;">
+	              <div class="tab-content">
+	              	<div class="tab-pane fade active show" id="form-tabs-first"  role="tabpanel">
+	              		<div class="row g-3">
+	              			<!-- 전체 크리에이터 -->
+				              <div class="card-datatable table-responsive">
+				                <table id="creatorList" class="datatables-users table border-top">
+				                  <thead>
+				                    <tr>
+				                     <th>no</th>
+				                      <th>크리에이터</th>
+				                      <th>카테고리</th>
+				                      <th>대표채널</th>
+				                      <th>담당매니저</th>
+				                    </tr>
+				                  </thead>
+				                  <tbody>
+				                  </tbody>
+				                </table>
+			                </div>
+	              		</div>
+	              	</div>
+	              		<!-- 나의 크리에이터 -->
+			              <div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
+	             			<div class="row g-3">
+	             			 <!-- 크리에이터 카드들 -->
+					              <div class="row">
+								    <div class="col-md-6 col-lg-4">
+					                  <h6 class="mt-2 text-muted"></h6>
+					                  <div class="card">
+					                    <img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Creator_image" />
+					                    <div class="card-body">
+					                      <h5 class="card-title">acreator</h5>
+					                      <br/>
+					                      <p class="card-text"> 대표 채널 | <a href="javascript:void(0)" class="card-link"> 혜안</a></p>
+					                      <p class="card-teallListxt"> 구독자 수 | 3,319,001</p>
+					                      <p class="card-text"> 컨텐츠 수 | 319,001</p>
+					                      <p class="card-text">|게임, FUN |</p>
+					                    </div>
+					                  </div>
+					                </div>
+								</div>
+	             			</div>
+	             		  </div>
+			             <!-- / 나의 크리에이터 -->
+	              </div>
+	            </div>  
               </div>
             </div>
-            <!-- / Content -->
-
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -448,7 +489,6 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-
     <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../assets/vendor/libs/popper/popper.js"></script>
     <script src="../../assets/vendor/js/bootstrap.js"></script>
@@ -457,7 +497,6 @@
     <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="../../assets/vendor/js/menu.js"></script>
-
     <!-- endbuild -->
 
     <!-- Vendors JS -->
@@ -472,13 +511,11 @@
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
-
-    <!-- Page JS -->
-    <!-- 
-    <script src="../../assets/js/app-user-list.js"></script>
-     -->
+	
     <script>
-    	$.ajax({
+   		
+    
+    		$.ajax({
 		   type : 'get',
 		   url:'/creatorListAll.go',
 		   dataType:'json',
@@ -486,6 +523,7 @@
 			   console.log('result'+result);
 			   drawTotalAll(result.totalInfo);
 			   drawAllList(result.allList);
+			   drawMyList(result.myList);
 		   },
 		   error:function(e){
 			   console.log(e);
@@ -500,7 +538,22 @@
     		$('#total_contents').text(totalInfo.total_contents+" 개");
     	}
     	
-    	function drawAllList(allList) {
+    /* 	var totalInfo = ${totalInfo};
+    	var allList = ${allList};
+    	var myList = ${myList};
+    	for(var item : allList){
+    		console.log(item);
+    	}
+    	
+    	
+    	console.log(totalInfo);
+    	console.log(allList);
+    	console.log(myList);
+    	 */
+    
+    	
+    	
+     	function drawAllList(allList) {
     		console.log(allList);
 	    	var creatorTable = $("#creatorList").DataTable({
 	    		data : allList,
@@ -525,6 +578,11 @@
 	    		]
 	    	});
 		}
+    	
+    	function drawMyList(myList) {
+			console.log("myList : " , myList);
+			
+		} 
    
     
     </script>
