@@ -46,16 +46,27 @@ public class ChatService {
 		return chatRoomAll;	
 		
 	}
-	public int createRoom(String emp_id, List<String> emp_ids) {
-		int listSize = emp_ids.size();
+	
+	public ArrayList<ChatRoomDTO> chatRListOnChatMs(String emp_id) {
+		logger.info(emp_id);
+		ArrayList<ChatRoomDTO> chatRListOnChatMs=chatDao.chatRListOnChatMs(emp_id);
+		logger.info("chatRListOnChatMs:"+chatRListOnChatMs);
+		return chatRListOnChatMs;
+	}
+	
+	
+	public int createRoom(String emp_id, String emp_name, List<Map<String, String>> emp_data) {
+		int listSize = emp_data.size();
 		logger.info(""+listSize);
 		String chat_room_name="";
 		
 		// 1인만 선택했을 때와 2인 이상 선택했을 때 채팅방 이름 다르게 저장
-		if(listSize == 1) {
-			chat_room_name = emp_id + ", " + emp_ids.get(0);
-		}else {
-			chat_room_name = emp_id + " 외 " + listSize + "인";
+		if (listSize == 1) {
+		    Map<String, String> firstEmployee = emp_data.get(0);
+		    String empName = firstEmployee.get("emp_name");
+		    chat_room_name = emp_name + ", " + empName;
+		} else {
+		    chat_room_name = emp_name + " 외 " + listSize + "인";
 		}
 		logger.info(chat_room_name);
 		logger.info(emp_id);
@@ -69,9 +80,19 @@ public class ChatService {
 		int chat_room_idx = chatRoom.getChat_room_idx();
 		logger.info("chat_room_idx : "+chat_room_idx);
 		
+		chatDao.insertIntoChatM(chat_room_idx);
+		
 		// emp_id와 emp_ids를 합친 리스트 생성
-	    List<String> allEmpIds = new ArrayList<>(emp_ids);
-	    allEmpIds.add(emp_id);
+		List<String> allEmpIds = new ArrayList<>();
+
+		// emp_id 추가
+		allEmpIds.add(emp_id);
+
+		// emp_data에 있는 각 Map에서 emp_id를 추출하여 추가
+		for (Map<String, String> empDataMap : emp_data) {
+		    String empId = empDataMap.get("emp_id");
+		    allEmpIds.add(empId);
+		}
 
 	    // chat_pp에 empId를 반복하여 데이터 삽입
 	    for (String empId : allEmpIds) {
@@ -81,6 +102,18 @@ public class ChatService {
 		
 	}
 	
+	//선택된 챗룸의 정보를 가져옴
+	public ChatRoomDTO chatRoom(int chatRoomIdx) {
+		ChatRoomDTO chatRoom = chatDao.chatRoom(chatRoomIdx);
+		logger.info(chatRoom.getChat_room_name());
+		ArrayList<ChatRoomDTO> chatMb=chatDao.chatMember(chatRoomIdx);
+		for (ChatRoomDTO chatRoomDTO : chatMb) {
+		    logger.info("이름들 :"+chatRoomDTO.getEmp_name());
+		}
+		chatRoom.setChatMb(chatMb);
+		return chatRoom;
+	}
+	//선택된 챗룸의 채팅 리스트를 가져옴
 	public List<ChatDTO> chatList(int chatRoomIdx) {
         return chatDao.chatList(chatRoomIdx);
     }
@@ -90,4 +123,8 @@ public class ChatService {
 		chatDao.saveChat(message);
 		
 	}
+
+	
+
+	
 }

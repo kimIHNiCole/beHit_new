@@ -376,29 +376,14 @@
 					              										
 					              										<!-- 결재선 추가 -->
 					              										<td class="apv-sign-table-right">
-					              											<table>
-					              												<tbody>
-					              												
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-dept">대리</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-name">이유빈</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr class="last">
-					              														<td>
-					              															<span class="apv-sign-line-date">2023-12-12</span>
-					              														</td>
-					              													</tr>
-					              													
-					              												</tbody>
-					              											</table>
+					              											<table class="apv-sign-table">
+																								<tbody>
+																									<tr class="apv-sign-table-tr">
+																										<th>승인</th>									
+																										<!-- 결재선 추가 -->
+																									</tr>
+																								</tbody>
+																							</table>
 					              										</td>
 					              										
 					              									</tr>
@@ -421,7 +406,7 @@
 					              					<td class="table-content-left">연차 기간</td>
 					              					<td class="table-content-right">
 					              						<span class="form-vac-time-start"></span>
-					              						<span>~</span>
+					              						<span> ~ </span>
 					              						<span class="form-vac-time-end"></span>
 					              						<span class="vac-time">16시간</span>
 					              					</td>

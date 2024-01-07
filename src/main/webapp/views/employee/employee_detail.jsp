@@ -336,7 +336,7 @@ img.rounded-top{
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">User Profile /</span> Profile</h4>
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light">직원 관리 / </span>직원 상세보기</h4>
 
               <!-- Header -->
               <div class="row">
@@ -348,12 +348,12 @@ img.rounded-top{
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
                      	<c:choose>
-						    <c:when test="${not empty empdetail and not empty empdetail.new_file_name}">
-						        <img src="/photo/employee/${empdetail.new_file_name}" alt="${empdetail.ori_file_name}" 
+						    <c:when test="${not empty empdetail and 'default' eq empdetail.new_file_name}">
+						        <img src="../../assets/img/avatars/1.png" alt="user image" 
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>
-						        <img src="../../assets/img/avatars/1.png" alt="user image" 
+						        <img src="/photo/employee/${empdetail.new_file_name}" alt="${empdetail.ori_file_name}" 
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:otherwise>
 						</c:choose>

@@ -1,6 +1,6 @@
 package com.behit.chat.dto;
 
-import java.sql.Date;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +12,7 @@ import lombok.Setter;
 @Alias("chatRoom")
 @Getter
 @Setter
+
 public class ChatRoomDTO {
 
 	private int chat_room_idx;
@@ -19,11 +20,12 @@ public class ChatRoomDTO {
 	private String emp_id;
 	private String emp_name;
 	private String emp_dept_name;
-	private Date chat_room_date;
+	private String chat_room_date;
+	private String last_message;
+	private String last_message_date;
 	private List<String> members;
 	private ArrayList<ChatRoomDTO> chatMb;
 	
-	
-    
+
 	
 }

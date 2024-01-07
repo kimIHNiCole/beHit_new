@@ -5,8 +5,9 @@
 
 <mapper namespace="com.behit.approval.dao.ApprovalDAO">
 
-<select id="approval_write" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+<select id="approval_write_go" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT 
+				e.emp_name,
 		    d.emp_dept_name AS 'dept_name',
 		    cc_grade.common_code_name AS 'grade_name',
 		    cc_position.common_code_name AS 'position_name',
@@ -18,5 +19,56 @@
 		    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
 		    WHERE e.emp_id = #{emp_id};
 	</select>
+	
+	<!-- generatedKey 사용 -->
+	<insert useGeneratedKeys="true" keyColumn="apv_idx"
+		keyProperty="apv_idx" id="approval_write"
+		parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO apv(
+			emp_id
+			,apv_code
+			,apv_date
+			,apv_stmt
+			,apv_vac_type
+			,apv_start_day
+			,apv_end_day
+			,apv_start_time
+			,apv_end_time
+			,apv_cnt
+		)
+		VALUES(
+		#{emp_id}
+		,#{apv_code}
+		,NOW()
+		,'진행중'
+		,#{apv_vac_type}
+		,#{apv_start_day}
+		,#{apv_end_day}
+		,#{apv_start_time}
+		,#{apv_end_time}
+		,#{apv_cnt}
+		)
+	</insert>
+	<insert id="apv_line" parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO apv_line(
+			apv_idx
+			,emp_id
+			,apv_line
+			,emp_id_in
+			,apv_line_date
+			,apv_line_up
+			,apv_line_date_up
+		)
+		VALUES(
+		#{apv_idx}
+		,#{emp_id}
+		,#{apv_line}
+		,#{emp_id_in}
+		,NOW()
+		,#{emp_id_in}
+		,NOW()
+		)
+	</insert>
+
 
 </mapper>

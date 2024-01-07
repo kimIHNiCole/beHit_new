@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="login" parameterType="String" resultType="employee">
-		SELECT * FROM employee WHERE emp_id = #{emp_id}  
+		SELECT * FROM employee WHERE emp_id = #{emp_id};  
 	</select>
 	
 	<select id="getLockChk" parameterType="String" resultType="int">
@@ -18,7 +18,7 @@
 	
 	<update id="lockCnt" parameterType="HashMap" >
 		<selectKey keyProperty="lockCnt" resultType="int" order="AFTER">
-			SELECT login_lock FROM employee WHERE emp_id = #{emp_id}
+			SELECT COALESCE(login_lock, -1) FROM employee WHERE emp_id = #{emp_id}
 		</selectKey>
 		UPDATE employee SET login_lock = 
 		<choose>

@@ -43,6 +43,8 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
+	<link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" /> <!-- 조직도 -->
 
     <!-- Page CSS -->
 
@@ -84,20 +86,36 @@
 	/* 메시지 전송 버튼 */
 	.btn.btn-primary.d-flex.send-msg-btn{
 		width: 95px;
-	}    
-	
-	/* 영역 조정 */
-	.app-chat .app-chat-history .chat-history-body{
-		height: calc(100vh - 20.1rem);
-  		padding: 1.25rem 1.25rem;
-  		overflow: hidden;
 	}
-.app-chat {
-  position: relative;
-  height: calc(100vh - 11rem);
+	
+ 	.bx.bx-message-dots.chat{
+	font-size: 10rem;
+	margin-top : 20rem;
+	margin-left: 27rem;
+	}
+	
+	.text-primary.mb-0{
+	margin: 1rem;
+	}
+	.flex-grow-1.input-group.input-group-merge.rounded-pill.ms-1{
+	margin-top: 1rem;
+	}
+	.chatListAndS{
+	margin-left: 1rem;
+	}
+.chat-names{
+font-size: 10px;
 }
 
-    
+.modal-content{
+width: 23rem;
+}
+.card.mb-md-0.mb-4.shadow-none.border.overflow-hidden{
+
+width: 20rem;
+}
+
+
     </style>
   </head>
 
