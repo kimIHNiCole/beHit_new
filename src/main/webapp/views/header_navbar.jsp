@@ -69,8 +69,8 @@
                     </div>
                   </div>
                   <div class="flex-grow-1">
-                    <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                    <small class="text-muted">11:00</small>
+                    <h6 class="mb-1">새로운 메시지가 도착했습니다.</h6>
+                    <small class="text-muted">메시지 시간</small>
                   </div>
                   <div class="flex-shrink-0 dropdown-notifications-actions">
                     <a href="javascript:void(0)" class="dropdown-notifications-read"
@@ -82,6 +82,27 @@
                   </div>
                 </div>
               </li>
+	          <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+	            <div class="d-flex">
+	                <div class="flex-shrink-0 me-3">
+	                  <div class="avatar">
+	                      <img src="../../assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle" />
+	                   </div>
+	                  </div>
+	                  <div class="flex-grow-1">
+	                     <h6 class="mb-1">결재할 문서가 도착하였습니다.</h6>	                             
+	                       <small class="text-muted">메시지 시간</small>
+	                   </div>
+	                    <div class="flex-shrink-0 dropdown-notifications-actions">
+	                      <a href="javascript:void(0)" class="dropdown-notifications-read"
+	                        ><span class="badge badge-dot"></span
+	                        ></a>
+	                       <a href="javascript:void(0)" class="dropdown-notifications-archive"
+	                          ><span class="bx bx-x"></span
+	                          ></a>
+	                    </div>
+	               </div>
+	           </li>
             </ul>
           </li>
           

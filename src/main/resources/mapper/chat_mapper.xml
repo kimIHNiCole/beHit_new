@@ -26,33 +26,37 @@
 	SELECT
     cr.chat_room_idx,
     cr.chat_room_name,
+    GROUP_CONCAT(cp.emp_id) AS chat_room_members_id,
+    GROUP_CONCAT(e.emp_name) AS chat_room_members_name,
     cm.emp_id,
     cm.message AS last_message,
     cm.message_date AS last_message_date
-		FROM
-		    chat_room cr
-		JOIN
-		    chat_pp cp ON cr.chat_room_idx = cp.chat_room_idx
-		LEFT JOIN
-		    chat_msg cm ON cr.chat_room_idx = cm.chat_room_idx
-		WHERE
-		    cm.chatMsg_idx = (
-		        SELECT
-		            MAX(chatMsg_idx)
-		        FROM
-		            chat_msg
-		        WHERE
-		            chat_room_idx = cr.chat_room_idx
-		    )
-		    AND EXISTS (
-		        SELECT 1
-		        FROM chat_pp
-		        WHERE chat_room_idx = cr.chat_room_idx AND emp_id = #{param1}
-		    )
-		GROUP BY
-		    cr.chat_room_idx
-		ORDER BY
-		    last_message_date DESC;
+FROM
+    chat_room cr
+JOIN
+    chat_pp cp ON cr.chat_room_idx = cp.chat_room_idx
+LEFT JOIN
+    chat_msg cm ON cr.chat_room_idx = cm.chat_room_idx
+LEFT JOIN
+    employee e ON cp.emp_id = e.emp_id
+WHERE
+    cm.chatMsg_idx = (
+        SELECT
+            MAX(chatMsg_idx)
+        FROM
+            chat_msg
+        WHERE
+            chat_room_idx = cr.chat_room_idx
+    )
+    AND EXISTS (
+        SELECT 1
+        FROM chat_pp
+        WHERE chat_room_idx = cr.chat_room_idx AND emp_id = 'master'
+    )
+GROUP BY
+    cr.chat_room_idx
+ORDER BY
+    last_message_date DESC;
 	
 	</select>
 	

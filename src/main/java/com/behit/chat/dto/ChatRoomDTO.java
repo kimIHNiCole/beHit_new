@@ -25,6 +25,8 @@ public class ChatRoomDTO {
 	private String last_message_date;
 	private List<String> members;
 	private ArrayList<ChatRoomDTO> chatMb;
+	private String chat_room_members_id;
+	private String chat_room_members_name;
 	
 
 	
