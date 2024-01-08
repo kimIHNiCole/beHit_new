@@ -155,6 +155,23 @@
 				<ul class="pagination" id="pagination"></ul>
 			</nav>					
 		</div>
+		<div class="col-lg-4 col-md-6">
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <jsp:include page="/views/employee/workHour_list_modal.jsp"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
     </div>
 
     <hr class="my-5" />
@@ -329,6 +346,16 @@
      		});
          }
      });
+     
+	    // 모달 실행 명령어
+	    document.addEventListener('DOMContentLoaded', function () {
+	        var allTrs = document.querySelectorAll('tr');
+
+	        allTrs.forEach(function (tr) {
+	            tr.setAttribute('data-bs-toggle', 'modal');
+	            tr.setAttribute('data-bs-target', '#modalCenter');
+	        });
+	    });
 
 
      
