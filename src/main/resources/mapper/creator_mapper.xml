@@ -129,6 +129,13 @@
 	<select id="getChannelIdByCreIdx" parameterType="int" resultType="String">
 		SELECT channel_id FROM channel WHERE cre_idx = #{cre_idx}
 	</select>
-	
+	<select id="getCreHistory" parameterType="int" resultType="HashMap">
+		SELECT * FROM creatorhistory 
+		WHERE cre_idx =#{cre_idx} 
+		ORDER BY history_date DESC;
+	</select>
+	<select id="getSns" parameterType="int" resultType="sns">
+		SELECT * FROM creatorsns WHERE cre_idx =#{cre_idx};
+	</select>
 	
 </mapper>

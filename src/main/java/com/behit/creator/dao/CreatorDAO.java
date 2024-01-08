@@ -30,6 +30,8 @@ public interface CreatorDAO {
 	CreatorDTO getCreator(int cre_idx);
 	ArrayList<HashMap<String, Object>> getChannel(int cre_idx);
 	ArrayList<String> getChannelIdByCreIdx(int cre_idx);
+	ArrayList<HashMap<String, Object>> getCreHistory(int cre_idx);
+	ArrayList<SnsDTO> getSns(int cre_idx);
 	
 
 }

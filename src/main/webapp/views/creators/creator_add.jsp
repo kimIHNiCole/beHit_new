@@ -487,8 +487,8 @@
 				                        	<option value="" disabled selected hidden >분류 선택</option>
 				                          <option value="구독자">구독자</option>
 				                          <option value="조회수">조회수</option>
-				                          <option value="버튼달성">버튼달성</option>
-				                          <option value="수상">수상</option>
+				                          <option value="버튼획득">버튼획득</option>
+				                          <option value="수상이력">수상이력</option>
 				                        </select>
 			                        </div>
 			                       

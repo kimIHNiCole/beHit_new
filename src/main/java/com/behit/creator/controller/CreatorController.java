@@ -24,6 +24,7 @@ import com.behit.creator.dto.ChannelDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreatorDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
+import com.behit.creator.dto.SnsDTO;
 import com.behit.creator.service.CreatorService;
 import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
@@ -133,9 +134,15 @@ public class CreatorController {
 		
 		CreatorDTO creatorInfo = creatorService.getCreator(cre_idx);
 		ArrayList<HashMap<String, Object>> channelInfoList = creatorService.getChannel(cre_idx);
+		ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(cre_idx); 
+		ArrayList<SnsDTO> snsList = creatorService.getSns(cre_idx); 
+		
 		
 		mav.addObject("creatorInfo", creatorInfo);
 		mav.addObject("channelInfoList", channelInfoList);
+		mav.addObject("creatorHistory", creatorHistory);
+		mav.addObject("snsList", snsList);
+		
 		mav.setViewName("creators/creator_detail");
 		return mav;
 	}

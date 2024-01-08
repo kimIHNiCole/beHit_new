@@ -71,6 +71,16 @@
     	padding-top: 0rem !important;
     	margin-right: -7rem;
     }
+    .custom-logo{
+    	display: inline-block;
+	    border: 1px solid #868686;
+	    height: 20px;
+	    width: 20px;
+	    border-radius: 3px;
+	    background-color: #c20000;
+	    color: #FFF;
+	    text-align: center;
+    }
     
     </style>
     
@@ -284,25 +294,38 @@
 				          <table class="table datatable-project border-top">
 				            <thead>
 				              <tr>                         
-				                <th>SNS 주소</th>
-				                <th class="text-nowrap">팔로워</th>
-				                <th>팔로우</th>
-				                <th>게시물</th>
+				                <th>SNS</th>
+				                <th>주소</th>
 				              </tr>
 				            </thead>
 				            <tbody>
+				              <c:forEach var="snsItem" items="${snsList}">
 				            	<tr>                         
-				                 <th><img src="../../assets/img/icons/brands/instagram.png" alt="instagram" class="me-3" height="20">히빱 일상</th>
-				                 <th class="text-nowrap">311,234</th>
-				                 <th>1 명</th>
-				                 <th>279 개</th>
-				               </tr>
-				            	<tr>                         
-				                 <th><img src="../../assets/img/icons/brands/facebook.png" alt="facebook" class="me-3" height="20">히빱 페북</th>
-				                 <th class="text-nowrap">22,222</th>
-				                 <th>191 명</th>
-				                 <th>-</th>
-				               </tr>
+				                  <th>
+				                  	<c:choose>
+				                  	  <c:when test="${snsItem.sns_cate eq 'instagram'}">
+				                  	    <img src="sns_logo/instagram.png" alt="instagram" class="me-3" height="20">
+				                  	  </c:when>
+				                  	  <c:when test="${snsItem.sns_cate eq 'facebook'}">
+				                  	    <img src="sns_logo/facebook.png" alt="facebook" class="me-3" height="20">
+				                      </c:when>
+				                  	  <c:when test="${snsItem.sns_cate eq 'twitter'}">
+				                  	    <img src="sns_logo/twitter.png" alt="twitter" class="me-3" height="20">
+				                  	  </c:when>
+				                  	  <c:when test="${snsItem.sns_cate eq 'tiktok'}">
+				                  	    <img src="sns_logo/tiktok.png" alt="tiktok" class="me-3" height="20">
+				                  	  </c:when>
+				                  	  <c:otherwise>
+				                  	  	<div class="custom-logo me-3">${snsItem.sns_cate.substring(0, 1)}</div>
+				                  	  </c:otherwise>
+				                  	</c:choose>
+				                  	${snsItem.sns_cate}
+				                  </th>
+				                  <th>
+				                  	<a href="${snsItem.sns_url}">${snsItem.sns_url}</a>
+				                  </th>
+				              	</tr>
+				              </c:forEach>
 				            </tbody>
 				          </table>
 				        </div>
@@ -313,57 +336,44 @@
 				        <h4 class="card-header">활동이력</h4>
 				        <div class="card-body">
 				          <ul class="timeline">
-				            <li class="timeline-item timeline-item-transparent">
-				              <span class="timeline-point-wrapper"
-				                ><span class="timeline-point timeline-point-primary"></span
-				              ></span>
-				              <div class="timeline-event">
-				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">유튜브 채널 1</h6>
-				                  <small class="text-muted">2023-12-12</small>
-				                </div>
-				                <p class="mb-2">200만 구독자 달성</p>
-				                
-				              </div>
-				            </li>
-				            <li class="timeline-item timeline-item-transparent">
-				              <span class="timeline-point-wrapper"
-				                ><span class="timeline-point timeline-point-warning"></span
-				              ></span>
-				              <div class="timeline-event">
-				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">유튜브 채널 2</h6>
-				                  <small class="text-muted">2023-11-28</small>
-				                </div>
-				                <p class="mb-2">10만 구독자 달성</p>
-				                
-				              </div>
-				            </li>
-				            <li class="timeline-item timeline-item-transparent">
-				              <span class="timeline-point-wrapper"
-				                ><span class="timeline-point timeline-point-info"></span
-				              ></span>
-				              <div class="timeline-event">
-				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">히빱</h6>
-				                  <small class="text-muted">2023-11-22</small>
-				                </div>
-				                <p class="mb-2">유튜브 크리에이터 대상 수상</p>
-				                
-				              </div>
-				            </li>
+				          <!-- 
+					         danger		: 빨강	: 채널시작
+					         primary	: 보라	: 구독자
+					         info		: 하늘	: 조회수
+					         warning	: 노랑	: 버튼획득
+					         success	: 초록	: 수상
+					         dark		: 검정	: 미정
+				           -->
+				           <c:forEach var="hisItem" items="${creatorHistory}">
 				            <li class="timeline-item timeline-item-transparent">
 				              <span class="timeline-point-wrapper">
-				              	<span class="timeline-point timeline-point-success">
-				              	</span></span>
+				              <c:if test="${hisItem.cre_his_cate eq '채널시작'}">
+				              	<span class="timeline-point timeline-point-danger"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '구독자'}">
+				              	<span class="timeline-point timeline-point-primary"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '조회수'}">
+				              	<span class="timeline-point timeline-point-info"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '버튼획득'}">
+				              	<span class="timeline-point timeline-point-warning"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '수상이력'}">
+				              	<span class="timeline-point timeline-point-success"></span>
+				              </c:if>
+				              </span>
 				              <div class="timeline-event">
 				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">유튜브 채널 2</h6>
-				                  <small class="text-muted">2023-10-01</small>
+				                  <h6 class="mb-0">${hisItem.cre_his_title}</h6>
+				                  <small class="text-muted">${hisItem.history_date}</small>
 				                </div>
-				                <p class="mb-0">채널 가입일</p>
+				                <p class="mb-2">${hisItem.cre_his_content}</p>
+				                
 				              </div>
 				            </li>
+				           </c:forEach>
+				       
 				            <li class="timeline-end-indicator">
 				              <i class="bx bx-check-circle"></i>
 				            </li>
