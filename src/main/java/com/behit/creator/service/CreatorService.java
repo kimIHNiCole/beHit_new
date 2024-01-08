@@ -1,7 +1,9 @@
 package com.behit.creator.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.behit.creator.dao.CreatorDAO;
+import com.behit.creator.dao.CreatorStatDAO;
 import com.behit.creator.dto.ChannelDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreHistDTO;
@@ -23,6 +26,7 @@ import com.behit.employee.dto.EmployeeDTO;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelListResponse;
 import com.google.api.services.youtube.model.VideoListResponse;
 
@@ -34,7 +38,8 @@ public class CreatorService {
 	@Value("${GOOGLE-KEY}") String secret_key;
 	
 	@Autowired CreatorDAO creatorDAO;
-
+	@Autowired CreatorStatService creatorStatService;
+	
 	public ArrayList<CommCreDTO> getGenders() {
 		logger.info("getGenders() 실행");
 		return creatorDAO.getGenders();
@@ -217,6 +222,53 @@ public class CreatorService {
 			logger.error(e.getMessage());
 		}
 		return myList;
+	}
+
+	public CreatorDTO getCreator(int cre_idx) {
+		logger.info("creator 가져오기 실행");
+		
+		return creatorDAO.getCreator(cre_idx);
+	}
+
+	public ArrayList<HashMap<String, Object>> getChannel(int cre_idx) {
+		logger.info("channel 기본정보 가져오기 실행");
+		ArrayList<HashMap<String, Object>> channelInfoList = creatorDAO.getChannel(cre_idx);
+		for (HashMap<String, Object> data : channelInfoList) {
+	        for (Map.Entry<String, Object> entry : data.entrySet()) {
+	            String key = entry.getKey();
+	            Object value = entry.getValue();
+	            System.out.println(key + ": " + value);
+	        }
+	        System.out.println(); // 각 HashMap 사이에 개행 추가
+	    }
+		
+		logger.info("channel 통계 정보 가져오기 실행");
+		ArrayList<String> channelIdList = creatorDAO.getChannelIdByCreIdx(cre_idx); 
+		for(String channelId : channelIdList) {
+			logger.info("channelIdList 하나씩 꺼내기 : "+channelId);
+			Channel channel = creatorStatService.useYoutubeApi(channelId);
+			
+			HashMap<String, Object> channelInfo = new HashMap<String, Object>();
+			
+			BigInteger subscriber = channel.getStatistics().getSubscriberCount();
+	        BigInteger views = channel.getStatistics().getViewCount();
+	        BigInteger contents = channel.getStatistics().getVideoCount();
+	        
+	        channelInfo.put("subscriber", subscriber);
+	        channelInfo.put("views", views);
+	        channelInfo.put("contents", contents);
+	        
+	        channelInfoList.add(channelInfo);
+		}
+		for(HashMap<String, Object> channel : channelInfoList) {
+			System.out.println("크리에이터 번호"+channel.get("cre_idx"));
+			System.out.println("크리에이터 이름"+channel.get("cre_name"));
+			System.out.println("크리에이터 활동명"+channel.get("cre_nick_name"));
+			System.out.println("구독자수"+channel.get("subscriber"));
+			System.out.println("조회수"+channel.get("views"));
+			System.out.println("컨텐츠수"+channel.get("contents"));
+		}
+		return channelInfoList;
 	}
 
 	

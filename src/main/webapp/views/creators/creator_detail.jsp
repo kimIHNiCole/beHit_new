@@ -106,7 +106,7 @@
                             width="110"
                             alt="User avatar" />
                           <div class="user-info text-center">
-                            <h4 class="mb-2">히빱</h4>
+                            <h4 class="mb-2">${creatorInfo.cre_nick_name}</h4>
                           </div>
                         </div>
                       </div>
@@ -131,36 +131,41 @@
                         <ul class="list-unstyled">
                           <li class="mb-3">
                             <span class="fw-medium me-2">이름:</span>
-                            <span>김희연</span>
+                            <span>${creatorInfo.cre_name}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">성별:</span>
-                            <span>여자</span>
+                            <span>${creatorInfo.cre_gender}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">생년월일:</span>
-                            <span>1997.12.23</span>
+                            <span>${creatorInfo.cre_birthday}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">국적:</span>
-                            <span>한국</span>
+                            <span>${creatorInfo.cre_country}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">연락처:</span>
-                            <span>010-1111-2222</span>
+                            <span>${creatorInfo.cre_phone}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">Email:</span>
-                            <span>vafgot@vultukir.org</span>
+                            <span>${creatorInfo.cre_email}</span>
                           </li>
-                          
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">주소:</span>
+                            <span>${creatorInfo.cre_address}</span>
+                            <span class="fw-medium me-2"> , </span>
+                            <span>${creatorInfo.cre_address_detail}</span>
+                          </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">계약 시작일:</span>
-                            <span>2022.01.14</span>
+                            <span>${creatorInfo.cre_contract_start}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">계약 만료일:</span>
-                            <span>2023.01.13</span>
+                            <span>${creatorInfo.cre_contract_end}</span>
                           </li>
                           
                         </ul>
@@ -174,8 +179,7 @@
                     <div class="card-body">
                       
                       <h5 class="pb-2 border-bottom mb-4">특이사항</h5>
-                      <p class="fw-medium me-2">동해물과 백두산이 마르고 닳도록 하느님이 보유하사 우리나라 만세</p>
-                      <p class="fw-medium me-2">사실 히빱은 히밥의 짝퉁임을 여기에 고하매 하늘을 우러러 부끄럽기 짝이 없는 일이로다</p>
+                      <p class="fw-medium me-2">${creatorInfo.cre_specifics}</p>
                       
                       
                     </div>
@@ -237,35 +241,7 @@
                    	  </div>
 		   			</div>
 		   		  </div>
-                  <!-- <div class="col-md-8">
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class='bx bx-face' ></i>크리에이터 정보</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../creators/creator_detail_channel.go"
-                        ><i class='bx bxl-sketch' ></i>대표 채널 정보</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="app-user-view-billing.go"
-                        ><i class='bx bxl-youtube' ></i>컨텐츠 정보(임시)</a
-                      >
-                    </li>
-                  </ul>
-                  </div> 
-                  <div class="col-md-4 text-end">
-                  	<div class="d-flex justify-content-center pt-3">
-                          <a
-                            href="javascript:;"
-                            class="btn btn-primary me-3"
-                            data-bs-target="#editUser"
-                            data-bs-toggle="modal"
-                            >수정</a
-                          >
-                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
-                     </div>
-                   </div>-->
+            
                   <!--/ 탭 영역 -->
                   <div class="tab-content p-0 pt-3">
 				  	<!-- 기본 정보 영역 -->
@@ -278,7 +254,7 @@
 				            <thead>
 				              <tr>
 				                <th>채널명</th>
-				                <th class="text-nowrap">카테고리</th>
+				                <th>카테고리</th>
 				                <th>구독자 수</th>
 				                <th>컨텐츠 수</th>
 				                <th>총 조회수</th>
@@ -286,22 +262,16 @@
 				              </tr>
 				            </thead>
 				            <tbody>
+				              <c:forEach var="channelInfo" items="${channelInfoList}">
 				            	<tr>
-				                 <th>쀼쀼</th>
-				                 <th class="text-nowrap">일상, 코믹</th>
-				                 <th>11,234 명</th>
-				                 <th>45 개</th>
-				                 <th>1,999,356</th>
-				                 <th>2023.10.01</th>
+				                  <th>${channelInfo.channel_name}</th>
+				                  <th>${channelInfo.channel_cate}</th>
+				                  <th>${channelInfo.subscriber} 명</th>
+				                  <th>${channelInfo.contents} 개</th>
+				                  <th>${channelInfo.subscriber} 회</th>
+				                  <th>${channelInfo.channel_date}</th>
 				              	</tr>
-				              	<tr>
-				                 <th>많이 먹어도 살 안 쪄서 좋겠당</th>
-				                 <th class="text-nowrap">먹방</th>
-				                 <th>3,332,123 명</th>
-				                 <th>325 개</th>
-				                 <th>515,745,435</th>
-				                 <th>2019.04.24</th>
-				              	</tr>
+				           	  </c:forEach>
 				            </tbody>
 				          </table>
 				        </div>

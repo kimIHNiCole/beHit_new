@@ -27,5 +27,9 @@ public interface CreatorDAO {
 	ArrayList<HashMap<String, Object>> getAllList();
 	ArrayList<HashMap<String, Object>> getMyList(String loginId);
 	
+	CreatorDTO getCreator(int cre_idx);
+	ArrayList<HashMap<String, Object>> getChannel(int cre_idx);
+	ArrayList<String> getChannelIdByCreIdx(int cre_idx);
+	
 
 }
