@@ -74,7 +74,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
+                  <a href="../myHr/workdetail" class="menu-link">
                     <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
                   </a>
                 </li>

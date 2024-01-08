@@ -47,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
       selectAll = document.querySelector('.select-all'),
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
       inlineCalendar = document.querySelector('.inline-calendar');
+      
+      
 
     let eventToUpdate,
       currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update calender events
@@ -179,6 +181,9 @@ document.addEventListener('DOMContentLoaded', function () {
       eventToUpdate.extendedProps.description !== undefined
         ? (eventDescription.value = eventToUpdate.extendedProps.description)
         : null;
+        
+	    var clickedDate = info.dateStr;
+	    console.log('Clicked date:', clickedDate);
 
       // // Call removeEvent function
       // btnDeleteEvent.addEventListener('click', e => {
@@ -265,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       headerToolbar: {
         start: 'sidebarToggle, prev,next, title',
-        end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+        end: ''
       },
       direction: direction,
       initialDate: new Date(),
@@ -290,6 +295,20 @@ document.addEventListener('DOMContentLoaded', function () {
         btnDeleteEvent.classList.add('d-none');
         eventStartDate.value = date;
         eventEndDate.value = date;
+      },
+      dateClick: function (info) {
+      // 클릭한 날짜의 a 태그 안에 있는 숫자 값을 가져와서 콘솔에 출력
+      let date = parseInt(info.dayEl.querySelector('a').innerText);
+      console.log('Clicked date:', date);
+        $.ajax({
+	    type: 'POST',
+	    url: 'caldate', // 실제 서버 스크립트 경로로 수정
+	    data: { date: date },
+	    success: function(response) {
+	    },
+	    error: function(error) {
+	    }
+	  });    
       },
       eventClick: function (info) {
         eventClick(info);
@@ -507,6 +526,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Reset event form inputs values
     // ------------------------------------------------
+    
     function resetValues() {
       eventEndDate.value = '';
       eventUrl.value = '';

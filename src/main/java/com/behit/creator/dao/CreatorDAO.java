@@ -25,6 +25,7 @@ public interface CreatorDAO {
 
 	HashMap<String, Object> getTotalInfo();
 	ArrayList<HashMap<String, Object>> getAllList();
+	ArrayList<HashMap<String, Object>> getMyList(String loginId);
 	
 
 }
