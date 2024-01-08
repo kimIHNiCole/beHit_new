@@ -34,7 +34,17 @@
 	</select>
 	
 	<update id="photoupdate" parameterType="HashMap">
-		UPDATE file SET ori_file_name = #{ori_file_name} AND new_file_name = #{new_file_name} AND upload_date = now()
+		UPDATE file SET ori_file_name = #{ori_file_name}, new_file_name = #{new_file_name}, upload_date = now()
 			WHERE file_kind_idx = #{file_kind_idx};
 	</update>
+	
+	<select id="selectphoto" resultType="boolean">
+		SELECT COUNT(*) FROM file
+			WHERE file_kind_idx = #{file_kind_idx} AND file_kind = 5; 
+	</select>
+	
+	<insert id="photoinsert">
+		INSERT INTO file (file_kind, file_kind_idx, ori_file_name, new_file_name, upload_date, emp_id)
+			VALUES (#{file_kind}, #{file_kind_idx}, #{ori_file_name}, #{new_file_name}, NOW(), #{login_id})
+	</insert>
 </mapper>

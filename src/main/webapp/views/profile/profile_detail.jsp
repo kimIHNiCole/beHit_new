@@ -144,8 +144,7 @@ img.rounded-top{
                           </div>
                           
                           <a href="javascript:void(0)" class="btn btn-primary text-nowrap"                           
-	                          data-bs-toggle="modal"
-	                          data-bs-target="#modalCenter">비밀번호 변경</a>
+	                          data-bs-toggle="modal" data-bs-target="#modalCenter">비밀번호 변경</a>
                         </div>
                       </div>
                     </div>

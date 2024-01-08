@@ -13,6 +13,7 @@ import lombok.Setter;
 public class WorkDTO {
 	
 	private String emp_name;
+	private String emp_id;
 	private String dept_name;
 	private String work_start;
 	private String work_end;
