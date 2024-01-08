@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.behit.project.dao.ProjectSchDAO">
+	
+	<select id="delayProj" resultType="int">
+		SELECT proj_idx FROM project WHERE proj_status = '진행' AND proj_delay = 'N' AND proj_end &lt; CURDATE()
+	</select>
+	
+	<update id="updelayproj">
+        UPDATE project SET proj_delay = 'Y' WHERE proj_idx = #{param1}
+    </update>
+	
+</mapper>

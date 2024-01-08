@@ -7,7 +7,7 @@
 	<select id="todoList" resultType="todo">
 		SELECT *,
 			(SELECT COUNT(todo_idx) FROM todo WHERE todo_state = 'N' AND emp_id=#{param1}) AS todoN
-		FROM todo WHERE emp_id=#{param1} ORDER BY todo_idx DESC
+		FROM todo WHERE emp_id=#{param1} AND todo_state = 'N' ORDER BY todo_idx DESC
 	</select>
 	
 	<select id="todohistory" resultType="todo">

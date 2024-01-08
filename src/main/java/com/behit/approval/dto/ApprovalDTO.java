@@ -13,37 +13,36 @@ import lombok.Setter;
 @Setter
 public class ApprovalDTO {
 	
-	String emp_name;
-	String emp_dept;
-	Date from_vac_time;
+	private String emp_name;
+	private String emp_dept_name;
 	
-	int apv_idx;
-	String emp_id;
-	String apv_code;
-	Date apv_date;
-	String apv_stmt;
-	String apv_num;
-	String apv_subject;
-	String apv_overview;
-	String apv_vac_type;
-	Date apv_start_day;
-	Date apv_end_day;
-	Timestamp apv_start_time;
-	Timestamp apv_end_time;
-	String apv_cnt;
-	String apv_approver;
+	private int apv_idx;
+	private String emp_id;
+	private String apv_code;
+	private Date apv_date;
+	private String apv_stmt;
+	private String apv_num;
+	private String apv_subject;
+	private String apv_overview;
+	private String apv_vac_type;
+	private Date apv_start_day;
+	private Date apv_end_day;
+	private Timestamp apv_start_time;
+	private Timestamp apv_end_time;
+	private String apv_cnt;
+	private String apv_approver;
 	
-	String apv_history_stmt;
-	Date apv_history_date;
-	String apv_history_reason;
+	private String apv_history_stmt;
+	private Date apv_history_date;
+	private String apv_history_reason;
 	
-	int apv_line;
-	String emp_id_in;
-	Date apv_line_date;
-	String apv_line_up;
-	Date apv_line_date_up;
+	private int apv_line;
+	private String emp_id_in;
+	private Date apv_line_date;
+	private String apv_line_up;
+	private Date apv_line_date_up;
 	
-	Date apv_perm_date;
+	private Date apv_perm_date;
 
 	
 

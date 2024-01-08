@@ -15,11 +15,11 @@
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">부서</td>
-									<td class="table-header-left-table-right dept">${dept_name}</td>
+									<td class="table-header-left-table-right dept">${dto.dept_name}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">기안일</td>
-									<td class="table-header-left-table-right date">${emp_date}</td>
+									<td class="table-header-left-table-right date">${dto.emp_date}</td>
 								</tr>
 								<tr>
 									<td class="table-header-left-table-left">문서번호</td>
@@ -29,6 +29,25 @@
 						</table>
 					</td>
 					<td class="table-header-right">
+						<div class="apv-sign">
+							<table class="apv-sign-table">
+								<tbody>
+									<tr class="apv-sign-table-app">
+										<th>신청</th>									
+										<!-- 결재선 추가 -->
+										<td class="apv-sign-table-right">
+											<table>
+												<tbody>
+													<tr><td><span class="apv-sign-line-dept">${dto.position_name}</span></td></tr>
+													<tr><td><span class="apv-sign-line-name">${login_name}</span></td></tr>
+													<tr class="last"><td><span class="apv-sign-line-date">${dto.emp_date}</span></td></tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div class="apv-sign">
 							<table class="apv-sign-table">
 								<tbody>

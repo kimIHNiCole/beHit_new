@@ -271,7 +271,7 @@
 	.project-entry .bx-x{
 		color:#fff;
 	}
-			
+	/* 조직도 모달 */
     div#projModal {
 	    width: 350px;
     	height: 430px;
@@ -282,7 +282,11 @@
     	height: 430px;
     	background-color: white;
 	}
-    
+	.card-body {
+    	overflow-y: auto;
+    	max-height: 85%;
+	}
+    /* 조직도 모달 여기까지 */
     </style>
   </head>
 
@@ -700,7 +704,7 @@
 														</h5>
 														<div class="card-body">
 														  <div id="jstree-checkbox"></div>
-														</div>
+														</div>														
 													</div>
 													<!-- 여기까지 모달자체를 넣기 -->
 												</div>
@@ -1252,7 +1256,7 @@ $(document).ready(function () {
 function addToDamList(name, hiddenValue) {
     var $damList = $('#addDamList');
     var Fname = name.split(' | ')[0];
-    var $badge = $('<span style="margin-right:5px" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
+    var $badge = $('<span style="margin-right:5px; margin-bottom:5px;" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
     $damList.append($badge);
 }
 
@@ -1345,7 +1349,7 @@ $(document).ready(function () {
 function addToChamList(name, hiddenValue) {
     var $damList = $('#addChamList');
     var Fname = name.split(' | ')[0];
-    var $badge = $('<span style="margin-right:5px" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList1(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
+    var $badge = $('<span style="margin-right:5px; margin-bottom:5px;" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList1(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
     $damList.append($badge);
 }
 
