@@ -29,10 +29,8 @@
 	</select>
 	
 	<select id="getPhoto" resultType="com.behit.profile.dto.FileDTO">
-		SELECT * FROM file 
-			WHERE emp_id = #{login_id} AND file_kind = 5 
-			ORDER BY file_idx DESC
-			LIMIT 1;
+   		SELECT * FROM file 
+			WHERE file_kind_idx = #{login_id} AND file_kind = 5;
 	</select>
 	
 	<update id="photoupdate" parameterType="HashMap">
