@@ -22,5 +22,6 @@ public class ProjectDTO {
 	private String proj_status;
 	private String proj_delay;
 	private Date proj_update;
-
+	private String dam_id;
+	private String dam_name;
 }
