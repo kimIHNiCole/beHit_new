@@ -11,4 +11,6 @@ public interface UtilDAO {
 	void upload(HashMap<String, Object> file);
 
 	void upload(MultipartFile file);
+
+	HashMap<String, Object> selectfile(int idx);
 }

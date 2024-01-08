@@ -92,58 +92,77 @@
           <div class="content-wrapper">
           
            <!-- Content -->
-<div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">이유빈 님의 근태현황 </span></h4>
-    <!-- DataTable with Buttons -->
-    <div class="card">
-        <div class="card-datatable table-responsive">
-			<div class="row mb-3">
-				<div class="col-md-4">
-                    <!-- 탭 추가 -->
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="tab-active" href="#">전체</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-on-leave" href="#">정상근무</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab-resigned" href="#">미달</a>
-                        </li>
-                    </ul>
-                </div>
-			    <!-- Calendar -->
-				<div class="col-md-4">
-			        <div class="input-group">
-			            <button class="btn btn-outline-secondary" id="prevBtn" type="button"><</button>
-			            <input type="text" class="form-control text-center" id="datepicker" readonly>
-			            <button class="btn btn-outline-secondary" id="nextBtn" type="button">></button>
+			<div class="container-lg flex-grow-1 container-p-y mt-2" style="width: 1000px;">
+    			<h4 class="py-3 mb-4"><span class="text-muted fw-light">이유빈 님의 근태현황 </span></h4>
+  			  	<!-- DataTable with Buttons -->
+			    <div class="card">
+			        <div class="card-datatable table-responsive">
+						<div class="row mb-3">
+							<div class="col-md-4">
+			                    <!-- 탭 추가 -->
+                    			<ul class="nav nav-pills" role="tablist">
+	                      			<li class="nav-item">
+		                        		<button
+		                          			class="nav-link active"
+		                          			data-bs-toggle="tab"
+		                          			data-bs-target="#form-tabs-first"
+		                          			role="tab"
+		                          			aria-selected="true">
+		                          			전체
+		                        		</button>
+	                      			</li>
+	                      			<li class="nav-item">
+	                        			<button
+	                          				class="nav-link"
+	                          				data-bs-toggle="tab"
+	                          				data-bs-target="#form-tabs-secend"
+	                          				role="tab"
+	                          				aria-selected="false"
+	                          				onclick="tabsecend()">
+	                          				정상 근무
+	                       			 	</button>
+	                      			</li>
+	                      			<li class="nav-item">
+	                        			<button
+	                          				class="nav-link"
+	                          				data-bs-toggle="tab"
+	                          				data-bs-target="#form-tabs-third"
+	                          				role="tab"
+	                          				aria-selected="false"
+	                          				onclick="tabthird()">
+	                          				미달
+	                       			 	</button>
+	                      			</li>
+                    			</ul>
+			                </div>
+						    <!-- Calendar -->
+							<div class="col-md-4">
+						        <div class="input-group">
+						            <button class="btn btn-outline-secondary" id="sprevBtn" type="button"><</button>
+						            <input type="text" class="form-control text-center" id="sdatepicker" readonly>
+						            <button class="btn btn-outline-secondary" id="snextBtn" type="button">></button>
+						        </div>
+						    </div>
+						</div>
+			            <table class="datatables-basic table border-top" style="margin-top: -10px;">
+			                <thead>
+			                    <tr>
+			                        <th></th>
+			                        <th>no.</th>
+			                        <th></th>
+			                        <th>날짜</th>
+			                        <th>근무시간</th>
+			                        <th>연차</th>
+			                        <th>출근 시간</th>
+			                        <th>퇴근 시간</th>
+			                        <th>상태</th>
+			                    </tr>
+			                </thead>
+			            </table>
 			        </div>
 			    </div>
-			
-			    
 			</div>
-            <table class="datatables-basic table border-top" style="margin-top: -10px;">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>no.</th>
-                        <th></th>
-                        <th>날짜</th>
-                        <th>근무시간</th>
-                        <th>연차</th>
-                        <th>출근 시간</th>
-                        <th>퇴근 시간</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-
-    <hr class="my-5" />
-</div>
-<!-- / Content -->
+			<!-- / Content -->
 
            
 
@@ -202,232 +221,54 @@
      <script>
      
      document.addEventListener("DOMContentLoaded", function () {
-         var datepicker = $('#datepicker').datepicker({
-             format: 'yyyy-mm',
-             autoclose: true,
-             minViewMode: 'months', // 최소 뷰 모드를 월로 설정
-             viewMode: 'months',    // 기본 뷰 모드를 월로 설정
-             todayHighlight: true    // 오늘 날짜 강조
-         });
+ 	    var datepicker = $('#sdatepicker').datepicker({
+ 	        format: 'yyyy-mm-dd',
+ 	        autoclose: true,
+ 	        todayHighlight: true // 오늘 날짜 강조
+ 	    });
+/*
+ 	    // 한국 시간으로 초기화
+ 	    var currentDate = new Date();
+ 	    currentDate.setHours(currentDate.getHours() + 9); // UTC+9: 한국 시간으로 설정
+ 	    datepicker.datepicker('setDate', currentDate);
+ 	    updateInputValue(currentDate);
+*/	    
+ 	    
+ 	    var currentDate = new Date();
+ 	    var options = { timeZone: 'Asia/Seoul' };
+ 	    var krTime = currentDate.toLocaleString('en-US', options);
 
-         // 한국 시간으로 초기화
-         var currentDate = new Date();
-         currentDate.setHours(currentDate.getHours() + 9); // UTC+9: 한국 시간으로 설정
-         datepicker.datepicker('setDate', currentDate);
-         updateInputValue(currentDate);
+ 	    // 'Asia/Seoul' 타임존에 따라 현재 날짜와 시간을 가져옴
+ 	    var datepicker = $('#sdatepicker');
+ 	    datepicker.datepicker('setDate', new Date(krTime));
+ 	    updateInputValue(new Date(krTime));
 
-         // < 버튼 클릭 시 이벤트
-         $('#prevBtn').on('click', function() {
-             var selectedDate = datepicker.datepicker('getDate');
-             selectedDate.setMonth(selectedDate.getMonth() - 1);
-             datepicker.datepicker('update', selectedDate);
-             updateInputValue(selectedDate);
-         });
+ 	    // < 버튼 클릭 시 이벤트
+ 	    $('#sprevBtn').on('click', function() {
+ 	        var selectedDate = datepicker.datepicker('getDate');
+ 	        selectedDate.setDate(selectedDate.getDate() - 1);
+ 	        datepicker.datepicker('update', selectedDate);
+ 	        updateInputValue(selectedDate);
+ 	        listCall(showPage);
+ 	    });
 
-         // > 버튼 클릭 시 이벤트
-         $('#nextBtn').on('click', function() {
-             var selectedDate = datepicker.datepicker('getDate');
-             selectedDate.setMonth(selectedDate.getMonth() + 1);
-             datepicker.datepicker('update', selectedDate);
-             updateInputValue(selectedDate);
-         });
+ 	    // > 버튼 클릭 시 이벤트
+ 	    $('#snextBtn').on('click', function() {
+ 	        var selectedDate = datepicker.datepicker('getDate');
+ 	        selectedDate.setDate(selectedDate.getDate() + 1);
+ 	        datepicker.datepicker('update', selectedDate);
+ 	        updateInputValue(selectedDate);
+ 	        listCall(showPage);
+ 	    });
 
-         function updateInputValue(date) {
-             var formattedDate = date.toLocaleDateString("ko-KR", { year: 'numeric', month: 'long' });
-             $('#datepicker').val(formattedDate);
-         }
-     });
-     
-     
-     
-     /**
-      * DataTables Basic
-      */
+ 	    function updateInputValue(date) {
+ 	        var formattedDate = date.getFullYear() + '-' + padZero(date.getMonth() + 1) + '-' + padZero(date.getDate());
+ 	        $('#sdatepicker').val(formattedDate);
+ 	    }
 
-     'use strict';
-
-     let fv, offCanvasEl;
-     
-     // datatable (jquery)
-     $(function () {
-       var dt_basic_table = $('.datatables-basic'),
-       dt_basic;
-
-       
-       // DataTable with buttons
-       // --------------------------------------------------------------------
-
-       if (dt_basic_table.length) {
-         dt_basic = dt_basic_table.DataTable({
-           ajax: assetsPath + 'json/table-datatable.json',
-           columns: [
-             { data: '' },
-             { data: 'id' },
-             { data: 'id' },
-             { data: 'full_name' },
-             { data: 'email' },
-             { data: 'start_date' },
-             { data: 'salary' },
-             { data: 'status' },
-             { data: '' }
-           ],
-           columnDefs: [
-             
-        	   {
-               // For Responsive
-               className: 'control',
-               orderable: false,
-               searchable: false,
-               responsivePriority: 2,
-               targets: 0,
-               render: function (data, type, full, meta) {
-                 return '';
-               }
-             },
-             
-             {
-               targets: 2,
-               searchable: false,
-               visible: false
-             },
-             
-            /* {
-               // Avatar image/badge, Name and post
-               targets: 3,
-               responsivePriority: 4,
-               render: function (data, type, full, meta) {
-                 var $user_img = full['avatar'],
-                   $name = full['full_name'],
-                   $post = full['post'];
-                 if ($user_img) {
-                   // For Avatar image
-                   var $output =
-                     '<img src="' + assetsPath + 'img/avatars/' + $user_img + '" alt="Avatar" class="rounded-circle">';
-                 } else {
-                   // For Avatar badge
-                   var stateNum = Math.floor(Math.random() * 6);
-                   var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                   var $state = states[stateNum],
-                     $name = full['full_name'],
-                     $initials = $name.match(/\b\w/g) || [];
-                   $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                   $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-                 }
-                 // Creates full output for row
-                 var $row_output =
-                   '<div class="d-flex justify-content-start align-items-center user-name">' +
-                   '<div class="avatar-wrapper">' +
-                   '<div class="avatar me-2">' +
-                   $output +
-                   '</div>' +
-                   '</div>' +
-                   '<div class="d-flex flex-column">' +
-                   '<span class="emp_name text-truncate">' +
-                   $name +
-                   '</span>' +
-                   '<small class="emp_post text-truncate text-muted">' +
-                   $post +
-                   '</small>' +
-                   '</div>' +
-                   '</div>';
-                 return $row_output;
-               }
-             },
-             */
-             {
-               responsivePriority: 1,
-               targets: 4
-             },
-             {
-               // Label
-               targets: -2,
-               render: function (data, type, full, meta) {
-                 var $status_number = full['status'];
-                 var $status = {
-                   1: { title: 'Current', class: 'bg-label-primary' },
-                   2: { title: 'Professional', class: ' bg-label-success' },
-                   3: { title: 'Rejected', class: ' bg-label-danger' },
-                   4: { title: 'Resigned', class: ' bg-label-warning' },
-                   5: { title: 'Applied', class: ' bg-label-info' }
-                 };
-                 if (typeof $status[$status_number] === 'undefined') {
-                   return data;
-                 }
-                 return (
-                		 '<span>퇴근버튼 클릭 시간</span>'
-                 );
-               }
-             },
-             {
-               // Actions
-               targets: -1,
-               title: '상태',
-               orderable: false,
-               searchable: false,
-               render: function (data, type, full, meta) {
-                 return (
-                		 '<span>정상/미달 여부</span>'
-                 );
-               }
-             }
-           ],
-           paging: false,
-           order: [[2, 'desc']],
-           dom: '<<"head-label text-center">><"row">t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-           
-           displayLength: 10,
-           lengthMenu: [10],
-           
-           
-           responsive: {
-             details: {
-               display: $.fn.dataTable.Responsive.display.modal({
-                 header: function (row) {
-                   var data = row.data();
-                   return 'Details of ' + data['full_name'];
-                 }
-               }),
-               type: 'column',
-               renderer: function (api, rowIdx, columns) {
-                 var data = $.map(columns, function (col, i) {
-                   return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                     ? '<tr data-dt-row="' +
-                         col.rowIndex +
-                         '" data-dt-column="' +
-                         col.columnIndex +
-                         '">' +
-                         '<td>' +
-                         col.title +
-                         ':' +
-                         '</td> ' +
-                         '<td>' +
-                         col.data +
-                         '</td>' +
-                         '</tr>'
-                     : '';
-                 }).join('');
-
-                 return data ? $('<table class="table"/><tbody />').append(data) : false;
-               }
-             }
-           }
-         });
-         
-         
-         
-       }
-
-
-      
-
-       
-
-       // Filter form control to default size
-       // ? setTimeout used for multilingual table initialization
-       setTimeout(() => {
-         $('.dataTables_filter .form-control').removeClass('form-control-sm');
-         $('.dataTables_length .form-select').removeClass('form-select-sm');
-       }, 300);
+ 	    function padZero(num) {
+ 	        return num < 10 ? '0' + num : num;
+ 	    }
      });
 
      </script>
