@@ -21,6 +21,7 @@ public class UtilController {
 	@Autowired
 	UtilService utilService;
 	
+	// ex) /download.do?idx=1
 	@GetMapping(value="/download.do")
 	public ResponseEntity<Resource> download(@RequestParam int idx) throws IOException {
 		
