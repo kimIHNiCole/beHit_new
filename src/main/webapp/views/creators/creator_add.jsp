@@ -68,6 +68,38 @@
 		#cre_specifics{
 			resize: none;
 		}
+		
+		/*영상링크*/
+		.videoUrlForm{
+			position: relative;
+		}
+		.urlChekBtn{
+			position: absolute;
+		    padding: 0 13px;
+		    border: none;
+		    border-left: 1.5px solid #c20000;
+		    background: none;
+		    right: 14px;
+		    top: 11px;
+		    color: #878787
+		}	
+		.urlChekBtn:hover{
+			color: black;
+		}	
+		
+		.selectCate {
+		    display: block;
+		    padding: 0.4375rem 0.875rem;
+		    font-size: 0.9375rem;
+		    font-weight: 400;
+		    line-height: 1.53;
+		    color: #697a8d;
+		    appearance: none;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: var(--bs-border-width) solid #d9dee3;
+		    border-radius: var(--bs-border-radius);
+		}
 	</style>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
@@ -126,273 +158,16 @@
         <!-- 여기서부터 붙여넣기 -->
       
         <!-- Menu -->
-        
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item active">
-              <a href="../creators/creator_list_all.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
-        <!-- / Menu -->
-
+		<jsp:include page="/views/header_menu.jsp" />	
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-
-            <!-- Search Small Screens -->
-            
-          </nav>
-
-          <!-- / Navbar -->
-          
-          <!-- 여기까지 붙여넣기 -->
-
+		  <jsp:include page="/views/header_navbar.jsp" /> 
+		  
+		  
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="py-3 mb-4">크리에이터 등록</h4>
 
@@ -540,81 +315,118 @@
                             </div>
                           </div>
                         </div>
+                        
+                        
                         <!-- ADD CREATOR Chapter 2 --> 
                         <div id="personal-info" class="content">
-                          <div class="row g-3" style="justify-content: space-around";>
-                          
-                       <div class="col-6 ch-area">
-                          <div style="display: flex; justify-content: space-between;">
-                          	<span><span style="color:#c20000">*</span> 유튜브 채널 정보 (대표채널을 선택해 주세요)</span>
-                            <button type="button" class="btn btn-sm btn-icon btn-outline-primary mb-1"
-                            		onclick="addChItem()">
-                       			<i class='bx bx-plus bx-burst-hover'></i>
-                          </button>                    	
-                          </div>
-                        <div id="ch-item-list" class="mb-6" data-repeater-list="group-a">
-                        <!-- 채널명, 가입일, 카테고리, 채널링크 div-->
-                          <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item>
-                            <div class="d-flex position-relative pe-0">
-				            <div style="margin: 0 20px;" class="d-flex position-relative pe-0 align-items-center justify-content-center">
-				                <!-- 여기에 라디오 버튼 추가 -->
-				                <label class="form-check-label">
-				                    <input type="radio" name="rep_channel" class="form-check-input rep-channel" checked="checked"/>
-				                </label>
-				            </div>
-			                  <!-- 채널 정보 영역 -->
-                              <div class="row w-100 ch-card">
-	                          	 	<div>
-	                          		    <input type="text" id="ch-name" class="form-control ch-form ch-name" name="channel_name" placeholder="채널명" />
-	                           		</div>
-	                                <div class="col-sm-3">
-		                       		<input type="text" id="start-ch" class="form-control flatpickr-validation ch-form start-ch" name="channel_date"
-		                            	placeholder="채널가입일"/>
-	                      			</div>
-	                                
-			                        <div class="col-sm-9" style="padding-left:0px">
-										<input  id="TagifyCustomInlineSuggestion"  class="form-control ch-form TagifyCustomInlineSuggestion" name="channel_cate" placeholder="채널 카테고리를 선택하세요" >
-			                        </div>
-			                        
-			                        <div> 
-	                          		    <input type="text" id="channel-url" class="form-control ch-form channel-url" name="channel_url" placeholder="채널 링크를 입력하세요" />
-	                           		</div>
-	                           		<div> 
-	                          		    <input type="text" id="rep-video" class="form-control ch-form rep-video" name="rep_video" placeholder="대표 영상 링크를 입력하세요" />
-	                           		</div>
-                              </div>
-                              <div class="d-flex position-relative pe-0 align-items-center justify-content-center">
-	                              <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1"
-	                              		onclick="delChItem()">
-	                              		<i class='bx bx-minus-circle'></i>
-		                          </button>
-				              </div>
-                              <!-- / 채널 정보 영역 -->
-                            </div>
-                          </div>
-                          <!-- / 채널명, 가입일, 카테고리, 채널링크 div-->
-                     	 </div>
+                          <div class="row g-3" style="justify-content: space-around;">
+							<div class="col-6 ch-area">
+								<div style="display: flex; justify-content: space-between;">
+									<span><span style="color: #c20000">*</span> 유튜브 채널
+										정보 (대표채널을 선택해 주세요)</span>
+									<button type="button"
+										class="btn btn-sm btn-icon btn-outline-primary mb-1"
+										onclick="addChItem()">
+										<i class='bx bx-plus bx-burst-hover'></i>
+									</button>
+								</div>
+								<div id="ch-item-list" class="mb-6"
+									data-repeater-list="group-a">
+									<!-- 채널명, 가입일, 카테고리, 채널링크 div-->
+									<div class="repeater-wrapper pt-0 pt-md-4"
+										data-repeater-item>
+										<div class="d-flex position-relative pe-0">
+											<div style="margin: 0 20px;"
+												class="d-flex position-relative pe-0 align-items-center justify-content-center">
+												<!-- 여기에 라디오 버튼 추가 -->
+												<label class="form-check-label"> <input
+													type="radio" name="rep_channel"
+													class="form-check-input rep-channel" checked="checked" />
+												</label>
+											</div>
+											<!-- 채널 정보 영역 -->
+											<div class="row w-100 ch-card">
+												<div class="videoUrlForm">
+													<input type="text" id="rep-video"
+														class="form-control ch-form rep-video"
+														name="rep_video" placeholder="대표 영상 링크를 입력하세요" />
+													<button type="button" class="urlChekBtn"
+														onclick="urlCheck()">
+														<i class='bx bx-search'></i>
+													</button>
+												</div>
+												<div class="col-sm-7">
+													<select id="selectCate" class="ch-form selectCate w-100" >
+														<option disabled selected hidden>카테고리를 선택하세요</option>
+														<option>패션</option>
+														<option>뷰티</option>
+														<option>푸드</option>
+														<option>Vlog</option>
+														<option>여행</option>
+														<option>게임</option>
+														<option>동물</option>
+														<option>IT</option>
+														<option>과학</option>
+														<option>영화</option>
+														<option>음악</option>
+														<option>스포츠</option>
+														<option>FUN</option>
+														<option>교육</option>
+														<option>사회</option>
+														<option>유아</option>
+														<option>기타</option>
+													</select>
+												</div>
+												<div class="col-sm-5" style="padding-left: 0;">
+													<input type="text" id="start-ch"
+														class="form-control flatpickr-validation ch-form start-ch"
+														name="channel_date" placeholder="채널가입일" disabled />
+												</div>
+												<div>
+													<input type="text" id="ch-name"
+														class="form-control ch-form ch-name"
+														name="channel_name" placeholder="채널명" disabled />
+												</div>
+												<div>
+													<input type="text" id="channel-url"
+														class="form-control ch-form channel-url"
+														name="channel_url" placeholder="채널 링크" disabled />
+												</div>
+											</div>
+											<div
+												class="d-flex position-relative pe-0 align-items-center justify-content-center">
+												<button type="button"
+													class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1"
+													onclick="delChItem()">
+													<i class='bx bx-minus-circle'></i>
+												</button>
+											</div>
+											<!-- / 채널 정보 영역 -->
+										</div>
+									</div>
+									<!-- / 채널명, 가입일, 카테고리, 채널링크 div-->
+								</div>
 
-                      </div>
-                      <div class="col-6 ch-area">
+							</div>
+							<div class="col-6 ch-area">
                           <div style="display: flex; justify-content: space-between; align-items: center;">
                           	<span>기타 SNS 링크(인스타그램, 페이스북)</span>
-                            <button type="button" class="btn btn-sm btn-icon btn-outline-primary mb-1">
+                            <button type="button" class="btn btn-sm btn-icon btn-outline-primary mb-1" onclick="addSnsItem()">
                             <i class='bx bx-plus bx-burst-hover'></i>
                           </button>                    	
                           </div>
-                        <div id="sns-item-list" class="mb-5" data-repeater-list="group-a">
-                          <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item>
+                        <div id="sns-item-list" class="mt-3 mb-3" data-repeater-list="group-a">
+                          <div class="repeater-wrapper " data-repeater-item>
                             <div class="d-flex position-relative pe-0">
                               <div class="row w-100">
                                 
-                            <div>
-                              <input type="text" id="snsUrl" class="form-control ch-form snsUrl" name="sns_url" placeholder="SNS 링크 입력" />
-                            </div>
+	                            <div>
+	                              <input type="text" id="snsUrl" class="form-control ch-form snsUrl" name="sns_url" placeholder="SNS 링크 입력" />
+	                            </div>
 
 
                               </div>
- 								<div class="d-flex position-relative pe-0 align-items-center justify-content-center">
+ 								<div class="d-flex position-relative pe-0 align-items-center justify-content-center" onclick="delSnsItem()">
 	                              <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
 	                              		<i class='bx bx-minus-circle'></i>
 		                          </button>
@@ -654,24 +466,23 @@
                    		  </div>
                           <div style="display: flex; justify-content: space-between; align-items: center;">
                           	<span>활동 이력</span>
-                            <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1">
+                            <button type="button" class="btn btn-sm rounded-pill btn-icon btn-outline-primary mb-1" onclick="addHisItem()">
                               <span class="tf-icons bx bx-plus"></span>
                             </button>                    	
                           </div>
-                          <div id="his-item-list" class="mb-5" data-repeater-list="group-a" 
-                          	style="height: 281.625px;overflow-y: auto;">
+                          <div id="his-item-list" class="mb-5" data-repeater-list="group-a">
 						    
 	                          <!-- 활동이력 영역-->
 	                          <div class="repeater-wrapper position-relative pt-0 pt-md-4" data-repeater-item>
 	                            <div class="d-flex position-relative pe-0">
 	                              <div class="row act-card" >
 	                                
-	                                <div class="col-sm-3">
+	                                <div class="col-sm-5">
 			                       		<input type="text" id="hisDate" class="form-control flatpickr-validation act-form hisDate"
 			                            	name="history_date" placeholder="날짜 선택" />
 	                      			</div>
 	                                
-			                        <div class="col-sm-3" style="padding-left:0px">
+			                        <div class="col-sm-5" style="padding-left:0px">
 				                        <select id="typeSelect" class="form-select act-form typeSelect">
 				                        	<option value="" disabled selected hidden >분류 선택</option>
 				                          <option value="구독자">구독자</option>
@@ -836,8 +647,10 @@
     
     
     <!-- custom script -->
-  	<script>
-	
+	<script>
+  	// 채널정보 입력창을 추가시 cnt++
+  	 var channelCnt = 0;
+  	 
   	 $(document).ready(function() {
 		// DAUM 주소 검색 창
         document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
@@ -859,18 +672,74 @@
 	        });
 	      });
     	});
-	    // 이미지 DROP
-	    const myDropzone = new Dropzone('#dropzone-basic', {
-	      previewTemplate: previewTemplate,
-	      parallelUploads: 1,
-	      maxFilesize: 5,
-	      addRemoveLinks: true,
-	      maxFiles: 1
-	    });
+        const myDropzone=null;
+        
+        if(myDropzone!= null){
+		    // 이미지 DROP
+		    myDropzone = new Dropzone('#dropzone-basic', {
+		      parallelUploads: 1,
+		      maxFilesize: 5,
+		      addRemoveLinks: true,
+		      maxFiles: 1
+		    });
+        }
         
     });
+  	
+  	function urlCheck(){
+  		
+  		var videoUrl = $(".rep-video").eq(channelCnt).val();
+  		console.log(videoUrl);
+  		
+  		var isDuplicate = false;
+  		if($(".rep-video").length > 1){
+	  			
+	  	    $(".rep-video").each(function() {
+	  	        if (videoUrl == $(".rep-video").eq(0)) {
+	  	            isDuplicate = true;
+	  	            return isDuplicate; 
+	  	        }
+	  	    }); 
+  		}
+  	    if (isDuplicate) {
+  	        alert("이미 작성중인 링크입니다.");
+  	        return; 
+  	    }
+  		
+  		$.ajax({
+  			type: 'post',
+  			url: 'getChInfo.ajax.do',
+  			data: {videoURL: videoUrl},
+  			dataType: 'JSON',
+  			success:function(data){
+  				console.log("data",data);
+  				console.log("data.chInfo",data.chInfo);
+  				inputInfo(data.chInfo);
+  				console.log("data.msg",data.msg);
+  				if(data.msg!=null){
+  					alert(data.msg);
+  				}
+  			},
+  			error:function(e){
+  				console.log(e);
+  				
+  			}
+  		})
+  	}
+  	function inputInfo(chInfo){
+  		console.log("inputInfo() 실행");
+  		
+  		var dateTime = chInfo.channelDate;
+  		var fp = $(".start-ch").eq(channelCnt).flatpickr();
+  		fp.setDate(dateTime, true);
+  		
+  		$('.ch-name').eq(channelCnt).val(chInfo.channelName);
+  		$('.channel-url').eq(channelCnt).val(chInfo.channelUrl);
+  		$(".start-ch").eq(channelCnt).prop("disabled", false);
+  	}
   	 
   	
+  	// 최종 등록 함수
   	function creatorAddDo() {
 		  console.log('creatorAddDo event !! ');
   		
@@ -904,7 +773,7 @@
             channel_url: $(element).find('.channel-url').val(),
             rep_channel: $(element).find('.rep-channel').is(':checked') ? 1 : 0,
             channel_date: $(element).find('.start-ch').val(),
-            channel_cate: selectedTags.join(","),
+            channel_cate: $(element).find('.selectCate').val(),
             rep_video: $(element).find('.rep-video').val()
         };
         
@@ -949,7 +818,7 @@
 	    		console.log("응답 성공 | 상태 코드 : ", jqXHR.status);
 	    		console.log("textStatus : ",textStatus);
 	    		if(jqXHR.status == 200){
-	    			location.replace('http://localhost:8080/creators/creator_list_my.go');
+	    			location.replace('/creatorList.go');
 	    		}
 	    	},
 	    	error : function(data, textStatus, jqXHR){
@@ -960,59 +829,8 @@
 			
 		});
 	}
-  	 
-    
- 	// 채널 카테고리 Input
-    $.ajax({
-    	type : 'get',
-    	url : 'getChCate.ajax.do',
-    	data : {},
-    	dataType : 'JSON',
-    	success : function(data){
-    		console.log(data.chCategory);
-    		drawChCate(data.chCategory);
-    	},
-    	error : function(e){
-    		console.log(e);
-    	}
-    });
- 	
-    var selectedTags = [];  // 카테고리 선택 태그
-
-    function drawChCate(cateList) {
-		console.log("parameter value : ",cateList);
-	    const TagifyCustomInlineSuggestionEl = document.querySelector("#TagifyCustomInlineSuggestion");
-		const whitelist = cateList || [] ;
-	    
-		// Inline
-
-	    let TagifyCustomInlineSuggestion = new Tagify(TagifyCustomInlineSuggestionEl, {
-	      whitelist: whitelist,
-        enforceWhitelist: true,
-	      maxTags: 10, // allows to select max items
-	      dropdown: {
-	        maxItems: 20, // display max items
-	        classname: "tags-inline", // Custom inline class
-	        enabled: 0,
-	        closeOnSelect: false
-	      },
-        callbacks: {
-        add: onTagAdd,
-        remove: onTagRemove
-        }
-	    });
-      function onTagAdd(e) {
-        selectedTags.push(e.detail.data.value);
-        console.log("Selected Tags:", selectedTags);
-      }
-
-      function onTagRemove(e) {
-        const removedTag = e.detail.data.value;
-        selectedTags = selectedTags.filter(tag => tag !== removedTag);
-        console.log("Selected Tags:", selectedTags);
-      }
-	}
-   
+  	
+  	
     // 조직도에서 매니저 선택시 호출 함수
   	function selectMng() {
       console.log('selectMng event');
@@ -1030,13 +848,13 @@
         console.log(selectedMng+" / "+selectMngId);
 
       if(selectedMng.length > 1){
-        alert('담당 매니저는 한 명만 선택 해 주세요');
-        return false;
+	      alert('담당 매니저는 한 명만 선택 해 주세요');
+	      return false;
       }
-      $('#managerName').val(selectedMng);
-      $('#managerId').val(selectMngId);
-	  }
-  	/* 
+	      $('#managerName').val(selectedMng);
+	      $('#managerId').val(selectMngId);
+	}
+	/* 보류
     var checkboxTree = $('#jstree-checkbox');
     checkboxTree.on('select_node.jstree', function (e, data) {
         // 클릭한 노드의 부모 노드를 가져오기
@@ -1045,27 +863,92 @@
         // 클릭한 노드의 부모 노드를 열기 (자식 요소 보이게 하기)
         checkboxTree.jstree(true).open_node(parentNode);
       }); */
+  	
       
+     
+      <!-- 보류
+   	var chCateDrawn = false; // 플래그 초기화
+  	
+  	function getChCate() {
+		console.log("getChCate 실행 !!!!!!!!");
+		if (!chCateDrawn) {
+			console.log("chCaeDrawn",chCateDrawn);
+		    $.ajax({
+		    	type : 'get',
+		    	url : 'getChCate.ajax.do',
+		    	data : {},
+		    	dataType : 'JSON',
+		    	success : function(data){
+		    		selectBoxId = $('#selectpickerBasic1').attr('id');
+		    		console.log("selectBoxId = " ,selectBoxId);
+		    		drawChCate(data.chCategory,selectBoxId);
+		    		chCateDrawn = true; // 옵션 생성 완료를 나타내는 플래그
+		    	},
+		    	error : function(e){
+		    		console.log(e);
+		    	}
+		    });
+		}
+  	}
+
+ 
+    function drawChCate(cateList, selectBoxId) {
+    	console.log('selectBoxId : ',selectBoxId);
+		console.log("parameter value : ",cateList);
+	
+		var selectBox = $("#" + selectBoxId);
+		console.log('selectBox = '+selectBox);
+	
+		// 1안
+	  	/* var selectBox = $("#selectpickerBasic"); */ 
+
+	    // 기존 옵션 제거
+	    /*selectBox.empty();
+	    debugger;
+	    
+		console.log("cateList.length : "+ cateList.length);
+
+	    $.each(cateList, function(index, category) {	    	 */
+	 		/*console.log("@@@@cateList.length : "+index+"_"+ cateList.length); */
+	   /*      selectBox.append($('<option>', {
+	            value: category, 
+	            text: category
+	        }));
+	        console.log(selectBox);
+	    });
+	    // 셀렉트 박스 갱신
+	    selectBox.selectpicker('refresh');
+	    
+		// 2안
+		/* cateList.forEach(function(cateItem, index, cateList){
+			var option = selectBox.find('option').eq(index);
+			option.val(cateItem);
+			option.html(cateItem);
+			console.log("result"+index+" : ",option.val()," / ",option.text());
+		}); */
+	}	
+  -->    
      // 채널 정보 항목 추가 이벤트
      function addChItem(){
     	console.log('addChItem event !!');  
-    	
-        var clonedWrapper = $(".repeater-wrapper:first").clone();
-        clonedWrapper.find('input').val('');
-        
-        clonedWrapper.find('input[type="radio"]').prop('checked', false);
-		
-        $("#ch-item-list").append(clonedWrapper);
-     };
+        channelCnt++;
+        console.log("channelCnt = "+ channelCnt);
+        var originalChannel = $("#ch-item-list .repeater-wrapper:first");
+        var clone = originalChannel.clone(true);
+        clone.find('input, select').val('');	// 밸류 속성 비우기
+        clone.find('input[type="radio"]').prop('checked', false);
+        originalChannel.parent().append(clone);
+     }; 
       
      // 채널 정보 항목 제거 이벤트
      function delChItem() {
 		var repeaterWrapper = $(event.currentTarget).closest(".repeater-wrapper");
-		
+		console.log(repeaterWrapper);
 	    // 채널 정보 입력 항목 최소 한개 유지
 	    var repeatWrapperCount = $('#ch-item-list .repeater-wrapper').length;
 	    if (repeatWrapperCount === 1) {
 	        alert('채널 정보는 최소 1개가 필요합니다.');
+	        return false;
 	    }
 	    
 	    // 라디오 버튼 체크되어 있는 항목 삭제시 동작
@@ -1087,26 +970,103 @@
 	    } else {
 	        repeaterWrapper.remove();
 	    }
+	    // channelCnt 감소
+	    channelCnt--;
 	}
-	</script>
-    
-
-    <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
-
-    <!-- Page JS -->
+     
+     
+     
+    // SNS 정보 추가 항목 이벤트
+    function addSnsItem(){
+    	console.log('addSnsItem() 실행');
+    	console.log($("#sns-item-list .repeater-wrapper"));
+    	 var originalSns = $("#sns-item-list .repeater-wrapper").eq(0);
+         var clone = originalSns.clone(true);
+         
+         clone.find('input').val('');	// 밸류 속성 비우기
+         originalSns.parent().append(clone);
+    }
+    // SNS 정보 항목 제거 이벤트
+    function delSnsItem(){
+    	var repeaterWrapper = $(event.currentTarget).closest(".repeater-wrapper");
+		console.log(repeaterWrapper);
+	    // 채널 정보 입력 항목 최소 한개 유지
+	    var repeatWrapperCount = $('#sns-item-list .repeater-wrapper').length;
+	    if (repeatWrapperCount === 1) {
+	        alert('SNS 정보는 최소 1개가 필요합니다.');
+	        return false;
+	    }
 	
-    <script src="../../assets/js/form-wizard-numbered.js"></script>
-    <script src="../../assets/js/form-wizard-validation.js"></script>
-    <script src="../../assets/js/forms-file-upload.js"></script>
+	    // 입력된 정보가 있을 경우에 동작
+	    var inputValues = repeaterWrapper.find('input').filter(function() {
+	        return $(this).val() !== '';
+	    });
+	    if (inputValues.length > 0) {
+	        var confirmed = confirm("입력된 정보가 삭제됩니다. 정말 삭제하시겠습니까?");
+	
+	        if (confirmed) {
+	            repeaterWrapper.remove();
+	        }
+	    } else {
+	        repeaterWrapper.remove();
+	    }
+    }
     
-    <!-- jstree -->
-    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
-    <!-- scroll-bar -->
-    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    
-    <!-- 조직도 -->
-    <script>
+   // 활동이력 정보 항목 추가 이벤트
+   function addHisItem() {
+	    console.log("addHisItem() 실행");
+   		var originalHis = $("#his-item-list .repeater-wrapper:first");
+        var clone = originalHis.clone(true);
+        
+        clone.find('input').val('');	// 밸류 속성 비우기
+        originalHis.parent().append(clone);
+   }
+   // History 정보 항목 제거 이벤트
+   function delHisItem(){
+   	var repeaterWrapper = $(event.currentTarget).closest(".repeater-wrapper");
+		console.log(repeaterWrapper);
+	    // 채널 정보 입력 항목 최소 한개 유지
+	    var repeatWrapperCount = $('#his-item-list .repeater-wrapper').length;
+	    if (repeatWrapperCount === 1) {
+	        alert('History 정보는 최소 1개가 필요합니다.');
+	        return false;
+	    }
+	
+	    // 입력된 정보가 있을 경우에 동작
+	    var inputValues = repeaterWrapper.find('input').filter(function() {
+	        return $(this).val() !== '';
+	    });
+	    if (inputValues.length > 0) {
+	        var confirmed = confirm("입력된 정보가 삭제됩니다. 정말 삭제하시겠습니까?");
+	
+	        if (confirmed) {
+	            repeaterWrapper.remove();
+	        }
+	    } else {
+	        repeaterWrapper.remove();
+	    }
+   }
+   
+	</script>
+
+
+	<!-- Main JS -->
+	<script src="../../assets/js/main.js"></script>
+
+	<!-- Page JS -->
+
+	<script src="../../assets/js/form-wizard-numbered.js"></script>
+	<script src="../../assets/js/form-wizard-validation.js"></script>
+	<script src="../../assets/js/forms-file-upload.js"></script>
+
+	<!-- jstree -->
+	<script src="../../assets/vendor/libs/jstree/jstree.js"></script>
+	<!-- scroll-bar -->
+	<script
+		src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+	<!-- 조직도 -->
+	<script>
 	    // 조직도 
 	    $.ajax({
 			type: 'get',
@@ -1146,7 +1106,7 @@
 				    		for(var k=0; k < orgList.length; k++){
 				    			if(orgList[k].dept == deptKind[i]){
 				    				cnt++;
-				    				console.log("cnt", cnt);
+				    				/* console.log("cnt", cnt); */
 				    			}
 				    		}
 				    		return cnt;
@@ -1155,15 +1115,15 @@
 				    	var info=[];
 				    		for(var k=0; k < orgList.length; k++){
 				    			if(orgList[k].dept == deptKind[i]){
-				    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
-				    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='text' id='mng_id' name='mng_id' value='"+orgList[k].emp_id+"'/>");
+				    				/* console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade); */
+				    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' id='mng_id' name='mng_id' value='"+orgList[k].emp_id+"'/>");
 				    			}
 				    		}
 				    		return info[index];
 				    };
 				    
 				    for (var j = 0; j < empLength(); j++) {
-				    	console.log("empInfo("+j+")",empInfo(j));
+				    	/* console.log("empInfo("+j+")",empInfo(j)); */
 				        var emp = {
 				            text: empInfo(j)
 				        };
@@ -1174,7 +1134,6 @@
 				    	serverData.push(deptname); 
 				}
 	
-				console.log(serverData); 
 	
 				  // jstree에서 사용할 데이터 구성
 				  var jstreeData = serverData.map(function (parent) {
@@ -1211,7 +1170,7 @@
 		}  
 		// /조직도 
     </script>
-  </body>
+</body>
   
   
 </html>

@@ -168,7 +168,7 @@
     </li>
     
     <li class="menu-item" id="creator_list_all">
-      <a href="/creators/creator_list_all.go" class="menu-link">
+      <a href="/creatorList.go" class="menu-link">
          <i class="menu-icon tf-icons bx bx-slideshow"></i>
         <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
       </a>

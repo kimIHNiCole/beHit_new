@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
 
@@ -79,276 +80,15 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        <!-- 여기서부터 붙여넣기 -->
-      
         <!-- Menu -->
-        
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item active">
-              <a href="../creators/creator_list_all.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
-        <!-- / Menu -->
-
+		<jsp:include page="/views/header_menu.jsp" />
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-
-            <!-- Search Small Screens -->
-            
-          </nav>
-
-          <!-- / Navbar -->
-          
-          <!-- 여기까지 붙여넣기 -->
-
+		  <jsp:include page="/views/header_navbar.jsp" /> 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="py-3 mb-4"><span class="text-muted fw-light"></span> 크리에이터 관리</h4>
               <div class="row">
@@ -367,7 +107,6 @@
                             alt="User avatar" />
                           <div class="user-info text-center">
                             <h4 class="mb-2">히빱</h4>
-                            
                           </div>
                         </div>
                       </div>
@@ -447,12 +186,61 @@
 
                 <!-- User Content -->
                 <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-                  <!-- User Pills -->
-                  <div class="row">
-                  <div class="col-md-8">
+                  <!-- 탭 영역 -->
+                  <div class="row" style="flex-wrap: nowrap;">
+		            <div class="col-md-8">
+		   			  <!-- 탭 추가 -->                    
+		   			  <ul class="nav nav-pills" role="tablist">
+		   			    <li class="nav-item">
+		       		      <button 
+		       		      		class="nav-link active" 
+		       		      		data-bs-toggle="tab" 
+		       		      		data-bs-target="#form-tabs-first" 
+		       		      		role="tab" 
+		       		      		aria-selected="true">
+		         				<i class='bx bx-face' ></i>크리에이터 정보
+		       		      </button>
+		   			    </li>
+		   			    <li class="nav-item">
+		     			  <button 
+		     			  		class="nav-link" 
+		     			  		data-bs-toggle="tab" 
+		     			  		data-bs-target="#form-tabs-second" 
+		     			  		role="tab" 
+		     			  		aria-selected="false" >
+		       					<i class='bx bxl-sketch' ></i>대표 채널 정보
+		    			  </button>
+		   			    </li>
+		   			    <li class="nav-item">
+		     			  <button 
+		     			  		class="nav-link" 
+		     			  		data-bs-toggle="tab" 
+		     			  		data-bs-target="#form-tabs-third" 
+		     			  		role="tab" 
+		     			  		aria-selected="false" >
+		       					<i class='bx bxl-youtube' ></i>컨텐츠 정보(임시)
+		    			  </button>
+		   			    </li>
+		   			  </ul>
+		   			</div>
+		   			<div>
+		   			  <div class="col-md-4 text-end">
+	                  	<div class="d-flex justify-content-center pt-3">
+	                          <a
+	                            href="javascript:;"
+	                            class="btn btn-primary me-3"
+	                            data-bs-target="#editUser"
+	                            data-bs-toggle="modal"
+	                            >수정</a>
+	                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
+	                     </div>
+                   	  </div>
+		   			</div>
+		   		  </div>
+                  <!-- <div class="col-md-8">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class='bx bx-face' ></i></i>크리에이터 정보</a>
+                      <a class="nav-link active" href="javascript:void(0);"><i class='bx bx-face' ></i>크리에이터 정보</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="../creators/creator_detail_channel.go"
@@ -461,11 +249,11 @@
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="app-user-view-billing.go"
-                        ><i class='bx bxl-youtube' ></i></i>컨텐츠 정보(임시)</a
+                        ><i class='bx bxl-youtube' ></i>컨텐츠 정보(임시)</a
                       >
                     </li>
                   </ul>
-                  </div>
+                  </div> 
                   <div class="col-md-4 text-end">
                   	<div class="d-flex justify-content-center pt-3">
                           <a
@@ -476,144 +264,229 @@
                             >수정</a
                           >
                           <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
-                        </div>
-                      </div>
-                    </div>
-                  <!--/ User Pills -->
-
-                  <!-- Project table -->
-                  <div class="card mb-4">
-                    <h5 class="card-header">활동 채널 리스트</h5>
-                    <div class="table-responsive mb-3">
-                      <table class="table datatable-project border-top">
-                        <thead>
-                          <tr>
-                            <th>채널명</th>
-                            <th class="text-nowrap">카테고리</th>
-                            <th>구독자 수</th>
-                            <th>컨텐츠 수</th>
-                            <th>총 조회수</th>
-                            <th>가입일자</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>
-	                            <th>쀼쀼</th>
-	                            <th class="text-nowrap">일상, 코믹</th>
-	                            <th>11,234 명</th>
-	                            <th>45 개</th>
-	                            <th>1,999,356</th>
-	                            <th>2023.10.01</th>
-                          	</tr>
-                          	<tr>
-	                            <th>많이 먹어도 살 안 쪄서 좋겠당</th>
-	                            <th class="text-nowrap">먹방</th>
-	                            <th>3,332,123 명</th>
-	                            <th>325 개</th>
-	                            <th>515,745,435</th>
-	                            <th>2019.04.24</th>
-                          	</tr>
-                        </tbody>
-                      </table>
-                    </div>
+                     </div>
+                   </div>-->
+                  <!--/ 탭 영역 -->
+                  <div class="tab-content p-0 pt-3">
+				  	<!-- 기본 정보 영역 -->
+				  	<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
+				      <!-- 채널 리스트 -->
+				      <div class="card mb-4" >
+				        <h5 class="card-header">활동 채널 리스트</h5>
+				        <div class="table-responsive mb-3">
+				          <table class="table datatable-project border-top">
+				            <thead>
+				              <tr>
+				                <th>채널명</th>
+				                <th class="text-nowrap">카테고리</th>
+				                <th>구독자 수</th>
+				                <th>컨텐츠 수</th>
+				                <th>총 조회수</th>
+				                <th>가입일자</th>
+				              </tr>
+				            </thead>
+				            <tbody>
+				            	<tr>
+				                 <th>쀼쀼</th>
+				                 <th class="text-nowrap">일상, 코믹</th>
+				                 <th>11,234 명</th>
+				                 <th>45 개</th>
+				                 <th>1,999,356</th>
+				                 <th>2023.10.01</th>
+				              	</tr>
+				              	<tr>
+				                 <th>많이 먹어도 살 안 쪄서 좋겠당</th>
+				                 <th class="text-nowrap">먹방</th>
+				                 <th>3,332,123 명</th>
+				                 <th>325 개</th>
+				                 <th>515,745,435</th>
+				                 <th>2019.04.24</th>
+				              	</tr>
+				            </tbody>
+				          </table>
+				        </div>
+				      </div>
+				      <!-- / 채널 리스트 -->
+				      <!-- SNS 리스트 -->
+				      <div class="card mb-4">
+				        <h5 class="card-header">SNS</h5>
+				        <div class="table-responsive mb-3">
+				          <table class="table datatable-project border-top">
+				            <thead>
+				              <tr>                         
+				                <th>SNS 주소</th>
+				                <th class="text-nowrap">팔로워</th>
+				                <th>팔로우</th>
+				                <th>게시물</th>
+				              </tr>
+				            </thead>
+				            <tbody>
+				            	<tr>                         
+				                 <th><img src="../../assets/img/icons/brands/instagram.png" alt="instagram" class="me-3" height="20">히빱 일상</th>
+				                 <th class="text-nowrap">311,234</th>
+				                 <th>1 명</th>
+				                 <th>279 개</th>
+				               </tr>
+				            	<tr>                         
+				                 <th><img src="../../assets/img/icons/brands/facebook.png" alt="facebook" class="me-3" height="20">히빱 페북</th>
+				                 <th class="text-nowrap">22,222</th>
+				                 <th>191 명</th>
+				                 <th>-</th>
+				               </tr>
+				            </tbody>
+				          </table>
+				        </div>
+				      </div>
+				      <!-- / SNS 리스트 -->
+				      <!-- Activity Timeline -->
+				      <div class="card mb-4">
+				        <h4 class="card-header">활동이력</h4>
+				        <div class="card-body">
+				          <ul class="timeline">
+				            <li class="timeline-item timeline-item-transparent">
+				              <span class="timeline-point-wrapper"
+				                ><span class="timeline-point timeline-point-primary"></span
+				              ></span>
+				              <div class="timeline-event">
+				                <div class="timeline-header mb-1">
+				                  <h6 class="mb-0">유튜브 채널 1</h6>
+				                  <small class="text-muted">2023-12-12</small>
+				                </div>
+				                <p class="mb-2">200만 구독자 달성</p>
+				                
+				              </div>
+				            </li>
+				            <li class="timeline-item timeline-item-transparent">
+				              <span class="timeline-point-wrapper"
+				                ><span class="timeline-point timeline-point-warning"></span
+				              ></span>
+				              <div class="timeline-event">
+				                <div class="timeline-header mb-1">
+				                  <h6 class="mb-0">유튜브 채널 2</h6>
+				                  <small class="text-muted">2023-11-28</small>
+				                </div>
+				                <p class="mb-2">10만 구독자 달성</p>
+				                
+				              </div>
+				            </li>
+				            <li class="timeline-item timeline-item-transparent">
+				              <span class="timeline-point-wrapper"
+				                ><span class="timeline-point timeline-point-info"></span
+				              ></span>
+				              <div class="timeline-event">
+				                <div class="timeline-header mb-1">
+				                  <h6 class="mb-0">히빱</h6>
+				                  <small class="text-muted">2023-11-22</small>
+				                </div>
+				                <p class="mb-2">유튜브 크리에이터 대상 수상</p>
+				                
+				              </div>
+				            </li>
+				            <li class="timeline-item timeline-item-transparent">
+				              <span class="timeline-point-wrapper">
+				              	<span class="timeline-point timeline-point-success">
+				              	</span></span>
+				              <div class="timeline-event">
+				                <div class="timeline-header mb-1">
+				                  <h6 class="mb-0">유튜브 채널 2</h6>
+				                  <small class="text-muted">2023-10-01</small>
+				                </div>
+				                <p class="mb-0">채널 가입일</p>
+				              </div>
+				            </li>
+				            <li class="timeline-end-indicator">
+				              <i class="bx bx-check-circle"></i>
+				            </li>
+				          </ul>
+				        </div>
+				      </div>
+				      <!-- /Activity Timeline -->
+					</div>
+				   	<!-- 채널 데이터 영역 -->
+				   	<!-- Line Area Chart -->
+					<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
+					   <div class="col-12 mb-4" >
+					     <div class="card">
+					       <div class="card-header d-flex justify-content-between">
+					         <div>
+					           <h5 class="card-title mb-0">일별 구독자 수</h5>
+					           <small class="text-muted">구독자 성장세 확인</small>
+					         </div>
+					         <!-- 쓸 수도 있을 것 같아서 일단 남겨둠
+					         <div class="dropdown">
+					           <button
+					             type="button"
+					             class="btn dropdown-toggle px-0"
+					             data-bs-toggle="dropdown"
+					             aria-expanded="false">
+					             <i class="bx bx-calendar"></i>
+					           </button>
+					           <ul class="dropdown-menu dropdown-menu-end">
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+					                 >Last 7 Days</a
+					               >
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+					                 >Last 30 Days</a
+					               >
+					             </li>
+					             <li>
+					               <hr class="dropdown-divider" />
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+					                 >Current Month</a
+					               >
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+					             </li>
+					           </ul>
+					         </div>
+					          달력 드롭다운 영역--> 
+					       </div>
+					       <div class="card-body">
+					         <div id="lineAreaChart"></div>
+					       </div>
+					     </div>
+					   </div>
+					   <!-- /Line Area Chart -->
+					
+					   <!-- Line Chart -->
+					   <div class="col-12 mb-4">
+					     <div class="card">
+					       <div class="card-header d-flex justify-content-between">
+					         <div>
+					           <h5 class="card-title mb-0">일일 조회수 추이</h5>
+					           <small class="text-muted">조회수 변동값 체크를 통해 알고리즘 상태와 채널 성장도 체크</small>
+					         </div>
+					         <!-- 
+					         <div class="d-sm-flex d-none align-items-center">
+					           <h5 class="mb-0 me-3">$ 100,000</h5>
+					           <span class="badge bg-label-secondary">
+					             <i class="bx bx-down-arrow-alt bx-xs text-danger"></i>
+					             <span class="align-middle">20%</span>
+					           </span>
+					         </div>
+					          -->
+					       </div>
+					       <div class="card-body">
+					         <div id="lineChart"></div>
+					       </div>
+					     </div>
+					   </div>
+					   <!-- /Line Chart -->
+					</div>
                   </div>
-                  <!-- /Project table -->
-                  <!-- Project table -->
-                  <div class="card mb-4">
-                    <h5 class="card-header">SNS</h5>
-                    <div class="table-responsive mb-3">
-                      <table class="table datatable-project border-top">
-                        <thead>
-                          <tr>                         
-                            <th>SNS 주소</th>
-                            <th class="text-nowrap">팔로워</th>
-                            <th>팔로우</th>
-                            <th>게시물</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>                         
-	                            <th><img src="../../assets/img/icons/brands/instagram.png" alt="instagram" class="me-3" height="20">히빱 일상</th>
-	                            <th class="text-nowrap">311,234</th>
-	                            <th>1 명</th>
-	                            <th>279 개</th>
-                           </tr>
-                        	<tr>                         
-	                            <th><img src="../../assets/img/icons/brands/facebook.png" alt="facebook" class="me-3" height="20">히빱 페북</th>
-	                            <th class="text-nowrap">22,222</th>
-	                            <th>191 명</th>
-	                            <th>-</th>
-                           </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!-- /Project table -->
-
-                  <!-- Activity Timeline -->
-                  <div class="card mb-4">
-                    <h4 class="card-header">활동이력</h4>
-                    <div class="card-body">
-                      <ul class="timeline">
-                        <li class="timeline-item timeline-item-transparent">
-                          <span class="timeline-point-wrapper"
-                            ><span class="timeline-point timeline-point-primary"></span
-                          ></span>
-                          <div class="timeline-event">
-                            <div class="timeline-header mb-1">
-                              <h6 class="mb-0">유튜브 채널 1</h6>
-                              <small class="text-muted">2023-12-12</small>
-                            </div>
-                            <p class="mb-2">200만 구독자 달성</p>
-                            
-                          </div>
-                        </li>
-                        <li class="timeline-item timeline-item-transparent">
-                          <span class="timeline-point-wrapper"
-                            ><span class="timeline-point timeline-point-warning"></span
-                          ></span>
-                          <div class="timeline-event">
-                            <div class="timeline-header mb-1">
-                              <h6 class="mb-0">유튜브 채널 2</h6>
-                              <small class="text-muted">2023-11-28</small>
-                            </div>
-                            <p class="mb-2">10만 구독자 달성</p>
-                            
-                          </div>
-                        </li>
-                        <li class="timeline-item timeline-item-transparent">
-                          <span class="timeline-point-wrapper"
-                            ><span class="timeline-point timeline-point-info"></span
-                          ></span>
-                          <div class="timeline-event">
-                            <div class="timeline-header mb-1">
-                              <h6 class="mb-0">히빱</h6>
-                              <small class="text-muted">2023-11-22</small>
-                            </div>
-                            <p class="mb-2">유튜브 크리에이터 대상 수상</p>
-                            
-                          </div>
-                        </li>
-                        <li class="timeline-item timeline-item-transparent">
-                          <span class="timeline-point-wrapper"
-                            ><span class="timeline-point timeline-point-success"></span
-                          ></span>
-                          <div class="timeline-event">
-                            <div class="timeline-header mb-1">
-                              <h6 class="mb-0">유튜브 채널 2</h6>
-                              <small class="text-muted">2023-10-01</small>
-                            </div>
-                            <p class="mb-0">채널 가입일</p>
-                          </div>
-                        </li>
-                        <li class="timeline-end-indicator">
-                          <i class="bx bx-check-circle"></i>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <!-- /Activity Timeline -->
-
+                  
                 </div>
                 <!--/ User Content -->
               </div>
@@ -693,6 +566,7 @@
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
@@ -701,5 +575,363 @@
 <!--     <script src="../../assets/js/modal-edit-user.js"></script>
     <script src="../../assets/js/app-user-view.js"></script>
     <script src="../../assets/js/app-user-view-account.js"></script> -->
+    
+    
+    <script>
+    /**
+     * Charts Apex
+     */
+
+    'use strict';
+
+    (function () {
+      let cardColor, headingColor, labelColor, borderColor, legendColor;
+
+      if (isDarkStyle) {
+        cardColor = config.colors_dark.cardColor;
+        headingColor = config.colors_dark.headingColor;
+        labelColor = config.colors_dark.textMuted;
+        legendColor = config.colors_dark.bodyColor;
+        borderColor = config.colors_dark.borderColor;
+      } else {
+        cardColor = config.colors.cardColor;
+        headingColor = config.colors.headingColor;
+        labelColor = config.colors.textMuted;
+        legendColor = config.colors.bodyColor;
+        borderColor = config.colors.borderColor;
+      }
+
+      // Color constant
+      const chartColors = {
+        column: {
+          series1: '#826af9',
+          series2: '#d2b0ff',
+          bg: '#f8d3ff'
+        },
+        donut: {
+          series1: '#fee802',
+          series2: '#3fd0bd',
+          series3: '#826bf8',
+          series4: '#2b9bf4'
+        },
+        area: {
+          series1: '#29dac7',
+          series2: '#60f2ca',
+          series3: '#a5f8cd'
+        }
+      };
+
+      // Heat chart data generator
+     /*  function generateDataHeat(count, yrange) {
+        let i = 0;
+        let series = [];
+        while (i < count) {
+          let x = 'w' + (i + 1).toString();
+          let y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+          series.push({
+            x: x,
+            y: y
+          });
+          i++;
+        }
+        return series;
+      } */
+
+      // Line Area Chart
+      // --------------------------------------------------------------------
+      const areaChartEl = document.querySelector('#lineAreaChart'),
+        areaChartConfig = {
+          chart: {
+            height: 500,
+            type: 'area',
+            parentHeightOffset: 0,
+            toolbar: {
+              show: true
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            show: false,
+            curve: 'straight'
+          },
+          legend: {
+            show: true,
+            position: 'top',
+            horizontalAlign: 'start',
+            labels: {
+              colors: legendColor,
+              useSeriesColors: false
+            }
+          },
+          grid: {
+            borderColor: borderColor,
+            xaxis: {
+              lines: {
+                show: true
+              }
+            }
+          },
+          colors: ['#3498db', '#e74c3c', '#2ecc71'],
+          series: [
+            {
+              name: '총 조회 수',
+              data: [100, 120, 90, 170, 130, 160, 140, 240, 220, 180, 270, 280, 250]
+            },
+            {
+              name: '컨텐츠 수',
+              data: [60, 80, 70, 110, 80, 100, 90, 180, 160, 140, 200, 220, 275]
+            },
+            {
+              name: '구독자 수',
+              data: [20, 40, 30, 70, 40, 60, 50, 140, 120, 100, 140, 180, 220]
+            }
+          ],
+          xaxis: {
+            categories: [
+              '7/12',
+              '8/12',
+              '9/12',
+              '10/12',
+              '11/12',
+              '12/12',
+              '13/12',
+              '14/12',
+              '15/12',
+              '16/12',
+              '17/12',
+              '18/12',
+              '19/12',
+              '20/12'
+            ],
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            labels: {
+              style: {
+                colors: labelColor,
+                fontSize: '13px'
+              }
+            }
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: labelColor,
+                fontSize: '13px'
+              }
+            }
+          },
+          fill: {
+            opacity: 1,
+            type: 'gradient'
+          },
+          tooltip: {
+            shared: false
+          }
+        };
+      if (typeof areaChartEl !== undefined && areaChartEl !== null) {
+        const areaChart = new ApexCharts(areaChartEl, areaChartConfig);
+        areaChart.render();
+      }
+
+      /* // Bar Chart
+      // --------------------------------------------------------------------
+      const barChartEl = document.querySelector('#barChart'),
+        barChartConfig = {
+          chart: {
+            height: 400,
+            type: 'bar',
+            stacked: true,
+            parentHeightOffset: 0,
+            toolbar: {
+              show: false
+            }
+          },
+          plotOptions: {
+            bar: {
+              columnWidth: '15%',
+              colors: {
+                backgroundBarColors: [
+                  chartColors.column.bg,
+                  chartColors.column.bg,
+                  chartColors.column.bg,
+                  chartColors.column.bg,
+                  chartColors.column.bg
+                ],
+                backgroundBarRadius: 10
+              }
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          legend: {
+            show: true,
+            position: 'top',
+            horizontalAlign: 'start',
+            labels: {
+              colors: legendColor,
+              useSeriesColors: false
+            }
+          },
+          colors: [chartColors.column.series1, chartColors.column.series2],
+          stroke: {
+            show: true,
+            colors: ['transparent']
+          },
+          grid: {
+            borderColor: borderColor,
+            xaxis: {
+              lines: {
+                show: true
+              }
+            }
+          },
+          series: [
+            {
+              name: 'Apple',
+              data: [90, 120, 55, 100, 80, 125, 175, 70, 88, 180]
+            },
+            {
+              name: 'Samsung',
+              data: [85, 100, 30, 40, 95, 90, 30, 110, 62, 20]
+            }
+          ],
+          xaxis: {
+            categories: ['7/12', '8/12', '9/12', '10/12', '11/12', '12/12', '13/12', '14/12', '15/12', '16/12'],
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            labels: {
+              style: {
+                colors: labelColor,
+                fontSize: '13px'
+              }
+            }
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: labelColor,
+                fontSize: '13px'
+              }
+            }
+          },
+          fill: {
+            opacity: 1
+          }
+        };
+      if (typeof barChartEl !== undefined && barChartEl !== null) {
+        const barChart = new ApexCharts(barChartEl, barChartConfig);
+        barChart.render();
+      } */
+
+    
+
+      // Line Chart
+      // --------------------------------------------------------------------
+      const lineChartEl = document.querySelector('#lineChart'),
+        lineChartConfig = {
+          chart: {
+            height: 400,
+            type: 'line',
+            parentHeightOffset: 0,
+            zoom: {
+              enabled: false
+            },
+            toolbar: {
+              show: false
+            }
+          },
+          series: [
+            {
+              data: [280, 200, 220, 180, 270, 250, 70, 90, 200, 150, 160, 100, 150, 100, 50]
+            }
+          ],
+          markers: {
+            strokeWidth: 7,
+            strokeOpacity: 1,
+            strokeColors: [cardColor],
+            colors: [config.colors.warning]
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'straight'
+          },
+          colors: [config.colors.warning],
+          grid: {
+            borderColor: borderColor,
+            xaxis: {
+              lines: {
+                show: true
+              }
+            },
+            padding: {
+              top: -20
+            }
+          },
+          tooltip: {
+            custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+              return '<div class="px-3 py-2">' + '<span>' + series[seriesIndex][dataPointIndex] + '%</span>' + '</div>';
+            }
+          },
+          xaxis: {
+            categories: [
+              '7/12',
+              '8/12',
+              '9/12',
+              '10/12',
+              '11/12',
+              '12/12',
+              '13/12',
+              '14/12',
+              '15/12',
+              '16/12',
+              '17/12',
+              '18/12',
+              '19/12',
+              '20/12',
+              '21/12'
+            ],
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            labels: {
+              style: {
+                colors: labelColor,
+                fontSize: '13px'
+              }
+            }
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: labelColor,
+                fontSize: '13px'
+              }
+            }
+          }
+        };
+      if (typeof lineChartEl !== undefined && lineChartEl !== null) {
+        const lineChart = new ApexCharts(lineChartEl, lineChartConfig);
+        lineChart.render();
+      }
+
+    })();
+    </script>
   </body>
 </html>
