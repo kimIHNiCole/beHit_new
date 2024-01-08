@@ -17,12 +17,15 @@ public class CreatorStatController {
 	
 	@Autowired CreatorStatService creatorStatService;
 	
-//	@Scheduled(cron = "0 55 23 * * *")	// 매일 23시 55분에 실행
-	@Scheduled(cron = "0 0/30 * * * *")	
+	@Scheduled(cron = "0 40 0 * * *")	// 매일 23시30분 실행
+//	@Scheduled(cron = "0/20 * * * * *")	
 	public void saveChannelData() {
 		logger.info("SCHEDULING :: 채널 데이터 가져오기 실행");
-		
 		creatorStatService.saveChannelData();
-		
+	}
+	
+	public void saveChannelDataOne(String channelId) {
+		logger.info("SCHEDULING :: ["+channelId+"] 채널 데이터 가져오기 실행");
+		creatorStatService.saveChannelDataOne(channelId);
 	}
 }

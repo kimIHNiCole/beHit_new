@@ -87,14 +87,19 @@
 		width: 95px;
 	}
 	
-/* 	.bx.bx-message-dots.chat{
+ 	.bx.bx-message-dots.chat{
 	font-size: 10rem;
 	margin-top : 20rem;
 	margin-left: 27rem;
-	} */
-	.chat-contact-status.text-truncate.mb-0.text-muted{
 	}
-    
+	
+	/* 채팅방 상단 이름 영역 맥스 사이즈 */
+/*  	.chat-contact-info.flex-grow-1.ms-3{
+	max-width: 50rem;
+	} */
+.chat-names{
+font-size: 10px;
+}
     </style>
   </head>
 
@@ -130,7 +135,7 @@
                             alt="Avatar" />
                         </div>
                         <div class="text-muted text-uppercase">
-                        	<span class="chat-contact-name text-truncate m-0">${emp_name}</span><span id="emp_id">${emp_id}</span>
+                        	<span class="chat-contact-name text-truncate m-0">${emp_name}</span><span id="emp_id">(${emp_id})</span>
                         	<div><span class="m-0">${emp_dept_name}</span></div>
                         	</div>
                         	<button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#apv-modal">채팅방 추가</button>
@@ -139,9 +144,33 @@
                     </div>
                     <hr class="container-m-nx mt-3 mb-0" />
                     <div class="sidebar-body">
+                    	<div>
+                          <h6 class="text-primary mb-0">채팅 리스트</h6>
+                          <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
+                          <span class="input-group-text" id="basic-addon-search31"
+                            ><i class="bx bx-search fs-4"></i
+                          ></span>
+                          <input
+                            type="text"
+                            class="form-control chat-search-input"
+                            placeholder="Search..."
+                            aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
+                        </div>
+                        </div>
                       <!-- Chats -->
+                      
                       <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
-                        <li class="chat-contact-list-item">
+                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                          <h6 class="text-muted mb-0">No Chats Found</h6>
+                        </li>
+                        <li id="showChatRListOnChatMs" class="chat-contact-list-item">
+                        	
+                        </li>
+                        
+                      </ul>
+                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
+                      	<li class="chat-contact-list-item">
                           <h6 class="text-primary mb-0">채팅 리스트</h6>
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
                           <span class="input-group-text" id="basic-addon-search31"
@@ -155,9 +184,6 @@
                             aria-describedby="basic-addon-search31" />
                         </div>
                         </li>
-                        <li class="chat-contact-list-item chat-list-item-0 d-none">
-                          <h6 class="text-muted mb-0">No Chats Found</h6>
-                        </li>
                         <!-- 온라인일 경우 표시 -->
                         <c:forEach items="${ChatRoomAll}" var="ChatRoomAll" varStatus="loop">
                         <li class="chat-contact-list-item">
@@ -170,7 +196,7 @@
                               <h6 class="chat-contact-name text-truncate m-0">${ChatRoomAll.chat_room_name}</h6>
                               <p class="chat-contact-status text-truncate mb-0 text-muted">
 							    <c:forEach items="${ChatRoomAll.chatMb}" var="chatMb" varStatus="loop">
-							        <span>${chatMb.emp_id}</span>
+							        <span>${chatMb.emp_name}</span>
 							        <c:if test="${not loop.last}">
 							            <!-- Add "," only if it's not the last element -->
 							            ,
@@ -181,22 +207,20 @@
                             <small class="text-muted mb-auto">${ChatRoomAll.chat_room_date}</small>
                           </a>
                         </li>
-                        </c:forEach>                      
+                        </c:forEach>
                       </ul>
-                      
                     </div>
                   </div>
                   <!-- /Chat contacts -->
 
                   <!-- Chat History -->
-                 <!--  <div class="col app-chat-history">
+                 <div class="col app-chat-history" id="defaultChatHistory">
                     <i class='bx bx-message-dots chat' ></i>
-                      
-                    </div>
-                  </div> -->
+                 </div>
+                  
                   <!-- /Chat History -->
                   <!-- Chat History -->
-                  <div class="col app-chat-history">
+                  <div class="col app-chat-history" id="selectedChatHistory" style="display: none;">
                     <div class="chat-history-wrapper">
                       <div class="chat-history-header border-bottom">
                         <div class="d-flex justify-content-between align-items-center">
@@ -216,14 +240,14 @@
                                 data-target="#app-chat-sidebar-right" />
                             </div>
                             <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="m-0">김세연</h6>
-                              <small class="user-status text-muted">인사팀</small>
+                              <h6 class="m-0" id="chatRoomNameInRoom"></h6>
+                              <small class="user-status text-muted" id="chatMbListInRoom"></small>
                             </div>
                           </div>
                           
                         </div>
                       </div>
-                      <div class="chat-history-body">
+                      <div class="chat-history-body" id="chat-history-body">
                         
                         <ul id="chatMessageList" class="list-unstyled chat-history mb-0">
 						    <!-- 채팅 메시지가 동적으로 추가될 곳 -->
@@ -243,7 +267,7 @@
                               <!-- <i class="bx bx-paperclip bx-sm cursor-pointer mx-3 text-body"></i> -->
                               <input type="file" id="attach-doc" hidden />
                             </label>
-                            <button class="btn btn-primary d-flex send-msg-btn" onclick="sendMessage()">
+                            <button class="btn btn-primary d-flex send-msg-btn"  onclick="sendMessage()">
                               <i class="bx bx-paper-plane me-md-1 me-0"></i>
                               <span class="align-middle d-md-inline-block d-none" >전송</span>
                             </button>
@@ -346,42 +370,70 @@ $(function () {
 var stompClient = null; //웹소켓 통신을 위한 Stomp 클라이언트를 저장하는 변수
 var emp_id = "";
 var loginId ="";
+var loginName="";
 
-
-var currentChatRoomIdx = null; // 현재 연결된 채팅방의 인덱스 저장 변수
-
-function connect(chatRoomIdx) {
-	
-	// 이전 채팅방의 구독 해제
-    unsubscribeFromPreviousRoom();
-	
+function connect() {
 	// 웹소켓 연결을 수행하는 함수
-    var socket = new SockJS('/chat/messenger_his');
+    var socket = new SockJS('/chat');
 	// SockJS 를 통해 서버의 웹소켓 엔드포인트에 연결
     stompClient = Stomp.over(socket);
 	// Stomp 클라이언트 생성
     stompClient.connect({}, function (frame) {
     	// 연결이 성공하면 콜백 함수에서 로그 출력
         console.log('Connected: ' + frame);
-    	
-    	
-     // 현재 채팅방에 대한 구독 설정
-        if (chatRoomIdx) {
-            stompClient.subscribe('/topic/chat/' + chatRoomIdx, function (message) {
-                console.log('Received message: ' + message.body);
-            });
-            // 현재 채팅방 인덱스 저장
-            currentChatRoomIdx = chatRoomIdx;
-        }
-    	
     });
 }
 
-function unsubscribeFromPreviousRoom() {
-    // 이전 채팅방에서의 구독 해제
-    if (currentChatRoomIdx) {
-        stompClient.unsubscribe('/topic/chat/' + currentChatRoomIdx);
+function chatRListOnChatMs(){
+	$.ajax({
+		type: 'get',
+		url: '/chatRListOnChatMs',
+		data: {},
+		dataType: 'JSON',
+	    success : function(data){
+	      console.log(data);
+	      showChatRListOnChatMs(data);
+	    } ,
+	    error : function(e){
+	      console.log(e);
+	    }
+	});
+}
+
+function showChatRListOnChatMs(data) {
+    var chatListContainer = $('#chat-list');
+    var noChatsFoundItem = chatListContainer.find('.chat-list-item-0');
+    var chatRListOnChatMs = data.chatRListOnChatMs;
+
+    // 기존에 있던 내용을 비워줍니다.
+    chatListContainer.empty();
+
+    if (chatRListOnChatMs.length === 0) {
+        noChatsFoundItem.removeClass('d-none');
+        return;
+    } else {
+        noChatsFoundItem.addClass('d-none');
     }
+
+    chatRListOnChatMs.forEach(function (chatRoom) {
+        var listItem = $('<li class="chat-contact-list-item"></li>');
+
+        // 리스트 아이템 내용 채우기
+        listItem.append('<a class="d-flex align-items-center">' +
+            '<div class="flex-shrink-0 avatar avatar-online">' +
+            '<img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />' +
+            '</div>' +
+            '<div class="chat-contact-info flex-grow-1 ms-3">' +
+            '<input type="hidden" value="' + chatRoom.chat_room_idx + '"/>' +
+            '<h6 class="chat-contact-name text-truncate m-0">' + chatRoom.chat_room_name + '</h6>' +
+            '<p class="chat-contact-status text-truncate mb-0 text-muted">' + chatRoom.last_message + '</p>' +
+            '</div>' +
+            '<small class="text-muted mb-auto">' + chatRoom.last_message_date + '</small>' +
+            '</a>');
+
+        // 리스트 아이템을 부모 요소에 추가
+        chatListContainer.append(listItem);
+    });
 }
 
     
@@ -410,7 +462,7 @@ function drawOrg(orgList, deptKind) {
     // 각각의 데이터를 리스트에 추가
     orgList.forEach(function (employee) {
         var listItem = $('<div class="list-item"></div>');
-        listItem.append('<input type="checkbox" class="emp-checkbox" data-emp-id="' + employee.emp_id + '">');
+        listItem.append('<input type="checkbox" class="emp-checkbox" data-emp-id="' + employee.emp_id + '" data-emp-name="' + employee.emp_name + '">');
         listItem.append('<span class="emp-id">' + employee.emp_id + '</span>');
         listItem.append(' | <span class="emp-name">' + employee.emp_name + '</span>');
 
@@ -423,22 +475,26 @@ function drawOrg(orgList, deptKind) {
     modalBody.on('change', '.emp-checkbox', function () {
         var isChecked = $(this).prop('checked');
         var empId = $(this).data('emp-id');
+        var empName = $(this).data('emp-name');
 
         // 선택된 정보를 사용하여 원하는 동작 수행
-        console.log('Employee ID:', empId, 'Checked:', isChecked);
+        console.log('직원 ID:', empId, '직원 이름:', empName, '선택 여부:', isChecked);
     });
 
     // 선택 버튼 클릭 시 처리
     $('.apv-doc-select').click(function () {
-        var selectedEmpIds = [];
+    	var selectedEmpData = [];
 
         // 체크된 항목의 emp_id 가져오기
         modalBody.find('.list-item input:checked').each(function () {
-            selectedEmpIds.push($(this).data('emp-id'));
+        	selectedEmpData.push({
+                emp_id: $(this).data('emp-id'),
+                emp_name: $(this).data('emp-name')
+            });
         });
 
         // 선택된 정보를 사용하여 원하는 동작 수행
-        console.log('Selected Employee IDs:', selectedEmpIds);
+        console.log('선택된 직원 정보:', selectedEmpData);
         
         // 채팅방 이름 첫 번째 선택한 사람 외 1명으로 변경하여 서버에 값 보내기
         // 셀렉트한 emp_id 들 값들 서버로 보내기
@@ -448,10 +504,10 @@ function drawOrg(orgList, deptKind) {
         
         
         $.ajax({
-		    type: 'GET',
+		    type: 'POST',
 		    url: '/createRoom',
-		    data: { emp_ids: selectedEmpIds },
-		    traditional: true,
+		    contentType: 'application/json',
+		    data: JSON.stringify(selectedEmpData),
 		    success: function (data) {
 		        console.log(data);
 		        if(data.idx > 0){
@@ -480,65 +536,120 @@ function drawOrg(orgList, deptKind) {
 
 /*/직원 리스트 모달 끝 */
 
-    
+var currentSubscription = null;
+var chatRoomIdx = '';
     
  // 채팅방 구독
     
 // 클릭한 채팅방 빨간색으로 활성화
 $(document).ready(function() {
-	
+	chatRListOnChatMs();
+	registerClickEvent();
+        
+});
+ 
+ 
+function registerClickEvent() {
+	// 각 리스트 아이템에 클릭 이벤트 리스너 추가
+    $(document).on('click', '.chat-contact-list-item', function() {
 
-
-    // 각 리스트 아이템에 클릭 이벤트 리스너 추가
-    $('.chat-contact-list-item').click(function() {
-    	
+    	console.log('리스트 아이템 클릭됨')
+    	//웹소켓 대화 삭제
+    	$('#webChatMessage').empty();
         // 기존 active 클래스를 모두 제거
         $('.chat-contact-list-item').removeClass('active');
-
+        
         // 클릭한 리스트에 active 클래스 추가
         $(this).addClass('active');
         
-  
-        // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
-        var newChatRoomIdx = $(this).find('input[type=hidden]').val();
-        console.log(newChatRoomIdx);
+        //기본 채팅방 숨기기
+        $('#defaultChatHistory').css('display', 'none');
         
+        // 선택된 채팅방 표시
+        $('#selectedChatHistory').css('display', 'block');
+        
+     // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
+        chatRoomIdx = $(this).find('input[type=hidden]').val();
+        console.log(chatRoomIdx);
 
-        connect(newChatRoomIdx);
+        if (currentSubscription) {
+            // 현재 구독이 있으면 해지
+            currentSubscription.unsubscribe();
+        }
 
-        stompClient.subscribe("/topic/chatRoom/" + newChatRoomIdx, function (webMessage) {
-            // 실시간으로 클라이언트에서 구독을 했다.
-            console.log('특정 방에 뿌림',webMessage);
-            // 새로운 메시지 도착 시 처리
+        currentSubscription = stompClient.subscribe("/topic/chatRoom/" + chatRoomIdx, function (webMessage) {
+            console.log('특정 방에 뿌림', webMessage);
             showMessage(JSON.parse(webMessage.body));
         });
-
+        
         $.ajax({
             type: 'GET',
             url: '/chatList', // 서버에서 처리할 요청 URL
-            data: { chatRoomIdx: newChatRoomIdx }, // 전송할 데이터 (chatRoomIdx)
+            data: { chatRoomIdx: chatRoomIdx }, // 전송할 데이터 (chatRoomIdx)
             success: function(data) {
                 // 서버에서 받은 데이터(response)를 처리
                 console.log('채팅 리스트 가져오기 성공', data);
 
                 loginId= data.loginId;
-                // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
+                loginName= data.loginName;
+             // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
+                var roomNameToDisplay;
+
+                // loginName을 제외한 emp_name이 하나라면 해당 이름을 사용, 그렇지 않으면 data.chatRoomName 사용
+                var otherMembers = data.chatMbListInRoom.filter(function (chatMb) {
+                    return chatMb.emp_name != loginName;
+                });
+
+                if (otherMembers.length == 1) {
+                    roomNameToDisplay = otherMembers[0].emp_name;
+                } else {
+                    roomNameToDisplay = data.chatRoomName;
+                }
+
+                $('#chatRoomNameInRoom').text(roomNameToDisplay);
+                showChatMbListInRoom(data.chatMbListInRoom);
                 showMessageList(data.chatList, loginId);
             },
             error: function(error) {
                 console.error('채팅 리스트 가져오기 실패', error);
             }
         });
+        
+        
+        
     });
-});
+	
+	
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+function showChatMbListInRoom(chatMbListInRoom){
 
+	var empNames = chatMbListInRoom.map(function (chatMb) {
+        return chatMb.emp_name;
+    });
+	// empNames 배열을 쉼표로 연결한 문자열 생성
+    var empNamesString = empNames.join(', ');
+
+    console.log("룸멤버리스트이름", empNamesString);
+    $('#chatMbListInRoom').text(empNamesString);
+	}
+ 
 
 
    
 function showMessageList(chatList, loginId) {
+	
 	$('#chatMessageList').empty();
 	console.log("쇼메시지리스트함수",chatList);
 	console.log("쇼메시지리스트함수",loginId);
+	
     // chatList를 순회하며 각 메시지에 대한 처리
     chatList.forEach(function(message) {
         // 적절한 메시지 형식을 선택하여 화면에 추가
@@ -546,8 +657,17 @@ function showMessageList(chatList, loginId) {
         
         // 채팅 메시지 목록에 추가
         $('#chatMessageList').append(messageHtml);
+        // chatMessageList에 대한 스크롤을 맨 아래로 이동
+/*         $('#chatMessageList').scrollTop($('#chatMessageList')[0].scrollHeight); */
     });
 }
+
+function formattedDate(dateString) {
+    const options = { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+    const formatted = new Date(dateString).toLocaleString('ko-KR', options);
+    return formatted;
+}
+
 
 function getMessageHtml(message, loginId) {
 	console.log("겟메시지함수",message);
@@ -563,7 +683,7 @@ function getMessageHtml(message, loginId) {
         messageHtml += '<p class="mb-0">' + message.message + '</p>';
         messageHtml += '</div>';
         messageHtml += '<div class="text-end text-muted mt-1">';
-        messageHtml += '<small>' + message.message_date + '</small>';
+        messageHtml += '<small>' + formattedDate(message.message_date) + '</small>';
         messageHtml += '</div>';
         messageHtml += '</div>';
     } else {
@@ -573,7 +693,7 @@ function getMessageHtml(message, loginId) {
         messageHtml += '<div class="user-avatar flex-shrink-0 me-3">';
         messageHtml += '<div class="avatar avatar-sm">';
         messageHtml += '<img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />';
-        messageHtml += '<span>' + message.emp_id + '</span>';
+        messageHtml += '<span class="chat-names">' + message.emp_name + '</span>';
         messageHtml += '</div>';
         messageHtml += '</div>';
         messageHtml += '<div class="chat-message-wrapper flex-grow-1">';
@@ -581,7 +701,7 @@ function getMessageHtml(message, loginId) {
         messageHtml += '<p class="mb-0">' + message.message + '</p>';
         messageHtml += '</div>';
         messageHtml += '<div class="text-muted mt-1">';
-        messageHtml += '<small>' + message.message_date + '</small>';
+        messageHtml += '<small>' + formattedDate(message.message_date) + '</small>';
         messageHtml += '</div>';
         messageHtml += '</div>';
     }
@@ -589,6 +709,8 @@ function getMessageHtml(message, loginId) {
 
     messageHtml += '</div>';
     messageHtml += '</li>';
+    
+
 
     return messageHtml;
 }
@@ -606,10 +728,11 @@ function sendMessage() {
  // 현재 시간을 가져오기
     var currentDate = new Date();
 
-    // 시간을 원하는 형식으로 변환 (예: "2024-01-02")
-    var formattedDate = currentDate.getFullYear() + "-" +
-                        padZero(currentDate.getMonth() + 1) + "-" +
-                        padZero(currentDate.getDate());
+ // 시간을 "MM. DD. HH:mm" 형식으로 변환
+    var formattedDate = padZero(currentDate.getMonth() + 1) + ". " +
+                        padZero(currentDate.getDate()) + ". " +
+                        padZero(currentDate.getHours()) + ":" +
+                        padZero(currentDate.getMinutes());
     
     console.log(formattedDate);
     
@@ -618,6 +741,7 @@ function sendMessage() {
     	'chat_room_idx':chatRoomIdx,
         'message': messageContent,
         'emp_id': loginId,
+        'emp_name': loginName,
         'message_date': formattedDate
     }));
 
@@ -635,7 +759,8 @@ function showMessage(webMessage) {
 	console.log("웹소켓쇼메시지",loginId);
 	var webMessageHtml = getWebMessageHtml(webMessage, loginId);
 	$('#webChatMessage').append(webMessageHtml);
-	
+	// webChatMessage에 대한 스크롤을 맨 아래로 이동
+/* 	$('#webChatMessage').scrollTop($('#webChatMessage')[0].scrollHeight); */
 	
 }
 
@@ -654,7 +779,7 @@ function getWebMessageHtml(webMessage, loginId) {
         webMessageHtml += '<p class="mb-0">' + webMessage.message + '</p>';
         webMessageHtml += '</div>';
         webMessageHtml += '<div class="text-end text-muted mt-1">';
-        webMessageHtml += '<small>' + webMessage.message_date + '</small>';
+        webMessageHtml += '<small>' + formattedDate(webMessage.message_date) + '</small>';
         webMessageHtml += '</div>';
         webMessageHtml += '</div>';
     } else {
@@ -664,7 +789,7 @@ function getWebMessageHtml(webMessage, loginId) {
         webMessageHtml += '<div class="user-avatar flex-shrink-0 me-3">';
         webMessageHtml += '<div class="avatar avatar-sm">';
         webMessageHtml += '<img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />';
-        webMessageHtml += '<span>' + webMessage.emp_id + '</span>';
+        webMessageHtml += '<span class="chat-names">' + webMessage.emp_name + '</span>';
         webMessageHtml += '</div>';
         webMessageHtml += '</div>';
         webMessageHtml += '<div class="chat-message-wrapper flex-grow-1">';
@@ -672,7 +797,7 @@ function getWebMessageHtml(webMessage, loginId) {
         webMessageHtml += '<p class="mb-0">' + webMessage.message + '</p>';
         webMessageHtml += '</div>';
         webMessageHtml += '<div class="text-muted mt-1">';
-        webMessageHtml += '<small>' + webMessage.message_date + '</small>';
+        webMessageHtml += '<small>' + formattedDate(webMessage.message_date) + '</small>';
         webMessageHtml += '</div>';
         webMessageHtml += '</div>';
     }

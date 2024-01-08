@@ -85,264 +85,14 @@ img.rounded-top{
         <!-- 여기서부터 붙여넣기 -->
       
         <!-- Menu -->
-        
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item active">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../creators/creator_list_all.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
+			<jsp:include page="/views/header_menu.jsp"/>
         <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
-          <!-- Navbar -->
-
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-
-            <!-- Search Small Screens -->
-            
-          </nav>
-
+        
+        <!-- Navbar -->
+          <jsp:include page="/views/header_navbar.jsp"/>
           <!-- / Navbar -->
           
           <!-- 여기까지 붙여넣기 -->
@@ -363,8 +113,8 @@ img.rounded-top{
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
 						<c:choose>
-						    <c:when test="${not empty photos and not empty photos[0].new_file_name}">
-						        <img src="/photo/employee/${photos[0].new_file_name}" alt="${photos[0].ori_file_name}" 
+						    <c:when test="${not empty photos and not empty photos.new_file_name}">
+						        <img src="/file/employee/${photos.new_file_name}" alt="${photos.ori_file_name}" 
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>
@@ -382,7 +132,7 @@ img.rounded-top{
         					</div>
 	        				<div style="white-space: nowrap; width:150px; display: flex;">
 					            <form action="upload.do" method="post" enctype="multipart/form-data">
-									<input type="file" name="uploadFile" id="uploadFile"/>
+									<input type="file" name="uploadFile" id="uploadFile" accept=".jpg, .jpeg, .gif, .png" onchange="checkFileSize(this)"/>
 									<button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-right: 5px;">전송</button>
 								</form>
 					            <button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-left: 5px;">초기화</button>
@@ -545,37 +295,39 @@ img.rounded-top{
                                   data-bs-dismiss="modal"
                                   aria-label="Close"></button>
                               </div>
-                              <div class="modal-body">
-                                <div class="mb-3 form-password-toggle">
-					                <label class="form-label" for="password">비밀번호</label>
-					                <div class="input-group input-group-merge">
-					                  <input
-					                    type="password"
-					                    id="password"
-					                    class="form-control"
-					                    name="password"
-					                    placeholder="비밀번호를 입력하세요."
-					                    aria-describedby="password" />
-					                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-					                </div>
-					              </div>
-                                <div class="row">
-                                  <div class="col mb-3">
-                                    <label for="nameWithTitle" class="form-label">비밀번호 확인</label>
-                                    <input
-                                      type="password"
-                                      id="confirmPassword"
-                                      class="form-control"
-                                      aria-describedby="password"/>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
-                                  취소
-                                </button>
-                                <button type="button" class="btn btn-primary" onclick="passChange()">비밀번호 변경</button>
-                              </div>
+                              <form action="passChange.do" method="post">
+	                              <div class="modal-body">
+	                                <div class="mb-3 form-password-toggle">
+						                <label class="form-label" for="password">비밀번호</label>
+						                <div class="input-group input-group-merge">
+						                  <input
+						                    type="password"
+						                    id="password"
+						                    class="form-control"
+						                    name="password"
+						                    placeholder="비밀번호를 입력하세요."
+						                    aria-describedby="password" />
+						                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+						                </div>
+						              </div>
+	                                <div class="row">
+	                                  <div class="col mb-3">
+	                                    <label for="nameWithTitle" class="form-label">비밀번호 확인</label>
+	                                    <input
+	                                      type="password"
+	                                      id="confirmPassword"
+	                                      class="form-control"
+	                                      aria-describedby="password"/>
+	                                  </div>
+	                                </div>
+	                              </div>
+	                              <div class="modal-footer">
+	                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+	                                  취소
+	                                </button>
+	                                <button type="submit" class="btn btn-primary">비밀번호 변경</button>
+	                              </div>
+                              </form>
                             </div>
                           </div>
                         </div>
@@ -623,30 +375,22 @@ img.rounded-top{
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     
     <script>
-    	function passChange() {
-    		var password = $('input[name="password"]').val();
-    		
-    		$.ajax({
-    			type: "POST",
-    			url: "passChange.do",
-    			data: {"password":password},
-    			dataType:"json",
-    			success: function(data){
-    				console.log(data.success);
-    				if (data.success == true){
-    					alert("비밀번호가 변경되었습니다. 다시 로그인해 주세요");
-    					location.href="redirect:/login.jsp";
-    				} else {
-    					alert("기존 비밀번호와 일치합니다.");
-    					location.reload();
-    				}
-    				
-    			},
-    			error: function(e){
-    				console.log(e)
-    			}
-    		});
-    	}
+		var msg = '${msg}';
+		if (msg!=''){
+			alert(msg);
+		}
+		
+		function checkFileSize(input) {
+		    const maxFileSizeInBytes = 1024 * 1024; // 예시: 1MB 제한
+
+		    if (input.files.length > 0) {
+		        const fileSize = input.files[0].size; // 파일 크기
+		        if (fileSize > maxFileSizeInBytes) {
+		            alert('파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.');
+		            input.value = ''; // 파일 선택 취소
+		        }
+		    }
+		}
 	</script>
 
     <!-- Main JS -->
@@ -654,5 +398,8 @@ img.rounded-top{
 
     <!-- Page JS -->
     <script src="../../assets/js/app-user-view-account.js"></script>
+    
+    <!-- Header -->
+    <script src="../../assets/js/header.js"></script>
   </body>
 </html>

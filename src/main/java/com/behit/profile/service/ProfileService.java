@@ -3,7 +3,7 @@ package com.behit.profile.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,15 +23,14 @@ public class ProfileService {
 	
 	@Autowired ProfileDAO profileDAO;
 	
-	// 이거 수정
-	private String root = "C:/upload/employee/";
+	private String root = "C:/upload/employee/";	
 	
 	public ModelAndView detail(String login_id) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		EmployeeDTO dto = profileDAO.prodetail(login_id);
-		ArrayList<FileDTO> photos = profileDAO.getPhoto(login_id);
+		FileDTO photos = profileDAO.getPhoto(login_id);
 		
 		mav.addObject("profiledetail", dto);
 		mav.addObject("photos", photos);
@@ -49,21 +48,21 @@ public class ProfileService {
 		return profileDAO.getPw(login_id);
 	}
 
-	public void upload(MultipartFile uploadFile, String emp_id, String login_id) throws Exception {
-		String oriFileName = uploadFile.getOriginalFilename(); // 파일명 추출
-		String ext = oriFileName.substring(oriFileName.lastIndexOf(".")); // 확장자 추출
-		String newFileName = System.currentTimeMillis()+ext; // 새 파일명 생성 + 확장자
-		
-		logger.info("!!"+oriFileName+"/"+ext+"/"+newFileName);
+	public void photoupdate(MultipartFile uploadFile, HashMap<String, Object> file) throws Exception {
+		String ori_file_name = uploadFile.getOriginalFilename(); // 파일명 추출
+		String ext = ori_file_name.substring(ori_file_name.lastIndexOf(".")); // 확장자 추출
+		String new_file_name = System.currentTimeMillis()+ext; // 새 파일명 생성 + 확장자
+		String file_kind_idx = (String) file.get("emp_id");
 		
 		byte[] bytes = uploadFile.getBytes();
-		Path path = Paths.get(root+newFileName);
+		Path path = Paths.get(root+new_file_name);
 		Files.write(path, bytes);
 		
-		String file_kind_idx = "employee/"+oriFileName;
+		file.put("file_kind_idx", file_kind_idx);
+		file.put("ori_file_name", ori_file_name);
+		file.put("new_file_name", new_file_name);
 		
-		profileDAO.writePhoto(file_kind_idx, oriFileName, newFileName, emp_id, login_id);
-		
+		profileDAO.photoupdate(file);
 	}
 
 }

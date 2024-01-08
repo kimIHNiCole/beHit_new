@@ -20,8 +20,48 @@
 			where cp.emp_id = #{param1} ORDER BY cr.chat_room_date DESC;
 	
 	</select>
+	
+	
+	<select id="chatRListOnChatMs" resultType="chatRoom">
+	SELECT
+    cr.chat_room_idx,
+    cr.chat_room_name,
+    cm.emp_id,
+    cm.message AS last_message,
+    cm.message_date AS last_message_date
+		FROM
+		    chat_room cr
+		JOIN
+		    chat_pp cp ON cr.chat_room_idx = cp.chat_room_idx
+		LEFT JOIN
+		    chat_msg cm ON cr.chat_room_idx = cm.chat_room_idx
+		WHERE
+		    cm.chatMsg_idx = (
+		        SELECT
+		            MAX(chatMsg_idx)
+		        FROM
+		            chat_msg
+		        WHERE
+		            chat_room_idx = cr.chat_room_idx
+		    )
+		    AND EXISTS (
+		        SELECT 1
+		        FROM chat_pp
+		        WHERE chat_room_idx = cr.chat_room_idx AND emp_id = #{param1}
+		    )
+		GROUP BY
+		    cr.chat_room_idx
+		ORDER BY
+		    last_message_date DESC;
+	
+	</select>
+	
+	
 	<select id="chatMember" resultType="chatRoom">
-		SELECT emp_id from chat_pp cp where chat_room_idx = #{param1}
+		SELECT cp.emp_id, emp.emp_name 
+			from chat_pp cp
+			join employee emp on cp.emp_id = emp.emp_id 
+			where chat_room_idx = #{param1}
 	</select>
 	
 	<insert
@@ -39,13 +79,30 @@
 	(chat_room_idx, emp_id)
 	VALUES
 	(#{param1}, #{param2})
-	
+	</insert>
+	<insert id="insertIntoChatM">
+	insert into chat_msg
+	(chat_room_idx, emp_id, message, message_date)
+	VALUES
+	(#{param1}, "system", "새 채팅방이 생성되었습니다.", current_timestamp)
 	</insert>
 	
   	<select id="chatList" resultType="chat">
-		select * from chat_msg where chat_room_idx = #{param1}
-	
+		SELECT
+		cm.chatMsg_idx,
+		cm.chat_room_idx,
+		cm.emp_id,
+		emp.emp_name,
+		cm.message,
+		cm.message_date
+			FROM chat_msg cm
+			JOIN chat_room cr ON cm.chat_room_idx = cr.chat_room_idx
+			JOIN employee emp ON cm.emp_id = emp.emp_id
+				WHERE cm.chat_room_idx = #{param1}
 	</select> 
+	<select id="chatRoom" resultType="chatRoom">
+		select * from chat_room where chat_room_idx = #{param1}
+	</select>
 
 	<insert id="saveChat">
 		INSERT into chat_msg

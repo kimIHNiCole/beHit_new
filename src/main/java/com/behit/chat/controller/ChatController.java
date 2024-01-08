@@ -11,15 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,8 +27,6 @@ import com.behit.chat.dto.ChatRoomDTO;
 import com.behit.chat.service.ChatService;
 import com.behit.employee.dto.EmployeeDTO;
 
-import lombok.Getter;
-
 @Controller
 public class ChatController {
 
@@ -38,8 +34,8 @@ public class ChatController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	// 메신저에서 세션에 저장된 사람(접속 당사자)을 표시하고 그 사람이 포함된 채팅방 리스트를 뿌려줌 
-	@GetMapping(value="/chat/messenger_his.go")
-	public ModelAndView messengerT(HttpSession session) {
+	@GetMapping(value="/chat/messenger.go")
+	public ModelAndView messenger_his(HttpSession session) {
 		logger.info("메신저 페이지로 이동");
 		ModelAndView mav = new ModelAndView();
 		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
@@ -57,21 +53,33 @@ public class ChatController {
 		mav.addObject("emp_id", emp_id);
 		mav.addObject("emp_name", emp_name);
 		mav.addObject("emp_dept_name", emp_dept_name);
-		mav.setViewName("chat/messenger_his");
+		mav.setViewName("chat/messenger");
 		return mav;
+	}
+	
+	@RequestMapping(value="/chatRListOnChatMs")
+	@ResponseBody
+	public HashMap<String, Object> chatRListOnChatMs(HttpSession session){
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id=empdto.getEmp_id();
+		ArrayList<ChatRoomDTO>chatRListOnChatMs=chatService.chatRListOnChatMs(emp_id);
+		result.put("chatRListOnChatMs", chatRListOnChatMs);
+		return result;
 	}
 
 	
 	
-	@RequestMapping(value = "/createRoom")
+	@RequestMapping(value = "/createRoom", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> createRoom(HttpSession session,
-			@RequestParam ArrayList<String> emp_ids) {
-			logger.info("" + emp_ids);
+			@RequestBody List<Map<String, String>> emp_data) {
+			logger.info("" + emp_data);
 			HashMap<String, Object> result = new HashMap<String, Object>();
 			EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 			String emp_id=empdto.getEmp_id();
-			int idx=chatService.createRoom(emp_id, emp_ids);
+			String emp_name=empdto.getEmp_name();
+			int idx=chatService.createRoom(emp_id, emp_name, emp_data);
 
 			result.put("idx", idx);
 			return result;
@@ -85,9 +93,16 @@ public class ChatController {
 		logger.info("db저장리스트불러올idx"+chatRoomIdx);
 		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 		String loginId=empdto.getEmp_id();
+		String loginName=empdto.getEmp_name();
         // chatRoomIdx를 이용하여 채팅 리스트를 가져오는 서비스 메서드 호출
         List<ChatDTO> chatList = chatService.chatList(chatRoomIdx);
+        ChatRoomDTO chatRoom = chatService.chatRoom(chatRoomIdx);
+        logger.info(""+chatRoom.getChatMb());
+		/* chatRoom.getChatMb(); */
         result.put("loginId", loginId);
+        result.put("loginName", loginName);
+		result.put("chatRoomName", chatRoom.getChat_room_name());
+		result.put("chatMbListInRoom", chatRoom.getChatMb());
         result.put("chatList", chatList);
         return result;
     }
@@ -98,11 +113,11 @@ public class ChatController {
         // sendMessageToRoom 메서드는 클라이언트가 채팅방에 메시지를 전송할 때 호출되는 메서드
     	// @DestinationVariable 어노테이션을 사용하여 URL 패턴에서 변수(roomId)를 추출
     	// 메시지 객체를 반환
-    	// 이는 /topic/chatRoom/{roomId} 토픽으로 전송되어 클라이언트에게 메시지가 전달됩니다.
+    	// 이는 /topic/chatRoom/{roomId} 토픽으로 전송되어 클라이언트에게 메시지가 전달
     	logger.info(roomId);
     	logger.info(message.getEmp_id());
     	logger.info(message.getMessage());
-    	logger.info(""+message.getMessage_date());
+		/* logger.info(""+message.getFormattedDate()); */
     	
     	chatService.saveChat(message);
     	

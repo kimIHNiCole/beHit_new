@@ -5,8 +5,9 @@
 
 <mapper namespace="com.behit.approval.dao.ApprovalDAO">
 
-<select id="approval_write" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+<select id="approval_write_go" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT 
+				e.emp_name,
 		    d.emp_dept_name AS 'dept_name',
 		    cc_grade.common_code_name AS 'grade_name',
 		    cc_position.common_code_name AS 'position_name',
@@ -18,5 +19,96 @@
 		    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
 		    WHERE e.emp_id = #{emp_id};
 	</select>
+	
+	<!-- 결재상신 -->
+	<!-- generatedKey 사용
+		 useGeneratedKeys="true" : 사용 여부 
+		 keyColumn="idx" : 어떤 컬럼 값을 가져와서 
+		 keyProperty="idx" : DTO 의 어떤 속성(필드) 에 넣을 것인가?
+	 -->
+	<insert useGeneratedKeys="true" keyColumn="apv_idx"
+		keyProperty="apv_idx" id="approval_write_vac"
+		parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO apv(
+			emp_id
+			,apv_code
+			,apv_date
+			,apv_stmt
+			,apv_subject
+			,apv_vac_type
+			,apv_start_day
+			,apv_end_day
+			,apv_start_time
+			,apv_end_time
+			,apv_cnt
+		)
+		VALUES(
+		#{emp_id}
+		,#{apv_code}
+		,NOW()
+		,'진행중'
+		,#{apv_subject}
+		,#{apv_vac_type}
+		,#{apv_start_day}
+		,#{apv_end_day}
+		,#{apv_start_time}
+		,#{apv_end_time}
+		,#{apv_cnt}
+		)
+	</insert>
+	<insert useGeneratedKeys="true" keyColumn="apv_idx"
+		keyProperty="apv_idx" id="approval_write_biz"
+		parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO apv(
+			emp_id
+			,apv_code
+			,apv_date
+			,apv_stmt
+			,apv_subject
+			,apv_overview
+			,apv_cnt
+		)
+		VALUES(
+		#{emp_id}
+		,#{apv_code}
+		,NOW()
+		,'진행중'
+		,#{apv_subject}
+		,#{apv_overview}
+		,#{apv_cnt}
+		)
+	</insert>
+	<insert id="apv_line" parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO apv_line(
+			apv_idx
+			,emp_id
+			,apv_line
+			,emp_id_in
+			,apv_line_date
+			,apv_line_up
+			,apv_line_date_up
+		)
+		VALUES(
+		#{apv_idx}
+		,#{emp_id}
+		,#{apv_line}
+		,#{emp_id_in}
+		,NOW()
+		,#{emp_id_in}
+		,NOW()
+		)
+	</insert>
+	<update id="apv_approver">
+		UPDATE apv SET apv_approver = #{apv_approver} WHERE apv_idx = #{apv_idx};
+	</update>
+	
+	<select id="getApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, e.emp_name, d.emp_dept_name, a.apv_stmt 
+		FROM apv a 
+		JOIN employee e ON e.emp_id = a.emp_id
+		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		WHERE apv_approver = #{emp_id};
+	</select>
+
 
 </mapper>

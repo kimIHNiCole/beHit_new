@@ -20,11 +20,11 @@
 			cc_position.common_code_name AS 'position_name',
 			leavedate,
 			COALESCE(
-		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
 		        'default'
 		    ) AS ori_file_name,
 		    COALESCE(
-		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
+		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
 		        'default'
 		    ) AS new_file_name
 		FROM 
@@ -32,7 +32,7 @@
 			JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 			JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
 			JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
-		WHERE emp_id NOT IN ('master');
+		WHERE emp_id NOT IN ('master') LIMIT 10 offset #{offset};
 	</select>
 	
 	<select id="totalPage" resultType="int">

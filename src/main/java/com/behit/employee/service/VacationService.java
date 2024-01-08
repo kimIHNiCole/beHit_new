@@ -32,4 +32,21 @@ public class VacationService {
 		return mav;
 	}
 
+	public ModelAndView detail(String emp_id) {
+		ModelAndView mav = new ModelAndView();
+		
+		VacationDTO dto = vacationDAO.detail(emp_id);
+		
+		ArrayList<VacationDTO> usingList = vacationDAO.usingList(emp_id);
+		ArrayList<VacationDTO> createList = vacationDAO.createList(emp_id);
+		
+		mav.addObject("vacadetail", dto);
+		mav.addObject("usingList", usingList);
+		mav.addObject("createList", createList);
+		
+		mav.setViewName("/employee/vacation_detail");
+		
+		return mav;
+	}
+
 }

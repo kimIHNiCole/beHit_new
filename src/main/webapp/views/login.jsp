@@ -292,13 +292,14 @@
   	// 파라미터 값 추출
   	var searchParams = currentUrl.searchParams;
   	console.log('searchParams',searchParams.get('msg'));
-  	var msg = searchParams.get('msg');
+/*   	var msg = searchParams.get('msg'); */
   	
   	console.log('msg',decodeURIComponent(msg));
   	
-  	if(msg != null){
-  		alert(msg);
-  	}
+	var msg = '${msg}';
+	if (msg!=''){
+		alert(msg);
+	}
   	
   	
 

@@ -1,6 +1,6 @@
 package com.behit.profile.dao;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,8 +16,8 @@ public interface ProfileDAO {
 
 	String getPw(String login_id);
 
-	void writePhoto(String file_kind_idx, String oriFileName, String newFileName, String emp_id, String login_id);
+	FileDTO getPhoto(String login_id);
 
-	ArrayList<FileDTO> getPhoto(String login_id);
+	void photoupdate(HashMap<String, Object> file);
 	
 }

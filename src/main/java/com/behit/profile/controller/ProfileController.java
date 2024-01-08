@@ -1,5 +1,7 @@
 package com.behit.profile.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.profile.service.ProfileService;
+import com.behit.util.service.UtilService;
 
 @Controller
 public class ProfileController {
@@ -24,6 +27,7 @@ public class ProfileController {
 	
 	@Autowired PasswordEncoder encoder;
 	@Autowired ProfileService profileService;
+	@Autowired UtilService utilService;
 	
 	@GetMapping(value="/profile/profiledetail")
 	public ModelAndView profiledetail(HttpSession session) {
@@ -36,10 +40,7 @@ public class ProfileController {
 	}
 	
 	@PostMapping(value="/profile/passChange.do")
-	public ModelAndView passChange(@RequestParam String password, HttpSession session,
-		RedirectAttributes rAttr) {
-		
-		ModelAndView mav = new ModelAndView();
+	public String passChange(@RequestParam String password, HttpSession session, RedirectAttributes rAttr) {
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
@@ -51,32 +52,35 @@ public class ProfileController {
 		
 		if (same) {
 			logger.info("기존 비밀번호와 일치");
-			mav.addObject("success", false);
+			rAttr.addFlashAttribute("msg", "기존 비밀번호와 일치합니다.");
+			return "redirect:/profile/profiledetail";
 		} else {
 			String hash = encoder.encode((CharSequence) password);
 			profileService.passChange(hash, login_id);
 			logger.info("비밀번호 변경 성공");
-			mav.addObject("success", true);
+			rAttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
+			return "redirect:/";
 		}
-		
-		mav.setViewName("profile/profile_detail");
-		
-		
-		return mav; 
 	}
 	
-	// 내정보 사진 수정
+	
+	
+	// 사진 업로드
 	@PostMapping(value="/profile/upload.do")
 	public String upload(MultipartFile uploadFile, HttpSession session) throws Exception {
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
-		String emp_id = loginInfo.getEmp_id();
+		int file_kind = 5;
 		logger.info("로그인 아이디 : "+login_id);
 		
 		logger.info("uploadFile : "+uploadFile);
+		HashMap<String, Object> file = new HashMap<String, Object>();
+		file.put("login_id", login_id);
+		file.put("file_kind", file_kind);
 		
-		profileService.upload(uploadFile, login_id, emp_id);
+		profileService.photoupdate(uploadFile, file);
+		
 		return "redirect:/profile/profiledetail";
 	}
 	

@@ -96,6 +96,27 @@
 		JOIN employee e ON c.emp_id = e.emp_id ;
 	</select>
 	
+	<!-- 나의 크리에이터 리스트 -->
+	<select id="getMyList" parameterType="String" resultType="HashMap">
+		SELECT 
+		    c.cre_idx, c.cre_nick_name, ch.channel_name, ch.channel_url, ch.channel_cate,
+		    tc.last_subscriber, tc.last_views, tc.last_contents
+		FROM creator c 
+		JOIN  channel ch ON c.cre_idx = ch.cre_idx
+		JOIN (
+		        SELECT c2.cre_idx, ch2.channel_id,
+		            MAX(cd2.subscriber) as last_subscriber, 
+		            MAX(cd2.contents) as last_contents,
+		            MAX(cd2.views) as last_views
+		        FROM channeldata cd2 JOIN channel ch2 
+		            ON cd2.channel_id = ch2.channel_id 
+		        JOIN creator c2 
+		        	ON c2.cre_idx = ch2.cre_idx 
+		        GROUP BY ch2.channel_id
+		    ) AS tc 
+		    	ON ch.cre_idx = tc.cre_idx
+		WHERE ch.rep_channel AND c.emp_id = #{loginId};
+	</select>
 	
 	
 </mapper>

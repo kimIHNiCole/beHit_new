@@ -40,6 +40,8 @@ public class LoginController {
 			logger.info("@@@ 로그인 시도 5회 이상 @@@");
 			rAttr.addFlashAttribute("msg", "비밀번호를 5회 이상 잘못 입력하였습니다./n인사팀에 문의하세요");
 			return mav;
+		} else if (lockCnt == -1) {
+			rAttr.addFlashAttribute("msg", "등록되지 않은 아이디입니다. /n인사팀에 문의해 주세요");
 		}
 		
 		String hashPw = service.getPw(emp_id);

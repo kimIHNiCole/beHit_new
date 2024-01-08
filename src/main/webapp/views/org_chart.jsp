@@ -141,9 +141,9 @@
     		console.log('orgList', orgList);
     		console.log('deptKind',deptKind);
     		
-    		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
-    			    checkboxTree = $('#jstree-checkbox');
-         
+    		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark';
+    		var checkboxTree = $('#jstree-checkbox');
+         	console.log("체크박스트리",checkboxTree);
     		if (checkboxTree.length) {
     			
     			var serverData = [];

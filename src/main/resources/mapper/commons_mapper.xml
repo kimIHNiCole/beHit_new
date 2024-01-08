@@ -17,6 +17,7 @@
 		ORDER BY e.emp_dept_idx ASC, e.emp_grade_idx ASC
 	</select>
 	
+	
 	<select id="getDeptSum" resultType="String">
 		SELECT DISTINCT
 			(d.emp_dept_name) AS dept 
