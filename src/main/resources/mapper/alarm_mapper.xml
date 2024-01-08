@@ -5,4 +5,7 @@
 
 <mapper namespace="com.behit.alarm.dao.AlarmDAO">
 
+	<select id="alarmList" resultType="alarm">
+	SELECT * from alarm where emp_id=#{param1} ORDER by alarm_date desc;
+	</select>
 </mapper>

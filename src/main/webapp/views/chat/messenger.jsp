@@ -160,10 +160,21 @@ width: 20rem;
                           data-bs-toggle="sidebar"
                           data-overlay="app-overlay-ex"
                           data-target="#app-chat-sidebar-left">
-                          <img
+                          <!-- <img
                             class="user-avatar rounded-circle cursor-pointer"
                             src="../../assets/img/avatars/1.png"
-                            alt="Avatar" />
+                            alt="Avatar" /> -->
+                            <c:choose>
+						    <c:when test="${not empty photo and not empty photo.new_file_name}">
+						        <img src="/file/employee/${photo.new_file_name}" alt="${photo.ori_file_name}" 
+						            class="user-avatar rounded-circle cursor-pointer" />
+						    </c:when>
+						    <c:otherwise>
+						        <img src="../../assets/img/avatars/21.png" alt="user image" 
+						            class="user-avatar rounded-circle cursor-pointer" />
+						    </c:otherwise>
+						</c:choose>
+                            
                         </div>
                         <div class="text-muted text-uppercase">
                         	<span class="chat-contact-name text-truncate m-0">${emp_name}</span><span id="emp_id">(${emp_id})</span>
@@ -176,20 +187,20 @@ width: 20rem;
                     <hr class="container-m-nx mt-3 mb-0" />
                     <div class="sidebar-body">
                     	<div class="chatListAndS d-flex align-items-center">
-    <h6 class="text-primary mb-0">채팅리스트</h6>
-    <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
-        <span class="input-group-text" id="basic-addon-search31">
-            <i class="bx bx-search fs-4"></i>
-        </span>
-        <input
-            type="text"
-            class="form-control chat-search-input"
-            placeholder="Search..."
-            aria-label="Search..."
-            aria-describedby="basic-addon-search31"
-        />
-    </div>
-</div>
+					    <h6 class="text-primary mb-0">채팅리스트</h6>
+					    <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
+					        <span class="input-group-text" id="basic-addon-search31">
+					            <i class="bx bx-search fs-4"></i>
+					        </span>
+					        <input
+					            type="text"
+					            class="form-control chat-search-input"
+					            placeholder="Search..."
+					            aria-label="Search..."
+					            aria-describedby="basic-addon-search31"
+					        />
+					    </div>
+					</div>
                       <!-- Chats -->
                       
                       <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">

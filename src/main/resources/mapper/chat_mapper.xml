@@ -51,7 +51,7 @@ WHERE
     AND EXISTS (
         SELECT 1
         FROM chat_pp
-        WHERE chat_room_idx = cr.chat_room_idx AND emp_id = 'master'
+        WHERE chat_room_idx = cr.chat_room_idx AND emp_id =#{param1}
     )
 GROUP BY
     cr.chat_room_idx

@@ -13,16 +13,23 @@ import org.springframework.stereotype.Service;
 import com.behit.chat.dao.ChatDAO;
 import com.behit.chat.dto.ChatDTO;
 import com.behit.chat.dto.ChatRoomDTO;
+import com.behit.profile.dao.ProfileDAO;
+import com.behit.profile.dto.FileDTO;
 
 @Service
 public class ChatService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired ChatDAO chatDao;
+	@Autowired ProfileDAO profileDAO;
 	public String deptName(int emp_dept_idx) {
 		return chatDao.deptName(emp_dept_idx);
 		
 	}
+	public FileDTO getPhoto(String login_id) {
+		return profileDAO.getPhoto(login_id);
+	}
+
 
 	public ArrayList<ChatRoomDTO> chatRoomList(String emp_id) {
 		logger.info(emp_id);
@@ -124,6 +131,7 @@ public class ChatService {
 		
 	}
 
+	
 	
 
 	
