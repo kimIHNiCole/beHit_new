@@ -113,8 +113,8 @@ img.rounded-top{
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
 						<c:choose>
-						    <c:when test="${not empty photos and not empty photos[0].new_file_name}">
-						        <img src="/file/employee/${photos[0].new_file_name}" alt="${photos[0].ori_file_name}" 
+						    <c:when test="${not empty photos and not empty photos.new_file_name}">
+						        <img src="/file/employee/${photos.new_file_name}" alt="${photos.ori_file_name}" 
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>

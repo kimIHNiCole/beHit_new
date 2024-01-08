@@ -3,7 +3,6 @@ package com.behit.profile.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ public class ProfileService {
 		ModelAndView mav = new ModelAndView();
 		
 		EmployeeDTO dto = profileDAO.prodetail(login_id);
-		ArrayList<FileDTO> photos = profileDAO.getPhoto(login_id);
+		FileDTO photos = profileDAO.getPhoto(login_id);
 		
 		mav.addObject("profiledetail", dto);
 		mav.addObject("photos", photos);
