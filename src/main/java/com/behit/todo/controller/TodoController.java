@@ -31,7 +31,7 @@ public class TodoController {
 		return "todoList";
 	}
 	
-	@GetMapping(value="/todoList.do")
+	@GetMapping(value={"/todoList.do","/views/todoList.do"})
 	@ResponseBody
 	public Map<String, Object> todoListDo(HttpSession session){
 		EmployeeDTO dto = (EmployeeDTO) session.getAttribute("loginInfo");
@@ -46,7 +46,7 @@ public class TodoController {
 		return map;
 	}
 	
-	@PostMapping(value="/todoListwrite.do")
+	@PostMapping(value={"/todoListwrite.do","/views/todoListwrite.do"})
 	@ResponseBody
 	public Map<String, Object> todoListWriteDo(HttpSession session, @RequestParam String todoText){
 		EmployeeDTO dto = (EmployeeDTO) session.getAttribute("loginInfo");
@@ -59,7 +59,7 @@ public class TodoController {
 		return map;
 	}
 	
-	@PostMapping(value="/todoListdel.do")
+	@PostMapping(value={"/todoListdel.do","/views/todoListdel.do"})
 	@ResponseBody
 	public Map<String, Object> todoListdelDo(@RequestParam String todoIdx){
 		
@@ -70,7 +70,7 @@ public class TodoController {
 		return map;
 	}
 	
-	@PostMapping(value="/todoListcheck.do")
+	@PostMapping(value={"/todoListcheck.do","/views/todoListcheck.do"})
 	@ResponseBody
 	public Map<String, Object> todoListcheckDo(@RequestParam String checked, @RequestParam String todoIdx){
 		
@@ -86,7 +86,12 @@ public class TodoController {
 	}
 	
 	////////////////////////투두히스토리/////////////////////////////
-	@GetMapping(value="/todohistory.do")
+	@GetMapping(value={"/todoList_history.go","/views/todoList_history.go"})
+	public String todohistoryGo() {
+		return "todoList_history";
+	}
+	
+	@GetMapping(value={"/todohistory.do","/views/todohistory.do"})
 	@ResponseBody
 	public Map<String, Object> todohistoryDo(HttpSession session){
 		EmployeeDTO dto = (EmployeeDTO) session.getAttribute("loginInfo");

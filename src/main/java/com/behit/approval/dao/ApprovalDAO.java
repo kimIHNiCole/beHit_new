@@ -1,5 +1,7 @@
 package com.behit.approval.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.behit.approval.dto.ApprovalDTO;
@@ -10,8 +12,13 @@ public interface ApprovalDAO {
 
 	EmployeeDTO approval_write_go(String emp_id);
 
-	int approval_write(ApprovalDTO dto);
+	void approval_write_vac(ApprovalDTO dto);
+	void approval_write_biz(ApprovalDTO dto);
 
 	void apv_line(ApprovalDTO dto);
+	void apv_approver(int apv_idx, String apv_approver);
+
+	List<ApprovalDTO> getApproval_list(String emp_id);
+
 	
 }

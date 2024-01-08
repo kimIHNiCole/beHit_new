@@ -19,5 +19,9 @@ public interface ProfileDAO {
 	FileDTO getPhoto(String login_id);
 
 	void photoupdate(HashMap<String, Object> file);
+
+	boolean selectphoto(String file_kind_idx);
+
+	void photoinsert(HashMap<String, Object> file);
 	
 }

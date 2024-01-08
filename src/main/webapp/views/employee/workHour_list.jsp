@@ -304,7 +304,8 @@
         	
         	obj.worklist.forEach(function(item, idx) {
         		
-        		content +='<tr>';
+        		content +='<tr data-bs-toggle="modal" data-bs-target="#modalCenter" class="worklist">';
+        		content +='<td style="display:none" class="emp_id">'+item.emp_id+'</td>';
 				content +='<td style="width:100px;">';
 				if (item.new_file_name != 'default'){
 					content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
@@ -347,15 +348,16 @@
          }
      });
      
-	    // 모달 실행 명령어
-	    document.addEventListener('DOMContentLoaded', function () {
-	        var allTrs = document.querySelectorAll('tr');
+     $(document).on('click', '.worklist', function() {
+    	    var emp_id = $(this).find('.emp_id').text(); // 클릭한 행에서 emp_id 가져오기
+    	    console.log('Clicked row emp_id:', emp_id);
+    	    
+    	    $.ajax({
+    	    	
+    	    });
+     });
+     
 
-	        allTrs.forEach(function (tr) {
-	            tr.setAttribute('data-bs-toggle', 'modal');
-	            tr.setAttribute('data-bs-target', '#modalCenter');
-	        });
-	    });
 
 
      

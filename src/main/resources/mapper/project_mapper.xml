@@ -24,5 +24,72 @@
 		INSERT INTO file (file_kind,file_kind_idx,ori_file_name,new_file_name,emp_id)VALUES('4',#{param1},#{param2},#{param3},#{param4})
 	</insert>
 	
+	<!-- 사이드바 전체리스트 -->
+	<select id="projList" resultType="proj">
+		SELECT
+		    p.*,
+		    (
+		        SELECT GROUP_CONCAT(CONCAT(e.emp_id) ORDER BY p.proj_idx ASC SEPARATOR ',')
+		        FROM project_team pt
+		        INNER JOIN employee e ON pt.emp_id = e.emp_id
+		        WHERE pt.proj_idx = p.proj_idx
+		    ) AS dam_id,
+		    (
+		        SELECT GROUP_CONCAT(CONCAT(e.emp_name) ORDER BY p.proj_idx ASC SEPARATOR ', ')
+		        FROM project_team pt
+		        INNER JOIN employee e ON pt.emp_id = e.emp_id
+		        WHERE pt.proj_idx = p.proj_idx
+		    ) AS dam_name
+		FROM project p
+			INNER JOIN project_team t ON p.proj_idx = t.proj_idx
+			INNER JOIN employee emp ON t.emp_id = emp.emp_id
+		WHERE emp.emp_id = #{param1}
+		ORDER BY p.proj_update DESC;
+	</select>
+	
+	<select id="projwhatList" resultType="proj">
+		SELECT
+		    p.*,
+		    (
+		        SELECT GROUP_CONCAT(CONCAT(e.emp_id) ORDER BY p.proj_idx ASC SEPARATOR ',')
+		        FROM project_team pt
+		        INNER JOIN employee e ON pt.emp_id = e.emp_id
+		        WHERE pt.proj_idx = p.proj_idx
+		    ) AS dam_id,
+		    (
+		        SELECT GROUP_CONCAT(CONCAT(e.emp_name) ORDER BY p.proj_idx ASC SEPARATOR ', ')
+		        FROM project_team pt
+		        INNER JOIN employee e ON pt.emp_id = e.emp_id
+		        WHERE pt.proj_idx = p.proj_idx
+		    ) AS dam_name
+		FROM project p
+			INNER JOIN project_team t ON p.proj_idx = t.proj_idx
+			INNER JOIN employee emp ON t.emp_id = emp.emp_id
+		WHERE emp.emp_id = #{param1} AND p.proj_status = #{param2}
+		ORDER BY p.proj_update DESC;
+	</select>
+	
+	<!-- 아래는 대쉬보드 즉시,대기,진행,지연 -->
+	<select id="projnow" resultType="proj">
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'N' ORDER BY p.proj_end DESC LIMIT 5;
+	</select>
+	
+	<select id="projwait" resultType="proj">
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '대기' ORDER BY p.proj_start DESC LIMIT 5;
+	</select>
+	
+	<select id="projworks" resultType="proj">
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'N' ORDER BY p.proj_start DESC LIMIT 5;
+	</select>
+	
+	<select id="projdelay" resultType="proj">
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'Y' ORDER BY p.proj_end DESC;
+	</select>
+	
+	<select id="projDetail" resultType="map">
+		SELECT * FROM project where proj_idx = #{param1};
+	</select>
+	
+	<update id="projUpStatus"></update>
 
 </mapper>
