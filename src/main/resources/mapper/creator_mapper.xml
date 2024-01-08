@@ -138,4 +138,12 @@
 		SELECT * FROM creatorsns WHERE cre_idx =#{cre_idx};
 	</select>
 	
+	
+	<!--  크리에이터 차트 데이터 -->
+	<select id="getChartData" parameterType="String" resultType="channeldata">
+		SELECT * FROM channeldata cd 
+		WHERE cd.channel_id = #{repChannelId}
+		AND cd.channel_data_date >= CURDATE() - INTERVAL 30 DAY
+		ORDER BY cd.channel_data_date ASC
+	</select>
 </mapper>

@@ -274,7 +274,14 @@
 				            <tbody>
 				              <c:forEach var="channelInfo" items="${channelInfoList}">
 				            	<tr>
-				                  <th>${channelInfo.channel_name}</th>
+				            	  
+				                  <th>
+				                  	${channelInfo.channel_name}
+				                  	<c:if test="${channelInfo.rep_channel eq 'true'}">
+				                  		<input id="repChannelId" type="hidden" value="${channelInfo.channel_id}"/>
+				                  		<span class="badge bg-label-primary">대표</span>
+				                  	</c:if>
+				                  </th>
 				                  <th>${channelInfo.channel_cate}</th>
 				                  <th>${channelInfo.subscriber} 명</th>
 				                  <th>${channelInfo.contents} 개</th>
@@ -392,7 +399,7 @@
 					           <h5 class="card-title mb-0">일별 구독자 수</h5>
 					           <small class="text-muted">구독자 성장세 확인</small>
 					         </div>
-					         <!-- 쓸 수도 있을 것 같아서 일단 남겨둠
+					         <!-- 쓸 수도 있을 것 같아서 일단 남겨둠-->
 					         <div class="dropdown">
 					           <button
 					             type="button"
@@ -431,7 +438,7 @@
 					             </li>
 					           </ul>
 					         </div>
-					          달력 드롭다운 영역--> 
+					        <!--  달력 드롭다운 영역--> 
 					       </div>
 					       <div class="card-body">
 					         <div id="lineAreaChart"></div>
@@ -563,8 +570,57 @@
      */
 
     'use strict';
-
-    (function () {
+	var repChannelId = $('#repChannelId').val();
+	console.log('repChannelId : ',repChannelId);
+    $.ajax({
+    	type: 'get',
+    	url: '/getChartData.ajax',
+    	data: {'repChannelId': repChannelId},
+    	dataType: 'JSON',
+    	success: function(data){
+    		console.log(data.channelDataList);
+    		chart(data.channelDataList);
+    	},
+    	error: function(e){
+    		console.log(e);
+    	}
+    	
+    });
+    
+    
+    function chart(dataList) {
+      // 가져온 데이터 담기
+	  let subList = [];
+      let viewList = [];
+      let contentList = [];
+      let dateList = [];
+      let viewTrendList = [];
+      
+      function formatDate(dateString) {	// 날짜 형식 바꿔주는 함수
+    	  const options = { month: '2-digit', day: '2-digit'};
+    	  const formattedDate = new Date(dateString).toLocaleDateString('ko-KR', options);
+    	  return formattedDate;
+      }
+      
+      for(let i =0; i<dataList.length; i++){
+    	  const subs = dataList[i].subscriber;
+    	  const view = dataList[i].views;
+    	  const content = dataList[i].contents;
+    	  const date = formatDate(dataList[i].channel_data_date);
+    	  const viewTrend = dataList[i].view_trend;
+	      subList.push(subs);	
+	      viewList.push(view);	
+	      contentList.push(content);
+	      dateList.push(date);
+	      viewTrendList.push(viewTrend);
+      }
+      console.log('subList:',subList);
+      console.log('viewList:',viewList);
+      console.log('contentList:',contentList);
+      console.log('dateList:',dateList);
+      console.log('viewTrendList:',viewTrendList);
+   	  // / 가져온 데이터 담기	
+   	  
       let cardColor, headingColor, labelColor, borderColor, legendColor;
 
       if (isDarkStyle) {
@@ -582,7 +638,7 @@
       }
 
       // Color constant
-      const chartColors = {
+/*       const chartColors = {
         column: {
           series1: '#826af9',
           series2: '#d2b0ff',
@@ -599,7 +655,7 @@
           series2: '#60f2ca',
           series3: '#a5f8cd'
         }
-      };
+      }; */
 
       // Heat chart data generator
      /*  function generateDataHeat(count, yrange) {
@@ -658,34 +714,19 @@
           series: [
             {
               name: '총 조회 수',
-              data: [100, 120, 90, 170, 130, 160, 140, 240, 220, 180, 270, 280, 250]
+              data: viewList
             },
             {
               name: '컨텐츠 수',
-              data: [60, 80, 70, 110, 80, 100, 90, 180, 160, 140, 200, 220, 275]
+              data: contentList
             },
             {
               name: '구독자 수',
-              data: [20, 40, 30, 70, 40, 60, 50, 140, 120, 100, 140, 180, 220]
+              data: subList
             }
           ],
           xaxis: {
-            categories: [
-              '7/12',
-              '8/12',
-              '9/12',
-              '10/12',
-              '11/12',
-              '12/12',
-              '13/12',
-              '14/12',
-              '15/12',
-              '16/12',
-              '17/12',
-              '18/12',
-              '19/12',
-              '20/12'
-            ],
+            categories: dateList,
             axisBorder: {
               show: false
             },
@@ -834,7 +875,7 @@
           },
           series: [
             {
-              data: [280, 200, 220, 180, 270, 250, 70, 90, 200, 150, 160, 100, 150, 100, 50]
+              data: viewTrendList
             }
           ],
           markers: {
@@ -863,27 +904,11 @@
           },
           tooltip: {
             custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-              return '<div class="px-3 py-2">' + '<span>' + series[seriesIndex][dataPointIndex] + '%</span>' + '</div>';
+              return '<div class="px-3 py-2">' + '<span>' + series[seriesIndex][dataPointIndex] + '회</span>' + '</div>';
             }
           },
           xaxis: {
-            categories: [
-              '7/12',
-              '8/12',
-              '9/12',
-              '10/12',
-              '11/12',
-              '12/12',
-              '13/12',
-              '14/12',
-              '15/12',
-              '16/12',
-              '17/12',
-              '18/12',
-              '19/12',
-              '20/12',
-              '21/12'
-            ],
+            categories: dateList,	// 날짜 데이터
             axisBorder: {
               show: false
             },
@@ -911,7 +936,7 @@
         lineChart.render();
       }
 
-    })();
+    };
     </script>
   </body>
 </html>

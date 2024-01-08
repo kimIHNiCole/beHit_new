@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.behit.creator.dao.CreatorDAO;
 import com.behit.creator.dao.CreatorStatDAO;
 import com.behit.creator.dto.ChannelDTO;
+import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreHistDTO;
 import com.behit.creator.dto.CreatorDTO;
@@ -269,15 +270,21 @@ public class CreatorService {
 	}
 
 	public ArrayList<HashMap<String, Object>> getCreHistory(int cre_idx) {
-		logger.info("활동이력 요청");
+		logger.info("활동이력 가져오기 실행");
 		ArrayList<HashMap<String, Object>> creatorHistory = creatorDAO.getCreHistory(cre_idx);
 		return creatorHistory;
 	}
 
 	public ArrayList<SnsDTO> getSns(int cre_idx) {
-		logger.info("SNS 요청");
+		logger.info("SNS 정보 가져오기 실행");
 		ArrayList<SnsDTO> snsList = creatorDAO.getSns(cre_idx);
 		return snsList;
+	}
+
+	public ArrayList<ChannelDataDTO> getChartData(String repChannelId) {
+		logger.info("차트 데이터 가져오기 실행");
+		ArrayList<ChannelDataDTO> channelDataList = creatorDAO.getChartData(repChannelId);
+		return channelDataList;
 	}
 
 	

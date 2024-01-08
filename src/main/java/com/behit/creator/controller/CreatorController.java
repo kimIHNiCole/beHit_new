@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.creator.dto.ChannelDTO;
+import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreatorDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
@@ -145,6 +146,16 @@ public class CreatorController {
 		
 		mav.setViewName("creators/creator_detail");
 		return mav;
+	}
+	
+	@GetMapping(value = "/getChartData.ajax")
+	public HashMap<String, Object> getChartData(@RequestParam String repChannelId){
+		logger.info("차트 데이터 요청");
+		ArrayList<ChannelDataDTO> channelDataList = creatorService.getChartData(repChannelId);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("channelDataList", channelDataList);
+		return result;
 	}
 	
 	
