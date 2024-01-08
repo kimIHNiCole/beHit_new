@@ -431,6 +431,12 @@
 			                			</tbody>
 			            			</table>
                     			</div>
+                    			<br/>
+                    			<div class="container" style="display: flex; justify-content: flex-end;">									
+									<nav aria-label="Page navigation" style="text-align:center">
+										<ul class="pagination" id="fpagination"></ul>
+									</nav>					
+								</div>
                 			</div>
            					<div class="tab-pane fade" id="form-tabs-secend" role="tabpanel">
                 				<div class="row g-3">
@@ -450,16 +456,17 @@
 			                			</tbody>
 			            			</table>                            
                    				</div>
+	              				<br/>
+	              				<div class="container" style="display: flex; justify-content: flex-end;">									
+									<nav aria-label="Page navigation" style="text-align:center">
+										<ul class="pagination" id="spagination"></ul>
+									</nav>					
+								</div>
               				</div>
          				</div>
         			</div>
-	    			<div class="container" style="display: flex; justify-content: flex-end;">									
-						<nav aria-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination"></ul>
-						</nav>					
-					</div>
+
     			</div>
-    			<hr class="my-5" />
 			</div>
 			<!-- / Content -->
             <div class="content-backdrop fade"></div>
@@ -511,20 +518,38 @@
     <!-- Page JS -->
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
 	<script>
-    var showPage = 1;
+    var fshowPage = 1;
+    var sshowPage = 1;
 	var defaultdate = '9999-10-10';
      
- 	flistCall(showPage);
+ 	flistCall(fshowPage);
+ 	slistCall(sshowPage);
 	
 	function flistCall(page){
 		$.ajax({
 			type: 'get',
-			url: 'emplist.do',
+			url: 'empflist.do',
 			data: {'page':page},
 			dataType: 'json',
 			success:function(data){
 				console.log(data);
-				drawList(data);		
+				drawfList(data);
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function slistCall(page){
+		$.ajax({
+			type: 'get',
+			url: 'empslist.do',
+			data: {'page':page},
+			dataType: 'json',
+			success:function(data){
+				console.log(data);
+				drawsList(data);
 			},
 			error:function(e){
 				console.log(e);
@@ -532,69 +557,87 @@
 		});
 	} 
 	
-	function drawList(obj){
+	function drawfList(obj){
 		
 		var fcontent = '';
-		var scontent = '';
 		
-		obj.elist.forEach(function(item, idx) {
-			console.log(defaultdate);
-			console.log(item.leavedate);
+		obj.eflist.forEach(function(item, idx) {
 			
-			if(item.leavedate == defaultdate) {
-				fcontent += '<tr>';
-				fcontent +='<td style="width:100px;">';
-				if (item.new_file_name != 'default'){
-					fcontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
-				} else {
-					fcontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
-				}
-				fcontent +='</td>';
-				fcontent +='<td>'+'<div class="d-flex flex-column">'+
-					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
-				fcontent +='<td>'+item.dept_name+'</td>'
-				fcontent +='<td>'+item.position_name+'</td>'
-				fcontent +='<td>'+item.grade_name+'</td>'
-				fcontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
-				fcontent += '</tr>';
+			fcontent += '<tr>';
+			fcontent +='<td style="width:100px;">';
+			if (item.new_file_name != 'default'){
+				fcontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
 			} else {
-				scontent += '<tr>';
-				scontent +='<td style="width:100px;">';
-				if (item.new_file_name != 'default'){
-					scontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
-				} else {
-					scontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
-				}
-				scontent +='</td>';
-				scontent +='<td>'+'<div class="d-flex flex-column">'+
-					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
-					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
-				scontent +='<td>'+item.dept_name+'</td>'
-				scontent +='<td>'+item.position_name+'</td>'
-				scontent +='<td>'+item.grade_name+'</td>'
-				scontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
-				scontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
-				scontent += '</tr>';
+				fcontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
 			}
+			fcontent +='</td>';
+			fcontent +='<td>'+'<div class="d-flex flex-column">'+
+				'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
+				'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
+			fcontent +='<td>'+item.dept_name+'</td>'
+			fcontent +='<td>'+item.position_name+'</td>'
+			fcontent +='<td>'+item.grade_name+'</td>'
+			fcontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
+			fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
+			fcontent += '</tr>';
 		});
 		$('#eflist').empty();
 		$('#eflist').append(fcontent);
-		$('#eslist').empty();
-		$('#eslist').append(scontent);
 		
 		// 페이징 처리 UI 그리기(플러그인 사용)		
-		$('#pagination').twbsPagination({
+		$('#fpagination').twbsPagination({
 			startPage:obj.currPage, // 보여줄 페이지
 			totalPages:obj.pages, // 총 페이지 수 (총 갯수 / 페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
 			visiblePages:5, // [1],[2],[3],[4],[5]
 			onPageClick:function(e, page){
 				// console.log(e);
-				if (showPage != page) {
+				if (fshowPage != page) {
 					console.log(page);
-					showPage = page;
+					fshowPage = page;
 					flistCall(page);
+				}
+			}
+		});
+	}
+	
+function drawsList(obj){
+		
+		var scontent = '';
+		
+		obj.eslist.forEach(function(item, idx) {
+			
+			scontent += '<tr>';
+			scontent +='<td style="width:100px;">';
+			if (item.new_file_name != 'default'){
+				scontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+			} else {
+				scontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+			}
+			scontent +='</td>';
+			scontent +='<td>'+'<div class="d-flex flex-column">'+
+				'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
+				'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
+			scontent +='<td>'+item.dept_name+'</td>'
+			scontent +='<td>'+item.position_name+'</td>'
+			scontent +='<td>'+item.grade_name+'</td>'
+			scontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
+			scontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
+			scontent += '</tr>';
+		});
+		$('#eslist').empty();
+		$('#eslist').append(scontent);		
+		
+		// 페이징 처리 UI 그리기(플러그인 사용)		
+		$('#spagination').twbsPagination({
+			startPage:obj.currPage, // 보여줄 페이지
+			totalPages:obj.pages, // 총 페이지 수 (총 갯수 / 페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
+			visiblePages:5, // [1],[2],[3],[4],[5]
+			onPageClick:function(e, page){
+				// console.log(e);
+				if (sshowPage != page) {
+					console.log(page);
+					sshowPage = page;
+					slistCall(page);
 				}
 			}
 		});

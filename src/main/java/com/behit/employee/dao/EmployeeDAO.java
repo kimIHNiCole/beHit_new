@@ -13,9 +13,12 @@ public interface EmployeeDAO {
 
 	int join(HashMap<String, Object> params);
 
-	ArrayList<EmployeeDTO> elist(int pn);
-
-	int totalPage(int pn);
+	ArrayList<EmployeeDTO> eflist(int pn);
+	
+	ArrayList<EmployeeDTO> eslist(int pn);
+	
+	int ftotalPage(int pn);
+	int stotalPage(int pn);
 
 	EmployeeDTO detail(String emp_id);
 

@@ -545,92 +545,35 @@ height: calc(100vh - 10rem);
                     <hr class="container-m-nx mt-3 mb-0" />
                     
                     <div class="sidebar-body">
-                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
-                      <!-- 검색 -->
+                                            <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <li class="chat-contact-list-item chat-contact-list-item-title">
+                          
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
-	                          <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search fs-4"></i></span>
-	                          <input
-	                            type="text"
-	                            class="form-control chat-search-input"
-	                            placeholder="Search..."
-	                            aria-label="Search..."
-	                            aria-describedby="basic-addon-search31" />
+                          <span class="input-group-text" id="basic-addon-search31"
+                            ><i class="bx bx-search fs-4"></i
+                          ></span>
+                          <input
+                            type="text"
+                            class="form-control chat-search-input"
+                            placeholder="Search..."
+                            aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
                         </div>
-                        </li>
-                        <!-- 진행중/대기/완료 분류 버튼 -->
-                        <li>
-											    <div class="d-flex justify-content-center">
-											        <button class="btn btn-primary text-nowrap go">진행중</button>
-											        <button class="btn btn-primary text-nowrap wait">대기</button>
-											        <button class="btn btn-primary text-nowrap end">완료</button>
-											    </div>
-											  </li>
-											  <!-- 프로젝트 리스트 -->
-                       	<li class="chat-contact-list-item chat-list-item-0 d-none">
-                        	<h6 class="text-muted mb-0">No Project Found</h6>
-                       	</li>
-                        <li class="chat-contact-list-item pro active">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">크리에이터 영입</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2023-12-27</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호, 글씨테스트, 글씨테스트</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">진짜인지 가짜인지 모를 사나이 글씨테스트테스트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-02-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                김인혜</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
                         
+                        </li>
+                        <li>
+						    <div class="d-flex justify-content-center">
+						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
+						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
+						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
+						    </div>
+						</li>
+                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                          <h6 class="text-muted mb-0">No Project Found</h6>
+                        </li>
+                        <!-- 여기서부터 리스트 -->
+                        <div id="projlist"></div>
+                        <!-- 여기까지 리스트 -->
                       </ul>
                     </div>
                   </div>
@@ -643,27 +586,35 @@ height: calc(100vh - 10rem);
 										
 										<hr class="my-3" />
 										<!-- 지연된 프로젝트일시 -->
-										<span class="px-3" style="color:#C20000"><i class='bx bx-error'></i> 지연된 프로젝트입니다.</span>
+										<!-- 
+										 <span class="px-3" style="color:#C20000"><i class='bx bx-error'></i> 지연된 프로젝트입니다.</span>
+										 -->
 										<!-- 프로젝트 제목 -->
 										<div class="project-subject">
 											<span class="project-subject-left">
-												<span class="py-2 px-3 fs-4">BeHit X T1 콜라보레이션 프로젝트</span>
+												<span class="py-2 px-3 fs-4">${detailList.proj_subject}</span>
 												<span class="button">
 													<button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
 													<button type="button" class="btn btn-sm btn-secondary">삭제</button>
 												</span>
 											</span>
 											<span class="project-subject-right">
-												<select id="selectpickerBasic" class="selectpicker" data-style="btn-default">
-					                <option>대기</option>
-					                <option>진행중</option>
-					                <option>완료</option>
-					              </select>
-					              <span class="selected-stat">
-					              <!-- <span class="badge bg-secondary">대기</span> -->
-					              <span class="badge bg-warning">진행중</span>
-					              <!-- <span class="badge bg-success">완료</span> -->
-					              </span>
+									<select id="selectpickerBasic" class="selectpicker" data-style="btn-default">
+									    <option ${detailList.proj_status eq '대기' ? 'selected' : ''} value="대기">대기</option>
+									    <option ${detailList.proj_status eq '진행' ? 'selected' : ''} value="진행">진행중</option>
+									    <option ${detailList.proj_status eq '완료' ? 'selected' : ''} value="완료">완료</option>
+									</select>
+									<span class="selected-stat">
+										<c:if test="${detailList.proj_status eq '대기'}">
+											<span class="badge bg-secondary">대기</span>
+										</c:if>
+										<c:if test="${detailList.proj_status eq '진행'}">
+											<span class="badge bg-warning">진행중</span>
+										</c:if>
+										<c:if test="${detailList.proj_status eq '완료'}">
+											<span class="badge bg-success">완료</span>
+										</c:if>
+									</span>
 											</span>
 										</div>
 										
@@ -671,7 +622,7 @@ height: calc(100vh - 10rem);
 											<div class="project-entry-ls">
 												<h5>생성자</h5>
 												<div class="name">
-													<span class="badge bg-primary">이도훈</span>
+													<span class="badge bg-primary">${detailList.emp_id}</span>
 												</div>
 											</div>
 											<div class="project-entry-ls">
@@ -700,7 +651,7 @@ height: calc(100vh - 10rem);
 				                          class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
 				                          <div>
 				                            <h5>시작일</h5>
-				                            <div class="project-date-start">2023-11-24</div>
+				                            <div class="project-date-start">${detailList.proj_start}</div>
 				                          </div>
 				                        </div>
 				                      </div>
@@ -708,7 +659,7 @@ height: calc(100vh - 10rem);
 				                        <div class="d-flex justify-content-between align-items-start">
 				                          <div>
 				                            <h5>종료일</h5>
-				                            <div class="project-date-end">2023-12-24</div>
+				                            <div class="project-date-end">${detailList.proj_end}</div>
 				                          </div>
 				                        </div>
 				                      </div>
@@ -722,9 +673,7 @@ height: calc(100vh - 10rem);
 											<div class="card mb-4">
 												<div class="card-body">
 													<h5>프로젝트 상세</h5>
-													<div class="project-content-text">
-														어쩌구저쩌구
-													</div>
+													<div class="project-content-text">${detailList.proj_content}</div>
 												</div>
 											</div>
 										</div>
@@ -1066,10 +1015,6 @@ height: calc(100vh - 10rem);
     <!-- custom JS -->
     <script>
     
-    $('#project-add-move').on('click',function(){
-    	location.href="../project/project_add.go";
-    });
-    
     $('#project-update-move').on('click',function(){
     	location.href="../project/project_update.go";
     });
@@ -1089,7 +1034,100 @@ height: calc(100vh - 10rem);
     	  });
     })();
     </script>
+    <script> // 내가 추가한 스크립트
+    /*
+    var whatlist = '';
+    projList(whatlist);
     
+    function worksButton(){
+    	whatlist = '진행';
+    	projList(whatlist);
+    }
+	function waitButton(){
+    	whatlist = '대기';
+    	projList(whatlist);
+    }
+	function endButton(){
+		whatlist = '완료';
+		projList(whatlist);
+	} 
+	
+	$('#project-add-move').on('click',function(){
+    	location.href="../project/project_add.go";
+    });
+	
+	function projList(whatlist){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projList.do',
+    		data: {whatlist: whatlist},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
     
+    function projListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<li style="text-align:center">프로젝트가 없습니다.</li>';
+        }else{
+        	obj.list.forEach(function (item){
+        		content += '<li class="chat-contact-list-item pro" id="'+item.proj_idx+'">';
+        		content += '<a class="d-flex align-items-center">';
+        		content += '<div class="chat-contact-info flex-grow-1 ms-3">';
+        		content += '<h6 class="chat-contact-name text-truncate m-0">'+item.proj_subject+'</h6>';
+        		content += '<p class="text-muted mb-auto">'+item.proj_start+'~'+item.proj_end+'</p>';
+        		content += '<p class="chat-contact-status text-truncate mb-0 text-muted">'+item.dam_name+'</p>';
+        		content += '</div>';
+        		content += '<small class="text-muted mb-auto">'+item.proj_status+'</small>';
+        		content += '</a>';
+        		content += '</li>';
+        	});
+        }
+        $('#projlist').empty();
+        $('#projlist').append(content);
+        
+        $('.chat-contact-list-item.pro').on('click', function () {
+            // 모든 li에서 active 클래스 제거
+            $('.chat-contact-list-item.pro').removeClass('active');
+            // 현재 클릭한 li에 active 클래스 추가
+            $(this).addClass('active');
+            
+            var projIdx = $(this).attr('id');
+            console.log('projIdx:', projIdx);
+            window.location = "project_detail.go?proj_idx="+projIdx; // 보류보류
+        });
+    }
+    */
+    function upStatus(){
+		var selectStatus = $("#selectpickerBasic").val();
+		
+		$.ajax({
+			type: 'post',
+			url: 'projUpStatus.do',
+			data: {
+				projIdx: ${detailList.proj_idx},
+				projStatus: selectStatus
+			},
+			dataType: 'json',
+			success: function (data) {
+				console.log(data);
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		});
+    }
+    
+    </script>
   </body>
 </html>

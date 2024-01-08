@@ -105,7 +105,7 @@ function todoListdraw(obj){
     		$("#todoNCount").text(item.todoN);
     		
     		content += '<tr>';
-    		content += '<th><input onclick="todocheck(this)" type="checkbox" class="form-check-input input-filter" value="'+item.todo_idx+'" ' + isChecked + '></th>';
+    		content += '<th style="width:30px"><input onclick="todocheck(this)" type="checkbox" class="form-check-input input-filter" value="'+item.todo_idx+'" ' + isChecked + '></th>';
     		content += '<td style="color: '+ textcolor+'">'+ item.todo_content +'</td>';
     		content += '<th style="width:40px"><button onclick="tododel(this)" class="delete-btn" value="'+item.todo_idx+'"><i class="bx bx-trash"></i></button>'+'</th>';
     		

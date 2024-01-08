@@ -156,24 +156,18 @@
 			</nav>					
 		</div>
 		<div class="col-lg-4 col-md-6">
-                        <!-- Modal -->
-                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"></button>
-                              </div>
-                              <jsp:include page="/views/employee/workHour_list_modal.jsp"/>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-    </div>
-
+                      <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+						  <div class="modal-dialog modal-lg" role="document" style="display: flex; align-items: center; justify-content: center;">
+						    <div class="modal-content" style="width: 1000px;">
+						      <div class="modal-header"> 
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <jsp:include page="/views/employee/workHour_list_modal.jsp"/>
+						    </div>
+						  </div>
+						</div>
+    				</div>  
+              </div>
     <hr class="my-5" />
 </div>
 <!-- / Content -->
@@ -230,9 +224,10 @@
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
 
 
-<!-- 달력 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-oGNHuvKMC5LEHibI2NCAp8CKO98iz+cbJP5r9XtZADn1I2QFsgJj8peNrtQ8iS9Z" crossorigin="anonymous"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+	<!-- 달력 -->
+	 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-oGNHuvKMC5LEHibI2NCAp8CKO98iz+cbJP5r9XtZADn1I2QFsgJj8peNrtQ8iS9Z" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/locales/bootstrap-datepicker.ko.min.js"></script>
 
 
      <script>
@@ -244,12 +239,22 @@
     	        autoclose: true,
     	        todayHighlight: true // 오늘 날짜 강조
     	    });
-
+/*
     	    // 한국 시간으로 초기화
     	    var currentDate = new Date();
     	    currentDate.setHours(currentDate.getHours() + 9); // UTC+9: 한국 시간으로 설정
     	    datepicker.datepicker('setDate', currentDate);
     	    updateInputValue(currentDate);
+*/	    
+    	    
+    	    var currentDate = new Date();
+    	    var options = { timeZone: 'Asia/Seoul' };
+    	    var krTime = currentDate.toLocaleString('en-US', options);
+
+    	    // 'Asia/Seoul' 타임존에 따라 현재 날짜와 시간을 가져옴
+    	    var datepicker = $('#datepicker');
+    	    datepicker.datepicker('setDate', new Date(krTime));
+    	    updateInputValue(new Date(krTime));
 
     	    // < 버튼 클릭 시 이벤트
     	    $('#prevBtn').on('click', function() {
@@ -304,7 +309,8 @@
         	
         	obj.worklist.forEach(function(item, idx) {
         		
-        		content +='<tr>';
+        		content +='<tr data-bs-toggle="modal" data-bs-target="#largeModal" class="worklist">';
+        		content +='<td style="display:none" class="emp_id">'+item.emp_id+'</td>';
 				content +='<td style="width:100px;">';
 				if (item.new_file_name != 'default'){
 					content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
@@ -347,15 +353,16 @@
          }
      });
      
-	    // 모달 실행 명령어
-	    document.addEventListener('DOMContentLoaded', function () {
-	        var allTrs = document.querySelectorAll('tr');
+     $(document).on('click', '.worklist', function() {
+    	    var emp_id = $(this).find('.emp_id').text(); // 클릭한 행에서 emp_id 가져오기
+    	    console.log('Clicked row emp_id:', emp_id);
+/*    	    
+    	    $.ajax({
+    	    	
+    	    }); */
+     });
+     
 
-	        allTrs.forEach(function (tr) {
-	            tr.setAttribute('data-bs-toggle', 'modal');
-	            tr.setAttribute('data-bs-target', '#modalCenter');
-	        });
-	    });
 
 
      

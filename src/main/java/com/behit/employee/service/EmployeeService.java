@@ -23,16 +23,16 @@ public class EmployeeService {
 		return employeeDAO.join(params);
 	}
 
-	public HashMap<String, Object> list(String page) {
+	public HashMap<String, Object> flist(String page) {
 		
 		int p = Integer.parseInt(page);
 		
 		int offset = (p-1) * 10;	
 		
-		ArrayList<EmployeeDTO> elist = employeeDAO.elist(offset);
+		ArrayList<EmployeeDTO> eflist = employeeDAO.eflist(offset);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		int pages = employeeDAO.totalPage(10);
+		int pages = employeeDAO.ftotalPage(10);
 		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		
 		if (p > pages) {
@@ -41,7 +41,30 @@ public class EmployeeService {
 		
 		map.put("currPage", p);
 		map.put("pages", pages);
-		map.put("elist", elist);
+		map.put("eflist", eflist);
+		
+		return map;
+	}
+	
+public HashMap<String, Object> slist(String page) {
+		
+		int p = Integer.parseInt(page);
+		
+		int offset = (p-1) * 10;	
+		
+		ArrayList<EmployeeDTO> eslist = employeeDAO.eslist(offset);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int pages = employeeDAO.stotalPage(10);
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
+		
+		if (p > pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages);
+		map.put("eslist", eslist);
 		
 		return map;
 	}
