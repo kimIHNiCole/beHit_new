@@ -99,7 +99,7 @@ public class EmployeeController {
 
 
 	 @GetMapping(value = "/employee/empdetail") 
-	 public ModelAndView empdetail(@RequestParam String emp_id, Model model) {
+	 public ModelAndView empdetail(@RequestParam String emp_id) {
 		 
 		 return employeeService.detail(emp_id);
 	 }
