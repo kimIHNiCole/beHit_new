@@ -1,9 +1,6 @@
 package com.behit.chat.dto;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Getter;

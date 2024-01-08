@@ -168,7 +168,7 @@
     </li>
     
     <li class="menu-item" id="creator_list_all">
-      <a href="/creators/creator_list_all.go" class="menu-link">
+      <a href="/creatorList.go" class="menu-link">
          <i class="menu-icon tf-icons bx bx-slideshow"></i>
         <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
       </a>
@@ -208,7 +208,7 @@
           </a>
         </li>
         <li class="menu-item" id="mhr_vacation">
-          <a href="/myHr/mhr_vacation.go" class="menu-link">
+          <a href="/myHr/workdetail" class="menu-link">
             <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
           </a>
         </li>

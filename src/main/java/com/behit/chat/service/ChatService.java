@@ -80,6 +80,8 @@ public class ChatService {
 		int chat_room_idx = chatRoom.getChat_room_idx();
 		logger.info("chat_room_idx : "+chat_room_idx);
 		
+		chatDao.insertIntoChatM(chat_room_idx);
+		
 		// emp_id와 emp_ids를 합친 리스트 생성
 		List<String> allEmpIds = new ArrayList<>();
 

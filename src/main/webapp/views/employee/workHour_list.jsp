@@ -88,265 +88,14 @@
         <!-- 여기서부터 붙여넣기 -->
       
         <!-- Menu -->
-        
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../creators/creator_list_all.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item active open">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item active">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
+			<jsp:include page="/views/header_menu.jsp"/>
         <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
-          <!-- Navbar -->
-
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                  
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.go">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-
-            <!-- Search Small Screens -->
-            
-          </nav>
-
+        
+        <!-- Navbar -->
+          <jsp:include page="/views/header_navbar.jsp"/>
           <!-- / Navbar -->
           
           <!-- 여기까지 붙여넣기 -->
@@ -388,10 +137,7 @@
             <table class="datatables-basic table border-top" style="margin-top: -10px;">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>no.</th>
-                        <th></th>
-                        <th>이름 / 부서</th>
+                        <th colspan="2">이름 / 부서</th>
                         <th>근무시간</th>
                         <th>연차</th>
                         <th>출근 시간</th>
@@ -399,8 +145,33 @@
                         <th>상태</th>
                     </tr>
                 </thead>
+                <tbody id="worklist">
+                
+                </tbody>
             </table>
         </div>
+        <div class="container" style="display: flex; justify-content: flex-end;">									
+			<nav aria-label="Page navigation" style="text-align:center">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>					
+		</div>
+		<div class="col-lg-4 col-md-6">
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <jsp:include page="/views/employee/workHour_list_modal.jsp"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
     </div>
 
     <hr class="my-5" />
@@ -448,6 +219,10 @@
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
 
+	    <!-- pagenation -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/jquery.twbsPagination.js" type="text/javascript"></script>
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
@@ -461,231 +236,135 @@
 
 
      <script>
+     var showPage = 1;
      
      document.addEventListener("DOMContentLoaded", function () {
-         var datepicker = $('#datepicker').datepicker({
-             format: 'yyyy-mm-dd',
-             autoclose: true,
-             todayHighlight: true // 오늘 날짜 강조
-         });
+    	    var datepicker = $('#datepicker').datepicker({
+    	        format: 'yyyy-mm-dd',
+    	        autoclose: true,
+    	        todayHighlight: true // 오늘 날짜 강조
+    	    });
 
-         // 한국 시간으로 초기화
-         var currentDate = new Date();
-         currentDate.setHours(currentDate.getHours() + 9); // UTC+9: 한국 시간으로 설정
-         datepicker.datepicker('setDate', currentDate);
-         updateInputValue(currentDate);
+    	    // 한국 시간으로 초기화
+    	    var currentDate = new Date();
+    	    currentDate.setHours(currentDate.getHours() + 9); // UTC+9: 한국 시간으로 설정
+    	    datepicker.datepicker('setDate', currentDate);
+    	    updateInputValue(currentDate);
 
-         // < 버튼 클릭 시 이벤트
-         $('#prevBtn').on('click', function() {
-             var selectedDate = datepicker.datepicker('getDate');
-             selectedDate.setDate(selectedDate.getDate() - 1);
-             datepicker.datepicker('update', selectedDate);
-             updateInputValue(selectedDate);
-         });
+    	    // < 버튼 클릭 시 이벤트
+    	    $('#prevBtn').on('click', function() {
+    	        var selectedDate = datepicker.datepicker('getDate');
+    	        selectedDate.setDate(selectedDate.getDate() - 1);
+    	        datepicker.datepicker('update', selectedDate);
+    	        updateInputValue(selectedDate);
+    	        listCall(showPage);
+    	    });
 
-         // > 버튼 클릭 시 이벤트
-         $('#nextBtn').on('click', function() {
-             var selectedDate = datepicker.datepicker('getDate');
-             selectedDate.setDate(selectedDate.getDate() + 1);
-             datepicker.datepicker('update', selectedDate);
-             updateInputValue(selectedDate);
-         });
+    	    // > 버튼 클릭 시 이벤트
+    	    $('#nextBtn').on('click', function() {
+    	        var selectedDate = datepicker.datepicker('getDate');
+    	        selectedDate.setDate(selectedDate.getDate() + 1);
+    	        datepicker.datepicker('update', selectedDate);
+    	        updateInputValue(selectedDate);
+    	        listCall(showPage);
+    	    });
 
-         function updateInputValue(date) {
-             var formattedDate = date.toLocaleDateString("ko-KR");
-             $('#datepicker').val(formattedDate);
+    	    function updateInputValue(date) {
+    	        var formattedDate = date.getFullYear() + '-' + padZero(date.getMonth() + 1) + '-' + padZero(date.getDate());
+    	        $('#datepicker').val(formattedDate);
+    	    }
+
+    	    function padZero(num) {
+    	        return num < 10 ? '0' + num : num;
+    	    }
+
+    	    listCall(showPage);
+         
+         function listCall(page){
+     	    var date = $('#datepicker').val(); // 날짜를 저장한 변수
+    	    console.log(date);
+	         $.ajax({
+	        	 type:'get',
+	        	 url:'/worklist.do',
+	        	 data:{'date':date, 'page':page},
+	        	 dataType: 'json',
+	        	 success:function(data){
+	        		 console.log(data);
+	        		 drawList(data);
+	        	 },
+	        	 error:function(e){
+	        		 console.log(e);
+	        	 }
+	         }); 
+         }
+         
+         function drawList(obj){
+        	 
+        	var content = "";
+        	
+        	obj.worklist.forEach(function(item, idx) {
+        		
+        		content +='<tr>';
+				content +='<td style="width:100px;">';
+				if (item.new_file_name != 'default'){
+					content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+				} else {
+					content +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+				}
+				content +='</td>';
+				content +='<td>'+'<div class="d-flex flex-column">'+
+					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
+					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.dept_name+'</small>'+'</div>'+'</td>';	
+        		content +='<td>'+item.work_start+'~'+item.work_end+'</td>';
+        		if (item.work_start == item.vaca_start && item.work_end == item.vaca_end){
+        			content +='<td>'+'종일'+'</td>';
+        		} else{
+ 	       			content +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+        		}
+        		content +='<td>'+item.work_started+'</td>';
+        		content +='<td>'+item.work_ended+'</td>';
+        		content +='<td>'+item.work_state+'</td>';
+				content +='</tr>';
+        	});
+    		$('#worklist').empty();
+    		$('#worklist').append(content);
+        	 
+        	 
+     		// 페이징 처리 UI 그리기(플러그인 사용)		
+     		$('#pagination').twbsPagination({
+     			startPage:obj.currPage, // 보여줄 페이지
+     			totalPages:obj.pages, // 총 페이지 수 (총 갯수 / 페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
+     			visiblePages:5, // [1],[2],[3],[4],[5]
+     			onPageClick:function(e, page){
+     				// console.log(e);
+     				if (showPage != page) {
+     					console.log(page);
+     					showPage = page;
+     					listCall(page);
+     				}
+     			}
+     		});
          }
      });
      
+	    // 모달 실행 명령어
+	    document.addEventListener('DOMContentLoaded', function () {
+	        var allTrs = document.querySelectorAll('tr');
+
+	        allTrs.forEach(function (tr) {
+	            tr.setAttribute('data-bs-toggle', 'modal');
+	            tr.setAttribute('data-bs-target', '#modalCenter');
+	        });
+	    });
+
+
      
      
-     /**
-      * DataTables Basic
-      */
-
-     'use strict';
-
-     let fv, offCanvasEl;
      
-     // datatable (jquery)
-     $(function () {
-       var dt_basic_table = $('.datatables-basic'),
-       dt_basic;
-
-       
-       // DataTable with buttons
-       // --------------------------------------------------------------------
-
-       if (dt_basic_table.length) {
-         dt_basic = dt_basic_table.DataTable({
-           ajax: assetsPath + 'json/table-datatable.json',
-           columns: [
-             { data: '' },
-             { data: 'id' },
-             { data: 'id' },
-             { data: 'full_name' },
-             { data: 'email' },
-             { data: 'start_date' },
-             { data: 'salary' },
-             { data: 'status' },
-             { data: '' }
-           ],
-           columnDefs: [
-             {
-               // For Responsive
-               className: 'control',
-               orderable: false,
-               searchable: false,
-               responsivePriority: 2,
-               targets: 0,
-               render: function (data, type, full, meta) {
-                 return '';
-               }
-             },
-             
-             {
-               targets: 2,
-               searchable: false,
-               visible: false
-             },
-             {
-               // Avatar image/badge, Name and post
-               targets: 3,
-               responsivePriority: 4,
-               render: function (data, type, full, meta) {
-                 var $user_img = full['avatar'],
-                   $name = full['full_name'],
-                   $post = full['post'];
-                 if ($user_img) {
-                   // For Avatar image
-                   var $output =
-                     '<img src="' + assetsPath + 'img/avatars/' + $user_img + '" alt="Avatar" class="rounded-circle">';
-                 } else {
-                   // For Avatar badge
-                   var stateNum = Math.floor(Math.random() * 6);
-                   var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                   var $state = states[stateNum],
-                     $name = full['full_name'],
-                     $initials = $name.match(/\b\w/g) || [];
-                   $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                   $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-                 }
-                 // Creates full output for row
-                 var $row_output =
-                   '<div class="d-flex justify-content-start align-items-center user-name">' +
-                   '<div class="avatar-wrapper">' +
-                   '<div class="avatar me-2">' +
-                   $output +
-                   '</div>' +
-                   '</div>' +
-                   '<div class="d-flex flex-column">' +
-                   '<span class="emp_name text-truncate">' +
-                   $name +
-                   '</span>' +
-                   '<small class="emp_post text-truncate text-muted">' +
-                   $post +
-                   '</small>' +
-                   '</div>' +
-                   '</div>';
-                 return $row_output;
-               }
-             },
-             {
-               responsivePriority: 1,
-               targets: 4
-             },
-             {
-               // Label
-               targets: -2,
-               render: function (data, type, full, meta) {
-                 var $status_number = full['status'];
-                 var $status = {
-                   1: { title: 'Current', class: 'bg-label-primary' },
-                   2: { title: 'Professional', class: ' bg-label-success' },
-                   3: { title: 'Rejected', class: ' bg-label-danger' },
-                   4: { title: 'Resigned', class: ' bg-label-warning' },
-                   5: { title: 'Applied', class: ' bg-label-info' }
-                 };
-                 if (typeof $status[$status_number] === 'undefined') {
-                   return data;
-                 }
-                 return (
-                		 '<span>퇴근버튼 클릭 시간</span>'
-                 );
-               }
-             },
-             {
-               // Actions
-               targets: -1,
-               title: '상태',
-               orderable: false,
-               searchable: false,
-               render: function (data, type, full, meta) {
-                 return (
-                		 '<span>정상/미달 여부</span>'
-                 );
-               }
-             }
-           ],
-           
-           order: [[2, 'desc']],
-           dom: '<<"head-label text-center">><"row">t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-           
-           displayLength: 10,
-           lengthMenu: [10],
-           
-           
-           responsive: {
-             details: {
-               display: $.fn.dataTable.Responsive.display.modal({
-                 header: function (row) {
-                   var data = row.data();
-                   return 'Details of ' + data['full_name'];
-                 }
-               }),
-               type: 'column',
-               renderer: function (api, rowIdx, columns) {
-                 var data = $.map(columns, function (col, i) {
-                   return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                     ? '<tr data-dt-row="' +
-                         col.rowIndex +
-                         '" data-dt-column="' +
-                         col.columnIndex +
-                         '">' +
-                         '<td>' +
-                         col.title +
-                         ':' +
-                         '</td> ' +
-                         '<td>' +
-                         col.data +
-                         '</td>' +
-                         '</tr>'
-                     : '';
-                 }).join('');
-
-                 return data ? $('<table class="table"/><tbody />').append(data) : false;
-               }
-             }
-           }
-         });
-         
-         
-         
-       }
-
-
-      
-
-       
-
-       // Filter form control to default size
-       // ? setTimeout used for multilingual table initialization
-       setTimeout(() => {
-         $('.dataTables_filter .form-control').removeClass('form-control-sm');
-         $('.dataTables_length .form-select').removeClass('form-select-sm');
-       }, 300);
-     });
 
      </script>
+     
+    <!-- Header -->
+    <script src="../../assets/js/header.js"></script>
   </body>
 </html>

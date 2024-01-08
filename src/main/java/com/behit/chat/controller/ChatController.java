@@ -34,7 +34,7 @@ public class ChatController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	// 메신저에서 세션에 저장된 사람(접속 당사자)을 표시하고 그 사람이 포함된 채팅방 리스트를 뿌려줌 
-	@GetMapping(value="/chat/messenger_his.go")
+	@GetMapping(value="/chat/messenger.go")
 	public ModelAndView messenger_his(HttpSession session) {
 		logger.info("메신저 페이지로 이동");
 		ModelAndView mav = new ModelAndView();
@@ -53,7 +53,7 @@ public class ChatController {
 		mav.addObject("emp_id", emp_id);
 		mav.addObject("emp_name", emp_name);
 		mav.addObject("emp_dept_name", emp_dept_name);
-		mav.setViewName("chat/messenger_his");
+		mav.setViewName("chat/messenger");
 		return mav;
 	}
 	

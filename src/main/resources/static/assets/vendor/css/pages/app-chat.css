@@ -3,7 +3,7 @@
   height: calc(100vh - 11rem);
 }
 .layout-navbar-hidden .app-chat {
-  height: calc(100vh - 7rem);
+  height: calc(100vh - 12rem);
 }
 @media (min-width: 1200px) {
   .layout-horizontal .app-chat {
@@ -27,7 +27,7 @@
 .app-chat .app-chat-contacts {
   position: absolute;
   left: calc(-21rem - 1rem);
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 9rem);
   width: 21rem;
   flex-basis: 21rem;
   transition: all 0.25s ease;
@@ -50,7 +50,7 @@
 }
 /* 채팅리스트 영역 조정 */
 .app-chat .app-chat-contacts .sidebar-body {
-  height: calc(calc(100vh - 5rem) - 4.49rem);
+  height: calc(calc(100vh - 5rem) - 8.49rem);
 }
 .layout-navbar-hidden .app-chat .app-chat-contacts .sidebar-body {
   height: calc(calc(100vh - 7rem) - 5rem);
@@ -121,9 +121,10 @@
     height: calc(calc(100vh - 11rem) - 11.7rem - 2rem);
   }
 }
+/* 채팅방 전체 조정 */
 .app-chat .app-chat-history {
   position: relative;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 9rem);
   transition: all 0.25s ease;
 }
 .layout-navbar-hidden .app-chat .app-chat-history {
@@ -142,7 +143,7 @@
 }
 /* 채팅창 사이즈 조정 */
 .app-chat .app-chat-history .chat-history-body {
-  height: calc(100vh - 12rem);
+  height: calc(100vh - 18rem);
   padding: 1.25rem 1.25rem;
   overflow: hidden;
 }

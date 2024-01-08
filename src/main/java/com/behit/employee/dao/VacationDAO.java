@@ -11,4 +11,10 @@ public interface VacationDAO {
 
 	ArrayList<VacationDTO> vacalist();
 
+	VacationDTO detail(String emp_id);
+
+	ArrayList<VacationDTO> usingList(String emp_id);
+
+	ArrayList<VacationDTO> createList(String emp_id);
+
 }
