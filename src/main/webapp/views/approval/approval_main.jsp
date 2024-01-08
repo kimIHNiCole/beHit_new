@@ -177,17 +177,17 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="getApproval_list.go">
+                        <a class="nav-link" href="/approval/getApproval_list.go">
                           <span class="align-middle">결재 요청 받은 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="compApproval_list.go">
+                        <a class="nav-link" href="/approval/compApproval_list.go">
                           <span class="align-middle">결재 완료한 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="viewApproval_list.go">
+                        <a class="nav-link" href="/approval/viewApproval_list.go">
                           <span class="align-middle">열람 가능한 문서</span>
                         </a>
                       </li>
@@ -198,22 +198,22 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="requestApproval_list.go">
+                        <a class="nav-link" href="/approval/requestApproval_list.go">
                           <span class="align-middle">결재 요청한 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="finishApproval_list.go">
+                        <a class="nav-link" href="/approval/finishApproval_list.go">
                           <span class="align-middle">결재 완료된 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="temporaryApproval_list.go">
+                        <a class="nav-link" href="/approval/temporaryApproval_list.go">
                           <span class="align-middle">임시 저장된 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="rejectedApproval_list.go">
+                        <a class="nav-link" href="/approval/rejectedApproval_list.go">
                           <span class="align-middle">반려된 문서</span>
                         </a>
                       </li>
