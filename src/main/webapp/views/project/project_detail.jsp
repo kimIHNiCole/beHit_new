@@ -545,92 +545,35 @@ height: calc(100vh - 10rem);
                     <hr class="container-m-nx mt-3 mb-0" />
                     
                     <div class="sidebar-body">
-                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
-                      <!-- 검색 -->
+                                            <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <li class="chat-contact-list-item chat-contact-list-item-title">
+                          
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
-	                          <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search fs-4"></i></span>
-	                          <input
-	                            type="text"
-	                            class="form-control chat-search-input"
-	                            placeholder="Search..."
-	                            aria-label="Search..."
-	                            aria-describedby="basic-addon-search31" />
+                          <span class="input-group-text" id="basic-addon-search31"
+                            ><i class="bx bx-search fs-4"></i
+                          ></span>
+                          <input
+                            type="text"
+                            class="form-control chat-search-input"
+                            placeholder="Search..."
+                            aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
                         </div>
-                        </li>
-                        <!-- 진행중/대기/완료 분류 버튼 -->
-                        <li>
-											    <div class="d-flex justify-content-center">
-											        <button class="btn btn-primary text-nowrap go">진행중</button>
-											        <button class="btn btn-primary text-nowrap wait">대기</button>
-											        <button class="btn btn-primary text-nowrap end">완료</button>
-											    </div>
-											  </li>
-											  <!-- 프로젝트 리스트 -->
-                       	<li class="chat-contact-list-item chat-list-item-0 d-none">
-                        	<h6 class="text-muted mb-0">No Project Found</h6>
-                       	</li>
-                        <li class="chat-contact-list-item pro active">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">크리에이터 영입</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2023-12-27</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호, 글씨테스트, 글씨테스트</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">진짜인지 가짜인지 모를 사나이 글씨테스트테스트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-02-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                김인혜</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
                         
+                        </li>
+                        <li>
+						    <div class="d-flex justify-content-center">
+						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
+						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
+						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
+						    </div>
+						</li>
+                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                          <h6 class="text-muted mb-0">No Project Found</h6>
+                        </li>
+                        <!-- 여기서부터 리스트 -->
+                        <div id="projlist"></div>
+                        <!-- 여기까지 리스트 -->
                       </ul>
                     </div>
                   </div>
@@ -643,27 +586,35 @@ height: calc(100vh - 10rem);
 										
 										<hr class="my-3" />
 										<!-- 지연된 프로젝트일시 -->
-										<span class="px-3" style="color:#C20000"><i class='bx bx-error'></i> 지연된 프로젝트입니다.</span>
+										<c:if test="${detailList.proj_delay == 'Y'}">
+											<span class="px-3" style="color:#C20000"><i class='bx bx-error'></i> 지연된 프로젝트입니다.</span>
+										</c:if>
 										<!-- 프로젝트 제목 -->
 										<div class="project-subject">
 											<span class="project-subject-left">
-												<span class="py-2 px-3 fs-4">BeHit X T1 콜라보레이션 프로젝트</span>
+												<span class="py-2 px-3 fs-4">${detailList.proj_subject}</span>
 												<span class="button">
 													<button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
 													<button type="button" class="btn btn-sm btn-secondary">삭제</button>
 												</span>
 											</span>
 											<span class="project-subject-right">
-												<select id="selectpickerBasic" class="selectpicker" data-style="btn-default">
-					                <option>대기</option>
-					                <option>진행중</option>
-					                <option>완료</option>
-					              </select>
-					              <span class="selected-stat">
-					              <!-- <span class="badge bg-secondary">대기</span> -->
-					              <span class="badge bg-warning">진행중</span>
-					              <!-- <span class="badge bg-success">완료</span> -->
-					              </span>
+									<select id="selectpickerBasic" class="selectpicker" data-style="btn-default" onchange="upStatus()">
+									    <option ${detailList.proj_status eq '대기' ? 'selected' : ''} value="대기">대기</option>
+									    <option ${detailList.proj_status eq '진행' ? 'selected' : ''} value="진행">진행중</option>
+									    <option ${detailList.proj_status eq '완료' ? 'selected' : ''} value="완료">완료</option>
+									</select>
+									<span class="selected-stat">
+										<c:if test="${detailList.proj_status eq '대기'}">
+											<span class="badge bg-secondary">대기</span>
+										</c:if>
+										<c:if test="${detailList.proj_status eq '진행'}">
+											<span class="badge bg-warning">진행중</span>
+										</c:if>
+										<c:if test="${detailList.proj_status eq '완료'}">
+											<span class="badge bg-success">완료</span>
+										</c:if>
+									</span>
 											</span>
 										</div>
 										
@@ -671,21 +622,27 @@ height: calc(100vh - 10rem);
 											<div class="project-entry-ls">
 												<h5>생성자</h5>
 												<div class="name">
-													<span class="badge bg-primary">이도훈</span>
+													<span class="badge bg-primary">${detailList.emp_name}</span>
 												</div>
 											</div>
 											<div class="project-entry-ls">
 												<h5>담당자</h5>
 												<div class="name">
-													<span class="badge bg-primary">윤예성</span>
-													<span class="badge bg-primary">전은호</span>
+											        <c:forEach var="projT" items="${damchamList}">
+											            <c:if test="${projT.projT_contact == 1}">
+											                <span class="badge bg-primary">${projT.emp_name}</span>
+											            </c:if>
+											        </c:forEach>
 												</div>
 											</div>
 											<div class="project-entry-ls">
 												<h5>참조자</h5>
 												<div class="name">
-													<span class="badge bg-primary">김세연</span>
-													<span class="badge bg-primary">김인혜</span>
+											        <c:forEach var="projT" items="${damchamList}">
+											            <c:if test="${projT.projT_contact == 2}">
+											                <span class="badge bg-primary">${projT.emp_name}</span>
+											            </c:if>
+											        </c:forEach>
 												</div>
 											</div>
 										</div>
@@ -700,7 +657,7 @@ height: calc(100vh - 10rem);
 				                          class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
 				                          <div>
 				                            <h5>시작일</h5>
-				                            <div class="project-date-start">2023-11-24</div>
+				                            <div class="project-date-start">${detailList.proj_start}</div>
 				                          </div>
 				                        </div>
 				                      </div>
@@ -708,7 +665,7 @@ height: calc(100vh - 10rem);
 				                        <div class="d-flex justify-content-between align-items-start">
 				                          <div>
 				                            <h5>종료일</h5>
-				                            <div class="project-date-end">2023-12-24</div>
+				                            <div class="project-date-end">${detailList.proj_end}</div>
 				                          </div>
 				                        </div>
 				                      </div>
@@ -722,9 +679,7 @@ height: calc(100vh - 10rem);
 											<div class="card mb-4">
 												<div class="card-body">
 													<h5>프로젝트 상세</h5>
-													<div class="project-content-text">
-														어쩌구저쩌구
-													</div>
+													<div class="project-content-text">${detailList.proj_content}</div>
 												</div>
 											</div>
 										</div>
@@ -771,99 +726,12 @@ height: calc(100vh - 10rem);
 			                    <div class="tab-content" style="z-index:2">
 			                    
 			                      <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-			                      
-				                      <div class="card email-card-prev mx-sm-1 mx-3 border my-4">
-			                          <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-			                            <div class="d-flex align-items-center mb-sm-0 mb-3">
-			                              <div class="avatar avatar-md me-2">
-	                          					<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        					</div>
-			                              <div class="flex-grow-1 ms-1">
-			                                <span class="fs-5">윤예성</span>
-			                                <span class="fs-6 date">2023-12-26 10:23</span>
-			                              </div>
-			                            </div>
-			                            <div class="d-flex align-items-center">
-			                              <span class="fs-6 date">수정됨</span>
-			                              <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#project-modal-update">
-			                                <i class='bx bxs-edit cursor-pointer me-2 bx-sm'></i>
-			                              </button>
-			                              <button class="btn p-0" type="button">
-			                                <i class="bx bx-trash bx-sm me-3"></i>
-			                              </button>
-			                            </div>
-			                          </div>
-			                          <div class="card-body">
-			                              - It is a long established fact that a reader will be distracted by the readable content of
-			                              - a page when looking at its layout.The point of using Lorem Ipsum is that it has a
-			                              - more-or-less normal distribution of letters, as opposed to using 'Content here, content
-			                              - here',making it look like readable English.
-			                            <hr />
-			                            <p class="mb-2">첨부파일</p>
-			                            <div class="cursor-pointer">
-			                              <i class="bx bx-file"></i>
-			                              <span class="align-middle ms-1">report.xlsx</span>
-			                            </div>
-			                          </div>
-				                      </div>
-				                      
-				                      <div class="card email-card-prev mx-sm-1 mx-3 border my-4">
-			                          <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-			                            <div class="d-flex align-items-center mb-sm-0 mb-3">
-			                              <div class="avatar avatar-md me-2">
-	                          					<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        					</div>
-			                              <div class="flex-grow-1 ms-1">
-			                                <span class="fs-5">전은호</span>
-			                                <span class="fs-6 date">2023-12-26 10:23</span>
-			                              </div>
-			                            </div>
-			                            <div class="d-flex align-items-center">
-			                              <span class="fs-6 date">수정됨</span>
-			                              <button class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#project-modal-update">
-			                                <i class='bx bxs-edit cursor-pointer me-2 bx-sm'></i>
-			                              </button>
-			                              <button class="btn p-0" type="button">
-			                                <i class="bx bx-trash bx-sm me-3"></i>
-			                              </button>
-			                            </div>
-			                          </div>
-			                          <div class="card-body">
-			                              - It is a long established fact that a reader will be distracted by the readable content of
-			                              - a page when looking at its layout.The point of using Lorem Ipsum is that it has a
-			                              - more-or-less normal distribution of letters, as opposed to using 'Content here, content
-			                              - here',making it look like readable English.
-			                            <hr />
-			                            <p class="mb-2">첨부파일</p>
-			                            <div class="cursor-pointer">
-			                              <i class="bx bx-file"></i>
-			                              <span class="align-middle ms-1">report.xlsx</span>
-			                            </div>
-			                          </div>
-				                      </div>
-			                      
 			                      </div>
 			                      
-			                      <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
+			                      <div class="tab-pane fade" id="navs-top-messages" role="tabpanel"> <!-- 첨부파일 영역 -->
 			                      	<div class="fs-5 py-3">첨부 파일</div>
-			                      	<div class="card email-card-prev mx-sm-1 mx-3 border my-2" >
-				                        <div class="cursor-pointer">
-				                          <i class="bx bx-file"></i>
-				                           <span class="align-middle ms-1">report.xlsx</span>
-				                        </div>
-			                        </div>
-			                        <div class="card email-card-prev mx-sm-1 mx-3 border my-2">
-				                        <div class="cursor-pointer">
-				                          <i class="bx bx-file"></i>
-				                           <span class="align-middle ms-1">report.xlsx</span>
-				                        </div>
-			                        </div>
-			                        <div class="card email-card-prev mx-sm-1 mx-3 border my-2">
-				                        <div class="cursor-pointer">
-				                          <i class="bx bx-file"></i>
-				                           <span class="align-middle ms-1">report.xlsx</span>
-				                        </div>
-			                        </div>
+			                      	<div id="fileAll"></div>
+			                      	
 			                      </div>
 			                      
 			                    </div>
@@ -879,143 +747,149 @@ height: calc(100vh - 10rem);
 									
 									<!-- modal -->
 								<!-- 활동 기록 작성 모달 -->
-		              <div class="modal fade text" id="project-modal-add" tabindex="-1" aria-hidden="true">
-		                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
-		                  <div class="modal-content p-3 p-md-5">
-		                    <div class="modal-body">
-		                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		                      <div class="text-start mb-4">
-		                        <h4>활동 기록 작성</h4>
-		                      </div>
-														<div class="d-flex align-items-center mb-sm-0 mb-3 m-4">
-															<div class="avatar avatar-md me-2">
-		                       			<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-		                      		</div>
-				                      <div class="flex-grow-1 ms-1">
-				                        <span class="fs-5">윤예성</span>
-				                      </div>
-			                      </div>
-																
-													<div class="card-body">
-														<div>
-								                  <div id="snow-toolbar">
-								                    <span class="ql-formats">
-								                      <select class="ql-font"></select>
-								                      <select class="ql-size"></select>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <button class="ql-bold"></button>
-								                      <button class="ql-italic"></button>
-								                      <button class="ql-underline"></button>
-								                      <button class="ql-strike"></button>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <select class="ql-color"></select>
-								                      <select class="ql-background"></select>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <button class="ql-script" value="sub"></button>
-								                      <button class="ql-script" value="super"></button>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <button class="ql-header" value="1"></button>
-								                      <button class="ql-header" value="2"></button>
-								                      <button class="ql-blockquote"></button>
-								                      <button class="ql-code-block"></button>
-								                    </span>
-								                  </div>
-								                  <div id="snow-editor">
-								                  </div>
-	                    				</div>
-													</div>
-													
-													<div class="fs-5 m-3">파일 첨부</div>
-													<input class="form-control mx-4" type="file" id="formFile" />
-																
-		                      <div class="col-12 text-center">
-		                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">작성</button>
-		                        <button
-		                          type="reset"
-		                          class="btn btn-label-secondary btn-reset mt-3"
-		                          data-bs-dismiss="modal"
-		                          aria-label="Close">
-		                          취소
-		                        </button>
-		                      </div>
-		                    </div>
-		                  </div>
-		                </div>
-		              </div>
+					<div class="modal fade text" id="project-modal-add" tabindex="-1" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+							<div class="modal-content p-3 p-md-5">
+								<div class="modal-body">
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								<div class="text-start mb-4">
+									<h4>활동 기록 작성</h4>
+								</div>
+								<div class="d-flex align-items-center mb-sm-0 mb-3 m-4">
+									<div class="avatar avatar-md me-2">
+										<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
+									</div>
+									<div class="flex-grow-1 ms-1">
+										<input id="projRW_id" type="hidden" value="${sessionScope.loginInfo.getEmp_id()}"/>
+										<span class="fs-5">${sessionScope.loginInfo.getEmp_name()}</span> <!-- 활동기록 작성하는 사람의 닉네임 -->
+									</div>
+								</div>
+											
+								<div class="card-body">
+								<div>
+									<div id="snow-toolbar">
+										<span class="ql-formats">
+											<select class="ql-font"></select>
+											<select class="ql-size"></select>
+										</span>
+										<span class="ql-formats">
+											<button class="ql-bold"></button>
+											<button class="ql-italic"></button>
+											<button class="ql-underline"></button>
+											<button class="ql-strike"></button>
+										</span>
+										<span class="ql-formats">
+											<select class="ql-color"></select>
+											<select class="ql-background"></select>
+										</span>
+										<span class="ql-formats">
+											<button class="ql-script" value="sub"></button>
+											<button class="ql-script" value="super"></button>
+										</span>
+										<span class="ql-formats">
+											<button class="ql-header" value="1"></button>
+											<button class="ql-header" value="2"></button>
+											<button class="ql-blockquote"></button>
+											<button class="ql-code-block"></button>
+										</span>
+									</div>
+									<div id="snow-editor"></div>
+								</div>
+								</div>
+								
+								<div class="fs-5 m-3">파일 첨부</div>
+								<input class="form-control mx-4" type="file" id="formFileW" multiple/>
+											
+								<div class="col-12 text-center">
+								<button
+									id="submitRWcancel"
+									type="reset"
+									class="btn btn-label-secondary btn-reset mt-3"
+									data-bs-dismiss="modal"
+									aria-label="Close">
+									취소
+								</button>
+								<button id="submitRW" type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">작성</button>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
 		              <!--/ 활동 기록 작성 모달 -->
 		              
 		               <!--활동 기록 수정 모달 -->
-		               <div class="modal fade text" id="project-modal-update" tabindex="-1" aria-hidden="true">
-		                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
-		                  <div class="modal-content p-3 p-md-5">
-		                    <div class="modal-body">
-		                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		                      <div class="text-start mb-4">
-		                        <h4>활동 기록 수정</h4>
-		                      </div>
-														<div class="d-flex align-items-center mb-sm-0 mb-3 m-4">
-															<div class="avatar avatar-md me-2">
-		                       			<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-		                      		</div>
-				                      <div class="flex-grow-1 ms-1">
-				                        <span class="fs-5">윤예성</span>
-				                      </div>
-			                      </div>
-																
-													<div class="card-body">
-														<div>
-								                  <div id="update-toolbar">
-								                    <span class="ql-formats">
-								                      <select class="ql-font"></select>
-								                      <select class="ql-size"></select>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <button class="ql-bold"></button>
-								                      <button class="ql-italic"></button>
-								                      <button class="ql-underline"></button>
-								                      <button class="ql-strike"></button>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <select class="ql-color"></select>
-								                      <select class="ql-background"></select>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <button class="ql-script" value="sub"></button>
-								                      <button class="ql-script" value="super"></button>
-								                    </span>
-								                    <span class="ql-formats">
-								                      <button class="ql-header" value="1"></button>
-								                      <button class="ql-header" value="2"></button>
-								                      <button class="ql-blockquote"></button>
-								                      <button class="ql-code-block"></button>
-								                    </span>
-								                  </div>
-								                  <div id="update-editor">
-								                  </div>
-	                    				</div>
-													</div>
-													
-													<div class="fs-5 m-3">파일 첨부</div>
-													<input class="form-control mx-4" type="file" id="formFile" />
-																
-		                      <div class="col-12 text-center">
-		                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">수정</button>
-		                        <button
-		                          type="reset"
-		                          class="btn btn-label-secondary btn-reset mt-3"
-		                          data-bs-dismiss="modal"
-		                          aria-label="Close">
-		                          취소
-		                        </button>
-		                      </div>
-		                    </div>
-		                  </div>
-		                </div>
-		              </div>
+					<div class="modal fade text" id="project-modal-update" tabindex="-1" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+							<div class="modal-content p-3 p-md-5">
+								<div class="modal-body">
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									<div class="text-start mb-4">
+										<h4>활동 기록 수정</h4>
+									</div>
+									<div class="d-flex align-items-center mb-sm-0 mb-3 m-4">
+										<div class="avatar avatar-md me-2">
+											<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle"> <!-- 수정 프로필 이미지 -->
+										</div>
+										<div class="flex-grow-1 ms-1">
+											<span class="fs-5">윤예성</span>
+										</div>
+									</div>
+											
+									<div class="card-body">
+										<div>
+										<div id="update-toolbar">
+											<span class="ql-formats">
+												<select class="ql-font"></select>
+												<select class="ql-size"></select>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-bold"></button>
+												<button class="ql-italic"></button>
+												<button class="ql-underline"></button>
+												<button class="ql-strike"></button>
+											</span>
+											<span class="ql-formats">
+												<select class="ql-color"></select>
+												<select class="ql-background"></select>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-script" value="sub"></button>
+												<button class="ql-script" value="super"></button>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-header" value="1"></button>
+												<button class="ql-header" value="2"></button>
+												<button class="ql-blockquote"></button>
+												<button class="ql-code-block"></button>
+											</span>
+										</div>
+										<div id="update-editor"></div>
+										</div>
+									</div>
+									
+									<div class="fs-5 m-3">파일 첨부</div>
+									<input class="form-control mx-4" type="file" id="formFileU" multiple/>
+									<div id="upRecordFile">
+										<div class="d-flex align-items-center mb-3 m-4">
+											<a>파일아무거나</a>
+											<button class="btn p-0" type="button"><i class="bx bx-trash bx-sm me-3"></i></button>
+										</div>
+									</div>
+											
+									<div class="col-12 text-center">
+										<button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">수정</button>
+										<button
+										type="reset"
+										class="btn btn-label-secondary btn-reset mt-3"
+										data-bs-dismiss="modal"
+										aria-label="Close">
+										취소
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 		              <!--/ 활동 기록 수정 모달 -->
                   
                   <div class="app-overlay"></div>
@@ -1066,20 +940,138 @@ height: calc(100vh - 10rem);
     <!-- custom JS -->
     <script>
     
-    $('#project-add-move').on('click',function(){
-    	location.href="../project/project_add.go";
-    });
-    
     $('#project-update-move').on('click',function(){
     	location.href="../project/project_update.go";
     });
     
-    
-    
+	// 내가 추가한 에디터 초기화 및 내용가져오기
+	(function () {
+		// Snow Theme
+		// --------------------------------------------------------------------
+		const snowEditor = new Quill('#snow-editor', {
+			bounds: '#snow-editor',
+			modules: {
+			formula: true,
+			toolbar: '#snow-toolbar'
+			},
+			theme: 'snow',
+			placeholder: '내용을 입력하세요'
+		});
+		  
+		$('#submitRW').click(function() {
+			// var content = snowEditor.root.innerHTML; // <p>내용</p> 이런식으로 전체를 가져옴
+			var content = snowEditor.getText();
+			var projIdx = ${detailList.proj_idx};
+			var projRW_id = $('#projRW_id').val(); // 활동기록 작성 emp_id
+			var fileInput = document.getElementById('formFileW');
+			// 선택된 파일들
+			var files = fileInput.files;
+			var formData = new FormData();
+			
+			// 내용이 비어있을 경우 알림
+			if (content.trim() === '') {
+				alert('내용을 입력하세요.');
+				return; 
+			}else{
+				console.log('활동기록 proj_idx: ',projIdx);
+				console.log('활동기록 emp_id:', projRW_id);
+				console.log('활동기록 작성내용:', content);
+				// 선택된 파일들에 대한 처리
+				formData.append('projIdx', projIdx);
+				formData.append('projRW_id', projRW_id);
+				formData.append('content', content);
+				if (files.length > 0) {
+				    for (var i = 0; i < files.length; i++) {
+				        formData.append('files[]', files[i]);
+				        console.log('파일들:',files[i]);
+				    }
+			    }
+				
+				$.ajax({
+					type: 'POST',
+					url: '/project/projectRWrite.do',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function (data) {
+						console.log(data);
+						snowEditor.setText(''); // 내용 초기화
+						fileInput.value = '';   // 파일 선택값 초기화
+						$('#project-modal-add').modal('hide');
+						projRList();
+						projAllFile();
+					},
+					error: function (e) {
+						console.log(e);
+						alert('작성에 실패했습니다.');
+						$('#project-modal-add').modal('hide');
+					}
+				});
+				
+			}
+		});
+		$('#submitRWcancel').click(function() {
+			console.log("활동기록 작성 취소버튼 클릭");
+			snowEditor.setText(''); // 내용 초기화
+			var fileInput = document.getElementById('formFileW');
+			if(fileInput.value != ''){
+				fileInput.value = '';   // 파일 선택값 초기화
+			}
+		});
+	})();
+	
+	// 업데이트 에디터 모달
+	var snowEditorup;
+	var initialContent = '';
+	function upProjRB(projR_idx){
+		console.log('활동기록 수정버튼 클릭시 idx:',projR_idx);
+		
+		$.ajax({
+    		type: 'get',
+    		url: 'projectRData.do',
+    		data: {projR_idx: projR_idx},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			console.log('데이터:',data.record.projR_content);
+    			projRFData(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+		
+		initialContent = '활동기록 수정버튼클릭시의 내용으로 변경'+projR_idx;
+		snowEditorup.setText(initialContent);
+   	}
+	
+	function projRFData(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        }else{
+        	obj.list.forEach(function (item){
+        		content += '<div class="card email-card-prev mx-sm-1 mx-3 border my-2" >';
+                content += '<div class="cursor-pointer">';
+                content += '<i class="bx bx-file"></i>';
+                content += '<span class="align-middle ms-1">';
+                content += '<a href="/file/project/' + item.new_file_name + '" download>' + item.ori_file_name + '</a>';
+				content += '</span>';
+                content += '</div>';
+            	content += '</div>';
+        	});
+        }
+        $('#fileAll').empty();
+        $('#fileAll').append(content);
+    }
+	
     (function () {
     	  // Snow Theme
     	  // --------------------------------------------------------------------
-    	  const snowEditor = new Quill('#update-editor', {
+    	  // var initialContent = '여기에 초기 내용을 넣어주세요.';
+    	  snowEditorup = new Quill('#update-editor', {
     	    bounds: '#update-editor',
     	    modules: {
     	      formula: true,
@@ -1089,7 +1081,259 @@ height: calc(100vh - 10rem);
     	  });
     })();
     </script>
+    <script> // 내가 추가한 스크립트
+    projRList();
+    projAllFile();
+    /*
+    var whatlist = '';
+    projList(whatlist);
+    
+    function worksButton(){
+    	whatlist = '진행';
+    	projList(whatlist);
+    }
+	function waitButton(){
+    	whatlist = '대기';
+    	projList(whatlist);
+    }
+	function endButton(){
+		whatlist = '완료';
+		projList(whatlist);
+	} 
+	
+	$('#project-add-move').on('click',function(){
+    	location.href="../project/project_add.go";
+    });
+	
+	function projList(whatlist){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projList.do',
+    		data: {whatlist: whatlist},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<li style="text-align:center">프로젝트가 없습니다.</li>';
+        }else{
+        	obj.list.forEach(function (item){
+        		content += '<li class="chat-contact-list-item pro" id="'+item.proj_idx+'">';
+        		content += '<a class="d-flex align-items-center">';
+        		content += '<div class="chat-contact-info flex-grow-1 ms-3">';
+        		content += '<h6 class="chat-contact-name text-truncate m-0">'+item.proj_subject+'</h6>';
+        		content += '<p class="text-muted mb-auto">'+item.proj_start+'~'+item.proj_end+'</p>';
+        		content += '<p class="chat-contact-status text-truncate mb-0 text-muted">'+item.dam_name+'</p>';
+        		content += '</div>';
+        		content += '<small class="text-muted mb-auto">'+item.proj_status+'</small>';
+        		content += '</a>';
+        		content += '</li>';
+        	});
+        }
+        $('#projlist').empty();
+        $('#projlist').append(content);
+        
+        $('.chat-contact-list-item.pro').on('click', function () {
+            // 모든 li에서 active 클래스 제거
+            $('.chat-contact-list-item.pro').removeClass('active');
+            // 현재 클릭한 li에 active 클래스 추가
+            $(this).addClass('active');
+            
+            var projIdx = $(this).attr('id');
+            console.log('projIdx:', projIdx);
+            window.location = "project_detail.go?proj_idx="+projIdx; // 보류보류
+        });
+    }
+    */
+    // 활동기록 리스트
+    function projRList(){
+    	var proj_idx = ${detailList.proj_idx};
+    	
+    	$.ajax({
+    		type: 'get',
+    		url: 'projectRList.do',
+    		data: {proj_idx: proj_idx},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projRListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projRListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);      
+        
+        if (totalItems === 0){
+        	content = '<li style="text-align:center">활동기록이 없습니다.</li>';
+        }else{
+        	obj.list.forEach(function (item){
+        		projR_date = new Date(item.projR_date).toLocaleString();
+        		content += '<div class="card email-card-prev mx-sm-1 mx-3 border my-4">';
+        		
+        		content += '<div class="card-header d-flex justify-content-between align-items-center flex-wrap">';
+        		content += '<div class="d-flex align-items-center mb-sm-0 mb-3">';
+        		content += '<div class="avatar avatar-md me-2">';
+        		content += '<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">'; // 동그라미 사진부분
+        		content += '</div>';
+        		content += '<div class="flex-grow-1 ms-1">';
+        		content += '<span class="fs-5">'+item.emp_name+'</span>';
+        		content += '<span class="fs-6 date">'+projR_date +'</span>';
+        		content += '</div>';
+        		content += '</div>';
+        		
+        		content += '<div class="d-flex align-items-center">';
+        		if(item.projR_upstate == 'Y'){        			
+        			content += '<span class="fs-6 date">수정됨</span>';
+        		}
+        		content += '<button onclick="upProjRB('+item.projR_idx+')" class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#project-modal-update">';
+        		content += '<i class="bx bxs-edit cursor-pointer me-2 bx-sm"></i>';
+        		content += '</button>';
+        		
+        		content += '<button onclick="delProjRB('+item.projR_idx+')" class="btn p-0" type="button">';
+        		content += '<i class="bx bx-trash bx-sm me-3"></i>';
+        		content += '</button>'
+        		content += '</div>';
+        		content += '</div>';
+        		
+        		content += '<div class="card-body">'+item.projR_content;
+        		if(item.new_file_name != null){
+        			content += '<hr/>';
+	        		content += '<p class="mb-2">첨부파일</p>';
+	        		
+	        		var newFileNames = item.new_file_name.split(','); // 스플릿으로 여러개의 파일쪼개기
+	                var oriFileNames = item.ori_file_name.split(',');
+	        		
+    	    		newFileNames.forEach(function (newFileName, index) { // 스플릿으로 쪼갠 데이터들 각각뿌려주기
+                        var oriFileName = oriFileNames[index].trim();
+                        
+		        		content += '<div class="cursor-pointer">';
+		        		content += '<i class="bx bx-file"></i>';
+	    	    		content += '<span class="align-middle ms-1">';
+                        content += '<a href="/file/project/' + newFileName.trim() + '" download>' + oriFileName + '</a>';
+		        		content += '</span>';
+	    	    		content += '</div>';
+    	    		});
+        		}
+        		content += '</div>';
+        		content += '</div>';
+        	});
+        }
+        $('#navs-top-home').empty();
+        $('#navs-top-home').append(content);
+    }
+    
+    // 프로젝트의 모든 파일 가져오기
+    function projAllFile(){    	
+    	var proj_idx = ${detailList.proj_idx};
+    	
+   		$.ajax({
+   			type: 'get',
+   			url: 'projectAllFile.do',
+   			data: {proj_idx: proj_idx},
+   			dataType: 'json',
+   			success: function (data){
+   				console.log(data);
+   				projAllFiledraw(data);
+   			},
+   			error: function (e){
+   				console.log(e);
+   			}
+   		});
+    }
+    
+    // 프로젝트의 모든 파일 그려주기
+    function projAllFiledraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<li style="text-align:center">첨부 파일이 없습니다.</li>';
+        }else{
+        	obj.list.forEach(function (item){
+        		if(item.ori_file_name != null){
+	        		content += '<div class="card email-card-prev mx-sm-1 mx-3 border my-2" >';
+	                content += '<div class="cursor-pointer">';
+	                content += '<i class="bx bx-file"></i>';
+	                content += '<span class="align-middle ms-1">';
+	                content += '<a href="/file/project/' + item.new_file_name + '" download>' + item.ori_file_name + '</a>';
+					content += '</span>';
+	                content += '</div>';
+	            	content += '</div>';
+        		}
+        	});
+        }
+        $('#fileAll').empty();
+        $('#fileAll').append(content);
+    }
+    
+   	// 활동기록 삭제
+    function delProjRB(projR_idx){
+    	console.log("삭제할 활동기록 idx:",projR_idx);
+    	var delConf = confirm('활동기록을 삭제 하시겠습니끼?');
+    	
+    	if(delConf){
+    		
+    		$.ajax({
+    			type: 'post',
+    			url: 'projectRdel.do',
+    			data: {projR_idx: projR_idx},
+    			dataType: 'json',
+    			success: function (data){
+    				console.log(data);
+    				projRList();
+    				projAllFile();
+    			},
+    			error: function (e){
+    				console.log(e);
+    			}
+    		});
+    		
+    	}
+    }
+    
+    // 상태 변경 (완료,진행,대기)
+    function upStatus(){
+		var selectStatus = $("#selectpickerBasic").val();
+		console.log("선택한 상태: "+selectStatus);
+		
+		$.ajax({
+			type: 'post',
+			url: 'projUpStatus.do',
+			data: {
+				projIdx: ${detailList.proj_idx},
+				projStatus: selectStatus
+			},
+			dataType: 'json',
+			success: function (data) {
+				console.log(data);
+				location.reload();
+			},
+			error: function (e) {
+				console.log(e);
+			}
+		});
+    }
     
     
+    </script>
   </body>
 </html>

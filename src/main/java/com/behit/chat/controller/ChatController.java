@@ -26,6 +26,7 @@ import com.behit.chat.dto.ChatDTO;
 import com.behit.chat.dto.ChatRoomDTO;
 import com.behit.chat.service.ChatService;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.profile.dto.FileDTO;
 
 @Controller
 public class ChatController {
@@ -44,12 +45,15 @@ public class ChatController {
 		int emp_dept_idx=empdto.getEmp_dept_idx();
 		logger.info("emp_dept_idx"+emp_dept_idx);
 		String emp_dept_name =chatService.deptName(emp_dept_idx);
-		
+		FileDTO photo=chatService.getPhoto(emp_id);
+		//아래 리스트는 채팅방 최신 생성순으로 el 태그 사용해서 뿌렸던 list로 혹시 몰라서 남겨둠
+		// 실제 채팅방 리스트는 채팅방별 최신 메시지 순으로 아래서 list ajax로 뿌리고 있음
+		/*
 		ArrayList<ChatRoomDTO> ChatRoomAll=chatService.chatRoomList(emp_id);
 		logger.info(""+ChatRoomAll);
-		
-		mav.addObject("ChatRoomAll", ChatRoomAll);
-		
+		*/
+		mav.addObject("photo", photo);
+		mav.addObject("emp_id", emp_id);
 		mav.addObject("emp_id", emp_id);
 		mav.addObject("emp_name", emp_name);
 		mav.addObject("emp_dept_name", emp_dept_name);
@@ -62,9 +66,10 @@ public class ChatController {
 	public HashMap<String, Object> chatRListOnChatMs(HttpSession session){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
-		String emp_id=empdto.getEmp_id();
-		ArrayList<ChatRoomDTO>chatRListOnChatMs=chatService.chatRListOnChatMs(emp_id);
+		String loginId=empdto.getEmp_id();
+		ArrayList<ChatRoomDTO>chatRListOnChatMs=chatService.chatRListOnChatMs(loginId);
 		result.put("chatRListOnChatMs", chatRListOnChatMs);
+		result.put("loginId", loginId);
 		return result;
 	}
 
@@ -94,6 +99,7 @@ public class ChatController {
 		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 		String loginId=empdto.getEmp_id();
 		String loginName=empdto.getEmp_name();
+		FileDTO loginPhoto = chatService.getPhoto(loginId);
         // chatRoomIdx를 이용하여 채팅 리스트를 가져오는 서비스 메서드 호출
         List<ChatDTO> chatList = chatService.chatList(chatRoomIdx);
         ChatRoomDTO chatRoom = chatService.chatRoom(chatRoomIdx);
@@ -101,6 +107,7 @@ public class ChatController {
 		/* chatRoom.getChatMb(); */
         result.put("loginId", loginId);
         result.put("loginName", loginName);
+        result.put("loginPhoto", loginPhoto);
 		result.put("chatRoomName", chatRoom.getChat_room_name());
 		result.put("chatMbListInRoom", chatRoom.getChatMb());
         result.put("chatList", chatList);

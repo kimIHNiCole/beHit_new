@@ -175,6 +175,12 @@ height: calc(100vh - 10rem);
 
     }
     
+    /* 대시보드 영역 높이 고정 */
+    .card.mb-4 {
+    margin-bottom: 1rem !important;
+    height: 320px;
+	}
+    
     </style>
   </head>
 
@@ -487,147 +493,17 @@ height: calc(100vh - 10rem);
                         </li>
                         <li>
 						    <div class="d-flex justify-content-center">
-						        <button class="btn btn-primary text-nowrap go">진행중</button>
-						        <button class="btn btn-primary text-nowrap wait">대기</button>
-						        <button class="btn btn-primary text-nowrap end">완료</button>
+						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
+						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
+						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
 						    </div>
 						</li>
                         <li class="chat-contact-list-item chat-list-item-0 d-none">
                           <h6 class="text-muted mb-0">No Project Found</h6>
                         </li>
-                        <li class="chat-contact-list-item pro active">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">크리에이터 영입</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2023-12-27</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호, 글씨테스트, 글씨테스트</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">진짜인지 가짜인지 모를 사나이 글씨테스트테스트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-02-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                김인혜</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
+                        <!-- 여기서부터 리스트 -->
+                        <div id="projlist"></div>
+                        <!-- 여기까지 리스트 -->
                       </ul>
                       
                     </div>
@@ -638,14 +514,16 @@ height: calc(100vh - 10rem);
                    <!-- Content -->
 					<div class="col app-chat-history">
 						<div class ="top-tap-select" style="display: flex; justify-content: space-between;">
-					    <h4 class="py-3 mb-4"><span class="text-muted fw-light">프로젝트 현황 </span></h4>
+					    <h4 class="py-3 mb-4"><span class="text-muted fw-light">프로젝트 현황</span></h4>
+					    	<!-- 
 						   <select class="form-select create">
 		                     <option value="name">이도훈(본인)</option>
 		                     <option value="id">한가인</option>
 		                     <option value="department">정우성</option>
 		                     <option value="position">황정민</option>
 		                     <option value="title">정성화</option>
-		                </select>
+		                	</select>
+					    	 -->		                	
 		                </div>
 					   
 					    <div class="chat-history-wrapper">
@@ -667,25 +545,7 @@ height: calc(100vh - 10rem);
 					                                        <th>프로젝트명</th>
 					                                    </tr>
 					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    
-					                                </tbody>
+					                                <tbody id="projnowlist"></tbody>
 					                            </table>
 					                        </div>
 					                    </div>
@@ -706,28 +566,7 @@ height: calc(100vh - 10rem);
 					                                        <th>프로젝트명</th>
 					                                    </tr>
 					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                </tbody>
+					                                <tbody id="projwaitlist"></tbody>
 					                            </table>
 					                        </div>
 					                    </div>
@@ -751,28 +590,7 @@ height: calc(100vh - 10rem);
 					                                        <th>프로젝트명</th>
 					                                    </tr>
 					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                    <tr>
-					                                        <td>2023.12.21</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                </tbody>
+					                                <tbody id="projworkslist"></tbody>
 					                            </table>
 					                        </div>
 					                    </div>
@@ -793,12 +611,7 @@ height: calc(100vh - 10rem);
 					                                        <th>프로젝트명</th>
 					                                    </tr>
 					                                </thead>
-					                                <tbody>
-					                                    <tr>
-					                                        <td>2023.12.23</td>
-					                                        <td>소속 유튜버 합방 스케줄</td>
-					                                    </tr>
-					                                </tbody>
+					                                <tbody id="projdelaylist"></tbody>
 					                            </table>
 					                        </div>
 					                    </div>
@@ -858,12 +671,228 @@ height: calc(100vh - 10rem);
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
     
-    <!-- custom JS -->
     <script>
+    var whatlist = '';
+    projList(whatlist);
+    projNowList();
+    projWaitList();
+    projWorksList();
+    projDelayList();
+    
+    function worksButton(){
+    	whatlist = '진행';
+    	projList(whatlist);
+    }
+	function waitButton(){
+    	whatlist = '대기';
+    	projList(whatlist);
+    }
+	function endButton(){
+		whatlist = '완료';
+		projList(whatlist);
+	}   
+    
     
     $('#project-add-move').on('click',function(){
     	location.href="../project/project_add.go";
     });
+    
+    // 프로젝트 사이드 전체리스트
+    function projList(whatlist){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projList.do',
+    		data: {whatlist: whatlist},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<li style="text-align:center">프로젝트가 없습니다.</li>';
+        }else{
+        	obj.list.forEach(function (item){
+        		content += '<li class="chat-contact-list-item pro" id="'+item.proj_idx+'">';
+        		content += '<a class="d-flex align-items-center">';
+        		content += '<div class="chat-contact-info flex-grow-1 ms-3">';
+        		content += '<h6 class="chat-contact-name text-truncate m-0">'+item.proj_subject+'</h6>';
+        		content += '<p class="text-muted mb-auto">'+item.proj_start+'~'+item.proj_end+'</p>';
+        		content += '<p class="chat-contact-status text-truncate mb-0 text-muted">'+item.dam_name+'</p>';
+        		content += '</div>';
+        		content += '<small class="text-muted mb-auto">'+item.proj_status+'</small>';
+        		content += '</a>';
+        		content += '</li>';
+        	});
+        }
+        $('#projlist').empty();
+        $('#projlist').append(content);
+        
+        $('.chat-contact-list-item.pro').on('click', function () {
+            // 모든 li에서 active 클래스 제거
+            $('.chat-contact-list-item.pro').removeClass('active');
+            // 현재 클릭한 li에 active 클래스 추가
+            $(this).addClass('active');
+            
+            var projIdx = $(this).attr('id');
+            console.log('projIdx:', projIdx);
+            window.location = "project_detail.go?proj_idx="+projIdx; // 보류보류
+        });
+    }
+    
+    // 대시보드 즉시작업 리스트
+    function projNowList(){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projNowList.do',
+    		data: {},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projNowListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projNowListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<tr><td style="text-align:center" colspan="2">즉시 작업할 프로젝트가 없습니다.</td></tr>';
+        }else{
+        	obj.list.forEach(function (item){
+				content += '<tr>';
+				content += '<td>'+item.proj_end+'</td>';
+				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '</tr>';
+        	});
+        }
+        $('#projnowlist').empty();
+        $('#projnowlist').append(content);
+    }
+    
+    // 대시보드 대기중 리스트
+    function projWaitList(){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projWaitList.do',
+    		data: {},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projWaitListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projWaitListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<tr><td style="text-align:center" colspan="2">대기중인 프로젝트가 없습니다.</td></tr>';
+        }else{
+        	obj.list.forEach(function (item){
+				content += '<tr>';
+				content += '<td>'+item.proj_start+'</td>';
+				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '</tr>';
+        	});
+        }
+        $('#projwaitlist').empty();
+        $('#projwaitlist').append(content);
+    }
+    
+    // 대시보드 진행중인 프로젝트 리스트
+    function projWorksList(){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projWorksList.do',
+    		data: {},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projWorksListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projWorksListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<tr><td style="text-align:center" colspan="2">진행중인 프로젝트가 없습니다.</td></tr>';
+        }else{
+        	obj.list.forEach(function (item){
+				content += '<tr>';
+				content += '<td>'+item.proj_start+'</td>';
+				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '</tr>';
+        	});
+        }
+        $('#projworkslist').empty();
+        $('#projworkslist').append(content);
+    }
+    
+    // 대시보드 지연된 리스트
+        function projDelayList(){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projDelayList.do',
+    		data: {},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projDelayListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projDelayListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<tr><td style="text-align:center" colspan="2">지연된 프로젝트가 없습니다.</td></tr>';
+        }else{
+        	obj.list.forEach(function (item){
+				content += '<tr>';
+				content += '<td>'+item.proj_end+'</td>';
+				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '</tr>';
+        	});
+        }
+        $('#projdelaylist').empty();
+        $('#projdelaylist').append(content);
+    }
     
     </script>
   </body>

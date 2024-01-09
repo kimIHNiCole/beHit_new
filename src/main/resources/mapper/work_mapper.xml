@@ -6,7 +6,7 @@
 <mapper namespace="com.behit.employee.dao.WorkDAO">
 	<select id="worklist" resultType="work">
 		SELECT
-			e.emp_name, d.emp_dept_name AS 'dept_name',
+			e.emp_name, e.emp_id, d.emp_dept_name AS 'dept_name',
 			CONCAT(
 		        COALESCE(LPAD(HOUR(ch.work_start_time), 2, '0'), '-'),
 		        ':',

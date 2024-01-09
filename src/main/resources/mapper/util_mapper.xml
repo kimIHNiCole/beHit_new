@@ -9,4 +9,8 @@
 		INSERT INTO file(file_kind, file_kind_idx, ori_file_name, new_file_name, emp_id)
 			VALUES(#{file_kind}, #{file_kind_idx}, #{ori_file_name}, #{new_file_name}, #{login_id});	
 	</insert>
+	
+	<select id="selectfile" resultType="HashMap">
+		SELECT * FROM file WHERE file_idx = #{idx};
+	</select>
 </mapper>
