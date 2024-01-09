@@ -1,5 +1,7 @@
 package com.behit.util.service;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +10,11 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -77,5 +84,46 @@ public class UtilService {
 				
 		utilDAO.upload(file);
 		
+	}
+
+	// file_idx값을 컨트롤러에서 넘겨주세요
+	public ResponseEntity<Resource> download(int idx) throws IOException {
+		
+		HashMap<String, Object> file = utilDAO.selectfile(idx); // file의 idx필요
+		
+		int file_kind = (int) file.get("file_kind");
+		String sub = "";
+		switch (file_kind) {
+		case 1:
+			sub = "chat/";
+			break;
+		case 2:
+			sub = "calender/";
+			break;
+		case 3:
+			sub = "approval/";
+			break;
+		case 4:
+			sub = "project/";
+			break;
+		case 5:
+			sub = "employee/";
+			break;
+		case 6:
+			sub = "creator/";
+			break;
+		}
+		
+		String path = root+sub+file.get("new_file_name");
+		logger.info(path);
+		
+		Resource resource = new FileSystemResource(path);
+		HttpHeaders header = new HttpHeaders();
+		String type = Files.probeContentType(Paths.get(path));
+		header.add("Content-type", "application/octet-stream");
+		String oriFileName = URLEncoder.encode((String) file.get("ori_file_name"), "UTF-8"); // file은 ori_file_name
+		header.add("content-Disposition", "attachment;fileName=\""+oriFileName+"\"" );
+		
+		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK); // 바디, 헤더, 상태(200, 500)
 	}
 }

@@ -52,7 +52,7 @@ public class ProfileService {
 		String ori_file_name = uploadFile.getOriginalFilename(); // 파일명 추출
 		String ext = ori_file_name.substring(ori_file_name.lastIndexOf(".")); // 확장자 추출
 		String new_file_name = System.currentTimeMillis()+ext; // 새 파일명 생성 + 확장자
-		String file_kind_idx = (String) file.get("emp_id");
+		String file_kind_idx = (String) file.get("login_id");
 		
 		byte[] bytes = uploadFile.getBytes();
 		Path path = Paths.get(root+new_file_name);
@@ -62,7 +62,14 @@ public class ProfileService {
 		file.put("ori_file_name", ori_file_name);
 		file.put("new_file_name", new_file_name);
 		
-		profileDAO.photoupdate(file);
+		boolean result = profileDAO.selectphoto(file_kind_idx);
+		logger.info("result:"+result);
+		if (result) {
+			profileDAO.photoupdate(file);
+		} else {
+			profileDAO.photoinsert(file);
+		}
+		
 	}
 
 }

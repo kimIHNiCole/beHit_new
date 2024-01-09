@@ -131,11 +131,14 @@ img.rounded-top{
            						 <h4 style="white-space: nowrap;">${profiledetail.emp_name}</h4>
         					</div>
 	        				<div style="white-space: nowrap; width:150px; display: flex;">
-					            <form action="upload.do" method="post" enctype="multipart/form-data">
-									<input type="file" name="uploadFile" id="uploadFile" accept=".jpg, .jpeg, .gif, .png" onchange="checkFileSize(this)"/>
-									<button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-right: 5px;">전송</button>
+					            <form action="upload.do" method="post" enctype="multipart/form-data" id="uploadForm">
+									<input type="file" name="uploadFile" id="uploadFile" accept=".jpg, .jpeg, .gif, .png" onchange="checkFileSize(this)" style="display: none;"/>
+									<label for="uploadFile" class="btn btn-label-secondary account-image-reset mb-4">프로필 사진 변경</label>
 								</form>
-					            <button class="btn btn-primary text-nowrap photo" style="flex-grow: 1; width:70px; margin-left: 5px;">초기화</button>
+					            <button type="button" class="btn btn-label-secondary account-image-reset mb-4 ml-1">
+		                   			<i class="bx bx-reset d-block d-sm-none"></i>
+		                            <span class="d-none d-sm-block">초기화</span>
+	                          	</button>
 					        </div>       					
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
@@ -144,8 +147,7 @@ img.rounded-top{
                           </div>
                           
                           <a href="javascript:void(0)" class="btn btn-primary text-nowrap"                           
-	                          data-bs-toggle="modal"
-	                          data-bs-target="#modalCenter">비밀번호 변경</a>
+	                          data-bs-toggle="modal" data-bs-target="#modalCenter">비밀번호 변경</a>
                         </div>
                       </div>
                     </div>
@@ -388,9 +390,15 @@ img.rounded-top{
 		        if (fileSize > maxFileSizeInBytes) {
 		            alert('파일 크기가 너무 큽니다. 1MB 이하의 파일을 업로드해주세요.');
 		            input.value = ''; // 파일 선택 취소
+		        } else{
+		        	uploadFile();
 		        }
 		    }
 		}
+		
+	    function uploadFile() {
+	        document.getElementById("uploadForm").submit();
+	    }
 	</script>
 
     <!-- Main JS -->
