@@ -314,6 +314,7 @@
     .table-content-right.time .vac-time-input{
     	display:flex;
     	justify-content: space-between;
+    	align-items: center
     }
     
     .table-content-right .form-vac-time-start,
@@ -765,13 +766,14 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/app-ecommerce-settings.js"></script>
-    <script src="../../assets/js/forms-editors.js"></script>
     
     <!-- Header JS -->
     <script src="../../assets/js/header.js"></script>
     
     <!-- custom JS -->
     <script>
+    
+    var form_type = '${form_type}';
     
     //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
     $('.apv-vac-time').hide();
@@ -942,7 +944,6 @@
 		        console.log('시작 시간과 마지막 시간을 선택하세요.');
 		    }
 		}
-
 
     
     //--------------------------------------------------------------------------------------------------------------
@@ -1119,8 +1120,6 @@
 		
   	//------------------------------------------------------------------------------------------------
  		
-  	
-  	
   	
  		
  		//조직도 모달창-----------------------------------------------------------------------------------
@@ -1359,11 +1358,22 @@
     
     
     // 전송 -------------------------------------------------------------------------------------------
-		$('#apvCnt').val(JSON.stringify($('#snow-editor').html()));
-    
+    // 기존에 생성된 Quill 객체 가져오기
+    	var snowEditor = new Quill('#snow-editor', {
+		    bounds: '#snow-editor',
+		    modules: {
+		        formula: true,
+		        toolbar: '#snow-toolbar'
+		    },
+		    theme: 'snow'
+		});
+		
+		snowEditor.on('text-change', function() {
+		    var contents = snowEditor.getContents();  // 수정된 부분
+		    var jsonString = JSON.stringify(contents);
+		    document.getElementById('apvCnt').value = jsonString;
+		});
    	//------------------------------------------------------------------------------------------------
-    
-    
     
     
 
