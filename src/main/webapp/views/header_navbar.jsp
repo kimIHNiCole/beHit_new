@@ -307,7 +307,7 @@ $(document).ready(function() {
     // 알람 목록을 주기적으로 업데이트 (예: 1분마다)
     setInterval(function() {
         loadAlarmList();
-    }, 6000000); // 1분에 한 번
+    }, 60000); // 1분에 한 번
     
     
     /* 알림 개별 읽음 처리  */
@@ -317,6 +317,21 @@ $(document).ready(function() {
     // 해당 알람의 type을 가져옴
     var alarmType = listItem.find('input[name="alarm_type"]').val();
     console.log("알람 타입", alarmType);
+ // 알람 타입에 따라 페이지 이동
+    switch (alarmType) {
+        case '1':
+            window.location.href = '../chat/messenger.go';
+            break;
+        case '3':
+            window.location.href = '../approval/getApproval_list.go';
+            break;
+        case '4':
+            window.location.href = '../project/project_main.go';
+            break;
+        default:
+            console.log('Unhandled alarm type:', alarmType);
+            break;
+    }
     // 해당 알람의 type index를 가져옴
     var alarmTypeIdx = listItem.find('input[name="alarm_type_idx"]').val();
     console.log("알람 idx", alarmTypeIdx);

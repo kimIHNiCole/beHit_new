@@ -31,40 +31,41 @@
     cm.emp_id,
     cm.message AS last_message,
     cm.message_date AS last_message_date
-FROM
-    chat_room cr
-JOIN
-    chat_pp cp ON cr.chat_room_idx = cp.chat_room_idx
-LEFT JOIN
-    chat_msg cm ON cr.chat_room_idx = cm.chat_room_idx
-LEFT JOIN
-    employee e ON cp.emp_id = e.emp_id
-WHERE
-    cm.chatMsg_idx = (
-        SELECT
-            MAX(chatMsg_idx)
-        FROM
-            chat_msg
-        WHERE
-            chat_room_idx = cr.chat_room_idx
-    )
-    AND EXISTS (
-        SELECT 1
-        FROM chat_pp
-        WHERE chat_room_idx = cr.chat_room_idx AND emp_id =#{param1}
-    )
-GROUP BY
-    cr.chat_room_idx
-ORDER BY
+		FROM
+		    chat_room cr
+		JOIN
+		    chat_pp cp ON cr.chat_room_idx = cp.chat_room_idx
+		LEFT JOIN
+		    chat_msg cm ON cr.chat_room_idx = cm.chat_room_idx
+		LEFT JOIN
+		    employee e ON cp.emp_id = e.emp_id
+		WHERE
+		    cm.chatMsg_idx = (
+		        SELECT
+		            MAX(chatMsg_idx)
+		        FROM
+		            chat_msg
+		        WHERE
+		            chat_room_idx = cr.chat_room_idx
+		    )
+		    AND EXISTS (
+		        SELECT 1
+		        FROM chat_pp
+		        WHERE chat_room_idx = cr.chat_room_idx AND emp_id =#{param1}
+		    )
+		GROUP BY
+		    cr.chat_room_idx
+		ORDER BY
     last_message_date DESC;
 	
 	</select>
 	
 	
 	<select id="chatMember" resultType="chatRoom">
-		SELECT cp.emp_id, emp.emp_name 
+		SELECT cp.emp_id, emp.emp_name, f.file_idx, f.file_kind, f.file_kind_idx, f.new_file_name, f.ori_file_name 
 			from chat_pp cp
 			join employee emp on cp.emp_id = emp.emp_id 
+			left join file f on f.file_kind_idx = emp.emp_id and f.file_kind =5
 			where chat_room_idx = #{param1}
 	</select>
 	
@@ -92,27 +93,42 @@ ORDER BY
 	</insert>
 	
   	<select id="chatList" resultType="chat">
-		SELECT
-		cm.chatMsg_idx,
-		cm.chat_room_idx,
-		cm.emp_id,
-		emp.emp_name,
-		cm.message,
-		cm.message_date
+		SELECT cm.chatMsg_idx,
+			cm.chat_room_idx,
+			cm.emp_id,
+			emp.emp_name,
+			cm.message,
+			cm.message_date,
+			f.file_kind,
+			f.file_kind_idx,
+			f.new_file_name,
+			f.ori_file_name
 			FROM chat_msg cm
 			JOIN chat_room cr ON cm.chat_room_idx = cr.chat_room_idx
 			JOIN employee emp ON cm.emp_id = emp.emp_id
-				WHERE cm.chat_room_idx = #{param1}
+			left join file f on cm.emp_id = f.file_kind_idx and f.file_kind =5
+			WHERE cm.chat_room_idx = #{param1} ORDER BY cm.message_date ASC;
 	</select> 
 	<select id="chatRoom" resultType="chatRoom">
 		select * from chat_room where chat_room_idx = #{param1}
 	</select>
 
-	<insert id="saveChat">
+	<insert
+	useGeneratedKeys="true"
+	keyColumn="chatMsg_idx"
+  	keyProperty="chatMsg_idx"
+	id="saveChat" parameterType="chat">
 		INSERT into chat_msg
 		(chat_room_idx, emp_id, message, message_date)
 		VALUES
 		(#{chat_room_idx}, #{emp_id}, #{message}, current_timestamp);
+	</insert>
+	
+	<insert id="saveAlarm">
+		INSERT into alarm
+		(emp_id, alarm_type, alarm_type_idx, alarm_msg, alarm_date, alarm_readCheck)
+		VALUES
+		(#{param1}, 1, #{param2}, #{param3}, current_timestamp, "N")
 	</insert>
 
 </mapper>

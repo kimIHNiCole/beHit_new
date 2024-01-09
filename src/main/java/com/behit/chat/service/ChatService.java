@@ -54,11 +54,23 @@ public class ChatService {
 		
 	}
 	
-	public ArrayList<ChatRoomDTO> chatRListOnChatMs(String emp_id) {
-		logger.info(emp_id);
-		ArrayList<ChatRoomDTO> chatRListOnChatMs=chatDao.chatRListOnChatMs(emp_id);
-		logger.info("chatRListOnChatMs:"+chatRListOnChatMs);
-		return chatRListOnChatMs;
+	public ArrayList<ChatRoomDTO> chatRListOnChatMs(String loginId) {
+		logger.info(loginId);
+		// 채팅방 리스트와 그에 속한 멤버들 리스트 합
+		ArrayList<ChatRoomDTO> chatROnMsAll=new ArrayList<ChatRoomDTO>();
+		// emp_id 가 속한 채팅방 리스트 모두 가져옴
+		ArrayList<ChatRoomDTO> chatRListOnChatMs=chatDao.chatRListOnChatMs(loginId);
+		
+		for(ChatRoomDTO chatROnChatMs: chatRListOnChatMs) {
+			int chat_room_idx=chatROnChatMs.getChat_room_idx();
+			ArrayList<ChatRoomDTO> chatMb=chatDao.chatMember(chat_room_idx);
+
+			chatROnChatMs.setChatMb(chatMb);
+			chatROnMsAll.add(chatROnChatMs);
+		}
+		
+		logger.info("chatROnMsAll:"+chatROnMsAll);
+		return chatROnMsAll;
 	}
 	
 	
@@ -125,9 +137,36 @@ public class ChatService {
         return chatDao.chatList(chatRoomIdx);
     }
 
-
+		
 	public void saveChat(ChatDTO message) {
+		// 채팅 메시지 이력 insert
 		chatDao.saveChat(message);
+		
+		// 제너레이트키로 생성된 메시지idx 가져오기
+		int chatMsg_idx = message.getChatMsg_idx();
+		logger.info("chatMsg_idx : "+chatMsg_idx);
+		
+		
+		/* 알림 insert */
+		// emp_name+" 님으로부터 새 메시지가 도착했습니다."
+		
+		String sendEmp=message.getEmp_name();
+		String alarm_msg= sendEmp+" 님으로부터 새 메시지가 도착했습니다.";
+		
+		// 챗룸 idx 값으로 챗pp 뽑아오기	
+		int chat_room_idx=message.getChat_room_idx();
+		String loginId=message.getEmp_id();
+		
+		// 챗 pp 들에게 알림 insert 하기
+		ArrayList<ChatRoomDTO> chatMb=chatDao.chatMember(chat_room_idx);
+		for (ChatRoomDTO chatRoomDTO : chatMb) {
+			String emp_id=chatRoomDTO.getEmp_id();
+			// loginId와 emp_id가 다를 때만 saveAlarm 메서드 호출
+		    if (!loginId.equals(emp_id)) {
+		        chatDao.saveAlarm(emp_id, chatMsg_idx, alarm_msg);
+		    }
+		}
+			
 		
 	}
 
