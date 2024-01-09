@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.creator.dto.ChannelDTO;
@@ -29,6 +30,7 @@ import com.behit.creator.dto.SnsDTO;
 import com.behit.creator.service.CreatorService;
 import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.util.service.UtilService;
 import com.google.api.services.youtube.model.Channel;
 
 
@@ -38,6 +40,7 @@ public class CreatorController {
 	
 	@Autowired CreatorService creatorService;
 	@Autowired CreatorStatController creatorStatController;
+	@Autowired UtilService utilService;
 	
 	@GetMapping(value = "/creatorAdd.go")
 	public ModelAndView creatorAddGo(ModelAndView mav) {
@@ -158,6 +161,26 @@ public class CreatorController {
 		return result;
 	}
 	
+	
+//	@PostMapping(value = "/creatorImgSave.ajax")
+//	public HashMap<String, Object> profileImgSave(
+//			@RequestParam(value="file", required = false) MultipartFile file){
+//		logger.info("file",file);
+////		utilService.upload(file, getChCateDo());
+//		return null;
+//	}
+	
+	@PostMapping("/creatorImgUpload.ajax")
+    public ResponseEntity<String> creatorImgUpload(@RequestParam("file") MultipartFile file) {
+        // 파일 처리 로직을 여기에 구현
+
+        // 예제로 파일 이름을 출력하는 부분
+        String fileName = file.getOriginalFilename();
+        System.out.println("Received file: " + fileName);
+
+        // 파일 처리 성공 시 응답
+        return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+    }
 	
 	
 
