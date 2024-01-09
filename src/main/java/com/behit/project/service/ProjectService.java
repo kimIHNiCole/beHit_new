@@ -15,6 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.behit.project.dao.ProjectDAO;
 import com.behit.project.dto.ProjectDTO;
+import com.behit.project.dto.ProjectFileDTO;
+import com.behit.project.dto.ProjectRecordDTO;
+import com.behit.project.dto.ProjectTeamDTO;
+import com.behit.util.dto.UtilDTO;
 
 @Service
 public class ProjectService {
@@ -41,7 +45,7 @@ public class ProjectService {
 		return dao.projIdx();
 	}
 
-	public void upload(int lastIdx, MultipartFile file, String createId) throws Exception { // 프로젝트 파
+	public void upload(int lastIdx, MultipartFile file, String createId, int file_kind) throws Exception { // 프로젝트 파
 		String oriFileName = file.getOriginalFilename(); // 파일명 추출
 		String ext = oriFileName.substring(oriFileName.lastIndexOf(".")); // 확장자 추출
 		String newFileName = System.currentTimeMillis()+ext; // 새 파일명 생성 + 확장자
@@ -52,7 +56,7 @@ public class ProjectService {
 		Path path = Paths.get(root+newFileName);
 		Files.write(path, bytes);
 		
-		dao.writefile(lastIdx, oriFileName, newFileName, createId);
+		dao.writefile(lastIdx, oriFileName, newFileName, createId, file_kind);
 	}
 
 	public ArrayList<ProjectDTO> projList(String emp_id) {
@@ -78,16 +82,59 @@ public class ProjectService {
 	public ArrayList<ProjectDTO> projdelay(String emp_id) {
 		return dao.projdelay(emp_id);
 	}
-
+	
+	// 상세보기 프로젝트 내용 가져오기
 	public Map<String, String> projDetail(String proj_idx) {
 		return dao.projDetail(proj_idx);
 	}
 
+	// 상세보기 담당자 참조자 가져오기
+	public ArrayList<ProjectTeamDTO> projdamcham(String proj_idx) {
+		return dao.projdamcham(proj_idx);
+	}
+	
+	// 상세보기 상태업데이트
 	public void projUpStatus(String projIdx, String projStatus) {
-		dao.projUpStatus(projIdx,projStatus);
-		
+		dao.projUpStatus(projIdx,projStatus);	
 	}
 
+	public int projRwrite(String projIdx, String projRW_id, String content) {
+		return dao.projRwrite(projIdx,projRW_id,content);
+	}
+
+	public int projRIdx() {
+		return dao.projRIdx();
+	}
+	
+	// 프로젝트 최신으로 업데이트(활동이력)
+	public void projUp(String projIdx) {
+		dao.projUp(projIdx);
+	}
+
+	public ArrayList<ProjectRecordDTO> projRList(String proj_idx) {
+		return dao.projRList(proj_idx);
+	}
+
+	public int projRDel(String projR_idx) {
+		return dao.projRDel(projR_idx);
+	}
+	
+	// 파일 정보 가져오기
+	public ArrayList<UtilDTO> projRfile(int file_kind, String projR_idx) {
+		return dao.projRfile(file_kind,projR_idx);
+	}
+
+	public void fileDel(int file_idx) {
+		dao.fileDel(file_idx);
+	}
+
+	public ArrayList<ProjectFileDTO> projAllFile(String proj_idx) {
+		return dao.projAllFile(proj_idx);
+	}
+
+	public Map<String, String> projRData(String projR_idx) {
+		return dao.projRData(projR_idx);
+	}
 	
 	
 	
