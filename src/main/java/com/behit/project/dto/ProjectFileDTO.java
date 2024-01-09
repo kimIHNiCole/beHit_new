@@ -1,4 +1,4 @@
-package com.behit.util.dto;
+package com.behit.project.dto;
 
 import java.sql.Date;
 
@@ -7,15 +7,12 @@ import org.apache.ibatis.type.Alias;
 import lombok.Getter;
 import lombok.Setter;
 
-@Alias("util")
+@Alias("projFile")
 @Getter
 @Setter
-public class UtilDTO {
+public class ProjectFileDTO {
 	
-	private int file_idx;
-	private String emp_id;
-	private int file_kind;
-	private String file_kind_idx;
+	private int proj_idx;
 	private String ori_file_name;
 	private String new_file_name;
 	private Date upload_date;
