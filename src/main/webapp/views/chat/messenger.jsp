@@ -56,7 +56,7 @@
     <script src="../../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="../../assets/vendor/js/template-customizer.js"></script>
+<!--     <script src="../../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
@@ -117,6 +117,10 @@ width: 23rem;
 
 width: 20rem;
 }
+.app-chat{
+position: relative;
+height: calc(100vh - 9rem);
+}
 
 
     </style>
@@ -160,10 +164,21 @@ width: 20rem;
                           data-bs-toggle="sidebar"
                           data-overlay="app-overlay-ex"
                           data-target="#app-chat-sidebar-left">
-                          <img
+                          <!-- <img
                             class="user-avatar rounded-circle cursor-pointer"
                             src="../../assets/img/avatars/1.png"
-                            alt="Avatar" />
+                            alt="Avatar" /> -->
+                            <c:choose>
+						    <c:when test="${not empty photo and not empty photo.new_file_name}">
+						        <img src="/file/employee/${photo.new_file_name}" alt="${photo.ori_file_name}" 
+						            class="user-avatar rounded-circle cursor-pointer" />
+						    </c:when>
+						    <c:otherwise>
+						        <img src="../../assets/img/avatars/21.png" alt="user image" 
+						            class="user-avatar rounded-circle cursor-pointer" />
+						    </c:otherwise>
+						</c:choose>
+                            
                         </div>
                         <div class="text-muted text-uppercase">
                         	<span class="chat-contact-name text-truncate m-0">${emp_name}</span><span id="emp_id">(${emp_id})</span>
@@ -176,20 +191,20 @@ width: 20rem;
                     <hr class="container-m-nx mt-3 mb-0" />
                     <div class="sidebar-body">
                     	<div class="chatListAndS d-flex align-items-center">
-    <h6 class="text-primary mb-0">채팅리스트</h6>
-    <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
-        <span class="input-group-text" id="basic-addon-search31">
-            <i class="bx bx-search fs-4"></i>
-        </span>
-        <input
-            type="text"
-            class="form-control chat-search-input"
-            placeholder="Search..."
-            aria-label="Search..."
-            aria-describedby="basic-addon-search31"
-        />
-    </div>
-</div>
+					    <h6 class="text-primary mb-0">채팅리스트</h6>
+					    <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
+					        <span class="input-group-text" id="basic-addon-search31">
+					            <i class="bx bx-search fs-4"></i>
+					        </span>
+					        <input
+					            type="text"
+					            class="form-control chat-search-input"
+					            placeholder="Search..."
+					            aria-label="Search..."
+					            aria-describedby="basic-addon-search31"
+					        />
+					    </div>
+					</div>
                       <!-- Chats -->
                       
                       <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
@@ -251,7 +266,8 @@ width: 20rem;
                               data-target="#app-chat-contacts"></i>
                             <div class="flex-shrink-0 avatar">
                               <img
-                                src="../../assets/img/avatars/2.png"
+                              	id="roomPhotoToDisplay"
+                                src=""
                                 alt="Avatar"
                                 class="rounded-circle"
                                 data-bs-toggle="sidebar"
@@ -409,6 +425,7 @@ var stompClient = null; //웹소켓 통신을 위한 Stomp 클라이언트를 �
 var emp_id = "";
 var loginId ="";
 var loginName="";
+var loginFileName="";
 var currentSubscription = null;
 let chatRoomIdx = '';
 var selectedNodes = []; // 전역 범위에서 정의
@@ -446,6 +463,7 @@ function showChatRListOnChatMs(data) {
     var chatListContainer = $('#chat-list');
     var noChatsFoundItem = chatListContainer.find('.chat-list-item-0');
     var chatRListOnChatMs = data.chatRListOnChatMs;
+    loginId=data.loginId;
 
     // 기존에 있던 내용을 비워줍니다.
     chatListContainer.empty();
@@ -458,13 +476,37 @@ function showChatRListOnChatMs(data) {
     }
 
     chatRListOnChatMs.forEach(function (chatRoom) {
-        var listItem = $('<li class="chat-contact-list-item"></li>');
+    	var listItem = $('<li class="chat-contact-list-item"></li>');
+    	listItem.on('click', function() {
+            registerClickEvent(chatRoom.chat_room_idx);
+            // 클릭한 리스트에 active 클래스 추가
+            $('.chat-contact-list-item').removeClass('active');
+            $(this).addClass('active');
+        });
+        
+        var otherMembers = chatRoom.chatMb.filter(function (chatMb) {
+            return chatMb.emp_id !== loginId;
+        });
 
+        console.log("나를 제외한 멤버", otherMembers);
+        
+        
         // 리스트 아이템 내용 채우기
+        var avatarHtml = '';
+
+        if (otherMembers.length > 1) {
+            // 참가자가 여러 명일 때
+            avatarHtml = '<img src="../../assets/img/avatars/22.jpg" alt="Avatar" class="rounded-circle" />';
+        } else {
+        	if(otherMembers[0].new_file_name != null){
+        		avatarHtml = '<img src="/file/employee/' + otherMembers[0].new_file_name + '" alt="Avatar" class="rounded-circle" />';
+        	}else{
+        		avatarHtml ='<img src="../../assets/img/avatars/21.png" alt="Avatar" class="rounded-circle" />';
+        	}
+        }
+
         listItem.append('<a class="d-flex align-items-center">' +
-            '<div class="flex-shrink-0 avatar avatar-online">' +
-            '<img src="../../assets/img/avatars/13.png" alt="Avatar" class="rounded-circle" />' +
-            '</div>' +
+            '<div class="flex-shrink-0 avatar avatar-online">' + avatarHtml + '</div>' +
             '<div class="chat-contact-info flex-grow-1 ms-3">' +
             '<input type="hidden" value="' + chatRoom.chat_room_idx + '"/>' +
             '<h6 class="chat-contact-name text-truncate m-0">' + chatRoom.chat_room_name + '</h6>' +
@@ -831,24 +873,25 @@ $('#apv-org-modal').on('hidden.bs.modal', function () {
     
 // 클릭한 채팅방 빨간색으로 활성화
 $(document).ready(function() {
+
 	chatRListOnChatMs();
-	registerClickEvent();
+	
+	if (chatRoomIdx) {
+        registerClickEvent(chatRoomIdx);
+    }
         
 });
  
  
-function registerClickEvent() {
-	// 각 리스트 아이템에 클릭 이벤트 리스너 추가
-    $(document).on('click', '.chat-contact-list-item', function() {
-
-    	console.log('리스트 아이템 클릭됨')
+function registerClickEvent(chatRoomIdx) {
+		console.log("클릭된 챗룸",chatRoomIdx);
     	//웹소켓 대화 삭제
     	$('#webChatMessage').empty();
-        // 기존 active 클래스를 모두 제거
+/*         // 기존 active 클래스를 모두 제거
         $('.chat-contact-list-item').removeClass('active');
         
         // 클릭한 리스트에 active 클래스 추가
-        $(this).addClass('active');
+        $(this).addClass('active'); */
         
         //기본 채팅방 숨기기
         $('#defaultChatHistory').css('display', 'none');
@@ -857,8 +900,8 @@ function registerClickEvent() {
         $('#selectedChatHistory').css('display', 'block');
         
      // 선택한 채팅방의 ID를 가져와서 해당 채팅방에 가입
-        chatRoomIdx = $(this).find('input[type=hidden]').val();
-        console.log(chatRoomIdx);
+/*         chatRoomIdx = $(this).find('input[type=hidden]').val(); */
+        
 
         if (currentSubscription) {
             // 현재 구독이 있으면 해지
@@ -869,6 +912,7 @@ function registerClickEvent() {
             console.log('특정 방에 뿌림', webMessage);
             console.log(chatRoomIdx);
             chatRListOnChatMs();
+
             showMessage(JSON.parse(webMessage.body));
         });
 
@@ -883,6 +927,7 @@ function registerClickEvent() {
 
                 loginId= data.loginId;
                 loginName= data.loginName;
+                loginFileName= data.loginPhoto.new_file_name;
              // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
                 var roomNameToDisplay;
 
@@ -893,8 +938,15 @@ function registerClickEvent() {
 
                 if (otherMembers.length == 1) {
                     roomNameToDisplay = otherMembers[0].emp_name;
+                    if(otherMembers[0].new_file_name != null){
+                    	newFileName= otherMembers[0].new_file_name;
+                    	$('#roomPhotoToDisplay').attr('src', '/file/employee/' + newFileName);
+                    }else{
+                    	$('#roomPhotoToDisplay').attr('src', "../../assets/img/avatars/21.png");
+                    }
                 } else {
                     roomNameToDisplay = data.chatRoomName;
+                    $('#roomPhotoToDisplay').attr('src', "../../assets/img/avatars/22.jpg");
                 }
 
                 $('#chatRoomNameInRoom').text(roomNameToDisplay);
@@ -905,7 +957,7 @@ function registerClickEvent() {
                 console.error('채팅 리스트 가져오기 실패', error);
             }
         });        
-    });	
+	
 }
  
 
@@ -973,7 +1025,11 @@ function getMessageHtml(message, loginId) {
         messageHtml += '<div class="d-flex overflow-hidden">';
         messageHtml += '<div class="user-avatar flex-shrink-0 me-3">';
         messageHtml += '<div class="avatar avatar-sm">';
-        messageHtml += '<img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />';
+        if (message.new_file_name === null) {
+            messageHtml += '<img src="../../assets/img/avatars/21.png" alt="Avatar" class="rounded-circle" />';
+        } else {
+            messageHtml += '<img src="/file/employee/' + message.new_file_name + '" alt="Avatar" class="rounded-circle" />';
+        }
         messageHtml += '<span class="chat-names">' + message.emp_name + '</span>';
         messageHtml += '</div>';
         messageHtml += '</div>';
@@ -1022,11 +1078,13 @@ function sendMessage() {
         'message': messageContent,
         'emp_id': loginId,
         'emp_name': loginName,
-        'message_date': formattedDate
+        'message_date': formattedDate,
+        'new_file_name' : loginFileName
     }));
 
     // 메시지 전송 후 입력창 초기화
     $('#chatSend').val('');
+    
 }
 
 //숫자가 한 자리일 경우 앞에 0을 붙이는 함수
@@ -1068,7 +1126,11 @@ function getWebMessageHtml(webMessage, loginId) {
         webMessageHtml += '<div class="d-flex overflow-hidden">';
         webMessageHtml += '<div class="user-avatar flex-shrink-0 me-3">';
         webMessageHtml += '<div class="avatar avatar-sm">';
-        webMessageHtml += '<img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />';
+        if (webMessage.new_file_name === null) {
+        	webMessageHtml += '<img src="../../assets/img/avatars/21.png" alt="Avatar" class="rounded-circle" />';
+        } else {
+        	webMessageHtml += '<img src="/file/employee/' + webMessage.new_file_name + '" alt="Avatar" class="rounded-circle" />';
+        }
         webMessageHtml += '<span class="chat-names">' + webMessage.emp_name + '</span>';
         webMessageHtml += '</div>';
         webMessageHtml += '</div>';

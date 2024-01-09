@@ -15,7 +15,7 @@ public interface ChatDAO {
 
 	ArrayList<ChatRoomDTO> chatRoomList(String emp_id);
 	
-	ArrayList<ChatRoomDTO> chatRListOnChatMs(String emp_id);
+	ArrayList<ChatRoomDTO> chatRListOnChatMs(String loginId);
 
 	ArrayList<ChatRoomDTO> chatMember(int chat_room_idx);
 
@@ -30,6 +30,8 @@ public interface ChatDAO {
 	void saveChat(ChatDTO message);
 
 	void insertIntoChatM(int chat_room_idx);
+
+	void saveAlarm(String emp_id, int chat_room_idx, String alarm_msg);
 
 	
 

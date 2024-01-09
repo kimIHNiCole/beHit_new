@@ -5,4 +5,32 @@
 
 <mapper namespace="com.behit.alarm.dao.AlarmDAO">
 
+	<select id="alarmList" resultType="alarm">
+	SELECT * from alarm where emp_id=#{param1} ORDER by alarm_date desc;
+	</select>
+	
+	<delete id="deleteAlarm">
+		DELETE from alarm
+		where alarm_type = #{param2}
+		and alarm_type_idx =#{param3}
+		and emp_id = #{param1}
+	</delete>
+	<delete id="deleteAllAlarms">
+		DELETE from alarm
+		where emp_id = #{param1}
+	</delete>
+	<update id="updateAlarmRead">
+		UPDATE alarm
+		set
+		alarm_readCheck = "Y"
+		where emp_id =#{param1}
+		and alarm_type = #{param2}
+		and alarm_type_idx=#{param3}
+	</update>
+	<update id="readAllAlarm">
+		UPDATE alarm
+		set
+		alarm_readCheck = "Y"
+		where emp_id =#{param1}
+	</update>
 </mapper>

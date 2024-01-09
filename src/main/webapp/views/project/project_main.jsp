@@ -515,13 +515,15 @@ height: calc(100vh - 10rem);
 					<div class="col app-chat-history">
 						<div class ="top-tap-select" style="display: flex; justify-content: space-between;">
 					    <h4 class="py-3 mb-4"><span class="text-muted fw-light">프로젝트 현황</span></h4>
+					    	<!-- 
 						   <select class="form-select create">
 		                     <option value="name">이도훈(본인)</option>
 		                     <option value="id">한가인</option>
 		                     <option value="department">정우성</option>
 		                     <option value="position">황정민</option>
 		                     <option value="title">정성화</option>
-		                </select>
+		                	</select>
+					    	 -->		                	
 		                </div>
 					   
 					    <div class="chat-history-wrapper">
