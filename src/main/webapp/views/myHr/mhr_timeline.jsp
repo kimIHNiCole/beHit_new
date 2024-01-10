@@ -95,33 +95,42 @@
                       <div class="mb-1">
                         <small class="text-small text-muted text-uppercase align-middle">근무시간 전체 등록</small>
                       </div>
+
 					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;">
-					        <select class="form-select" value="" style="flex: 1; margin-right: 8px;">
+					  	<form action="selectmonth" method="post">
+					  		<input type="text" value="" name="workmonth" id="workmonth">
+					        <select class="form-select" style="flex: 1; margin-right: 8px;">
 						        <option value="07:00~16:00">07:00~16:00</option>
 						        <option value="08:00~17:00">08:00~17:00</option>
 						        <option value="09:00~18:00">09:00~18:00</option>
 						        <option value="10:00~19:00">10:00~19:00</option>
 						        <option value="11:00~20:00">11:00~20:00</option>
 						    </select>
-						    <button class="btn btn-primary" onclick="select()">등록</button>
+						    <button class="btn btn-primary" id="workbutton">등록</button>
+						</form>
 					  </div>
-					  <br/>
-                      <div class="mb-1">
-                        <small class="text-small text-muted text-uppercase align-middle">근무시간 선택일(선택일값)변경</small>
+						<br/>
+                      <div class="mb-1" id="selecdate" style="display:none;">
+                        <small class="text-small text-muted text-uppercase align-middle" 
+                        	id="selectedDateText" >근무시간 선택일(<span id="selectdate">선택일값</span>)변경</small>
+						  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;">
+						  	<form action="selectday" method="post">
+						  		<input type="text" style="display: none;" value="" name="workdate" id="workdate">
+							    <select class="form-select"  style="flex: 1; margin-right: 8px;" name="worktime">
+							        <option value="07:00~16:00">07:00~16:00</option>
+							        <option value="08:00~17:00">08:00~17:00</option>
+							        <option value="09:00~18:00">09:00~18:00</option>
+							        <option value="10:00~19:00">10:00~19:00</option>
+							        <option value="11:00~20:00">11:00~20:00</option>
+							    </select>
+							    <button type="submit" class="btn btn-primary">변경</button>
+						  	</form>
+						  </div>
                       </div>
-					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;">
-					    <select class="form-select" value="07:00~16:00" style="flex: 1; margin-right: 8px;">
-					        <option value="07:00~16:00">07:00~16:00</option>
-					        <option value="08:00~17:00">08:00~17:00</option>
-					        <option value="09:00~18:00">09:00~18:00</option>
-					        <option value="10:00~19:00">10:00~19:00</option>
-					        <option value="11:00~20:00">11:00~20:00</option>
-					    </select>
-					    <button class="btn btn-primary">변경</button>
-					  </div>
                     </div>
                   </div>
                   <!-- /Calendar Sidebar -->
+
                   <!-- Calendar & Modal -->
                   <div class="col app-calendar-content">
                     <div class="card shadow-none border-0">
@@ -141,6 +150,14 @@
                       </div>
                     </div>
                     <div class="app-overlay"></div>
+                    <!-- FullCalendar Offcanvas -->
+                    <div
+                      class="offcanvas offcanvas-end event-sidebar"
+                      tabindex="-1"
+                      id="addEventSidebar"
+                      aria-labelledby="addEventSidebarLabel">
+                      
+                    </div>
                   </div>
                   <!-- /Calendar & Modal -->
                 </div>
@@ -194,12 +211,8 @@
     
     <!-- Header -->
     <script src="../../assets/js/header.js"></script>
-
-	<script>
-		function select(){
-		   var timeselect = document.getElementById("timeSelect").value;
-			console.log(timeselect);
-		}
-	</script>
+    <script>
+     
+    </script>
   </body>
 </html>

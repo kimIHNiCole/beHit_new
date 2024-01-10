@@ -15,8 +15,11 @@ public class WorkDTO {
 	private String emp_name;
 	private String emp_id;
 	private String dept_name;
+	private String work_day;
 	private String work_start;
+	private String work_start_time;
 	private String work_end;
+	private String work_end_time;
 	private String vaca_start;
 	private String vaca_end;
 	private String use_hour;
