@@ -227,25 +227,34 @@ public class ApprovalService {
 	}
 
 
-	public ModelAndView getApproval_detail(String apv_idx) {
+	public ModelAndView getApproval_detail(String apv_idx, String emp_id) {
 		
 		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
 		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
 		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보
+		
+		ApprovalDTO apv_history_reason = dao.apv_history_reason(apv_idx); // 결재사유
+		
+		if(apv_history_reason != null) {
+			apv.setApv_history_stmt(apv_history_reason.getApv_history_stmt());
+			apv.setApv_history_reason(apv_history_reason.getApv_history_reason());
+		}
+		
 		List<ApprovalDTO> apv_line = dao.getApv_line(apv_idx); // 결재자 아이디, 결재순서
 		List<ApprovalDTO> apv_line_info = new ArrayList<ApprovalDTO>();
 		
 		for (ApprovalDTO approvalDTO : apv_line) { // 결재선 정보
-			String emp_id = approvalDTO.getEmp_id();
-			ApprovalDTO line_info = dao.approval_write_go(emp_id); 
+			String emp_idx = approvalDTO.getEmp_id();
+			ApprovalDTO line_info = dao.approval_write_go(emp_idx); 
 			line_info.setApv_line(approvalDTO.getApv_line());
 			
 			// 결재 여부
-			ApprovalDTO apv_history = dao.apv_line_stmt(apv_idx,emp_id);
+			ApprovalDTO apv_history = dao.apv_line_stmt(apv_idx,emp_idx);
 			
 			if(apv_history != null) {
 				line_info.setApv_history_date(apv_history.getApv_history_date());
-				line_info.setApv_history_date(apv_history.getApv_history_date());
+				line_info.setApv_history_stmt(apv_history.getApv_history_stmt());
+				line_info.setApv_history_reason(apv_history.getApv_history_reason());
 			}
 			apv_line_info.add(line_info);
 		}
@@ -254,6 +263,7 @@ public class ApprovalService {
 		
 		mav.addObject("apv",apv);
 		mav.addObject("dto",dto);
+		mav.addObject("emp_id",emp_id);
 		mav.addObject("apv_line_info",apv_line_info);
 		mav.addObject("form_type","detail");
 		

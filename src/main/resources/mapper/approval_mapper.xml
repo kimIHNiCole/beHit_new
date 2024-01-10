@@ -133,6 +133,10 @@
 	<select id="apv_line_stmt" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT * FROM apv_history WHERE emp_id = #{emp_id} AND apv_idx = #{apv_idx}
 	</select>
+	<select id="apv_history_reason" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT apv_history_stmt, apv_history_reason FROM apv_history WHERE apv_idx = #{apv_idx}
+		ORDER BY apv_history_date DESC LIMIT 1
+	</select>
 	<select id="getApv_line" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT 
 			emp_id,apv_line
