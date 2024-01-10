@@ -1,20 +1,15 @@
 package com.behit.project.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.project.dto.ProjectDTO;
 import com.behit.project.dto.ProjectFileDTO;
@@ -358,6 +352,25 @@ public class ProjectController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("success", row);
 		return map;
+	}
+	
+	@GetMapping(value={"/project/project_update.go", "/views/project_update.go"})
+	public ModelAndView projectUpdateGo(@RequestParam String proj_idx) {
+		ModelAndView mav = new ModelAndView();
+		int file_kind = 4;
+		logger.info("수정페이지 이동요청 및 proj_idx: "+proj_idx);
+		Map<String, String> detailList = service.projDetail(proj_idx);
+		ArrayList<ProjectTeamDTO> damchamList = service.projdamcham(proj_idx);
+		ArrayList<UtilDTO> detailFile = service.projRfile(file_kind,proj_idx);
+		logger.info("상세페이지 정보: "+detailList);
+		logger.info("상세 담당자 참조자 정보: "+damchamList);
+		logger.info("수정시 파일 정보"+detailFile);
+		mav.addObject("detailList", detailList);
+		mav.addObject("damchamList", damchamList);
+		mav.addObject("detailFile", detailFile);
+		mav.setViewName("/project/project_update");
+		
+		return mav;
 	}
 	
 }

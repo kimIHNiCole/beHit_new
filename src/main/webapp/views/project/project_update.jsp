@@ -47,6 +47,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" /> <!-- 조직도 -->
 
     <!-- Page CSS -->
 
@@ -84,196 +85,208 @@
     	width: 150px;
     }
 
-/* 채팅리스트 영역 조정 */
-.app-chat .app-chat-contacts .sidebar-body {
-  height: calc(calc(100vh - 10.5rem) - 4.49rem);
-}	
-	/* 채팅 내역 영역 전체 조정 */
-.col.app-chat-history{
-height: calc(100vh - 10rem);
-}
+	/* 채팅리스트 영역 조정 */
+	.app-chat .app-chat-contacts .sidebar-body {
+	  height: calc(calc(100vh - 10.5rem) - 4.49rem);
+	}	
+		/* 채팅 내역 영역 전체 조정 */
+	.col.app-chat-history{
+		height: calc(100vh - 10rem);
+	}
+	
 	/* 채팅 내역 안쪽 영역 조정 */
 	.app-chat .app-chat-history .chat-history-body{
 		height: calc(100vh - 16rem);
-  		padding: 1.25rem 1.25rem;
-  		overflow: hidden;
-  		margin-bottom: 1rem;
+	 		padding: 1.25rem 1.25rem;
+	 		overflow: hidden;
+	 		margin-bottom: 1rem;
 	}
-
-.app-chat {
-  position: relative;
-  height: calc(100vh - 11rem);
-}
-
-.btn.btn-primary.text-nowrap.go{
-	width: 70px;
-	height: 30px;
-	margin-bottom: 7px;
-	background-color: #23a62e;
-	border-color: #23a62e;
-	font-size: 13px;
-	border-radius:0.3rem;
-}
-.btn.btn-primary.text-nowrap.wait{
-	width: 70px;
-	height: 30px;
-	margin-bottom: 7px;
-	background-color: #4974e3;
-	border-color: #4974e3;
-	font-size: 13px;
-	border-radius:0.3rem;
-}
-.btn.btn-primary.text-nowrap.end{
-	width: 70px;
-	height: 30px;
-	margin-bottom: 7px;
-	background-color: #969696;
-	border-color: #969696;
-	font-size: 13px;
-	border-radius :0.3rem;
-}
-.d-flex.justify-content-center{
-	margin-top: 1rem;
-}
-
-
-.chat-contact-list-item.pro {
-    border: 1px solid #DCDCDC;
-}
-.chat-contact-info.flex-grow-1.ms-3{
-	margin-left: 0.2rem !important
-}
-
-.text-muted.fw-light{
-	margin-left: 1.5rem;
-}
-
-/* 대시보드 부분 */
-.card.mb-4{
-	margin-bottom: 1rem !important
-}
-.card-header{
-	margin: 0rem;
-	padding: 0.8rem;
-}
-
-.table-responsive{
-	min-height: 16rem !important;
-}
-/* 선택 탭과 셀렉트 박스 */
-.form-select.create{
-   width: 15rem;
-   height: 3rem;
-   margin: 0.5rem;
- }
- 
- 
-/*project_detail part */
-
-
-
-.text{
-	font-family:pretendard;
-}
-
-.project-subject{
-	display:flex;
-	justify-content: space-between;
-}
-
-.project-subject-left{
-	display:flex;
-	align-items: center;
-}
-
-.project-subject-right{
-	display:flex;
-	align-items: center;
-}
-
-.bootstrap-select{
-	width:6rem;
-	border-radius: 0.375rem
-}
-
-.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
-	width:6rem;
-}
-
-.project-subject-left .button{
-	margin-bottom:0.125rem;
-}
-
-.selected-stat{
-	margin-left:1rem;
-	width:5rem;
 	
-}
-
-.selected-stat .badge{
-	--bs-badge-padding-x: 1em;
-  --bs-badge-padding-y: 0.52em;
-  --bs-badge-font-size: 1em;
-}
-
-.project-entry-ls .badge{
-	--bs-badge-padding-x: 1.22em;
-  --bs-badge-padding-y: 0.32em;
-  --bs-badge-font-size: 1em;
-}
-
-.project-entry-ls{
-	margin-bottom:1rem;
-}
-
-.project-record .tab-content .date{
-	margin:0 1rem;
-	color: #a1acb8 !important;
-}
-
-.project-record .project-record-nav{
-		display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-#navs-top-messages .card{
-	box-shadow: none;
-}
-
-.modal{
-	--bs-modal-width: 70rem;
-}
-
-.form-control{
-	width:95%;
-}
-
-/*project-add*/
-
-.project-add-button{
-		display: flex;
-    justify-content: center;
-}
-
-button{
-	background: inherit;
-	border:none;
-	box-shadow:none;
-	border-radius:0;
-	padding:0;
-	overflow:visible;
-	cursor:pointer;
-}
-
-.project-entry .bx-x{
-	color:#fff;
-}
-			
-			
-
-
-    
+	.app-chat {
+	  position: relative;
+	  height: calc(100vh - 11rem);
+	}
+	
+	.btn.btn-primary.text-nowrap.go{
+		width: 70px;
+		height: 30px;
+		margin-bottom: 7px;
+		background-color: #23a62e;
+		border-color: #23a62e;
+		font-size: 13px;
+		border-radius:0.3rem;
+	}
+	.btn.btn-primary.text-nowrap.wait{
+		width: 70px;
+		height: 30px;
+		margin-bottom: 7px;
+		background-color: #4974e3;
+		border-color: #4974e3;
+		font-size: 13px;
+		border-radius:0.3rem;
+	}
+	.btn.btn-primary.text-nowrap.end{
+		width: 70px;
+		height: 30px;
+		margin-bottom: 7px;
+		background-color: #969696;
+		border-color: #969696;
+		font-size: 13px;
+		border-radius :0.3rem;
+	}
+	.d-flex.justify-content-center{
+		margin-top: 1rem;
+	}
+	
+	
+	.chat-contact-list-item.pro {
+	    border: 1px solid #DCDCDC;
+	}
+	.chat-contact-info.flex-grow-1.ms-3{
+		margin-left: 0.2rem !important
+	}
+	
+	.text-muted.fw-light{
+		margin-left: 1.5rem;
+	}
+	
+	/* 대시보드 부분 */
+	.card.mb-4{
+		margin-bottom: 1rem !important
+	}
+	.card-header{
+		margin: 0rem;
+		padding: 0.8rem;
+	}
+	
+	.table-responsive{
+		min-height: 16rem !important;
+	}
+	/* 선택 탭과 셀렉트 박스 */
+	.form-select.create{
+	   width: 15rem;
+	   height: 3rem;
+	   margin: 0.5rem;
+	 }
+	 
+	 
+	/*project_detail part */
+	
+	
+	
+	.text{
+		font-family:pretendard;
+	}
+	
+	.project-subject{
+		display:flex;
+		justify-content: space-between;
+	}
+	
+	.project-subject-left{
+		display:flex;
+		align-items: center;
+	}
+	
+	.project-subject-right{
+		display:flex;
+		align-items: center;
+	}
+	
+	.bootstrap-select{
+		width:6rem;
+		border-radius: 0.375rem
+	}
+	
+	.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+		width:6rem;
+	}
+	
+	.project-subject-left .button{
+		margin-bottom:0.125rem;
+	}
+	
+	.selected-stat{
+		margin-left:1rem;
+		width:5rem;
+		
+	}
+	
+	.selected-stat .badge{
+		--bs-badge-padding-x: 1em;
+	  --bs-badge-padding-y: 0.52em;
+	  --bs-badge-font-size: 1em;
+	}
+	
+	.project-entry-ls .badge{
+		--bs-badge-padding-x: 1.22em;
+	  --bs-badge-padding-y: 0.32em;
+	  --bs-badge-font-size: 1em;
+	}
+	
+	.project-entry-ls{
+		margin-bottom:1rem;
+	}
+	
+	.project-record .tab-content .date{
+		margin:0 1rem;
+		color: #a1acb8 !important;
+	}
+	
+	.project-record .project-record-nav{
+			display: flex;
+	    justify-content: space-between;
+	    align-items: flex-end;
+	}
+	
+	#navs-top-messages .card{
+		box-shadow: none;
+	}
+	
+	.modal{
+		--bs-modal-width: 70rem;
+	}
+	
+	.form-control{
+		width:95%;
+	}
+	
+	/*project-add*/
+	
+	.project-add-button{
+			display: flex;
+	    justify-content: center;
+	}
+	
+	button{
+		background: inherit;
+		border:none;
+		box-shadow:none;
+		border-radius:0;
+		padding:0;
+		overflow:visible;
+		cursor:pointer;
+	}
+	
+	.project-entry .bx-x{
+		color:#fff;
+	}
+	/* 조직도 모달 */
+    div#projModal {
+	    width: 350px;
+    	height: 430px;
+    	background-color: white;
+	}
+    div#projModal1 {
+    	width: 350px;
+    	height: 430px;
+    	background-color: white;
+	}
+	.card-body {
+    	overflow-y: auto;
+    	max-height: 85%;
+	}
+    /* 조직도 모달 여기까지 */
     </style>
   </head>
 
@@ -568,92 +581,35 @@ button{
                     <hr class="container-m-nx mt-3 mb-0" />
                     
                     <div class="sidebar-body">
-                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
-                      <!-- 검색 -->
+                                            <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <li class="chat-contact-list-item chat-contact-list-item-title">
+                          
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
-	                          <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search fs-4"></i></span>
-	                          <input
-	                            type="text"
-	                            class="form-control chat-search-input"
-	                            placeholder="Search..."
-	                            aria-label="Search..."
-	                            aria-describedby="basic-addon-search31" />
+                          <span class="input-group-text" id="basic-addon-search31"
+                            ><i class="bx bx-search fs-4"></i
+                          ></span>
+                          <input
+                            type="text"
+                            class="form-control chat-search-input"
+                            placeholder="Search..."
+                            aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
                         </div>
-                        </li>
-                        <!-- 진행중/대기/완료 분류 버튼 -->
-                        <li>
-											    <div class="d-flex justify-content-center">
-											        <button class="btn btn-primary text-nowrap go">진행중</button>
-											        <button class="btn btn-primary text-nowrap wait">대기</button>
-											        <button class="btn btn-primary text-nowrap end">완료</button>
-											    </div>
-											  </li>
-											  <!-- 프로젝트 리스트 -->
-                       	<li class="chat-contact-list-item chat-list-item-0 d-none">
-                        	<h6 class="text-muted mb-0">No Project Found</h6>
-                       	</li>
-                        <li class="chat-contact-list-item pro active">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">크리에이터 영입</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2023-12-27</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호, 글씨테스트, 글씨테스트</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">진짜인지 가짜인지 모를 사나이 글씨테스트테스트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-02-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                김인혜</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
                         
+                        </li>
+                        <li>
+						    <div class="d-flex justify-content-center">
+						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
+						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
+						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
+						    </div>
+						</li>
+                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                          <h6 class="text-muted mb-0">No Project Found</h6>
+                        </li>
+                        <!-- 여기서부터 리스트 -->
+                        <div id="projlist"></div>
+                        <!-- 여기까지 리스트 -->
                       </ul>
                     </div>
                   </div>
@@ -662,7 +618,7 @@ button{
 
                    <!-- 프로젝트 생성/디테일/수정 -->
 									<div class="col app-chat-history text chat-history-body">
-										<h4 class="pt-4 pb-2 px-3">프로젝트 추가</h4>
+										<h4 class="pt-4 pb-2 px-3">프로젝트 수정</h4>
 										
 										<hr class="my-3" />
 										<!-- 지연된 프로젝트일시 -->
@@ -671,7 +627,7 @@ button{
 										<div class="project-subject col-12">
 											<span class="project-subject-left col-12">
 												<span class="py-2 px-3 fs-4 col-12">
-													<input id="defaultInput" class="form-control" type="text" placeholder="프로젝트 제목을 입력하세요">
+													<input id="defaultInput" class="form-control" type="text" placeholder="프로젝트 제목을 입력하세요" value="${detailList.proj_subject}">
 												</span>
 											</span>
 										</div>
@@ -680,25 +636,49 @@ button{
 											<div class="project-entry-ls">
 												<h5>담당자</h5>
 												<div class="name">
-													<span class="badge bg-primary">윤예성
-													<button type="button" class="offset-1"><i class='bx bx-x'></i></button>
-													</span>
-													<span class="badge bg-primary">전은호
-													<button type="button" class="offset-1"><i class='bx bx-x'></i></button>
-													</span>
-													<button type="button" id="confirm-text" class="mx-2"><i class='bx bx-plus'></i> 추가</button>
+												<div id="addDamList"> <!-- 담당자 부분 작업 -->
+												<!-- 
+													<c:forEach var="projT" items="${damchamList}">
+											            <c:if test="${projT.projT_contact == 1}">
+											                <span class="badge bg-primary">${projT.emp_name}</span>
+											            </c:if>
+											        </c:forEach>
+												 -->
+												</div>
+													<button onclick="adddam()" type="button" id="confirm-text" class="mx-2"><i class='bx bx-plus'></i> 추가</button>
+													<!-- 모달영역에서 그냥 모달자체를 넣기 -->
+													<div id="projModal" style="display: none">
+														<h5 class="card-header">조직도
+														<span style="float: right;"><button style="background: none; border: none;" onclick="closeChartModal()">X</button></span>
+														</h5>
+														<div class="card-body">
+														  <div id="jstree-checkbox"></div>
+														</div>														
+													</div>
+													<!-- 여기까지 모달자체를 넣기 -->
 												</div>
 											</div>
 											<div class="project-entry-ls">
 												<h5>참조자</h5>
 												<div class="name">
-													<span class="badge bg-primary">김세연
-													<button type="button" class="offset-1"><i class='bx bx-x'></i></button>
-													</span>
-													<span class="badge bg-primary">김인혜
-													<button type="button" class="offset-1"><i class='bx bx-x'></i></button>
-													</span>
-													<button type="button" id="confirm-text" class="mx-2"><i class='bx bx-plus'></i> 추가</button>
+												<div id="addChamList"> <!-- 참조자 부분 작업 -->
+												<!-- 
+											        <c:forEach var="projT" items="${damchamList}">
+											            <c:if test="${projT.projT_contact == 2}">
+											                <span class="badge bg-primary">${projT.emp_name}</span>
+											            </c:if>
+											        </c:forEach>
+												 -->
+												</div>
+													<button onclick="addcham()" type="button" id="confirm-text" class="mx-2"><i class='bx bx-plus'></i> 추가</button>
+													<div id="projModal1" style="display: none">
+														<h5 class="card-header">조직도
+														<span style="float: right;"><button style="background: none; border: none;" onclick="closeChartModal1()">X</button></span>
+														</h5>
+														<div class="card-body">
+														  <div id="jstree-checkbox1"></div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -714,7 +694,7 @@ button{
 				                          <div>
 				                            <h5>시작일</h5>
 				                            <div class="project-date-start">
-				                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
+				                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" value="${detailList.proj_start}"/>
 				                            </div>
 				                          </div>
 				                        </div>
@@ -724,7 +704,7 @@ button{
 				                          <div>
 				                            <h5>종료일</h5>
 				                            <div class="project-date-end">
-				                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
+				                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" value="${detailList.proj_end}"/>
 				                            </div>
 				                          </div>
 				                        </div>
@@ -739,8 +719,10 @@ button{
 											<div class="card mb-4">
 												<div class="card-body">
 													<h5>프로젝트 상세</h5>
+													<input id="ProjContent" type="hidden" value="${detailList.proj_content}"/>
 													<div class="project-content-text">
-								                  <div id="snow-toolbar">
+												
+ 								                  <div id="snow-toolbar"> <!-- 에디터의 툴바 부분 -->
 								                    <span class="ql-formats">
 								                      <select class="ql-font"></select>
 								                      <select class="ql-size"></select>
@@ -766,8 +748,10 @@ button{
 								                      <button class="ql-code-block"></button>
 								                    </span>
 								                  </div>
+								                  
 								                  <div id="snow-editor">
 								                  </div>
+								                  
 													</div>
 												</div>
 											</div>
@@ -776,10 +760,24 @@ button{
 										<div class="fs-5 m-3">파일 첨부</div>
 										<input class="form-control mx-4" type="file" id="formFileMultiple" multiple>
 										
+										<!-- 여기서부터 파일 지울 영역 나타내주기 -->
+										<c:forEach var="Ufile" items="${detailFile}">
+										<div id="fileDiv_${Ufile.file_idx}" class="mx-4 border my-2" style="overflow: hidden; margin-right: 1.7rem !important; background-color: white;">
+											<div style="float: left;">
+												<i class="bx bx-file" style="color:red"></i>
+												<span class="align-middle ms-1">
+												<a>${Ufile.ori_file_name}</a>
+												</span>
+											</div>
+											<button onclick="delFile(${Ufile.file_idx})" class="btn p-0" type="button" style="float: right; margin-right:5px;"><i class="bx bx-trash"></i></button>
+										</div>
+										</c:forEach>
+										<!-- 여기까지 -->
+										
 										<div class="pt-4 project-add-button">
-			                    <button type="reset" class="btn btn-secondary mx-2">작성 취소</button>
-			                    <button type="submit" class="btn btn-primary mx-2">등록</button>
-			             	</div>
+						                    <button type="reset" class="btn btn-secondary mx-2">수정 취소</button>
+						                    <button onclick="et()" type="submit" class="btn btn-primary mx-2">수정</button>
+						             	</div>
 										
 										<hr class="my-3" />
 										
@@ -822,7 +820,8 @@ button{
     <script src="../../assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
     <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
-    <script src="../../assets/vendor/libs/quill/quill.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script> <!-- 주석할수도 -->
+    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
     
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
@@ -833,7 +832,7 @@ button{
 
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
-    <script src="../../assets/js/forms-editors.js"></script>
+    <script src="../../assets/js/forms-editors.js"></script><!-- 상세 에디터 js -->
     
     <!-- custom JS -->
     <script>
@@ -863,8 +862,515 @@ button{
       	  }
     	  
     })();
+	
+ 	// 내용작성 에디터부분
+	var snowEditor;
+	var UpContent = $("#ProjContent").val();
+	console.log('상세내용 부분 값:',UpContent);
+
+	snowEditor = new Quill('#snow-editor', { // 텍스트에디터
+		bounds: '#snow-editor',
+		modules: {
+		formula: true,
+		toolbar: '#snow-toolbar'
+		},
+		theme: 'snow'
+		
+	});
+	
+	snowEditor.setText(UpContent);
+	
     </script>
-    
-    
   </body>
+  
+  
+<script> // 스크립트 내코드
+//선택된 노드 정보를 담을 배열
+var selectedNodes = []; // 담당자 emp_id 값을 배열형태로 담음
+var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
+	
+	// 삭제할 파일 담는 배열 및 이벤트시 숨김처리
+	var delUpfile = [];
+	function delFile(file_idx) {
+	    delUpfile.push(file_idx);
+	    $('#fileDiv_' + file_idx).hide();
+	    console.log(delUpfile);
+	}
+	
+	var iddddd = 'emp02';
+	
+	// 수정 버튼 클릭시 전체 내용 ajax로 form데이터를 넘김
+	function et() {
+		var textsubject = $("#defaultInput").val(); // 제목
+		var startproj = $("#flatpickr-date-before").val(); // 시작날짜
+		var endproj = $("#flatpickr-date-after").val(); // 종료날짜
+		const textContent = snowEditor.getText(); // 내용
+		var createId = $("#createId").val(); // 생성자 emp_id
+		
+		// 파일 첨부
+	    var fileInput = document.getElementById('formFileMultiple');
+	    var files = fileInput.files;
+	    
+	    var formData = new FormData();
+		
+	    formData.append('createId', createId);
+	    formData.append('textsubject', textsubject);
+	    formData.append('startproj', startproj);
+	    formData.append('endproj', endproj);
+	    formData.append('textContent', textContent);
+	    if (files.length > 0) {
+		    for (var i = 0; i < files.length; i++) {
+		        formData.append('files[]', files[i]);
+		    }
+	    }
+	    formData.append('selectedNodes', JSON.stringify(selectedNodes));
+	    formData.append('selectedNodes1', JSON.stringify(selectedNodes1));
+	    formData.append('delUpfile', JSON.stringify(delUpfile));
+	    
+		console.log(textContent);
+		console.log(textsubject);
+		console.log(startproj);
+		console.log(endproj);
+		console.log(selectedNodes);
+		console.log(selectedNodes1);
+		console.log(delUpfile);
+		
+		/*
+	    $.ajax({
+	        type: 'POST',
+	        url: '/project/project_add.do',
+	        data: formData,
+	        processData: false, // 필수: FormData가 문자열로 변환되지 않도록 설정
+	        contentType: false, // 필수: Content-Type 헤더를 설정하지 않도록 설정
+	        success: function (data) {
+	            console.log('서버 응답:', data);
+	            window.location.href = '/project/project_main.go'; // 실제 페이지 경로로 수정
+	        },
+	        error: function (error) {
+	            console.error('오류 발생:', error);
+	        }
+	    });
+		*/
+	}
+	
+	function adddam(){ // 담당자 추가버튼 클릭시
+		$.ajax({
+			type: 'get',
+	    	url: '/project/getOrgList',
+	    	data: {},
+	    	dataType: 'JSON',
+	        success : function(data){
+	          console.log(data);
+	          drawOrg(data.orgList, data.deptKind);
+	        },
+	        error : function(e){
+	          console.log(e);
+	        }
+		});
+		document.getElementById('projModal').style.display = 'block';
+	}
+	
+	function addcham(){ // 참조자 추가버튼클릭시
+		$.ajax({
+			type: 'get',
+	    	url: '/project/getOrgList',
+	    	data: {},
+	    	dataType: 'JSON',
+	        success : function(data){
+	          console.log(data);
+	          drawOrg1(data.orgList, data.deptKind);
+	        },
+	        error : function(e){
+	          console.log(e);
+	        }
+		});
+		document.getElementById('projModal1').style.display = 'block';
+	}
+	
+	function drawOrg(orgList, deptKind) { // 담당자 추가시 div영역에 그려주는거
+		console.log('orgList', orgList);
+		console.log('deptKind',deptKind);
+		
+		checkNodeInModal(iddddd);
+		
+		// 추가해놨지만 뭔지 모르겠는거
+		function checkNodeInModal(nodeHidden) {
+		    // 모달에서 노드를 찾아서 클릭된 상태로 설정하는 함수
+		    var nodeToCheck = $('#jstree-checkbox').find('input[type="hidden"][value="' + nodeHidden + '"]').closest('.jstree-node');
+		    console.log("이전의 체크 로직이 찍히는지? 체크를 해놓는 로직 찍히는지?");
+		    if (nodeToCheck.length > 0) {
+		        $('#jstree-checkbox').jstree('check_node', nodeToCheck);
+		        console.log("체크를 해놓는 로직 찍히는지?");
+		    }
+		}
+		
+		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+			    checkboxTree = $('#jstree-checkbox');
+     
+		if (checkboxTree.length) {
+			
+			var serverData = [];
+			
+			for (var i = 0; i < deptKind.length; i++) {
+			    var deptname = {
+			        text: deptKind[i],
+			        type: 'depart',
+			        children: []
+			    };
+			    console.log("deptKind",deptKind[i]);
+			    
+			    var empLength = function(){
+			    	var cnt=0;
+			    		for(var k=0; k < orgList.length; k++){
+			    			if(orgList[k].dept == deptKind[i]){
+			    				cnt++;
+			    				console.log("cnt", cnt);
+			    			}
+			    		}
+			    		return cnt;
+			    };
+			    var empInfo = function(index){
+			    	var info=[];
+			    		for(var k=0; k < orgList.length; k++){
+			    			if(orgList[k].dept == deptKind[i]){
+			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
+			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+			    			}
+			    		}
+			    		return info[index];
+			    };
+			    
+			    for (var j = 0; j < empLength(); j++) {
+			    	console.log("empInfo("+j+")",empInfo(j));
+			        var emp = {
+			            text: empInfo(j)
+			        };
+			        deptname.children.push(emp);
+			    } 
+
+			    // 부모 데이터를 배열에 추가
+			    	serverData.push(deptname); 
+			}
+
+			console.log(serverData); 
+
+			  // jstree에서 사용할 데이터 구성
+			  var jstreeData = serverData.map(function (parent) {
+			    var parentNode = {
+			      text: parent.text,
+			      type: 'depart',
+			      children: parent.children.map(function (child) {
+			        return {
+			          text: child.text
+			        };
+			      })
+			    };
+			    return parentNode;
+			  });
+
+			  checkboxTree.jstree({
+			    core: {
+			      themes: {
+			        name: theme
+			      },
+			      data: jstreeData
+			    },
+			    plugins: ['types', 'checkbox', 'wholerow'],
+			    types: {
+			      default: {
+			        icon: 'bx bx-user'
+			      },
+			      depart: {
+			    	icon: 'bx bx-folder'
+			      }
+			    }
+			  });
+			}
+	}
+	
+	function drawOrg1(orgList, deptKind) { // 참조자 추가시 div영역에 그려주는거
+		console.log('orgList', orgList);
+		console.log('deptKind',deptKind);
+		
+		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+			    checkboxTree = $('#jstree-checkbox1');
+     
+		if (checkboxTree.length) {
+			
+			var serverData = [];
+			
+			for (var i = 0; i < deptKind.length; i++) {
+			    var deptname = {
+			        text: deptKind[i],
+			        type: 'depart',
+			        children: []
+			    };
+			    console.log("deptKind",deptKind[i]);
+			    
+			    var empLength = function(){
+			    	var cnt=0;
+			    		for(var k=0; k < orgList.length; k++){
+			    			if(orgList[k].dept == deptKind[i]){
+			    				cnt++;
+			    				console.log("cnt", cnt);
+			    			}
+			    		}
+			    		return cnt;
+			    };
+			    var empInfo = function(index){
+			    	var info=[];
+			    		for(var k=0; k < orgList.length; k++){
+			    			if(orgList[k].dept == deptKind[i]){
+			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
+			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+			    			}
+			    		}
+			    		return info[index];
+			    };
+			    
+			    for (var j = 0; j < empLength(); j++) {
+			    	console.log("empInfo("+j+")",empInfo(j));
+			        var emp = {
+			            text: empInfo(j)
+			        };
+			        deptname.children.push(emp);
+			    } 
+
+			    // 부모 데이터를 배열에 추가
+			    	serverData.push(deptname); 
+			}
+
+			console.log(serverData); 
+
+			  // jstree에서 사용할 데이터 구성
+			  var jstreeData = serverData.map(function (parent) {
+			    var parentNode = {
+			      text: parent.text,
+			      type: 'depart',
+			      children: parent.children.map(function (child) {
+			        return {
+			          text: child.text
+			        };
+			      })
+			    };
+			    return parentNode;
+			  });
+
+			  checkboxTree.jstree({
+			    core: {
+			      themes: {
+			        name: theme
+			      },
+			      data: jstreeData
+			    },
+			    plugins: ['types', 'checkbox', 'wholerow'],
+			    types: {
+			      default: {
+			        icon: 'bx bx-user'
+			      },
+			      depart: {
+			    	icon: 'bx bx-folder'
+			      }
+			    }
+			  });
+			}
+	}
+  
+	function closeChartModal() { // 담당자 모달창닫기
+		document.getElementById('projModal').style.display = 'none';
+	}
+	
+	function closeChartModal1() { // 참조자 모달창닫기
+		document.getElementById('projModal1').style.display = 'none';
+	}
+	
+// 체크시 조직도 이벤트 (담당자) ////////////////////////////////////////////////////////////
+$(document).ready(function () {
+    $('#jstree-checkbox').on('click', '.jstree-anchor', function (event) {
+        event.preventDefault();
+
+        var $clickedNode = $(this);
+        var nodeName = $clickedNode.text().trim();
+        var nodeHidden = $clickedNode.find('input[type="hidden"]').val();
+        console.log("nodeHidden이 뭐야?:",nodeHidden);
+        var isSelected = $clickedNode.attr('aria-selected') === 'true';
+
+        setTimeout(function () {
+            var currentSelected = $clickedNode.attr('aria-selected') === 'true';
+
+            var isParentNode = !$clickedNode.parent().hasClass('jstree-leaf');
+            if (isParentNode) {
+                var isOpen = $clickedNode.parent().hasClass('jstree-open');
+                if (!isOpen) {
+                    $clickedNode.parent().find('> .jstree-icon').click();
+                }
+
+                $clickedNode.parent().find('.jstree-children li').each(function () {
+                    var $childNode = $(this).find('> .jstree-anchor');
+                    var childNodeName = $childNode.text().trim();
+                    var childNodeSelected = $childNode.attr('aria-selected') === 'true';
+                    var ChildHidden = $childNode.find('input[type="hidden"]').val();
+
+                    // 배열에서 노드 정보 추가 또는 제외
+                    if (childNodeSelected) {
+                        if (!selectedNodes.includes(ChildHidden)) {
+                            selectedNodes.push(ChildHidden);
+                            addToDamList(childNodeName, ChildHidden);
+                        }
+                    } else {
+                        selectedNodes = selectedNodes.filter(node => node !== ChildHidden);
+                        removeFromDamList(ChildHidden);
+                    }
+
+                    console.log('이름:', childNodeName, ' 클릭 후 체크 여부:', childNodeSelected, ' ChildHidden:', ChildHidden);
+                });
+            } else {
+                // 배열에서 노드 정보 추가 또는 제외
+                if (currentSelected) {
+                    if (!selectedNodes.includes(nodeHidden)) {
+                        selectedNodes.push(nodeHidden);
+                        addToDamList(nodeName, nodeHidden);
+                    }
+                } else {
+                    selectedNodes = selectedNodes.filter(node => node !== nodeHidden);
+                    removeFromDamList(nodeHidden);
+                }
+
+                console.log('이름:', nodeName, ' 클릭 후 체크 여부:', currentSelected, ' nodeHidden:', nodeHidden);
+            }
+
+            // 출력 선택된 노드 배열
+            console.log('Selected Nodes:', selectedNodes);
+        }, 0);
+    });
+
+    // 트리 노드 열림/닫힘 이벤트 리스너를 추가
+    $('#jstree-checkbox').on('after_open.jstree', function (event, data) {
+        // 열린 노드의 이름
+        var nodeName = $(data.node).find('> a').text().trim();
+		
+        // console.log('이름:', nodeName, ' 상태: 열림');
+    });
+
+    $('#jstree-checkbox').on('after_close.jstree', function (event, data) {
+        // 닫힌 노드의 이름
+        var nodeName = $(data.node).find('> a').text().trim();
+
+        // console.log('이름:', nodeName, ' 상태: 닫힘');
+    });
+});
+
+function addToDamList(name, hiddenValue) {
+    var $damList = $('#addDamList');
+    var Fname = name.split(' | ')[0];
+    var $badge = $('<span style="margin-right:5px; margin-bottom:5px;" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
+    $damList.append($badge);
+}
+
+function removeFromDamList(hiddenValue) {
+    var $badgeToRemove = $('#addDamList').find('[onclick="removeNodeFromList(\'' + hiddenValue + '\')"]').closest('.badge.bg-primary');
+    $badgeToRemove.remove();
+}
+
+function removeNodeFromList(hiddenValue) {
+    selectedNodes = selectedNodes.filter(node => node !== hiddenValue);
+    removeFromDamList(hiddenValue);
+    console.log('Selected Nodes after removal:', selectedNodes);
+}
+
+//체크시 조직도 이벤트 (참조자) ///////////////////////////////////////////////////////////////////////////////
+$(document).ready(function () {
+    $('#jstree-checkbox1').on('click', '.jstree-anchor', function (event) {
+        event.preventDefault();
+
+        var $clickedNode = $(this);
+        var nodeName = $clickedNode.text().trim();
+        var nodeHidden = $clickedNode.find('input[type="hidden"]').val();
+        var isSelected = $clickedNode.attr('aria-selected') === 'true';
+
+        setTimeout(function () {
+            var currentSelected = $clickedNode.attr('aria-selected') === 'true';
+
+            var isParentNode = !$clickedNode.parent().hasClass('jstree-leaf');
+            if (isParentNode) {
+                var isOpen = $clickedNode.parent().hasClass('jstree-open');
+                if (!isOpen) {
+                    $clickedNode.parent().find('> .jstree-icon').click();
+                }
+
+                $clickedNode.parent().find('.jstree-children li').each(function () {
+                    var $childNode = $(this).find('> .jstree-anchor');
+                    var childNodeName = $childNode.text().trim();
+                    var childNodeSelected = $childNode.attr('aria-selected') === 'true';
+                    var ChildHidden = $childNode.find('input[type="hidden"]').val();
+
+                    // 배열에서 노드 정보 추가 또는 제외
+                    if (childNodeSelected) {
+                        if (!selectedNodes1.includes(ChildHidden)) {
+                            selectedNodes1.push(ChildHidden);
+                            addToChamList(childNodeName, ChildHidden);
+                        }
+                    } else {
+                        selectedNodes1 = selectedNodes1.filter(node => node !== ChildHidden);
+                        removeFromChamList(ChildHidden);
+                    }
+
+                    console.log('이름:', childNodeName, ' 클릭 후 체크 여부:', childNodeSelected, ' ChildHidden:', ChildHidden);
+                });
+            } else {
+                // 배열에서 노드 정보 추가 또는 제외
+                if (currentSelected) {
+                    if (!selectedNodes1.includes(nodeHidden)) {
+                        selectedNodes1.push(nodeHidden);
+                        addToChamList(nodeName, nodeHidden);
+                    }
+                } else {
+                    selectedNodes1 = selectedNodes1.filter(node => node !== nodeHidden);
+                    removeFromChamList(nodeHidden);
+                }
+
+                console.log('이름:', nodeName, ' 클릭 후 체크 여부:', currentSelected, ' nodeHidden:', nodeHidden);
+            }
+
+            // 출력 선택된 노드 배열
+            console.log('Selected Nodes1:', selectedNodes1);
+        }, 0);
+    });
+
+    // 트리 노드 열림/닫힘 이벤트 리스너를 추가
+    $('#jstree-checkbox1').on('after_open.jstree', function (event, data) {
+        // 열린 노드의 이름
+        var nodeName = $(data.node).find('> a').text().trim();
+		
+        // console.log('이름:', nodeName, ' 상태: 열림');
+    });
+
+    $('#jstree-checkbox1').on('after_close.jstree', function (event, data) {
+        // 닫힌 노드의 이름
+        var nodeName = $(data.node).find('> a').text().trim();
+        
+        // console.log('이름:', nodeName, ' 상태: 닫힘');
+    });
+});
+
+function addToChamList(name, hiddenValue) {
+    var $damList = $('#addChamList');
+    var Fname = name.split(' | ')[0];
+    var $badge = $('<span style="margin-right:5px; margin-bottom:5px;" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList1(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
+    $damList.append($badge);
+}
+
+function removeFromChamList(hiddenValue) {
+    var $badgeToRemove = $('#addChamList').find('[onclick="removeNodeFromList1(\'' + hiddenValue + '\')"]').closest('.badge.bg-primary');
+    $badgeToRemove.remove();
+}
+
+function removeNodeFromList1(hiddenValue) {
+    selectedNodes1 = selectedNodes1.filter(node => node !== hiddenValue);
+    removeFromChamList(hiddenValue);
+    console.log('Selected Nodes1 after removal:', selectedNodes1);
+}
+
+</script>
+
 </html>

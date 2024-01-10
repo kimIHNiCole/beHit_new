@@ -1071,6 +1071,7 @@ height: calc(100vh - 10rem);
         $('#upRecordFile').empty();
         $('#upRecordFile').append(content);
     }
+	// 활동기록 수정에서 삭제할 파일 담는 배열 및 이벤트
 	var delUpfile = [];
 	function delFile(file_idx) {
 	    delUpfile.push(file_idx);
@@ -1344,7 +1345,7 @@ height: calc(100vh - 10rem);
         var totalItems = obj.list.length;
         console.log(totalItems);
         
-        if (totalItems === 1){
+        if (totalItems === 1 && obj.list[0].ori_file_name == null){
         	content = '<li style="text-align:center">첨부 파일이 없습니다.</li>';
         }else{
         	obj.list.forEach(function (item){

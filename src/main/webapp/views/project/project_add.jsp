@@ -581,92 +581,35 @@
                     <hr class="container-m-nx mt-3 mb-0" />
                     
                     <div class="sidebar-body">
-                      <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
-                      <!-- 검색 -->
+                                            <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <li class="chat-contact-list-item chat-contact-list-item-title">
+                          
                           <div class="flex-grow-1 input-group input-group-merge rounded-pill ms-1">
-	                          <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search fs-4"></i></span>
-	                          <input
-	                            type="text"
-	                            class="form-control chat-search-input"
-	                            placeholder="Search..."
-	                            aria-label="Search..."
-	                            aria-describedby="basic-addon-search31" />
+                          <span class="input-group-text" id="basic-addon-search31"
+                            ><i class="bx bx-search fs-4"></i
+                          ></span>
+                          <input
+                            type="text"
+                            class="form-control chat-search-input"
+                            placeholder="Search..."
+                            aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
                         </div>
-                        </li>
-                        <!-- 진행중/대기/완료 분류 버튼 -->
-                        <li>
-											    <div class="d-flex justify-content-center">
-											        <button class="btn btn-primary text-nowrap go">진행중</button>
-											        <button class="btn btn-primary text-nowrap wait">대기</button>
-											        <button class="btn btn-primary text-nowrap end">완료</button>
-											    </div>
-											  </li>
-											  <!-- 프로젝트 리스트 -->
-                       	<li class="chat-contact-list-item chat-list-item-0 d-none">
-                        	<h6 class="text-muted mb-0">No Project Found</h6>
-                       	</li>
-                        <li class="chat-contact-list-item pro active">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">크리에이터 영입</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2023-12-27</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호, 글씨테스트, 글씨테스트</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">진짜인지 가짜인지 모를 사나이 글씨테스트테스트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-02-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                김인혜</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
-                        <li class="chat-contact-list-item pro">
-                          <a class="d-flex align-items-center"> 
-                            <div class="chat-contact-info flex-grow-1 ms-3">
-                              <h6 class="chat-contact-name text-truncate m-0">Be Hit 프로젝트</h6>
-                              <p class="text-muted mb-auto">
-                                2023-11-27~2024-01-16</p>
-                              <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                이도훈, 김세연, 김인혜, 윤예성, 전은호</p>
-                            </div>
-                            <small class="text-muted mb-auto">진행중</small>
-                          </a>
-                        </li>
                         
+                        </li>
+                        <li>
+						    <div class="d-flex justify-content-center">
+						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
+						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
+						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
+						    </div>
+						</li>
+                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                          <h6 class="text-muted mb-0">No Project Found</h6>
+                        </li>
+                        <!-- 여기서부터 리스트 -->
+                        <div id="projlist"></div>
+                        <!-- 여기까지 리스트 -->
                       </ul>
                     </div>
                   </div>

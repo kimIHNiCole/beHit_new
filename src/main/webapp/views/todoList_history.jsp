@@ -462,7 +462,6 @@
 				</div>
 				</div>
 				</div>
-				<div>${sessionScope.loginInfo.getEmp_id()}</div>
             </div>
             <!-- / Content -->
 
