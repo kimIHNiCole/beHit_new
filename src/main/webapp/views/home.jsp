@@ -37,7 +37,7 @@
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+     <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="../../assets/css/demo.css" />
 
     <!-- Vendors CSS -->
@@ -541,72 +541,7 @@
      
 
   </body>
-<script>
-/**
- * Sweet Alerts 스크립트
- */
- 
-/*  var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-	} */
 
-	  
-	var successMsg = "${successMsg}";
-	if(successMsg != ""){
-		Swal.fire({
-			/*         title: 'Good job!', */
-			        text: successMsg,
-			        icon: 'success',
-			        customClass: {
-			          confirmButton: 'btn btn-primary'
-			        },
-			        buttonsStyling: false
-			      });
-	}
-	
-	var warningMsg = "${warningMsg}";
-	if(msg != ""){
-		Swal.fire({
-	        text: warningMsg,
-	        icon: 'warning',
-	        customClass: {
-	          confirmButton: 'btn btn-primary'
-	        },
-	        buttonsStyling: false
-	      });
-	}
-	
-	var confirmMsg = "${confirmMsg}";
-	if(confirmMsg != ""){
-		Swal.fire({
-			/*         title: 'Are you sure?', */
-			        text: confirmMsg,
-			        icon: 'warning',
-			        showCancelButton: true,
-			        confirmButtonText: 'OK',
-			        customClass: {
-			          confirmButton: 'btn btn-primary me-3',
-			          cancelButton: 'btn btn-label-secondary'
-			        },
-			        buttonsStyling: false
-			      }).then(function (result) {
-			        if (result.value) {
-			          Swal.fire({
-			            icon: 'success',
-			/*             title: 'Deleted!', */
-			            text: '삭제되었습니다.',
-			            customClass: {
-			              confirmButton: 'btn btn-success'
-			            }
-			          });
-			        }
-			      });
-	}
-
-	
-	
-</script>
 <script>
 
  'use strict';

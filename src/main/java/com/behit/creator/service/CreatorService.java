@@ -1,7 +1,9 @@
 package com.behit.creator.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.behit.creator.dao.CreatorDAO;
+import com.behit.creator.dao.CreatorStatDAO;
 import com.behit.creator.dto.ChannelDTO;
+import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreHistDTO;
 import com.behit.creator.dto.CreatorDTO;
@@ -23,6 +27,7 @@ import com.behit.employee.dto.EmployeeDTO;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelListResponse;
 import com.google.api.services.youtube.model.VideoListResponse;
 
@@ -34,7 +39,8 @@ public class CreatorService {
 	@Value("${GOOGLE-KEY}") String secret_key;
 	
 	@Autowired CreatorDAO creatorDAO;
-
+	@Autowired CreatorStatService creatorStatService;
+	
 	public ArrayList<CommCreDTO> getGenders() {
 		logger.info("getGenders() 실행");
 		return creatorDAO.getGenders();
@@ -125,8 +131,19 @@ public class CreatorService {
 			creHistDTO.setEmp_id(loginInfo.getEmp_id());
 			creHistDTO.setEmp_id_up(loginInfo.getEmp_id());
 			creHisRow += creatorDAO.creHisInsert(creHistDTO);
-			logger.info("creHisInsert result :: "+creHisRow);
 		}
+		CreHistDTO creHistDTO = new CreHistDTO();
+		for(int i=0; i<channelDTOs.size(); i++) {
+			creHistDTO.setCre_his_title(channelDTOs.get(i).getChannel_name());
+			creHistDTO.setCre_his_cate("채널시작");
+			creHistDTO.setCre_his_content("유튜브 채널 생성");
+			creHistDTO.setHistory_date(channelDTOs.get(i).getChannel_date());
+			creHistDTO.setCre_idx(cre_idx);
+			creHistDTO.setEmp_id(loginInfo.getEmp_id());
+			creHistDTO.setEmp_id_up(loginInfo.getEmp_id());
+			creHisRow += creatorDAO.creHisInsert(creHistDTO);
+		}
+		logger.info("creHisInsert result :: "+creHisRow);
 		// 확인
 		if(creatorRow > 0 && channelRow > 0 && snsRow > 0 && creHisRow > 0) {
 			logger.info("creatorRow="+creatorRow);
@@ -217,6 +234,57 @@ public class CreatorService {
 			logger.error(e.getMessage());
 		}
 		return myList;
+	}
+
+	public CreatorDTO getCreator(int cre_idx) {
+		logger.info("creator 가져오기 실행");
+		
+		return creatorDAO.getCreator(cre_idx);
+	}
+
+	public ArrayList<HashMap<String, Object>> getChannel(int cre_idx) {
+		logger.info("channel 기본정보 가져오기 실행");
+		ArrayList<HashMap<String, Object>> channelInfoList = creatorDAO.getChannel(cre_idx);
+		
+		logger.info("channel 통계 정보 가져오기 실행");
+		logger.info("Channel ID 가져오기 실행");
+		ArrayList<String> channelIdList = creatorDAO.getChannelIdByCreIdx(cre_idx); 
+		
+		int idx = 0;
+		for(String channelId : channelIdList) {
+			logger.info("channelIdList 하나씩 꺼내기 : "+channelId);
+			Channel channel = creatorStatService.useYoutubeApi(channelId);
+			
+			HashMap<String, Object> channelInfo = channelInfoList.get(idx++);
+			
+			BigInteger subscriber = channel.getStatistics().getSubscriberCount();
+	        BigInteger views = channel.getStatistics().getViewCount();
+	        BigInteger contents = channel.getStatistics().getVideoCount();
+	        
+	        channelInfo.put("subscriber", subscriber);
+	        channelInfo.put("views", views);
+	        channelInfo.put("contents", contents);
+	        
+		}
+		return channelInfoList;
+	}
+
+	public ArrayList<HashMap<String, Object>> getCreHistory(int cre_idx) {
+		logger.info("활동이력 가져오기 실행");
+		ArrayList<HashMap<String, Object>> creatorHistory = creatorDAO.getCreHistory(cre_idx);
+		return creatorHistory;
+	}
+
+	public ArrayList<SnsDTO> getSns(int cre_idx) {
+		logger.info("SNS 정보 가져오기 실행");
+		ArrayList<SnsDTO> snsList = creatorDAO.getSns(cre_idx);
+		return snsList;
+	}
+
+	public ArrayList<ChannelDataDTO> getChartData(String repChannelId) {
+		logger.info("차트 데이터 가져오기 실행");
+		ArrayList<ChannelDataDTO> channelDataList = creatorDAO.getChartData(repChannelId);
+		return channelDataList;
 	}
 
 	

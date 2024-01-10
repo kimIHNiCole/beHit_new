@@ -18,13 +18,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.behit.creator.dto.ChannelDTO;
+import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
+import com.behit.creator.dto.CreatorDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
+import com.behit.creator.dto.SnsDTO;
 import com.behit.creator.service.CreatorService;
 import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.util.service.UtilService;
+import com.google.api.services.youtube.model.Channel;
 
 
 @RestController
@@ -33,6 +40,7 @@ public class CreatorController {
 	
 	@Autowired CreatorService creatorService;
 	@Autowired CreatorStatController creatorStatController;
+	@Autowired UtilService utilService;
 	
 	@GetMapping(value = "/creatorAdd.go")
 	public ModelAndView creatorAddGo(ModelAndView mav) {
@@ -97,23 +105,6 @@ public class CreatorController {
 
 	}
 
-//	@GetMapping(value = "/creatorListAll.go")
-//	public ModelAndView creatorlistMy(HttpSession session, ModelAndView mav) {
-//		logger.info("전체 크리에이터 리스트 페이지로 이동");
-//		
-//		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
-//		String loginId = loginInfo.getEmp_id();
-//		
-//		HashMap<String, Object> totalInfo = creatorService.getTotalInfo();
-//		ArrayList<HashMap<String, Object>> allList = creatorService.getAllList();
-//		ArrayList<HashMap<String,Object>> myList = creatorService.getMyList(loginId);
-//		
-//		mav.setViewName("creators/creator_list_all");
-//		mav.addObject("totalInfo", totalInfo);
-//		mav.addObject("allList", allList);
-//		mav.addObject("myList", myList);
-//		return mav;
-//	}
 	
 	@GetMapping(value = "/creatorList.go")
 	public ModelAndView cratorListGo(ModelAndView mav) {
@@ -144,9 +135,52 @@ public class CreatorController {
 	@GetMapping(value = "/creatorDetail.go")
 	public ModelAndView creatorDetailGo(@RequestParam int cre_idx ,ModelAndView mav) {
 		logger.info("크리에이터 상세 페이지 요청 || cre_idx = "+cre_idx);
+		
+		CreatorDTO creatorInfo = creatorService.getCreator(cre_idx);
+		ArrayList<HashMap<String, Object>> channelInfoList = creatorService.getChannel(cre_idx);
+		ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(cre_idx); 
+		ArrayList<SnsDTO> snsList = creatorService.getSns(cre_idx); 
+		
+		
+		mav.addObject("creatorInfo", creatorInfo);
+		mav.addObject("channelInfoList", channelInfoList);
+		mav.addObject("creatorHistory", creatorHistory);
+		mav.addObject("snsList", snsList);
+		
 		mav.setViewName("creators/creator_detail");
 		return mav;
 	}
+	
+	@GetMapping(value = "/getChartData.ajax")
+	public HashMap<String, Object> getChartData(@RequestParam String repChannelId){
+		logger.info("차트 데이터 요청");
+		ArrayList<ChannelDataDTO> channelDataList = creatorService.getChartData(repChannelId);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("channelDataList", channelDataList);
+		return result;
+	}
+	
+	
+//	@PostMapping(value = "/creatorImgSave.ajax")
+//	public HashMap<String, Object> profileImgSave(
+//			@RequestParam(value="file", required = false) MultipartFile file){
+//		logger.info("file",file);
+////		utilService.upload(file, getChCateDo());
+//		return null;
+//	}
+	
+	@PostMapping("/creatorImgUpload.ajax")
+    public ResponseEntity<String> creatorImgUpload(@RequestParam("file") MultipartFile file) {
+        // 파일 처리 로직을 여기에 구현
+
+        // 예제로 파일 이름을 출력하는 부분
+        String fileName = file.getOriginalFilename();
+        System.out.println("Received file: " + fileName);
+
+        // 파일 처리 성공 시 응답
+        return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+    }
 	
 	
 

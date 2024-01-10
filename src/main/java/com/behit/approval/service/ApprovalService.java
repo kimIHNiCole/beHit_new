@@ -34,23 +34,12 @@ public class ApprovalService {
 	public ModelAndView approval_write_go(String form,String emp_id, String login_name) {
 		
 		ModelAndView mav = new ModelAndView("approval/approval_write");
-		
-		EmployeeDTO dto = dao.approval_write_go(emp_id);
-		
-		String dept_name = dto.getDept_name();
-		String position_name = dto.getPosition_name();
-		Date emp_date = dto.getEmp_date();
-		
-		logger.info("로그인 아이디 : "+login_name);
-		logger.info("직급 : "+ dept_name);
-		logger.info("form : "+form);
-		
+		ApprovalDTO dto = dao.approval_write_go(emp_id);
+
 		mav.addObject("form",form);
 		mav.addObject("login_name",login_name);
 		mav.addObject("dto",dto);
-//		mav.addObject("dept_name",dept_name);
-//		mav.addObject("position_name",position_name);
-//		mav.addObject("emp_date",emp_date);
+		mav.addObject("form_type","write");
 		
 		return mav;
 	}
@@ -61,7 +50,7 @@ public class ApprovalService {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	
-		EmployeeDTO dto = dao.approval_write_go(emp_id);
+		ApprovalDTO dto = dao.approval_write_go(emp_id);
 		
 		map.put("dept_name",dto.getDept_name());
 		map.put("position_name",dto.getPosition_name());
@@ -72,15 +61,15 @@ public class ApprovalService {
 
 	
 	
-	public ModelAndView approval_write(EmployeeDTO loginInfo, HashMap<String, String> params, MultipartFile[] files) {
+	public String approval_write(EmployeeDTO loginInfo, HashMap<String, String> params, MultipartFile[] files) {
 		
-		ModelAndView mav = new ModelAndView("approval/approval_main");
+		//ModelAndView mav = new ModelAndView("approval/approval_main");
 
 		String apv_vac_type = params.get("apv_vac_type");
 		String emp_id = loginInfo.getEmp_id();
 		String total_name = params.get("total_name");
 		
-		// 제너레이트 키 발생 -> dto 에 값을 넣어서 전송해서 apv_idx 받아야 함 -------------------------------------------------
+		// 제너레이트 키 발생 -> dto 에 값을 넣어서 전송해서 apv_idx 받아야 함 -----------------------------------------
 		ApprovalDTO dto = new ApprovalDTO();
 		
 		String apv_code = params.get("apv_code");
@@ -117,7 +106,7 @@ public class ApprovalService {
 		// apv_line 테이블에 데이터 insert
 		apv_line(apv_idx,total_name,emp_id);
 		
-		return mav;
+		return "approval/approval_main";
 	}
 	
 	// apv_line 테이블에 데이터 insert 메서드
@@ -230,35 +219,63 @@ public class ApprovalService {
 				}
 		
 	}
+	
+	
 
 	public List<ApprovalDTO> getApproval_list(String emp_id) {
 		return dao.getApproval_list(emp_id);
 	}
 
 
-
-	public ModelAndView approval_detail(String apv_code, String apv_idx, String emp_id, String login_name) {
+	public ModelAndView getApproval_detail(String apv_idx) {
 		
 		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
+		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
+		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보
+		List<ApprovalDTO> apv_line = dao.getApv_line(apv_idx); // 결재자 아이디, 결재순서
+		List<ApprovalDTO> apv_line_info = new ArrayList<ApprovalDTO>();
 		
-		EmployeeDTO dto = dao.approval_write_go(emp_id);
-		ApprovalDTO apv = new ApprovalDTO();
+		for (ApprovalDTO approvalDTO : apv_line) { // 결재자 정보
+			String emp_id = approvalDTO.getEmp_id();
+			ApprovalDTO line_info = dao.approval_write_go(emp_id); 
+			line_info.setApv_line(approvalDTO.getApv_line());
+			// 이것도 해야 함 
+			//dao.apv_line_stmt(apv_idx,emp_id);
+			apv_line_info.add(line_info);
+		}
 		
-		apv.setApv_code(apv_code);
 		apv.setApv_idx(Integer.parseInt(apv_idx));
 		
-		String dept_name = dto.getDept_name();
-		String position_name = dto.getPosition_name();
-		Date emp_date = dto.getEmp_date();
-		
-		logger.info("로그인 아이디 : "+login_name);
-		logger.info("직급 : "+ dept_name);
-		mav.addObject("login_name",login_name);
 		mav.addObject("apv",apv);
 		mav.addObject("dto",dto);
+		mav.addObject("apv_line_info",apv_line_info);
+		mav.addObject("form_type","detail");
 		
 		return mav;
 		
+	}
+
+
+
+	public String getApproval_detail_do(ApprovalDTO dto) {
+		
+		dao.getApproval_detail_do(dto); // 결재 히스토리 insert
+		
+		int apv_idx = dto.getApv_idx();
+		String apv_approver = dao.apv_line_sel(apv_idx); // 다음 순서
+		
+		// 다음 결재자 업데이트
+		dao.apv_approver(dto.getApv_idx(), apv_approver);
+		
+		return "approval/getApproval_list";
+	}
+
+	public List<ApprovalDTO> requestApproval_list(String emp_id) {
+		return dao.requestApproval_list(emp_id);
+	}
+	
+	public List<ApprovalDTO> compApproval_list(String emp_id) {
+		return dao.compApproval_list(emp_id);
 	}
 
 
