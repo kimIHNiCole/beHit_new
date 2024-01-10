@@ -155,7 +155,7 @@
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
-            <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+            <img id="navPhoto" src="" alt class="w-px-40 h-auto rounded-circle" />
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -164,12 +164,12 @@
               <div class="d-flex">
                 <div class="flex-shrink-0 me-3">
                   <div class="avatar avatar-online">
-                    <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    <img id="navDropPhoto" src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                   </div>
                 </div>
                 <div class="flex-grow-1">
-                  <span class="fw-medium d-block">John Doe</span>
-                  <small class="text-muted">Admin</small>
+                  <span id="navEmpName" class="fw-medium d-block"></span>
+                  <small id="navEmpId" class="text-muted"></small>
                 </div>
               </div>
             </a>
@@ -193,14 +193,57 @@
 <script>
 
 $(document).ready(function() {
-    // 알람 목록을 불러오는 함수
-    function loadAlarmList() {
+	
+	loadAlarmList();
+	navProfile();
+	
+});	
+
+
+//프로필 정보를 가져오는 함수
+function navProfile() {
+    $.ajax({
+        url: '/navProfile.go',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log("프로필인포 넘어옴", data.navProfile);
+            console.log("프로필사진 넘어옴", data.navPhoto);
+
+            // 드롭다운에 프로필 정보 추가
+            updateProfileDropdown(data.navProfile, data.navPhoto);
+        },
+        error: function(e) {
+            console.error('Failed to load profile information:', e);
+        }
+    });
+}
+
+//프로필 정보를 업데이트하는 함수
+function updateProfileDropdown(navProfile, navPhoto) {
+    // 프로필 이미지를 표시하거나 기본 이미지를 사용
+    var profileImage = (navPhoto && navPhoto.new_file_name) ?
+    		'/file/employee/' + navPhoto.new_file_name : '../../assets/img/avatars/21.png';
+
+    // 프로필 이름과 아이디를 업데이트
+    $('#navPhoto').attr('src', profileImage);
+    $('#navDropPhoto').attr('src', profileImage);
+    $('#navPhoto').attr('alt', navProfile.emp_name);
+    $('#navDropPhoto').attr('alt', navProfile.emp_name);
+    $('#navEmpName').text(navProfile.emp_name);
+    $('#navEmpId').text(navProfile.emp_id);
+}
+
+
+// 알람 목록을 불러오는 함수
+function loadAlarmList() {
         $.ajax({
             url: '/alarmList.go',
             type: 'GET',
             dataType: 'json',
             success: function(data) {
                 // 알람 목록을 동적으로 화면에 추가
+                console.log("알람리스트 넘어옴", data.alarmList);
                 var alarmList = data.alarmList;
                 updateAlarmList(alarmList);
             },
@@ -210,8 +253,8 @@ $(document).ready(function() {
         });
     }
 
- // 알람 목록을 동적으로 화면에 추가하는 함수
-    function updateAlarmList(alarmList) {
+// 알람 목록을 동적으로 화면에 추가하는 함수
+function updateAlarmList(alarmList) {
         var alarmDropdown = $('#alarmList');
         var notificationsList = alarmDropdown.find('.dropdown-notifications-list ul');
         var badgeNotifications = alarmDropdown.find('.badge-notifications');
@@ -300,19 +343,23 @@ $(document).ready(function() {
             // 알람 리스트 사이즈 초기화
             badgeNotifications.text('0');
         }
-    }
-    // 페이지 로딩 시 알람 목록을 불러옴
-    loadAlarmList();
+}
 
-    // 알람 목록을 주기적으로 업데이트 (예: 1분마다)
-    setInterval(function() {
+
+// 알람 목록을 주기적으로 업데이트 (예: 1분마다)
+setInterval(function() {
         loadAlarmList();
-    }, 60000); // 1분에 한 번
+}, 6000000); // 1분에 한 번
     
     
-    /* 알림 개별 읽음 처리  */
-    $(document).on('click', '.dropdown-notifications-item', function() {
+/* 알림 개별 읽음 처리  */
+$(document).on('click', '.dropdown-notifications-item', function(event) {
     var listItem = $(this);
+
+    // 클릭된 요소가 삭제 버튼인 경우 페이지 이동 방지
+    if ($(event.target).hasClass('dropdown-notifications-archive')) {
+        return;
+    }
     
     // 해당 알람의 type을 가져옴
     var alarmType = listItem.find('input[name="alarm_type"]').val();
@@ -359,8 +406,8 @@ $(document).ready(function() {
     });
 });
     
-    /* 알림 전체 읽음 */
-    $(document).on('click', '#readAllAlarm', function() {
+/* 알림 전체 읽음 */
+$(document).on('click', '#readAllAlarm', function() {
 
         // 서버로 알람 전체 읽음 요청을 보냄
         $.ajax({
@@ -381,12 +428,15 @@ $(document).ready(function() {
             }
         });
         
-    });
+});
     
     
-    /* 알림 개별 삭제 */
-    $(document).on('click', '.dropdown-notifications-archive', function() {
-        // 클릭된 알람의 부모 리스트 아이템을 찾음
+/* 알림 개별 삭제 */
+$(document).on('click', '.dropdown-notifications-archive', function(event) {
+    	// 이벤트가 DOM 트리를 향상 전파되지 않도록 멈춤
+        event.stopPropagation();
+    	
+    	// 클릭된 알람의 부모 리스트 아이템을 찾음
         var listItem = $(this).closest('.list-group-item');
         
         // 해당 알람의 type 을 가져옴
@@ -418,10 +468,10 @@ $(document).ready(function() {
                 console.error('Failed to delete alarm:', e);
             }
         });
-    });
+});
     
-    /* 알림 전체 삭제 */
-    $(document).on('click', '#deleteAllAlarms', function() {
+/* 알림 전체 삭제 */
+$(document).on('click', '#deleteAllAlarms', function() {
 
         // 서버로 알람 전체 삭제 요청을 보냄
         $.ajax({
@@ -442,10 +492,10 @@ $(document).ready(function() {
             }
         });
         
-    });
-    
-    
 });
+    
+    
+
 
 function formattedDate(dateString) {
     const options = { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };

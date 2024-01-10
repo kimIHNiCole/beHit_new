@@ -135,7 +135,7 @@
 			    </div>
 			</div>
             <table class="datatables-basic table border-top" style="margin-top: -10px;">
-                <thead>
+                <thead style="text-align: center;">
                     <tr>
                         <th colspan="2">이름 / 부서</th>
                         <th>근무시간</th>
@@ -159,10 +159,73 @@
                       <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
 						  <div class="modal-dialog modal-lg" role="document" style="display: flex; align-items: center; justify-content: center;">
 						    <div class="modal-content" style="width: 1000px;">
-						      <div class="modal-header"> 
-						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						      </div>
-						      <jsp:include page="/views/employee/workHour_list_modal.jsp"/>
+						      <div class="container-lg flex-grow-1 container-p-y mt-2" style="width: 1000px;">
+  			  	<!-- DataTable with Buttons -->
+			    <div class="card">
+			        <div class="card-datatable table-responsive">
+						<div class="row mb-3">
+							<div class="col-md-4">
+			                    <!-- 탭 추가 -->
+                    			<ul class="nav nav-pills" role="tablist">
+	                      			<li class="nav-item">
+		                        		<button
+		                          			class="nav-link active"
+		                          			data-bs-toggle="tab"
+		                          			data-bs-target="#form-tabs-first"
+		                          			role="tab"
+		                          			aria-selected="true">
+		                          			전체
+		                        		</button>
+	                      			</li>
+	                      			<li class="nav-item">
+	                        			<button
+	                          				class="nav-link"
+	                          				data-bs-toggle="tab"
+	                          				data-bs-target="#form-tabs-secend"
+	                          				role="tab"
+	                          				aria-selected="false"
+	                          				onclick="tabsecend()">
+	                          				정상 근무
+	                       			 	</button>
+	                      			</li>
+	                      			<li class="nav-item">
+	                        			<button
+	                          				class="nav-link"
+	                          				data-bs-toggle="tab"
+	                          				data-bs-target="#form-tabs-third"
+	                          				role="tab"
+	                          				aria-selected="false"
+	                          				onclick="tabthird()">
+	                          				미달
+	                       			 	</button>
+	                      			</li>
+                    			</ul>
+			                </div>
+							<div class="col-md-4">
+						        <div class="input-group">
+						            <button class="btn btn-outline-secondary" id="sprevBtn" type="button"><</button>
+						            <input type="text" class="form-control text-center" id="sdatepicker" readonly>
+						            <button class="btn btn-outline-secondary" id="snextBtn" type="button">></button>
+						        </div>
+						    </div>
+						</div>
+			            <table class="datatables-basic table border-top" style="margin-top: -10px; text-align: center;">
+			                <thead >
+			                    <tr>
+			                        <th>날짜</th>
+			                        <th>근무시간</th>
+			                        <th>연차</th>
+			                        <th>출근 시간</th>
+			                        <th>퇴근 시간</th>
+			                        <th>상태</th>
+			                    </tr>
+			                </thead>
+			                <tbody id="modalList">
+			                
+			                </tbody>
+			            </table>
+			        </div>
+			    </div>
 						    </div>
 						  </div>
 						</div>
@@ -234,7 +297,7 @@
      var showPage = 1;
      
      document.addEventListener("DOMContentLoaded", function () {
-    	    var datepicker = $('#datepicker').datepicker({
+    	    var fdatepicker = $('#datepicker').datepicker({
     	        format: 'yyyy-mm-dd',
     	        autoclose: true,
     	        todayHighlight: true // 오늘 날짜 강조
@@ -252,27 +315,28 @@
     	    var krTime = currentDate.toLocaleString('en-US', options);
 
     	    // 'Asia/Seoul' 타임존에 따라 현재 날짜와 시간을 가져옴
-    	    var datepicker = $('#datepicker');
-    	    datepicker.datepicker('setDate', new Date(krTime));
+    	    var fdatepicker = $('#datepicker');
+    	    fdatepicker.datepicker('setDate', new Date(krTime));
     	    updateInputValue(new Date(krTime));
 
     	    // < 버튼 클릭 시 이벤트
     	    $('#prevBtn').on('click', function() {
-    	        var selectedDate = datepicker.datepicker('getDate');
+    	        var selectedDate = fdatepicker.datepicker('getDate');
     	        selectedDate.setDate(selectedDate.getDate() - 1);
-    	        datepicker.datepicker('update', selectedDate);
+    	        fdatepicker.datepicker('update', selectedDate);
     	        updateInputValue(selectedDate);
     	        listCall(showPage);
     	    });
 
     	    // > 버튼 클릭 시 이벤트
     	    $('#nextBtn').on('click', function() {
-    	        var selectedDate = datepicker.datepicker('getDate');
+    	        var selectedDate = fdatepicker.datepicker('getDate');
     	        selectedDate.setDate(selectedDate.getDate() + 1);
-    	        datepicker.datepicker('update', selectedDate);
+    	        fdatepicker.datepicker('update', selectedDate);
     	        updateInputValue(selectedDate);
     	        listCall(showPage);
     	    });
+    	    
 
     	    function updateInputValue(date) {
     	        var formattedDate = date.getFullYear() + '-' + padZero(date.getMonth() + 1) + '-' + padZero(date.getDate());
@@ -282,6 +346,49 @@
     	    function padZero(num) {
     	        return num < 10 ? '0' + num : num;
     	    }
+    	    
+    	    var datepicker = $('#sdatepicker').datepicker({
+     	        format: 'yyyy-mm',
+     	        autoclose: true,
+     	        todayHighlight: true,
+     	        startView: 1,
+     	        minViewMode: 1
+     	    });
+     	    
+     	    var currentDate = new Date();
+     	    var options = { timeZone: 'Asia/Seoul' };
+     	    var krTime = currentDate.toLocaleString('en-US', options);
+
+     	    // 'Asia/Seoul' 타임존에 따라 현재 날짜와 시간을 가져옴
+     	    datepicker.datepicker('setDate', new Date(krTime));
+     	    updateInputValue(new Date(krTime));
+
+     	    // < 버튼 클릭 시 이벤트
+     	    $('#sprevBtn').on('click', function() {
+     	        var selectedDate = datepicker.datepicker('getDate');
+     	        selectedDate.setMonth(selectedDate.getMonth() - 1);
+     	        datepicker.datepicker('update', selectedDate);
+     	        updateInputValue(selectedDate);
+     	    });
+
+     	    // > 버튼 클릭 시 이벤트
+     	    $('#snextBtn').on('click', function() {
+     	        var selectedDate = datepicker.datepicker('getDate');
+     	        selectedDate.setMonth(selectedDate.getMonth() + 1);
+     	        datepicker.datepicker('update', selectedDate);
+     	        updateInputValue(selectedDate);
+     	    });
+
+     	    function updateInputValue(date) {
+     	        var formattedDate = date.getFullYear() + '-' + padZero(date.getMonth() + 1) + '-' + padZero(date.getDate());
+     	        $('#sdatepicker').val(formattedDate);
+     	    }
+
+     	    function padZero(num) {
+     	        return num < 10 ? '0' + num : num;
+     	    }
+     	    
+     	    
 
     	    listCall(showPage);
          
@@ -321,15 +428,17 @@
 				content +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
 					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.dept_name+'</small>'+'</div>'+'</td>';	
-        		content +='<td>'+item.work_start+'~'+item.work_end+'</td>';
+        		content +='<td style="text-align: center;">'+item.work_start+'~'+item.work_end+'</td>';
         		if (item.work_start == item.vaca_start && item.work_end == item.vaca_end){
-        			content +='<td>'+'종일'+'</td>';
-        		} else{
- 	       			content +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+        			content +='<td style="text-align: center;">'+'종일'+'</td>';
+        		} else if(item.use_hour == 0){
+ 	       			content +='<td style="text-align: center;">'+'-'+'</td>';
+        		} else {
+        			content +='<td style="text-align: center;">'+item.vaca_start+'~'+item.vaca_end+'</td>';
         		}
-        		content +='<td>'+item.work_started+'</td>';
-        		content +='<td>'+item.work_ended+'</td>';
-        		content +='<td>'+item.work_state+'</td>';
+        		content +='<td style="text-align: center;">'+item.work_started+'</td>';
+        		content +='<td style="text-align: center;">'+item.work_ended+'</td>';
+        		content +='<td style="text-align: center;">'+item.work_state+'</td>';
 				content +='</tr>';
         	});
     		$('#worklist').empty();
@@ -356,11 +465,42 @@
      $(document).on('click', '.worklist', function() {
     	    var emp_id = $(this).find('.emp_id').text(); // 클릭한 행에서 emp_id 가져오기
     	    console.log('Clicked row emp_id:', emp_id);
-/*    	    
+    	    
     	    $.ajax({
-    	    	
-    	    }); */
+    	    	type:'get',
+	        	 url:'workmodal.do',
+	        	 data:{'emp_id':emp_id},
+	        	 dataType: 'json',
+	        	 success:function(data){
+	        		 console.log(data);
+	        		 drawmodal(data);
+	        	 },
+	        	 error:function(e){
+	        		 console.log(e);
+	        	 }
+    	    }); 
      });
+     	
+     	function drawmodal(obj){
+     		var content = "";
+     		
+     		obj.list.forEach(function(item, idx){
+     			content +='<tr>';
+     			content +='<td>'+item.work_day+'</td>';
+     			content +='<td>'+item.work_start+'~'+item.work_end+'</td>';
+     			if (item.vaca_start == '-'){
+     				content +='<td>'+'-'+'</td>';
+     			} else{
+     				content +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+     			}
+     			content +='<td>'+item.work_started+'</td>';
+     			content +='<td>'+item.work_ended+'</td>';
+     			content +='<td>'+item.work_state+'</td>';
+     			content +='</tr>';
+     		});
+     		$('#modalList').empty();
+     		$('#modalList').append(content);
+     	}
      
 
 

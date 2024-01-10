@@ -57,7 +57,7 @@ public class LoginController {
 			EmployeeDTO loginInfo = service.login(emp_id);
 			logger.info("login result || "+ loginInfo.getEmp_id());
 			session.setAttribute("loginInfo", loginInfo);
-			mav.setViewName("redirect:/views/home.jsp");
+			mav.setViewName("redirect:/home.go");
 		}else {
 			logger.info("로그인 에러");
 			lockCnt = service.lockCnt(params);

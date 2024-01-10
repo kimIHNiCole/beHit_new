@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.employee.dao.WorkDAO;
-import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.dto.VacationDTO;
 import com.behit.employee.dto.WorkDTO;
 
@@ -59,6 +58,33 @@ public class WorkService {
 		mav.setViewName("/myHr/mhr_vacation");
 		
 		return mav;
+	}
+	
+	public int selectday(HashMap<String, Object> commute) {
+		
+		logger.info("commute : "+commute);
+		
+		return workDAO.selectdate(commute);
+	}
+
+	public HashMap<String, Object> workmodal(String emp_id) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<WorkDTO> list = workDAO.workmodal(emp_id);
+		map.put("list", list);
+		
+		return map;
+	}
+
+	public boolean workChk(String login_id, String workdate) {
+		
+		return workDAO.workChk(login_id, workdate);
+	}
+
+	public int updateday(HashMap<String, Object> commute) {
+		
+		return workDAO.updatedate(commute);
+		
 	}
 
 }

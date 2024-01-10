@@ -99,7 +99,7 @@
 			                          id="preview" />
 	                        		<div class="button-wrapper">
 	                         			<label for="uploadFile" class="btn btn-label-secondary account-image-reset mb-4">사진 등록</label>
-		                            	<input type="file" name="uploadFile" id="uploadFile" style="display: none;" onchange="previewImage(event)" accept=".jpg, .jpeg, .gif, .png"/>
+		                            	<input type="file" name="uploadFile" id="uploadFile" style="display: none;" onchange="previewImage(this)" accept=".jpg, .jpeg, .gif, .png"/>
 		                            	<i class="bx bx-upload d-block d-sm-none"></i>
 	                          		  	<button type="button" class="btn btn-label-secondary account-image-reset mb-4">
 	                   				  		<i class="bx bx-reset d-block d-sm-none"></i>
@@ -300,10 +300,10 @@
 	    }
 	    
 	    // 파일 선택 시 미리보기를 위한 함수
-	    function previewImage(event) {
+	    function previewImage(input) {
 	        const input = event.target;
 	        const preview = document.getElementById('preview');
-
+		    
 	        if (input.files && input.files[0]) {
 	            const reader = new FileReader();
 
@@ -313,7 +313,6 @@
 
 	            reader.readAsDataURL(input.files[0]);
 	        }
-	        
 	    }
     </script>
 
