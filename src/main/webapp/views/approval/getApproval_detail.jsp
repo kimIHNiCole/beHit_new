@@ -575,17 +575,45 @@
 						              			</tbody>
 						              		</table>
 						              		
+						              		<c:if test="${form_type == 'detail' && apv.apv_history_stmt != null}">
+							              		<table class="table-reason">
+							              			<tbody>
+							              				<tr>
+							              				
+							              				<c:choose>
+																	    <c:when test="${apv.apv_history_stmt == '결재'}">
+																	    	<td class="table-upload-left">결재 사유</td>
+								              					<td class="table-upload-right">
+								              						${apv.apv_history_reason}
+								              					</td>
+																	    </c:when>
+																	    <c:when test="${apv.apv_history_stmt == '반려'}">
+																	    	<td class="table-upload-left">반려 사유</td>
+								              					<td class="table-upload-right">
+								              						${apv.apv_history_reason}
+								              					</td>
+																	    </c:when>
+																		</c:choose>
+							              				
+							              				</tr>
+							              			</tbody>
+							              		</table>
+						              		</c:if>
+						              		
 					              </div>
 					                </div>
+					                
+					                <c:if test="${apv.apv_stmt == '진행중' || apv.emp_id != emp.id}">
 	
-					                <div class="pt-4 apv-form-button">
-				                    <button type="button" class="btn btn-label-secondary" 
-				                    	data-bs-toggle="modal" data-bs-target="#apv-stmt-modal" onclick="handleRejection()">반려</button>
-				                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-				                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">결재</button>
-				                    <input type="hidden" name="apv_history_stmt" value="반려"/>
-				                  </div>
+						                <div class="pt-4 apv-form-button">
+					                    <button type="button" class="btn btn-label-secondary" 
+					                    	data-bs-toggle="modal" data-bs-target="#apv-stmt-modal" onclick="handleRejection()">반려</button>
+					                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+					                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">결재</button>
+					                    <input type="hidden" name="apv_history_stmt" value="반려"/>
+					                  </div>
 				                  
+				                  </c:if>
 				                  
 				                  <!-- 새 결제 작성 모달 -->
 						              <div class="modal fade" id="apv-stmt-modal" tabindex="-1" aria-hidden="true">
@@ -837,6 +865,8 @@
     
     <!-- custom JS -->
     <script>
+    
+    console.log('콘솔에 찍힌 값입니다아아'+'${apv.apv_stmt}');
     
     
 	  //반려, 결재에 관한 정보  ------------------------------------------------------------------------------------------------------

@@ -227,20 +227,35 @@ public class ApprovalService {
 	}
 
 
-	public ModelAndView getApproval_detail(String apv_idx) {
+	public ModelAndView getApproval_detail(String apv_idx, String emp_id) {
 		
 		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
 		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
 		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보
+		
+		ApprovalDTO apv_history_reason = dao.apv_history_reason(apv_idx); // 결재사유
+		
+		if(apv_history_reason != null) {
+			apv.setApv_history_stmt(apv_history_reason.getApv_history_stmt());
+			apv.setApv_history_reason(apv_history_reason.getApv_history_reason());
+		}
+		
 		List<ApprovalDTO> apv_line = dao.getApv_line(apv_idx); // 결재자 아이디, 결재순서
 		List<ApprovalDTO> apv_line_info = new ArrayList<ApprovalDTO>();
 		
-		for (ApprovalDTO approvalDTO : apv_line) { // 결재자 정보
-			String emp_id = approvalDTO.getEmp_id();
-			ApprovalDTO line_info = dao.approval_write_go(emp_id); 
+		for (ApprovalDTO approvalDTO : apv_line) { // 결재선 정보
+			String emp_idx = approvalDTO.getEmp_id();
+			ApprovalDTO line_info = dao.approval_write_go(emp_idx); 
 			line_info.setApv_line(approvalDTO.getApv_line());
-			// 이것도 해야 함 
-			//dao.apv_line_stmt(apv_idx,emp_id);
+			
+			// 결재 여부
+			ApprovalDTO apv_history = dao.apv_line_stmt(apv_idx,emp_idx);
+			
+			if(apv_history != null) {
+				line_info.setApv_history_date(apv_history.getApv_history_date());
+				line_info.setApv_history_stmt(apv_history.getApv_history_stmt());
+				line_info.setApv_history_reason(apv_history.getApv_history_reason());
+			}
 			apv_line_info.add(line_info);
 		}
 		
@@ -248,6 +263,7 @@ public class ApprovalService {
 		
 		mav.addObject("apv",apv);
 		mav.addObject("dto",dto);
+		mav.addObject("emp_id",emp_id);
 		mav.addObject("apv_line_info",apv_line_info);
 		mav.addObject("form_type","detail");
 		
@@ -261,14 +277,67 @@ public class ApprovalService {
 		
 		dao.getApproval_detail_do(dto); // 결재 히스토리 insert
 		
-		int apv_idx = dto.getApv_idx();
-		String apv_approver = dao.apv_line_sel(apv_idx); // 다음 순서
+		logger.info("앞에서 apv_code 값 :" +dto.getApv_code());
 		
-		// 다음 결재자 업데이트
-		dao.apv_approver(dto.getApv_idx(), apv_approver);
+		String apv_stmt = "";
+		int apv_idx = dto.getApv_idx();      
 		
-		return "approval/getApproval_list";
+		if(dto.getApv_history_stmt().equals("결재")) {
+			
+			String apv_approver = dao.apv_line_sel(apv_idx,dto.getApv_approver()); // 다음 순서
+			if(apv_approver != null) {
+				// 다음 결재자 업데이트
+				dao.apv_approver(apv_idx, apv_approver);
+			}else{
+				// 다음 결재자 없으면 완료 처리
+				apv_stmt = "완료";
+				
+				String apv_code = dto.getApv_code();
+				String format_apv_idx = formatNumber(apv_idx);
+				String apv_history_date = apv_history_date(dao.apv_history_date(apv_idx));
+				String apv_num = apv_code + "-" + apv_history_date + "-" + format_apv_idx ;
+				
+				logger.info("apv_code 값 :" +apv_code);
+				logger.info("apv_num 값 :" +apv_code);
+				
+				dao.apv_update(apv_idx,apv_stmt);
+				dao.apv_update_num(apv_idx,apv_num);
+			}
+			
+		}else if(dto.getApv_history_stmt().equals("반려")){
+			apv_stmt = "반려";
+			dao.apv_update(apv_idx,apv_stmt);
+		}
+		
+			return "approval/getApproval_list";
 	}
+
+	// 4 -> 004 변경
+	private String formatNumber(int apv_idx) {
+		// %03d는 3자리 숫자로 형식화하되, 필요할 경우 0으로 채우는 형식 지정자입니다.
+        return String.format("%03d", apv_idx);
+	}
+	// 2024-01-10 -> 20240110 으로 변경 
+	private String apv_history_date(String apv_history_date) {
+        // 입력된 문자열 형식 지정
+		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // 출력할 문자열 형식 지정
+		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyyMMdd");
+		String outputDateString = "";
+		
+        try {
+            // 문자열을 Date 객체로 파싱
+        	java.util.Date date = inputFormat.parse(apv_history_date);
+            // 출력 형식으로 포맷팅
+            outputDateString = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateString;
+    }
+		
+
+
 
 	public List<ApprovalDTO> requestApproval_list(String emp_id) {
 		return dao.requestApproval_list(emp_id);
@@ -276,6 +345,15 @@ public class ApprovalService {
 	
 	public List<ApprovalDTO> compApproval_list(String emp_id) {
 		return dao.compApproval_list(emp_id);
+	}
+
+	public List<ApprovalDTO> finishApproval_list(String emp_id) {
+		return dao.finishApproval_list(emp_id);
+	}
+
+	public List<ApprovalDTO> rejectedApproval_list(String emp_id) {
+		// TODO Auto-generated method stub
+		return dao.rejectedApproval_list(emp_id);
 	}
 
 
