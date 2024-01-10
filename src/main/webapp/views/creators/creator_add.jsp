@@ -220,14 +220,19 @@
                     
                   <div class="col-sm-3">
                     <div class="card-body">
-					<div action="/upload" class="dropzone needsclick" id="dropzone-basic">
-					  <div class="dz-message needsclick">
-					    Drop Image or click here
-					  </div>
-					  <div class="fallback">
-					    <input name="file" type="file" />
-					  </div>
-					</div>
+					  <label for="uploadPhoto" style="cursor:pointer">
+                  		<img
+                             src="/util_img/upload_default.png"
+                             alt="user-avatar"
+                             class="d-block rounded"
+                             height="200px"
+                             width="100%"
+                             id="preview" />
+					  </label>
+					    <div class="fallback">
+					       <input id="uploadPhoto" name="file" type="file" onchange="previewImage(event)" 
+					       	accept=".jpg, .jpeg, .gif, .png" style="display:none;"/>
+					    </div>
                     </div>
                     <div>
                        	<label class="form-label">성별</label>
@@ -321,17 +326,19 @@
                         <div id="personal-info" class="content">
                           <div class="row g-3" style="justify-content: space-around;">
 							<div class="col-6 ch-area">
+							
 								<div style="display: flex; justify-content: space-between;">
 									<span><span style="color: #c20000">*</span> 유튜브 채널
 										정보 (대표채널을 선택해 주세요)</span>
 									<button type="button"
 										class="btn btn-sm btn-icon btn-outline-primary mb-1"
-										onclick="addChItem()">
+										onclick="creatorAddDo()">
 										<i class='bx bx-plus bx-burst-hover'></i>
 									</button>
 								</div>
-								<div id="ch-item-list" class="mb-6"
-									data-repeater-list="group-a">
+								
+								
+								<div id="ch-item-list" class="group-a">
 									<!-- 채널명, 가입일, 카테고리, 채널링크 div-->
 									<div class="repeater-wrapper pt-0 pt-md-4"
 										data-repeater-item>
@@ -487,8 +494,8 @@
 				                        	<option value="" disabled selected hidden >분류 선택</option>
 				                          <option value="구독자">구독자</option>
 				                          <option value="조회수">조회수</option>
-				                          <option value="버튼달성">버튼달성</option>
-				                          <option value="수상">수상</option>
+				                          <option value="버튼획득">버튼획득</option>
+				                          <option value="수상이력">수상이력</option>
 				                        </select>
 			                        </div>
 			                       
@@ -672,19 +679,27 @@
 	        });
 	      });
     	});
-        const myDropzone=null;
-        
-        if(myDropzone!= null){
-		    // 이미지 DROP
-		    myDropzone = new Dropzone('#dropzone-basic', {
-		      parallelUploads: 1,
-		      maxFilesize: 5,
-		      addRemoveLinks: true,
-		      maxFiles: 1
-		    });
-        }
         
     });
+  	 
+  	 
+  	 // 사진 업로드 
+  	 function previewImage(event) {
+           const input = event.target;
+           const preview = document.getElementById('preview');
+
+           if (input.files && input.files[0]) {
+               const reader = new FileReader();
+
+               reader.onload = function (e) {
+                   preview.src = e.target.result;
+               };
+
+               reader.readAsDataURL(input.files[0]);
+           }
+           
+       }
+  	 
   	
   	function urlCheck(){
   		
@@ -804,7 +819,11 @@
       });
       console.log("creHistDTOList",creHistDTOList);
       
-		$.ajax({
+
+      
+      
+      
+		/* $.ajax({
 			type : 'post',
 			url : 'creatorAdd.ajax.do',
 			data: JSON.stringify({
@@ -827,7 +846,7 @@
 	    		
 	    	}
 			
-		});
+		}); */
 	}
   	
   	

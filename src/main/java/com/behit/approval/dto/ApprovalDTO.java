@@ -14,7 +14,9 @@ import lombok.Setter;
 public class ApprovalDTO {
 	
 	private String emp_name;
-	private String emp_dept_name;
+	private String dept_name;
+	private String grade_name;
+	private String position_name;
 	
 	private int apv_idx;
 	private String emp_id;

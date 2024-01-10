@@ -21,7 +21,7 @@
 	</select>
 	
 	<insert id="writefile">
-		INSERT INTO file (file_kind,file_kind_idx,ori_file_name,new_file_name,emp_id)VALUES('4',#{param1},#{param2},#{param3},#{param4})
+		INSERT INTO file (file_kind,file_kind_idx,ori_file_name,new_file_name,emp_id)VALUES(#{param5},#{param1},#{param2},#{param3},#{param4})
 	</insert>
 	
 	<!-- 사이드바 전체리스트 -->
@@ -47,6 +47,7 @@
 		ORDER BY p.proj_update DESC;
 	</select>
 	
+	<!-- 사이드바 버튼 클릭시 해당 리스트(완료,진행,대기) -->
 	<select id="projwhatList" resultType="proj">
 		SELECT
 		    p.*,
@@ -71,7 +72,7 @@
 	
 	<!-- 아래는 대쉬보드 즉시,대기,진행,지연 -->
 	<select id="projnow" resultType="proj">
-		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'N' ORDER BY p.proj_end DESC LIMIT 5;
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'N' ORDER BY p.proj_end LIMIT 5;
 	</select>
 	
 	<select id="projwait" resultType="proj">
@@ -83,13 +84,92 @@
 	</select>
 	
 	<select id="projdelay" resultType="proj">
-		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'Y' ORDER BY p.proj_end DESC;
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'Y' ORDER BY p.proj_end;
 	</select>
 	
+	<!-- 프로젝트 상세보기 -->
 	<select id="projDetail" resultType="map">
-		SELECT * FROM project where proj_idx = #{param1};
+		SELECT p.*,e.emp_name FROM project p INNER JOIN employee e ON p.emp_id = e.emp_id where p.proj_idx = #{param1};
 	</select>
 	
-	<update id="projUpStatus"></update>
+	<!-- 프로젝트 상세보기 담당자 참조자 -->
+	<select id="projdamcham" resultType="projT">
+		SELECT t.*,e.emp_name FROM project_team t INNER JOIN employee e ON t.emp_id = e.emp_id where t.proj_idx = #{param1}
+	</select>
+	
+	<!-- 프로젝트 상세보기 상태 선택시 업데이트(진행,완료,대기) -->
+	<update id="projUpStatus">
+		UPDATE project SET proj_status = #{param2}, proj_update = now() WHERE proj_idx = #{param1}
+	</update>
+	
+	<!-- 프로젝트 활동기록 작성 -->
+	<insert id="projRwrite">
+		INSERT INTO project_record (proj_idx,emp_id,projR_content)VALUES(#{param1},#{param2},#{param3})
+	</insert>
+	
+	<!-- 프로젝트 update 날짜 업데이트 -->
+	<update id="projUp">
+		UPDATE project SET proj_update = now() WHERE proj_idx = #{param1}
+	</update>
+	
+	<!-- 활동기록 작성하자마자 바로 해당 idx 가져오기 -->
+	<select id="projRIdx" resultType="int">
+		SELECT projR_idx FROM project_record ORDER BY projR_idx DESC Limit 1;
+	</select>
+	
+	<!-- 활동기록 리스트 -->
+	<select id="projRList" resultType="projR">
+		SELECT r.projR_idx,
+			r.proj_idx,
+			r.projR_content,
+			MAX(r.projR_date) AS projR_date,
+			MAX(r.projR_update) AS projR_update,
+			r.projR_upstate,
+			r.emp_id,
+			(SELECT e.emp_name FROM employee e WHERE e.emp_id = r.emp_id) AS emp_name,
+			GROUP_CONCAT(f.ori_file_name) AS ori_file_name,
+			GROUP_CONCAT(f.new_file_name) AS new_file_name
+		FROM project_record r
+		LEFT JOIN file f ON r.projR_idx = f.file_kind_idx AND f.file_kind = 7
+		WHERE proj_idx = #{param1}
+		GROUP BY r.projR_idx, r.proj_idx, r.projR_content, r.projR_upstate, r.emp_id
+		ORDER BY projR_idx DESC;
+	</select>
+	
+	<!-- 활동기록 삭제 -->
+	<delete id="projRDel">
+		DELETE FROM project_record WHERE projR_idx = #{param1}
+	</delete>
+	
+	<select id="projRfile" resultType="util">
+		SELECT * FROM file WHERE file_kind = #{param1} and file_kind_idx = #{param2}
+	</select>
+	
+	<delete id="fileDel">
+		DELETE FROM file WHERE file_idx = #{param1}
+	</delete>
+	
+	<!-- 프로젝트 파일 전체 가져오기 -->
+	<select id="projAllFile" resultType="projFile">
+		SELECT r.proj_idx, f.ori_file_name, f.new_file_name, f.upload_date
+			FROM project_record r
+			LEFT JOIN file f ON r.projR_idx = f.file_kind_idx AND f.file_kind = 7
+			WHERE proj_idx = #{param1}
+		UNION ALL
+			SELECT p.proj_idx, f.ori_file_name, f.new_file_name, f.upload_date
+			FROM project p
+			LEFT JOIN file f ON p.proj_idx = f.file_kind_idx AND f.file_kind = 4
+			WHERE p.proj_idx = #{param1}
+		ORDER BY upload_date DESC;
+	</select>
+	
+	<select id="projRData" resultType="map">
+		SELECT r.*,(SELECT e.emp_name FROM employee e WHERE e.emp_id = r.emp_id) AS emp_name FROM project_record r WHERE r.projR_idx = #{param1};
+	</select>
+	
+	<!-- 활동기록 업데이트 -->
+	<update id="projRUpdate">
+		UPDATE project_record SET projR_content = #{param2}, projR_update = now(), projR_upstate = 'Y' WHERE projR_idx = #{param1}
+	</update>
 
 </mapper>

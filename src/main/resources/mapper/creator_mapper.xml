@@ -118,5 +118,32 @@
 		WHERE ch.rep_channel AND c.emp_id = #{loginId};
 	</select>
 	
+	<!-- 크리에이터 상세  -->
+		<!-- 크리에이터 정보 -->
+	<select id="getCreator" parameterType="int" resultType="creator">
+		SELECT * FROM creator WHERE cre_idx = #{cre_idx}
+	</select>
+	<select id="getChannel" parameterType="int" resultType="HashMap">
+		SELECT * FROM channel WHERE cre_idx = #{cre_idx}
+	</select>
+	<select id="getChannelIdByCreIdx" parameterType="int" resultType="String">
+		SELECT channel_id FROM channel WHERE cre_idx = #{cre_idx}
+	</select>
+	<select id="getCreHistory" parameterType="int" resultType="HashMap">
+		SELECT * FROM creatorhistory 
+		WHERE cre_idx =#{cre_idx} 
+		ORDER BY history_date DESC;
+	</select>
+	<select id="getSns" parameterType="int" resultType="sns">
+		SELECT * FROM creatorsns WHERE cre_idx =#{cre_idx};
+	</select>
 	
+	
+	<!--  크리에이터 차트 데이터 -->
+	<select id="getChartData" parameterType="String" resultType="channeldata">
+		SELECT * FROM channeldata cd 
+		WHERE cd.channel_id = #{repChannelId}
+		AND cd.channel_data_date >= CURDATE() - INTERVAL 30 DAY
+		ORDER BY cd.channel_data_date ASC
+	</select>
 </mapper>

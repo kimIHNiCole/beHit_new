@@ -46,10 +46,7 @@ public class ApprovalController {
 	}
 	
 	@PostMapping(value="/approval/approval_write.do")
-	public ModelAndView approval_write(HttpSession session, @RequestParam HashMap<String, String> params, MultipartFile[] files) {
-		
-		ModelAndView mav = new ModelAndView("approval/approval_main");
-		
+	public String approval_write(HttpSession session, @RequestParam HashMap<String, String> params, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		
 		return service.approval_write(loginInfo,params,files);
@@ -64,15 +61,37 @@ public class ApprovalController {
 		return service.getApproval_list(emp_id);
 	}
 	
-	@GetMapping(value="/approval/getApproval_detail.go/{apv_code}/{apv_idx}")
-	public ModelAndView approval_detail(@PathVariable String apv_code, @PathVariable String apv_idx,HttpSession session) {
+	@GetMapping(value="/approval/getApproval_detail.go/{apv_idx}")
+	public ModelAndView getApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
-		String login_name = loginInfo.getEmp_name();
 
-		return service.approval_detail(apv_code,apv_idx,emp_id,login_name);
+		return service.getApproval_detail(apv_idx);
 	}
 	
+	@PostMapping(value="/approval/getApproval_detail.do")
+	public String getApproval_detail_do(ApprovalDTO dto) {
+		
+		return service.getApproval_detail_do(dto);
+	}
+	
+	@GetMapping(value="/approval/requestApproval_list.do")
+	@ResponseBody
+	public List<ApprovalDTO> requestApproval_list(HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+
+		return service.requestApproval_list(emp_id);
+	}
+	
+	@GetMapping(value="/approval/compApproval_list.do")
+	@ResponseBody
+	public List<ApprovalDTO> compApproval_list(HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+
+		return service.compApproval_list(emp_id);
+	}
 	
 
 

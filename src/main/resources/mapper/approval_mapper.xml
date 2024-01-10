@@ -5,19 +5,19 @@
 
 <mapper namespace="com.behit.approval.dao.ApprovalDAO">
 
-<select id="approval_write_go" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
+<select id="approval_write_go" parameterType="String" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT 
 				e.emp_name,
 		    d.emp_dept_name AS 'dept_name',
 		    cc_grade.common_code_name AS 'grade_name',
 		    cc_position.common_code_name AS 'position_name',
-		    NOW() AS 'emp_date'
+		    NOW() AS 'apv_date'
 		FROM 
 		    employee e
 		    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		    JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
 		    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
-		    WHERE e.emp_id = #{emp_id};
+		    WHERE e.emp_id = #{emp_id}
 	</select>
 	
 	<!-- 결재상신 -->
@@ -99,15 +99,76 @@
 		)
 	</insert>
 	<update id="apv_approver">
-		UPDATE apv SET apv_approver = #{apv_approver} WHERE apv_idx = #{apv_idx};
+		UPDATE apv SET apv_approver = #{apv_approver} WHERE apv_idx = #{apv_idx}
 	</update>
+	<select id="apv_line_sel" resultType="String">
+		SELECT emp_id
+		FROM apv_line
+		WHERE apv_line = (SELECT apv_line + 1 FROM apv_line WHERE apv_idx = 30 AND emp_id = 'emp03')
+		AND apv_idx = 30
+	</select>
+	
 	
 	<select id="getApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
-		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, e.emp_name, d.emp_dept_name, a.apv_stmt 
+		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, e.emp_name, d.emp_dept_name AS 'dept_name' , a.apv_stmt 
 		FROM apv a 
 		JOIN employee e ON e.emp_id = a.emp_id
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
-		WHERE apv_approver = #{emp_id};
+		WHERE apv_approver = #{emp_id}
+	</select>
+	<select id="getApproval_detail" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT * FROM apv a WHERE a.apv_idx = #{apv_idx}
+	</select>
+	<select id="getApv_line" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT 
+			emp_id,apv_line
+		FROM apv_line 
+		WHERE apv_idx = #{apv_idx}
+	</select>
+	<insert id="getApproval_detail_do" parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO apv_history(
+			apv_idx
+			,apv_history_stmt
+			,apv_history_date
+			,apv_history_reason
+			,emp_id
+		)
+		VALUES(
+		#{apv_idx}
+		,#{apv_history_stmt}
+		,NOW()
+		,#{apv_history_reason}
+		,#{apv_approver}
+		)
+	</insert>
+	
+	
+	<select id="requestApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, 
+       (SELECT apv_history_date
+        FROM apv_history ah
+        WHERE ah.apv_idx = a.apv_idx
+        ORDER BY apv_history_date DESC
+        LIMIT 1) as apv_history_date,
+       e.emp_name, d.emp_dept_name
+		FROM apv a 
+		JOIN employee e ON e.emp_id = a.apv_approver 
+		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		WHERE a.emp_id = #{emp_id}
+	</select>
+	
+	<select id="compApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_stmt, 
+			(SELECT e.emp_name 
+			 FROM apv_line al 
+			 JOIN employee e ON e.emp_id = al.emp_id 
+			 WHERE al.apv_idx = a.apv_idx 
+			 ORDER BY al.apv_line DESC
+			 LIMIT 1) as emp_name,
+			 ah.apv_history_date 
+		FROM apv_history ah 
+		JOIN apv a ON ah.apv_idx = a.apv_idx 
+		WHERE ah.emp_id = #{emp_id}
 	</select>
 
 

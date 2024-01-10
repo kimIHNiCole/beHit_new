@@ -26,7 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.project.dto.ProjectDTO;
+import com.behit.project.dto.ProjectFileDTO;
+import com.behit.project.dto.ProjectRecordDTO;
+import com.behit.project.dto.ProjectTeamDTO;
 import com.behit.project.service.ProjectService;
+import com.behit.util.dto.UtilDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -56,13 +60,13 @@ public class ProjectController {
 	        @RequestParam("selectedNodes") String selectedNodes,
 	        @RequestParam("selectedNodes1") String selectedNodes1) throws Exception {
 	    
-		logger.info("createId: {}", createId);
-        logger.info("textsubject: {}", textsubject);
-        logger.info("startproj: {}", startproj);
-        logger.info("endproj: {}", endproj);
-        logger.info("textContent: {}", textContent);
-        logger.info("selectedNodes: {}", selectedNodes);
-        logger.info("selectedNodes1: {}", selectedNodes1);
+		// logger.info("createId: {}", createId);
+        // logger.info("textsubject: {}", textsubject);
+        // logger.info("startproj: {}", startproj);
+        // logger.info("endproj: {}", endproj);
+        // logger.info("textContent: {}", textContent);
+        // logger.info("selectedNodes: {}", selectedNodes);
+        // logger.info("selectedNodes1: {}", selectedNodes1);
         
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> selectedNodesList = null;
@@ -80,6 +84,7 @@ public class ProjectController {
             logger.error("JSON error: "+e);
         }
         
+        int file_kind = 4;
         if(createId != "") {
         	int insert = 0;
         	insert = service.projwrite(createId,textsubject,startproj,endproj,textContent);
@@ -101,7 +106,7 @@ public class ProjectController {
         		if (files != null) {
         			for (MultipartFile file : files) {
         				logger.info("File name: {}", file.getOriginalFilename());
-        				service.upload(lastIdx, file, createId);
+        				service.upload(lastIdx, file, createId, file_kind);
         			}
         		}
         	}
@@ -127,11 +132,6 @@ public class ProjectController {
 			ArrayList<ProjectDTO> list = service.projwhatList(emp_id, whatlist);
 			map.put("list", list);
 		}
-		
-		
-		
-		// LocalDate now = LocalDate.now(); 현재 날짜
-		// logger.info("현재날짜: "+now);
 		
 		return map;
 	}
@@ -196,20 +196,23 @@ public class ProjectController {
 		return map;
 	}
 	
+	// 프로젝트 상세보기 페이지 이동시 값가지고 이동
 	@GetMapping(value={"/project/project_detail.go", "/views/project_detail.go"})
 	public ModelAndView projectDetailGo(@RequestParam String proj_idx) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세페이지 이동요청 및 proj_idx: "+proj_idx);
 		Map<String, String> detailList = service.projDetail(proj_idx);
-		// List<ProjectDTO> detailList = service.projDetail(proj_idx);
+		ArrayList<ProjectTeamDTO> damchamList = service.projdamcham(proj_idx);
 		logger.info("상세페이지 정보: "+detailList);
-		
+		logger.info("상세 담당자 참조자 정보: "+damchamList);
 		mav.addObject("detailList", detailList);
+		mav.addObject("damchamList", damchamList);
 		mav.setViewName("/project/project_detail");
 		
 		return mav;
 	}
 	
+	// 프로젝트 상세보기에서 상태 변경시 업데이트 (진행,완료,대기)
 	@PostMapping(value="/project/projUpStatus.do")
 	@ResponseBody
 	public Map<String, Object> projUpStatusDo(@RequestParam String projIdx, @RequestParam String projStatus) {
@@ -217,8 +220,144 @@ public class ProjectController {
 		
 		service.projUpStatus(projIdx,projStatus);
 		
-		map.put("success", "성공");
+		map.put("success", projStatus);
 		
 		return map;
 	}
+	
+	// 프로젝트 활동기록 작성
+	@PostMapping(value="/project/projectRWrite.do")
+	@ResponseBody
+	public Map<String, Object> projRWriteDo(
+			@RequestParam("projIdx") String projIdx,
+			@RequestParam("projRW_id") String projRW_id,
+			@RequestParam("content") String content,
+			@RequestParam(value = "files[]", required = false) MultipartFile[] files) throws Exception{
+		
+		int row = 0;
+		int file_kind = 7;
+		row = service.projRwrite(projIdx,projRW_id,content);
+		
+		if(row != 0) {
+			int lastRIdx = service.projRIdx();
+			if (files != null) {
+				for (MultipartFile file : files) {
+					logger.info("File name: {}", file.getOriginalFilename());
+					service.upload(lastRIdx, file, projRW_id, file_kind);
+				}
+			}
+			service.projUp(projIdx);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("success", row);
+		return map;
+	}
+	
+	// 프로젝트 활동기록 리스트
+	@GetMapping(value="/project/projectRList.do")
+	@ResponseBody
+	public Map<String, Object> projRListDo(@RequestParam String proj_idx){
+		
+		ArrayList<ProjectRecordDTO> list = service.projRList(proj_idx);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
+	
+	// 프로젝트 활동기록 삭제 및 파일까지 같이 삭제
+	@PostMapping(value="/project/projectRdel.do")
+	@ResponseBody
+	public Map<String, Object> projRDelDo(@RequestParam String projR_idx){
+		int file_kind = 7;
+		int row = 0;
+		row = service.projRDel(projR_idx);
+		if(row != 0) {
+			ArrayList<UtilDTO> fileList = service.projRfile(file_kind, projR_idx);
+			logger.info("dto형식의 파일리스트:",fileList);
+			if (fileList != null && !fileList.isEmpty()) {
+				for (UtilDTO file : fileList) {
+			        int file_idx = file.getFile_idx();
+			        logger.info("삭제할 파일 idx:",file_idx);
+			        service.fileDel(file_idx);
+			    }
+			}
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("success", row);
+		return map;
+	}
+	
+	// 프로젝트에 해당하는 활동기록 및 프로젝트 파일들 전부 가져오기
+	@GetMapping(value="/project/projectAllFile.do")
+	@ResponseBody
+	public Map<String, Object> projAllFile(@RequestParam String proj_idx){
+		ArrayList<ProjectFileDTO> list = service.projAllFile(proj_idx);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
+	
+	// 활동기록 수정버튼 클릭시 해당 값가져오기
+	@GetMapping(value="/project/projectRData.do")
+	@ResponseBody
+	public Map<String, Object> projRData(@RequestParam String projR_idx){
+		int file_kind = 7;
+		Map<String, String> record = service.projRData(projR_idx);
+		logger.info("수정클릭시 가져온 해당 R_idx값: ",record);
+		ArrayList<UtilDTO> recordFile = service.projRfile(file_kind,projR_idx);
+		logger.info("수정클릭시 가져온 해당 R_idx 파일 정보:",recordFile);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("record", record);
+		map.put("recordFile", recordFile);
+		return map;
+	}
+	
+	@PostMapping(value="/project/projectRUpdate.do")
+	@ResponseBody
+	public Map<String, Object> projRUpdateDo(
+			@RequestParam("projIdx") String projIdx,
+			@RequestParam("emp_id") String emp_id,
+			@RequestParam("projR_idx") String projR_idx,
+			@RequestParam("content") String content,
+			@RequestParam(value = "files[]", required = false) MultipartFile[] files,
+			@RequestParam("delUpfile") String delUpfile) throws Exception{
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+        List<String> delUpfileList = null;
+        try {
+        	if("[]".equals(delUpfile)) {
+        	}else {        		
+        		delUpfileList = objectMapper.readValue(delUpfile, new TypeReference<List<String>>() {});
+        	}
+        } catch (Exception e) {
+            logger.error("JSON error: "+e);
+        }
+		
+		int row = 0;
+		int file_kind = 7;
+		row = service.projRUpdate(projR_idx,content);
+		int projRIdx = Integer.parseInt(projR_idx);
+		
+		if(row != 0) {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					logger.info("File name: {}", file.getOriginalFilename());
+					service.upload(projRIdx, file, emp_id, file_kind);
+				}
+			}
+			if(delUpfileList != null) {
+    			for (String delfile_idx : delUpfileList) {
+    				logger.info("활동기록 업뎃시 삭제될 파일: {}", delfile_idx);
+    				int file_idx = Integer.parseInt(delfile_idx);
+    				service.fileDel(file_idx);
+    			}
+    		}
+			service.projUp(projIdx);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("success", row);
+		return map;
+	}
+	
 }

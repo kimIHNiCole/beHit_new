@@ -20,7 +20,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
     
     <!-- bootstrap 아이콘 -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -35,47 +35,47 @@
       rel="stylesheet" />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="/assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="/assets/vendor/fonts/flag-icons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <link rel="stylesheet" href="/assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.css" />
-		<link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/jquery-timepicker/jquery-timepicker.css" />
+		<link rel="stylesheet" href="/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/jstree/jstree.css" />
     
     
     
 		<!-- Row Group CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
     <!-- Form Validation -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 	
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../../assets/vendor/js/helpers.js"></script>
+    <script src="/assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../../assets/js/config.js"></script>
+    <script src="/assets/js/config.js"></script>
     
     <!-- custom CSS -->
     <style>
@@ -314,6 +314,7 @@
     .table-content-right.time .vac-time-input{
     	display:flex;
     	justify-content: space-between;
+    	align-items: center
     }
     
     .table-content-right .form-vac-time-start,
@@ -362,11 +363,11 @@
     	font-family:pretendard;
     }
     
-    .apv-form-button button[type="submit"]{
+    .apv-form-button .btn-primary{
     	margin-right: 5.125rem;
     }
     
-    .apv-form-button button[type="reset"]{
+    .apv-form-button .btn-label-secondary{
     	margin-right:1rem;
     }
     
@@ -543,7 +544,7 @@
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
         
 				              <div class="card">
-					              <form action="../approval_write.do" method="post" enctype="multipart/form-data">
+					              <form action="/approval/getApproval_detail.do" method="post" enctype="multipart/form-data">
 					              	<div class="apv-form-vac">
 					              	<div>
 						              		<!-- 사업기안서/휴가신청서 -->
@@ -578,9 +579,74 @@
 					                </div>
 	
 					                <div class="pt-4 apv-form-button">
-				                    <button type="reset" class="btn btn-label-secondary">취소</button>
-				                    <button type="submit" class="btn btn-primary">상신</button>
+				                    <button type="button" class="btn btn-label-secondary" 
+				                    	data-bs-toggle="modal" data-bs-target="#apv-stmt-modal" onclick="handleRejection()">반려</button>
+				                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+				                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">결재</button>
+				                    <input type="hidden" name="apv_history_stmt" value="반려"/>
 				                  </div>
+				                  
+				                  
+				                  <!-- 새 결제 작성 모달 -->
+						              <div class="modal fade" id="apv-stmt-modal" tabindex="-1" aria-hidden="true">
+						                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+						                  <div class="modal-content p-3 p-md-5">
+						                    <div class="modal-body p-2">
+						                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						                      <div class="text-start mb-4">
+						                        <h4 id="modal-title">결재</h4>
+						                      </div>
+						                      
+							                      <div class="modal-body p-2">
+							                      
+			                                <div class="row">
+			                                  <div class="col mb-3">
+			                                    <label for="nameWithTitle" class="form-label">결재 문서명</label>
+			                                    <div>
+				                                    <c:choose>
+																					    <c:when test="${apv.apv_code == 'BFVC'}">
+																					        <span class="fs-5">연차 신청서</span>
+																					    </c:when>
+																					    <c:when test="${apv.apv_code == 'BSPN'}">
+																					        <span class="fs-5">사업 기안서</span>
+																					    </c:when>
+																					    <c:when test="${apv.apv_code == 'AFVC'}">
+																					        <span class="fs-5">사후 연차 신청서</span>
+																					    </c:when>
+																						</c:choose>
+			                                    </div>
+			                                  </div>
+			                                </div>
+			                                
+			                                <div class="row">
+			                                  <div class="col mb-3">
+			                                    <label id="modal-label" for="nameWithTitle" class="form-label">결재 사유</label>
+			                                    <div>
+				                                    <textarea class="form-control" name="apv_history_reason"
+																								id="exampleFormControlTextarea1" placeholder="내용을 입력하세요." 
+																								rows="3" style="resize: none"></textarea>
+			                                    </div>
+			                                  </div>
+			                                </div>
+						
+						                      <div class="col-12 text-center">
+						                        <button type="submit" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">확인</button>
+						                        <button
+						                          type="reset"
+						                          class="btn btn-label-secondary btn-reset mt-3"
+						                          data-bs-dismiss="modal"
+						                          aria-label="Close">
+						                          취소
+						                        </button>
+						                      </div>
+						                    </div>
+						                  </div>
+						                </div>
+						              </div>
+						             </div>
+              <!--/ 새 결제 작성 모달 -->
+				                  
+				                  
 					              </form>
 				                
 				              </div>
@@ -722,60 +788,91 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
-    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../../assets/vendor/js/bootstrap.js"></script>
-    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="../../assets/vendor/js/menu.js"></script>
+    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="/assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="/assets/vendor/js/menu.js"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/select2/select2.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
-    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-    <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
-    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
-    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
-    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
-    <script src="../../assets/vendor/libs/quill/katex.js"></script>
-    <script src="../../assets/vendor/libs/quill/quill.js"></script>
-    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
-    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
-    <script src="../../assets/vendor/libs/sortablejs/sortable.js"></script>
+    <script src="/assets/vendor/libs/select2/select2.js"></script>
+    <script src="/assets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="/assets/vendor/libs/cleavejs/cleave-phone.js"></script>
+    <script src="/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    <script src="/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
+    <script src="/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+    <script src="/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+    <script src="/assets/vendor/libs/pickr/pickr.js"></script>
+    <script src="/assets/vendor/libs/quill/katex.js"></script>
+    <script src="/assets/vendor/libs/quill/quill.js"></script>
+    <script src="/assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="/assets/vendor/libs/jstree/jstree.js"></script>
+    <script src="/assets/vendor/libs/sortablejs/sortable.js"></script>
 
     
     <!-- Flat Picker -->
-    <script src="../../assets/vendor/libs/moment/moment.js"></script>
-    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="/assets/vendor/libs/moment/moment.js"></script>
+    <script src="/assets/vendor/libs/flatpickr/flatpickr.js"></script>
     
     <!-- Form Validation -->
-    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="/assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
+    <script src="/assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="/assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
 
     <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../../assets/js/app-ecommerce-settings.js"></script>
-    <script src="../../assets/js/forms-editors.js"></script>
+    <script src="/assets/js/app-ecommerce-settings.js"></script>
     
     <!-- Header JS -->
-    <script src="../../assets/js/header.js"></script>
+    <script src="/assets/js/header.js"></script>
     
     <!-- custom JS -->
     <script>
     
+    
+	  //반려, 결재에 관한 정보  ------------------------------------------------------------------------------------------------------
+	    var apv_history_stmt = '';
+	    
+	    function handleRejection() {
+	    	apv_history_stmt = '반려';
+	    	$('input[name="apv_history_stmt"]').val(apv_history_stmt);
+	    	setModalTitle();
+	    }
+	
+	    function handleApproval() {
+	    	apv_history_stmt = '결재';
+	    	$('input[name="apv_history_stmt"]').val(apv_history_stmt);
+	    	setModalTitle();
+	    }
+	    
+	    function setModalTitle() {
+	        var modalTitle = $('#modal-title');
+	        var modalLabel = $('#modal-label');
+					console.log("결재 or 반려 :"+apv_history_stmt);
+	        if (apv_history_stmt === '결재') {
+	        	modalTitle.text('결재');
+	        	modalLabel.text('결재 사유');
+	        } else if (apv_history_stmt === '반려') {
+	        	modalTitle.text('반려');
+	        	modalLabel.text('반려 사유');
+	        }
+	    }
+	    
+	  //--------------------------------------------------------------------------------------------------------------
+    
+    
     //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
     $('.apv-vac-time').hide();
-    input_modal();
+    // input_modal();
     
     $(".form-vac-time").on("change", function() {
     	
@@ -808,60 +905,6 @@
         input_modal();
     });
     
- 		// 날짜 시간 input 모달
-    function input_modal(){
-    	  // Flat Picker
-    	  var flatpickrDate = document.querySelector('#flatpickr-date');
-    	  var flatpickrDateBefore = document.querySelector('#flatpickr-date-before');
-    	  var flatpickrDateAfter = document.querySelector('#flatpickr-date-after');
-    	  var basicTimepickerBefore = $('#timepicker-basic-before');
-    	  var basicTimepickerAfter = $('#timepicker-basic-after');
-
-    	  // Date
-    	  if (flatpickrDate) {
-    	    flatpickrDate.flatpickr({
-    	      monthSelectorType: 'static'
-    	    });
-    	  }
-    	  
-    	  if (flatpickrDateBefore) {
-    	    flatpickrDateBefore.flatpickr({
-    	      monthSelectorType: 'static'
-    	    });
-    	  }
-    	  
-    	  if (flatpickrDateAfter) {
-      	    flatpickrDateAfter.flatpickr({
-      	      monthSelectorType: 'static'
-      	    });
-      	  }
-    	  
-    	  if (basicTimepickerBefore.length) {
-    		  		basicTimepickerBefore.timepicker({
-    		  			orientation: isRtl ? 'r' : 'l',
-    		  		  step: 60, // 1-hour step
-    		  			disableTextInput: true, // Disable manual input
-    	          'disableTimeRanges': [
-    	            ['12am', '6:59am'],
-    	            ['8:01pm', '11:59pm']
-    	          ]
-    		    });
-    		  }
-    	  
-    	  if (basicTimepickerAfter.length) {
-		  		basicTimepickerAfter.timepicker({
-		  			orientation: isRtl ? 'r' : 'l',
-		     		step: 60, // 1-hour step
-			    	disableTextInput: true, // Disable manual input
-			    	'disableTimeRanges': [
-			    	  ['12am', '6:59am'],
-			    	  ['8:01pm', '11:59pm']
-		    	 ]
-		    });
-		  }
-    	  
-    }
-    
   	//--------------------------------------------------------------------------------------------------------------
   	
   	
@@ -871,6 +914,9 @@
   	var endDay = '';
   	var startTime = '';
   	var endTime = '';
+  	
+  	calculateDateDifference();
+  	
     
     $('.apv-vac-day').on('change', '#flatpickr-date-before', function() {
 		    startDay = $(this).val();
@@ -943,11 +989,40 @@
 		    }
 		}
 
-
     
     //--------------------------------------------------------------------------------------------------------------
   	
-  	
+
+    // 시간 text 변경 ------------------------------------------------------------------
+    
+    if('${apv.apv_vac_type}' == '시간'){
+    
+    var startTime = new Date("${apv.apv_start_time}");
+		var endTime = new Date("${apv.apv_end_time}");
+		
+		// 날짜 형식 변경
+		var options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: '2-digit' };
+		var formattedStartTime = startTime.toLocaleString('en-US', options).replace(',', '');
+		var formattedEndTime = endTime.toLocaleString('en-US', options).split(',')[1].trim();
+		
+		console.log(formattedStartTime);
+		console.log(formattedEndTime);
+		
+		// 결과 생성
+		var result = '<span>'+formattedStartTime+'</span><span> ~ </span><span>'+formattedEndTime+'</span>';
+		
+		// 결과를 출력합니다.
+		var apvVacTypeTimeElement = document.getElementById("apv_vac_type_time");
+		apvVacTypeTimeElement.innerHTML = result;
+    
+		}
+    
+  	//--------------------------------------------------------------------------------------------------------------
+
+    
+    
+    
+    
     // 미리보기 모달----------------------------------------------------------------------------------------------
 		 $('.approval-preview').on('click',function(){
 			
@@ -1046,8 +1121,7 @@
  		// 새 결재 작성 모달창----------------------------------------------------------------------------------------
     $(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
-    	    checkboxTree = $('#jstree-checkbox-form');
-
+    	    checkboxTree = $('#jstree-checkbox');
     	  // Checkbox
     	  if (checkboxTree.length) {
     	    checkboxTree.jstree({
@@ -1105,11 +1179,11 @@
     	        // id 값에 따라 페이지 이동
     	        $('.apv-doc-select').on('click',function(){
     	        			if(selectedNodeId == 'j1_2'){
-    	        					location.href="../approval_write.go/vac";
+    	        					location.href="approval_write.go/vac";
     	        			}else if(selectedNodeId == 'j1_3'){
-    	        				location.href="../approval_write.go/vac_after";
+    	        				location.href="approval_write.go/vac_after";
     	        			}else if(selectedNodeId == 'j1_5'){
-    	        				location.href="../approval_write.go/biz";
+    	        				location.href="approval_write.go/biz";
     	        			}
     	        });
     	        
@@ -1119,7 +1193,6 @@
 		
   	//------------------------------------------------------------------------------------------------
  		
-  	
   	
   	
  		
@@ -1358,10 +1431,25 @@
     }// function
     
     
-    // 전송 -------------------------------------------------------------------------------------------
-		$('#apvCnt').val(JSON.stringify($('#snow-editor').html()));
+    // 내용 받기 -------------------------------------------------------------------------------------------
+    // Quill 에디터 초기화
+    var snowEditor = new Quill('#snow-editor', {
+		    bounds: '#snow-editor',
+		    modules: {
+		        formula: true,
+		        toolbar: '#snow-toolbar'
+		    },
+		    theme: 'snow',
+		   	readOnly: true  // 읽기 전용으로 설정
+		});
+    
+    var deltaData = ${apv.apv_cnt};
+
+    // Delta 데이터를 Quill 에디터에 적용
+    snowEditor.setContents(deltaData);
     
    	//------------------------------------------------------------------------------------------------
+    
     
     
     

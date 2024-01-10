@@ -365,6 +365,8 @@
 
         if (getApprovalListTable.length) {
             getApprovalListTable.DataTable({
+            		stateSave: true,  // 상태 저장 활성화
+                pagingType: 'full_numbers',  // 페이징 컨트롤 옵션 설정
                 ajax: {
                     url: '/approval/getApproval_list.do',
                     type: 'GET',
@@ -389,12 +391,12 @@
                     },
                     { data: 'apv_subject',
                         render: function (data, type, row) {
-                        	return '<a href="#" class="apv-subject-link" data-apv-idx="' + row.apv_idx + '" data-apv-code="' + row.apv_code + '">' + data + '</a>';
+                        	return '<a href="#" class="apv-subject-link" data-apv-idx="' + row.apv_idx + '">' + data + '</a>';
                         }
                     },
                     { data: 'apv_date' },
                     { data: 'emp_name' },
-                    { data: 'emp_dept_name' },
+                    { data: 'dept_name' },
                     { 
                         data: 'apv_stmt',
                         targets: -1,
@@ -425,13 +427,10 @@
                 initComplete: function () {
                     // DataTable 초기화가 완료된 후 이벤트 처리
                     getApprovalListTable.find('.apv-subject-link').on('click', function (e) {
-                        e.preventDefault();
                         var apvIdx = $(this).data('apv-idx');
-                        var apvCode = $(this).data('apv-code'); // 새로 추가된 부분
                         console.log(apvIdx);
-                        console.log(apvCode); // 새로 추가된 부분
                         // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
-                        window.location.href = '/approval/getApproval_detail.go/'+ apvCode + '/'+ apvIdx;
+                        window.location.href = '/approval/getApproval_detail.go/'+ apvIdx;
                     });
                 }
             });

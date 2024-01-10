@@ -6,7 +6,7 @@
           <div class="app-brand demo">
             <a href="../home.go" class="app-brand-link">
               <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
+              	<img src="/assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
               </span>
             </a>
 
