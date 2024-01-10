@@ -90,33 +90,72 @@
 	<!-- 크리에이터 전체 리스트 -->
 	<select id="getAllList" resultType="HashMap">
 		SELECT c.cre_idx, c.cre_nick_name ,(e.emp_name)AS mng_name, 
-			ch.channel_url ,ch.channel_name, ch.channel_cate
+				ch.channel_url ,ch.channel_name, ch.channel_cate,
+				f.new_file_name ,f.ori_file_name
 		FROM creator c 
-		JOIN channel ch ON c.cre_idx = ch.cre_idx AND ch.rep_channel =1
-		JOIN employee e ON c.emp_id = e.emp_id ;
+			JOIN channel ch ON c.cre_idx = ch.cre_idx AND ch.rep_channel =1
+			JOIN employee e ON c.emp_id = e.emp_id 
+			JOIN file f ON c.cre_idx = f.file_kind_idx 
+		WHERE f.file_kind = 6
 	</select>
 	
 	<!-- 나의 크리에이터 리스트 -->
 	<select id="getMyList" parameterType="String" resultType="HashMap">
 		SELECT 
-		    c.cre_idx, c.cre_nick_name, ch.channel_name, ch.channel_url, ch.channel_cate,
-		    tc.last_subscriber, tc.last_views, tc.last_contents
-		FROM creator c 
-		JOIN  channel ch ON c.cre_idx = ch.cre_idx
-		JOIN (
-		        SELECT c2.cre_idx, ch2.channel_id,
+		    c.cre_idx, c.cre_nick_name, ch.cre_idx, ch.channel_name, ch.channel_url, ch.channel_cate,
+		    tc.last_subscriber, tc.last_views, tc.last_contents,
+		    f.new_file_name , f.ori_file_name 
+		FROM 
+		    creator c 
+			JOIN channel ch ON c.cre_idx = ch.cre_idx
+			JOIN (
+		        SELECT 
+		            c2.cre_idx, ch2.channel_id,
 		            MAX(cd2.subscriber) as last_subscriber, 
 		            MAX(cd2.contents) as last_contents,
 		            MAX(cd2.views) as last_views
-		        FROM channeldata cd2 JOIN channel ch2 
-		            ON cd2.channel_id = ch2.channel_id 
-		        JOIN creator c2 
-		        	ON c2.cre_idx = ch2.cre_idx 
-		        GROUP BY ch2.channel_id
-		    ) AS tc 
-		    	ON ch.cre_idx = tc.cre_idx
-		WHERE ch.rep_channel AND c.emp_id = #{loginId};
+		        FROM 
+		            channeldata cd2 
+		        JOIN 
+		            channel ch2 ON cd2.channel_id = ch2.channel_id 
+		        JOIN 
+		            creator c2 ON c2.cre_idx = ch2.cre_idx 
+		        GROUP BY 
+		            ch2.channel_id
+		    ) AS tc ON ch.cre_idx = tc.cre_idx
+		   JOIN file f ON tc.cre_idx = f.file_kind_idx 
+		WHERE 
+		    ch.rep_channel=1 AND c.emp_id = 'KimInHye' AND f.file_kind =6
+	</select>
+	
+	<!-- 크리에이터 상세  -->
+		<!-- 크리에이터 정보 -->
+	<select id="getCreator" parameterType="int" resultType="creator">
+		SELECT * FROM creator c 
+			JOIN file f ON c.cre_idx = f.file_kind_idx 
+		WHERE cre_idx = #{cre_idx} AND f.file_kind =6;
+	</select>
+	<select id="getChannel" parameterType="int" resultType="HashMap">
+		SELECT * FROM channel WHERE cre_idx = #{cre_idx}
+	</select>
+	<select id="getChannelIdByCreIdx" parameterType="int" resultType="String">
+		SELECT channel_id FROM channel WHERE cre_idx = #{cre_idx}
+	</select>
+	<select id="getCreHistory" parameterType="int" resultType="HashMap">
+		SELECT * FROM creatorhistory 
+		WHERE cre_idx =#{cre_idx} 
+		ORDER BY history_date DESC;
+	</select>
+	<select id="getSns" parameterType="int" resultType="sns">
+		SELECT * FROM creatorsns WHERE cre_idx =#{cre_idx};
 	</select>
 	
 	
+	<!--  크리에이터 차트 데이터 -->
+	<select id="getChartData" parameterType="String" resultType="channeldata">
+		SELECT * FROM channeldata cd 
+		WHERE cd.channel_id = #{repChannelId}
+		AND cd.channel_data_date >= CURDATE() - INTERVAL 30 DAY
+		ORDER BY cd.channel_data_date ASC
+	</select>
 </mapper>

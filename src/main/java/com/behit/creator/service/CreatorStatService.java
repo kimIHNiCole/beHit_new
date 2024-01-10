@@ -29,7 +29,8 @@ public class CreatorStatService {
 	
 	
 	ChannelDataDTO channelDataDTO = new ChannelDataDTO();
-	
+	Channel channel=null;
+	// 여러개 저장할때
 	public void saveChannelData() {
 		logger.info("SCHEDULING :: saveChannelData() 실행");
 		// 채널 id 가져오기 ( 크리에이터당 대표 채널만 )
@@ -45,28 +46,16 @@ public class CreatorStatService {
 			// 각 채널마다 구독자수, 총 조회수, 총 컨텐츠 수 가져오기
 			saveChannelDataOne(channelId);
 		}
-		
 	}
-
+	// 하나만 저장할때
 	public void saveChannelDataOne(String channelId) {
 		logger.info("SCHEDULING :: saveChannelDataOne() 실행");
 		
-		try {
-            YouTube youtubeService = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport()
-            		, JacksonFactory.getDefaultInstance(), null)
-                    	.setApplicationName("BeHit")
-                    	.build();
-            YouTube.Channels.List request = youtubeService.channels()
-                .list("snippet,contentDetails,statistics");
-            ChannelListResponse response = request.setId(channelId)
-                .setKey(secret_key)
-                .execute();
-            Channel channel = response.getItems().get(0);
-
-            BigInteger subscriber = channel.getStatistics().getSubscriberCount();
-            BigInteger views = channel.getStatistics().getViewCount();
-            BigInteger contents = channel.getStatistics().getVideoCount();
+            useYoutubeApi(channelId);
             
+            BigInteger subscriber = channel.getStatistics().getSubscriberCount();
+	        BigInteger views = channel.getStatistics().getViewCount();
+	        BigInteger contents = channel.getStatistics().getVideoCount();
             // DB 저장하기
             channelDataDTO.setChannel_id(channelId);
             channelDataDTO.setSubscriber(subscriber);
@@ -80,10 +69,28 @@ public class CreatorStatService {
             // 조회수추이값 계산하기 
             // insert와 동시에 => 쿼리를 통해 수행
             creatorStatDAO.saveChannelData(channelDataDTO);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		
+	}
+	
+	
+	public Channel useYoutubeApi(String channelId) {
+		try {
+			YouTube youtubeService = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport()
+	        		, JacksonFactory.getDefaultInstance(), null)
+	                	.setApplicationName("BeHit")
+	                	.build();
+	        YouTube.Channels.List request;
+				request = youtubeService.channels()
+				    .list("snippet,contentDetails,statistics");
+	        ChannelListResponse response = request.setId(channelId)
+	            .setKey(secret_key)
+	            .execute();
+	        channel = response.getItems().get(0);
+	        
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return channel;
 	}
 
 

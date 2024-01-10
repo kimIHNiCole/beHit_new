@@ -479,6 +479,7 @@ function showChatRListOnChatMs(data) {
     	var listItem = $('<li class="chat-contact-list-item"></li>');
     	listItem.on('click', function() {
             registerClickEvent(chatRoom.chat_room_idx);
+            chatRoomIdx=chatRoom.chat_room_idx;
             // 클릭한 리스트에 active 클래스 추가
             $('.chat-contact-list-item').removeClass('active');
             $(this).addClass('active');
@@ -875,16 +876,17 @@ $('#apv-org-modal').on('hidden.bs.modal', function () {
 $(document).ready(function() {
 
 	chatRListOnChatMs();
-	
+	/* 
 	if (chatRoomIdx) {
         registerClickEvent(chatRoomIdx);
-    }
+    } */
         
 });
  
  
 function registerClickEvent(chatRoomIdx) {
 		console.log("클릭된 챗룸",chatRoomIdx);
+		
     	//웹소켓 대화 삭제
     	$('#webChatMessage').empty();
 /*         // 기존 active 클래스를 모두 제거

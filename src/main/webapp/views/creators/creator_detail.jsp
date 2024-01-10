@@ -71,6 +71,16 @@
     	padding-top: 0rem !important;
     	margin-right: -7rem;
     }
+    .custom-logo{
+    	display: inline-block;
+	    border: 1px solid #868686;
+	    height: 20px;
+	    width: 20px;
+	    border-radius: 3px;
+	    background-color: #c20000;
+	    color: #FFF;
+	    text-align: center;
+    }
     
     </style>
     
@@ -101,12 +111,12 @@
                         <div class="d-flex align-items-center flex-column">
                           <img
                             class="img-fluid rounded my-4"
-                            src="../../assets/img/avatars/10.png"
-                            height="110"
-                            width="110"
-                            alt="User avatar" />
+                            src="/file/creator/${creatorInfo.new_file_name}"
+                            alt="${creatorInfo.ori_file_name}"
+                            height="300"
+                            width="300"/>
                           <div class="user-info text-center">
-                            <h4 class="mb-2">히빱</h4>
+                            <h4 class="mb-2">${creatorInfo.cre_nick_name}</h4>
                           </div>
                         </div>
                       </div>
@@ -131,36 +141,41 @@
                         <ul class="list-unstyled">
                           <li class="mb-3">
                             <span class="fw-medium me-2">이름:</span>
-                            <span>김희연</span>
+                            <span>${creatorInfo.cre_name}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">성별:</span>
-                            <span>여자</span>
+                            <span>${creatorInfo.cre_gender}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">생년월일:</span>
-                            <span>1997.12.23</span>
+                            <span>${creatorInfo.cre_birthday}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">국적:</span>
-                            <span>한국</span>
+                            <span>${creatorInfo.cre_country}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">연락처:</span>
-                            <span>010-1111-2222</span>
+                            <span>${creatorInfo.cre_phone}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">Email:</span>
-                            <span>vafgot@vultukir.org</span>
+                            <span>${creatorInfo.cre_email}</span>
                           </li>
-                          
+                          <li class="mb-3">
+                            <span class="fw-medium me-2">주소:</span>
+                            <span>${creatorInfo.cre_address}</span>
+                            <span class="fw-medium me-2"> , </span>
+                            <span>${creatorInfo.cre_address_detail}</span>
+                          </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">계약 시작일:</span>
-                            <span>2022.01.14</span>
+                            <span>${creatorInfo.cre_contract_start}</span>
                           </li>
                           <li class="mb-3">
                             <span class="fw-medium me-2">계약 만료일:</span>
-                            <span>2023.01.13</span>
+                            <span>${creatorInfo.cre_contract_end}</span>
                           </li>
                           
                         </ul>
@@ -174,8 +189,7 @@
                     <div class="card-body">
                       
                       <h5 class="pb-2 border-bottom mb-4">특이사항</h5>
-                      <p class="fw-medium me-2">동해물과 백두산이 마르고 닳도록 하느님이 보유하사 우리나라 만세</p>
-                      <p class="fw-medium me-2">사실 히빱은 히밥의 짝퉁임을 여기에 고하매 하늘을 우러러 부끄럽기 짝이 없는 일이로다</p>
+                      <p class="fw-medium me-2">${creatorInfo.cre_specifics}</p>
                       
                       
                     </div>
@@ -237,35 +251,7 @@
                    	  </div>
 		   			</div>
 		   		  </div>
-                  <!-- <div class="col-md-8">
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class='bx bx-face' ></i>크리에이터 정보</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../creators/creator_detail_channel.go"
-                        ><i class='bx bxl-sketch' ></i>대표 채널 정보</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="app-user-view-billing.go"
-                        ><i class='bx bxl-youtube' ></i>컨텐츠 정보(임시)</a
-                      >
-                    </li>
-                  </ul>
-                  </div> 
-                  <div class="col-md-4 text-end">
-                  	<div class="d-flex justify-content-center pt-3">
-                          <a
-                            href="javascript:;"
-                            class="btn btn-primary me-3"
-                            data-bs-target="#editUser"
-                            data-bs-toggle="modal"
-                            >수정</a
-                          >
-                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
-                     </div>
-                   </div>-->
+            
                   <!--/ 탭 영역 -->
                   <div class="tab-content p-0 pt-3">
 				  	<!-- 기본 정보 영역 -->
@@ -278,7 +264,7 @@
 				            <thead>
 				              <tr>
 				                <th>채널명</th>
-				                <th class="text-nowrap">카테고리</th>
+				                <th>카테고리</th>
 				                <th>구독자 수</th>
 				                <th>컨텐츠 수</th>
 				                <th>총 조회수</th>
@@ -286,22 +272,23 @@
 				              </tr>
 				            </thead>
 				            <tbody>
+				              <c:forEach var="channelInfo" items="${channelInfoList}">
 				            	<tr>
-				                 <th>쀼쀼</th>
-				                 <th class="text-nowrap">일상, 코믹</th>
-				                 <th>11,234 명</th>
-				                 <th>45 개</th>
-				                 <th>1,999,356</th>
-				                 <th>2023.10.01</th>
+				            	  
+				                  <th>
+				                  	${channelInfo.channel_name}
+				                  	<c:if test="${channelInfo.rep_channel eq 'true'}">
+				                  		<input id="repChannelId" type="hidden" value="${channelInfo.channel_id}"/>
+				                  		<span class="badge bg-label-primary">대표</span>
+				                  	</c:if>
+				                  </th>
+				                  <th>${channelInfo.channel_cate}</th>
+				                  <th>${channelInfo.subscriber} 명</th>
+				                  <th>${channelInfo.contents} 개</th>
+				                  <th>${channelInfo.subscriber} 회</th>
+				                  <th>${channelInfo.channel_date}</th>
 				              	</tr>
-				              	<tr>
-				                 <th>많이 먹어도 살 안 쪄서 좋겠당</th>
-				                 <th class="text-nowrap">먹방</th>
-				                 <th>3,332,123 명</th>
-				                 <th>325 개</th>
-				                 <th>515,745,435</th>
-				                 <th>2019.04.24</th>
-				              	</tr>
+				           	  </c:forEach>
 				            </tbody>
 				          </table>
 				        </div>
@@ -314,25 +301,38 @@
 				          <table class="table datatable-project border-top">
 				            <thead>
 				              <tr>                         
-				                <th>SNS 주소</th>
-				                <th class="text-nowrap">팔로워</th>
-				                <th>팔로우</th>
-				                <th>게시물</th>
+				                <th>SNS</th>
+				                <th>주소</th>
 				              </tr>
 				            </thead>
 				            <tbody>
+				              <c:forEach var="snsItem" items="${snsList}">
 				            	<tr>                         
-				                 <th><img src="../../assets/img/icons/brands/instagram.png" alt="instagram" class="me-3" height="20">히빱 일상</th>
-				                 <th class="text-nowrap">311,234</th>
-				                 <th>1 명</th>
-				                 <th>279 개</th>
-				               </tr>
-				            	<tr>                         
-				                 <th><img src="../../assets/img/icons/brands/facebook.png" alt="facebook" class="me-3" height="20">히빱 페북</th>
-				                 <th class="text-nowrap">22,222</th>
-				                 <th>191 명</th>
-				                 <th>-</th>
-				               </tr>
+				                  <th>
+				                  	<c:choose>
+				                  	  <c:when test="${snsItem.sns_cate eq 'instagram'}">
+				                  	    <img src="sns_logo/instagram.png" alt="instagram" class="me-3" height="20">
+				                  	  </c:when>
+				                  	  <c:when test="${snsItem.sns_cate eq 'facebook'}">
+				                  	    <img src="sns_logo/facebook.png" alt="facebook" class="me-3" height="20">
+				                      </c:when>
+				                  	  <c:when test="${snsItem.sns_cate eq 'twitter'}">
+				                  	    <img src="sns_logo/twitter.png" alt="twitter" class="me-3" height="20">
+				                  	  </c:when>
+				                  	  <c:when test="${snsItem.sns_cate eq 'tiktok'}">
+				                  	    <img src="sns_logo/tiktok.png" alt="tiktok" class="me-3" height="20">
+				                  	  </c:when>
+				                  	  <c:otherwise>
+				                  	  	<div class="custom-logo me-3">${snsItem.sns_cate.substring(0, 1)}</div>
+				                  	  </c:otherwise>
+				                  	</c:choose>
+				                  	${snsItem.sns_cate}
+				                  </th>
+				                  <th>
+				                  	<a href="${snsItem.sns_url}">${snsItem.sns_url}</a>
+				                  </th>
+				              	</tr>
+				              </c:forEach>
 				            </tbody>
 				          </table>
 				        </div>
@@ -343,57 +343,44 @@
 				        <h4 class="card-header">활동이력</h4>
 				        <div class="card-body">
 				          <ul class="timeline">
-				            <li class="timeline-item timeline-item-transparent">
-				              <span class="timeline-point-wrapper"
-				                ><span class="timeline-point timeline-point-primary"></span
-				              ></span>
-				              <div class="timeline-event">
-				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">유튜브 채널 1</h6>
-				                  <small class="text-muted">2023-12-12</small>
-				                </div>
-				                <p class="mb-2">200만 구독자 달성</p>
-				                
-				              </div>
-				            </li>
-				            <li class="timeline-item timeline-item-transparent">
-				              <span class="timeline-point-wrapper"
-				                ><span class="timeline-point timeline-point-warning"></span
-				              ></span>
-				              <div class="timeline-event">
-				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">유튜브 채널 2</h6>
-				                  <small class="text-muted">2023-11-28</small>
-				                </div>
-				                <p class="mb-2">10만 구독자 달성</p>
-				                
-				              </div>
-				            </li>
-				            <li class="timeline-item timeline-item-transparent">
-				              <span class="timeline-point-wrapper"
-				                ><span class="timeline-point timeline-point-info"></span
-				              ></span>
-				              <div class="timeline-event">
-				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">히빱</h6>
-				                  <small class="text-muted">2023-11-22</small>
-				                </div>
-				                <p class="mb-2">유튜브 크리에이터 대상 수상</p>
-				                
-				              </div>
-				            </li>
+				          <!-- 
+					         danger		: 빨강	: 채널시작
+					         primary	: 보라	: 구독자
+					         info		: 하늘	: 조회수
+					         warning	: 노랑	: 버튼획득
+					         success	: 초록	: 수상
+					         dark		: 검정	: 미정
+				           -->
+				           <c:forEach var="hisItem" items="${creatorHistory}">
 				            <li class="timeline-item timeline-item-transparent">
 				              <span class="timeline-point-wrapper">
-				              	<span class="timeline-point timeline-point-success">
-				              	</span></span>
+				              <c:if test="${hisItem.cre_his_cate eq '채널시작'}">
+				              	<span class="timeline-point timeline-point-danger"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '구독자'}">
+				              	<span class="timeline-point timeline-point-primary"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '조회수'}">
+				              	<span class="timeline-point timeline-point-info"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '버튼획득'}">
+				              	<span class="timeline-point timeline-point-warning"></span>
+				              </c:if>
+				              <c:if test="${hisItem.cre_his_cate eq '수상이력'}">
+				              	<span class="timeline-point timeline-point-success"></span>
+				              </c:if>
+				              </span>
 				              <div class="timeline-event">
 				                <div class="timeline-header mb-1">
-				                  <h6 class="mb-0">유튜브 채널 2</h6>
-				                  <small class="text-muted">2023-10-01</small>
+				                  <h6 class="mb-0">${hisItem.cre_his_title}</h6>
+				                  <small class="text-muted">${hisItem.history_date}</small>
 				                </div>
-				                <p class="mb-0">채널 가입일</p>
+				                <p class="mb-2">${hisItem.cre_his_content}</p>
+				                
 				              </div>
 				            </li>
+				           </c:forEach>
+				       
 				            <li class="timeline-end-indicator">
 				              <i class="bx bx-check-circle"></i>
 				            </li>
@@ -412,7 +399,7 @@
 					           <h5 class="card-title mb-0">일별 구독자 수</h5>
 					           <small class="text-muted">구독자 성장세 확인</small>
 					         </div>
-					         <!-- 쓸 수도 있을 것 같아서 일단 남겨둠
+					         <!-- 쓸 수도 있을 것 같아서 일단 남겨둠-->
 					         <div class="dropdown">
 					           <button
 					             type="button"
@@ -451,7 +438,7 @@
 					             </li>
 					           </ul>
 					         </div>
-					          달력 드롭다운 영역--> 
+					        <!--  달력 드롭다운 영역--> 
 					       </div>
 					       <div class="card-body">
 					         <div id="lineAreaChart"></div>
@@ -583,8 +570,57 @@
      */
 
     'use strict';
-
-    (function () {
+	var repChannelId = $('#repChannelId').val();
+	console.log('repChannelId : ',repChannelId);
+    $.ajax({
+    	type: 'get',
+    	url: '/getChartData.ajax',
+    	data: {'repChannelId': repChannelId},
+    	dataType: 'JSON',
+    	success: function(data){
+    		console.log(data.channelDataList);
+    		chart(data.channelDataList);
+    	},
+    	error: function(e){
+    		console.log(e);
+    	}
+    	
+    });
+    
+    
+    function chart(dataList) {
+      // 가져온 데이터 담기
+	  let subList = [];
+      let viewList = [];
+      let contentList = [];
+      let dateList = [];
+      let viewTrendList = [];
+      
+      function formatDate(dateString) {	// 날짜 형식 바꿔주는 함수
+    	  const options = { month: '2-digit', day: '2-digit'};
+    	  const formattedDate = new Date(dateString).toLocaleDateString('ko-KR', options);
+    	  return formattedDate;
+      }
+      
+      for(let i =0; i<dataList.length; i++){
+    	  const subs = dataList[i].subscriber;
+    	  const view = dataList[i].views;
+    	  const content = dataList[i].contents;
+    	  const date = formatDate(dataList[i].channel_data_date);
+    	  const viewTrend = dataList[i].view_trend;
+	      subList.push(subs);	
+	      viewList.push(view);	
+	      contentList.push(content);
+	      dateList.push(date);
+	      viewTrendList.push(viewTrend);
+      }
+      console.log('subList:',subList);
+      console.log('viewList:',viewList);
+      console.log('contentList:',contentList);
+      console.log('dateList:',dateList);
+      console.log('viewTrendList:',viewTrendList);
+   	  // / 가져온 데이터 담기	
+   	  
       let cardColor, headingColor, labelColor, borderColor, legendColor;
 
       if (isDarkStyle) {
@@ -602,7 +638,7 @@
       }
 
       // Color constant
-      const chartColors = {
+/*       const chartColors = {
         column: {
           series1: '#826af9',
           series2: '#d2b0ff',
@@ -619,7 +655,7 @@
           series2: '#60f2ca',
           series3: '#a5f8cd'
         }
-      };
+      }; */
 
       // Heat chart data generator
      /*  function generateDataHeat(count, yrange) {
@@ -678,34 +714,19 @@
           series: [
             {
               name: '총 조회 수',
-              data: [100, 120, 90, 170, 130, 160, 140, 240, 220, 180, 270, 280, 250]
+              data: viewList
             },
             {
               name: '컨텐츠 수',
-              data: [60, 80, 70, 110, 80, 100, 90, 180, 160, 140, 200, 220, 275]
+              data: contentList
             },
             {
               name: '구독자 수',
-              data: [20, 40, 30, 70, 40, 60, 50, 140, 120, 100, 140, 180, 220]
+              data: subList
             }
           ],
           xaxis: {
-            categories: [
-              '7/12',
-              '8/12',
-              '9/12',
-              '10/12',
-              '11/12',
-              '12/12',
-              '13/12',
-              '14/12',
-              '15/12',
-              '16/12',
-              '17/12',
-              '18/12',
-              '19/12',
-              '20/12'
-            ],
+            categories: dateList,
             axisBorder: {
               show: false
             },
@@ -854,7 +875,7 @@
           },
           series: [
             {
-              data: [280, 200, 220, 180, 270, 250, 70, 90, 200, 150, 160, 100, 150, 100, 50]
+              data: viewTrendList
             }
           ],
           markers: {
@@ -883,27 +904,11 @@
           },
           tooltip: {
             custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-              return '<div class="px-3 py-2">' + '<span>' + series[seriesIndex][dataPointIndex] + '%</span>' + '</div>';
+              return '<div class="px-3 py-2">' + '<span>' + series[seriesIndex][dataPointIndex] + '회</span>' + '</div>';
             }
           },
           xaxis: {
-            categories: [
-              '7/12',
-              '8/12',
-              '9/12',
-              '10/12',
-              '11/12',
-              '12/12',
-              '13/12',
-              '14/12',
-              '15/12',
-              '16/12',
-              '17/12',
-              '18/12',
-              '19/12',
-              '20/12',
-              '21/12'
-            ],
+            categories: dateList,	// 날짜 데이터
             axisBorder: {
               show: false
             },
@@ -931,7 +936,7 @@
         lineChart.render();
       }
 
-    })();
+    };
     </script>
   </body>
 </html>

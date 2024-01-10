@@ -99,6 +99,11 @@
 		font-weight: 600;
 		font-size: 23px;
 	}
+	.all-list-profile{
+		width: 50px;
+	    height: 50px;
+	    border-radius: 50px;	
+	}
     </style>
   </head>
 
@@ -144,79 +149,82 @@
    			    </li>
    			  </ul>
    			</div>
-              <div class="row g-4 mb-4">
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>관리 크리에이터</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 id="total_creators" class="mb-0 me-2"></h4>
-                          </div>
-                          <p class="mb-0">　</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>관리채널</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 id="total_channels" class="mb-0 me-2"></h4>
-                          </div>
-                          <p class="mb-0">　</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>구독자 합계</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 id="total_subscribers" class="mb-0 me-2"></h4>
-                          </div>
-                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span>컨텐츠 합계</span>
-                          <div class="d-flex align-items-end mt-2">
-                            <h4 id="total_contents" class="mb-0 me-2"></h4>
-                          </div>
-                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+   			
               <div class="card">
        			<div class="card-datatable table-responsive" style="overflow-x: hidden; align-items: center;">
 	              <div class="tab-content">
 	              	<div class="tab-pane fade active show" id="form-tabs-first"  role="tabpanel">
+	              	<!-- 합계 데이터 영역 -->
+		              <div class="row g-4 mb-4">
+		                <div class="col-sm-6 col-xl-3">
+		                  <div class="card">
+		                    <div class="card-body">
+		                      <div class="d-flex align-items-start justify-content-between">
+		                        <div class="content-left">
+		                          <span>전체 크리에이터</span>
+		                          <div class="d-flex align-items-end mt-2">
+		                            <h4 class="mb-0 me-2 total_creators"></h4>
+		                          </div>
+		                          <p class="mb-0">　</p>
+		                        </div>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="col-sm-6 col-xl-3">
+		                  <div class="card">
+		                    <div class="card-body">
+		                      <div class="d-flex align-items-start justify-content-between">
+		                        <div class="content-left">
+		                          <span>전체 채널</span>
+		                          <div class="d-flex align-items-end mt-2">
+		                            <h4 class="mb-0 me-2 total_channels"></h4>
+		                          </div>
+		                          <p class="mb-0">　</p>
+		                        </div>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="col-sm-6 col-xl-3">
+		                  <div class="card">
+		                    <div class="card-body">
+		                      <div class="d-flex align-items-start justify-content-between">
+		                        <div class="content-left">
+		                          <span>전체 구독자 합계</span>
+		                          <div class="d-flex align-items-end mt-2">
+		                            <h4 class="mb-0 me-2 total_subscribers"></h4>
+		                          </div>
+		                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
+		                        </div>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="col-sm-6 col-xl-3">
+		                  <div class="card">
+		                    <div class="card-body">
+		                      <div class="d-flex align-items-start justify-content-between">
+		                        <div class="content-left">
+		                          <span>전체 컨텐츠 합계</span>
+		                          <div class="d-flex align-items-end mt-2">
+		                            <h4 class="mb-0 me-2 total_contents"></h4>
+		                          </div>
+		                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
+		                        </div>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </div>
+		              </div>
+		              <!-- / 합계 데이터 영역 -->
 	              		<div class="row g-3">
 	              			<!-- 전체 크리에이터 -->
 				              <div class="card-datatable table-responsive">
 				                <table id="creatorList" class="datatables-users table border-top">
 				                  <thead>
 				                    <tr>
-				                     <th>no</th>
+				                     <th>&nbsp;</th>
 				                      <th>크리에이터</th>
 				                      <th>카테고리</th>
 				                      <th>대표채널</th>
@@ -231,7 +239,7 @@
 	              	</div>
 	              		<!-- 나의 크리에이터 -->
 			              <div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
-		              		<div class="cardListTop">
+	  		              	<div class="cardListTop">
 		              		 <div>
 		              		   <a href="showOrgModal()">열람 권한자 등록</a>
 		              		  </div>
@@ -313,49 +321,44 @@
     	
     	function drawTotalAll(totalInfo){
     		console.log(totalInfo);
-    		$('#total_creators').text(totalInfo.total_creators+" 명");
-    		$('#total_channels').text(totalInfo.total_channels+" 개");
-    		$('#total_subscribers').text(totalInfo.total_subscribers+" 명");
-    		$('#total_contents').text(totalInfo.total_contents+" 개");
+    		$('.total_creators:eq(0)').text(totalInfo.total_creators+" 명");
+    		$('.total_channels:eq(0)').text(totalInfo.total_channels+" 개");
+    		$('.total_subscribers:eq(0)').text(totalInfo.total_subscribers+" 명");
+    		$('.total_contents:eq(0)').text(totalInfo.total_contents+" 개");
     	}
-    	
-    /* 	var totalInfo = ${totalInfo};
-    	var allList = ${allList};
-    	var myList = ${myList};
-    	for(var item : allList){
-    		console.log(item);
-    	}
-    	
-    	
-    	console.log(totalInfo);
-    	console.log(allList);
-    	console.log(myList);
-    	 */
-    
     	
     	
      	function drawAllList(allList) {
     		console.log(allList);
 	    	var creatorTable = $("#creatorList").DataTable({
 	    		data : allList,
+	    		columnDefs: [
+	    	        { targets: 0, orderable: false } // 0번째 열에 대해 정렬 비활성화
+	    	    ],
 	    		columns:[
-	    			{ width:'50px', data:'cre_idx'},
 	    			{ 
-	    				width:'200px', 
+	    				width:'10%', 
+	    				data:null,
+	    				render:function(data,type,row){
+	    					return '<img class="all-list-profile" style="text-align:center;" src="/file/creator/'+row.new_file_name+'" art="'+row.ori_file_name+'">'
+	    				}
+    				},
+	    			{ 
+	    				width:'30%', 
 	    				data: null,
 	    				render : function(data, type, row){
-	    					return '<a href=/creator_detail.go?cre_idx="' + row.cre_idx + '">'+row.cre_nick_name+'</a>';
+	    					return '<a href="/creatorDetail.go?cre_idx=' + row.cre_idx +'">'+row.cre_nick_name+'</a>';
 	    				}
 	    			},
-	    			{ width:'150px', data:'channel_cate'},
+	    			{ width:'20%', data:'channel_cate'},
 	    			{ 
-	    				width:'100px', 
+	    				width:'20%', 
 	    				data: null,
 	    				render : function(data, type, row){
 	    					return  '<a href="' + row.channel_url + '">'+row.channel_name+'</a>';
 	    				}
 	    			},
-	    			{ width:'100px', data:'mng_name'}
+	    			{ width:'20%', data:'mng_name'}
 	    		]
 	    	});
 		}
@@ -368,7 +371,11 @@
 		        	'<div class="col-md-6 col-lg-4">' +
 		            '<h6 class="mt-2 text-muted"></h6>' +
 		            '<div class="card">' +
-		            '<a href="/creatorDetail.go?cre_idx='+myCre.cre_idx+'"><img class="card-img-top" src="../../assets/img/elements/7.jpg" alt="Creator_image"/></a>' +
+		            '<div style="height:400px; overflow:hidden">' +
+		            '<a href="/creatorDetail.go?cre_idx='+myCre.cre_idx+'">'+
+		            	'<img class="card-img-top" style="width: 100%;" src="/file/creator/'+
+		            	myCre.new_file_name+'" alt="'+myCre.ori_file_name+'"/></a>' +
+		            '</div>'+	
 		            '<div class="card-body">' +
 		            '<h5 class="card-title"><a href="/creatorDetail.go?cre_idx='+myCre.cre_idx+'" class="creCardTitle">' + myCre.cre_nick_name + '</a></h5>' +
 		            '<table>' +

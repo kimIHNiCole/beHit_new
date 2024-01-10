@@ -725,7 +725,9 @@ height: calc(100vh - 10rem);
 				                   </div>
 			                    <div class="tab-content" style="z-index:2">
 			                    
-			                      <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+			                      <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel"> <!-- 활동기록 영역 -->
+			                      	<div class="fs-5 py-3">활동 기록</div>
+			                      	<div id="projRList"></div>
 			                      </div>
 			                      
 			                      <div class="tab-pane fade" id="navs-top-messages" role="tabpanel"> <!-- 첨부파일 영역 -->
@@ -831,7 +833,9 @@ height: calc(100vh - 10rem);
 											<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle"> <!-- 수정 프로필 이미지 -->
 										</div>
 										<div class="flex-grow-1 ms-1">
-											<span class="fs-5">윤예성</span>
+											<input id="projRU_id" type="hidden" value=""/>
+											<input id="projRU_idx" type="hidden" value=""/>
+											<span id="projRU_name" class="fs-5"></span>
 										</div>
 									</div>
 											
@@ -869,22 +873,18 @@ height: calc(100vh - 10rem);
 									
 									<div class="fs-5 m-3">파일 첨부</div>
 									<input class="form-control mx-4" type="file" id="formFileU" multiple/>
-									<div id="upRecordFile">
-										<div class="d-flex align-items-center mb-3 m-4">
-											<a>파일아무거나</a>
-											<button class="btn p-0" type="button"><i class="bx bx-trash bx-sm me-3"></i></button>
-										</div>
-									</div>
+									<div id="upRecordFile"></div>
 											
 									<div class="col-12 text-center">
-										<button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">수정</button>
 										<button
+										id="submitRUcancel"
 										type="reset"
 										class="btn btn-label-secondary btn-reset mt-3"
 										data-bs-dismiss="modal"
 										aria-label="Close">
 										취소
 										</button>
+										<button id="submitRU" type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">수정</button>
 									</div>
 								</div>
 							</div>
@@ -941,7 +941,8 @@ height: calc(100vh - 10rem);
     <script>
     
     $('#project-update-move').on('click',function(){
-    	location.href="../project/project_update.go";
+    	var projIdx = ${detailList.proj_idx};
+    	location.href="../project/project_update.go?proj_idx="+projIdx;
     });
     
 	// 내가 추가한 에디터 초기화 및 내용가져오기
@@ -1000,6 +1001,7 @@ height: calc(100vh - 10rem);
 						$('#project-modal-add').modal('hide');
 						projRList();
 						projAllFile();
+						projList(whatlist);
 					},
 					error: function (e) {
 						console.log(e);
@@ -1022,7 +1024,7 @@ height: calc(100vh - 10rem);
 	
 	// 업데이트 에디터 모달
 	var snowEditorup;
-	var initialContent = '';
+	var UpRecordContent = '';
 	function upProjRB(projR_idx){
 		console.log('활동기록 수정버튼 클릭시 idx:',projR_idx);
 		
@@ -1034,43 +1036,51 @@ height: calc(100vh - 10rem);
     		success: function (data) {
     			console.log(data);
     			console.log('데이터:',data.record.projR_content);
+    			UpRecordContent = data.record.projR_content;
+    			snowEditorup.setText(UpRecordContent);
+    			$('#projRU_idx').val(data.record.projR_idx);
+    			$('#projRU_id').val(data.record.emp_id);
+    	        $('#projRU_name').text(data.record.emp_name);
     			projRFData(data);
     		},
     		error: function (e) {
     			console.log(e);
     		}
     	});
-		
-		initialContent = '활동기록 수정버튼클릭시의 내용으로 변경'+projR_idx;
-		snowEditorup.setText(initialContent);
    	}
 	
 	function projRFData(obj){
         var content = '';
-        var totalItems = obj.list.length;
+        var totalItems = obj.recordFile.length;
         console.log(totalItems);
         
         if (totalItems === 0){
         }else{
-        	obj.list.forEach(function (item){
-        		content += '<div class="card email-card-prev mx-sm-1 mx-3 border my-2" >';
-                content += '<div class="cursor-pointer">';
-                content += '<i class="bx bx-file"></i>';
-                content += '<span class="align-middle ms-1">';
-                content += '<a href="/file/project/' + item.new_file_name + '" download>' + item.ori_file_name + '</a>';
-				content += '</span>';
-                content += '</div>';
-            	content += '</div>';
+        	obj.recordFile.forEach(function (item){
+            	content += '<div id="fileDiv_'+item.file_idx+'" class="mx-4 border my-2" style="overflow: hidden;">';
+			    content += '<div style="float: left;">';
+				content += '<i class="bx bx-file"></i>';
+				content += '<span class="align-middle ms-1">'; 
+				content += '<a>'+item.ori_file_name+'</a>';
+			    content += '</span>';
+			    content += '</div>';
+			    content += '<button onclick="delFile('+item.file_idx+')" class="btn p-0" type="button" style="float: right; margin-right:5px;"><i class="bx bx-trash"></i></button>';
+				content += '</div>';
         	});
         }
-        $('#fileAll').empty();
-        $('#fileAll').append(content);
+        $('#upRecordFile').empty();
+        $('#upRecordFile').append(content);
     }
+	var delUpfile = [];
+	function delFile(file_idx) {
+	    delUpfile.push(file_idx);
+	    $('#fileDiv_' + file_idx).hide();
+	}
 	
     (function () {
     	  // Snow Theme
     	  // --------------------------------------------------------------------
-    	  // var initialContent = '여기에 초기 내용을 넣어주세요.';
+    	  // var UpRecordContent = '여기에 초기 내용을 넣어주세요.';
     	  snowEditorup = new Quill('#update-editor', {
     	    bounds: '#update-editor',
     	    modules: {
@@ -1079,12 +1089,77 @@ height: calc(100vh - 10rem);
     	    },
     	    theme: 'snow'
     	  });
+    	  
+    	  $('#submitRU').click(function() {
+  			// var content = snowEditor.root.innerHTML; // <p>내용</p> 이런식으로 전체를 가져옴
+  			var projIdx = ${detailList.proj_idx};
+  			var projR_idx = $('#projRU_idx').val();
+  			var emp_id = $('#projRU_id').val();
+  			var content = snowEditorup.getText();
+  			var fileInput = document.getElementById('formFileU');
+  			// 선택된 파일들
+  			var files = fileInput.files;
+  			var formData = new FormData();
+  			
+  			// 내용이 비어있을 경우 알림
+  			if (content.trim() === '') {
+  				alert('내용을 입력하세요.');
+  				return; 
+  			}else{
+  				//console.log('활동기록 업데이트시 삭제할 파일들:',delUpfile);
+  				//console.log('활동기록 업데이트 작성내용:', content);
+  				//console.log('활동기록 업데이트 R_idx값:', projR_idx);
+  				formData.append('content', content);
+  				formData.append('projR_idx', projR_idx);
+  				formData.append('projIdx', projIdx);
+  				formData.append('emp_id', emp_id);
+  				if (files.length > 0) {
+  				    for (var i = 0; i < files.length; i++) {
+  				        formData.append('files[]', files[i]);
+  				        // console.log('활동기록 업데이트시 추가 파일들:',files[i]);
+  				    }
+  			    }
+  				formData.append('delUpfile', JSON.stringify(delUpfile));
+  				
+  				$.ajax({
+  					type: 'POST',
+  					url: '/project/projectRUpdate.do',
+  					data: formData,
+  					processData: false,
+  					contentType: false,
+  					success: function (data) {
+  						console.log(data);
+  						snowEditorup.setText(''); // 내용 초기화
+  						fileInput.value = '';   // 파일 선택값 초기화
+  						$('#project-modal-update').modal('hide');
+  						projRList();
+  						projAllFile();
+  						projList(whatlist);
+  						delUpfile = [];
+  					},
+  					error: function (e) {
+  						console.log(e);
+  						alert('작성에 실패했습니다.');
+  						$('#project-modal-update').modal('hide');
+  					}
+  				});
+  			}
+  		});
+  		$('#submitRUcancel').click(function() {
+  			console.log("활동기록 작성 취소버튼 클릭");
+  			snowEditorup.setText(''); // 내용 초기화
+			delUpfile = [];
+  			var fileInput = document.getElementById('formFileU');
+  			if(fileInput.value != ''){
+  				fileInput.value = '';   // 파일 선택값 초기화
+  			}
+  		});
     })();
     </script>
     <script> // 내가 추가한 스크립트
     projRList();
     projAllFile();
-    /*
+    
     var whatlist = '';
     projList(whatlist);
     
@@ -1156,7 +1231,7 @@ height: calc(100vh - 10rem);
             window.location = "project_detail.go?proj_idx="+projIdx; // 보류보류
         });
     }
-    */
+    
     // 활동기록 리스트
     function projRList(){
     	var proj_idx = ${detailList.proj_idx};
@@ -1179,6 +1254,7 @@ height: calc(100vh - 10rem);
     function projRListdraw(obj){
         var content = '';
         var totalItems = obj.list.length;
+        var empId = "${sessionScope.loginInfo.getEmp_id()}";
         console.log(totalItems);      
         
         if (totalItems === 0){
@@ -1203,13 +1279,16 @@ height: calc(100vh - 10rem);
         		if(item.projR_upstate == 'Y'){        			
         			content += '<span class="fs-6 date">수정됨</span>';
         		}
-        		content += '<button onclick="upProjRB('+item.projR_idx+')" class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#project-modal-update">';
-        		content += '<i class="bx bxs-edit cursor-pointer me-2 bx-sm"></i>';
-        		content += '</button>';
+        		if(item.emp_id == empId){
+	        		content += '<button onclick="upProjRB('+item.projR_idx+')" class="btn p-0" type="button" data-bs-toggle="modal" data-bs-target="#project-modal-update">';
+	        		content += '<i class="bx bxs-edit cursor-pointer me-2 bx-sm"></i>';
+	        		content += '</button>';
+	        		
+	        		content += '<button onclick="delProjRB('+item.projR_idx+')" class="btn p-0" type="button">';
+	        		content += '<i class="bx bx-trash bx-sm me-3"></i>';
+	        		content += '</button>';        			
+        		}
         		
-        		content += '<button onclick="delProjRB('+item.projR_idx+')" class="btn p-0" type="button">';
-        		content += '<i class="bx bx-trash bx-sm me-3"></i>';
-        		content += '</button>'
         		content += '</div>';
         		content += '</div>';
         		
@@ -1236,8 +1315,8 @@ height: calc(100vh - 10rem);
         		content += '</div>';
         	});
         }
-        $('#navs-top-home').empty();
-        $('#navs-top-home').append(content);
+        $('#projRList').empty();
+        $('#projRList').append(content);
     }
     
     // 프로젝트의 모든 파일 가져오기
@@ -1265,7 +1344,7 @@ height: calc(100vh - 10rem);
         var totalItems = obj.list.length;
         console.log(totalItems);
         
-        if (totalItems === 0){
+        if (totalItems === 1){
         	content = '<li style="text-align:center">첨부 파일이 없습니다.</li>';
         }else{
         	obj.list.forEach(function (item){

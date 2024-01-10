@@ -94,74 +94,23 @@
            <!-- Content -->
 			<div class="container-lg flex-grow-1 container-p-y mt-2" style="width: 1000px;">
   			  	<!-- DataTable with Buttons -->
-			    <div class="card">
-			        <div class="card-datatable table-responsive">
-						<div class="row mb-3">
-							<div class="col-md-4">
-			                    <!-- 탭 추가 -->
-                    			<ul class="nav nav-pills" role="tablist">
-	                      			<li class="nav-item">
-		                        		<button
-		                          			class="nav-link active"
-		                          			data-bs-toggle="tab"
-		                          			data-bs-target="#form-tabs-first"
-		                          			role="tab"
-		                          			aria-selected="true">
-		                          			전체
-		                        		</button>
-	                      			</li>
-	                      			<li class="nav-item">
-	                        			<button
-	                          				class="nav-link"
-	                          				data-bs-toggle="tab"
-	                          				data-bs-target="#form-tabs-secend"
-	                          				role="tab"
-	                          				aria-selected="false"
-	                          				onclick="tabsecend()">
-	                          				정상 근무
-	                       			 	</button>
-	                      			</li>
-	                      			<li class="nav-item">
-	                        			<button
-	                          				class="nav-link"
-	                          				data-bs-toggle="tab"
-	                          				data-bs-target="#form-tabs-third"
-	                          				role="tab"
-	                          				aria-selected="false"
-	                          				onclick="tabthird()">
-	                          				미달
-	                       			 	</button>
-	                      			</li>
-                    			</ul>
-			                </div>
-							<div class="col-md-4">
-						        <div class="input-group">
-						            <button class="btn btn-outline-secondary" id="sprevBtn" type="button"><</button>
-						            <input type="text" class="form-control text-center" id="sdatepicker" readonly>
-						            <button class="btn btn-outline-secondary" id="snextBtn" type="button">></button>
-						        </div>
-						    </div>
-						</div>
-			            <table class="datatables-basic table border-top" style="margin-top: -10px;">
-			                <thead>
-			                    <tr>
-			                        <th></th>
-			                        <th>no.</th>
-			                        <th></th>
-			                        <th>날짜</th>
-			                        <th>근무시간</th>
-			                        <th>연차</th>
-			                        <th>출근 시간</th>
-			                        <th>퇴근 시간</th>
-			                        <th>상태</th>
-			                    </tr>
-			                </thead>
-			                <tbody id="modalList">
-			                
-			                </tbody>
-			            </table>
-			        </div>
-			    </div>
+			    	<div class="card" style="width: 20rem; height:30rem; display: flex; justify-content: center; align-items: center;">
+					  <img
+				          src="../../assets/img/avatars/1.png"
+				          alt="user-avatar"
+				          height="150"
+				          width="150"
+				          id="preview" style="margin-top: 40px; border-radius: 50%;"/>
+					  <div class="card-body">
+					    <h5 class="card-title" style="text-align: center; margin-top: 30px;">춘식이 사원</h5>
+					    <h5 class="card-title" style="text-align: center; margin-top: 10px;">인사팀</h5>
+					    <h6 class="card-title" style="text-align: center;">email@example.com</h6>
+					    <h6 class="card-title" style="text-align: center;">휴대전화 : 010-0000-0000</h6>
+					    <h6 class="card-title" style="text-align: center;">사내전화 : 02-000-0000</h6>
+					    <a href="#" class="btn btn-primary"style="margin-left: 130px; margin-top: 10px;">메세지 보내기</a>
+					  </div>
+					</div> 
+				</div>
 			</div>
 			<!-- / Content -->
 
@@ -221,13 +170,19 @@
 
      <script>
      
-     
      document.addEventListener("DOMContentLoaded", function () {
  	    var datepicker = $('#sdatepicker').datepicker({
  	        format: 'yyyy-mm-dd',
  	        autoclose: true,
  	        todayHighlight: true // 오늘 날짜 강조
  	    });
+/*
+ 	    // 한국 시간으로 초기화
+ 	    var currentDate = new Date();
+ 	    currentDate.setHours(currentDate.getHours() + 9); // UTC+9: 한국 시간으로 설정
+ 	    datepicker.datepicker('setDate', currentDate);
+ 	    updateInputValue(currentDate);
+*/	    
  	    
  	    var currentDate = new Date();
  	    var options = { timeZone: 'Asia/Seoul' };
@@ -264,47 +219,8 @@
  	    function padZero(num) {
  	        return num < 10 ? '0' + num : num;
  	    }
- 	    
-     listCall();
-     
-     function listCall(){
-     	$.ajax({
-     		type:'get',
-	       	url:'workmodallist.do',
-	       	data:{'emp_id':emp_id},
-	       	dataType: 'json',
-	       	success:function(data){
-	       		 console.log(data);
-	       		 drawlist(data.list);
-	       	},
-	       	error:function(e){
-	       		console.log(e);
-	       	}
-     	});
-     }
-     	
-     	function drawlist(list){
-     		var content = "";
-     		
-     		list.forEach(function(item, idx){
-     			content +='<tr>';
-     			content +='<td>'+item.work_day+'</td>';
-     			content +='<td>'+item.work_start+'~'+item.work_end+'</td>';
-     			content +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
-     			content +='<td>'+item.work_started+'</td>';
-     			content +='<td>'+item.work_ended+'</td>';
-     			content +='<td>'+item.work_state+'</td>';
-     			content +='</tr>';
-     		});
-     		$('#modalList').empty();
-     		$('#modalList').append(content);
-     	}
      });
-     
-     
 
      </script>
   </body>
-  	
-  	
 </html>

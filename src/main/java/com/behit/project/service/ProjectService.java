@@ -135,6 +135,10 @@ public class ProjectService {
 	public Map<String, String> projRData(String projR_idx) {
 		return dao.projRData(projR_idx);
 	}
+
+	public int projRUpdate(String projR_idx, String content) {
+		return dao.projRUpdate(projR_idx,content);
+	}
 	
 	
 	

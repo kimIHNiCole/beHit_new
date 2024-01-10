@@ -280,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Background Color
         return ['fc-event-' + colorName];
       },
+      
       dateClick: function (info) {
         let date = moment(info.date).format('YYYY-MM-DD');
         resetValues();
@@ -296,20 +297,35 @@ document.addEventListener('DOMContentLoaded', function () {
         eventStartDate.value = date;
         eventEndDate.value = date;
       },
+      
+      
+      
+	  
       dateClick: function (info) {
       // 클릭한 날짜의 a 태그 안에 있는 숫자 값을 가져와서 콘솔에 출력
-      let date = parseInt(info.dayEl.querySelector('a').innerText);
-      console.log('Clicked date:', date);
-        $.ajax({
-	    type: 'POST',
-	    url: 'caldate', // 실제 서버 스크립트 경로로 수정
-	    data: { date: date },
-	    success: function(response) {
-	    },
-	    error: function(error) {
-	    }
-	  });    
+      let day = info.dayEl.querySelector('a').innerText.padStart(2, '0');
+      let h2Element = document.getElementById('fc-dom-1');
+      let monthAndYear = h2Element.innerText.trim().split(' ');
+      
+      function monthToNumber(monthString) {
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      // 입력된 월 문자열이 배열에서 몇 번째에 위치하는지 찾아서 해당 인덱스를 반환
+      return (months.indexOf(monthString) + 1).toString().padStart(2, '0');;
+	  }
+             
+      let month = monthToNumber(monthAndYear[0]);
+      let year = monthAndYear[1];
+    
+      console.log('Clicked day:', day);
+      console.log('Month (as number):', month);
+      console.log('Year:', year);
+      	document.getElementById('selectdate').innerText = day;
+      	document.getElementById('workdate').value = year+'-'+month+'-'+day;
+      	document.getElementById('selecdate').style.display = 'inline';
       },
+      
+      
       eventClick: function (info) {
         eventClick(info);
       },
@@ -319,6 +335,18 @@ document.addEventListener('DOMContentLoaded', function () {
       viewDidMount: function () {
         modifyToggler();
       }
+    });
+    
+    
+    
+	document.querySelector('#workbutton').addEventListener('click', function () {
+	
+        let h2Element = document.getElementById('fc-dom-1');
+        let monthAndYear = h2Element.innerText.trim().split(' ');
+        let month = monthToNumber(monthAndYear[0]);
+        let year = monthAndYear[1];
+
+        document.getElementById('workmonth').value = year + '-' + month;
     });
 
     // Render calendar
