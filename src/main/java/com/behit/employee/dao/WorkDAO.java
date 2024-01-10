@@ -1,6 +1,7 @@
 package com.behit.employee.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,5 +20,13 @@ public interface WorkDAO {
 	ArrayList<VacationDTO> usingList(String login_id);
 
 	ArrayList<VacationDTO> createList(String login_id);
+
+	int selectdate(HashMap<String, Object> commute);
+
+	ArrayList<WorkDTO> workmodal(String emp_id);
+
+	boolean workChk(String login_id, String workdate);
+
+	int updatedate(HashMap<String, Object> commute);
 
 }

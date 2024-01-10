@@ -61,4 +61,6 @@ public interface ProjectDAO {
 
 	Map<String, String> projRData(String projR_idx);
 
+	int projRUpdate(String projR_idx, String content);
+
 }

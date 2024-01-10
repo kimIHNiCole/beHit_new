@@ -518,6 +518,7 @@
     <!-- Page JS -->
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
 	<script>
+	// fshowPage = 첫번째 탭, sshowPage = 두번째 탭
     var fshowPage = 1;
     var sshowPage = 1;
 	var defaultdate = '9999-10-10';
