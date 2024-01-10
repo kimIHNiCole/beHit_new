@@ -575,6 +575,19 @@
 						              			</tbody>
 						              		</table>
 						              		
+						              		<c:if test="${form_type == 'detail'}">
+							              		<table class="table-reason">
+							              			<tbody>
+							              				<tr>
+							              					<td class="table-upload-left">결재 사유</td>
+							              					<td class="table-upload-right">
+							              						<input class="form-control" type="file" id="formFile" name="files" />
+							              					</td>
+							              				</tr>
+							              			</tbody>
+							              		</table>
+						              		</c:if>
+						              		
 					              </div>
 					                </div>
 	
@@ -837,6 +850,8 @@
     
     <!-- custom JS -->
     <script>
+    
+    console.log('콘솔에 찍힌 값입니다아아'+'${apv.apv_code}');
     
     
 	  //반려, 결재에 관한 정보  ------------------------------------------------------------------------------------------------------

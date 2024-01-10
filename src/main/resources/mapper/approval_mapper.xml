@@ -104,9 +104,20 @@
 	<select id="apv_line_sel" resultType="String">
 		SELECT emp_id
 		FROM apv_line
-		WHERE apv_line = (SELECT apv_line + 1 FROM apv_line WHERE apv_idx = 30 AND emp_id = 'emp03')
-		AND apv_idx = 30
+		WHERE apv_line = (SELECT apv_line + 1 FROM apv_line WHERE apv_idx = #{apv_idx} AND emp_id = #{apv_approver})
+		AND apv_idx = #{apv_idx}
 	</select>
+	<select id="apv_history_date" resultType="String">
+		SELECT apv_history_date FROM apv_history WHERE apv_idx = #{apv_idx} 
+		ORDER BY apv_history_date DESC LIMIT 1
+	</select>
+	<update id="apv_update">
+		UPDATE apv SET apv_stmt = #{apv_stmt} WHERE apv_idx = #{apv_idx}
+	</update>
+	<update id="apv_update_num">
+		UPDATE apv SET apv_num = #{apv_num} WHERE apv_idx = #{apv_idx}
+	</update>
+	
 	
 	
 	<select id="getApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -114,10 +125,13 @@
 		FROM apv a 
 		JOIN employee e ON e.emp_id = a.emp_id
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
-		WHERE apv_approver = #{emp_id}
+		WHERE apv_approver = #{emp_id} AND a.apv_stmt = '진행중'
 	</select>
 	<select id="getApproval_detail" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT * FROM apv a WHERE a.apv_idx = #{apv_idx}
+	</select>
+	<select id="apv_line_stmt" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT * FROM apv_history WHERE emp_id = #{emp_id} AND apv_idx = #{apv_idx}
 	</select>
 	<select id="getApv_line" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT 
@@ -154,7 +168,7 @@
 		FROM apv a 
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
-		WHERE a.emp_id = #{emp_id}
+		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '진행중'
 	</select>
 	
 	<select id="compApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -169,6 +183,44 @@
 		FROM apv_history ah 
 		JOIN apv a ON ah.apv_idx = a.apv_idx 
 		WHERE ah.emp_id = #{emp_id}
+	</select>
+	
+	<select id="finishApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, d.emp_dept_name,
+       (SELECT apv_history_date
+        FROM apv_history ah
+        WHERE ah.apv_idx = a.apv_idx
+        ORDER BY apv_history_date DESC
+        LIMIT 1) as apv_history_date,
+       (SELECT e.emp_name 
+		FROM apv_line al 
+		JOIN employee e ON e.emp_id = al.emp_id 
+		WHERE al.apv_idx = a.apv_idx 
+		ORDER BY al.apv_line DESC
+		LIMIT 1) as emp_name
+		FROM apv a 
+		JOIN employee e ON e.emp_id = a.apv_approver 
+		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '완료'
+	</select>
+	
+	<select id="rejectedApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, d.emp_dept_name,
+       (SELECT apv_history_date
+        FROM apv_history ah
+        WHERE ah.apv_idx = a.apv_idx
+        ORDER BY apv_history_date DESC
+        LIMIT 1) as apv_history_date,
+       (SELECT e.emp_name 
+				FROM apv_history ah
+				JOIN employee e ON e.emp_id = ah.emp_id 
+				WHERE ah.apv_idx = a.apv_idx 
+				ORDER BY apv_history_date DESC
+    		LIMIT 1) as emp_name
+		FROM apv a 
+		JOIN employee e ON e.emp_id = a.apv_approver 
+		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '반려'
 	</select>
 
 

@@ -15,8 +15,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-   	<title>BeHit</title>
-
+	<title>BeHit</title>
+	
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
 		<!-- Row Group CSS -->
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
     <!-- Form Validation -->
@@ -81,12 +82,11 @@
     	margin-bottom:0.1rem !important;
     }
     
-    h5{
+    .getApproval_list{
     	font-family:pretendard;
-    	font-weight:600;
     }
     
-    h4{
+    h5,h4,h3{
     	font-family:pretendard;
     	font-weight:600;
     }
@@ -113,10 +113,23 @@
     	margin-bottom:3rem;
     }
     
+    .card.apv-modal-folder{
+    	min-width: 15.625rem;
+    }
+    
     .btn.btn-secondary{
     	margin-top:1rem;
    		font-family:pretendard;
     	margin-bottom:0.625rem;
+    }
+    
+     .modal{
+    	--bs-modal-width: 24.625rem;
+    	font-family:pretendard;
+    }
+    
+    .modal .bx.bxs-file-blank{
+    	color:#C20000;
     }
     
     </style>
@@ -129,262 +142,15 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item active">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../creators/creator_list_all.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
+					<jsp:include page="/views/header_menu.jsp" />
         <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
         
         <!-- Navbar -->
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                  
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                    
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-          </nav>
-
-          <!-- / Navbar -->
+					<jsp:include page="/views/header_navbar.jsp" />
+          <!-- / Navbar -->	
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -406,7 +172,7 @@
                     	</li>
                     	
                     	<li class="nav-item mb-1">
-                    		<button type="button" class="btn btn-secondary">새 결재 작성</button>
+                    		<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#apv-modal">새 결재 작성</button>
                     	</li>
                     
                     	<li class="nav-item mb-1">
@@ -416,17 +182,17 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="getApproval_list.go">
+                        <a class="nav-link" href="/approval/getApproval_list.go">
                           <span class="align-middle">결재 요청 받은 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="compApproval_list.go">
+                        <a class="nav-link" href="/approval/compApproval_list.go">
                           <span class="align-middle">결재 완료한 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link " href="viewApproval_list.go">
+                        <a class="nav-link" href="/approval/viewApproval_list.go">
                           <span class="align-middle">열람 가능한 문서</span>
                         </a>
                       </li>
@@ -437,22 +203,22 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="requestApproval_list.go">
+                        <a class="nav-link" href="/approval/requestApproval_list.go">
                           <span class="align-middle">결재 요청한 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="finishApproval_list.go">
+                        <a class="nav-link" href="/approval/finishApproval_list.go">
                           <span class="align-middle">결재 완료된 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="temporaryApproval_list.go">
+                        <a class="nav-link" href="/approval/temporaryApproval_list.go">
                           <span class="align-middle">임시 저장된 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link active" href="rejectedApproval_list.go">
+                        <a class="nav-link active" href="/approval/rejectedApproval_list.go">
                           <span class="align-middle">반려된 문서</span>
                         </a>
                       </li>
@@ -460,23 +226,60 @@
                   </div>
                 </div>
                 <!-- /Navigation -->
+                
+                <!-- modal -->
+								<!-- 새 결제 작성 모달 -->
+              <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-start mb-4">
+                        <h3>결재 양식</h3>
+                      </div>
+                      
+                      <div>
+                      	<div class="col-md-6 col-12">
+													<div class="card mb-md-0 mb-4 apv-modal-folder">
+														<h5 class="card-header">문서양식</h5>
+														<div class="card-body">
+															<div id="jstree-checkbox"></div>
+														</div>
+													</div>
+												</div>
+                      </div>
+
+                      <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">선택</button>
+                        <button
+                          type="reset"
+                          class="btn btn-label-secondary btn-reset mt-3"
+                          data-bs-dismiss="modal"
+                          aria-label="Close">
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ 새 결제 작성 모달 -->
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
                 	<h4 class="apv-home">
-                		반려된 문서
+                		결재 요청 받은 문서
                 	</h4>
                   <div class="tab-content p-0">
                     <!-- Store Details Tab -->
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
         
 				              <div class="card">
-				                <h5 class="card-header"> 반려된 문서 리스트 </h5>
+				                <h5 class="card-header"> 결재 요청 받은 문서 리스트 </h5>
 				                <div class="card-datatable table-responsive">
-				                  <table class="dt-multilingual2 table border-top">
+				                  <table class="getApproval_list table border-top">
 				                    <thead>
 				                      <tr>
-				                        <th></th>
 				                        <th>문서양식</th>
 				                        <th>문서제목</th>
 				                        <th>상신일</th>
@@ -497,9 +300,7 @@
               </div>
             </div>
             <!-- / Content -->
-            
-            
-            
+
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -534,6 +335,7 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script>
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
@@ -549,112 +351,172 @@
     <!-- Page JS -->
     <script src="../../assets/js/app-ecommerce-settings.js"></script>
     
+    <!-- Header JS -->
+    <script src="../../assets/js/header.js"></script>
+    
     <!-- custom JS -->
     <script>
+
+  	// 리스트 출력-----------------------------------------------------------------------------
     
     $(function () {
-  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-  	  dt_multilingual_table2 = $('.dt-multilingual2');
+        var getApprovalListTable = $('.getApproval_list');
+        var lang = 'English';
 
-  	  // Multilingual DataTable
-  	  // --------------------------------------------------------------------
+        if (getApprovalListTable.length) {
+            getApprovalListTable.DataTable({
+            		stateSave: true,  // 상태 저장 활성화
+                pagingType: 'full_numbers',  // 페이징 컨트롤 옵션 설정
+                ajax: {
+                    url: '/approval/rejectedApproval_list.do',
+                    type: 'GET',
+                    dataSrc: ''
+                },
+                columns: [
+                	{ 
+                        data: 'apv_code',
+                        render: function (data, type, row) {
+                            // apv_code 값에 따른 사용자 정의 표시
+                            switch (data) {
+                                case 'BSPN':
+                                    return '사업 기안서';
+                                case 'BFVC':
+                                    return '연차 신청서';
+                                case 'AFVC':
+                                    return '사후 연차 신청서';
+                                default:
+                                    return data; // 일치하는 값이 없는 경우 원래 값 반환
+                            }
+                        }
+                    },
+                    { data: 'apv_subject',
+                        render: function (data, type, row) {
+                        	return '<a href="#" class="apv-subject-link" data-apv-idx="' + row.apv_idx + '">' + data + '</a>';
+                        }
+                    },
+                    { data: 'apv_date' },
+                    { data: 'apv_history_date' },
+                    { data: 'emp_name' },
+                    { 
+                        data: 'apv_stmt',
+                        targets: -1,
+                        render: function (data, type, full, meta) {
+                            var statusClass = '';
+                            if (data === '완료') {
+                                statusClass = 'bg-secondary';
+                            } else if (data === '진행중') {
+                                statusClass = 'bg-success';
+                            } else if (data === '반려') {
+                            		statusClass = 'bg-danger';
+                            } else if (data === '임시저장') {
+                            		statusClass = 'bg-warning';
+                            }
+                            return '<span class="badge ' + statusClass + '">' + data + '</span>';
+                        }
+                    }
 
-  	  var lang = 'English';
-  	  if (dt_multilingual_table2.length) {
-  	    var table_language = dt_multilingual_table2.DataTable({
-  	      ajax: assetsPath + 'json/table-datatable.json',
-  	      columns: [
-  	        { data: '' },
-  	        { data: 'full_name' },
-  	        { data: 'post' },
-  	        { data: 'start_date' },
-  	      	{ data: 'start_date' },
-  	        { data: 'status' },
-  	        { data: '' }
-  	      ],
-  	      columnDefs: [
-  	        {
-  	          // For Responsive
-  	          className: 'control',
-  	          orderable: false,
-  	          targets: 0,
-  	          searchable: false,
-  	          render: function (data, type, full, meta) {
-  	            return '';
-  	          }
-  	        },
-  	        {
-  	          // Label
-  	          targets: -1,
-  	          render: function (data, type, full, meta) {
-  	            var $status_number = full['status'];
-  	            var $status = {
-  	              1: { title: 'Current', class: 'bg-label-primary' },
-  	              2: { title: 'Professional', class: ' bg-label-success' },
-  	              3: { title: 'Rejected', class: ' bg-label-danger' },
-  	              4: { title: 'Resigned', class: ' bg-label-warning' },
-  	              5: { title: 'Applied', class: ' bg-label-info' }
-  	            };
-  	            if (typeof $status[$status_number] === 'undefined') {
-  	              return data;
-  	            }
-  	            return (
-  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-  	            );
-  	          }
-  	        }
-  	      ],
-  	      language: {
-  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-  	      },
-  	      //paging: false,
-  	      displayLength: 10,
-  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-  	      lengthMenu: [10],
-  	      searching: false,
-  	      responsive: {
-  	        details: {
-  	          display: $.fn.dataTable.Responsive.display.modal({
-  	            header: function (row) {
-  	              var data = row.data();
-  	              return 'Details of ' + data['full_name'];
-  	            }
-  	          }),
-  	          type: 'column',
-  	          renderer: function (api, rowIdx, columns) {
-  	            var data = $.map(columns, function (col, i) {
-  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-  	                ? '<tr data-dt-row="' +
-  	                    col.rowIndex +
-  	                    '" data-dt-column="' +
-  	                    col.columnIndex +
-  	                    '">' +
-  	                    '<td>' +
-  	                    col.title +
-  	                    ':' +
-  	                    '</td> ' +
-  	                    '<td>' +
-  	                    col.data +
-  	                    '</td>' +
-  	                    '</tr>'
-  	                : '';
-  	            }).join('');
-
-  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-  	          }
-  	        }
-  	      }
-  	    });
-  	  }
-
-  	  // Filter form control to default size
-  	  // ? setTimeout used for multilingual table initialization
-  	  setTimeout(() => {
-  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  	  }, 300);
-  	});
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
+                },
+                displayLength: 10,
+                dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                lengthMenu: [10],
+                searching: false,
+                responsive: true,
+                initComplete: function () {
+                    // DataTable 초기화가 완료된 후 이벤트 처리
+                    getApprovalListTable.find('.apv-subject-link').on('click', function (e) {
+                        var apvIdx = $(this).data('apv-idx');
+                        console.log(apvIdx);
+                        // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
+                        window.location.href = '/approval/getApproval_detail.go/'+ apvIdx;
+                    });
+                }
+            });
+        }
+    });
+    
+  //------------------------------------------------------------------------------------------------
+     
+    
+ // 새 결재 작성 모달창 ---------------------------------------------------------------------------
+    $(function () {
+    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+    	    checkboxTree = $('#jstree-checkbox');
+    	  // Checkbox
+    	  if (checkboxTree.length) {
+    	    checkboxTree.jstree({
+    	      core: {
+    	        themes: {
+    	          name: theme
+    	        },
+    	        data: [
+    	          {
+    	            text: '근태',
+    	            state: {
+      	              opened: true
+      	            },
+    	            children: [
+    	              {
+    	                text: '휴가 신청서',
+    	                type: 'docs'
+    	              },
+    	              {
+      	              text: '사후 휴가 신청서',
+      	              type: 'docs'
+      	            }
+    	            ]
+    	          },
+    	          {
+    	            text: '일반 ',
+    	            state: {
+    	              opened: true
+    	            },
+    	            children: [
+    	              {
+    	                text: '사업 기안서',
+    	                type: 'docs'
+    	              }
+    	            ]
+    	          },
+    	        ]
+    	      },
+    	      plugins: ['types','wholerow'],
+    	      types: {
+    	        default: {
+    	          icon: 'bx bx-folder'
+    	        },
+    	        docs: {
+    	          icon: 'bx bxs-file-blank'
+    	        }
+    	      }
+    	    }).on('select_node.jstree', function (e, data) {
+    	        // 현재 선택된 노드의 ID 확인
+    	        var selectedNodeId = data.node.id;
+    	        
+    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
+    	        $('.apv-doc-select').off('click');
+    	        
+    	        // id 값에 따라 페이지 이동
+    	        $('.apv-doc-select').on('click',function(){
+    	        			if(selectedNodeId == 'j1_2'){
+    	        					location.href="approval_write.go/vac";
+    	        			}else if(selectedNodeId == 'j1_3'){
+    	        				location.href="approval_write.go/vac_after";
+    	        			}else if(selectedNodeId == 'j1_5'){
+    	        				location.href="approval_write.go/biz";
+    	        			}
+    	        });
+    	        
+    	      });
+    	  }
+    	});
+		
+  	//------------------------------------------------------------------------------------------------
+    
     
     </script>
+
   </body>
 </html>
