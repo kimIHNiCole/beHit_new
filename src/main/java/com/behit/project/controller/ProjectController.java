@@ -313,4 +313,51 @@ public class ProjectController {
 		return map;
 	}
 	
+	@PostMapping(value="/project/projectRUpdate.do")
+	@ResponseBody
+	public Map<String, Object> projRUpdateDo(
+			@RequestParam("projIdx") String projIdx,
+			@RequestParam("emp_id") String emp_id,
+			@RequestParam("projR_idx") String projR_idx,
+			@RequestParam("content") String content,
+			@RequestParam(value = "files[]", required = false) MultipartFile[] files,
+			@RequestParam("delUpfile") String delUpfile) throws Exception{
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+        List<String> delUpfileList = null;
+        try {
+        	if("[]".equals(delUpfile)) {
+        	}else {        		
+        		delUpfileList = objectMapper.readValue(delUpfile, new TypeReference<List<String>>() {});
+        	}
+        } catch (Exception e) {
+            logger.error("JSON error: "+e);
+        }
+		
+		int row = 0;
+		int file_kind = 7;
+		row = service.projRUpdate(projR_idx,content);
+		int projRIdx = Integer.parseInt(projR_idx);
+		
+		if(row != 0) {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					logger.info("File name: {}", file.getOriginalFilename());
+					service.upload(projRIdx, file, emp_id, file_kind);
+				}
+			}
+			if(delUpfileList != null) {
+    			for (String delfile_idx : delUpfileList) {
+    				logger.info("활동기록 업뎃시 삭제될 파일: {}", delfile_idx);
+    				int file_idx = Integer.parseInt(delfile_idx);
+    				service.fileDel(file_idx);
+    			}
+    		}
+			service.projUp(projIdx);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("success", row);
+		return map;
+	}
+	
 }

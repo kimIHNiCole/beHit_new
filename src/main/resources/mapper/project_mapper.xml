@@ -72,7 +72,7 @@
 	
 	<!-- 아래는 대쉬보드 즉시,대기,진행,지연 -->
 	<select id="projnow" resultType="proj">
-		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'N' ORDER BY p.proj_end DESC LIMIT 5;
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'N' ORDER BY p.proj_end LIMIT 5;
 	</select>
 	
 	<select id="projwait" resultType="proj">
@@ -84,7 +84,7 @@
 	</select>
 	
 	<select id="projdelay" resultType="proj">
-		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'Y' ORDER BY p.proj_end DESC;
+		SELECT p.* FROM project p INNER JOIN project_team t ON p.proj_idx = t.proj_idx WHERE t.emp_id = #{param1} and p.proj_status = '진행' and p.proj_delay = 'Y' ORDER BY p.proj_end;
 	</select>
 	
 	<!-- 프로젝트 상세보기 -->
@@ -164,7 +164,12 @@
 	</select>
 	
 	<select id="projRData" resultType="map">
-		SELECT * FROM project_record WHERE projR_idx = #{param1};
+		SELECT r.*,(SELECT e.emp_name FROM employee e WHERE e.emp_id = r.emp_id) AS emp_name FROM project_record r WHERE r.projR_idx = #{param1};
 	</select>
+	
+	<!-- 활동기록 업데이트 -->
+	<update id="projRUpdate">
+		UPDATE project_record SET projR_content = #{param2}, projR_update = now(), projR_upstate = 'Y' WHERE projR_idx = #{param1}
+	</update>
 
 </mapper>
