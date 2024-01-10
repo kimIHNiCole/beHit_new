@@ -12,26 +12,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.behit.creator.dto.ChannelDTO;
 import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreatorDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
 import com.behit.creator.dto.SnsDTO;
 import com.behit.creator.service.CreatorService;
-import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.util.service.UtilService;
-import com.google.api.services.youtube.model.Channel;
 
 
 @RestController
@@ -84,11 +79,37 @@ public class CreatorController {
 		return result;
 	}
 
+//	formData로 받기 -- 안됌 타입 미지원 에러
+//	@PostMapping(value = "/creatorAdd.ajax.do", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//	public ResponseEntity<Void> creatorAddDO(
+//	        @RequestPart("file") MultipartFile file,
+//	        @RequestPart("creatorRequestDTO") CreatorRequestDTO creatorRequestDTO,
+//	        HttpSession session) {
+//	    // 컨트롤러 로직...
+//
+//	    try {
+//	        String repChannelId = creatorService.creatorAdd(creatorRequestDTO, session);
+//	        logger.info("등록 요청 결과: " + repChannelId);
+//
+//	        if (!repChannelId.isEmpty()) {
+//	            creatorStatController.saveChannelDataOne(repChannelId);
+//	        }
+//
+//	        // creatorAdd()가 정상적으로 수행되었을 때
+//	        return new ResponseEntity<>(HttpStatus.OK);
+//	    } catch (Exception e) {
+//	        logger.info("creatorAdd()에서 오류 발생");
+//	        // 그렇지 않을 때
+//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//	    }
+//	}
 	@PostMapping(value = "/creatorAdd.ajax.do", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> creatorAddDO(@RequestBody CreatorRequestDTO creatorRequestDTO, HttpSession session) {
+	public ResponseEntity<Integer> creatorAddDO(@RequestBody CreatorRequestDTO creatorRequestDTO, HttpSession session) {
 		logger.info("크리에이터 등록 요청 || prarms = {}", creatorRequestDTO);
 		try {
-			String repChannelId = creatorService.creatorAdd(creatorRequestDTO, session);
+			HashMap<String, Object> result = creatorService.creatorAdd(creatorRequestDTO, session);
+			String repChannelId = (String)result.get("repChannelId");
+			int creidx = (int) result.get("cre_idx");
 			logger.info("등록 요청 결과 : "+ repChannelId);
 			
 			if(!repChannelId.isEmpty()) {
@@ -96,7 +117,7 @@ public class CreatorController {
 			}
 			
 			// creatorAdd()가 정상적으로 수행되었을때
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(creidx,HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("creatorAdd()에서 오류 발생");
 			// 그렇지 않을때
@@ -171,13 +192,31 @@ public class CreatorController {
 //	}
 	
 	@PostMapping("/creatorImgUpload.ajax")
-    public ResponseEntity<String> creatorImgUpload(@RequestParam("file") MultipartFile file) {
-        // 파일 처리 로직을 여기에 구현
-
-        // 예제로 파일 이름을 출력하는 부분
-        String fileName = file.getOriginalFilename();
-        System.out.println("Received file: " + fileName);
-
+    public ResponseEntity<String> creatorImgUpload( HttpSession session,
+    		@RequestParam("file") MultipartFile file, Integer cre_idx) {
+        logger.info("Received file: " + file);
+        HashMap<String, Object > params = new HashMap<String, Object>();
+        
+        EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+        String loginId = loginInfo.getEmp_id();
+        
+        if (cre_idx != null) {
+            String cre_idx_str = cre_idx.toString();
+            logger.info("cre_idx: " + cre_idx_str);
+            params.put("cre_idx", cre_idx_str);
+        }else {
+        	logger.warn("cre_idx IS NULL");
+        }
+        
+        params.put("login_id", loginId);
+        params.put("file_kind", 6);
+        
+        try {
+			utilService.upload(file, params);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         // 파일 처리 성공 시 응답
         return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
     }

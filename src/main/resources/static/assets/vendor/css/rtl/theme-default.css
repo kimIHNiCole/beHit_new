@@ -569,15 +569,15 @@ button.list-group-item-primary.active {
 }
 
 .timeline .timeline-point-primary {
-  background-color: #C20000 !important;
+  background-color: #696cff !important;
   box-shadow: 0 0 0 0.1875rem rgba(105, 108, 255, 0.16);
 }
 
 .timeline .timeline-indicator-primary {
-  border-color: #C20000 !important;
+  border-color: #696cff !important;
 }
 .timeline .timeline-indicator-primary i {
-  color: #C20000 !important;
+  color: #696cff !important;
 }
 
 .divider.divider-primary .divider-text:before, .divider.divider-primary .divider-text:after {
