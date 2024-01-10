@@ -190,11 +190,11 @@
                         <div
                           class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                           <div class="user-profile-info">
-                            <h4>${dashProfile.emp_name}  <span class='homePosition'>/ ${dashProfile.position_name}</span></h4>
+                            <h4>${dashProfile.emp_name}  <span class='homePosition'>/ ${dashProfile.grade_name}</span></h4>
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                               <li class="list-inline-item fw-medium"><i class="bx bx-map"></i></i> ${dashProfile.dept_name}</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bx-ghost'></i></i> ${dashProfile.grade_name}</li>
+                              <li class="list-inline-item fw-medium"><i class='bx bx-ghost'></i></i> ${dashProfile.position_name}</li>
                               <li class="list-inline-item fw-medium"><i class='bx bxs-time' ></i> 사용 연차 : 66시간</li>
                               <li class="list-inline-item fw-medium"><i class='bx bx-time-five' ></i> 잔여 연차 : 12시간</li>
                             </ul>
@@ -398,23 +398,27 @@
 				    </div>
                     <div class="table-responsive mb-3">
                       <table class="table datatable-project">
-                        <thead class="table-light">
-                          <tr>
-                            <th>문서 제목</th>
-                            <th>상신일</th>
-                            <th class="text-nowrap">마지막 결재일</th>
-                            <th>현 결재자</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>
-                        		<td>카메라 대량 구입의 건</td>
-                        		<td>2023.12.21</td>
-                        		<td>2023.12.23</td>
-                        		<td>이지훈</td>
-                        	</tr>
-                        </tbody>
-                      </table>
+					    <thead class="table-light">
+					        <tr>
+					            <th>문서 제목</th>
+					            <th>상신일</th>
+					            <th class="text-nowrap">마지막 결재일</th>
+					            <th>현 결재자</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <c:forEach var="approval" items="${reqAp_list}" varStatus="loop">
+					            <c:if test="${loop.index lt 5}">
+					                <tr>
+					                    <td>${approval.apv_subject}</td>
+					                    <td>${approval.apv_date}</td>
+					                    <td>${approval.apv_history_date}</td>
+					                    <td>${approval.emp_name}</td>
+					                </tr>
+					            </c:if>
+					        </c:forEach>
+					    </tbody>
+					</table>
                     </div>
                   </div>
                   <!--/ Projects table -->
