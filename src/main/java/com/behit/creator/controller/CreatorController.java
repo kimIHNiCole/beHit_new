@@ -45,7 +45,7 @@ public class CreatorController {
 	}
 	
 	
-	@GetMapping(value = "/creators/creatorAdd.go")
+	@GetMapping(value = "creators/creatorAdd.go")
 	public ModelAndView creatorAddGo(ModelAndView mav) {
 		logger.info("크리에이터 등록 페이지로 이동 요청");
 
@@ -56,7 +56,7 @@ public class CreatorController {
 		mav.addObject("genders", genders);
 		mav.addObject("countries", countries);
 
-		mav.setViewName("/creator_add");
+		mav.setViewName("creators/creator_add");
 		return mav;
 	}
 

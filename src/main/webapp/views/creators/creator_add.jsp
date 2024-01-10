@@ -680,13 +680,14 @@
                 }
             }).open();
         });
-        $(document).on('focus', '.flatpickr-validation', function() {
+        $(document).on('mousedown', '.flatpickr-validation', function() {
 		  // 날짜 선택 폼
 	      var flatpickrElements = document.querySelectorAll(".flatpickr-validation");
 	      
 	      flatpickrElements.forEach(function (element) {
 	        flatpickr(element, {
-	          monthSelectorType: "static"
+	          monthSelectorType: "static",
+	          allowInput: true,
 	        });
 	      });
     	});
@@ -1169,7 +1170,7 @@
 	    // 조직도 
 	    $.ajax({
 			type: 'get',
-	    	url: 'getOrgList',
+	    	url: '/creators/getOrgList.ajax',
 	    	data: {},
 	    	dataType: 'JSON',
 	        success : function(data){
@@ -1215,7 +1216,10 @@
 				    		for(var k=0; k < orgList.length; k++){
 				    			if(orgList[k].dept == deptKind[i]){
 				    				/* console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade); */
-				    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' id='mng_id' name='mng_id' value='"+orgList[k].emp_id+"'/>");
+				    				info.push( 
+				    					orgList[k].emp_name+" | "+orgList[k].grade+" | "+
+				    					orgList[k].position+"<input type='hidden' value='"+orgList[k].emp_id+"'/>"
+			    					);
 				    			}
 				    		}
 				    		return info[index];
