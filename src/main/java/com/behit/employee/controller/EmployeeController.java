@@ -35,11 +35,7 @@ public class EmployeeController {
 	UtilService utilService;
 
 
-	@GetMapping(value = "/home.go")
-	public String homeGo() {
-		logger.info("home page로 이동");
-		return "home";
-	}
+	
 
 	@GetMapping(value = "/empadd.go")
 	public String empAddGo() {
@@ -54,8 +50,9 @@ public class EmployeeController {
 
 		logger.info("params: " + params);
 		
-		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
-		String login_id = loginInfo.getEmp_id();
+//		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = "master"; 
+//				loginInfo.getEmp_id();
 		logger.info("로그인 아이디 : "+login_id);
 		
 

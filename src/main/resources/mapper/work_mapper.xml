@@ -5,65 +5,51 @@
 
 <mapper namespace="com.behit.employee.dao.WorkDAO">
 	<select id="worklist" resultType="work">
-		SELECT
-			e.emp_name, e.emp_id, d.emp_dept_name AS 'dept_name',
-			CONCAT(
-		        COALESCE(LPAD(HOUR(ch.work_start_time), 2, '0'), '-'),
+		SELECT 
+			e.emp_id, e.emp_name, d.emp_dept_name AS 'dept_name',
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_start_time), 2, '0'),
 		        ':',
-		        COALESCE(LPAD(MINUTE(ch.work_start_time), 2, '0'), '-')
-		    ) AS work_start,
-		    	CONCAT(
-		        COALESCE(LPAD(HOUR(ch.work_end_time), 2, '0'), '-'),
+		        LPAD(MINUTE(ch.work_start_time), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_start,
+			COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_end_time), 2, '0'),
 		        ':',
-		        COALESCE(LPAD(MINUTE(ch.work_end_time), 2, '0'), '-')
-		    ) AS work_end,
-			COALESCE(
-		        (SELECT CONCAT(
-		        COALESCE(LPAD(HOUR(vh.vaca_start), 2, '0'), '-'),
+		        LPAD(MINUTE(ch.work_end_time), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_end,
+			COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(vh.vaca_start), 2, '0'),
 		        ':',
-		        COALESCE(LPAD(MINUTE(vh.vaca_start), 2, '0'), '-')
-		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id),
-		        '-'
-		    ) AS vaca_start,
-		    COALESCE(
-		        (SELECT CONCAT(
-		        COALESCE(LPAD(HOUR(vh.vaca_end_time), 2, '0'), '0'),
+		        LPAD(MINUTE(vh.vaca_start), 2, '0')
+		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id), '-') AS vaca_start,
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(vh.vaca_end_time), 2, '0'),
 		        ':',
-		        COALESCE(LPAD(MINUTE(vh.vaca_end_time), 2, '0'), '0')
-		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id),
-		        '-'
-		    ) AS vaca_end,
-		    COALESCE(
-		        (SELECT vh.use_hour FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id),
-		        '-'
-		    ) AS use_hour,
-		    CONCAT(
-		        COALESCE(LPAD(HOUR(ch.work_started), 2, '0'), '00'),
+		        LPAD(MINUTE(vh.vaca_end_time), 2, '0')
+		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id), '-') AS vaca_end,
+		    COALESCE((SELECT vh.use_hour FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id),
+		        '0') AS use_hour,
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_started), 2, '0'),
 		        ':',
-		        COALESCE(LPAD(MINUTE(ch.work_started), 2, '0'), '00')
-		    ) AS work_started,
-		        CONCAT(
-		        COALESCE(LPAD(HOUR(ch.work_ended), 2, '0'), '00'),
+		        LPAD(MINUTE(ch.work_started), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_started,
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_ended), 2, '0'),
 		        ':',
-		        COALESCE(LPAD(MINUTE(ch.work_ended), 2, '0'), '00')
-		    ) AS work_ended,
-		    ch.work_state,
-			COALESCE(
-		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
-		        'default'
-		    ) AS ori_file_name,
-		    COALESCE(
-		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
-		        'default'
-		    ) AS new_file_name 
+		        LPAD(MINUTE(ch.work_ended), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_ended,
+		    COALESCE((SELECT work_state FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '-') AS work_state,
+			COALESCE((f.ori_file_name),'default') AS ori_file_name,
+		    COALESCE((f.new_file_name),'default') AS new_file_name
 		    FROM employee e
 		    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
-		    JOIN commute_history ch ON e.emp_id = ch.emp_id
-	    WHERE ch.work_day = #{date} LIMIT 10 offset #{offset};
+		   	LEFT JOIN file f ON e.emp_id = f.file_kind_idx
+		    ORDER BY e.emp_name asc LIMIT 10 offset #{offset};
 	</select>
 	
 	<select id="totalPage" resultType="int">
-   		SELECT CEIL(COUNT(emp_id)/#{param1}) AS pages FROM employee;
+   		SELECT CEIL(COUNT(emp_id)/#{param1}) AS pages FROM employee WHERE emp_id NOT IN ('master');
     </select>
     
     <select id="detail" parameterType="String" resultType="vacation">
@@ -93,6 +79,55 @@
 	
 	<select id="createList" parameterType="String" resultType="vacation">
 		SELECT add_date, del_date, add_hour, add_vaca_reason FROM emp_vacation ev WHERE emp_id = #{login_id};
+	</select>
+	
+	<insert id="selectdate" parameterType="HashMap">
+		INSERT INTO commute_history (emp_id, work_day, work_start_time, work_end_time, work_date_in)
+			VALUES(#{login_id}, #{workdate}, #{work_start_time}, #{work_end_time}, now());
+	</insert>
+	
+	<select id="workmodal" resultType="work">
+		SELECT ch.work_day,
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_start_time), 2, '0'),
+		        ':',
+		        LPAD(MINUTE(ch.work_start_time), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = '2024-01-17' AND e.emp_id = ch.emp_id), '00:00') AS work_start,
+			COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_end_time), 2, '0'),
+		        ':',
+		        LPAD(MINUTE(ch.work_end_time), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = '2024-01-17' AND e.emp_id = ch.emp_id), '00:00') AS work_end,
+			COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(vh.vaca_start), 2, '0'),
+		        ':',
+		        LPAD(MINUTE(vh.vaca_start), 2, '0')
+		    )FROM vacation_history vh WHERE vh.vaca_date = '2024-01-17' AND e.emp_id = vh.emp_id), '-') AS vaca_start,
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(vh.vaca_end_time), 2, '0'),
+		        ':',
+		        LPAD(MINUTE(vh.vaca_end_time), 2, '0')
+		    )FROM vacation_history vh WHERE vh.vaca_date = '2024-01-17' AND e.emp_id = vh.emp_id), '-') AS vaca_end,
+		    COALESCE((SELECT vh.use_hour FROM vacation_history vh WHERE vh.vaca_date = '2024-01-17' AND e.emp_id = vh.emp_id),
+		        '0') AS use_hour,
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_started), 2, '0'),
+		        ':',
+		        LPAD(MINUTE(ch.work_started), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = '2024-01-17' AND e.emp_id = ch.emp_id), '00:00') AS work_started,
+		    COALESCE((SELECT CONCAT(
+		        LPAD(HOUR(ch.work_ended), 2, '0'),
+		        ':',
+		        LPAD(MINUTE(ch.work_ended), 2, '0')
+		    ) FROM commute_history ch WHERE ch.work_day = '2024-01-17' AND e.emp_id = ch.emp_id), '00:00') AS work_ended,
+		    COALESCE((SELECT work_state FROM commute_history ch WHERE ch.work_day = '2024-01-17' AND e.emp_id = ch.emp_id), '-') AS work_state 
+					FROM commute_history ch
+					JOIN employee e ON e.emp_id = ch.emp_id 
+					WHERE e.emp_id = #{emp_id} ORDER BY work_day asc;
+	</select>
+	
+	<select id="workChk" resultType="boolean">
+		SELECT * FROM commute_history WHERE emp_id = #{emp_id} AND work_day = #{workdate} 
 	</select>
 
 </mapper>

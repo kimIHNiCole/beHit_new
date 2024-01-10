@@ -21,6 +21,12 @@
     <!-- pretendard 폰트 -->
 	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 	<style>
+		.imgForm{	
+		    cursor: pointer !important;
+		    border: 1px dashed lightgray  !important;
+		    border-radius: 6px !important; 
+			height: 200px;
+		}
 		.ch-form{
 			margin: 3px;
 		}
@@ -100,6 +106,7 @@
 		    border: var(--bs-border-width) solid #d9dee3;
 		    border-radius: var(--bs-border-radius);
 		}
+		
 	</style>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
@@ -219,23 +226,27 @@
                           <div class="row g-3">
                     
                   <div class="col-sm-3">
-                    <div class="card-body">
-					  <label for="uploadPhoto" style="cursor:pointer">
+                    <div class="card-body " style="text-align: center;">
+					  <label for="uploadPhoto" class="col-12 my-4 imgForm" >
                   		<img
-                             src="/util_img/upload_default.png"
-                             alt="user-avatar"
-                             class="d-block rounded"
+                             src="#"
+                             alt="creator-avatar"
                              height="200px"
+                             class="rounded d-none"
                              width="100%"
                              id="preview" />
+                             <span id="uploadComent">
+                             Drop files here or click to upload
+                             </span>
 					  </label>
+					  	
 					    <div class="fallback">
 					       <input id="uploadPhoto" name="file" type="file" onchange="previewImage(event)" 
 					       	accept=".jpg, .jpeg, .gif, .png" style="display:none;"/>
 					    </div>
                     </div>
                     <div>
-                       	<label class="form-label">성별</label>
+                       	<label class="form-label ms-4">성별</label>
                            <div style="display: flex; gap: 50px; justify-content: space-evenly;">
                             	<div class="form-check custom mb-2">
                            			<input type="radio" id="cre-male" class="form-check-input" name="cre_gender" value="${genders[0].code_name}" checked />
@@ -332,7 +343,7 @@
 										정보 (대표채널을 선택해 주세요)</span>
 									<button type="button"
 										class="btn btn-sm btn-icon btn-outline-primary mb-1"
-										onclick="creatorAddDo()">
+										onclick="addChItem()">
 										<i class='bx bx-plus bx-burst-hover'></i>
 									</button>
 								</div>
@@ -687,8 +698,11 @@
   	 function previewImage(event) {
            const input = event.target;
            const preview = document.getElementById('preview');
-
+           const uploadComent = document.getElementById('uploadComent');
            if (input.files && input.files[0]) {
+        	   
+        	   uploadComent.style.display = 'none';
+        	   preview.classList.remove('d-none');
                const reader = new FileReader();
 
                reader.onload = function (e) {
@@ -696,6 +710,9 @@
                };
 
                reader.readAsDataURL(input.files[0]);
+           }else {
+        	   uploadComent.style.display = 'block';
+        	   preview.classList.add('d-none');
            }
            
        }
@@ -819,35 +836,98 @@
       });
       console.log("creHistDTOList",creHistDTOList);
       
+   	  // 이미지 파일 수집
+      var fileInput = document.getElementById('uploadPhoto');
+      var imageFile = fileInput.files[0];
+      
+      $.ajax({
+  		type : 'post',
+  		url : 'creatorAdd.ajax.do',
+  		data: JSON.stringify({
+  		        creatorDTO: creatorDTO,
+  		        channelDTOList: channelDTOList,
+  		        snsDTOList: snsDTOList,
+  		        creHistDTOList: creHistDTOList
+  	    }),
+        contentType: 'application/json;charset=UTF-8',
+      	success : function(data, textStatus, jqXHR){
+      		console.log("응답 성공 | 상태 코드 : ", jqXHR.status);
+      		console.log("textStatus : ",textStatus);
+      		if(jqXHR.status == 200){
+      			// 서버 응답 성공 시 이미지를 업로드
+      			var cre_idx = data;
+                uploadImage(imageFile, cre_idx);
+      		}
+      	},
+      	error : function(data, textStatus, jqXHR){
+      		console.log("응답 실패 | 상태 코드 : ", jqXHR.status);
+      		console.log("textStatus : ",textStatus);
+      		
+      	}
+  		
+  	  });  
+  	}
+      
+ 	// 이미지 업로드 함수
+  	function uploadImage(imageFile, cre_idx) {
+  	    var formData = new FormData();
+  	    formData.append('file', imageFile);
+  	 	formData.append('cre_idx', cre_idx);
 
+  	    $.ajax({
+  	        type: 'post',
+  	        url: '/creatorImgUpload.ajax', // 실제 이미지 업로드 엔드포인트로 교체
+  	        data: formData,
+  	        contentType: false,
+  	        processData: false,
+  	        success: function (imageUploadResponse) {
+                console.log('이미지 업로드 성공!', imageUploadResponse);
+                location.replace('/creatorList.go');
+            },
+  	        error: function (imageUploadError) {
+                console.error('이미지 업로드 실패:', imageUploadError);
+            }
+  	    });
+  	}
       
       
+      /* var formData = new FormData();
+
+      var creatorRequestDTO = {
+    		    creatorDTO: creatorDTO,
+    		    channelDTOList: channelDTOList,
+    		    snsDTOList: snsDTOList,
+    		    creHistDTOList: creHistDTOList
+      };
+
+      formData.append('creatorRequestDTO', JSON.stringify(creatorRequestDTO));
+	
+	   // 파일 추가
+	   var fileInput = document.getElementById('uploadPhoto');
+	   formData.append('file', fileInput.files[0]);
+	
+	   // AJAX 요청
+	   $.ajax({
+	       type: 'post',
+	       url: 'creatorAdd.ajax.do',
+	       data: formData,
+	       contentType: false,  // 필요한 경우에만 설정
+	       processData: false,  // 필요한 경우에만 설정
+	       success: function(data, textStatus, jqXHR) {
+	           console.log("응답 성공 | 상태 코드 : ", jqXHR.status);
+	           console.log("textStatus : ", textStatus);
+	           if (jqXHR.status == 200) {
+	               location.replace('/creatorList.go');
+	           }
+	       },
+	       error: function(data, textStatus, jqXHR) {
+	           console.log("응답 실패 | 상태 코드 : ", jqXHR.status);
+	           console.log("textStatus : ", textStatus);
+	       }
+	   }); */
       
-		/* $.ajax({
-			type : 'post',
-			url : 'creatorAdd.ajax.do',
-			data: JSON.stringify({
-			        creatorDTO: creatorDTO,
-			        channelDTOList: channelDTOList,
-			        snsDTOList: snsDTOList,
-			        creHistDTOList: creHistDTOList
-		    }),
-        	contentType: 'application/json;charset=UTF-8',
-	    	success : function(data, textStatus, jqXHR){
-	    		console.log("응답 성공 | 상태 코드 : ", jqXHR.status);
-	    		console.log("textStatus : ",textStatus);
-	    		if(jqXHR.status == 200){
-	    			location.replace('/creatorList.go');
-	    		}
-	    	},
-	    	error : function(data, textStatus, jqXHR){
-	    		console.log("응답 실패 | 상태 코드 : ", jqXHR.status);
-	    		console.log("textStatus : ",textStatus);
-	    		
-	    	}
-			
-		}); */
-	}
+      
+	 
   	
   	
     // 조직도에서 매니저 선택시 호출 함수

@@ -479,6 +479,7 @@ function showChatRListOnChatMs(data) {
     	var listItem = $('<li class="chat-contact-list-item"></li>');
     	listItem.on('click', function() {
             registerClickEvent(chatRoom.chat_room_idx);
+            chatRoomIdx=chatRoom.chat_room_idx;
             // 클릭한 리스트에 active 클래스 추가
             $('.chat-contact-list-item').removeClass('active');
             $(this).addClass('active');
@@ -577,7 +578,7 @@ function drawOrg(orgList, deptKind) {
    			    		for(var k=0; k < orgList.length; k++){
    			    			if(orgList[k].dept == deptKind[i]){
    			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
-   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+" | "+orgList[k].position+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
    			    			}
    			    		}
    			    		return info[index];
@@ -752,7 +753,7 @@ function removeNodeFromList(hiddenValue) {
 $('.org-list-select').click(function () {
 	console.log("selectedNodes",selectedNodes);
     
- 	$.ajax({
+  	$.ajax({
         type: 'POST',
         url: '/createRoom',
         contentType: 'application/json',
@@ -875,16 +876,17 @@ $('#apv-org-modal').on('hidden.bs.modal', function () {
 $(document).ready(function() {
 
 	chatRListOnChatMs();
-	
+	/* 
 	if (chatRoomIdx) {
         registerClickEvent(chatRoomIdx);
-    }
+    } */
         
 });
  
  
 function registerClickEvent(chatRoomIdx) {
 		console.log("클릭된 챗룸",chatRoomIdx);
+		
     	//웹소켓 대화 삭제
     	$('#webChatMessage').empty();
 /*         // 기존 active 클래스를 모두 제거
