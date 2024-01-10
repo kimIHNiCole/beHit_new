@@ -22,6 +22,7 @@ public interface ApprovalDAO {
 	List<ApprovalDTO> getApproval_list(String emp_id);
 
 	ApprovalDTO getApproval_detail(String apv_idx);
+	ApprovalDTO apv_history_reason(String apv_idx);
 	List<ApprovalDTO> getApv_line(String apv_idx);
 
 	void getApproval_detail_do(ApprovalDTO dto);
@@ -35,6 +36,7 @@ public interface ApprovalDAO {
 	List<ApprovalDTO> compApproval_list(String emp_id);
 	List<ApprovalDTO> finishApproval_list(String emp_id);
 	List<ApprovalDTO> rejectedApproval_list(String emp_id);
+
 
 
 	

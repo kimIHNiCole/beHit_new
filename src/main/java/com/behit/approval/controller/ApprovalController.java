@@ -66,7 +66,7 @@ public class ApprovalController {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
 
-		return service.getApproval_detail(apv_idx);
+		return service.getApproval_detail(apv_idx,emp_id);
 	}
 	
 	@PostMapping(value="/approval/getApproval_detail.do")
