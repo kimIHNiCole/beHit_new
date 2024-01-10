@@ -37,7 +37,15 @@ public class CreatorController {
 	@Autowired CreatorStatController creatorStatController;
 	@Autowired UtilService utilService;
 	
-	@GetMapping(value = "/creatorAdd.go")
+	@GetMapping(value = "creators/creatorList.go")
+	public ModelAndView cratorListGo(ModelAndView mav) {
+		logger.info("크리에이터 리스트 페이지로 이동 요청");
+		mav.setViewName("creators/creator_list_all");
+		return mav;
+	}
+	
+	
+	@GetMapping(value = "/creators/creatorAdd.go")
 	public ModelAndView creatorAddGo(ModelAndView mav) {
 		logger.info("크리에이터 등록 페이지로 이동 요청");
 
@@ -48,7 +56,7 @@ public class CreatorController {
 		mav.addObject("genders", genders);
 		mav.addObject("countries", countries);
 
-		mav.setViewName("creators/creator_add");
+		mav.setViewName("/creator_add");
 		return mav;
 	}
 
@@ -127,12 +135,7 @@ public class CreatorController {
 	}
 
 	
-	@GetMapping(value = "/creatorList.go")
-	public ModelAndView cratorListGo(ModelAndView mav) {
-		logger.info("크리에이터 리스트 페이지로 이동 요청");
-		mav.setViewName("creators/creator_list_all");
-		return mav;
-	}
+	
 	
 	@GetMapping(value = "/getCreatorlist")
 	public HashMap<String, Object> getCreatorList(HttpSession session) {
