@@ -2,7 +2,6 @@ package com.behit.alarm.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,34 +16,49 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.behit.alarm.dto.AlarmDTO;
 import com.behit.alarm.service.AlarmService;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.profile.dto.FileDTO;
+import com.behit.profile.service.DashBoardService;
 
 @Controller
 public class AlarmController {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired AlarmService alarmService;
+	@Autowired DashBoardService dashService;
 	
-	/*
-	@RequestMapping(value= "/alarmList.go")
-	public String alarmList(Model model, HttpSession session) {
+	//네비바에 있는 드롭다운 프로필
+	@RequestMapping(value="/navProfile.go")
+	@ResponseBody
+	public HashMap<String, Object> navProfile(HttpSession session){
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
 		logger.info("로그인 아이디 : "+login_id);
-		ArrayList <AlarmDTO> alarmList=alarmService.alarmList(login_id);
-		logger.info(""+alarmList);
-		model.addAttribute("alarmList", alarmList);
-		return "header_navbar";
+		EmployeeDTO navProfile=dashService.detail(login_id);
+		FileDTO navPhoto = dashService.getPhoto(login_id);
+		
+		result.put("navProfile", navProfile);
+		result.put("navPhoto", navPhoto);
+		return result;
 	}
-	*/
+	
+
 	
 	@RequestMapping(value="/alarmList.go")
 	@ResponseBody
 	public HashMap<String, Object> alarmList(HttpSession session){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
-		String login_id = loginInfo.getEmp_id();
-		logger.info("로그인 아이디 : "+login_id);
-		ArrayList <AlarmDTO> alarmList=alarmService.alarmList(login_id);
+		ArrayList <AlarmDTO> alarmList = new ArrayList<AlarmDTO>();
+		if (loginInfo == null) {
+		    logger.info("왜 널이야");
+		} else {
+		    String login_id = loginInfo.getEmp_id();
+		    logger.info("로그인 아이디 : "+login_id);
+			alarmList=alarmService.alarmList(login_id);
+		}
+		
+		
 		logger.info(""+alarmList);
 		result.put("alarmList", alarmList);
 		return result;

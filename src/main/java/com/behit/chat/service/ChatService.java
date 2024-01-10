@@ -166,7 +166,7 @@ public class ChatService {
 		        chatDao.saveAlarm(emp_id, chatMsg_idx, alarm_msg);
 		    }
 		}
-			
+		
 		
 	}
 

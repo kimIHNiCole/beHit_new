@@ -35,11 +35,7 @@ public class EmployeeController {
 	UtilService utilService;
 
 
-	@GetMapping(value = "/home.go")
-	public String homeGo() {
-		logger.info("home page로 이동");
-		return "home";
-	}
+	
 
 	@GetMapping(value = "/empadd.go")
 	public String empAddGo() {
