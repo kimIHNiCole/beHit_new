@@ -244,7 +244,7 @@
 		              		   <a href="showOrgModal()">열람 권한자 등록</a>
 		              		  </div>
 		              		  <div>
-			              	   <a href="/creatorAdd.go">
+			              	   <a href="/creators/creatorAdd.go">
 			              	   	<i class="bx bx-user-check me-1"></i>
 			              	   	크리에이터 등록</a>
 		              		  </div>

@@ -11,10 +11,13 @@
 			(d.emp_dept_name) AS dept, 
 			(select c.common_code_name 
 			FROM commons_code c 
-			WHERE c.common_code_idx = e.emp_grade_idx ) AS grade 
+			WHERE c.common_code_idx = e.emp_grade_idx ) AS grade,
+			(select c.common_code_name 
+			FROM commons_code c 
+			WHERE c.common_code_idx = e.emp_position_idx ) AS position
 		FROM employee e JOIN department d 
 		WHERE e.emp_dept_idx = d.emp_dept_idx AND e.emp_id NOT IN ("master")
-		ORDER BY e.emp_dept_idx ASC, e.emp_grade_idx ASC
+		ORDER BY e.emp_dept_idx ASC, e.emp_position_idx ASC, e.emp_grade_idx ASC
 	</select>
 	
 	

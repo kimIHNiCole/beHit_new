@@ -67,10 +67,10 @@ public class WorkService {
 		return workDAO.selectdate(commute);
 	}
 
-	public HashMap<String, Object> workmodal(String emp_id) {
+	public HashMap<String, Object> workmodal(String emp_id, String modaldate) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<WorkDTO> list = workDAO.workmodal(emp_id);
+		ArrayList<WorkDTO> list = workDAO.workmodal(emp_id, modaldate);
 		map.put("list", list);
 		
 		return map;
@@ -86,5 +86,7 @@ public class WorkService {
 		return workDAO.updatedate(commute);
 		
 	}
+
+
 
 }

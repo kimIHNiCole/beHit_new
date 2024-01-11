@@ -47,6 +47,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
     <!-- Vendor -->
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
 
     <!-- Page CSS -->
     <!-- Page -->
@@ -276,7 +277,7 @@
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
-
+	<script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
 
@@ -291,15 +292,22 @@
   	console.log('currentUrl',currentUrl);
   	// 파라미터 값 추출
   	var searchParams = currentUrl.searchParams;
-  	console.log('searchParams',searchParams.get('msg'));
+  	// console.log('searchParams',searchParams.get('msg'));
 /*   	var msg = searchParams.get('msg'); */
   	
-  	console.log('msg',decodeURIComponent(msg));
+  	// console.log('msg',decodeURIComponent(msg));
   	
-	var msg = '${msg}';
-	if (msg!=''){
-		alert(msg);
-	}
+  	var warningMsg = "${warningMsg}";
+    if(warningMsg != ""){
+       Swal.fire({
+            text: warningMsg,
+            icon: 'warning',
+            customClass: {
+              confirmButton: 'btn btn-primary'
+            },
+            buttonsStyling: false
+          });
+    }
   	
   	
 

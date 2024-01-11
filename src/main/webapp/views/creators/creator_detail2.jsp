@@ -200,7 +200,7 @@
 
                 <!-- User Content -->
                 <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-                  <!-- 탭 메뉴 영역 -->
+                  <!-- 탭 영역 -->
                   <div class="row" style="flex-wrap: nowrap;">
 		            <div class="col-md-8">
 		   			  <!-- 탭 추가 -->                    
@@ -251,11 +251,9 @@
                    	  </div>
 		   			</div>
 		   		  </div>
-                  <!--/ 탭 메뉴 영역 -->
-                  
-                  <!-- 탭 컨텐츠 영역 -->
+            
+                  <!--/ 탭 영역 -->
                   <div class="tab-content p-0 pt-3">
-                  
 				  	<!-- 기본 정보 영역 -->
 				  	<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
 				      <!-- 채널 리스트 -->
@@ -340,7 +338,7 @@
 				        </div>
 				      </div>
 				      <!-- / SNS 리스트 -->
-				      <!-- 활동이력 Timeline -->
+				      <!-- Activity Timeline -->
 				      <div class="card mb-4">
 				        <h4 class="card-header">활동이력</h4>
 				        <div class="card-body">
@@ -389,12 +387,67 @@
 				          </ul>
 				        </div>
 				      </div>
-				      <!-- / 활동이력 Timeline -->
+				      <!-- /Activity Timeline -->
 					</div>
-					
 				   	<!-- 채널 데이터 영역 -->
-				 	<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
-				   	   <!-- Line Chart (조회수 추이)-->
+				   	<!-- Line Area Chart -->
+					<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
+					   <div class="col-12 mb-4" >
+					     <div class="card">
+					       <div class="card-header d-flex justify-content-between">
+					         <div>
+					           <h5 class="card-title mb-0">일별 구독자 수</h5>
+					           <small class="text-muted">구독자 성장세 확인</small>
+					         </div>
+					         <!-- 쓸 수도 있을 것 같아서 일단 남겨둠-->
+					         <div class="dropdown">
+					           <button
+					             type="button"
+					             class="btn dropdown-toggle px-0"
+					             data-bs-toggle="dropdown"
+					             aria-expanded="false">
+					             <i class="bx bx-calendar"></i>
+					           </button>
+					           <ul class="dropdown-menu dropdown-menu-end">
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a>
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a>
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+					                 >Last 7 Days</a
+					               >
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+					                 >Last 30 Days</a
+					               >
+					             </li>
+					             <li>
+					               <hr class="dropdown-divider" />
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center"
+					                 >Current Month</a
+					               >
+					             </li>
+					             <li>
+					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
+					             </li>
+					           </ul>
+					         </div>
+					        <!--  달력 드롭다운 영역--> 
+					       </div>
+					       <div class="card-body">
+					         <div id="lineAreaChart"></div>
+					       </div>
+					     </div>
+					   </div>
+					   <!-- /Line Area Chart -->
+					
+					   <!-- Line Chart -->
 					   <div class="col-12 mb-4">
 					     <div class="card">
 					       <div class="card-header d-flex justify-content-between">
@@ -402,217 +455,30 @@
 					           <h5 class="card-title mb-0">일일 조회수 추이</h5>
 					           <small class="text-muted">조회수 변동값 체크를 통해 알고리즘 상태와 채널 성장도 체크</small>
 					         </div>
+					         <!-- 
+					         <div class="d-sm-flex d-none align-items-center">
+					           <h5 class="mb-0 me-3">$ 100,000</h5>
+					           <span class="badge bg-label-secondary">
+					             <i class="bx bx-down-arrow-alt bx-xs text-danger"></i>
+					             <span class="align-middle">20%</span>
+					           </span>
+					         </div>
+					          -->
 					       </div>
 					       <div class="card-body">
-				             <div id="lineChart"></div>
+					         <div id="lineChart"></div>
 					       </div>
 					     </div>
 					   </div>
-				       <!-- / Line Chart (조회수 추이)-->
-				   
-				   	   <!-- Line Area Chart1 -->
-					   <div class="card mb-4">
-					       <div class="card-header d-flex justify-content-between">
-					         <div>
-					           <h5 class="card-title mb-0">일별 구독자 수</h5>
-					           <small class="text-muted">구독자 성장세 확인</small>
-					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
-					       </div>
-					       <div class="card-body">
-					         <div id="lineAreaChart1">
-					         <!-- 스크립트로 그려질 차트 영역 -->
-					         </div>
-			       	   	   </div>
-					   </div>
-					   <!-- /Line Area Chart1 -->
-					   <!-- Line Area Chart2 -->
-					   <div class="card mb-4">
-					       <div class="card-header d-flex justify-content-between">
-					         <div>
-					           <h5 class="card-title mb-0">일별 조회 수</h5>
-					           <small class="text-muted">구독자 성장세 확인</small>
-					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
-					       </div>
-					       <div class="card-body">
-					         <div id="lineAreaChart2">
-					         <!-- 스크립트로 그려질 차트 영역 -->
-					         </div>
-			       	   	   </div>
-					   </div>
-					   <!-- /Line Area Chart2 -->
-					   <!-- Line Area Chart3 -->
-					   <div class="card mb-4">
-					       <div class="card-header d-flex justify-content-between">
-					         <div>
-					           <h5 class="card-title mb-0">영상 컨텐츠 수</h5>
-					           <small class="text-muted">영상 업로드 주기 확인</small>
-					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
-					       </div>
-					       <div class="card-body">
-					         <div id="lineAreaChart3">
-					         <!-- 스크립트로 그려질 차트 영역 -->
-					         </div>
-			       	   	   </div>
-					   </div>
-					   <!-- /Line Area Chart3 -->
-				    </div>
-				    <!-- / 체널 데이터 영역 -->
-				   
-				</div>
-				<!-- / 탭 콘텐츠 영역 -->
-				
-               </div>
-               <!--/ User Content -->
-             </div>
+					   <!-- /Line Chart -->
+					</div>
+                  </div>
+                  
+                </div>
+                <!--/ User Content -->
+              </div>
 
-           </div>
+            </div>
             <!-- / Content -->
 
             <!-- Footer -->
@@ -771,11 +637,47 @@
         borderColor = config.colors.borderColor;
       }
 
+      // Color constant
+/*       const chartColors = {
+        column: {
+          series1: '#826af9',
+          series2: '#d2b0ff',
+          bg: '#f8d3ff'
+        },
+        donut: {
+          series1: '#fee802',
+          series2: '#3fd0bd',
+          series3: '#826bf8',
+          series4: '#2b9bf4'
+        },
+        area: {
+          series1: '#29dac7',
+          series2: '#60f2ca',
+          series3: '#a5f8cd'
+        }
+      }; */
 
-      // Line Area Chart1
+      // Heat chart data generator
+     /*  function generateDataHeat(count, yrange) {
+        let i = 0;
+        let series = [];
+        while (i < count) {
+          let x = 'w' + (i + 1).toString();
+          let y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+          series.push({
+            x: x,
+            y: y
+          });
+          i++;
+        }
+        return series;
+      } */
+
+      // Line Area Chart
       // --------------------------------------------------------------------
-      const areaChartEl1 = document.querySelector('#lineAreaChart1'),
-        areaChartConfig1 = {
+      const areaChartEl = document.querySelector('#lineAreaChart'),
+        areaChartConfig = {
           chart: {
             height: 500,
             type: 'area',
@@ -808,8 +710,16 @@
               }
             }
           },
-          colors: ['#2ecc71'],
+          colors: ['#3498db', '#e74c3c', '#2ecc71'],
           series: [
+            {
+              name: '총 조회 수',
+              data: viewList
+            },
+            {
+              name: '컨텐츠 수',
+              data: contentList
+            },
             {
               name: '구독자 수',
               data: subList
@@ -846,29 +756,41 @@
             shared: false
           }
         };
-      if (typeof areaChartEl1 !== undefined && areaChartEl1 !== null) {
-        const areaChart = new ApexCharts(areaChartEl1, areaChartConfig1);
+      if (typeof areaChartEl !== undefined && areaChartEl !== null) {
+        const areaChart = new ApexCharts(areaChartEl, areaChartConfig);
         areaChart.render();
       }
-      
-   	  // Line Area Chart2
+
+      /* // Bar Chart
       // --------------------------------------------------------------------
-      const areaChartEl2 = document.querySelector('#lineAreaChart2'),
-        areaChartConfig2 = {
+      const barChartEl = document.querySelector('#barChart'),
+        barChartConfig = {
           chart: {
-            height: 500,
-            type: 'area',
+            height: 400,
+            type: 'bar',
+            stacked: true,
             parentHeightOffset: 0,
             toolbar: {
-              show: true
+              show: false
+            }
+          },
+          plotOptions: {
+            bar: {
+              columnWidth: '15%',
+              colors: {
+                backgroundBarColors: [
+                  chartColors.column.bg,
+                  chartColors.column.bg,
+                  chartColors.column.bg,
+                  chartColors.column.bg,
+                  chartColors.column.bg
+                ],
+                backgroundBarRadius: 10
+              }
             }
           },
           dataLabels: {
             enabled: false
-          },
-          stroke: {
-            show: false,
-            curve: 'straight'
           },
           legend: {
             show: true,
@@ -879,6 +801,11 @@
               useSeriesColors: false
             }
           },
+          colors: [chartColors.column.series1, chartColors.column.series2],
+          stroke: {
+            show: true,
+            colors: ['transparent']
+          },
           grid: {
             borderColor: borderColor,
             xaxis: {
@@ -887,15 +814,18 @@
               }
             }
           },
-          colors: ['#3498db'],
           series: [
             {
-              name: '총 조회 수',
-              data: viewList
+              name: 'Apple',
+              data: [90, 120, 55, 100, 80, 125, 175, 70, 88, 180]
             },
+            {
+              name: 'Samsung',
+              data: [85, 100, 30, 40, 95, 90, 30, 110, 62, 20]
+            }
           ],
           xaxis: {
-            categories: dateList,
+            categories: ['7/12', '8/12', '9/12', '10/12', '11/12', '12/12', '13/12', '14/12', '15/12', '16/12'],
             axisBorder: {
               show: false
             },
@@ -918,97 +848,15 @@
             }
           },
           fill: {
-            opacity: 1,
-            type: 'gradient'
-          },
-          tooltip: {
-            shared: false
+            opacity: 1
           }
         };
-      if (typeof areaChartEl2 !== undefined && areaChartEl2 !== null) {
-        const areaChart = new ApexCharts(areaChartEl2, areaChartConfig2);
-        areaChart.render();
-      }
-		
-      
-     // Line Area Chart3
-      // --------------------------------------------------------------------
-      const areaChartEl3 = document.querySelector('#lineAreaChart3'),
-        areaChartConfig3 = {
-          chart: {
-            height: 500,
-            type: 'area',
-            parentHeightOffset: 0,
-            toolbar: {
-              show: true
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            show: false,
-            curve: 'straight'
-          },
-          legend: {
-            show: true,
-            position: 'top',
-            horizontalAlign: 'start',
-            labels: {
-              colors: legendColor,
-              useSeriesColors: false
-            }
-          },
-          grid: {
-            borderColor: borderColor,
-            xaxis: {
-              lines: {
-                show: true
-              }
-            }
-          },
-          colors: ['#e74c3c'],
-          series: [
-            {
-              name: '컨텐츠 수',
-              data: contentList
-            }
-          ],
-          xaxis: {
-            categories: dateList,
-            axisBorder: {
-              show: false
-            },
-            axisTicks: {
-              show: false
-            },
-            labels: {
-              style: {
-                colors: labelColor,
-                fontSize: '13px'
-              }
-            }
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: labelColor,
-                fontSize: '13px'
-              }
-            }
-          },
-          fill: {
-            opacity: 1,
-            type: 'gradient'
-          },
-          tooltip: {
-            shared: false
-          }
-        };
-      if (typeof areaChartEl3 !== undefined && areaChartEl3 !== null) {
-        const areaChart = new ApexCharts(areaChartEl3, areaChartConfig3);
-        areaChart.render();
-      }
+      if (typeof barChartEl !== undefined && barChartEl !== null) {
+        const barChart = new ApexCharts(barChartEl, barChartConfig);
+        barChart.render();
+      } */
+
+    
 
       // Line Chart
       // --------------------------------------------------------------------

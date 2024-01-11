@@ -34,7 +34,11 @@ public class EmployeeController {
 	@Autowired 
 	UtilService utilService;
 
-
+	@GetMapping(value = "/employee/employee_list.go")
+	public String empListGo() {
+		logger.info("직원 리스트 페이지로 이동");
+		return "employee/employee_list";
+	}
 	
 
 	@GetMapping(value = "/empadd.go")
@@ -71,14 +75,7 @@ public class EmployeeController {
 			utilService.upload(uploadFile, file);	
 		}
 
-		return "redirect:/emplist.go";
-	}
-
-	@GetMapping(value = "/emplist.go")
-	public String emplistgo() {
-
-		return "employee/employee_list";
-
+		return "redirect:/employee/employee_list.go";
 	}
 
 	@GetMapping(value = "/employee/empflist.do")

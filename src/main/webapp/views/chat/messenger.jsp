@@ -578,7 +578,7 @@ function drawOrg(orgList, deptKind) {
    			    		for(var k=0; k < orgList.length; k++){
    			    			if(orgList[k].dept == deptKind[i]){
    			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
-   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+" | "+orgList[k].position+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
    			    			}
    			    		}
    			    		return info[index];
@@ -753,7 +753,7 @@ function removeNodeFromList(hiddenValue) {
 $('.org-list-select').click(function () {
 	console.log("selectedNodes",selectedNodes);
     
- 	$.ajax({
+  	$.ajax({
         type: 'POST',
         url: '/createRoom',
         contentType: 'application/json',
