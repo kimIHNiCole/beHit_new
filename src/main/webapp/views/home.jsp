@@ -485,7 +485,7 @@
 					                <tr onclick="projPageGo('${projnow.proj_idx}')">
 										<td>${projnow.proj_start}</td>
 					                    <td>${projnow.proj_end}</td>
-					                    <td>${projnow.proj_content}</td>
+					                    <td>${projnow.proj_subject}</td>
 					                </tr>
 					            </c:if>
 					        </c:forEach>
