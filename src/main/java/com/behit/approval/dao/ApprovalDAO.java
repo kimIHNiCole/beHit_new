@@ -40,6 +40,10 @@ public interface ApprovalDAO {
 	List<ApprovalDTO> rejectedApproval_list(String emp_id);
 	List<ApprovalDTO> temporaryApproval_list(String emp_id);
 
+	void approval_update(ApprovalDTO dto);
+
+	void apv_line_del(int apv_idx);
+
 
 	
 }

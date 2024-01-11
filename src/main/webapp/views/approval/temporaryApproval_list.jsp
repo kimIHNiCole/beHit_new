@@ -182,7 +182,7 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link active" href="/approval/getApproval_list.go">
+                        <a class="nav-link" href="/approval/getApproval_list.go">
                           <span class="align-middle">결재 요청 받은 문서</span>
                         </a>
                       </li>
@@ -213,7 +213,7 @@
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="/approval/temporaryApproval_list.go">
+                        <a class="nav-link active" href="/approval/temporaryApproval_list.go">
                           <span class="align-middle">임시 저장된 문서</span>
                         </a>
                       </li>

@@ -81,6 +81,13 @@ public class ApprovalController {
 		return service.getApproval_detail_do(dto);
 	}
 	
+	@PostMapping(value="/approval/approval_update.do")
+	public String approval_update(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		
+		return service.approval_update(loginInfo,dto,files);
+	}
+	
 	@GetMapping(value="/approval/temporaryApproval_detail.go/{apv_idx}")
 	public ModelAndView temporaryApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");

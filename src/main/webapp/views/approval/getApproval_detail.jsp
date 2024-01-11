@@ -899,6 +899,9 @@
     <!-- custom JS -->
     <script>
     
+    $('.apv-vac-day').val('${apv.apv_time}');
+    $('.apv-vac-time').val('${apv.apv_time}');
+    
     
 	  //반려, 결재에 관한 정보  ------------------------------------------------------------------------------------------------------
 	    var apv_history_stmt = '';
@@ -951,6 +954,8 @@
             $('.apv-vac-time').hide();
             $('.apv-vac-day').show();
             $('.apv-vac-time input').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', true);
+            $('.apv-vac-day.vac-time').prop('disabled', false);
             $('.apv-vac-day input').prop('disabled', false);
              
         } else if (selectedOption === "시간") {
@@ -960,6 +965,8 @@
             $('.apv-vac-day').hide();
             $('.apv-vac-time').show();
             $('.apv-vac-time input').prop('disabled', false);
+            $('.apv-vac-day.vac-time').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', false);
             $('.apv-vac-day input').prop('disabled', true);
         }
      		// 날짜 시간 input 모달
