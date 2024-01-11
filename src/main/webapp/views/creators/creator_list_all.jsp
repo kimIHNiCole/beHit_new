@@ -347,7 +347,7 @@
 	    				width:'30%', 
 	    				data: null,
 	    				render : function(data, type, row){
-	    					return '<a href="/creatorDetail.go?cre_idx=' + row.cre_idx +'">'+row.cre_nick_name+'</a>';
+	    					return '<a href="/creators/creatorDetail.go?cre_idx=' + row.cre_idx +'">'+row.cre_nick_name+'</a>';
 	    				}
 	    			},
 	    			{ width:'20%', data:'channel_cate'},
@@ -372,12 +372,12 @@
 		            '<h6 class="mt-2 text-muted"></h6>' +
 		            '<div class="card">' +
 		            '<div style="height:400px; overflow:hidden">' +
-		            '<a href="/creatorDetail.go?cre_idx='+myCre.cre_idx+'">'+
+		            '<a href="/creators/creatorDetail.go?cre_idx='+myCre.cre_idx+'">'+
 		            	'<img class="card-img-top" style="width: 100%;" src="/file/creator/'+
 		            	myCre.new_file_name+'" alt="'+myCre.ori_file_name+'"/></a>' +
 		            '</div>'+	
 		            '<div class="card-body">' +
-		            '<h5 class="card-title"><a href="/creatorDetail.go?cre_idx='+myCre.cre_idx+'" class="creCardTitle">' + myCre.cre_nick_name + '</a></h5>' +
+		            '<h5 class="card-title"><a href="/creators/creatorDetail.go?cre_idx='+myCre.cre_idx+'" class="creCardTitle">' + myCre.cre_nick_name + '</a></h5>' +
 		            '<table>' +
 		            '<tr>' +
 		            '<td colspan="2"><input type="hidden" value="'+ myCre.cre_idx +'"/></td>' +

@@ -5,25 +5,20 @@
 
 <mapper namespace="com.behit.creator.dao.CreatorStatDAO">
 	
-	<select id="getChannelId" resultType="String">
-		SELECT channel_id FROM channel WHERE rep_channel = 1
+	<select id="getChannelId" resultType="HashMap">
+		SELECT channel_id , rep_channel FROM channel
 	</select>
 	
 	<insert id="saveChannelData" parameterType="channeldata">
 		INSERT IGNORE INTO channeldata (
-		    channel_id, subscriber, views, contents, view_trend, channel_data_date
+		    channel_id, subscriber, views, contents, channel_rep, view_trend
 		) VALUES (
-		     #{channel_id}, #{subscriber}, #{views}, #{contents},
-		    IFNULL(
-		        (#{views} - (
-		            SELECT IFNULL(views, 0) 
+		     #{channel_id}, #{subscriber}, #{views}, #{contents},#{channel_rep},
+		    IFNULL((#{views} - (SELECT IFNULL(views, 0) 
 		            FROM channeldata c2
 		            WHERE channel_id = #{channel_id}
 		            ORDER BY channel_data_date DESC LIMIT 1
-		        )),
-		        0
-		    ),
-		    CURDATE()
+		        )), 0 )
 		)
 	</insert>
 	
