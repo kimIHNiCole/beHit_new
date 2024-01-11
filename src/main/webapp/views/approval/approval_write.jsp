@@ -536,7 +536,7 @@
                 			</button>
                 		</span>
                 		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
+                			<button type="button" id="temporarySaveButton" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
                 		</span>
                 	</div>
                   <div class="tab-content p-0">
@@ -544,7 +544,8 @@
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
         
 				              <div class="card">
-					              <form action="../approval_write.do" method="post" enctype="multipart/form-data">
+					              <form id="approvalForm" action="/approval/approval_write.do" method="post" enctype="multipart/form-data">
+					              <input type="hidden" name="apv_stmt" id="apvStmt" value="진행중" />
 					              	<div class="apv-form-vac">
 					              	<div>
 						              		<!-- 사업기안서/휴가신청서 -->
@@ -774,7 +775,7 @@
     <script>
     
     var form_type = '${form_type}';
-    
+
     //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
     $('.apv-vac-time').hide();
     input_modal();
@@ -1003,7 +1004,19 @@
 
 		//--------------------------------------------------------------------------------------------------------------
     
-		
+		// 임시저장 form 요청 변경------------------------------------------------------------------------------------------
+    
+    $(document).ready(function () {
+    $('#temporarySaveButton').on('click', function () {
+        // 임시 저장 버튼 클릭 시 action 변경
+        $('#approvalForm').attr('action', '/approval/temporaryApproval_write.do');
+        $('#apvStmt').val('임시저장');
+        // 폼 데이터 전송
+        $('#approvalForm').submit();
+    });
+});
+    
+    //--------------------------------------------------------------------------------------------------------------
 		
     
     // sweetAlert 모달창--------------------------------------------------------------------------------------------

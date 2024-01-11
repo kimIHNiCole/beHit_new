@@ -391,7 +391,7 @@
                     },
                     { data: 'apv_subject',
                         render: function (data, type, row) {
-                        	return '<a href="#" class="apv-subject-link" data-apv-idx="' + row.apv_idx + '">' + data + '</a>';
+                        	return '<a href="javascript:void(0);" class="apv-subject-link" data-apv-idx="' + row.apv_idx + '">' + data + '</a>';
                         }
                     },
                     { data: 'apv_date' },
