@@ -2,6 +2,7 @@ package com.behit.employee.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,6 +86,28 @@ public class WorkService {
 		
 		return workDAO.updatedate(commute);
 		
+	}
+
+	public HashMap<String, Object> timelineList(String login_id, String workmonth) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<WorkDTO> list = workDAO.timelineList(login_id, workmonth);
+		map.put("list", list);
+		
+		return map;
+	}
+
+	public ModelAndView timeNowList(String login_id, String workmonth) {
+		
+    	ModelAndView mav = new ModelAndView();
+    	
+    	ArrayList<HashMap<String, Object>> list = workDAO.timeNowList(login_id, workmonth);
+    	
+    	logger.info("list : "+list);
+    	
+    	mav.addObject("list", list);
+    	mav.setViewName("/myHr/mhr_timeline");
+		
+		return mav;
 	}
 
 

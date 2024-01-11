@@ -1,5 +1,6 @@
 package com.behit.employee.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -34,10 +35,26 @@ public class WorkController {
 		return "/employee/workHour_list";
 	}
 	
-	@GetMapping(value="/myHr/mhr_timeline.go")
-	public String mhr_timeline() {
-		return "/myHr/mhr_timeline";
-	}
+    @GetMapping(value="/myHr/mhr_timeline.go")
+    @ResponseBody
+    public ModelAndView timeNowList(HttpSession session){
+    	
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		logger.info("로그인 아이디 : "+login_id);
+    	
+    	logger.info("컨트롤러 접근");
+    	
+    	LocalDate currentDate = LocalDate.now();
+
+    	String year = String.valueOf(currentDate.getYear());
+    	String month = String.format("%02d", currentDate.getMonthValue());
+
+    	String workmonth = year + '-' + month;
+    	logger.info("workmonth : {} ",workmonth);
+
+		return workService.timeNowList(login_id, workmonth);
+    }
 	
 	//근태현황 리스트
 	@GetMapping(value="/worklist.do")
@@ -91,7 +108,7 @@ public class WorkController {
 		} else {
 			workService.selectday(commute);
 		}	
-		return "/myHr/mhr_timeline";
+		return "redirect:/myHr/mhr_timeline.go";
 	}
 
 	// 근태 현황 모달 리스트
@@ -159,17 +176,23 @@ public class WorkController {
     			workService.selectday(commute);
     		}
         }
-        return "/myHr/mhr_timeline";
+        return "redirect:/myHr/mhr_timeline.go";
     }
 	
-    @PostMapping(value="/myHr/timelineList")
+    @PostMapping(value="/timelineList")
     @ResponseBody
-    public HashMap<String, Object> timelineList(){
+    public HashMap<String, Object> timelineList(HttpSession session, @RequestParam String workmonth){
+    	
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		logger.info("로그인 아이디 : "+login_id);
     	
     	logger.info("컨트롤러 접근");
     	
-		return null;
+		return workService.timelineList(login_id, workmonth);
     	
     }
+    
+
 
 }

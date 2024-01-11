@@ -111,5 +111,29 @@
 	<select id="workChk" resultType="boolean">
 		SELECT COUNT(*) FROM commute_history WHERE emp_id = #{login_id} AND work_day = #{workdate} 
 	</select>
+	
+	<select id="timelineList" resultType="HashMap">
+		SELECT ch.work_day, 
+			COALESCE(CONCAT(LPAD(HOUR(ch.work_start_time), 2, '0'),':',LPAD(MINUTE(ch.work_start_time), 2, '0')), '00:00') AS work_start,
+			COALESCE(CONCAT(LPAD(HOUR(ch.work_end_time), 2, '0'),':',LPAD(MINUTE(ch.work_end_time), 2, '0')), '00:00') AS work_end, 
+			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_start), 2, '0'),':',LPAD(MINUTE(vh.vaca_start), 2, '0')), '00:00') AS vaca_start, 
+			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_end_time), 2, '0'),':',LPAD(MINUTE(vh.vaca_end_time), 2, '0')), '00:00') AS vaca_end
+			FROM commute_history ch
+			LEFT JOIN vacation_history vh ON ch.work_day = vh.vaca_date 
+			WHERE ch.emp_id = #{login_id} AND ch.work_day LIKE CONCAT(#{workmonth}, '-%')
+		ORDER BY ch.work_day asc;
+	</select>
+	
+	<select id="timeNowList" resultType="HashMap">
+		SELECT ch.work_day, 
+			COALESCE(CONCAT(LPAD(HOUR(ch.work_start_time), 2, '0'),':',LPAD(MINUTE(ch.work_start_time), 2, '0')), '00:00') AS work_start,
+			COALESCE(CONCAT(LPAD(HOUR(ch.work_end_time), 2, '0'),':',LPAD(MINUTE(ch.work_end_time), 2, '0')), '00:00') AS work_end, 
+			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_start), 2, '0'),':',LPAD(MINUTE(vh.vaca_start), 2, '0')), '00:00') AS vaca_start, 
+			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_end_time), 2, '0'),':',LPAD(MINUTE(vh.vaca_end_time), 2, '0')), '00:00') AS vaca_end
+			FROM commute_history ch
+			LEFT JOIN vacation_history vh ON ch.work_day = vh.vaca_date 
+			WHERE ch.emp_id = #{login_id} AND ch.work_day LIKE CONCAT(#{workmonth}, '-%')
+		ORDER BY ch.work_day asc;
+	</select>
 
 </mapper>

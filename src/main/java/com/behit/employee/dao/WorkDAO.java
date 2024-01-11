@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.employee.dto.VacationDTO;
 import com.behit.employee.dto.WorkDTO;
@@ -29,5 +28,9 @@ public interface WorkDAO {
 	boolean workChk(String login_id, String workdate);
 
 	int updatedate(HashMap<String, Object> commute);
+
+	ArrayList<WorkDTO> timelineList(String login_id, String workmonth);
+
+	ArrayList<HashMap<String, Object>> timeNowList(String login_id, String workmonth);
 
 }
