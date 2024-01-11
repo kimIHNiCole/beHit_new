@@ -96,10 +96,10 @@
                         <small class="text-small text-muted text-uppercase align-middle">근무시간 전체 등록</small>
                       </div>
 
-					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;">
+					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;" >
 					  	<form action="selectmonth" method="post">
-					  		<input type="text" value="" name="workmonth" id="workmonth">
-					        <select class="form-select" style="flex: 1; margin-right: 8px;">
+					  		<input type="text" value="" name="workmonth" id="workmonth" style="display: none;">
+					        <select class="form-select" style="flex: 1; margin-right: 8px;" name="worktime">
 						        <option value="07:00~16:00">07:00~16:00</option>
 						        <option value="08:00~17:00">08:00~17:00</option>
 						        <option value="09:00~18:00">09:00~18:00</option>
@@ -109,6 +109,17 @@
 						    <button class="btn btn-primary" id="workbutton">등록</button>
 						</form>
 					  </div>
+					  <div class="app-calendar-events-filter">
+                        <div class="form-check form-check-danger mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-personal"
+                            data-value="personal"
+                            checked />
+                          <label class="form-check-label" for="select-personal">내 일정</label>
+                        </div>
+                      </div>
 						<br/>
                       <div class="mb-1" id="selecdate" style="display:none;">
                         <small class="text-small text-muted text-uppercase align-middle" 
@@ -136,7 +147,9 @@
                     <div class="card shadow-none border-0">
                       <div class="card-body pb-0">
                         <!-- FullCalendar -->
-                        <div id="calendar"></div>
+                        <div id="calendar">
+                        	
+                        </div>
                         <!-- 맨위에 달,주,일,리스트 없애려면 -->
                        		<!--
 	                        app-calendar.js 부분의 아래 코드에서↓
@@ -212,7 +225,7 @@
     <!-- Header -->
     <script src="../../assets/js/header.js"></script>
     <script>
-     
+    
     </script>
   </body>
 </html>

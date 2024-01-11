@@ -65,7 +65,7 @@
     .btn.btn-primary.vaca{
     width: 160px;
     height: 38px;
-    margin-left: 150px;
+    margin-left: 110px;
     }
     </style>
   </head>
@@ -146,8 +146,8 @@
                         </div>
                         
                       </div>
-                      <div class="col-sm-6 col-lg-3">
-                        <div class="col-md-4 text-end">
+                      <div class="col-sm-6 col-lg-3" style="display: flex;">
+                        <div class="col-md-4 text-end"> 
                 		    <!-- 직원 등록 버튼 -->
                  		   <button class="btn btn-primary vaca"
 	                          data-bs-toggle="modal"
@@ -291,9 +291,10 @@
                                   data-bs-dismiss="modal"
                                   aria-label="Close"></button>
                               </div>
-                              <form action="passChange.do" method="post">
+                              <form action="vacaChange.do" method="post">
 	                              <div class="modal-body">
 	                                <div class="col mb-3">
+	                                	<input type="text" name="emp_id" style="display:none;" value="${vacadetail.emp_id}"/>
 						                <label class="form-label" for="emp_name">이름</label>
 						                <div class="input-group input-group-merge">
 						                  <p>${vacadetail.emp_name}</p>
@@ -317,20 +318,25 @@
 			                                <div  style="display: flex; align-items: center;">
 		                                    <input
 		                                      type="text"
-		                                      id="vacahour"
+		                                      name="vacahour"
 		                                      class="form-control"
 		                                      aria-describedby="vacahour" style="width:200px;"/>
-			                                <button type="button" class="btn btn-primary" style="margin-left: 50px; margin-right: 10px;">추가</button>
-			                                <button type="button" class="btn btn-label-secondary">
-			                                  제거
-			                                </button>
 		                                  </div>
 	                                  </div>
 	                                </div>
-	                                <div class="col mb-3">
-		                                <label for="nameWithTitle" class="form-label">내용</label>
-		                                <textarea placeholder="내용을 입력해 주세요!"></textarea>
-	                                </div>
+									<div>
+									  <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+									  <textarea class="form-control" name="vaca_reason" rows="3" style="resize: none;"></textarea>
+									</div>
+									<br/>
+									<div style="text-align: right;">
+										<button type="submit" class="btn btn-primary" style="margin-right: 10px;" name="change" value="insert">
+											추가
+										</button>
+			                            <button type="submit" class="btn btn-label-secondary" name="change" value="delete">
+			                                제거
+			                            </button>
+									</div>
 	                              </div>
 	                              <div class="modal-footer">
 	                              </div>

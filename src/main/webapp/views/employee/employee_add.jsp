@@ -60,6 +60,9 @@
     <script src="../../assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <!-- DAUM 주소 검색 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </head>
 
   <body>
@@ -190,7 +193,7 @@
 	                          		</div> 
 		                        	<div class="col-md-6 col-12 mb-4">
 		                          		<label for="flatpickr-date" class="form-label">입사일</label>
-		                          		<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" name="hiredate" />
+		                          		<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="hiredate" name="hiredate" />
 		                        	</div>
 		                        	<!-- forEach 리스트로 출력 -->
 	                            	<div class="mb-3 col-md-6">
@@ -208,7 +211,7 @@
 	                          		</div>
 	                       	 		<div class="col-md-6 col-12 mb-4">
 	                          			<label for="flatpickr-date" class="form-label">생년 월일</label>
-	                         			<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpick-date" name="emp_birth" />
+	                         			<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="emp_birth" name="emp_birth" />
 	                       			</div>
 	                         		<!-- forEach 리스트로 출력 -->
 	                         		<div class="mb-3 col-md-6">
@@ -275,32 +278,32 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
     	// 날짜 선택
-	    var flatpickrDate = document.querySelector("#flatpickr-date");
+	    var flatpickrDate = document.querySelector("#hiredate");
 		
 	    flatpickrDate.flatpickr({
 	      monthSelectorType: "static"
 	    });
 	    
-	    var flatpickrDate = document.querySelector("#flatpick-date");
+	    var flatpickrDate = document.querySelector("#emp_birth");
 		
 	    flatpickrDate.flatpickr({
 	      monthSelectorType: "static"
 	    });
 	    
-	    window.onload = function(){
-	        document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
-	            //카카오 지도 발생
-	            new daum.Postcode({
-	                oncomplete: function(data) { //선택시 입력값 세팅
-	                    document.getElementById("address").value = data.address; // 주소 넣기
-	                    document.querySelector("input[name=detail_addr]").focus(); //상세입력 포커싱
-	                }
-	            }).open();
-	        });
-	    }
+	  	 $(document).ready(function() {
+	 		// DAUM 주소 검색 창
+	         document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	             //카카오 지도 발생
+	             new daum.Postcode({
+	                 oncomplete: function(data) { //선택시 입력값 세팅
+	                     document.getElementById("address").value = data.address; // 주소 넣기
+	                     document.querySelector("input[name=detail_addr]").focus(); //상세입력 포커싱
+	                 }
+	             }).open();
+	         });
 	    
 	    // 파일 선택 시 미리보기를 위한 함수
-	    function previewImage(input) {
+	    function previewImage(event) {
 	        const input = event.target;
 	        const preview = document.getElementById('preview');
 		    
@@ -314,6 +317,7 @@
 	            reader.readAsDataURL(input.files[0]);
 	        }
 	    }
+	    
     </script>
 
     <!-- Main JS -->

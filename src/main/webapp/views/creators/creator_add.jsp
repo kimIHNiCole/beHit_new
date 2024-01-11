@@ -669,6 +669,7 @@
                 }
             }).open();
         });
+		
         $(document).on('focus', '.flatpickr-validation', function() {
 		  // 날짜 선택 폼
 	      var flatpickrElements = document.querySelectorAll(".flatpickr-validation");
