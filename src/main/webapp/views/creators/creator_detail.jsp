@@ -241,11 +241,8 @@
 		   			  <div class="col-md-4 text-end">
 	                  	<div class="d-flex justify-content-center pt-3">
 	                          <a
-	                            href="javascript:;"
-	                            class="btn btn-primary me-3"
-	                            data-bs-target="#editUser"
-	                            data-bs-toggle="modal"
-	                            >수정</a>
+	                            href="/creators/creatorUpdate.go?cre_idx=${creatorInfo.cre_idx}"
+	                            class="btn btn-primary me-3">수정</a>
 	                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
 	                     </div>
                    	  </div>
@@ -279,7 +276,7 @@
 				            	  
 				                  <th>
 				                  	${channelInfo.channel_name}
-				                  	<c:if test="${channelInfo.rep_channel eq 'true'}">
+				                  	<c:if test="${channelInfo.rep_channel eq '1'}">
 				                  		<input id="repChannelId" type="hidden" value="${channelInfo.channel_id}"/>
 				                  		<span class="badge bg-label-primary">대표</span>
 				                  	</c:if>
@@ -313,16 +310,16 @@
 				                  <th>
 				                  	<c:choose>
 				                  	  <c:when test="${snsItem.sns_cate eq 'instagram'}">
-				                  	    <img src="sns_logo/instagram.png" alt="instagram" class="me-3" height="20">
+				                  	    <img src="/sns_logo/instagram.png" alt="instagram" class="me-3" height="20">
 				                  	  </c:when>
 				                  	  <c:when test="${snsItem.sns_cate eq 'facebook'}">
-				                  	    <img src="sns_logo/facebook.png" alt="facebook" class="me-3" height="20">
+				                  	    <img src="/sns_logo/facebook.png" alt="facebook" class="me-3" height="20">
 				                      </c:when>
 				                  	  <c:when test="${snsItem.sns_cate eq 'twitter'}">
-				                  	    <img src="sns_logo/twitter.png" alt="twitter" class="me-3" height="20">
+				                  	    <img src="/sns_logo/twitter.png" alt="twitter" class="me-3" height="20">
 				                  	  </c:when>
 				                  	  <c:when test="${snsItem.sns_cate eq 'tiktok'}">
-				                  	    <img src="sns_logo/tiktok.png" alt="tiktok" class="me-3" height="20">
+				                  	    <img src="/sns_logo/tiktok.png" alt="tiktok" class="me-3" height="20">
 				                  	  </c:when>
 				                  	  <c:otherwise>
 				                  	  	<div class="custom-logo me-3">${snsItem.sns_cate.substring(0, 1)}</div>

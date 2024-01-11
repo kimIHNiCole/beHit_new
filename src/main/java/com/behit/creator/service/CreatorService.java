@@ -60,14 +60,14 @@ public class CreatorService {
 	
 	// 크리에이터 등록
 	@Transactional
-	public HashMap<String,Object> creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) {
+	public ArrayList<HashMap<String, Object>> creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) {
 		logger.info("creatorAdd() 실행");
 		
 		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
 		logger.info("loginInfo = "+ loginInfo);
 		
+		ArrayList<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
 		int cre_idx = 0;
-		String repChannelId = "";
 		
 		// Creator tbl insert
 		CreatorDTO creatorDTO = creatorRequestDTO.getCreatorDTO();
@@ -82,15 +82,16 @@ public class CreatorService {
 		// Channel tbl insert
 		ArrayList<ChannelDTO> channelDTOs = creatorRequestDTO.getChannelDTOList();
 		int channelRow = 0;
+		String channelId = "";
 		for(ChannelDTO channelDTO : channelDTOs) {
 			try {
 				String videoUrl = channelDTO.getRep_video();
 			    
 				HashMap<String, String> channelInfo = getChannelInfo(videoUrl);
-				String channelId = channelInfo.get("channelId");
-				if(channelDTO.getRep_channel() == 1) {
-					repChannelId = channelInfo.get("channelId");
-				}
+				channelId = channelInfo.get("channelId");
+//				if(channelDTO.getRep_channel() == 1) {
+//					repChannelId = channelInfo.get("channelId");
+//				}
 				channelDTO.setChannel_id(channelId);	// dto에 채널 id set
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -103,6 +104,14 @@ public class CreatorService {
 			channelDTO.setEmp_id_up(loginInfo.getEmp_id());
 			channelRow += creatorDAO.channelInsert(channelDTO);
 			logger.info("channelInsert result :: "+channelRow);
+			
+			// 등록시 channel data insert를 위함
+			HashMap<String, Object> channelParam = new HashMap<String, Object>();
+			channelParam.put("cre_idx", channelDTO.getCre_idx());
+			channelParam.put("channel_id", channelId);
+			channelParam.put("channel_rep", channelDTO.getRep_channel());
+			
+			result.add(channelParam);
 		}
 		// Sns tbl insert
 		ArrayList<SnsDTO> snsDTOs = creatorRequestDTO.getSnsDTOList();
@@ -158,9 +167,8 @@ public class CreatorService {
 			logger.info("크리에이터 등록 에러");
 		}
 		
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("cre_idx", cre_idx);
-		result.put("repChannelId", repChannelId);
+		
+		
 		return result;
 	}
 	
@@ -253,7 +261,7 @@ public class CreatorService {
 	// 크리에이터 상세
 	
 	// 크리에이터 기본 정보
-	public CreatorDTO getCreator(int cre_idx) {
+	public HashMap<String, Object> getCreator(int cre_idx) {
 		logger.info("creator 가져오기 실행");
 		return creatorDAO.getCreator(cre_idx);
 	}

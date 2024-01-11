@@ -3,6 +3,27 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
 
-<mapper namespace="com.behit.profile.dao.WorkDAO">
+<mapper namespace="com.behit.profile.dao.DashBoardDAO">
 
+	<select id="workToday">
+		SELECT
+			emp_id,
+			work_day,
+			DATE_FORMAT(work_start_time, '%H:%i') as work_start_time,
+			DATE_FORMAT(work_end_time, '%H:%i') as work_end_time,
+			DATE_FORMAT(work_started, '%H:%i') as work_started,
+			DATE_FORMAT(work_ended, '%H:%i') as work_ended
+			from commute_history
+		where emp_id =#{param1} and work_day =#{param2}
+	</select>
+	<update id="workStarted">
+		UPDATE commute_history
+		set work_started = #{param2}
+		where emp_id = #{param1} and work_day = #{param3}
+	</update>
+	<update id="workEnded">
+		UPDATE commute_history
+		set work_ended = #{param2}
+		where emp_id = #{param1} and work_day = #{param3}
+	</update>
 </mapper>
