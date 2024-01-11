@@ -886,7 +886,8 @@
   
 <script> // 스크립트 내코드
 //선택된 노드 정보를 담을 배열
-var selectedNodes = []; // 담당자 emp_id 값을 배열형태로 담음
+var selectedNodes = ['kimsawon', 'leedohun']; // 담당자 emp_id 값을 배열형태로 담음
+var realNames = ['김사원', '이도훈'];
 var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 	
 	// 삭제할 파일 담는 배열 및 이벤트시 숨김처리
@@ -896,8 +897,6 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 	    $('#fileDiv_' + file_idx).hide();
 	    console.log(delUpfile);
 	}
-	
-	var iddddd = 'emp02';
 	
 	// 수정 버튼 클릭시 전체 내용 ajax로 form데이터를 넘김
 	function et() {
@@ -953,8 +952,9 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 		*/
 	}
 	
-	function adddam(){ // 담당자 추가버튼 클릭시
-		$.ajax({
+	jogicModal();
+    function jogicModal(){
+    	$.ajax({
 			type: 'get',
 	    	url: '/project/getOrgList',
 	    	data: {},
@@ -962,47 +962,48 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 	        success : function(data){
 	          console.log(data);
 	          drawOrg(data.orgList, data.deptKind);
+	          drawOrg1(data.orgList, data.deptKind);
+	          viewDam();
 	        },
 	        error : function(e){
 	          console.log(e);
 	        }
 		});
+    }
+    
+	// 새로 추가 잘그려줌 굳
+	function viewDam() {
+    	for (var i = 0; i < selectedNodes.length; i++) {
+        	var selectedNode = selectedNodes[i];
+        	var realName = realNames[i];
+        	addToDamList(realName, selectedNode);
+    	}
+	}
+    
+	function adddam(){ // 담당자 추가버튼 클릭시
+		// 선택된 노드에 대한 체크 상태를 설정
+		$('#jstree-checkbox').jstree('open_all');
 		document.getElementById('projModal').style.display = 'block';
+	
+		// 자식 노드의 체크 상태 설정
+		for (var i = 0; i < selectedNodes.length; i++) {
+		    var selectedNode = selectedNodes[i];
+			console.log('자식 노드들 체크를 할려고 로직이 콘솔에찍히는지?');
+			
+			// 선택된 노드에 대한 체크 상태를 설정
+            var $checkedNode = $('#jstree-checkbox').find('a:contains(' + selectedNode + ')');
+            $checkedNode.attr('aria-selected', 'true');
+            // $checkedNode.find('.jstree-checkbox').addClass('jstree-clicked');
+		}
 	}
 	
 	function addcham(){ // 참조자 추가버튼클릭시
-		$.ajax({
-			type: 'get',
-	    	url: '/project/getOrgList',
-	    	data: {},
-	    	dataType: 'JSON',
-	        success : function(data){
-	          console.log(data);
-	          drawOrg1(data.orgList, data.deptKind);
-	        },
-	        error : function(e){
-	          console.log(e);
-	        }
-		});
 		document.getElementById('projModal1').style.display = 'block';
 	}
 	
 	function drawOrg(orgList, deptKind) { // 담당자 추가시 div영역에 그려주는거
 		console.log('orgList', orgList);
 		console.log('deptKind',deptKind);
-		
-		checkNodeInModal(iddddd);
-		
-		// 추가해놨지만 뭔지 모르겠는거
-		function checkNodeInModal(nodeHidden) {
-		    // 모달에서 노드를 찾아서 클릭된 상태로 설정하는 함수
-		    var nodeToCheck = $('#jstree-checkbox').find('input[type="hidden"][value="' + nodeHidden + '"]').closest('.jstree-node');
-		    console.log("이전의 체크 로직이 찍히는지? 체크를 해놓는 로직 찍히는지?");
-		    if (nodeToCheck.length > 0) {
-		        $('#jstree-checkbox').jstree('check_node', nodeToCheck);
-		        console.log("체크를 해놓는 로직 찍히는지?");
-		    }
-		}
 		
 		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
 			    checkboxTree = $('#jstree-checkbox');
@@ -1085,7 +1086,7 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 			      }
 			    }
 			  });
-			}
+		  }
 	}
 	
 	function drawOrg1(orgList, deptKind) { // 참조자 추가시 div영역에 그려주는거
@@ -1272,6 +1273,7 @@ function removeFromDamList(hiddenValue) {
     $badgeToRemove.remove();
 }
 
+// 그려준 div에서 삭제버튼 눌렀을때 로직
 function removeNodeFromList(hiddenValue) {
     selectedNodes = selectedNodes.filter(node => node !== hiddenValue);
     removeFromDamList(hiddenValue);

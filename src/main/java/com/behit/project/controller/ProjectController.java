@@ -35,10 +35,17 @@ public class ProjectController {
 	
 	@Autowired ProjectService service;
 	
-	@GetMapping(value = "/views/project_main.go")
-	public String projectMainGo() {
+	@GetMapping(value = "/project/project_main.go")
+	public ModelAndView projectMainGo(ModelAndView mav) {
 		logger.info("프로젝트 메인 홈 이동");
-		return "project_main";
+		mav.setViewName("project/project_main");
+		return mav;
+	}
+	
+	@GetMapping(value="/project/project_add.go")
+	public ModelAndView projectAddGo(ModelAndView mav) {
+		mav.setViewName("project/project_add");
+		return mav;
 	}
 	
 	// 프로젝트 작성
@@ -201,7 +208,7 @@ public class ProjectController {
 		logger.info("상세 담당자 참조자 정보: "+damchamList);
 		mav.addObject("detailList", detailList);
 		mav.addObject("damchamList", damchamList);
-		mav.setViewName("/project/project_detail");
+		mav.setViewName("project/project_detail");
 		
 		return mav;
 	}
@@ -368,7 +375,7 @@ public class ProjectController {
 		mav.addObject("detailList", detailList);
 		mav.addObject("damchamList", damchamList);
 		mav.addObject("detailFile", detailFile);
-		mav.setViewName("/project/project_update");
+		mav.setViewName("project/project_update");
 		
 		return mav;
 	}

@@ -32,13 +32,13 @@
 		        SELECT GROUP_CONCAT(CONCAT(e.emp_id) ORDER BY p.proj_idx ASC SEPARATOR ',')
 		        FROM project_team pt
 		        INNER JOIN employee e ON pt.emp_id = e.emp_id
-		        WHERE pt.proj_idx = p.proj_idx
+		        WHERE pt.proj_idx = p.proj_idx AND pt.projT_contact = 1 
 		    ) AS dam_id,
 		    (
 		        SELECT GROUP_CONCAT(CONCAT(e.emp_name) ORDER BY p.proj_idx ASC SEPARATOR ', ')
 		        FROM project_team pt
 		        INNER JOIN employee e ON pt.emp_id = e.emp_id
-		        WHERE pt.proj_idx = p.proj_idx
+		        WHERE pt.proj_idx = p.proj_idx AND pt.projT_contact = 1 
 		    ) AS dam_name
 		FROM project p
 			INNER JOIN project_team t ON p.proj_idx = t.proj_idx
