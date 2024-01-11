@@ -140,6 +140,16 @@ public class ProjectService {
 		return dao.projRUpdate(projR_idx,content);
 	}
 	
+	// 프로젝트 수정
+	public int projupdate(String proj_idx, String textsubject, String startproj, String endproj, String textContent) {
+		return dao.projupdate(proj_idx,textsubject,startproj,endproj,textContent);
+	}
+	
+	// 수정할때 담당자 참조자 싹다 지워버리고 다시 추가하기
+	public int projTAllDel(String proj_idx) {
+		return dao.projTAllDel(proj_idx);
+	}
+	
 	
 	
 }

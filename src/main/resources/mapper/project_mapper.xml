@@ -171,5 +171,15 @@
 	<update id="projRUpdate">
 		UPDATE project_record SET projR_content = #{param2}, projR_update = now(), projR_upstate = 'Y' WHERE projR_idx = #{param1}
 	</update>
-
+	
+	<!-- 프로젝트 수정 -->
+	<update id="projupdate">
+		UPDATE project SET proj_subject = #{param2}, proj_start = #{param3}, proj_end = #{param4}, proj_content = #{param5}, proj_update = now() WHERE proj_idx = #{param1}
+	</update>
+	
+	<delete id="projTAllDel">
+		DELETE  FROM project_team WHERE proj_idx IN (SELECT proj_idx FROM project_team WHERE proj_idx = #{param1});
+	</delete>
+	
+	
 </mapper>
