@@ -203,9 +203,7 @@
 			                </div>
 							<div class="col-md-4">
 						        <div class="input-group">
-						            <button class="btn btn-outline-secondary" id="sprevBtn" type="button"><</button>
 						            <input type="text" class="form-control text-center" id="sdatepicker" readonly>
-						            <button class="btn btn-outline-secondary" id="snextBtn" type="button">></button>
 						        </div>
 						    </div>
 						</div>
@@ -295,9 +293,10 @@
 
      <script>
      var showPage = 1;
+     var emp_id;
      
      document.addEventListener("DOMContentLoaded", function () {
-    	    var fdatepicker = $('#datepicker').datepicker({
+    	    var listdatepicker = $('#datepicker').datepicker({
     	        format: 'yyyy-mm-dd',
     	        autoclose: true,
     	        todayHighlight: true // 오늘 날짜 강조
@@ -315,24 +314,24 @@
     	    var krTime = currentDate.toLocaleString('en-US', options);
 
     	    // 'Asia/Seoul' 타임존에 따라 현재 날짜와 시간을 가져옴
-    	    var fdatepicker = $('#datepicker');
-    	    fdatepicker.datepicker('setDate', new Date(krTime));
+    	    var listdatepicker = $('#datepicker');
+    	    listdatepicker.datepicker('setDate', new Date(krTime));
     	    updateInputValue(new Date(krTime));
 
     	    // < 버튼 클릭 시 이벤트
     	    $('#prevBtn').on('click', function() {
-    	        var selectedDate = fdatepicker.datepicker('getDate');
+    	        var selectedDate = listdatepicker.datepicker('getDate');
     	        selectedDate.setDate(selectedDate.getDate() - 1);
-    	        fdatepicker.datepicker('update', selectedDate);
+    	        listdatepicker.datepicker('update', selectedDate);
     	        updateInputValue(selectedDate);
     	        listCall(showPage);
     	    });
 
     	    // > 버튼 클릭 시 이벤트
     	    $('#nextBtn').on('click', function() {
-    	        var selectedDate = fdatepicker.datepicker('getDate');
+    	        var selectedDate = listdatepicker.datepicker('getDate');
     	        selectedDate.setDate(selectedDate.getDate() + 1);
-    	        fdatepicker.datepicker('update', selectedDate);
+    	        listdatepicker.datepicker('update', selectedDate);
     	        updateInputValue(selectedDate);
     	        listCall(showPage);
     	    });
@@ -347,7 +346,8 @@
     	        return num < 10 ? '0' + num : num;
     	    }
     	    
-    	    var datepicker = $('#sdatepicker').datepicker({
+    	    // 여기서 부터 모달 datepicker
+    	    var modaldatepicker = $('#sdatepicker').datepicker({
      	        format: 'yyyy-mm',
      	        autoclose: true,
      	        todayHighlight: true,
@@ -358,29 +358,21 @@
      	    var currentDate = new Date();
      	    var options = { timeZone: 'Asia/Seoul' };
      	    var krTime = currentDate.toLocaleString('en-US', options);
+     	    
+     	   var currentYear = currentDate.getFullYear(); // 현재 년도
+     	   var currentMonth = currentDate.getMonth() + 1; // 현재 월 (0부터 시작하므로 1을 더해줍니다)
+
+     	  console.log("Current Year:", currentYear);
+     	  console.log("Current Month:", currentMonth);
+     	  console.log("CurrentDate:", currentDate);
+     	  console.log("krTime:", krTime);
 
      	    // 'Asia/Seoul' 타임존에 따라 현재 날짜와 시간을 가져옴
-     	    datepicker.datepicker('setDate', new Date(krTime));
+     	    modaldatepicker.datepicker('setDate', new Date(krTime));
      	    updateInputValue(new Date(krTime));
 
-     	    // < 버튼 클릭 시 이벤트
-     	    $('#sprevBtn').on('click', function() {
-     	        var selectedDate = datepicker.datepicker('getDate');
-     	        selectedDate.setMonth(selectedDate.getMonth() - 1);
-     	        datepicker.datepicker('update', selectedDate);
-     	        updateInputValue(selectedDate);
-     	    });
-
-     	    // > 버튼 클릭 시 이벤트
-     	    $('#snextBtn').on('click', function() {
-     	        var selectedDate = datepicker.datepicker('getDate');
-     	        selectedDate.setMonth(selectedDate.getMonth() + 1);
-     	        datepicker.datepicker('update', selectedDate);
-     	        updateInputValue(selectedDate);
-     	    });
-
      	    function updateInputValue(date) {
-     	        var formattedDate = date.getFullYear() + '-' + padZero(date.getMonth() + 1) + '-' + padZero(date.getDate());
+     	        var formattedDate = date.getFullYear() + '-' + padZero(date.getMonth() + 1);
      	        $('#sdatepicker').val(formattedDate);
      	    }
 
@@ -463,13 +455,15 @@
      });
      
      $(document).on('click', '.worklist', function() {
-    	    var emp_id = $(this).find('.emp_id').text(); // 클릭한 행에서 emp_id 가져오기
+    	    emp_id = $(this).find('.emp_id').text(); // 클릭한 행에서 emp_id 가져오기
+    	    var modaldate = $('#sdatepicker').val();
     	    console.log('Clicked row emp_id:', emp_id);
+    	    console.log('date:', modaldate);
     	    
     	    $.ajax({
     	    	type:'get',
 	        	 url:'workmodal.do',
-	        	 data:{'emp_id':emp_id},
+	        	 data:{'emp_id':emp_id, 'modaldate':modaldate},
 	        	 dataType: 'json',
 	        	 success:function(data){
 	        		 console.log(data);
@@ -501,6 +495,28 @@
      		$('#modalList').empty();
      		$('#modalList').append(content);
      	}
+     	
+     	
+     	$('#sdatepicker').change(function() {
+     		var modaldate = $('#sdatepicker').val();
+     		
+        	    $.ajax({
+        	    	type:'get',
+    	        	 url:'workmodal.do',
+    	        	 data:{'emp_id':emp_id, 'modaldate':modaldate},
+    	        	 dataType: 'json',
+    	        	 success:function(data){
+    	        		 console.log(data);
+    	        		 drawmodal(data);
+    	        	 },
+    	        	 error:function(e){
+    	        		 console.log(e);
+    	        	 }
+        	    }); 
+     	});
+     	
+     	
+     	
      
 
 

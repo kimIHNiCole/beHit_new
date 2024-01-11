@@ -71,19 +71,14 @@
 				    cc_position.common_code_name AS 'position_name',
 				    cc_grade.common_code_name AS 'grade_name',
 				    e.emp_dept_idx, e.emp_position_idx, e.emp_grade_idx,
-				    COALESCE(
-			        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
-			        'default'
-			    	) AS ori_file_name,
-			   		COALESCE(
-			        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.emp_id ORDER BY f.file_idx DESC LIMIT 1),
-			        'default'
-			    	) AS new_file_name
+				    COALESCE(f.ori_file_name, 'default') AS ori_file_name,
+			   		COALESCE(f.new_file_name, 'default') AS new_file_name
 				FROM 
     				employee e
 			    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 			    JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
 			    JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+			    JOIN file f ON f.file_kind_idx = e.emp_id 
 		WHERE e.emp_id = #{emp_id};
 	</select>
 	

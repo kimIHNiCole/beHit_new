@@ -16,11 +16,11 @@ let events = [
     id: 1,
     url: '',
     title: 'Design Review',
-    start: date,
-    end: nextDay,
+    start: '2024-01-01',
+    end: '2024-01-02',
     allDay: false,
     extendedProps: {
-      calendar: 'Business'
+      calendar: 'Personal'
     }
   },
   {
@@ -31,7 +31,7 @@ let events = [
     end: new Date(date.getFullYear(), date.getMonth() + 1, -10),
     allDay: true,
     extendedProps: {
-      calendar: 'Business'
+      calendar: 'Personal'
     }
   },
   {
@@ -42,7 +42,7 @@ let events = [
     start: new Date(date.getFullYear(), date.getMonth() + 1, -9),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -7),
     extendedProps: {
-      calendar: 'Holiday'
+      calendar: 'Personal'
     }
   },
   {
@@ -63,7 +63,7 @@ let events = [
     end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
     allDay: true,
     extendedProps: {
-      calendar: 'ETC'
+      calendar: 'Personal'
     }
   },
   {
@@ -84,7 +84,7 @@ let events = [
     start: new Date(date.getFullYear(), date.getMonth() + 1, -13),
     end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
     extendedProps: {
-      calendar: 'Family'
+      calendar: 'Personal'
     }
   },
   {
@@ -95,7 +95,7 @@ let events = [
     end: new Date(date.getFullYear(), date.getMonth() + 1, -12),
     allDay: true,
     extendedProps: {
-      calendar: 'Business'
+      calendar: 'Personal'
     }
   },
   {
@@ -106,7 +106,7 @@ let events = [
     end: nextMonth,
     allDay: true,
     extendedProps: {
-      calendar: 'Business'
+      calendar: 'Personal'
     }
   },
   {

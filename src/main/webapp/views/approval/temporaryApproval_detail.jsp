@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.css" />
 		<link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
@@ -58,6 +59,8 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" />
+    
     
     
 		<!-- Row Group CSS -->
@@ -76,7 +79,7 @@
     
     <!-- custom CSS -->
     <style>
-    
+
     button{
 			background: inherit;
 			border:none;
@@ -146,6 +149,12 @@
     	margin-top:1rem;
    		font-family:pretendard;
     	margin-bottom:0.625rem;
+    }
+    
+    .table-content-right .text{
+    	font-family:pretendard;
+    	font-weight:600;
+    	font-size:1rem;
     }
     
     
@@ -262,7 +271,7 @@
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
-	    width: 70px;
+	    width: 80px;
 	    font-size: 12px;
 	    padding: 2px 4px;
     }
@@ -302,9 +311,32 @@
 	    height: 282px;
     }
     
-    .table-content-right .form-control{
+    .table-content-right.time .vac-time-input{
+    	display:flex;
+    	justify-content: space-between;
+    	align-items: center
+    }
+    
+    .table-content-right .form-vac-time-start,
+    .table-content-right .form-vac-time-end{
     	display: inline-block;
-    	width: 30%;
+    	width: 8.625rem;
+    	margin-right:0.625rem;
+    }
+    
+    .table-content-right .form-vac-time-end{
+    	margin-left:0.625rem;
+    }
+    
+    #timepicker-basic-before,
+    #timepicker-basic-after{
+    	display: inline-block;
+    	width: 6.625rem;
+    }
+    
+    .table-content-right.time .vac-time{
+    	display: inline-block;
+    	width: 3rem;
     }
     
     .table-upload{
@@ -343,8 +375,55 @@
     	font-family:pretendard;
     }
     
+    /*modal*/
+    .modal{
+    	--bs-modal-width: 24.625rem;
+    	font-family:pretendard;
+    }
     
     
+    .org-modal{
+    	--bs-modal-width: 50rem;
+    	font-family:pretendard;
+    }
+    
+    .org-modal-body{
+    	display:flex;
+    }
+    
+    .org-modal-body .button{
+    	display:flex;
+    	flex-direction: column;
+	    align-items: center;
+	    justify-content: space-evenly;
+    	
+    }
+    
+    .modal .bx.bxs-file-blank{
+    	color:#C20000;
+    }
+    
+    .card.apv-modal-folder{
+    	min-width: 15.625rem;
+    }
+    
+    #the-canvas {
+			  border: 1px solid black;
+			  direction: ltr;
+		}
+		#org-list-body{
+			padding: 1rem 0;
+		}
+		
+		.org-list-dist{
+			padding: 0.58rem 0.9375rem;
+			border-bottom: 1px solid #d9dee3;
+		}
+		
+		#apv-vac-time{
+			display:none;
+		}
+		
 
 
     </style>
@@ -357,262 +436,15 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="../home.go" class="app-brand-link">
-              <span class="app-brand-logo demo">
-              	<img src="../../assets/img/branding/logo.png" class="logo_beHit" width="96px"/>
-              </span>
-            </a>
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
-
-          <div class="menu-inner-shadow"></div>
-
-          <ul class="menu-inner py-1">
-            <!-- Dashboards -->
-            <li class="menu-item">
-              <a href="../home.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div class="text-truncate" data-i18n="홈">홈</div>
-              </a>
-            </li>
-            
-            <li class="menu-item active">
-              <a href="../approval/approval_main.go" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                <div class="text-truncate" data-i18n="전자 결재">전자 결재</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../creators/creator_list_all.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-slideshow"></i>
-                <div class="text-truncate" data-i18n="크리에이터">크리에이터</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../project/project_main.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-customize"></i>
-                <div class="text-truncate" data-i18n="프로젝트">프로젝트</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../calendar/calendar.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../reserve/reserveRoom_list.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-time-five"></i>
-                <div class="text-truncate" data-i18n="예약">예약</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
-                <div class="text-truncate" data-i18n="근태관리">근태관리</div>
-              </a>
-
-              <ul class="menu-sub">
-              	<li class="menu-item">
-                  <a href="../myHr/mhr_timeline.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 근태관리">내 근태관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../myHr/mhr_vacation.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="내 연차내역">내 연차내역</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="../chat/messenger.go" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-chat"></i>
-                <div class="text-truncate" data-i18n="메신저">메신저</div>
-              </a>
-            </li>
-            
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="../employee/employee_list.go" class="menu-link">
-                    <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="../employee/workHour_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="../employee/vacation_list.go" class="menu-link">
-                        <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
+					<jsp:include page="/views/header_menu.jsp" />
         <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
         
         <!-- Navbar -->
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
-            </div>
-
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                </li>
-                <!-- /Language -->
-
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-                </li>
-                <!-- Quick links -->
-
-                <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                </li>
-                <!-- / Style Switcher-->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                  
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">알림</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="bx fs-4 bx-envelope-open"></i
-                        ></a>
-                      </div>
-                    </li>
-                    
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1">윤예성님이 메세지를 보냈습니다 메세지 확인해보세요~~~~~~~~</h6>
-                              <small class="text-muted">11:00</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="bx bx-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">알림 전체 삭제</button>
-                    </li>
-                    
-                  </ul>
-                </li>
-                <!--/ Notification -->
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-cover.go" target="_blank">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
-            </div>
-          </nav>
-
-          <!-- / Navbar -->
+					<jsp:include page="/views/header_navbar.jsp" />
+        <!-- / Navbar -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -634,7 +466,7 @@
                     	</li>
                     	
                     	<li class="nav-item mb-1">
-                    		<button type="button" class="btn btn-secondary">새 결재 작성</button>
+                    		<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#apv-modal">새 결재 작성</button>
                     	</li>
                     
                     	<li class="nav-item mb-1">
@@ -644,17 +476,17 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="getApproval_list.go">
+                        <a class="nav-link" href="/approval/getApproval_list.go">
                           <span class="align-middle">결재 요청 받은 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="compApproval_list.go">
+                        <a class="nav-link" href="/approval/compApproval_list.go">
                           <span class="align-middle">결재 완료한 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="viewApproval_list.go">
+                        <a class="nav-link" href="/approval/viewApproval_list.go">
                           <span class="align-middle">열람 가능한 문서</span>
                         </a>
                       </li>
@@ -665,22 +497,22 @@
                     		</h5>
                     	</li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="requestApproval_list.go">
+                        <a class="nav-link" href="/approval/requestApproval_list.go">
                           <span class="align-middle">결재 요청한 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="finishApproval_list.go">
+                        <a class="nav-link" href="/approval/finishApproval_list.go">
                           <span class="align-middle">결재 완료된 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="temporaryApproval_list.go">
+                        <a class="nav-link" href="/approval/temporaryApproval_list.go">
                           <span class="align-middle">임시 저장된 문서</span>
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="rejectedApproval_list.go">
+                        <a class="nav-link" href="/approval/rejectedApproval_list.go">
                           <span class="align-middle">반려된 문서</span>
                         </a>
                       </li>
@@ -691,19 +523,20 @@
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
-                	<h4 class="apv-home">휴가 신청서 작성</h4>
+                	<h4 class="apv-home">결재 작성</h4>
                 	<div class="apv-form-menu">
                 		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bx-plus'></i> 결재선 추가</button>
+                			<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
+                				<i class='bx bx-plus'></i> 결재선 추가
+                			</button>
                 		</span>
                 		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-file-blank'></i> 미리보기</button>
+                			<button type="button" id="confirm-text" class="apv-form-menu-cnt approval-preview">
+                			<i class='bx bxs-file-blank'></i> 미리보기
+                			</button>
                 		</span>
                 		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
-                		</span>
-                		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bx-trash'></i> 삭제</button>
+                			<button type="button" id="temporarySaveButton" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
                 		</span>
                 	</div>
                   <div class="tab-content p-0">
@@ -711,154 +544,46 @@
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
         
 				              <div class="card">
-				              	<div class="apv-form-vac">
-					              	<form>
-					              		<table class="table-header">
-					              			<tbody>
-					              				<tr>
-					              					<td class="table-subject" colspan="2">연차신청서</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-header-left">
-					              						<table class="table-header-left-table">
-					              							<tbody>
-					              								<tr>
-					              									<td class="table-header-left-table-left">기안자</td>
-					              									<td class="table-header-left-table-right">김민지</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">부서</td>
-					              									<td class="table-header-left-table-right">인사팀</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">기안일</td>
-					              									<td class="table-header-left-table-right">2023-12-22</td>
-					              								</tr>
-					              								<tr>
-					              									<td class="table-header-left-table-left">문서번호</td>
-					              									<td class="table-header-left-table-right"></td>
-					              								</tr>
-					              							</tbody>
-					              						</table>
-					              					</td>
-					              					<td class="table-header-right">
-					              						<div class="apv-sign">
-					              							<table class="apv-sign-table">
-					              								<tbody>
-					              									<tr>
-					              										<th>승인</th>
-					              										
-					              										<!-- 결재선 추가 -->
-					              										<td class="apv-sign-table-right">
-					              											<table>
-					              												<tbody>
-					              												
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-dept">대리</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr>
-					              														<td>
-					              															<span class="apv-sign-line-name">이유빈</span>
-					              														</td>
-					              													</tr>
-					              													
-					              													<tr class="last">
-					              														<td>
-					              															<span class="apv-sign-line-date">2023-12-12</span>
-					              														</td>
-					              													</tr>
-					              													
-					              												</tbody>
-					              											</table>
-					              										</td>
-					              										
-					              									</tr>
-					              								</tbody>
-					              							</table>
-					              						</div>
-					              					</td>
-					              				</tr>
-					              			</tbody>
-					              		</table>
-					              		<table class="table-content">
-					              			<tbody>
-					              				<tr>
-					              					<td class="table-content-left">연차 종류</td>
-					              					<td class="table-content-right">
-					              						<select id="selectpickerBasic" class="selectpicker w-20" data-style="btn-default">
-					                            <option>종일</option>
-					                            <option>시간</option>
-					                          </select>
-					              					</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-content-left">연차 기간</td>
-					              					<td class="table-content-right">
-					              						<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
-					              						<span>~</span>
-					              						<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
-					              						<span class="vac-time">시간</span>
-					              					</td>
-					              				</tr>
-					              				<tr>
-					              					<td class="table-content-left">연차 사유</td>
-					              					<td class="table-content-right reason">
-						              					<div>
-								                      <div id="snow-toolbar">
-								                        <span class="ql-formats">
-								                          <select class="ql-font"></select>
-								                          <select class="ql-size"></select>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-bold"></button>
-								                          <button class="ql-italic"></button>
-								                          <button class="ql-underline"></button>
-								                          <button class="ql-strike"></button>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <select class="ql-color"></select>
-								                          <select class="ql-background"></select>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-script" value="sub"></button>
-								                          <button class="ql-script" value="super"></button>
-								                        </span>
-								                        <span class="ql-formats">
-								                          <button class="ql-header" value="1"></button>
-								                          <button class="ql-header" value="2"></button>
-								                          <button class="ql-blockquote"></button>
-								                          <button class="ql-code-block"></button>
-								                        </span>
-								                      </div>
-								                      <div id="snow-editor">
-								                      </div>
-	                    							</div>
-					              					</td>
-					              				</tr>
-					              			</tbody>
-					              		</table>
-					              		
-					              		<table class="table-upload">
-					              			<tbody>
-					              				<tr>
-					              					<td class="table-upload-left">파일 첨부</td>
-					              					<td class="table-upload-right">
-					              						<input class="form-control" type="file" id="formFile" />
-					              					</td>
-					              				</tr>
-					              			</tbody>
-					              		</table>
-					              		
-					              	</form>
-				                </div>
-				                
-				                <div class="pt-4 apv-form-button">
-			                    <button type="reset" class="btn btn-label-secondary">취소</button>
-			                    <button type="submit" class="btn btn-primary">상신</button>
-			                  </div>
+					              <form id="approvalForm" action="/approval/approval_write.do" method="post" enctype="multipart/form-data">
+					              <input type="hidden" name="apv_stmt" id="apvStmt" value="진행중" />
+					              	<div class="apv-form-vac">
+					              	<div>
+						              		<!-- 사업기안서/휴가신청서 -->
+						              		<c:choose>
+														    <c:when test="${form == 'vac'}">
+														        <jsp:include page="apv_form_vac.jsp" />
+														        <input type="hidden" name="apv_code" value="BFVC"/>
+														    </c:when>
+														    <c:when test="${form == 'biz'}">
+														        <jsp:include page="apv_form_biz.jsp" />
+														        <input type="hidden" name="apv_code" value="BSPN"/>
+														    </c:when>
+														    <c:when test="${form == 'vac_after'}">
+														        <jsp:include page="apv_form_vac.jsp" />
+														        <input type="hidden" name="apv_code" value="AFVC"/>
+														    </c:when>
+														</c:choose>
+						              		
+						              		
+						              		<table class="table-upload">
+						              			<tbody>
+						              				<tr>
+						              					<td class="table-upload-left">파일 첨부</td>
+						              					<td class="table-upload-right">
+						              						<input class="form-control" type="file" id="formFile" name="files" />
+						              					</td>
+						              				</tr>
+						              			</tbody>
+						              		</table>
+						              		
+					              </div>
+					                </div>
+	
+					                <div class="pt-4 apv-form-button">
+				                    <button type="reset" class="btn btn-label-secondary">취소</button>
+				                    <button type="submit" class="btn btn-primary">상신</button>
+				                  </div>
+					              </form>
 				                
 				              </div>
 
@@ -872,7 +597,115 @@
             <!-- / Content -->
             
             
-            
+            <!-- modal -->
+							<!-- 새 결제 작성 모달 -->
+              <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-start mb-4">
+                        <h3>결재 양식</h3>
+                      </div>
+                      
+	                      <div>
+	                      	<div class="col-md-6 col-12">
+														<div class="card mb-md-0 mb-4 apv-modal-folder shadow-none border">
+															<h5 class="card-header">문서양식</h5>
+															<div class="card-body">
+																<div id="jstree-checkbox-form"></div>
+															</div>
+														</div>
+													</div>
+	                      </div>
+
+                      <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">선택</button>
+                        <button
+                          type="reset"
+                          class="btn btn-label-secondary btn-reset mt-3"
+                          data-bs-dismiss="modal"
+                          aria-label="Close">
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ 새 결제 작성 모달 -->
+              
+              <div class="col app-chat-history text chat-history-body">
+              </div>
+              
+              <!-- 조직도 추가 모달 -->
+              <div class="modal fade org-modal" id="apv-org-modal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">결재선</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body org-modal-body">
+                  
+	                  <div class="col-md-4">
+				              <div class="card mb-md-0 mb-4 shadow-none border overflow-hidden" style="height: 20rem">
+				                <h5 class="card-header">조직도</h5>
+				                <div class="card-body" id="org-body">
+				                  <div id="jstree-checkbox"></div>
+				                </div>
+				              </div>
+				            </div>
+				            
+				            <div class="col-md-1 button" >
+				            <button type="button" class="btn btn-icon btn-outline-primary plus">
+                      <i class='bx bx-chevrons-right' style="font-size:1.625rem"></i>
+                    </button>
+                    </div>
+                    
+                    <div class="col-md-7">
+				              <div class="card mb-md-0 mb-4 shadow-none border overflow-hidden" style="height: 20rem">
+				                <div class="card-body" id="org-list-body">
+				                
+				                <div class="org-list-dist lh-1 d-flex justify-content-between align-items-center">
+				                	<span class="d-flex justify-content-between align-items-center">
+						               <span style="width:9rem">부서</span>
+						               <span style="width:6rem">이름</span>
+						               <span style="width:6rem">직책</span>
+						               <span style="width:4rem"> </span>
+						              </span>
+				                </div>
+				                <ul class="list-group list-group-flush" id="pending-tasks">
+				                	
+      		              </ul>
+				                
+				                </div>
+				              </div>
+				            </div>
+                  
+                  </div>
+                  <div class="modal-footer">
+                    <div class="col-12 text-center">
+                      <button 
+                      	type="button" class="btn btn-primary me-sm-3 me-1 mt-3 org-list-select"
+                      	data-bs-dismiss="modal"
+                        aria-label="Close">선택</button>
+                      <button
+                        type="reset"
+                        class="btn btn-label-secondary btn-reset mt-3"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">취소</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /조직도 추가 모달 -->
+              
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -911,10 +744,14 @@
     <script src="../../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script src="../../assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
     <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
+    <script src="../../assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
     <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
+    <script src="../../assets/vendor/libs/sortablejs/sortable.js"></script>
+
     
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
@@ -930,54 +767,66 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/app-ecommerce-settings.js"></script>
-    <script src="../../assets/js/forms-editors.js"></script>
+    
+    <!-- Header JS -->
+    <script src="../../assets/js/header.js"></script>
     
     <!-- custom JS -->
     <script>
     
-    // sweetAlert
+    var form_type = '${form_type}';
+
+    //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
+    $('.apv-vac-time').hide();
+    input_modal();
     
-(function () {
-  const confirmText = document.querySelector('#confirm-text');
+    $(".form-vac-time").on("change", function() {
+    	
+    		//$('.vac-time').val('');
+        // 선택된 옵션의 텍스트 가져오기
+        var selectedOption = $(this).find("option:selected").text();
+        
+        var content='';
+
+        // 선택된 옵션에 따라 원하는 작업 수행
+        if (selectedOption === "종일") {
+            // "종일"이 선택된 경우의 동작
+            console.log("종일이 선택되었습니다.");
+            
+            $('.apv-vac-time').hide();
+            $('.apv-vac-day').show();
+            $('.apv-vac-time input').prop('disabled', true);
+            $('.apv-vac-day input').prop('disabled', false);
+             
+        } else if (selectedOption === "시간") {
+            // "시간"이 선택된 경우의 동작
+            console.log("시간이 선택되었습니다.");
+            
+            $('.apv-vac-day').hide();
+            $('.apv-vac-time').show();
+            $('.apv-vac-time input').prop('disabled', false);
+            $('.apv-vac-day input').prop('disabled', true);
+        }
+     		// 날짜 시간 input 모달
+        input_modal();
+    });
     
-    if (confirmText) {
-        confirmText.onclick = function () {
-          Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            customClass: {
-              confirmButton: 'btn btn-primary me-3',
-              cancelButton: 'btn btn-label-secondary'
-            },
-            buttonsStyling: false
-          }).then(function (result) {
-            if (result.value) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                customClass: {
-                  confirmButton: 'btn btn-success'
-                }
-              });
-            }
-          });
-        };
-      }
-})();
-    
-    
-    // 날짜 input
-    (function () {
+ 		// 날짜 시간 input 모달
+    function input_modal(){
     	  // Flat Picker
-    	  // --------------------------------------------------------------------
-    	  const flatpickrDateBefore = document.querySelector('#flatpickr-date-before');
-    	  const flatpickrDateAfter = document.querySelector('#flatpickr-date-after');
+    	  var flatpickrDate = document.querySelector('#flatpickr-date');
+    	  var flatpickrDateBefore = document.querySelector('#flatpickr-date-before');
+    	  var flatpickrDateAfter = document.querySelector('#flatpickr-date-after');
+    	  var basicTimepickerBefore = $('#timepicker-basic-before');
+    	  var basicTimepickerAfter = $('#timepicker-basic-after');
 
     	  // Date
+    	  if (flatpickrDate) {
+    	    flatpickrDate.flatpickr({
+    	      monthSelectorType: 'static'
+    	    });
+    	  }
+    	  
     	  if (flatpickrDateBefore) {
     	    flatpickrDateBefore.flatpickr({
     	      monthSelectorType: 'static'
@@ -990,111 +839,557 @@
       	    });
       	  }
     	  
-    })();
+    	  if (basicTimepickerBefore.length) {
+    		  		basicTimepickerBefore.timepicker({
+    		  			orientation: isRtl ? 'r' : 'l',
+    		  		  step: 60, // 1-hour step
+    		  			disableTextInput: true, // Disable manual input
+    	          'disableTimeRanges': [
+    	            ['12am', '6:59am'],
+    	            ['8:01pm', '11:59pm']
+    	          ]
+    		    });
+    		  }
+    	  
+    	  if (basicTimepickerAfter.length) {
+		  		basicTimepickerAfter.timepicker({
+		  			orientation: isRtl ? 'r' : 'l',
+		     		step: 60, // 1-hour step
+			    	disableTextInput: true, // Disable manual input
+			    	'disableTimeRanges': [
+			    	  ['12am', '6:59am'],
+			    	  ['8:01pm', '11:59pm']
+		    	 ]
+		    });
+		  }
+    	  
+    }
     
+  	//--------------------------------------------------------------------------------------------------------------
+  	
+  	
+  	//연차 시간 자동 표시 ------------------------------------------------------------------------------------------------
+  	
+  	var startDay = '';
+  	var endDay = '';
+  	var startTime = '';
+  	var endTime = '';
+    
+    $('.apv-vac-day').on('change', '#flatpickr-date-before', function() {
+		    startDay = $(this).val();
+		    console.log('시작 날짜:', startDay);
+		    calculateDateDifference();
+		});
+		
+		$('.apv-vac-day').on('change', '#flatpickr-date-after', function() {
+		    endDay = $(this).val();
+		    console.log('마지막 날짜:', endDay);
+		    calculateDateDifference();
+		});
+		
+		$('.apv-vac-time').on('change', '#timepicker-basic-before', function() {
+		    startTime = $(this).val();
+		    console.log('시작 시간:', startTime);
+		    calculateTimeDifference();
+		});
+		
+		$('.apv-vac-time').on('change', '#timepicker-basic-after', function() {
+		   	endTime = $(this).val();
+		    console.log('마지막 시간:', endTime);
+		    calculateTimeDifference();
+		});
+
+		function calculateDateDifference() {
+		    if (startDay && endDay) {
+		        var startDate = new Date(startDay);
+		        var endDate = new Date(endDay);
+
+		        var dateDifference = endDate - startDate;
+		        var daysDifference = (dateDifference / (24 * 60 * 60 * 1000) +1 ) * 8;
+
+		        console.log('날짜 차이 (일):', daysDifference);
+		        $('.apv-vac-day').val(daysDifference);
+		    } else {
+		        console.log('시작 날짜와 마지막 날짜를 선택하세요.');
+		    }
+		}
+
+		function calculateTimeDifference() {
+		    if (startTime && endTime) {
+		        var startTimeParts = startTime.match(/(\d+):(\d+)\s*([aApP][mM])?/);
+		        var endTimeParts = endTime.match(/(\d+):(\d+)\s*([aApP][mM])?/);
+
+		        var startDate = new Date(1970, 0, 1, parseInt(startTimeParts[1]), parseInt(startTimeParts[2]));
+
+		        if (startTimeParts[3] && startTimeParts[3].toLowerCase() === 'pm' && startDate.getHours() !== 12) {
+		            startDate.setHours(startDate.getHours() + 12);
+		        }
+
+		        var endDate = new Date(1970, 0, 1, parseInt(endTimeParts[1]), parseInt(endTimeParts[2]));
+
+		        if (endTimeParts[3] && endTimeParts[3].toLowerCase() === 'pm' && endDate.getHours() !== 12) {
+		            endDate.setHours(endDate.getHours() + 12);
+		        }
+
+		        if (!isNaN(startDate) && !isNaN(endDate)) {
+		            var timeDifference = endDate - startDate;
+
+		            var hoursDifference = timeDifference / (60 * 60 * 1000);
+
+		            console.log('시간 차이 (시간):', hoursDifference);
+		            $('.apv-vac-time').val(hoursDifference);
+		        } else {
+		            console.log('잘못된 시간 형식입니다.');
+		        }
+		    } else {
+		        console.log('시작 시간과 마지막 시간을 선택하세요.');
+		    }
+		}
+
+    
+    //--------------------------------------------------------------------------------------------------------------
+  	
+  	
+    // 미리보기 모달----------------------------------------------------------------------------------------------
+		 $('.approval-preview').on('click',function(){
+			
+		    var $name = $('.table-header-left-table .name').html(),
+		    $dept = $('.table-header-left-table .dept').html(),
+		    $date = $('.table-header-left-table .date').html(),
+		    $number = $('.table-header-left-table .number').html(),
+		    $form_vac_time = $('.form-vac-time').val(),
+		    $form_vac_time_start = $('.form-vac-time-start').val(),
+		    $form_vac_time_end = $('.form-vac-time-end').val(),
+		    $vac_time= $('.vac-time').val(),
+		    $apv_sign_table_tr= $('.apv-sign-table-tr').html(),
+		    $snow_editor = $('#snow-editor').html();
+
+		    var width = 1000;
+		    var height = 800;
+		    var left = (window.innerWidth - width) / 2;
+		    var top = (window.innerHeight - height) / 2;
+	
+		    // 창의 속성 설정
+		    var previewWindow = window.open('', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+		
+		    
+		 		// AJAX를 이용하여 페이지 내용 가져오기
+		    $.ajax({
+            	url: '../approval_preview.go',
+            	method: 'GET',
+		        	success: function (data){
+		        			previewWindow.document.open();
+			            previewWindow.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>미리보기</title></head><body>');
+			            previewWindow.document.write(data);
+			            previewWindow.document.write('<script>');
+			            previewWindow.document.write('$(".table-header-left-table-right.name").html("'+$name+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.dept").html("'+$dept+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.date").html("'+$date+'");');
+			            previewWindow.document.write('$(".table-header-left-table-right.number").html("'+$number+'");');
+			            previewWindow.document.write('$(".form-vac-time").html("'+$form_vac_time+'");');
+			            previewWindow.document.write('$(".form-vac-time-start").html("'+$form_vac_time_start+'");');
+			            previewWindow.document.write('$(".form-vac-time-end").html("'+$form_vac_time_end+'");');
+			            previewWindow.document.write('$(".vac-time").html("'+$vac_time+' 시간");');
+			            previewWindow.document.write('$("#snow-editor").html(\'' + $snow_editor.replace(/'/g, "\\'") + '\');');
+			            previewWindow.document.write('$(".ql-editor").attr("contenteditable", "false");');
+			            previewWindow.document.write('<\/script>');
+			            previewWindow.document.write('</body></html>');
+			            previewWindow.document.close();
+		          },
+		          error: function (xhr, status, error) {
+			            console.error('AJAX request failed:', status, error);
+			        }
+        		});
+    });
+
+		//--------------------------------------------------------------------------------------------------------------
+    
+		// 임시저장 form 요청 변경------------------------------------------------------------------------------------------
+    
+    $(document).ready(function () {
+    $('#temporarySaveButton').on('click', function () {
+        // 임시 저장 버튼 클릭 시 action 변경
+        $('#approvalForm').attr('action', '/approval/temporaryApproval_write.do');
+        $('#apvStmt').val('임시저장');
+        // 폼 데이터 전송
+        $('#approvalForm').submit();
+    });
+});
+    
+    //--------------------------------------------------------------------------------------------------------------
+		
+    
+    // sweetAlert 모달창--------------------------------------------------------------------------------------------
+		(function () {
+		  const confirmText = document.querySelector('#confirm-text');
+		    
+		    if (confirmText) {
+		        confirmText.onclick = function () {
+		          Swal.fire({
+		            title: 'Are you sure?',
+		            text: "You won't be able to revert this!",
+		            icon: 'warning',
+		            showCancelButton: true,
+		            confirmButtonText: 'Yes, delete it!',
+		            customClass: {
+		              confirmButton: 'btn btn-primary me-3',
+		              cancelButton: 'btn btn-label-secondary'
+		            },
+		            buttonsStyling: false
+		          }).then(function (result) {
+		            if (result.value) {
+		              Swal.fire({
+		                icon: 'success',
+		                title: 'Deleted!',
+		                text: 'Your file has been deleted.',
+		                customClass: {
+		                  confirmButton: 'btn btn-success'
+		                }
+		              });
+		            }
+		          });
+		        };
+		      }
+		})();
+
+		//--------------------------------------------------------------------------------------------------------------
+    
+		
+		
+		
+ 		// 새 결재 작성 모달창----------------------------------------------------------------------------------------
     $(function () {
-  	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-  	  dt_multilingual_table2 = $('.dt-multilingual2');
+    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+    	    checkboxTree = $('#jstree-checkbox-form');
 
-  	  // Multilingual DataTable
-  	  // --------------------------------------------------------------------
+    	  // Checkbox
+    	  if (checkboxTree.length) {
+    	    checkboxTree.jstree({
+    	      core: {
+    	        themes: {
+    	          name: theme
+    	        },
+    	        data: [
+    	          {
+    	            text: '근태',
+    	            state: {
+      	              opened: true
+      	            },
+    	            children: [
+    	              {
+    	                text: '휴가 신청서',
+    	                type: 'docs'
+    	              },
+    	              {
+      	              text: '사후 휴가 신청서',
+      	              type: 'docs'
+      	            }
+    	            ]
+    	          },
+    	          {
+    	            text: '일반 ',
+    	            state: {
+    	              opened: true
+    	            },
+    	            children: [
+    	              {
+    	                text: '사업 기안서',
+    	                type: 'docs'
+    	              }
+    	            ]
+    	          },
+    	        ]
+    	      },
+    	      plugins: ['types','wholerow'],
+    	      types: {
+    	        default: {
+    	          icon: 'bx bx-folder'
+    	        },
+    	        docs: {
+    	          icon: 'bx bxs-file-blank'
+    	        }
+    	      }
+    	    }).on('select_node.jstree', function (e, data) {
+    	        // 현재 선택된 노드의 ID 확인
+    	        var selectedNodeId = data.node.id;
+    	        
+    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
+    	        $('.apv-doc-select').off('click');
+    	        
+    	        // id 값에 따라 페이지 이동
+    	        $('.apv-doc-select').on('click',function(){
+    	        			if(selectedNodeId == 'j1_2'){
+    	        					location.href="../approval_write.go/vac";
+    	        			}else if(selectedNodeId == 'j1_3'){
+    	        				location.href="../approval_write.go/vac_after";
+    	        			}else if(selectedNodeId == 'j1_5'){
+    	        				location.href="../approval_write.go/biz";
+    	        			}
+    	        });
+    	        
+    	      });
+    	  }
+    	});
+		
+  	//------------------------------------------------------------------------------------------------
+ 		
+  	
+ 		
+ 		//조직도 모달창-----------------------------------------------------------------------------------
+ 		
+ 		// 조직도 스크롤
+ 		$(function() {
+	    var orgBody = $('#org-body'),
+	    orgListBody = $('#org-list-body');
+	    
+	    if (orgBody.length) {
+	        new PerfectScrollbar(orgBody[0], {
+	            wheelPropagation: false
+	        });
+	    }
+	    
+	    if (orgListBody.length) {
+	        new PerfectScrollbar(orgListBody[0], {
+	            wheelPropagation: false
+	        });	
+	    }
+		});
 
-  	  var lang = 'English';
-  	  if (dt_multilingual_table2.length) {
-  	    var table_language = dt_multilingual_table2.DataTable({
-  	      ajax: assetsPath + 'json/table-datatable.json',
-  	      columns: [
-  	        { data: '' },
-  	        { data: 'full_name' },
-  	        { data: 'post' },
-  	        { data: 'start_date' },
-  	      	{ data: 'start_date' },
-  	        { data: 'status' },
-  	        { data: '' }
-  	      ],
-  	      columnDefs: [
-  	        {
-  	          // For Responsive
-  	          className: 'control',
-  	          orderable: false,
-  	          targets: 0,
-  	          searchable: false,
-  	          render: function (data, type, full, meta) {
-  	            return '';
-  	          }
-  	        },
-  	        {
-  	          // Label
-  	          targets: -1,
-  	          render: function (data, type, full, meta) {
-  	            var $status_number = full['status'];
-  	            var $status = {
-  	              1: { title: 'Current', class: 'bg-label-primary' },
-  	              2: { title: 'Professional', class: ' bg-label-success' },
-  	              3: { title: 'Rejected', class: ' bg-label-danger' },
-  	              4: { title: 'Resigned', class: ' bg-label-warning' },
-  	              5: { title: 'Applied', class: ' bg-label-info' }
-  	            };
-  	            if (typeof $status[$status_number] === 'undefined') {
-  	              return data;
-  	            }
-  	            return (
-  	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-  	            );
-  	          }
-  	        }
-  	      ],
-  	      language: {
-  	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-  	      },
-  	      //paging: false,
-  	      displayLength: 10,
-  	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-  	      lengthMenu: [10],
-  	      searching: false,
-  	      responsive: {
-  	        details: {
-  	          display: $.fn.dataTable.Responsive.display.modal({
-  	            header: function (row) {
-  	              var data = row.data();
-  	              return 'Details of ' + data['full_name'];
-  	            }
-  	          }),
-  	          type: 'column',
-  	          renderer: function (api, rowIdx, columns) {
-  	            var data = $.map(columns, function (col, i) {
-  	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-  	                ? '<tr data-dt-row="' +
-  	                    col.rowIndex +
-  	                    '" data-dt-column="' +
-  	                    col.columnIndex +
-  	                    '">' +
-  	                    '<td>' +
-  	                    col.title +
-  	                    ':' +
-  	                    '</td> ' +
-  	                    '<td>' +
-  	                    col.data +
-  	                    '</td>' +
-  	                    '</tr>'
-  	                : '';
-  	            }).join('');
+  	
+ 		//리스트 받기
+ 		$.ajax({
+    		type: 'get',
+        	url: '../../getOrgList',
+        	data: {},
+        	dataType: 'JSON',
+	        success : function(data){
+	          console.log("data"+data);
+            drawOrg(data.orgList, data.deptKind);
+	        } ,
+	        error : function(e){
+	          console.log("e"+e);
+	        }
+    	});
+  	
+ 		// 조직도 리스트 순서 바꾸기
+ 	  $(function(){
+ 	  	var pendingTasks = $('#pending-tasks')[0];
+ 	  	  // Handles
+ 	  	  if (pendingTasks) {
+ 		    Sortable.create(pendingTasks, {
+ 		      animation: 150,
+ 		      group: 'taskList'
+ 		    });
+ 		  }
+ 	  });
+		
+ 		//리스트 받기 실행 함수
+    function drawOrg(orgList, deptKind) {
+    	
+    	console.log('orgList', orgList);
+    	console.log('deptKind',deptKind);
+    		
+    	var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+    		checkboxTree = $('#jstree-checkbox');
+         
+    	if (checkboxTree.length) {
+    		var serverData = [];
+    			
+    		//----
+    		for (var i = 0; i < deptKind.length; i++) {
+    			
+    			   var deptname = {
+    			       text: deptKind[i],
+    			       type: 'depart',
+    			       children: []
+    			   };
+    			   
+    			   console.log("deptKind",deptKind[i]);
+    			    
+    			    var empLength = function(){
+    			    	var cnt=0;
+   			    		for(var k=0; k < orgList.length; k++){
+   			    			if(orgList[k].dept == deptKind[i]){
+   			    				cnt++;
+   			    				console.log("cnt", cnt);
+   			    			}
+   			    		}
+   			    		return cnt;
+    			    };
+    			    
+    			    var empInfo = function(index){
+    			    	var info=[];
+   			    		for(var k=0; k < orgList.length; k++){
+   			    			if(orgList[k].dept == deptKind[i]){
+   			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
+   			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+   			    			}
+   			    		}
+   			    		return info[index];
+    			    };
+    			    
+    			    for (var j = 0; j < empLength(); j++) {
+    			    	console.log("empInfo("+j+")",empInfo(j));
+    			        var emp = {
+    			            text: empInfo(j)
+    			        };
+    			        deptname.children.push(emp);
+    			    } 
 
-  	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-  	          }
-  	        }
-  	      }
-  	    });
-  	  }
+    			    // 부모 데이터를 배열에 추가
+   			    	serverData.push(deptname); 
+    			}
+    		
+    			console.log(serverData); 
 
-  	  // Filter form control to default size
-  	  // ? setTimeout used for multilingual table initialization
-  	  setTimeout(() => {
-  	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-  	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  	  }, 300);
-  	});
+    			// jstree에서 사용할 데이터 구성
+		    	var jstreeData = serverData.map(function (parent) {
+		    	  var parentNode = {
+		    	    text: parent.text,
+		    	    type: 'depart',
+		    	    children: parent.children.map(function (child) {
+		    	      return {
+		    	        text: child.text
+		    	      };
+		    	    })
+		    	  };
+		    	  return parentNode;
+		    	});
+    			
+		    	//----
+
+    			checkboxTree.jstree({
+    			  core: {
+    			    themes: {
+    			      name: theme
+    			    },
+    			    data: jstreeData
+    			  },
+    			  plugins: ['types', 'wholerow'],
+    			  types: {
+    			    default: {
+    			      icon: 'bx bx-user'
+    			    },
+    			    depart: {
+    			  	icon: 'bx bx-folder'
+    			    }
+    			  }
+    			}).on('select_node.jstree', function (e, data) { // 조직도에서 직원 선택 시 작동하는 함수 
+    				
+    					// 선택 버튼 눌렀을 시 결재선 추가
+    					$('.org-list-select').off().on('click',function () {
+    						
+    						//기존 빈칸 지우기
+    						$(".apv-sign-table-tr .apv-sign-table-right").remove();
+    						
+    						var deptNameElements = $('.dept-name');
+    						var empNameElements = $('.emp-name');
+    						var positionNameElements = $('.position-name');
+    						var empIdElements = $('.emp-id');
+    						
+    						// 값을 담을 배열 초기화
+    						var totalNames = [];
+    						
+    						// 각 요소의 길이를 기준으로 반복
+    						for (var i = 0; i < deptNameElements.length; i++) {
+	    						var nameOrder=[];
+    						  // 각 요소의 인덱스에 따라서 값을 totalNames 배열에 추가
+    						  if (deptNameElements[i]) nameOrder.push(deptNameElements.eq(i).text());
+    						  if (empNameElements[i]) nameOrder.push(empNameElements.eq(i).text());
+    						  if (positionNameElements[i]) nameOrder.push(positionNameElements.eq(i).text());
+    						  if (empIdElements[i]) nameOrder.push(empIdElements.eq(i).val());
+    						  totalNames.push(nameOrder);
+    						  
+    						  content = '';
+    						  
+			  		      content += '<td class="apv-sign-table-right">';
+			  		    	content += '<table><tbody>';
+			  		    	content += '<tr><td><span class="apv-sign-line-dept">'+positionNameElements.eq(i).text()+'</span></td></tr>';
+			  		    	content += '<tr><td><span class="apv-sign-line-name">'+empNameElements.eq(i).text()+'</span></td></tr>';
+			  		    	content += '<tr class="last"><td><span class="apv-sign-line-date">&nbsp;</span></td></tr>';
+			  		    	content += '</table></tbody>';
+			  		    	content += '</td>';
+    						  
+    						  $(".apv-sign-table-tr").append(content);
+    						}
+    						// 배열 출력 (콘솔에 출력하거나 다른 곳에 활용할 수 있음)
+    						console.log("Total Names:", totalNames);
+    						
+    						// 배열 문자화하여 전송
+    						$('#totalNames').val(JSON.stringify(totalNames));
+      					
+			      	});
+    				  
+    					// 조직도 추가 버튼 눌렀을 시
+    				  $('.org-modal-body .button .plus').off().on('click',function(){
+      	    	        // 현재 선택된 노드의 ID 확인
+      				  			var selectedNodeText = data.node.text;
+      	    	        
+      				  			// 정규표현식을 사용하여 'value' 속성에서 'emp01' 추출
+      				  		  var empIdMatch = /value='([^']+)'/g.exec(selectedNodeText);
+      				  		  var empId = empIdMatch ? empIdMatch[1] : null;
+
+      				  		  if (empId) {
+      				  		      // AJAX 요청을 보내어 empId에 해당하는 데이터를 서버로부터 받아옴
+      				  		      $.ajax({
+      				  		          type: 'get',
+      				  		          url: '../../org_selected', // 서버 URL을 적절히 수정
+      				  		          data: { emp_id: empId },
+      				  		          dataType: 'JSON',
+      				  		          success: function (data) {
+      				  		        	  
+	      				  		        	var content = '';
+	      				  		        	
+	      				  		        	content += '<li class="list-group-item drag-item cursor-move d-flex justify-content-between align-items-center">';
+	      				  		        	content += '<span class="d-flex justify-content-between align-items-center">';
+	      				  		        	content += '<span class="dept-name" style="width:9rem">'+data.dept_name+'</span>';
+	      				  		       		content += '<span class="emp-name" style="width:6rem">'+data.emp_name+'</span>';
+	      				  		       		content += '<span class="position-name" style="width:6rem">'+data.position_name+'</span>';
+	      				  		       		content += '<span class="order" style="width:4rem"><button type="button" class="apv-list-del"><i class="bx bx-trash" ></i></button></span>';
+	      				  		       		content += '<input class="emp-id" type="hidden" value="'+empId+'">';
+	      				  		        	content += '</span>';
+	      				  		        	content += '</li>';
+	      				  		        	
+	      				  		        	$("#pending-tasks").append(content);
+      				  		            content = '';
+      				  		            
+		      				  		        $('.apv-list-del').on('click',function () {
+		      				  		        	$(this).closest('li').remove();
+		      				  		    		});
+		      				  		        
+      				  		            },
+      				  		            error: function (e) {
+      				  		                console.log("Error:", e);
+      				  		            }
+      				  		        });
+      				  		  } 
+      				  }); // plus on click
+    			  }); // select_node.jstree 
+
+    	} // if (checkboxTree.length) {}
+    }// function
     
+    
+    // 전송 -------------------------------------------------------------------------------------------
+    // 기존에 생성된 Quill 객체 가져오기
+    	var snowEditor = new Quill('#snow-editor', {
+		    bounds: '#snow-editor',
+		    modules: {
+		        formula: true,
+		        toolbar: '#snow-toolbar'
+		    },
+		    theme: 'snow'
+		});
+		
+		snowEditor.on('text-change', function() {
+		    var contents = snowEditor.getContents();  // 수정된 부분
+		    var jsonString = JSON.stringify(contents);
+		    document.getElementById('apvCnt').value = jsonString;
+		});
+   	//------------------------------------------------------------------------------------------------
+    
+    
+
     </script>
   </body>
 </html>
