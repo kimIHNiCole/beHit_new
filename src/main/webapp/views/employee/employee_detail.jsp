@@ -106,7 +106,7 @@ img.rounded-top{
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>
-						        <img src="/photo/employee/${empdetail.new_file_name}" alt="${empdetail.ori_file_name}" 
+						        <img src="/file/employee/${empdetail.new_file_name}" alt="${empdetail.ori_file_name}" 
 						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:otherwise>
 						</c:choose>

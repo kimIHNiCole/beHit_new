@@ -34,7 +34,11 @@ public class EmployeeController {
 	@Autowired 
 	UtilService utilService;
 
-
+	@GetMapping(value = "/employee/employee_list.go")
+	public String empListGo() {
+		logger.info("직원 리스트 페이지로 이동");
+		return "employee/employee_list";
+	}
 	
 
 	@GetMapping(value = "/empadd.go")
@@ -50,9 +54,8 @@ public class EmployeeController {
 
 		logger.info("params: " + params);
 		
-//		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
-		String login_id = "master"; 
-//				loginInfo.getEmp_id();
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
 		logger.info("로그인 아이디 : "+login_id);
 		
 
@@ -72,14 +75,7 @@ public class EmployeeController {
 			utilService.upload(uploadFile, file);	
 		}
 
-		return "redirect:/emplist.go";
-	}
-
-	@GetMapping(value = "/emplist.go")
-	public String emplistgo() {
-
-		return "employee/employee_list";
-
+		return "redirect:/employee/employee_list.go";
 	}
 
 	@GetMapping(value = "/employee/empflist.do")

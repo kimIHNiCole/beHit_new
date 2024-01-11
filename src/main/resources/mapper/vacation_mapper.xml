@@ -59,4 +59,15 @@
 	<select id="createList" parameterType="String" resultType="vacation">
 		SELECT add_date, del_date, add_hour, add_vaca_reason FROM emp_vacation ev WHERE emp_id = #{emp_id};
 	</select>
+	
+	<insert id="vacainsert" parameterType="HashMap">
+		INSERT INTO emp_vacation (emp_id, vaca_name, del_date, add_hour, add_vaca_reason, emp_id_in)
+			VALUES (#{emp_id}, '조정연차', DATE_ADD(CURRENT_DATE, INTERVAL 2 YEAR), #{vacahour}, #{vaca_reason}, #{login_id});
+	</insert>
+	
+	<insert id="vacadelete" parameterType="HashMap">
+		INSERT INTO vacation_history (emp_id, vaca_date, vaca_start, vaca_end_time, use_hour, vaca_reason, emp_id_in)
+			VALUES(#{emp_id}, CURRENT_DATE, NOW(), NOW(), #{vacahour}, #{vaca_reason}, #{login_id});
+	</insert>
+	
 </mapper>

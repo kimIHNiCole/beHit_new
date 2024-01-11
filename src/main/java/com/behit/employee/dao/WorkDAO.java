@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.employee.dto.VacationDTO;
 import com.behit.employee.dto.WorkDTO;
@@ -23,7 +24,7 @@ public interface WorkDAO {
 
 	int selectdate(HashMap<String, Object> commute);
 
-	ArrayList<WorkDTO> workmodal(String emp_id);
+	ArrayList<WorkDTO> workmodal(String emp_id, String modaldate);
 
 	boolean workChk(String login_id, String workdate);
 
