@@ -98,7 +98,7 @@
 
 					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;" >
 					  	<form action="selectmonth" method="post">
-					  		<input type="text" value="" name="workmonth" id="workmonth" style="display: none;">
+					  		<input type="text" value="" name="workmonth" id="workmonth">
 					        <select class="form-select" style="flex: 1; margin-right: 8px;" name="worktime">
 						        <option value="07:00~16:00">07:00~16:00</option>
 						        <option value="08:00~17:00">08:00~17:00</option>

@@ -1,6 +1,7 @@
 package com.behit.employee.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,16 @@ public class WorkController {
 	
 	@Autowired
 	WorkService workService;
+	
+	@GetMapping(value="/employee/workHour_list.go")
+	public String workHour_list() {
+		return "/employee/workHour_list";
+	}
+	
+	@GetMapping(value="/myHr/mhr_timeline.go")
+	public String mhr_timeline() {
+		return "/myHr/mhr_timeline";
+	}
 	
 	//근태현황 리스트
 	@GetMapping(value="/worklist.do")
@@ -103,6 +114,7 @@ public class WorkController {
 		commute.put("login_id", login_id);
     	
 		String[] monthArray = workmonth.split("-");
+		logger.info("monthArray : " + Arrays.toString(monthArray));
 		String stringmonth = monthArray[1].trim();
 		int month = Integer.parseInt(stringmonth);
 	
