@@ -26,8 +26,8 @@ public class CreatorStatController {
 		creatorStatService.saveChannelData();
 	}
 	
-	public void saveChannelDataOne(HashMap<String, Object> channelId) {
-		logger.info("SCHEDULING :: ["+channelId+"] 채널 데이터 가져오기 실행");
-		creatorStatService.saveChannelDataOne(channelId);
+	public void saveChannelDataOne(HashMap<String, Object> param) {
+		logger.info("SCHEDULING :: ["+param+"] 채널 데이터 가져오기 실행");
+		creatorStatService.saveChannelDataOne(param);
 	}
 }
