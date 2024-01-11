@@ -78,6 +78,8 @@ public class ApprovalService {
 				dto.setApv_subject("사후 연차 신청서");
 			}
 			
+			dto.setApv_time(dto.getApv_time().replace(",", ""));
+			
 			if(apv_vac_type.equals("종일")) {
 				dto.setApv_start_day(dto.getApv_start_day().replace(",", ""));
 			}else if(apv_vac_type.equals("시간")) {
@@ -107,21 +109,29 @@ public class ApprovalService {
 		String total_name = dto.getTotal_name();
 		String emp_id = loginInfo.getEmp_id();
 		
-		if(apv_code.equals("BFVC")) {
-			dto.setApv_subject("연차 신청서");
-		}else {
-			dto.setApv_subject("사후 연차 신청서");
+		
+		if(apv_code.equals("BFVC") || apv_code.equals("AFVC")) {
+			
+			if(apv_code.equals("BFVC")) {
+				dto.setApv_subject("연차 신청서");
+			}else {
+				dto.setApv_subject("사후 연차 신청서");
+			}
+			
+			dto.setApv_time(dto.getApv_time().replace(",", ""));
+		
+			if(apv_vac_type.equals("종일")) {
+				dto.setApv_start_day(dto.getApv_start_day().replace(",", ""));
+			}else if(apv_vac_type.equals("시간")) {
+				setVacationTime(dto);
+				dto.setApv_start_day("");
+			}
+		
 		}
 		
-		if(apv_vac_type.equals("종일")) {
-			dto.setApv_start_day(dto.getApv_start_day().replace(",", ""));
-		}else if(apv_vac_type.equals("시간")) {
-			setVacationTime(dto);
-			dto.setApv_start_day("");
-		}
 		dao.approval_update(dto);
 		
-		if(total_name != null) {
+		if(!total_name.equals("")) {
 			apv_line_update(apv_idx,total_name,emp_id);
 		}
 		
