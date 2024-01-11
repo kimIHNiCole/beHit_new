@@ -61,6 +61,7 @@ public class ChatController {
 		return mav;
 	}
 	
+	// 채팅방별 최신 채팅 리스트 가져와서 방 리스트로 뿌려줌
 	@RequestMapping(value="/chatRListOnChatMs")
 	@ResponseBody
 	public HashMap<String, Object> chatRListOnChatMs(HttpSession session){
@@ -74,7 +75,7 @@ public class ChatController {
 	}
 
 	
-	
+	// 채팅방 생성
 	@RequestMapping(value = "/createRoom", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> createRoom(HttpSession session,
@@ -90,6 +91,7 @@ public class ChatController {
 			return result;
 		}
 	
+	// 채팅 메시지 리스트
 	@RequestMapping(value = "/chatList")
     @ResponseBody
     public HashMap<String, Object> chatList(HttpSession session,
@@ -114,6 +116,7 @@ public class ChatController {
         return result;
     }
 	
+	// 웹소켓으로 대화하기 위한 메시지 핸들러
 	@MessageMapping("/chatRoom/{roomId}")
 	@SendTo("/topic/chatRoom/{roomId}")
 	public ChatDTO sendMessageToRoom(@DestinationVariable String roomId, ChatDTO message) {
