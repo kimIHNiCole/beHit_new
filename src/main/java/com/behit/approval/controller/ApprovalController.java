@@ -134,6 +134,11 @@ public class ApprovalController {
 		return service.temporaryApproval_list(emp_id);
 	}
 	
+	@GetMapping(value="/approval/{page}.go")
+	public String pageMove(@PathVariable String page) {
+		return "/approval/"+page;
+	}
+	
 	
 
 
