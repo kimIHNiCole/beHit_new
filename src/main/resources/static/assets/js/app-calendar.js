@@ -337,17 +337,29 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
     
-    
-    
-	document.querySelector('#workbutton').addEventListener('click', function () {
-	
-        let h2Element = document.getElementById('fc-dom-1');
-        let monthAndYear = h2Element.innerText.trim().split(' ');
-        let month = monthToNumber(monthAndYear[0]);
-        let year = monthAndYear[1];
+    document.addEventListener('DOMContentLoaded', function() {
+	    var yourElement = document.querySelector('#workbutton');
+	    if (yourElement) {
+	       yourElement.addEventListener('click', function() {
+	             let h2Element = document.getElementById('fc-dom-1');
+			        let monthAndYear = h2Element.innerText.trim().split(' ');
+			        
+			        function monthToNumber(monthString) {
+			      	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			
+			      	// 입력된 월 문자열이 배열에서 몇 번째에 위치하는지 찾아서 해당 인덱스를 반환
+			      	return (months.indexOf(monthString) + 1).toString().padStart(2, '0');;
+				  	}
+			        
+			        let month = monthToNumber(monthAndYear[0]);
+			        let year = monthAndYear[1];
+			
+			        document.getElementById('workmonth').value = year + '-' + month;
+	        });
+	    }
+	    
 
-        document.getElementById('workmonth').value = year + '-' + month;
-    });
+	});
 
     // Render calendar
     calendar.render();

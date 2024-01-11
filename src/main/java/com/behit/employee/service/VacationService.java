@@ -1,6 +1,7 @@
 package com.behit.employee.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,23 @@ public class VacationService {
 		mav.addObject("createList", createList);
 		
 		mav.setViewName("/employee/vacation_detail");
+		
+		return mav;
+	}
+	
+	public ModelAndView vacaChange(HashMap<String, Object> params) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		String change = (String) params.get("change");
+		
+		if (change.equals("insert")) {
+			 vacationDAO.vacainsert(params);
+		} else {
+			vacationDAO.vacadelete(params);
+		}
+		
+		mav.setViewName("redirect:/employee/vacadetail?emp_id="+params.get("emp_id"));
 		
 		return mav;
 	}

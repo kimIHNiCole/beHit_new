@@ -61,22 +61,16 @@ public class ApprovalService {
 
 	
 	
-	public String approval_write(EmployeeDTO loginInfo, HashMap<String, String> params, MultipartFile[] files) {
+	public String approval_write(EmployeeDTO loginInfo, ApprovalDTO dto, MultipartFile[] files) {
 		
-		//ModelAndView mav = new ModelAndView("approval/approval_main");
-
-		String apv_vac_type = params.get("apv_vac_type");
 		String emp_id = loginInfo.getEmp_id();
-		String total_name = params.get("total_name");
+		String total_name = dto.getTotal_name();
+		String apv_code = dto.getApv_code();
+		String apv_vac_type = dto.getApv_vac_type();
 		
-		// 제너레이트 키 발생 -> dto 에 값을 넣어서 전송해서 apv_idx 받아야 함 -----------------------------------------
-		ApprovalDTO dto = new ApprovalDTO();
-		
-		String apv_code = params.get("apv_code");
+		logger.info("뭐가 문제인데 : " + apv_vac_type);
 		
 		dto.setEmp_id(emp_id);
-		dto.setApv_code(params.get("apv_code"));
-		dto.setApv_cnt(params.get("apv_cnt"));
 		
 		if(apv_code.equals("BFVC") || apv_code.equals("AFVC")) {
 			
@@ -86,25 +80,23 @@ public class ApprovalService {
 				dto.setApv_subject("사후 연차 신청서");
 			}
 			
-			dto.setApv_vac_type(apv_vac_type);
-			// 종일, 시간에 따라 dto 에 담긴 값 달리 하는 메서드
-			setVacationTime(apv_vac_type,params,dto);
+			if(apv_vac_type.equals("종일")) {
+				dto.setApv_start_day(dto.getApv_start_day().replace(",", ""));
+			}else if(apv_vac_type.equals("시간")) {
+				setVacationTime(dto);
+				dto.setApv_start_day("");
+			}
+			
 			dao.approval_write_vac(dto);
 			
+			
 		}else if(apv_code.equals("BSPN")) {
-			dto.setApv_subject(params.get("apv_subject"));
-			dto.setApv_overview(params.get("apv_overview"));
 			dao.approval_write_biz(dto);
 		}
 		
-		// --------------------------------------------------------------------------------------------------------
-
 		int apv_idx = dto.getApv_idx();
-		
-		logger.info("제너레이트키 :" + apv_idx);
-		
-		// apv_line 테이블에 데이터 insert
 		apv_line(apv_idx,total_name,emp_id);
+		
 		
 		return "approval/approval_main";
 	}
@@ -161,71 +153,34 @@ public class ApprovalService {
 	}
 
 	// 종일, 시간에 따라 dto 에 담긴 값 달리 하는 메서드
-	private void setVacationTime(String apv_vac_type, HashMap<String, String> params, ApprovalDTO dto) {
+	private void setVacationTime(ApprovalDTO dto) {
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		if(dto.getApv_vac_type().equals("시간")){
 		
-		// 종일일 경우
-				if(apv_vac_type.equals("종일")) {
-					
-					logger.info("종일입니다");
-					
-					try {
-						// 문자열 -> Date 타입
-			            java.util.Date utilDate1 = dateFormat.parse(params.get("apv_start_day"));
-			            java.util.Date utilDate2 = dateFormat.parse(params.get("apv_end_day"));
-			            
-			            Date apv_start_day = new Date(utilDate1.getTime());
-			            Date apv_end_day = new Date(utilDate2.getTime());
-			            
-			            dto.setApv_start_day(apv_start_day);
-			            dto.setApv_end_day(apv_end_day);
-			        } catch (ParseException e) {
-			            e.printStackTrace();
-			        }
-					
-				}else if(apv_vac_type.equals("시간")) { // 시간일 경우
-					
-					SimpleDateFormat inputFormat = new SimpleDateFormat("h:mma", Locale.ENGLISH); // 7:00am 을
-					SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss"); // 07:00:00 로
-					
-					try {
-						// 문자열 -> datetime 타입 변환
-						java.util.Date date1 = inputFormat.parse(params.get("apv_start_time"));
-						java.util.Date date2 = inputFormat.parse(params.get("apv_end_time"));
-						
-						String outputTime1 = outputFormat.format(date1);
-			            String outputTime2 = outputFormat.format(date2);
-			            
-			            String apv_start_day = params.get("apv_start_day"); // 날짜
-			            
-			            // 날짜 + 시간 결합
-			            String combinedDateTime1 = apv_start_day + " " + outputTime1;
-			            String combinedDateTime2 = apv_start_day + " " + outputTime2;
-			            
-			            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			            java.util.Date dateTime1 = dateTimeFormat.parse(combinedDateTime1);
-			            java.util.Date dateTime2 = dateTimeFormat.parse(combinedDateTime2);
-			            
-			            Timestamp apv_start_time = new Timestamp(dateTime1.getTime());
-			            Timestamp apv_end_time = new Timestamp(dateTime2.getTime());
-						
-			            dto.setApv_start_time(apv_start_time);
-			            dto.setApv_end_time(apv_end_time);
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					
-				}
-		
+			SimpleDateFormat inputFormat = new SimpleDateFormat("h:mma", Locale.ENGLISH); // 7:00am 을
+			SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss"); // 07:00:00 로
+			
+			try {
+				java.util.Date date1 = inputFormat.parse(dto.getApv_start_time());
+				java.util.Date date2 = inputFormat.parse(dto.getApv_end_time());
+				
+				String outputTime1 = outputFormat.format(date1);
+	            String outputTime2 = outputFormat.format(date2);
+	            
+	            String combinedDateTime1 = dto.getApv_start_day() + " " + outputTime1;
+	            String combinedDateTime2 = dto.getApv_start_day() + " " + outputTime2;
+	            
+	            dto.setApv_start_time(combinedDateTime1);
+	            dto.setApv_end_time(combinedDateTime2);
+			
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+		}
+			
 	}
 	
-	
-
-	public List<ApprovalDTO> getApproval_list(String emp_id) {
-		return dao.getApproval_list(emp_id);
-	}
-
 
 	public ModelAndView getApproval_detail(String apv_idx, String emp_id) {
 		
@@ -261,9 +216,9 @@ public class ApprovalService {
 		
 		apv.setApv_idx(Integer.parseInt(apv_idx));
 		
+		mav.addObject("emp_id",emp_id);
 		mav.addObject("apv",apv);
 		mav.addObject("dto",dto);
-		mav.addObject("emp_id",emp_id);
 		mav.addObject("apv_line_info",apv_line_info);
 		mav.addObject("form_type","detail");
 		
@@ -272,12 +227,9 @@ public class ApprovalService {
 	}
 
 
-
 	public String getApproval_detail_do(ApprovalDTO dto) {
 		
 		dao.getApproval_detail_do(dto); // 결재 히스토리 insert
-		
-		logger.info("앞에서 apv_code 값 :" +dto.getApv_code());
 		
 		String apv_stmt = "";
 		int apv_idx = dto.getApv_idx();      
@@ -335,9 +287,57 @@ public class ApprovalService {
         }
         return outputDateString;
     }
+	
+	
+	public ModelAndView temporaryApproval_detail(String apv_idx, String emp_id) {
+		ModelAndView mav = new ModelAndView("approval/temporaryApproval_detail");
+		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
+		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보
+		
+		ApprovalDTO apv_history_reason = dao.apv_history_reason(apv_idx); // 결재사유
+		
+		if(apv_history_reason != null) {
+			apv.setApv_history_stmt(apv_history_reason.getApv_history_stmt());
+			apv.setApv_history_reason(apv_history_reason.getApv_history_reason());
+		}
+		
+		List<ApprovalDTO> apv_line = dao.getApv_line(apv_idx); // 결재자 아이디, 결재순서
+		List<ApprovalDTO> apv_line_info = new ArrayList<ApprovalDTO>();
+		
+		for (ApprovalDTO approvalDTO : apv_line) { // 결재선 정보
+			String emp_idx = approvalDTO.getEmp_id();
+			ApprovalDTO line_info = dao.approval_write_go(emp_idx); 
+			line_info.setApv_line(approvalDTO.getApv_line());
+			
+			// 결재 여부
+			ApprovalDTO apv_history = dao.apv_line_stmt(apv_idx,emp_idx);
+			
+			if(apv_history != null) {
+				line_info.setApv_history_date(apv_history.getApv_history_date());
+				line_info.setApv_history_stmt(apv_history.getApv_history_stmt());
+				line_info.setApv_history_reason(apv_history.getApv_history_reason());
+			}
+			apv_line_info.add(line_info);
+		}
+		
+		apv.setApv_idx(Integer.parseInt(apv_idx));
+		
+		mav.addObject("emp_id",emp_id);
+		mav.addObject("apv",apv);
+		mav.addObject("dto",dto);
+		mav.addObject("apv_line_info",apv_line_info);
+		mav.addObject("form_type","update");
+		
+		return mav;
+	}
+	
+	
 		
 
 
+	public List<ApprovalDTO> getApproval_list(String emp_id) {
+		return dao.getApproval_list(emp_id);
+	}
 
 	public List<ApprovalDTO> requestApproval_list(String emp_id) {
 		return dao.requestApproval_list(emp_id);
@@ -352,9 +352,13 @@ public class ApprovalService {
 	}
 
 	public List<ApprovalDTO> rejectedApproval_list(String emp_id) {
-		// TODO Auto-generated method stub
 		return dao.rejectedApproval_list(emp_id);
 	}
+
+	public List<ApprovalDTO> temporaryApproval_list(String emp_id) {
+		return dao.temporaryApproval_list(emp_id);
+	}
+
 
 
 

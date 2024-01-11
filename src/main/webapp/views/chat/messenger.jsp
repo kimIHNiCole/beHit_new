@@ -929,7 +929,12 @@ function registerClickEvent(chatRoomIdx) {
 
                 loginId= data.loginId;
                 loginName= data.loginName;
-                loginFileName= data.loginPhoto.new_file_name;
+/*                 loginFileName= data.loginPhoto.new_file_name; */
+                if(data.loginPhoto.new_file_name != null){
+                	loginFileName= data.loginPhoto.new_file_name;               	
+                }else{
+                	loginFileName = "noFile";
+                }
              // 여기서 받은 데이터를 이용하여 화면에 채팅 리스트를 업데이트하거나 처리
                 var roomNameToDisplay;
 

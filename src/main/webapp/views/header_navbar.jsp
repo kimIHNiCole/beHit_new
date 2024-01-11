@@ -178,7 +178,7 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="../login.go" target="_blank">
+            <a class="dropdown-item" href="../logout.go" target="_blank">
               <i class="bx bx-power-off me-2"></i>
               <span class="align-middle">Log Out</span>
             </a>
