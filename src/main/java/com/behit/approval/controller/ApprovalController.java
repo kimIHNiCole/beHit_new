@@ -85,7 +85,7 @@ public class ApprovalController {
 	public ModelAndView temporaryApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
-		return service.temporaryApproval_detail(apv_idx,emp_id);
+		return service.getApproval_detail(apv_idx,emp_id);
 	}
 	
 	
