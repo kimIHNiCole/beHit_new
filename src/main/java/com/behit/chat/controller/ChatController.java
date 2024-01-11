@@ -124,8 +124,7 @@ public class ChatController {
     	logger.info(roomId);
     	logger.info(message.getEmp_id());
     	logger.info(message.getMessage());
-		/* logger.info(""+message.getFormattedDate()); */
-    	
+
     	chatService.saveChat(message);
     	
         return message;
