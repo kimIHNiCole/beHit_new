@@ -424,6 +424,10 @@
 			display:none;
 		}
 		
+		.your-custom-popup-class {
+		  font-family:pretendard;
+		}
+		
 
 
     </style>
@@ -525,19 +529,44 @@
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
                 	<h4 class="apv-home">결재 작성</h4>
                 	<div class="apv-form-menu">
-                		<span class="text-truncate">
-                			<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
-                				<i class='bx bx-plus'></i> 결재선 추가
-                			</button>
-                		</span>
-                		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt approval-preview">
-                			<i class='bx bxs-file-blank'></i> 미리보기
-                			</button>
-                		</span>
-                		<span class="text-truncate">
-                			<button type="button" id="confirm-text" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
-                		</span>
+                	
+	                	<c:choose>
+										  <c:when test="${apv.apv_stmt == '진행중'}">
+										  
+											  	<c:choose>
+													  <c:when test="${apv_line_info[0].apv_history_date == null}">
+													  	<span class="text-truncate">
+					                			<button type="button" class="apv-form-menu-cnt apv-del">
+					                				<i class='bx bxs-x-circle'></i> 상신취소
+					                			</button>
+					                		</span>
+													  </c:when>
+													  <c:when test="${apv_line_info[0].apv_history_stmt != null}">
+														  <span class="text-truncate">
+					                			<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
+					                				<i class='bx bx-plus'></i> 결재선 추가
+					                			</button>
+				                		</span>
+													  </c:when>
+													</c:choose>
+													
+										  </c:when>
+										  <c:when test="${apv.apv_stmt == '완료'}">
+										  	<span class="text-truncate">
+					                	<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
+					                			<i class='bx bx-plus'></i> 열람자 추가
+					                	</button>
+					               </span>
+										  </c:when>
+										  <c:when test="${apv.apv_stmt == '반려'}">
+										  	<span class="text-truncate">
+					                	<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
+					                			<i class='bx bx-trash'></i> 삭제
+					                	</button>
+					               </span>
+										  </c:when>
+										</c:choose>
+										
                 	</div>
                   <div class="tab-content p-0">
                     <!-- Store Details Tab -->
@@ -602,18 +631,22 @@
 						              		
 					              </div>
 					                </div>
-					                
-					                <c:if test="${apv.apv_stmt == '진행중' || apv.emp_id != emp.id}">
-	
-						                <div class="pt-4 apv-form-button">
-					                    <button type="button" class="btn btn-label-secondary" 
-					                    	data-bs-toggle="modal" data-bs-target="#apv-stmt-modal" onclick="handleRejection()">반려</button>
-					                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-					                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">결재</button>
-					                    <input type="hidden" name="apv_history_stmt" value="반려"/>
-					                  </div>
-				                  
-				                  </c:if>
+							            <div class="pt-4 apv-form-button">
+					                  <c:choose>
+						                	<c:when test="${apv.apv_stmt == '진행중' && apv.apv_approver == emp_id}">
+							                    <button type="button" class="btn btn-label-secondary" 
+							                    	data-bs-toggle="modal" data-bs-target="#apv-stmt-modal" onclick="handleRejection()">반려</button>
+							                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+							                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">결재</button>
+							                    <input type="hidden" name="apv_history_stmt" value="반려"/>
+					                  	</c:when>
+						                  <c:when test="${apv.apv_stmt == '반려'}">
+						                  
+						                  	<button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+							                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">수정</button>
+														  </c:when>
+														</c:choose>
+						              </div>
 				                  
 				                  <!-- 새 결제 작성 모달 -->
 						              <div class="modal fade" id="apv-stmt-modal" tabindex="-1" aria-hidden="true">
@@ -866,7 +899,8 @@
     <!-- custom JS -->
     <script>
     
-    console.log('콘솔에 찍힌 값입니다아아'+'${apv.apv_stmt}');
+    $('.apv-vac-day').val('${apv.apv_time}');
+    $('.apv-vac-time').val('${apv.apv_time}');
     
     
 	  //반려, 결재에 관한 정보  ------------------------------------------------------------------------------------------------------
@@ -920,6 +954,8 @@
             $('.apv-vac-time').hide();
             $('.apv-vac-day').show();
             $('.apv-vac-time input').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', true);
+            $('.apv-vac-day.vac-time').prop('disabled', false);
             $('.apv-vac-day input').prop('disabled', false);
              
         } else if (selectedOption === "시간") {
@@ -929,6 +965,8 @@
             $('.apv-vac-day').hide();
             $('.apv-vac-time').show();
             $('.apv-vac-time input').prop('disabled', false);
+            $('.apv-vac-day.vac-time').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', false);
             $('.apv-vac-day input').prop('disabled', true);
         }
      		// 날짜 시간 input 모달
@@ -1112,16 +1150,17 @@
     
     // sweetAlert 모달창--------------------------------------------------------------------------------------------
 		(function () {
-		  const confirmText = document.querySelector('#confirm-text');
+		  var confirmText = document.querySelector('.apv-del');
 		    
 		    if (confirmText) {
 		        confirmText.onclick = function () {
 		          Swal.fire({
-		            title: 'Are you sure?',
-		            text: "You won't be able to revert this!",
+		            title: '상신을 취소하시겠습니까?',
+		            text: "취소한 문서는 임시저장함으로 이동합니다.",
 		            icon: 'warning',
 		            showCancelButton: true,
-		            confirmButtonText: 'Yes, delete it!',
+		            confirmButtonText: '네',
+		            cancelButtonText: '아니오',
 		            customClass: {
 		              confirmButton: 'btn btn-primary me-3',
 		              cancelButton: 'btn btn-label-secondary'

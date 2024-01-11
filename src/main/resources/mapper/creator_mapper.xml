@@ -117,7 +117,7 @@
 		        FROM 
 		            channeldata cd2 
 		        JOIN 
-		            channel ch2 ON cd2.channel_id = ch2.channel_id 
+		            channel ch2 ON cd2.channel_id = ch2.channel_id  AND cd2.channel_rep = 1
 		        JOIN 
 		            creator c2 ON c2.cre_idx = ch2.cre_idx 
 		        GROUP BY 
@@ -125,18 +125,22 @@
 		    ) AS tc ON ch.cre_idx = tc.cre_idx
 		   JOIN file f ON tc.cre_idx = f.file_kind_idx 
 		WHERE 
-		    ch.rep_channel=1 AND c.emp_id = 'KimInHye' AND f.file_kind =6
+		    ch.rep_channel=1 AND c.emp_id = #{loginId} AND f.file_kind =6
+		ORDER BY tc.last_subscriber DESC
 	</select>
 	
 	<!-- 크리에이터 상세  -->
 		<!-- 크리에이터 정보 -->
-	<select id="getCreator" parameterType="int" resultType="creator">
-		SELECT * FROM creator c 
-			JOIN file f ON c.cre_idx = f.file_kind_idx 
+	<select id="getCreator" parameterType="int" resultType="HashMap">
+		SELECT c.cre_idx , c.emp_id , c.cre_name , c.cre_nick_name ,c.cre_gender , c.cre_phone ,
+			c.cre_birthday ,c.cre_country ,c.cre_address ,c.cre_address_detail ,c.cre_contract_start ,
+			c.cre_contract_end ,c.cre_specifics ,f.new_file_name ,f.ori_file_name FROM creator c 
+			JOIN file f ON c.cre_idx = f.file_kind_idx
 		WHERE cre_idx = #{cre_idx} AND f.file_kind =6;
 	</select>
 	<select id="getChannel" parameterType="int" resultType="HashMap">
 		SELECT * FROM channel WHERE cre_idx = #{cre_idx}
+		ORDER BY rep_channel DESC
 	</select>
 	<select id="getChannelIdByCreIdx" parameterType="int" resultType="String">
 		SELECT channel_id FROM channel WHERE cre_idx = #{cre_idx}

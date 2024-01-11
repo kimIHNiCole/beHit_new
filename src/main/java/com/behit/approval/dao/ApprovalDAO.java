@@ -12,6 +12,8 @@ public interface ApprovalDAO {
 	ApprovalDTO approval_write_go(String emp_id);
 
 	void approval_write_vac(ApprovalDTO dto);
+	void approval_write_day(ApprovalDTO dto);
+	void approval_write_time(ApprovalDTO dto);
 	void approval_write_biz(ApprovalDTO dto);
 
 	void apv_line(ApprovalDTO dto);
@@ -36,7 +38,11 @@ public interface ApprovalDAO {
 	List<ApprovalDTO> compApproval_list(String emp_id);
 	List<ApprovalDTO> finishApproval_list(String emp_id);
 	List<ApprovalDTO> rejectedApproval_list(String emp_id);
+	List<ApprovalDTO> temporaryApproval_list(String emp_id);
 
+	void approval_update(ApprovalDTO dto);
+
+	void apv_line_del(int apv_idx);
 
 
 	

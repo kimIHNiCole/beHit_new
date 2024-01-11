@@ -15,7 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>BeHit - 크리에이터 관리</title>
+	<title>BeHit - 크리에이터 수정</title>
 	
     <meta name="description" content="" />
     <!-- pretendard 폰트 -->
@@ -177,7 +177,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4">크리에이터 등록</h4>
+              <h4 class="py-3 mb-4">크리에이터 수정</h4>
 
               <!-- Default -->
               <div class="row">
@@ -230,12 +230,12 @@
                     <div class="card-body " style="text-align: center;">
 					  <label for="uploadPhoto" class="col-12 my-2 imgForm" >
                   		<img
-                             src="#"
+                             src="/file/creator/${creatorInfo.new_file_name}"
                              alt="creator-avatar"
                              height="200px"
-                             class="rounded d-none"
+                             class="rounded"
                              width="100%"
-                             id="preview" />
+                             id="preview"/> 
                              <span id="uploadComent">
                              Drop files here or click to upload
                              </span>
@@ -263,40 +263,40 @@
                   <div class="col-sm-4">
                             <div>
                               <label class="form-label" for="username" ><span style="color:#c20000">*</span> 이름</label>
-                              <input type="text" id="username" class="form-control" name="cre_name" placeholder="실명 또는 활동명"  />
+                              <input type="text" id="username" class="form-control" name="cre_name" placeholder="실명 또는 활동명" value="${creatorInfo.cre_name}"/>
                             </div>
                             <div>
                               <label class="form-label" for="nickname"><span style="color:#c20000">*</span> 활동명</label>
                               <input type="text" id="nickname" class="form-control" name="cre_nick_name"
-                              		placeholder="활동명" />
+                              		placeholder="활동명" value="${creatorInfo.cre_nick_name}"/>
                             </div>
                             
 							<div>
                             	<label class="form-label" for="formValidationDob"><span style="color:#c20000">*</span> 생년월일</label>
 	                       		<input
 	                            	type="text" id="birthdate" class="form-control flatpickr-validation" name="cre_birthday"
-	                            	placeholder="YYYY-MM-DD"  />
+	                            	placeholder="YYYY-MM-DD"  value="${creatorInfo.cre_birthday}" />
                       		</div>
                       		<div>
  							  <label class="form-label" for="address" ><span style="color:#c20000">*</span> 주소</label>
-                        	  <input type="text" id="address" class="form-control" name="cre_address" placeholder="주소" />
+                        	  <input type="text" id="address" class="form-control" name="cre_address" placeholder="주소" value="${creatorInfo.cre_address}" />
                             </div>
                             <div>
                               <label class="form-label" for="detail_addr"><span style="color:#c20000">*</span> 상세주소</label>
  							  <input type="text" id="detail_addr" class="form-control" name="address_detail" 
- 							  		placeholder="상세주소를 입력해주세요" />
+ 							  		placeholder="상세주소를 입력해주세요" value="${creatorInfo.cre_address_detail}"/>
                             </div>
                       	</div>
                       	<div class="col-sm-4">
                       	    <div>
                               <label class="form-label" for="email"><span style="color:#c20000">*</span> 이메일</label>
  							  <input type="text" id="email" class="form-control" name="cre_email" 
- 							  		placeholder="이메일을 입력해주세요" />
+ 							  		placeholder="이메일을 입력해주세요" value="${creatorInfo.cre_email}"/>
                             </div>
                             <div>
                               <label class="form-label" for="phone"><span style="color:#c20000">*</span> 연락처</label>
  							  <input type="text" id="phone" class="form-control" name="cre_phone" 
- 							  		placeholder="연락처를 입력해주세요" />
+ 							  		placeholder="연락처를 입력해주세요" value="${creatorInfo.cre_phone}" />
                             </div>
                       		<div>
                          		<label class="form-label" for="country" ><span style="color:#c20000">*</span> 국적</label>
@@ -311,12 +311,12 @@
                             <div>
                             	<label class="form-label" for="start-contract"><span style="color:#c20000">*</span> 계약시작일</label>
 	                       		<input type="text" id="start-contract" class="form-control flatpickr-validation" name="cre_contract_start"
-	                            	placeholder="YYYY-MM-DD"  />
+	                            	placeholder="YYYY-MM-DD"  value="${creatorInfo.cre_contract_start}"/>
                       		</div>
                       		<div>
                             	<label class="form-label" for="end-contract"><span style="color:#c20000">*</span> 계약만료일</label>
 	                       		<input type="text" id="end-contract" class="form-control flatpickr-validation" name="cre_contract_end" 
-	                       			placeholder="YYYY-MM-DD"  />
+	                       			placeholder="YYYY-MM-DD"  value="${creatorInfo.cre_contract_end}"/>
                       		</div>
                             </div>
 
@@ -481,7 +481,7 @@
                              <input type="text" id="managerName" class="form-control act-form" name="mng_name"
                               data-bs-toggle="modal" data-bs-target="#modalCenter" 
                               readonly="readonly" placeholder="매니저 선택" />
-                              <input type="hidden" id="managerId"/>
+                              <input type="text" id="managerId"/>
                    		  </div>
                           <div style="display: flex; justify-content: space-between; align-items: center;">
                           	<span>활동 이력</span>
@@ -541,7 +541,8 @@
 			                       <textarea class="form-control" 
 			                       id="cre_specifics" rows="3" 
 			                       placeholder="특이사항 및 참고사항을 입력해주세요"
-			                       style="height:264px" name="cre_specifics"></textarea>
+			                       style="height:264px" name="cre_specifics"
+			                       >${creatorInfo.cre_specifics}</textarea>
 			                    </div>
 
                               </div>
@@ -669,8 +670,34 @@
 	<script>
   	// 채널정보 입력창을 추가시 cnt++
   	 var channelCnt = 0;
+  	
   	 
   	 $(document).ready(function() {
+  		 
+  		// 성별 값 선택해주기
+  		var gender = "${creatorInfo.cre_gender}";
+  		if(gender == "남자"){
+  			$('#cre-male').prop("checked", true);
+  		}else if(gender == "여자"){
+  			$('#cre-female').prop("checked",true);
+  		}else{
+  			console.log("성별을 불러오는 중 에러 발생");
+  		}
+  		
+  		// 채널 정보 출력
+  		var channelList =  [
+  			 <c:forEach var="channel" items="${channelInfoList}">
+             {
+                 "id": "${channel.id}",
+                 "name": "${channel.name}"
+             }<c:if test="${!loop.last}">,</c:if>
+         </c:forEach>
+  			
+  		];
+  		console.log('channelListSize==',channelList);
+  		
+  		
+  		 
 		// DAUM 주소 검색 창
         document.getElementById("address").addEventListener("click", handleEvent);
 		document.getElementById("address").addEventListener("keypress", handleEvent);
@@ -899,69 +926,8 @@
   	    });
   	}
       
-      
-      /* var formData = new FormData();
-
-      var creatorRequestDTO = {
-    		    creatorDTO: creatorDTO,
-    		    channelDTOList: channelDTOList,
-    		    snsDTOList: snsDTOList,
-    		    creHistDTOList: creHistDTOList
-      };
-
-      formData.append('creatorRequestDTO', JSON.stringify(creatorRequestDTO));
-	
-	   // 파일 추가
-	   var fileInput = document.getElementById('uploadPhoto');
-	   formData.append('file', fileInput.files[0]);
-	
-	   // AJAX 요청
-	   $.ajax({
-	       type: 'post',
-	       url: 'creatorAdd.ajax.do',
-	       data: formData,
-	       contentType: false,  // 필요한 경우에만 설정
-	       processData: false,  // 필요한 경우에만 설정
-	       success: function(data, textStatus, jqXHR) {
-	           console.log("응답 성공 | 상태 코드 : ", jqXHR.status);
-	           console.log("textStatus : ", textStatus);
-	           if (jqXHR.status == 200) {
-	               location.replace('/creatorList.go');
-	           }
-	       },
-	       error: function(data, textStatus, jqXHR) {
-	           console.log("응답 실패 | 상태 코드 : ", jqXHR.status);
-	           console.log("textStatus : ", textStatus);
-	       }
-	   }); */
-      
-      
-	 
   	
-  	
-    // 조직도에서 매니저 선택시 호출 함수
-  	function selectMng() {
-      console.log('selectMng event');
-      var selectedTags = $("#jstree-checkbox [aria-level=2][aria-selected=true]");
-    
-      var selectedMng = selectedTags.map(function() {// 선택된 태그들을 새로운 배열로 만들어줌
-        return $(this).text();
-      }).get();
-
-      var selectMngId = selectedTags.map(function(){
-        console.log($(this).find('#mng_id').val());
-        return $(this).find('#mng_id').val();
-      }).get();
-
-        console.log(selectedMng+" / "+selectMngId);
-
-      if(selectedMng.length > 1){
-	      alert('담당 매니저는 한 명만 선택 해 주세요');
-	      return false;
-      }
-	      $('#managerName').val(selectedMng);
-	      $('#managerId').val(selectMngId);
-	}
+   
 	/* 보류
     var checkboxTree = $('#jstree-checkbox');
     checkboxTree.on('select_node.jstree', function (e, data) {
@@ -1155,6 +1121,10 @@
 	    }
    }
    
+   
+   
+   
+   
 	</script>
 
 
@@ -1175,6 +1145,9 @@
 
 	<!-- 조직도 -->
 	<script>
+		$(document).ready(function(){
+			
+		
 	    // 조직도 
 	    $.ajax({
 			type: 'get',
@@ -1184,13 +1157,16 @@
 	        success : function(data){
 	          console.log(data);
 	          drawOrg(data.orgList, data.deptKind);
+	          checkEmp();
 	        } ,
 	        error : function(e){
 	          console.log(e);
 	        }
 		});
+	    
+		});
 		
-		function drawOrg(orgList, deptKind) {
+	    function drawOrg(orgList, deptKind) {
 			console.log('orgList', orgList);
 			console.log('deptKind',deptKind);
 			
@@ -1226,7 +1202,7 @@
 				    				/* console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade); */
 				    				info.push( 
 				    					orgList[k].emp_name+" | "+orgList[k].grade+" | "+
-				    					orgList[k].position+"<input id='mng_id' type='hidden' value='"+orgList[k].emp_id+"'/>"
+				    					orgList[k].position+"<input id='mng_id' type='text' value='"+orgList[k].emp_id+"'/>"
 			    					);
 				    			}
 				    		}
@@ -1279,6 +1255,60 @@
 				  });
 				}
 		}  
+	    
+	    
+	    // 조직도에서 매니저 선택시 호출 함수
+	  	function selectMng() {
+	      console.log('selectMng event');
+	      var selectedTags = $("#jstree-checkbox [aria-level=2][aria-selected=true]");
+	    
+	      var selectedMng = selectedTags.map(function() {// 선택된 태그들을 새로운 배열로 만들어줌
+	        return $(this).text();
+	      }).get();
+
+	      var selectMngId = selectedTags.map(function(){
+	        console.log($(this).find('#mng_id').val());
+	        return $(this).find('#mng_id').val();
+	      }).get();
+
+	        console.log(selectedMng+" / "+selectMngId);
+
+	      if(selectedMng.length > 1){
+		      alert('담당 매니저는 한 명만 선택 해 주세요');
+		      return false;
+	      }
+		      $('#managerName').val(selectedMng);
+		      $('#managerId').val(selectMngId);
+		} 
+	    
+	    
+	    // 매니저 선택 input 태그를 클릭시 
+	   /*  $('#managerName').on('click',function(){
+			checkEmp();
+	    }); */
+	    
+	    var targetValue = "${creatorInfo.emp_id}";
+		console.log("emp_id===",targetValue);
+	    
+	    function checkEmp(){
+	    	console.log('checkEmp() 실행');
+	    	console.log($('#jstree-checkbox'),'@@@');
+	    	$('#jstree-checkbox').jstree('open_all');
+	        // 자식 노드의 체크 상태 설정
+            console.log('자식 노드들 체크를 할려고 로직이 콘솔에찍히는지?');
+            var $checkedNode = $('#jstree-checkbox').find('a:has(input[value="' + targetValue + '"])');
+            console.log('$checkedNode==',$checkedNode)
+            $checkedNode.trigger('click');
+            //$('#jstree-checkbox').jstree('close_all');
+
+	    } 
+
+	/*  // 조직도 오픈
+		var checkedNodes = $('#jstree-checkbox').jstree('get_checked', true);
+        checkedNodes.forEach(function (node) {
+            // 체크된 노드의 부모 노드 확장
+            $('#jstree-checkbox').jstree('open_node', node.parent);
+        }); */
 		// /조직도 
     </script>
 </body>

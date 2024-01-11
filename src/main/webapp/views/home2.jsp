@@ -568,6 +568,33 @@
   </body>
 
 <script>
+// 시간 형식 변환 함수
+function formatTime(inputTime) {
+    var options = { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false };
+    return new Date(inputTime).toLocaleTimeString('en-US', options);
+}
+
+// 문서 로딩 후 실행
+document.addEventListener("DOMContentLoaded", function() {
+    // 시간 엘리먼트 가져오기
+    var workStartTimeElement = document.getElementById("workStartTime");
+    var workEndTimeElement = document.getElementById("workEndTime");
+    var work_startedElement = document.getElementById("work_started");
+    var work_endedElement = document.getElementById("work_ended");
+
+    // 시간 형식 변환 후 업데이트
+    if (workStartTimeElement && workEndTimeElement) {
+        var originalStartTime = "${workToday.work_start_time}"; // EL 표현식을 사용해 원래 값 가져오기
+        var originalEndTime = "${workToday.work_end_time}"; // EL 표현식을 사용해 원래 값 가져오기
+        var formattedStartTime = formatTime(originalStartTime);
+        var formattedEndTime = formatTime(originalEndTime);
+        workStartTimeElement.innerHTML = formattedStartTime;
+        workEndTimeElement.innerHTML = formattedEndTime;
+        
+        
+    }
+});
+
 
 // 출퇴근 버튼 스크립트, 출퇴근 시간 view 에 반영
 'use strict';
@@ -577,40 +604,54 @@
     workEnd = document.querySelector('#workEnd');
 
 
+  function getCurrentTime() {
+    const now = new Date();
+    console.log(now);
+    const hours = now.getHours().toString().padStart(2, '0');
+/*     console.log(hours); */
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+/*     console.log(minutes); */
+    return hours + ':' + minutes;
+  }
 
+  function updateWorkTime(type) {
+	  
+	  
+
+    const currentTime = getCurrentTime();
+    console.log(currentTime);
+    // 출근 시간을 표시하는 위치에 추가
+    if (type === 'start') {
+      const workStartedElement = document.querySelector('#work_started');
+      workStartedElement.textContent = currentTime;
+      
+      
+    }
+
+    // 퇴근 시간을 표시하는 위치에 추가
+    if (type === 'end') {
+      const workEndedElement = document.querySelector('#work_ended');
+      workEndedElement.textContent = currentTime;
+    }
+  }
 
   // 출근 버튼
   if (workStart) {
-  workStart.onclick = function () {
-    Swal.fire({
-      text: '출근 처리되었습니다!',
-      icon: 'success',
-      customClass: {
-        confirmButton: 'btn btn-primary'
-      },
-      buttonsStyling: false
-    }).then(function (result) {
-      // 출근 처리가 완료된 후에 AJAX 요청을 보냄
-      $.ajax({
-        type: 'get',
-        url: '/workStarted',
-        data: {},
-        dataType: 'JSON',
-        success: function (data) {
-          console.log(data);
-          if(data.workStarted > 0){
-        	// 페이지 이동
-              window.location.href = '/home.go';
-        	  
-          }
+    workStart.onclick = function () {
+      Swal.fire({
+        text: '출근 처리되었습니다!',
+        icon: 'success',
+        customClass: {
+          confirmButton: 'btn btn-primary'
         },
-        error: function (e) {
-          console.log(e);
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+          updateWorkTime('start');
         }
       });
-    });
-  };
-}
+    };
+  }
 
   // 퇴근 버튼
   if (workEnd) {
@@ -627,22 +668,7 @@
         buttonsStyling: false
       }).then(function (result) {
         if (result.value) {
-        	$.ajax({
-                type: 'get',
-                url: '/workEnded',
-                data: {},
-                dataType: 'JSON',
-                success: function (data) {
-                  console.log(data);
-                  if(data.workEnded > 0){
-                	// 페이지 이동
-                      window.location.href = '/home.go';
-                  }
-                },
-                error: function (e) {
-                  console.log(e);
-                }
-              });
+          updateWorkTime('end');
         }
       });
     };

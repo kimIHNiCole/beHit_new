@@ -147,7 +147,7 @@
 													    
 														    <c:choose>
 															    <c:when test="${apvDTO.apv_history_stmt == '반려'}">
-																		<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">반려</span></td></tr>
+																		<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">${apvDTO.apv_history_date}(반려)</span></td></tr>
 															    </c:when>
 															    <c:when test="${apvDTO.apv_history_stmt == '결재'}">
 															    	<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">${apvDTO.apv_history_date}</span></td></tr>

@@ -33,7 +33,7 @@
 							</table>
 					  
 					  </c:when>
-					  <c:when test="${form_type == 'detail'}">
+					  <c:when test="${form_type == 'detail' || form_type == 'update'}">
 					  
 						  <table class="table-header-left-table">
 								<tbody>
@@ -92,7 +92,7 @@
 												</table>
 										  
 										  </c:when>
-										  <c:when test="${form_type == 'detail'}">
+										  <c:when test="${form_type == 'detail' || form_type == 'update'}">
 										  
 											  <table>
 													<tbody>
@@ -131,7 +131,7 @@
 											</td>
 										  
 										  </c:when>
-										  <c:when test="${form_type == 'detail'}">
+										  <c:when test="${form_type == 'detail' || form_type == 'update'}">
 										  
 												<c:forEach var="apvDTO" items="${apv_line_info}">
 									        <td class="apv-sign-table-right">
@@ -147,7 +147,7 @@
 															    
 																    <c:choose>
 																	    <c:when test="${apvDTO.apv_history_stmt == '반려'}">
-																				<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">반려</span></td></tr>
+																				<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">${apvDTO.apv_history_date}(반려)</span></td></tr>
 																	    </c:when>
 																	    <c:when test="${apvDTO.apv_history_stmt == '결재'}">
 																	    	<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">${apvDTO.apv_history_date}</span></td></tr>
@@ -183,7 +183,7 @@
 					<td class="table-content-right">
 					
 						<c:choose>
-					    <c:when test="${form_type == 'write'}">
+					    <c:when test="${form_type == 'write' || form_type == 'update'}">
 					    	<select id="selectpickerBasic" class="selectpicker w-20 form-vac-time" data-style="btn-default" name="apv_vac_type">
 				           <option selected>종일</option>
 				           <option>시간</option>
@@ -201,13 +201,13 @@
 					<td class="table-content-right time">
 						<div class="vac-time-input">
 						<c:choose>
-						    <c:when test="${form_type == 'write'}">
+						    <c:when test="${form_type == 'write' || form_type == 'update'}">
 						    
 										<div class="vac-time-input-type" style="display:inline-block">
 										
 											<span class="apv-vac-day">
 												<input name="apv_start_day" type="text" class="form-control form-vac-time-start" placeholder="YYYY-MM-DD" id="flatpickr-date-before" />
-												<span class="text"> ~ </span>
+													<span class="text"> ~ </span>
 												<input name="apv_end_day" type="text" class="form-control form-vac-time-end" placeholder="YYYY-MM-DD" id="flatpickr-date-after" />
 											</span>
 											
@@ -245,8 +245,8 @@
 						</c:choose>
 						
 							<div style="display:inline-block; margin-right:2rem;" >
-								<input type="text" class="form-control vac-time apv-vac-day" disabled />
-								<input type="text" class="form-control vac-time apv-vac-time" disabled />
+								<input name="apv_time" type="text" class="form-control vac-time apv-vac-day" readonly />
+								<input name="apv_time" type="text" class="form-control vac-time apv-vac-time" readonly />
 								<span class="text"> 시간</span>
 							</div>
 						</div>
@@ -290,7 +290,7 @@
 			</tbody>
 		</table>
 		
-		<c:if test="${form_type == 'write'}">
+		<c:if test="${form_type == 'write' || form_type == 'update'}">
 			<input type="hidden" name="total_name" id="totalNames" />
 			<input type="hidden" name="apv_cnt" id="apvCnt" />
 		</c:if>

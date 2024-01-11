@@ -17,6 +17,7 @@ public class ApprovalDTO {
 	private String dept_name;
 	private String grade_name;
 	private String position_name;
+	private String total_name;
 	
 	private int apv_idx;
 	private String emp_id;
@@ -27,12 +28,13 @@ public class ApprovalDTO {
 	private String apv_subject;
 	private String apv_overview;
 	private String apv_vac_type;
-	private Date apv_start_day;
-	private Date apv_end_day;
-	private Timestamp apv_start_time;
-	private Timestamp apv_end_time;
+	private String apv_start_day;
+	private String apv_end_day;
+	private String apv_start_time;
+	private String apv_end_time;
 	private String apv_cnt;
 	private String apv_approver;
+	private String apv_time;
 	
 	private String apv_history_stmt;
 	private Date apv_history_date;

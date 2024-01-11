@@ -26,35 +26,49 @@
 		 keyColumn="idx" : 어떤 컬럼 값을 가져와서 
 		 keyProperty="idx" : DTO 의 어떤 속성(필드) 에 넣을 것인가?
 	 -->
-	<insert useGeneratedKeys="true" keyColumn="apv_idx"
+
+	 <insert useGeneratedKeys="true" keyColumn="apv_idx"
 		keyProperty="apv_idx" id="approval_write_vac"
 		parameterType="com.behit.approval.dto.ApprovalDTO">
 		INSERT INTO apv(
-			emp_id
-			,apv_code
-			,apv_date
-			,apv_stmt
-			,apv_subject
-			,apv_vac_type
-			,apv_start_day
-			,apv_end_day
-			,apv_start_time
-			,apv_end_time
-			,apv_cnt
-		)
-		VALUES(
-		#{emp_id}
-		,#{apv_code}
-		,NOW()
-		,'진행중'
-		,#{apv_subject}
-		,#{apv_vac_type}
-		,#{apv_start_day}
-		,#{apv_end_day}
-		,#{apv_start_time}
-		,#{apv_end_time}
-		,#{apv_cnt}
-		)
+        emp_id,
+        apv_code,
+        apv_date,
+        apv_stmt,
+        apv_subject,
+        apv_vac_type,
+        apv_time,
+        apv_start_day,
+        apv_end_day,
+        apv_start_time,
+        apv_end_time,
+        apv_cnt
+    )
+    VALUES(
+        #{emp_id},
+        #{apv_code},
+        NOW(),
+        #{apv_stmt},
+        #{apv_subject},
+        #{apv_vac_type},
+        <if test="apv_time != null and !apv_time.isEmpty()">#{apv_time},</if>
+				<if test="apv_time == null or apv_time.isEmpty()">NULL,</if>
+				
+        <if test="apv_start_day != null and !apv_start_day.isEmpty()">#{apv_start_day},</if>
+				<if test="apv_start_day == null or apv_start_day.isEmpty()">NULL,</if>
+				
+				<if test="apv_end_day != null and !apv_end_day.isEmpty()">#{apv_end_day},</if>
+				<if test="apv_end_day == null or apv_end_day.isEmpty()">NULL,</if>
+				
+				<if test="apv_start_time != null and !apv_start_time.isEmpty()">#{apv_start_time},</if>
+				<if test="apv_start_time == null or apv_start_time.isEmpty()">NULL,</if>
+				
+				<if test="apv_end_time != null and !apv_end_time.isEmpty()">#{apv_end_time},</if>
+				<if test="apv_end_time == null or apv_end_time.isEmpty()">NULL,</if>
+				
+				<if test="apv_cnt != null and !apv_cnt.isEmpty()">#{apv_cnt}</if>
+				<if test="apv_cnt == null or apv_cnt.isEmpty()">'false'</if>
+    )
 	</insert>
 	<insert useGeneratedKeys="true" keyColumn="apv_idx"
 		keyProperty="apv_idx" id="approval_write_biz"
@@ -72,10 +86,15 @@
 		#{emp_id}
 		,#{apv_code}
 		,NOW()
-		,'진행중'
-		,#{apv_subject}
-		,#{apv_overview}
-		,#{apv_cnt}
+		,#{apv_stmt}
+		<if test="apv_subject != null and !apv_subject.isEmpty()">,#{apv_subject}</if>
+		<if test="apv_subject == null or apv_subject.isEmpty()">,NULL</if>
+		
+		<if test="apv_overview != null and !apv_overview.isEmpty()">,#{apv_overview}</if>
+		<if test="apv_overview == null or apv_overview.isEmpty()">,NULL</if>
+		
+		<if test="apv_cnt != null and !apv_cnt.isEmpty()">,#{apv_cnt}</if>
+		<if test="apv_cnt == null or apv_cnt.isEmpty()">,NULL</if>
 		)
 	</insert>
 	<insert id="apv_line" parameterType="com.behit.approval.dto.ApprovalDTO">
@@ -98,6 +117,10 @@
 		,NOW()
 		)
 	</insert>
+	<delete id="apv_line_del">
+		DELETE FROM apv_line WHERE apv_idx = #{apv_idx};
+	</delete>
+	
 	<update id="apv_approver">
 		UPDATE apv SET apv_approver = #{apv_approver} WHERE apv_idx = #{apv_idx}
 	</update>
@@ -116,6 +139,30 @@
 	</update>
 	<update id="apv_update_num">
 		UPDATE apv SET apv_num = #{apv_num} WHERE apv_idx = #{apv_idx}
+	</update>
+	<update id="approval_update">
+		UPDATE apv SET 
+		apv_date = NOW()
+		,apv_stmt = '진행중'
+		,apv_subject = #{apv_subject}
+		,apv_overview = #{apv_overview}
+		,apv_vac_type = #{apv_vac_type}
+		<if test="apv_time != null and !apv_time.isEmpty()">,apv_time = #{apv_time}</if>
+		<if test="apv_time == null or apv_time.isEmpty()">,apv_time = NULL</if>
+	
+    <if test="apv_start_day != null and !apv_start_day.isEmpty()">, apv_start_day = #{apv_start_day}</if>
+		<if test="apv_start_day == null or apv_start_day.isEmpty()">,apv_start_day = NULL</if>
+	
+		<if test="apv_end_day != null and !apv_end_day.isEmpty()">,apv_end_day = #{apv_end_day}</if>
+		<if test="apv_end_day == null or apv_end_day.isEmpty()">,apv_end_day = NULL</if>
+	
+		<if test="apv_start_time != null and !apv_start_time.isEmpty()">,apv_start_time = #{apv_start_time}</if>
+		<if test="apv_start_time == null or apv_start_time.isEmpty()">,apv_start_time = NULL</if>
+	
+		<if test="apv_end_time != null and !apv_end_time.isEmpty()">,apv_end_time = #{apv_end_time}</if>
+		<if test="apv_end_time == null or apv_end_time.isEmpty()">,apv_end_time = NULL</if>
+		,apv_cnt = #{apv_cnt}
+		WHERE apv_idx = #{apv_idx}
 	</update>
 	
 	
@@ -225,6 +272,13 @@
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '반려'
+	</select>
+	<select id="temporaryApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt 
+		FROM apv a 
+		JOIN employee e ON e.emp_id = a.emp_id
+		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '임시저장'
 	</select>
 
 

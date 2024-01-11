@@ -31,6 +31,10 @@ public class LoginController {
 	public String home() {
 		return "login";
 	}
+	@GetMapping(value = "/logout.go")
+	public String loginGo() {
+		return "login";
+	}
 	
 	@PostMapping(value="/login.do")
 	public ModelAndView login(@RequestParam String emp_id, @RequestParam String password,
