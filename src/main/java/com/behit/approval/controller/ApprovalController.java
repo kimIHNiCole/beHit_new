@@ -46,10 +46,17 @@ public class ApprovalController {
 	}
 	
 	@PostMapping(value="/approval/approval_write.do")
-	public String approval_write(HttpSession session, @RequestParam HashMap<String, String> params, MultipartFile[] files) {
+	public String approval_write(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		
-		return service.approval_write(loginInfo,params,files);
+		return service.approval_write(loginInfo,dto,files);
+	}
+	
+	@PostMapping(value="/approval/temporaryApproval_write.do")
+	public String temporaryApproval_write(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		
+		return service.approval_write(loginInfo,dto,files);
 	}
 	
 	@GetMapping(value="/approval/getApproval_list.do")
@@ -65,7 +72,6 @@ public class ApprovalController {
 	public ModelAndView getApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
-
 		return service.getApproval_detail(apv_idx,emp_id);
 	}
 	
@@ -74,6 +80,14 @@ public class ApprovalController {
 		
 		return service.getApproval_detail_do(dto);
 	}
+	
+	@GetMapping(value="/approval/temporaryApproval_detail.go/{apv_idx}")
+	public ModelAndView temporaryApproval_detail(@PathVariable String apv_idx,HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+		return service.temporaryApproval_detail(apv_idx,emp_id);
+	}
+	
 	
 	@GetMapping(value="/approval/compApproval_list.do")
 	@ResponseBody
@@ -109,6 +123,15 @@ public class ApprovalController {
 		String emp_id = loginInfo.getEmp_id();
 
 		return service.rejectedApproval_list(emp_id);
+	}
+	
+	@GetMapping(value="/approval/temporaryApproval_list.do")
+	@ResponseBody
+	public List<ApprovalDTO> temporaryApproval_list(HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+
+		return service.temporaryApproval_list(emp_id);
 	}
 	
 	
