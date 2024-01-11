@@ -19,4 +19,5 @@ public class ChannelDataDTO {
 	private BigInteger views;
 	private BigInteger contents;
 	private int view_trend;
+	private int channel_rep;
 }

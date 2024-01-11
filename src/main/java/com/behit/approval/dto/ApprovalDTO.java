@@ -34,6 +34,7 @@ public class ApprovalDTO {
 	private String apv_end_time;
 	private String apv_cnt;
 	private String apv_approver;
+	private String apv_time;
 	
 	private String apv_history_stmt;
 	private Date apv_history_date;

@@ -37,6 +37,7 @@
         apv_stmt,
         apv_subject,
         apv_vac_type,
+        apv_time,
         apv_start_day,
         apv_end_day,
         apv_start_time,
@@ -50,6 +51,9 @@
         #{apv_stmt},
         #{apv_subject},
         #{apv_vac_type},
+        <if test="apv_time != null and !apv_time.isEmpty()">#{apv_time},</if>
+				<if test="apv_time == null or apv_time.isEmpty()">NULL,</if>
+				
         <if test="apv_start_day != null and !apv_start_day.isEmpty()">#{apv_start_day},</if>
 				<if test="apv_start_day == null or apv_start_day.isEmpty()">NULL,</if>
 				
@@ -62,8 +66,8 @@
 				<if test="apv_end_time != null and !apv_end_time.isEmpty()">#{apv_end_time},</if>
 				<if test="apv_end_time == null or apv_end_time.isEmpty()">NULL,</if>
 				
-				<if test="apv_cnt != null and !apv_cnt.isEmpty()">#{apv_cnt},</if>
-				<if test="apv_cnt == null or apv_cnt.isEmpty()">NULL</if>
+				<if test="apv_cnt != null and !apv_cnt.isEmpty()">#{apv_cnt}</if>
+				<if test="apv_cnt == null or apv_cnt.isEmpty()">'false'</if>
     )
 	</insert>
 	<insert useGeneratedKeys="true" keyColumn="apv_idx"
@@ -113,6 +117,10 @@
 		,NOW()
 		)
 	</insert>
+	<delete id="apv_line_del">
+		DELETE FROM apv_line WHERE apv_idx = #{apv_idx};
+	</delete>
+	
 	<update id="apv_approver">
 		UPDATE apv SET apv_approver = #{apv_approver} WHERE apv_idx = #{apv_idx}
 	</update>
@@ -131,6 +139,30 @@
 	</update>
 	<update id="apv_update_num">
 		UPDATE apv SET apv_num = #{apv_num} WHERE apv_idx = #{apv_idx}
+	</update>
+	<update id="approval_update">
+		UPDATE apv SET 
+		apv_date = NOW()
+		,apv_stmt = '진행중'
+		,apv_subject = #{apv_subject}
+		,apv_overview = #{apv_overview}
+		,apv_vac_type = #{apv_vac_type}
+		<if test="apv_time != null and !apv_time.isEmpty()">,apv_time = #{apv_time}</if>
+		<if test="apv_time == null or apv_time.isEmpty()">,apv_time = NULL</if>
+	
+    <if test="apv_start_day != null and !apv_start_day.isEmpty()">, apv_start_day = #{apv_start_day}</if>
+		<if test="apv_start_day == null or apv_start_day.isEmpty()">,apv_start_day = NULL</if>
+	
+		<if test="apv_end_day != null and !apv_end_day.isEmpty()">,apv_end_day = #{apv_end_day}</if>
+		<if test="apv_end_day == null or apv_end_day.isEmpty()">,apv_end_day = NULL</if>
+	
+		<if test="apv_start_time != null and !apv_start_time.isEmpty()">,apv_start_time = #{apv_start_time}</if>
+		<if test="apv_start_time == null or apv_start_time.isEmpty()">,apv_start_time = NULL</if>
+	
+		<if test="apv_end_time != null and !apv_end_time.isEmpty()">,apv_end_time = #{apv_end_time}</if>
+		<if test="apv_end_time == null or apv_end_time.isEmpty()">,apv_end_time = NULL</if>
+		,apv_cnt = #{apv_cnt}
+		WHERE apv_idx = #{apv_idx}
 	</update>
 	
 	

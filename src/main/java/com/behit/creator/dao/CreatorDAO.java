@@ -32,7 +32,7 @@ public interface CreatorDAO {
 	ArrayList<HashMap<String, Object>> getMyList(String loginId);
 	
 	// 크리에이터 상세 정보
-	CreatorDTO getCreator(int cre_idx);
+	HashMap<String, Object> getCreator(int cre_idx);
 	ArrayList<HashMap<String, Object>> getChannel(int cre_idx);
 	ArrayList<String> getChannelIdByCreIdx(int cre_idx);
 	ArrayList<HashMap<String, Object>> getCreHistory(int cre_idx);

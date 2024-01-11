@@ -1,5 +1,7 @@
 package com.behit.creator.controller;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,15 @@ public class CreatorStatController {
 	
 	@Autowired CreatorStatService creatorStatService;
 	
-	@Scheduled(cron = "0 0 0 * * *")	// 매일 23시30분 실행
+	@Scheduled(cron = "0 10 0 * * *")	// 매일 23시30분 실행
 //	@Scheduled(cron = "0/10 * * * * *")	
 	public void saveChannelData() {
 		logger.info("SCHEDULING :: 채널 데이터 가져오기 실행");
 		creatorStatService.saveChannelData();
 	}
 	
-	public void saveChannelDataOne(String channelId) {
-		logger.info("SCHEDULING :: ["+channelId+"] 채널 데이터 가져오기 실행");
-		creatorStatService.saveChannelDataOne(channelId);
+	public void saveChannelDataOne(HashMap<String, Object> param) {
+		logger.info("SCHEDULING :: ["+param+"] 채널 데이터 가져오기 실행");
+		creatorStatService.saveChannelDataOne(param);
 	}
 }

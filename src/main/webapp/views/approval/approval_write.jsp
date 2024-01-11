@@ -775,6 +775,7 @@
     <script>
     
     var form_type = '${form_type}';
+    
 
     //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
     $('.apv-vac-time').hide();
@@ -796,6 +797,8 @@
             $('.apv-vac-time').hide();
             $('.apv-vac-day').show();
             $('.apv-vac-time input').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', true);
+            $('.apv-vac-day.vac-time').prop('disabled', false);
             $('.apv-vac-day input').prop('disabled', false);
              
         } else if (selectedOption === "시간") {
@@ -805,6 +808,8 @@
             $('.apv-vac-day').hide();
             $('.apv-vac-time').show();
             $('.apv-vac-time input').prop('disabled', false);
+            $('.apv-vac-day.vac-time').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', false);
             $('.apv-vac-day input').prop('disabled', true);
         }
      		// 날짜 시간 input 모달

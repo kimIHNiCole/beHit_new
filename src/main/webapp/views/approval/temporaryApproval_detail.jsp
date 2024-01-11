@@ -507,7 +507,7 @@
                         </a>
                       </li>
                       <li class="nav-item mb-1">
-                        <a class="nav-link" href="/approval/temporaryApproval_list.go">
+                        <a class="nav-link active" href="/approval/temporaryApproval_list.go">
                           <span class="align-middle">임시 저장된 문서</span>
                         </a>
                       </li>
@@ -538,27 +538,31 @@
                 		<span class="text-truncate">
                 			<button type="button" id="temporarySaveButton" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
                 		</span>
+                		<span class="text-truncate">
+                			<button type="button" id="temporarySaveButton" class="apv-form-menu-cnt"><i class='bx bx-trash'></i> 삭제</button>
+                		</span>
                 	</div>
                   <div class="tab-content p-0">
                     <!-- Store Details Tab -->
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
         
 				              <div class="card">
-					              <form id="approvalForm" action="/approval/approval_write.do" method="post" enctype="multipart/form-data">
+					              <form id="approvalForm" action="/approval/approval_update.do" method="post" enctype="multipart/form-data">
 					              <input type="hidden" name="apv_stmt" id="apvStmt" value="진행중" />
+					              <input type="hidden" name="apv_idx" id="apvStmt" value="${apv.apv_idx}" />
 					              	<div class="apv-form-vac">
 					              	<div>
 						              		<!-- 사업기안서/휴가신청서 -->
 						              		<c:choose>
-														    <c:when test="${form == 'vac'}">
+														    <c:when test="${apv.apv_code == 'BFVC'}">
 														        <jsp:include page="apv_form_vac.jsp" />
 														        <input type="hidden" name="apv_code" value="BFVC"/>
 														    </c:when>
-														    <c:when test="${form == 'biz'}">
+														    <c:when test="${apv.apv_code == 'BSPN'}">
 														        <jsp:include page="apv_form_biz.jsp" />
 														        <input type="hidden" name="apv_code" value="BSPN"/>
 														    </c:when>
-														    <c:when test="${form == 'vac_after'}">
+														    <c:when test="${apv.apv_code == 'AFVC'}">
 														        <jsp:include page="apv_form_vac.jsp" />
 														        <input type="hidden" name="apv_code" value="AFVC"/>
 														    </c:when>
@@ -775,6 +779,47 @@
     <script>
     
     var form_type = '${form_type}';
+    var apv_vac_type = '${apv.apv_vac_type}';
+    
+    
+    
+    if(apv_vac_type == '종일'){
+	    $('.apv-vac-day').val('${apv.apv_time}');
+	    $('#flatpickr-date-before').val('${apv.apv_start_day}');
+	    $('#flatpickr-date-after').val('${apv.apv_end_day}');
+    	
+    }else if(apv_vac_type == '시간'){
+	    $('.apv-vac-time').val('${apv.apv_time}');
+    	
+    }
+    
+    /* $(document).ready(function () {
+	    	// 값을 담을 배열 초기화
+			var totalNames = [];
+	    
+		  var deptNameElements = $('.apv-sign-line-dept');
+			var empNameElements = $('.apv-sign-line-name');
+			var positionNameElements = $('.apv-sign-line-dept');
+			var empIdElements = $('.emp-id');
+				
+			// 각 요소의 길이를 기준으로 반복
+			for (var i = 0; i < deptNameElements.length; i++) {
+				var nameOrder=[];
+			  // 각 요소의 인덱스에 따라서 값을 totalNames 배열에 추가
+			  if (deptNameElements[i]) nameOrder.push(deptNameElements.eq(i).text());
+			  if (empNameElements[i]) nameOrder.push(empNameElements.eq(i).text());
+			  if (positionNameElements[i]) nameOrder.push(positionNameElements.eq(i).text());
+			  if (empIdElements[i]) nameOrder.push(empIdElements.eq(i).val());
+			  totalNames.push(nameOrder);
+		    
+			}
+			
+			console.log("totalNames:" + totalNames);
+			
+			// 배열 문자화하여 전송
+			$('#totalNames').val(JSON.stringify(totalNames));
+    }); */
+    
 
     //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
     $('.apv-vac-time').hide();
@@ -782,34 +827,38 @@
     
     $(".form-vac-time").on("change", function() {
     	
-    		//$('.vac-time').val('');
-        // 선택된 옵션의 텍스트 가져오기
-        var selectedOption = $(this).find("option:selected").text();
-        
-        var content='';
+		//$('.vac-time').val('');
+    // 선택된 옵션의 텍스트 가져오기
+    var selectedOption = $(this).find("option:selected").text();
+    
+    var content='';
 
-        // 선택된 옵션에 따라 원하는 작업 수행
-        if (selectedOption === "종일") {
-            // "종일"이 선택된 경우의 동작
-            console.log("종일이 선택되었습니다.");
-            
-            $('.apv-vac-time').hide();
-            $('.apv-vac-day').show();
-            $('.apv-vac-time input').prop('disabled', true);
-            $('.apv-vac-day input').prop('disabled', false);
-             
-        } else if (selectedOption === "시간") {
-            // "시간"이 선택된 경우의 동작
-            console.log("시간이 선택되었습니다.");
-            
-            $('.apv-vac-day').hide();
-            $('.apv-vac-time').show();
-            $('.apv-vac-time input').prop('disabled', false);
-            $('.apv-vac-day input').prop('disabled', true);
-        }
-     		// 날짜 시간 input 모달
-        input_modal();
-    });
+    // 선택된 옵션에 따라 원하는 작업 수행
+    if (selectedOption === "종일") {
+        // "종일"이 선택된 경우의 동작
+        console.log("종일이 선택되었습니다.");
+        
+        $('.apv-vac-time').hide();
+        $('.apv-vac-day').show();
+        $('.apv-vac-time input').prop('disabled', true);
+        $('.apv-vac-time.vac-time').prop('disabled', true);
+        $('.apv-vac-day.vac-time').prop('disabled', false);
+        $('.apv-vac-day input').prop('disabled', false);
+         
+    } else if (selectedOption === "시간") {
+        // "시간"이 선택된 경우의 동작
+        console.log("시간이 선택되었습니다.");
+        
+        $('.apv-vac-day').hide();
+        $('.apv-vac-time').show();
+        $('.apv-vac-time input').prop('disabled', false);
+        $('.apv-vac-day.vac-time').prop('disabled', true);
+        $('.apv-vac-time.vac-time').prop('disabled', false);
+        $('.apv-vac-day input').prop('disabled', true);
+    }
+ 		// 날짜 시간 input 모달
+    input_modal();
+});
     
  		// 날짜 시간 input 모달
     function input_modal(){
@@ -870,8 +919,8 @@
   	
   	//연차 시간 자동 표시 ------------------------------------------------------------------------------------------------
   	
-  	var startDay = '';
-  	var endDay = '';
+  	var startDay = $('#flatpickr-date-before').val();
+  	var endDay = $('#flatpickr-date-after').val();
   	var startTime = '';
   	var endTime = '';
     
@@ -1380,6 +1429,14 @@
 		    },
 		    theme: 'snow'
 		});
+    	var deltaData;
+
+    	if ('${apv.apv_cnt}' == 'false') {
+    	    deltaData = ${apv.apv_cnt};
+    	}
+    	if (deltaData) {
+    	    snowEditor.setContents(deltaData);
+    	}
 		
 		snowEditor.on('text-change', function() {
 		    var contents = snowEditor.getContents();  // 수정된 부분

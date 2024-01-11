@@ -68,8 +68,6 @@ public class ApprovalService {
 		String apv_code = dto.getApv_code();
 		String apv_vac_type = dto.getApv_vac_type();
 		
-		logger.info("뭐가 문제인데 : " + apv_vac_type);
-		
 		dto.setEmp_id(emp_id);
 		
 		if(apv_code.equals("BFVC") || apv_code.equals("AFVC")) {
@@ -101,6 +99,89 @@ public class ApprovalService {
 		return "approval/approval_main";
 	}
 	
+	public String approval_update(EmployeeDTO loginInfo, ApprovalDTO dto, MultipartFile[] files) {
+		
+		int apv_idx = dto.getApv_idx();
+		String apv_vac_type = dto.getApv_vac_type();
+		String apv_code = dto.getApv_code();
+		String total_name = dto.getTotal_name();
+		String emp_id = loginInfo.getEmp_id();
+		
+		if(apv_code.equals("BFVC")) {
+			dto.setApv_subject("연차 신청서");
+		}else {
+			dto.setApv_subject("사후 연차 신청서");
+		}
+		
+		if(apv_vac_type.equals("종일")) {
+			dto.setApv_start_day(dto.getApv_start_day().replace(",", ""));
+		}else if(apv_vac_type.equals("시간")) {
+			setVacationTime(dto);
+			dto.setApv_start_day("");
+		}
+		dao.approval_update(dto);
+		
+		if(total_name != null) {
+			apv_line_update(apv_idx,total_name,emp_id);
+		}
+		
+		
+		return "approval/approval_main";
+	}
+	
+	private void apv_line_update(int apv_idx, String total_name, String emp_id_in) {
+		
+		dao.apv_line_del(apv_idx);
+		
+		String pattern = "\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\"(?:,\"(.*?)\")?\\]";
+		
+		// 정규 표현식에 따라 패턴 찾기
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(total_name);
+
+        // 결과를 담을 리스트
+        List<List<String>> resultList = new ArrayList<>();
+
+        while (matcher.find()) {
+            List<String> item = new ArrayList<>();
+            
+            // 그룹의 개수만큼 반복하여 리스트에 추가
+            for (int i = 1; i <= matcher.groupCount(); i++) {
+                item.add(matcher.group(i));
+            }
+
+            // 리스트를 문자열로 변환하여 결과 리스트에 추가
+            resultList.add(item);
+        }
+        
+        // apv 의 apv_approver 에 첫번째 결재자 추가
+        List<String> item = resultList.get(0);
+        dao.apv_approver(apv_idx,item.get(3));
+        
+		for (int i = 0; i < resultList.size(); i++) {
+		        	
+		        	ApprovalDTO dto = new ApprovalDTO();
+		        	
+		            List<String> items = resultList.get(i);
+		            // 리스트에 적어도 4개의 요소가 있는지 확인
+		            if (items.size() >= 4) {
+		            	
+		            	dto.setApv_idx(apv_idx);
+		            	dto.setEmp_id(items.get(3));
+		            	dto.setApv_line(i+1);
+		            	dto.setEmp_id_in(emp_id_in);
+		            	
+		                dao.apv_line(dto);
+		                
+		            } else {
+		                System.out.println("리스트에 충분한 요소가 없습니다.");
+		            }
+		        }
+        
+	}
+
+
+
 	// apv_line 테이블에 데이터 insert 메서드
 	private void apv_line(int apv_idx, String total_name, String emp_id_in) {
 		
@@ -155,8 +236,6 @@ public class ApprovalService {
 	// 종일, 시간에 따라 dto 에 담긴 값 달리 하는 메서드
 	private void setVacationTime(ApprovalDTO dto) {
 		
-		if(dto.getApv_vac_type().equals("시간")){
-		
 			SimpleDateFormat inputFormat = new SimpleDateFormat("h:mma", Locale.ENGLISH); // 7:00am 을
 			SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss"); // 07:00:00 로
 			
@@ -177,8 +256,6 @@ public class ApprovalService {
 				e.printStackTrace();
 			}
 			
-		}
-			
 	}
 	
 
@@ -186,6 +263,9 @@ public class ApprovalService {
 		
 		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
 		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
+		
+		
+		
 		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보
 		
 		ApprovalDTO apv_history_reason = dao.apv_history_reason(apv_idx); // 결재사유
@@ -213,14 +293,19 @@ public class ApprovalService {
 			}
 			apv_line_info.add(line_info);
 		}
-		
 		apv.setApv_idx(Integer.parseInt(apv_idx));
+		
+		if(apv.getApv_stmt().equals("임시저장")) {
+			mav = new ModelAndView("approval/temporaryApproval_detail");
+			mav.addObject("form_type","update");
+		}else {
+			mav.addObject("form_type","detail");
+		}
 		
 		mav.addObject("emp_id",emp_id);
 		mav.addObject("apv",apv);
 		mav.addObject("dto",dto);
 		mav.addObject("apv_line_info",apv_line_info);
-		mav.addObject("form_type","detail");
 		
 		return mav;
 		
@@ -288,53 +373,7 @@ public class ApprovalService {
         return outputDateString;
     }
 	
-	
-	public ModelAndView temporaryApproval_detail(String apv_idx, String emp_id) {
-		ModelAndView mav = new ModelAndView("approval/temporaryApproval_detail");
-		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
-		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보
 		
-		ApprovalDTO apv_history_reason = dao.apv_history_reason(apv_idx); // 결재사유
-		
-		if(apv_history_reason != null) {
-			apv.setApv_history_stmt(apv_history_reason.getApv_history_stmt());
-			apv.setApv_history_reason(apv_history_reason.getApv_history_reason());
-		}
-		
-		List<ApprovalDTO> apv_line = dao.getApv_line(apv_idx); // 결재자 아이디, 결재순서
-		List<ApprovalDTO> apv_line_info = new ArrayList<ApprovalDTO>();
-		
-		for (ApprovalDTO approvalDTO : apv_line) { // 결재선 정보
-			String emp_idx = approvalDTO.getEmp_id();
-			ApprovalDTO line_info = dao.approval_write_go(emp_idx); 
-			line_info.setApv_line(approvalDTO.getApv_line());
-			
-			// 결재 여부
-			ApprovalDTO apv_history = dao.apv_line_stmt(apv_idx,emp_idx);
-			
-			if(apv_history != null) {
-				line_info.setApv_history_date(apv_history.getApv_history_date());
-				line_info.setApv_history_stmt(apv_history.getApv_history_stmt());
-				line_info.setApv_history_reason(apv_history.getApv_history_reason());
-			}
-			apv_line_info.add(line_info);
-		}
-		
-		apv.setApv_idx(Integer.parseInt(apv_idx));
-		
-		mav.addObject("emp_id",emp_id);
-		mav.addObject("apv",apv);
-		mav.addObject("dto",dto);
-		mav.addObject("apv_line_info",apv_line_info);
-		mav.addObject("form_type","update");
-		
-		return mav;
-	}
-	
-	
-		
-
-
 	public List<ApprovalDTO> getApproval_list(String emp_id) {
 		return dao.getApproval_list(emp_id);
 	}
