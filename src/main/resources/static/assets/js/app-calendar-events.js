@@ -10,11 +10,44 @@ let nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 let nextMonth = date.getMonth() === 11 ? new Date(date.getFullYear() + 1, 0, 1) : new Date(date.getFullYear(), date.getMonth() + 1, 1);
 // prettier-ignore
 let prevMonth = date.getMonth() === 11 ? new Date(date.getFullYear() - 1, 0, 1) : new Date(date.getFullYear(), date.getMonth() - 1, 1);
+/*
+      let events = [];
+		$.ajax({
+	    	type:'post',
+	    	 url:'timeNowList',
+	    	 dataType: 'json',
+	    	 success:function(data){
+	    		 console.log(data);
+	    		 console.log(data.list);
+	    		 drawlist(data);
+	    	 },
+	    	 error:function(e){
+	    		 console.log(e);
+	    	 }
+	    });
+      
+
+      
+      function drawlist(obj) {
+	    	events = obj.list.map(function(item, idx) {
+		        return {
+		            title: item.work_start + '~' + item.work_end,
+		            start: item.work_day,
+		            end: item.work_day,
+		            allDay: false,
+		            extendedProps: {
+		                calendar: 'Personal'
+		            }
+		        };
+	    	});
+	    	console.log(events);
+		} 
+
 
 let events = [
   {
     id: 1,
-    url: '',
+    url: '',	
     title: 'Design Review',
     start: '2024-01-01',
     end: '2024-01-02',
@@ -120,4 +153,4 @@ let events = [
       calendar: 'Personal'
     }
   }
-];
+]; */

@@ -380,4 +380,91 @@ public class ProjectController {
 		return mav;
 	}
 	
+	@PostMapping(value = "/project/project_update.do")
+	@ResponseBody
+	public Map<String, Object> projectUpdateDo(
+	        @RequestParam("createId") String createId,
+	        @RequestParam("proj_idx") String proj_idx,
+	        @RequestParam("textsubject") String textsubject,
+	        @RequestParam("startproj") String startproj,
+	        @RequestParam("endproj") String endproj,
+	        @RequestParam("textContent") String textContent,
+	        @RequestParam(value = "files[]", required = false) MultipartFile[] files,
+	        @RequestParam("selectedNodes") String selectedNodes,
+	        @RequestParam("selectedNodes1") String selectedNodes1,
+	        @RequestParam("delUpfile") String delUpfile) throws Exception {
+	    
+		// logger.info("createId: {}", createId);
+        // logger.info("textsubject: {}", textsubject);
+        // logger.info("startproj: {}", startproj);
+        // logger.info("endproj: {}", endproj);
+        // logger.info("textContent: {}", textContent);
+        // logger.info("selectedNodes: {}", selectedNodes);
+        // logger.info("selectedNodes1: {}", selectedNodes1);
+		logger.info("delUpfile: {}", delUpfile);
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> selectedNodesList = null;
+        List<String> selectedNodesList1 = null;
+        List<String> delUpfileList = null;
+        try {
+        	if("[]".equals(selectedNodes)) {
+        	}else {        		
+        		selectedNodesList = objectMapper.readValue(selectedNodes, new TypeReference<List<String>>() {});
+        	}
+        	if("[]".equals(selectedNodes1)) {
+        	}else {
+        		selectedNodesList1 = objectMapper.readValue(selectedNodes1, new TypeReference<List<String>>() {});
+        	}
+        	if("[]".equals(delUpfile)) {
+        	}else {
+        		delUpfileList = objectMapper.readValue(delUpfile, new TypeReference<List<String>>() {});
+        	}
+        } catch (Exception e) {
+            logger.error("JSON error: "+e);
+        }
+        int insert = 0;
+        int projIdx = Integer.parseInt(proj_idx);
+        int file_kind = 4;
+        if(createId != "") {
+        	insert = service.projupdate(proj_idx,textsubject,startproj,endproj,textContent);
+        	logger.info("수정된된 proj_idx 성공여부 숫자: "+insert);
+        	if(insert != 0) {
+        		int delDC = 0;
+        		delDC = service.projTAllDel(proj_idx);
+        		if(delDC != 0) {        			
+        			if(selectedNodesList != null) {
+        				for (String nodeD : selectedNodesList) {
+        					logger.info("담당자: {}", nodeD);
+        					service.projteamD(projIdx,nodeD);
+        				}
+        			}
+        			if(selectedNodesList1 != null) {
+        				for (String nodeC : selectedNodesList1) {
+        					logger.info("참조자: {}", nodeC);
+        					service.projteamC(projIdx,nodeC);
+        				}
+        			}
+        		}
+        		if(delUpfileList != null) { // 파일 삭제
+        			for (String delF : delUpfileList) {
+        				logger.info("삭제할 파일: {}", delF);
+        				int delIntF = Integer.parseInt(delF);
+        				service.fileDel(delIntF);
+        			}
+        		}
+        		if (files != null) {
+        			for (MultipartFile file : files) {
+        				logger.info("File name: {}", file.getOriginalFilename());
+        				service.upload(projIdx, file, createId, file_kind);
+        			}
+        		}
+        	}
+        }
+		
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("success", insert);
+	    return map;
+	}
+	
 }

@@ -623,6 +623,8 @@
 										<hr class="my-3" />
 										<!-- 지연된 프로젝트일시 -->
 										<!-- 프로젝트 제목 -->
+										<input id="projIdx" type="hidden" value="${detailList.proj_idx}"/>
+										<input id="createId" type="hidden" value="${sessionScope.loginInfo.getEmp_id()}"/>
 										<div class="fs-5 px-3 fw-semibold">프로젝트 제목</div>
 										<div class="project-subject col-12">
 											<span class="project-subject-left col-12">
@@ -632,18 +634,33 @@
 											</span>
 										</div>
 										
+										<!-- 배열에 미리 담당자, 참조자 담아놓기 -->
+										<script>
+											var selectedNodes = []; // 담당자 emp_id 값을 배열형태로 담음
+											var realNames = []; // 담당자 진짜 이름
+											var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
+											var realNames1 = []; // 참조자 진짜 이름
+										</script>
+										<c:forEach var="projT" items="${damchamList}">
+								            <c:if test="${projT.projT_contact == 1}">
+								                <script>
+								                	selectedNodes.push('${projT.emp_id}');
+													realNames.push('${projT.emp_name}');
+									            </script>
+								            </c:if>
+								            <c:if test="${projT.projT_contact == 2}">
+								            	<script>
+								            		selectedNodes1.push('${projT.emp_id}');
+													realNames1.push('${projT.emp_name}');
+									            </script>
+								            </c:if>
+								        </c:forEach>
+										
 										<div class="project-entry px-3">
 											<div class="project-entry-ls">
 												<h5>담당자</h5>
 												<div class="name">
 												<div id="addDamList"> <!-- 담당자 부분 작업 -->
-												<!-- 
-													<c:forEach var="projT" items="${damchamList}">
-											            <c:if test="${projT.projT_contact == 1}">
-											                <span class="badge bg-primary">${projT.emp_name}</span>
-											            </c:if>
-											        </c:forEach>
-												 -->
 												</div>
 													<button onclick="adddam()" type="button" id="confirm-text" class="mx-2"><i class='bx bx-plus'></i> 추가</button>
 													<!-- 모달영역에서 그냥 모달자체를 넣기 -->
@@ -662,13 +679,6 @@
 												<h5>참조자</h5>
 												<div class="name">
 												<div id="addChamList"> <!-- 참조자 부분 작업 -->
-												<!-- 
-											        <c:forEach var="projT" items="${damchamList}">
-											            <c:if test="${projT.projT_contact == 2}">
-											                <span class="badge bg-primary">${projT.emp_name}</span>
-											            </c:if>
-											        </c:forEach>
-												 -->
 												</div>
 													<button onclick="addcham()" type="button" id="confirm-text" class="mx-2"><i class='bx bx-plus'></i> 추가</button>
 													<div id="projModal1" style="display: none">
@@ -886,10 +896,8 @@
   
 <script> // 스크립트 내코드
 //선택된 노드 정보를 담을 배열
-var selectedNodes = ['kimsawon', 'leedohun']; // 담당자 emp_id 값을 배열형태로 담음
-var realNames = ['김사원', '이도훈'];
-var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
-	
+console.log(selectedNodes);
+
 	// 삭제할 파일 담는 배열 및 이벤트시 숨김처리
 	var delUpfile = [];
 	function delFile(file_idx) {
@@ -904,6 +912,7 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 		var startproj = $("#flatpickr-date-before").val(); // 시작날짜
 		var endproj = $("#flatpickr-date-after").val(); // 종료날짜
 		const textContent = snowEditor.getText(); // 내용
+		var proj_idx = $("#projIdx").val();
 		var createId = $("#createId").val(); // 생성자 emp_id
 		
 		// 파일 첨부
@@ -913,6 +922,7 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 	    var formData = new FormData();
 		
 	    formData.append('createId', createId);
+	    formData.append('proj_idx', proj_idx);
 	    formData.append('textsubject', textsubject);
 	    formData.append('startproj', startproj);
 	    formData.append('endproj', endproj);
@@ -934,10 +944,10 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 		console.log(selectedNodes1);
 		console.log(delUpfile);
 		
-		/*
+		
 	    $.ajax({
 	        type: 'POST',
-	        url: '/project/project_add.do',
+	        url: '/project/project_update.do',
 	        data: formData,
 	        processData: false, // 필수: FormData가 문자열로 변환되지 않도록 설정
 	        contentType: false, // 필수: Content-Type 헤더를 설정하지 않도록 설정
@@ -949,7 +959,7 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 	            console.error('오류 발생:', error);
 	        }
 	    });
-		*/
+		
 	}
 	
 	jogicModal();
@@ -964,6 +974,7 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 	          drawOrg(data.orgList, data.deptKind);
 	          drawOrg1(data.orgList, data.deptKind);
 	          viewDam();
+	          viewCham();
 	        },
 	        error : function(e){
 	          console.log(e);
@@ -979,6 +990,14 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
         	addToDamList(realName, selectedNode);
     	}
 	}
+	
+	function viewCham() {
+    	for (var i = 0; i < selectedNodes1.length; i++) {
+        	var selectedNode1 = selectedNodes1[i];
+        	var realName1 = realNames1[i];
+        	addToChamList(realName1, selectedNode1);
+    	}
+	}
     
 	function adddam(){ // 담당자 추가버튼 클릭시
 		// 선택된 노드에 대한 체크 상태를 설정
@@ -990,15 +1009,25 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 		    var selectedNode = selectedNodes[i];
 			console.log('자식 노드들 체크를 할려고 로직이 콘솔에찍히는지?');
 			
-			// 선택된 노드에 대한 체크 상태를 설정
-            var $checkedNode = $('#jstree-checkbox').find('a:contains(' + selectedNode + ')');
-            $checkedNode.attr('aria-selected', 'true');
-            // $checkedNode.find('.jstree-checkbox').addClass('jstree-clicked');
+ 			var $checkedNode = $('#jstree-checkbox').find('a:has(input[value="' + selectedNode + '"])');
+ 			$checkedNode.trigger('click');
 		}
+		
+		
 	}
 	
 	function addcham(){ // 참조자 추가버튼클릭시
+		$('#jstree-checkbox1').jstree('open_all');
 		document.getElementById('projModal1').style.display = 'block';
+		
+		// 자식 노드의 체크 상태 설정
+		for (var i = 0; i < selectedNodes1.length; i++) {
+		    var selectedNode1 = selectedNodes1[i];
+			console.log('자식 노드들 체크를 할려고 로직이 콘솔에찍히는지?');
+			
+ 			var $checkedNode1 = $('#jstree-checkbox1').find('a:has(input[value="' + selectedNode1 + '"])');
+ 			$checkedNode1.trigger('click');
+		}
 	}
 	
 	function drawOrg(orgList, deptKind) { // 담당자 추가시 div영역에 그려주는거
@@ -1035,7 +1064,7 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 			    		for(var k=0; k < orgList.length; k++){
 			    			if(orgList[k].dept == deptKind[i]){
 			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
-			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+" | "+orgList[k].position+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
 			    			}
 			    		}
 			    		return info[index];
@@ -1123,7 +1152,7 @@ var selectedNodes1 = []; // 참조자 emp_id 값을 배열형태로 담음
 			    		for(var k=0; k < orgList.length; k++){
 			    			if(orgList[k].dept == deptKind[i]){
 			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
-			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+" | "+orgList[k].position+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
 			    			}
 			    		}
 			    		return info[index];

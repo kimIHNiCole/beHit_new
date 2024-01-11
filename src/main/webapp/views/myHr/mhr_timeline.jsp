@@ -96,9 +96,9 @@
                         <small class="text-small text-muted text-uppercase align-middle">근무시간 전체 등록</small>
                       </div>
 
-					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;" >
+					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;" >
 					  	<form action="selectmonth" method="post">
-					  		<input type="text" value="" name="workmonth" id="workmonth">
+					  		<input type="text" value="" name="workmonth" id="workmonth" style="display: none;">
 					        <select class="form-select" style="flex: 1; margin-right: 8px;" name="worktime">
 						        <option value="07:00~16:00">07:00~16:00</option>
 						        <option value="08:00~17:00">08:00~17:00</option>
@@ -106,10 +106,10 @@
 						        <option value="10:00~19:00">10:00~19:00</option>
 						        <option value="11:00~20:00">11:00~20:00</option>
 						    </select>
-						    <button class="btn btn-primary" id="workbutton">등록</button>
+						    <button type="submit" class="btn btn-primary" id="workbutton">등록</button>
 						</form>
 					  </div>
-					  <div class="app-calendar-events-filter">
+					  <div class="app-calendar-events-filter" style="display: none;">
                         <div class="form-check form-check-danger mb-2">
                           <input
                             class="form-check-input input-filter"
@@ -225,7 +225,148 @@
     <!-- Header -->
     <script src="../../assets/js/header.js"></script>
     <script>
+
     
+	document.addEventListener('DOMContentLoaded', function() {
+		
+
+			  // 클래스명이 'fc-event-time'인 모든 요소들을 선택
+			  var fcEventTimeElements = document.querySelectorAll('.fc-event-time');
+
+			  // 각 요소의 내용을 공백으로 변경
+			  fcEventTimeElements.forEach(function(element) {
+			    if (element.textContent !== undefined) {
+			      // 대부분의 브라우저에서는 textContent를 지원
+				      element.textContent = '';
+			    } else {
+			      // 일부 브라우저에서는 innerText를 사용해야 할 수 있음
+			      element.innerText = '';
+			    }
+			  });
+		
+        let h2Element = document.getElementById('fc-dom-1');
+		let monthAndYear = h2Element.innerText.trim().split(' ');
+		        
+		function monthToNumber(monthString) {
+			const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			return (months.indexOf(monthString) + 1).toString().padStart(2, '0');
+		}
+		        
+		let month = monthToNumber(monthAndYear[0]);
+		let year = monthAndYear[1];
+		
+		document.getElementById('workmonth').value = year + '-' + month;
+		        
+		
+		var previousMonthButton = document.querySelector('button[title="Previous month"]');
+		var NextMonthButton = document.querySelector('button[title="Next month"]');
+
+		if (previousMonthButton) {
+		  previousMonthButton.addEventListener('click', function() {
+		  	workmonth();
+		  });
+		}
+		  
+		if (NextMonthButton) {
+			NextMonthButton.addEventListener('click', function() {
+				workmonth();
+			});
+		} 
+	});
+    
+	function workmonth(){
+		let h2Element = document.getElementById('fc-dom-1');
+		let monthAndYear = h2Element.innerText.trim().split(' ');
+		console.log('h2 : ', h2Element);
+			        
+		function monthToNumber(monthString) {
+			const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			// 입력된 월 문자열이 배열에서 몇 번째에 위치하는지 찾아서 해당 인덱스를 반환
+			return (months.indexOf(monthString) + 1).toString().padStart(2, '0');;
+		}
+			        
+		let month = monthToNumber(monthAndYear[0]);
+		let year = monthAndYear[1];
+			
+		document.getElementById('workmonth').value = year + '-' + month;
+		
+		var workmonth = $('#workmonth').val();
+		console.log(workmonth);
+		/*
+	    $.ajax({
+	    	type:'post',
+	    	 url:'/timelineList',
+	    	 data:{'workmonth':workmonth},
+	    	 dataType: 'json',
+	    	 success:function(data){
+	    		 console.log(data);
+	    		 console.log(data.list);
+	    		 drawlist(data);
+	    	 },
+	    	 error:function(e){
+	    		 console.log(e);
+	    	 }
+	    }); 	*/
+	}
+
+	/*
+	let events = [];	
+	function drawlist(obj) {
+	    events = obj.list.map(function(item, idx) {
+	        return {
+	            id: idx + 2,
+	            title: item.work_start + '~' + item.work_end,
+	            start: item.work_day,
+	            end: item.work_day,
+	            allDay: false,
+	            extendedProps: {
+	                calendar: 'Personal'
+	            }
+	        };
+	    });
+	} */
+	
+	console.log('${list[0].work_day}'); 
+	
+	var list =[
+		<c:forEach var="list" items="${list}">
+			{
+				"title" : '${list.work_start}'+'~'+'${list.work_end}',
+				"start" : '${list.work_day}',
+				"end" : '${list.work_day}'
+			}<c:if test="${!loop.last}">,</c:if>
+		</c:forEach>
+	];
+	
+	console.log(list);
+	
+	
+	
+	let events = [
+		<c:forEach var="list" items="${list}">
+			{
+				 title: '${list.work_start}'+'~'+'${list.work_end}',
+				 start: '${list.work_day}',
+				 end: '${list.work_day}',
+				 allDay: false,
+				 extendedProps: {
+				   calendar: 'Personal'
+				 }
+			}<c:if test="${!loop.last}">,</c:if>
+		</c:forEach>
+	];
+	/*
+	events.push({
+		id: 2,
+		title: '${list[1].work_start}'+'~'+'${list[1].work_end}',
+		start: '${list[1].work_day}',
+		end: '${list[1].work_day}',
+		allDay: false,
+		extendedProps: {
+			calendar: 'Personal'
+		}	
+	}); */
+	
     </script>
   </body>
 </html>
