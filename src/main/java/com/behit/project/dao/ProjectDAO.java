@@ -63,4 +63,8 @@ public interface ProjectDAO {
 
 	int projRUpdate(String projR_idx, String content);
 
+	int projupdate(String proj_idx, String textsubject, String startproj, String endproj, String textContent);
+
+	int projTAllDel(String proj_idx);
+
 }

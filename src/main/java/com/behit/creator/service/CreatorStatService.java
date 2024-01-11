@@ -74,7 +74,7 @@ public class CreatorStatService {
 	public void saveChannelDataOne(HashMap<String, Object> channelIdAndRep) {
 		logger.info("SCHEDULING :: saveChannelDataOne() 실행");
 			String channelId= (String)channelIdAndRep.get("channel_id");
-			int channel_rep = (int) channelIdAndRep.get("rep_channel");
+			int channel_rep = (int) channelIdAndRep.get("channel_rep");
             useYoutubeApi(channelId);
             
             BigInteger subscriber = channel.getStatistics().getSubscriberCount();

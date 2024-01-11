@@ -97,9 +97,9 @@ public class CreatorController {
 			ArrayList<HashMap<String, Object>> result = creatorService.creatorAdd(creatorRequestDTO, session);
 			for(HashMap<String, Object> param : result) {
 				
-				logger.info("등록 요청 결과 : "+ param.get("channel_id"));
-				logger.info("등록 요청 결과 : "+ param.get("cre_idx"));
-				logger.info("등록 요청 결과 : "+ param.get("channel_rep"));
+				logger.info("등록 요청 결과 channel_id: "+ param.get("channel_id"));
+				logger.info("등록 요청 결과 cre_idx "+ param.get("cre_idx"));
+				logger.info("등록 요청 결과 channel_rep: "+ param.get("channel_rep"));
 				creidx = (int) param.get("cre_idx");
 				
 				creatorStatController.saveChannelDataOne(param);

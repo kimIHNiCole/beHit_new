@@ -688,14 +688,21 @@
   		var channelList =  [
   			 <c:forEach var="channel" items="${channelInfoList}">
              {
-                 "id": "${channel.id}",
-                 "name": "${channel.name}"
+                 "rep_video": "${channel.rep_video}",
+                 "channel_cate": "${channel.channel_cate}",
+                 "channel_date":"${channel.channel_date}",
+                 "channel_name":"${channel.channel_name}",
+                 "channel_url":"${channel.channel_url}",
              }<c:if test="${!loop.last}">,</c:if>
          </c:forEach>
   			
   		];
-  		console.log('channelListSize==',channelList);
+  		console.log('channelList====',channelList);
   		
+  		for(let i=0; i<channelList.length; i++){
+  			console.log('i=', i);
+  			channelList[0]
+  		}
   		
   		 
 		// DAUM 주소 검색 창
