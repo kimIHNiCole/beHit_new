@@ -31,5 +31,7 @@ public class CreatorDTO {
 	private Timestamp creator_date;		// 데이터 생성일
 	private Timestamp creator_date_up;	// 데이터 최종 수정일
 	
+	private String new_file_name;
+	private String ori_file_name;
 	
 }

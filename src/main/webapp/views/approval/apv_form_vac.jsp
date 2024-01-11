@@ -3,7 +3,7 @@
 		<table class="table-header">
 			<tbody>
 				<tr>
-					<td class="table-subject" colspan="2">연차신청서</td>
+					<td class="table-subject" colspan="2">연차 신청서</td>
 				</tr>
 				<tr>
 					<td class="table-header-left">
@@ -49,10 +49,22 @@
 										<td class="table-header-left-table-left">기안일</td>
 										<td class="table-header-left-table-right date">${apv.apv_date}</td>
 									</tr>
-									<tr>
-										<td class="table-header-left-table-left">문서번호</td>
-										<td class="table-header-left-table-right number"></td>
-									</tr>
+									
+									<c:choose>
+									  <c:when test="${apv.apv_num == null}">
+									  	<tr>
+												<td class="table-header-left-table-left">문서번호</td>
+												<td class="table-header-left-table-right number"></td>
+											</tr>
+									  </c:when>
+									  <c:when test="${apv.apv_num != null}">
+									  	<tr>
+												<td class="table-header-left-table-left">문서번호</td>
+												<td class="table-header-left-table-right number">${apv.apv_num}</td>
+											</tr>
+									  </c:when>
+									</c:choose>
+									
 								</tbody>
 							</table>
 					  
@@ -125,14 +137,23 @@
 									        <td class="apv-sign-table-right">
 														<table>
 															<tbody>
-																<tr><td><span class="apv-sign-line-dept">${apvDTO.dept_name}</span></td></tr>
+																<tr><td><span class="apv-sign-line-dept">${apvDTO.position_name}</span></td></tr>
 																<tr><td><span class="apv-sign-line-name">${apvDTO.emp_name}</span></td></tr>
 																<c:choose>
-															    <c:when test="${apvDTO.apv_date == null}">
+															    <c:when test="${apvDTO.apv_history_date == null}">
 																		<tr class="last"><td><span class="apv-sign-line-date">&nbsp;</span></td></tr>
 															    </c:when>
-															    <c:when test="${apvDTO.apv_date != null}">
-																		<tr class="last"><td><span class="apv-sign-line-date">&nbsp;</span></td></tr>
+															    <c:when test="${apvDTO.apv_history_date != null}">
+															    
+																    <c:choose>
+																	    <c:when test="${apvDTO.apv_history_stmt == '반려'}">
+																				<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">반려</span></td></tr>
+																	    </c:when>
+																	    <c:when test="${apvDTO.apv_history_stmt == '결재'}">
+																	    	<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">${apvDTO.apv_history_date}</span></td></tr>
+																	    </c:when>
+																    </c:choose>
+																		
 															    </c:when>
 																</c:choose>
 															</tbody>

@@ -66,13 +66,22 @@ public class ApprovalController {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
 
-		return service.getApproval_detail(apv_idx);
+		return service.getApproval_detail(apv_idx,emp_id);
 	}
 	
 	@PostMapping(value="/approval/getApproval_detail.do")
 	public String getApproval_detail_do(ApprovalDTO dto) {
 		
 		return service.getApproval_detail_do(dto);
+	}
+	
+	@GetMapping(value="/approval/compApproval_list.do")
+	@ResponseBody
+	public List<ApprovalDTO> compApproval_list(HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+		
+		return service.compApproval_list(emp_id);
 	}
 	
 	@GetMapping(value="/approval/requestApproval_list.do")
@@ -84,14 +93,24 @@ public class ApprovalController {
 		return service.requestApproval_list(emp_id);
 	}
 	
-	@GetMapping(value="/approval/compApproval_list.do")
+	@GetMapping(value="/approval/finishApproval_list.do")
 	@ResponseBody
-	public List<ApprovalDTO> compApproval_list(HttpSession session) {
+	public List<ApprovalDTO> finishApproval_list(HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
 
-		return service.compApproval_list(emp_id);
+		return service.finishApproval_list(emp_id);
 	}
+	
+	@GetMapping(value="/approval/rejectedApproval_list.do")
+	@ResponseBody
+	public List<ApprovalDTO> rejectedApproval_list(HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+
+		return service.rejectedApproval_list(emp_id);
+	}
+	
 	
 
 

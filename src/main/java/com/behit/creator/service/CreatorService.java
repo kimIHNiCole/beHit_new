@@ -41,6 +41,7 @@ public class CreatorService {
 	@Autowired CreatorDAO creatorDAO;
 	@Autowired CreatorStatService creatorStatService;
 	
+	// 크리에이터 등록시 항목의 데이터 가져오기
 	public ArrayList<CommCreDTO> getGenders() {
 		logger.info("getGenders() 실행");
 		return creatorDAO.getGenders();
@@ -56,8 +57,10 @@ public class CreatorService {
 		return creatorDAO.getChCategory();
 	}
 
+	
+	// 크리에이터 등록
 	@Transactional
-	public String creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) {
+	public HashMap<String,Object> creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) {
 		logger.info("creatorAdd() 실행");
 		
 		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
@@ -145,14 +148,20 @@ public class CreatorService {
 		}
 		logger.info("creHisInsert result :: "+creHisRow);
 		// 확인
+		
 		if(creatorRow > 0 && channelRow > 0 && snsRow > 0 && creHisRow > 0) {
 			logger.info("creatorRow="+creatorRow);
 			logger.info("channelRow="+channelRow);
 			logger.info("snsRow="+snsRow);
 			logger.info("creHisRow="+creHisRow);
-			return repChannelId;
+		}else {
+			logger.info("크리에이터 등록 에러");
 		}
-		return "";
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("cre_idx", cre_idx);
+		result.put("repChannelId", repChannelId);
+		return result;
 	}
 	
 	
@@ -199,7 +208,9 @@ public class CreatorService {
 	}
 	
 	
-	// 크리에이터 전체 리스트
+	// 크리에이터 리스트
+	
+	// 전체 크리에이터 합계 정보
 	public HashMap<String, Object> getTotalInfo() {
 		logger.info("전체 정보 가져오기 실행");
 		HashMap<String, Object> totalInfo = creatorDAO.getTotalInfo(); 
@@ -210,6 +221,8 @@ public class CreatorService {
 		return totalInfo;
 	}
 
+	
+	// 크리에이터 전체 리스트
 	public ArrayList<HashMap<String, Object>> getAllList() {
 		logger.info("전체 크리에이터 리스트 가져오기 실행");
 		ArrayList<HashMap<String, Object>> allList = new ArrayList<HashMap<String,Object>>();
@@ -223,6 +236,7 @@ public class CreatorService {
 		return allList;
 	}
 
+	// 매니저별 크리에이터 리스트
 	public ArrayList<HashMap<String, Object>> getMyList(String loginId) {
 		logger.info("나의 크리에이터 리스트 가져오기 실행");
 		ArrayList<HashMap<String, Object>> myList = creatorDAO.getMyList(loginId);
@@ -236,12 +250,15 @@ public class CreatorService {
 		return myList;
 	}
 
+	// 크리에이터 상세
+	
+	// 크리에이터 기본 정보
 	public CreatorDTO getCreator(int cre_idx) {
 		logger.info("creator 가져오기 실행");
-		
 		return creatorDAO.getCreator(cre_idx);
 	}
 
+	// 크리에이터 채널 정보
 	public ArrayList<HashMap<String, Object>> getChannel(int cre_idx) {
 		logger.info("channel 기본정보 가져오기 실행");
 		ArrayList<HashMap<String, Object>> channelInfoList = creatorDAO.getChannel(cre_idx);
@@ -268,24 +285,31 @@ public class CreatorService {
 		}
 		return channelInfoList;
 	}
-
+	
+	// 크리에이터 활동이력
 	public ArrayList<HashMap<String, Object>> getCreHistory(int cre_idx) {
 		logger.info("활동이력 가져오기 실행");
 		ArrayList<HashMap<String, Object>> creatorHistory = creatorDAO.getCreHistory(cre_idx);
 		return creatorHistory;
 	}
-
+	
+	// 크리에이터 SNS 정보
 	public ArrayList<SnsDTO> getSns(int cre_idx) {
 		logger.info("SNS 정보 가져오기 실행");
 		ArrayList<SnsDTO> snsList = creatorDAO.getSns(cre_idx);
 		return snsList;
 	}
-
+	
+	// 대표 채널정보 탭
+	
+	// 그래프 데이터 가져오기
 	public ArrayList<ChannelDataDTO> getChartData(String repChannelId) {
 		logger.info("차트 데이터 가져오기 실행");
 		ArrayList<ChannelDataDTO> channelDataList = creatorDAO.getChartData(repChannelId);
 		return channelDataList;
 	}
+	
+	
 
 	
 	

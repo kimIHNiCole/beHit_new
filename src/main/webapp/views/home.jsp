@@ -175,20 +175,26 @@
                     </div>
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                        <img
-                          src="../../assets/img/avatars/1.png"
-                          alt="user image"
-                          class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                        <c:choose>
+						    <c:when test="${not empty photo and not empty photo.new_file_name}">
+						        <img src="/file/employee/${photo.new_file_name}" alt="${photo.ori_file_name}" 
+						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						    </c:when>
+						    <c:otherwise>
+						        <img src="../../assets/img/avatars/1.png" alt="user image" 
+						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						    </c:otherwise>
+						</c:choose>
                       </div>
                       <div class="flex-grow-1 mt-3 mt-sm-5">
                         <div
                           class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                           <div class="user-profile-info">
-                            <h4>한가인  <span class='homePosition'>/ 대리</span></h4>
+                            <h4>${dashProfile.emp_name}  <span class='homePosition'>/ ${dashProfile.grade_name}</span></h4>
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-                              <li class="list-inline-item fw-medium"><i class="bx bx-map"></i></i> 매니지먼트팀</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bx-ghost'></i></i> 팀원</li>
+                              <li class="list-inline-item fw-medium"><i class="bx bx-map"></i></i> ${dashProfile.dept_name}</li>
+                              <li class="list-inline-item fw-medium"><i class='bx bx-ghost'></i></i> ${dashProfile.position_name}</li>
                               <li class="list-inline-item fw-medium"><i class='bx bxs-time' ></i> 사용 연차 : 66시간</li>
                               <li class="list-inline-item fw-medium"><i class='bx bx-time-five' ></i> 잔여 연차 : 12시간</li>
                             </ul>
@@ -227,20 +233,20 @@
                       <ul class="list-unstyled mb-4 mt-3">
                         <li class="d-flex align-items-center mb-3">
                           <i class='bx bx-timer' ></i><span class="fw-medium mx-2">출근 시간:</span>
-                          <span>09:34</span>
+                          <span id="work_started">-- : --</span>
                         </li>
                         <li class="d-flex align-items-center mb-3">
-                         <i class='bx bxs-timer' ></i><span class="fw-medium mx-2">퇴근 시간:</span> <span>18:30</span>
+                         <i class='bx bxs-timer' ></i><span class="fw-medium mx-2">퇴근 시간:</span> <span id="work_ended">-- : --</span>
                         </li>
                         
                       </ul>
 
                       <div class="row">
 				        <div class="col-md-6">
-				            <button type="button" class="btn btn-success" id="type-success">출근하기</button>
+				            <button type="button" class="btn btn-success" id="workStart">출근하기</button>
 				        </div>
 				        <div class="col-md-6 text-end">
-				            <button type="button" class="btn btn-warning" id="confirm-text">퇴근하기</button>
+				            <button type="button" class="btn btn-warning" id="workEnd">퇴근하기</button>
 				        </div>
 				    </div>
                     </div>
@@ -392,23 +398,27 @@
 				    </div>
                     <div class="table-responsive mb-3">
                       <table class="table datatable-project">
-                        <thead class="table-light">
-                          <tr>
-                            <th>문서 제목</th>
-                            <th>상신일</th>
-                            <th class="text-nowrap">마지막 결재일</th>
-                            <th>현 결재자</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        	<tr>
-                        		<td>카메라 대량 구입의 건</td>
-                        		<td>2023.12.21</td>
-                        		<td>2023.12.23</td>
-                        		<td>이지훈</td>
-                        	</tr>
-                        </tbody>
-                      </table>
+					    <thead class="table-light">
+					        <tr>
+					            <th>문서 제목</th>
+					            <th>상신일</th>
+					            <th class="text-nowrap">마지막 결재일</th>
+					            <th>현 결재자</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <c:forEach var="approval" items="${reqAp_list}" varStatus="loop">
+					            <c:if test="${loop.index lt 5}">
+					                <tr>
+					                    <td>${approval.apv_subject}</td>
+					                    <td>${approval.apv_date}</td>
+					                    <td>${approval.apv_history_date}</td>
+					                    <td>${approval.emp_name}</td>
+					                </tr>
+					            </c:if>
+					        </c:forEach>
+					    </tbody>
+					</table>
                     </div>
                   </div>
                   <!--/ Projects table -->
@@ -543,57 +553,64 @@
   </body>
 
 <script>
-
- 'use strict';
+// 출퇴근 버튼 스크립트, 출퇴근 시간 찍히는 것까지 함
+'use strict';
 
 (function () {
-  const 
-    iconSuccess = document.querySelector('#type-success'),
-    iconWarning = document.querySelector('#type-warning'),
-    confirmText = document.querySelector('#confirm-text');
+  const workStart = document.querySelector('#workStart'),
+    workEnd = document.querySelector('#workEnd');
 
 
-  // Alert Types
-  // --------------------------------------------------------------------
+  function getCurrentTime() {
+    const now = new Date();
+    console.log(now);
+    const hours = now.getHours().toString().padStart(2, '0');
+/*     console.log(hours); */
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+/*     console.log(minutes); */
+    return hours + ':' + minutes;
+  }
 
-  // Success Alert
-  if (iconSuccess) {
-    iconSuccess.onclick = function () {
+  function updateWorkTime(type) {
+
+    const currentTime = getCurrentTime();
+    console.log(currentTime);
+    // 출근 시간을 표시하는 위치에 추가
+    if (type === 'start') {
+      const workStartedElement = document.querySelector('#work_started');
+      workStartedElement.textContent = currentTime;
+    }
+
+    // 퇴근 시간을 표시하는 위치에 추가
+    if (type === 'end') {
+      const workEndedElement = document.querySelector('#work_ended');
+      workEndedElement.textContent = currentTime;
+    }
+  }
+
+  // 출근 버튼
+  if (workStart) {
+    workStart.onclick = function () {
       Swal.fire({
-/*         title: 'Good job!', */
-        text: '저장이 완료되었습니다!',
+        text: '출근 처리되었습니다!',
         icon: 'success',
         customClass: {
           confirmButton: 'btn btn-primary'
         },
         buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+          updateWorkTime('start');
+        }
       });
     };
   }
 
-
-  // Warning Alert
-  if (iconWarning) {
-    iconWarning.onclick = function () {
+  // 퇴근 버튼
+  if (workEnd) {
+    workEnd.onclick = function () {
       Swal.fire({
-        title: 'Warning!',
-        text: ' You clicked the button!',
-        icon: 'warning',
-        customClass: {
-          confirmButton: 'btn btn-primary'
-        },
-        buttonsStyling: false
-      });
-    };
-  }
-
-
-  // Alert With Functional Confirm Button
-  if (confirmText) {
-    confirmText.onclick = function () {
-      Swal.fire({
-/*         title: 'Are you sure?', */
-        text: "정말 삭제하시겠습니까?",
+        text: "정말 퇴근하시겠습니까?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'OK',
@@ -604,24 +621,16 @@
         buttonsStyling: false
       }).then(function (result) {
         if (result.value) {
-          Swal.fire({
-            icon: 'success',
-/*             title: 'Deleted!', */
-            text: '삭제되었습니다.',
-            customClass: {
-              confirmButton: 'btn btn-success'
-            }
-          });
+          updateWorkTime('end');
         }
       });
     };
   }
 })();
-
-
 </script>
   
 <script>
+// 근태관리 현재 시간 표시 스크립트
      document.addEventListener("DOMContentLoaded", function () {
          // 초 단위로 실시간으로 업데이트
          setInterval(updateCurrentDateTime, 1000);
