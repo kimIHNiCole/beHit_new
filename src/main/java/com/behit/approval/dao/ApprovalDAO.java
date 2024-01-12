@@ -49,6 +49,8 @@ public interface ApprovalDAO {
 
 	void apv_cancel(String apv_stmt, int apv_idx);
 
+	ApprovalDTO getApproval_detail(int apv_idx);
+
 
 
 	

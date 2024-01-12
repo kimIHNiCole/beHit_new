@@ -359,7 +359,7 @@
 
   	// 리스트 출력-----------------------------------------------------------------------------
     
-    $(function () {
+    $(document).ready(function () {
         var getApprovalListTable = $('.getApproval_list');
         var lang = 'English';
 
@@ -419,9 +419,8 @@
                 language: {
                     url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
                 },
-                displayLength: 10,
+                displayLength: 5,
                 dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-                lengthMenu: [10],
                 searching: false,
                 responsive: true,
                 initComplete: function () {
@@ -430,9 +429,17 @@
                         var apvIdx = $(this).data('apv-idx');
                         console.log(apvIdx);
                         // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
-                        window.location.href = '/approval/getApproval_detail.go/'+ apvIdx;
+                        window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
                     });
                 }
+            }).on('draw.dt', function () {
+                // 페이지가 다시 그려질 때마다 이벤트 핸들러 다시 등록
+                getApprovalListTable.find('.apv-subject-link').off('click').on('click', function (e) {
+                    var apvIdx = $(this).data('apv-idx');
+                    console.log(apvIdx);
+                    // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
+                    window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
+                });
             });
         }
     });
@@ -441,7 +448,7 @@
      
     
  // 새 결재 작성 모달창 ---------------------------------------------------------------------------
-    $(function () {
+    $(document).ready(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
     	    checkboxTree = $('#jstree-checkbox');
     	  // Checkbox

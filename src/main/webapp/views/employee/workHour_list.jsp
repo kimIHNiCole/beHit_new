@@ -120,7 +120,7 @@
 			    </div>
 			
 			    <!-- Search Box -->
-			    <div class="col-md-4 offset-md-4">
+			    <div class="col-md-4 offset-md-4" style="visibility: hidden;"	>
 			        <div class="input-group">
 			            <div class="input-group-prepend">
 			                <select class="form-select">

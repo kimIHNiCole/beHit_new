@@ -84,24 +84,36 @@ public class ProjectController {
         } catch (Exception e) {
             logger.error("JSON error: "+e);
         }
-        
+        String alarmMsg = "프로젝트가 새로 생성되었습니다.";
         int file_kind = 4;
         if(createId != "") {
         	int insert = 0;
         	insert = service.projwrite(createId,textsubject,startproj,endproj,textContent);
         	logger.info("insert된 proj_idx 번호값: "+insert);
-        	if(insert != 0) {        		
+        	if(insert != 0) {
         		int lastIdx = service.projIdx();
         		if(selectedNodesList != null) {
         			for (String nodeD : selectedNodesList) {
         				logger.info("담당자: {}", nodeD);
         				service.projteamD(lastIdx,nodeD);
+        				String emp_id = nodeD;
+    					if (createId.equals(nodeD)) {
+    						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+    				    }else {
+    				    	service.projAlarm(emp_id,lastIdx,alarmMsg);
+    				    }
         			}
         		}
         		if(selectedNodesList1 != null) {
         			for (String nodeC : selectedNodesList1) {
         				logger.info("참조자: {}", nodeC);
         				service.projteamC(lastIdx,nodeC);
+        				String emp_id = nodeC;
+    					if (createId.equals(nodeC)) {
+    						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+    				    }else {
+    				    	service.projAlarm(emp_id,lastIdx,alarmMsg);
+    				    }
         			}
         		}
         		if (files != null) {
@@ -110,6 +122,7 @@ public class ProjectController {
         				service.upload(lastIdx, file, createId, file_kind);
         			}
         		}
+        		
         	}
         }
 		
@@ -237,7 +250,9 @@ public class ProjectController {
 		
 		int row = 0;
 		int file_kind = 7;
+		int proj_Idx = Integer.parseInt(projIdx);
 		row = service.projRwrite(projIdx,projRW_id,content);
+		String whoName = service.whoEmpName(projRW_id);
 		
 		if(row != 0) {
 			int lastRIdx = service.projRIdx();
@@ -248,6 +263,13 @@ public class ProjectController {
 				}
 			}
 			service.projUp(projIdx);
+			String alarmMsg = whoName+"님이 프로젝트 활동기록을 추가했습니다.";
+			List<ProjectTeamDTO> notMeTeam = service.projUpAlarm(projIdx, projRW_id);
+			for (ProjectTeamDTO teamDTO : notMeTeam) {
+			    String empId = teamDTO.getEmp_id();
+			    service.projAlarm(empId,proj_Idx,alarmMsg);
+			}
+			
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("success", row);
@@ -428,23 +450,37 @@ public class ProjectController {
         int insert = 0;
         int projIdx = Integer.parseInt(proj_idx);
         int file_kind = 4;
+        String alarmMsg = "프로젝트가 수정되었습니다.";
+        
         if(createId != "") {
         	insert = service.projupdate(proj_idx,textsubject,startproj,endproj,textContent);
         	logger.info("수정된된 proj_idx 성공여부 숫자: "+insert);
         	if(insert != 0) {
         		int delDC = 0;
         		delDC = service.projTAllDel(proj_idx);
-        		if(delDC != 0) {        			
+        		if(delDC != 0) {
         			if(selectedNodesList != null) {
         				for (String nodeD : selectedNodesList) {
         					logger.info("담당자: {}", nodeD);
+        					String emp_id = nodeD;
         					service.projteamD(projIdx,nodeD);
+        					if (createId.equals(nodeD)) {
+        						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+        				    }else {        				    	
+        				    	service.projAlarm(emp_id,projIdx,alarmMsg);
+        				    }
         				}
         			}
         			if(selectedNodesList1 != null) {
         				for (String nodeC : selectedNodesList1) {
         					logger.info("참조자: {}", nodeC);
+        					String emp_id = nodeC;
         					service.projteamC(projIdx,nodeC);
+        					if (createId.equals(nodeC)) {
+        						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+        				    }else {
+        				    	service.projAlarm(emp_id,projIdx,alarmMsg);
+        				    }
         				}
         			}
         		}
