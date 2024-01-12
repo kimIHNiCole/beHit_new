@@ -1,10 +1,9 @@
 package com.behit.approval.service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -21,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.behit.approval.dao.ApprovalDAO;
 import com.behit.approval.dto.ApprovalDTO;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.util.dao.UtilDAO;
+import com.behit.util.service.UtilService;
 
 @Service
 public class ApprovalService {
@@ -29,11 +30,10 @@ public class ApprovalService {
 	
 	@Autowired
 	ApprovalDAO dao;
-
 	
 	public ModelAndView approval_write_go(String form,String emp_id, String login_name) {
 		
-		ModelAndView mav = new ModelAndView("approval/approval_write");
+		ModelAndView mav = new ModelAndView("/approval/approval_write");
 		ApprovalDTO dto = dao.approval_write_go(emp_id);
 
 		mav.addObject("form",form);
@@ -94,8 +94,26 @@ public class ApprovalService {
 			dao.approval_write_biz(dto);
 		}
 		
+		// 제너레이트 키로 apv_idx 값 받기
 		int apv_idx = dto.getApv_idx();
 		apv_line(apv_idx,total_name,emp_id);
+		
+		HashMap<String, Object> file = new HashMap<String, Object>();
+		
+		file.put("file_kind", 3);
+		file.put("login_id", emp_id);
+		file.put("apv_idx", String.valueOf(apv_idx));
+		
+		UtilService service = new UtilService();
+		
+		for (MultipartFile multipartFile : files) {
+			try {
+				service.upload(multipartFile,file);
+				Thread.sleep(1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
 		return "approval/approval_main";
@@ -142,6 +160,8 @@ public class ApprovalService {
 
 	// apv_line 테이블에 데이터 insert 메서드
 	private void apv_line(int apv_idx, String total_name, String emp_id_in) {
+		
+		dao.apv_line_del(apv_idx);
 		
 		String pattern = "\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\"(?:,\"(.*?)\")?\\]";
 		
@@ -220,7 +240,7 @@ public class ApprovalService {
 	public ModelAndView getApproval_detail(String apv_idx, String emp_id) {
 		
 		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
-		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
+		ApprovalDTO apv = dao.getApproval_detail(Integer.parseInt(apv_idx)); // apv 에 대한 정보 
 		
 		
 		
@@ -295,8 +315,49 @@ public class ApprovalService {
 				logger.info("apv_code 값 :" +apv_code);
 				logger.info("apv_num 값 :" +apv_code);
 				
+				
 				dao.apv_update(apv_idx,apv_stmt);
 				dao.apv_update_num(apv_idx,apv_num);
+				
+				ApprovalDTO apv_dto =dao.getApproval_detail(apv_idx);
+				
+				
+				if(apv_dto.getApv_vac_type().equals("종일")) {
+					
+					String apv_start_day = apv_dto.getApv_start_day();
+					String apv_end_day = apv_dto.getApv_end_day();
+					
+					try {
+			            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			            java.util.Date startDate = dateFormat.parse(apv_start_day);
+			            java.util.Date endDate = dateFormat.parse(apv_end_day);
+
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(startDate);
+
+			            while (!calendar.getTime().after(endDate)) {
+			                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+			                // 주말(토요일 또는 일요일)이 아닌 경우에만 출력
+			                if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
+			                    String formattedDate = dateFormat.format(calendar.getTime());
+			                    System.out.println("String date = " + formattedDate);
+			                    // 여기서 formattedDate를 사용하여 원하는 작업을 수행할 수 있습니다.
+			                }
+
+			                // 다음 날짜로 이동
+			                calendar.add(Calendar.DAY_OF_MONTH, 1);
+			            }
+			        } catch (ParseException e) {
+			            e.printStackTrace();
+			        }
+					
+				}else if(apv_dto.getApv_vac_type().equals("시간")) {
+					
+				}
+				
+				//dao.vacation_histroy(dto);
+				
 			}
 			
 		}else if(dto.getApv_history_stmt().equals("반려")){
@@ -423,13 +484,15 @@ public class ApprovalService {
 		
 	}
 
-	public ModelAndView apv_cancel(ApprovalDTO dto) {
+	public HashMap<String, Object> apv_cancel(ApprovalDTO dto) {
 		
-		ModelAndView mav = new ModelAndView("approval/approval_main");
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		dao.apv_cancel(dto.getApv_stmt(),dto.getApv_idx());
 		
-		return mav;
+		map.put("msg","상신취소가 완료되었습니다.");
+		
+		return map;
 	}
 
 
