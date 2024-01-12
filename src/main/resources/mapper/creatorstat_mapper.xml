@@ -6,7 +6,7 @@
 <mapper namespace="com.behit.creator.dao.CreatorStatDAO">
 	
 	<select id="getChannelId" resultType="HashMap">
-		SELECT channel_id , rep_channel FROM channel
+		SELECT channel_id , rep_channel FROM channel LIMIT 5
 	</select>
 	
 	<insert id="saveChannelData" parameterType="channeldata">
