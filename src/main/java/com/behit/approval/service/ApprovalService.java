@@ -132,65 +132,13 @@ public class ApprovalService {
 		dao.approval_update(dto);
 		
 		if(!total_name.equals("")) {
-			apv_line_update(apv_idx,total_name,emp_id);
+			apv_line(apv_idx,total_name,emp_id);
 		}
 		
 		
 		return "approval/approval_main";
 	}
 	
-	private void apv_line_update(int apv_idx, String total_name, String emp_id_in) {
-		
-		dao.apv_line_del(apv_idx);
-		
-		String pattern = "\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\"(?:,\"(.*?)\")?\\]";
-		
-		// 정규 표현식에 따라 패턴 찾기
-        Pattern regex = Pattern.compile(pattern);
-        Matcher matcher = regex.matcher(total_name);
-
-        // 결과를 담을 리스트
-        List<List<String>> resultList = new ArrayList<>();
-
-        while (matcher.find()) {
-            List<String> item = new ArrayList<>();
-            
-            // 그룹의 개수만큼 반복하여 리스트에 추가
-            for (int i = 1; i <= matcher.groupCount(); i++) {
-                item.add(matcher.group(i));
-            }
-
-            // 리스트를 문자열로 변환하여 결과 리스트에 추가
-            resultList.add(item);
-        }
-        
-        // apv 의 apv_approver 에 첫번째 결재자 추가
-        List<String> item = resultList.get(0);
-        dao.apv_approver(apv_idx,item.get(3));
-        
-		for (int i = 0; i < resultList.size(); i++) {
-		        	
-		        	ApprovalDTO dto = new ApprovalDTO();
-		        	
-		            List<String> items = resultList.get(i);
-		            // 리스트에 적어도 4개의 요소가 있는지 확인
-		            if (items.size() >= 4) {
-		            	
-		            	dto.setApv_idx(apv_idx);
-		            	dto.setEmp_id(items.get(3));
-		            	dto.setApv_line(i+1);
-		            	dto.setEmp_id_in(emp_id_in);
-		            	
-		                dao.apv_line(dto);
-		                
-		            } else {
-		                System.out.println("리스트에 충분한 요소가 없습니다.");
-		            }
-		        }
-        
-	}
-
-
 
 	// apv_line 테이블에 데이터 insert 메서드
 	private void apv_line(int apv_idx, String total_name, String emp_id_in) {
@@ -407,6 +355,83 @@ public class ApprovalService {
 	public List<ApprovalDTO> temporaryApproval_list(String emp_id) {
 		return dao.temporaryApproval_list(emp_id);
 	}
+	
+	public List<ApprovalDTO> viewApproval_list(String emp_id) {
+		return dao.viewApproval_list(emp_id);
+	}
+
+
+
+	public HashMap<String, Object> CompApproval_ViewerPlus(EmployeeDTO loginInfo, ApprovalDTO dto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int apv_idx = dto.getApv_idx();
+		String total_name = dto.getTotal_name();
+		String emp_id_in = loginInfo.getEmp_id();
+		
+		apv_perm(apv_idx,total_name,emp_id_in);
+		
+		
+		return map;
+	}
+	
+	private void apv_perm(int apv_idx, String total_name, String emp_id_in) {
+		
+		String pattern = "\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\"(?:,\"(.*?)\")?\\]";
+		
+		// 정규 표현식에 따라 패턴 찾기
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(total_name);
+
+        // 결과를 담을 리스트
+        List<List<String>> resultList = new ArrayList<>();
+
+        while (matcher.find()) {
+            List<String> item = new ArrayList<>();
+            
+            // 그룹의 개수만큼 반복하여 리스트에 추가
+            for (int i = 1; i <= matcher.groupCount(); i++) {
+                item.add(matcher.group(i));
+            }
+
+            // 리스트를 문자열로 변환하여 결과 리스트에 추가
+            resultList.add(item);
+        }
+        
+        // apv 의 apv_approver 에 첫번째 결재자 추가
+        List<String> item = resultList.get(0);
+
+        // 결과 출력 apv_line 테이블에 모든 결재자 데이터 insert 메서드
+        for (int i = 0; i < resultList.size(); i++) {
+        	
+        	ApprovalDTO dto = new ApprovalDTO();
+        	
+            List<String> items = resultList.get(i);
+            // 리스트에 적어도 4개의 요소가 있는지 확인
+            if (items.size() >= 4) {
+            	
+            	dto.setApv_idx(apv_idx);
+            	dto.setEmp_id(items.get(3));
+            	dto.setEmp_id_in(emp_id_in);
+            	
+                dao.apv_perm(dto);
+                
+            } else {
+                System.out.println("리스트에 충분한 요소가 없습니다.");
+            }
+        }
+		
+	}
+
+	public ModelAndView apv_cancel(ApprovalDTO dto) {
+		
+		ModelAndView mav = new ModelAndView("approval/approval_main");
+		
+		dao.apv_cancel(dto.getApv_stmt(),dto.getApv_idx());
+		
+		return mav;
+	}
+
 
 
 

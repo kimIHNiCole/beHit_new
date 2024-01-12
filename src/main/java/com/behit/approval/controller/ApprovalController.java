@@ -141,11 +141,44 @@ public class ApprovalController {
 		return service.temporaryApproval_list(emp_id);
 	}
 	
+	@GetMapping(value="/approval/viewApproval_list.do")
+	@ResponseBody
+	public List<ApprovalDTO> viewApproval_list(HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+
+		return service.viewApproval_list(emp_id);
+	}
+	
+	
+	@PostMapping(value="/approval/CompApproval_ViewerPlus")
+	@ResponseBody
+	public HashMap<String, Object> CompApproval_ViewerPlus(ApprovalDTO dto,HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		
+		logger.info("total_name 값 : "+ dto.getTotal_name());
+		logger.info("apv_idx 값 : "+ dto.getApv_idx());
+		
+		return service.CompApproval_ViewerPlus(loginInfo,dto);
+		
+	}
+	
+	@PostMapping(value="/approval/apv_cancel")
+	@ResponseBody
+	public ModelAndView apv_cancel(ApprovalDTO dto,HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		
+		logger.info("apv_stmt 값 : "+ dto.getApv_stmt());
+		logger.info("apv_idx 값 : "+ dto.getApv_idx());
+		
+		return service.apv_cancel(dto);
+
+	}
+	
 	@GetMapping(value="/approval/{page}.go")
 	public String pageMove(@PathVariable String page) {
 		return "/approval/"+page;
 	}
-	
 	
 
 
