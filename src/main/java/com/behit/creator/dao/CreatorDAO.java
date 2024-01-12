@@ -2,6 +2,7 @@ package com.behit.creator.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -40,6 +41,13 @@ public interface CreatorDAO {
 	
 	// 크리에이터 상세정보 - 대표 채널 데이터
 	ArrayList<ChannelDataDTO> getChartData(String repChannelId);
+	
+	// 열람자 추가
+	void addCreator_perm(String empId, int cre_idx, String loginId);
+	// 열람자 리스트
+	List<CreatorDTO> creatorPermList(int cre_idx);
+	// 열람자 삭제
+	int delPerm(int cre_idx, String emp_id);
 	
 
 }

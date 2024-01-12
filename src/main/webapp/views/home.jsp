@@ -282,14 +282,14 @@
                   </div>
                   <!--/ About User -->
                   <!-- Profile Overview -->
-                  <div class="card mb-4">
+                  <!-- <div class="card mb-4">
                     <div class="card-body">
                       <small class="text-muted text-uppercase">주간 날씨</small>
                       <hr/>
                       <div>날씨 api 위치
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <!--/ Profile Overview -->
                 </div>
                 <!-- 급상승 유튜버 영역 -->
@@ -297,7 +297,7 @@
 	                  <!-- Activity Timeline -->
 	                  <div class="card card-action mb-4">
 	                    <div class="card-header align-items-center">
-	                      <h5 class="card-action-title mb-0"><i class='bx bxl-youtube' ></i>급상승 유튜버</h5>
+	                      <h5 class="card-action-title mb-0"><i class='bx bxl-youtube' ></i>인기 영상 순위</h5>
 	                    </div>
 	                    <!-- Basic Bootstrap Table -->
 	              <div class="card">
@@ -314,101 +314,29 @@
 	                      </tr>
 	                    </thead>
 	                    <tbody class="table-border-bottom-0">
+	                    <c:forEach var="rankItem" items="${rankList}" >
 	                      <tr>
 	                        <td>1</td>
 	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
+	                          <div class="avatar avatar-lg me-2">
+                        	  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
+	                          </div>
 	                        </td>
 	                        <td>
-	                          <span class="fw-medium">가인은 가인가인</span>
+	                          <span class="fw-medium">${rankItem.videoTitle}</span>
 	                          <div><span class="badge bg-label-primary me-1">#일상</span></div>
 	                        </td>
-	                        <td><span>41222</span></td>
 	                        <td>
-	                         <span>223</span>
+	                          <span>${rankItem.videoId}</span>
 	                        </td>
 	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>2</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
+	                          <span>${rankItem.thumbnailUrl}</span>
 	                        </td>
 	                        <td>
-	                          <span class="fw-medium">금요일은 반차 쓰고 싶다</span>
-	                          <div><span class="badge bg-label-primary me-1">#회사생활</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
+	                          <span>1542843</span>
 	                        </td>
 	                      </tr>
-	                      <tr>
-	                        <td>3</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">놀토</span>
-	                          <div><span class="badge bg-label-primary me-1">#예능</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>4</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">모름</span>
-	                          <div><span class="badge bg-label-primary me-1">#모름</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
-	                      <tr>
-	                        <td>5</td>
-	                        <td>
-	                        <div class="avatar avatar-lg me-2">
-	                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
-	                        </div>
-	                        </td>
-	                        <td>
-	                          <span class="fw-medium">모름</span>
-	                          <div><span class="badge bg-label-primary me-1">#모름</span></div>
-	                        </td>
-	                        <td><span>41222</span></td>
-	                        <td>
-	                         <span>223</span>
-	                        </td>
-	                        <td>
-	                         <span>1542843</span>
-	                        </td>
-	                      </tr>
+	                     </c:forEach> 
 	                    </tbody>
 	                  </table>
 	                </div>
@@ -568,7 +496,17 @@
   </body>
 
 <script>
+var rankList =  [
+		 <c:forEach var="rankItem" items="${rankList}">
+    {
+        "videoId": "${rankItem.videoId}",
+        "videoTitle": "${rankItem.videoTitle}",
+        "thumbnailUrl": "${rankItem.thumbnailUrl}",
+    }<c:if test="${!loop.last}">,</c:if>
+	</c:forEach>
+	];
 
+console.log('rankList = '+ rankList)
 // 출퇴근 버튼 스크립트, 출퇴근 시간 view 에 반영
 'use strict';
 

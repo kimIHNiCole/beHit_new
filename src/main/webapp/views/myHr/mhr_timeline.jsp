@@ -119,6 +119,15 @@
                             checked />
                           <label class="form-check-label" for="select-personal">내 일정</label>
                         </div>
+                        <div class="form-check mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-business"
+                            data-value="business"
+                            checked />
+                          <label class="form-check-label" for="select-business">프로젝트 일정</label>
+                        </div>
                       </div>
 						<br/>
                       <div class="mb-1" id="selecdate" style="display:none;">
@@ -353,11 +362,10 @@
 	    	 }
 	    });
 	}
-	
 	console.log('${list[0].work_day}'); 
 	
 	var list =[
-		<c:forEach var="list" items="${list}">
+		<c:forEach var="list" items="${chlist}">
 			{
 				"title" : '${list.work_start}'+'~'+'${list.work_end}',
 				"start" : '${list.work_day}',
@@ -365,9 +373,18 @@
 			}<c:if test="${!loop.last}">,</c:if>
 		</c:forEach>
 	];
+	list.put= [
+		<c:forEach var="list" items="${vhlist}">
+			{
+				"title" : '${list.vaca_start}'+'~'+'${list.vaca_end}',
+				"start" : '${list.vaca_date}',
+				"end" : '${list.vaca_date}'
+			}<c:if test="${!loop.last}">,</c:if>
+		</c:forEach>
+	];
 	
 	console.log(list);
-	
+	/*
 	
 	
 	let events = [
@@ -380,9 +397,48 @@
 				 extendedProps: {
 				   calendar: 'Personal'
 				 }
-			}<c:if test="${!loop.last}">,</c:if>
+			},
+			<c:choose>
+				<c:when test="${list.vaca_start != '00:00'}">
+					{
+						 title: '${list.vaca_start}'+'~'+'${list.vaca_end}',
+						 start: '${list.work_day}',
+						 end: '${list.work_day}',
+						 allDay: false,
+						 extendedProps: {
+						   calendar: 'Business'
+						 }
+					}
+				</c:when>
+			</c:choose>
+			<c:if test="${!loop.last}">,</c:if>
 		</c:forEach>
-	];
+	]; */
+	
+	var events = [
+        <c:forEach var="work" items="${chlist}">
+            {
+                title: '${work.work_start}' + '~' + '${work.work_end}',
+                start: '${work.work_day}',
+                end: '${work.work_day}',
+                allDay: false,
+                extendedProps: {
+                    calendar: 'Personal'
+                }
+            }<c:if test="${!loop.last}">,</c:if>
+        </c:forEach>,
+        <c:forEach var="vacation" items="${vhlist}">
+            {
+                title: '${vacation.vaca_start}' + '~' + '${vacation.vaca_end}',
+                start: '${vacation.vaca_date}',
+                end: '${vacation.vaca_date}',
+                allDay: false,
+                extendedProps: {
+                    calendar: 'Business'
+                }
+            }<c:if test="${!loop.last}">,</c:if>
+        </c:forEach>
+    ];
 
 	
 	

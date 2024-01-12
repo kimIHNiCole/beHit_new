@@ -102,7 +102,7 @@
 	    <!-- DataTable with Buttons -->
 	    <div class="card">
         <div class="card-datatable table-responsive" style="overflow-x: hidden">
-            <div class="row mb-3">
+            <div class="row mb-3" style="visibility: hidden;">
 				<div class="col-md-4 offset-md-8">
 				    <!-- 검색박스 및 셀렉트 박스 -->
 				    <div class="input-group">

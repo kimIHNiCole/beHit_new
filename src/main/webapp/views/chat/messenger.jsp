@@ -780,6 +780,8 @@ $('.org-list-select').click(function () {
 //모달이 닫힐 때 selectedNodes 배열 초기화
 $('#apv-org-modal').on('hidden.bs.modal', function () {
     selectedNodes = [];
+ // 체크된 상태 해제 코드 추가
+    $('#jstree-checkbox').jstree('deselect_all');
 });
 
 

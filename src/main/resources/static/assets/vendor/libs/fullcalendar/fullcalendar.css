@@ -6,6 +6,9 @@
 .fc-daygrid-day-events{
 	text-align: center;
 }
+.fc-event-primary{
+	color: #696cff;
+}
 
 .fc-day-past{
 	
