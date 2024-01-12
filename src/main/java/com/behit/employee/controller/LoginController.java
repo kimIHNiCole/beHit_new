@@ -44,45 +44,52 @@ public class LoginController {
 		
 		ModelAndView mav = new ModelAndView("redirect:/");
 		int lockCnt = 0;
-		// 로그인 시도가 5회를 이미 초과했을때
-		try {
-			lockCnt = service.getLockChk(emp_id);
-			if(lockCnt >= 5) {
-				logger.info("@@@ 로그인 시도 5회 이상 @@@");
-				rAttr.addFlashAttribute("warningMsg", "비밀번호 5회 이상 오류::인사팀에 문의하세요");
+		boolean leaveCnt = service.leaveCnt(emp_id);
+		if (leaveCnt) {
+			// 로그인 시도가 5회를 이미 초과했을때
+			try {
+				lockCnt = service.getLockChk(emp_id);
+				if(lockCnt >= 5) {
+					logger.info("@@@ 로그인 시도 5회 이상 @@@");
+					rAttr.addFlashAttribute("warningMsg", "비밀번호 5회 이상 오류::인사팀에 문의하세요");
+					return mav;
+				} 
+			} catch (Exception e) {
+				System.out.println(e.getStackTrace());
+				logger.warn("등록되지 않은 아이디");
+				rAttr.addFlashAttribute("warningMsg", "아이디 또는 비밀번호를 확인해주세요.");
 				return mav;
-			} 
-		} catch (Exception e) {
-			System.out.println(e.getStackTrace());
-			logger.warn("등록되지 않은 아이디");
-			rAttr.addFlashAttribute("warningMsg", "아이디 또는 비밀번호를 확인해주세요.");
+			}
+			
+			String hashPw = service.getPw(emp_id);
+			boolean success = encoder.matches(password, hashPw);
+			
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			params.put("emp_id", emp_id);
+			params.put("success", success);
+			
+			if(success) {
+				lockCnt = service.lockCnt(params);
+				logger.info("lockCnt = "+lockCnt);
+				EmployeeDTO loginInfo = service.login(emp_id);
+				logger.info("login result || "+ loginInfo.getEmp_id());
+				session.setAttribute("loginInfo", loginInfo);
+				mav.setViewName("redirect:/home.go");
+			}else {
+				logger.info("로그인 에러");
+				lockCnt = service.lockCnt(params);
+				logger.info("lockCnt = "+lockCnt);
+				if(lockCnt < 5) {
+					logger.info("lockCnt="+lockCnt);
+					rAttr.addFlashAttribute("warningMsg","비밀번호를 "+lockCnt+"회 잘못 입력하였습니다"
+							+ " 비밀번호를 확인해주세요\\n :: 5회이상 오류시 로그인 불가 :: ");
+				}
+			}
+		} else {
+			rAttr.addFlashAttribute("warningMsg", "이미 퇴사한 직원 입니다.");
 			return mav;
 		}
 		
-		String hashPw = service.getPw(emp_id);
-		boolean success = encoder.matches(password, hashPw);
-		
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("emp_id", emp_id);
-		params.put("success", success);
-		
-		if(success) {
-			lockCnt = service.lockCnt(params);
-			logger.info("lockCnt = "+lockCnt);
-			EmployeeDTO loginInfo = service.login(emp_id);
-			logger.info("login result || "+ loginInfo.getEmp_id());
-			session.setAttribute("loginInfo", loginInfo);
-			mav.setViewName("redirect:/home.go");
-		}else {
-			logger.info("로그인 에러");
-			lockCnt = service.lockCnt(params);
-			logger.info("lockCnt = "+lockCnt);
-			if(lockCnt < 5) {
-				logger.info("lockCnt="+lockCnt);
-				rAttr.addFlashAttribute("warningMsg","비밀번호를 "+lockCnt+"회 잘못 입력하였습니다"
-						+ " 비밀번호를 확인해주세요\\n :: 5회이상 오류시 로그인 불가 :: ");
-			}
-		}
 	 
 		return mav; 
 	 }

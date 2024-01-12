@@ -72,4 +72,9 @@ public class ProfileService {
 		
 	}
 
+	public int photodel(String login_id) {
+		
+		return profileDAO.photodel(login_id);
+	}
+
 }

@@ -17,6 +17,5 @@ public interface LoginDAO {
 	
 	void lockCnt(HashMap<String, Object> params);
 
-
-
+	boolean leaveCnt(String emp_id);
 }

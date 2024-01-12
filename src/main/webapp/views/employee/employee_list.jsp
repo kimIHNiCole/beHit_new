@@ -419,11 +419,10 @@
                 						<thead>
                     						<tr>
 						                        <th colspan="2" style="width:350px;">이름 / 아이디</th>
-						                        <th style="width: 200px;">부서</th>
-						                        <th style="width: 200px;">직책</th>
-						                        <th style="width: 200px;">직급</th>
-						                        <th style="width: 100px;">채팅</th>
-						                        <th style="width: 200px;">직원상세</th>
+						                        <th style="width: 225px;">부서</th>
+						                        <th style="width: 225px;">직책</th>
+						                        <th style="width: 225px;">직급</th>
+						                        <th style="width: 225px;">직원상세</th>
 			                    			</tr>
 			                			</thead>
 			                			<tbody id="eflist">
@@ -444,11 +443,10 @@
                 						<thead>
                     						<tr>
 			                        			<th colspan="2" style="width:350px;">이름 / 아이디</th>
-			                        			<th style="width: 200px;">부서</th>
-			                        			<th style="width: 200px;">직책</th>
-			                        			<th style="width: 200px;">직급</th>
-			                        			<th style="width: 100px;">채팅</th>
-			                        			<th style="width: 200px;">직원상세</th>
+			                        			<th style="width: 225px;">부서</th>
+			                        			<th style="width: 225px;">직책</th>
+			                        			<th style="width: 225px;">직급</th>
+			                        			<th style="width: 225px;">직원상세</th>
 			                    			</tr>
 			                			</thead>
 			                			<tbody id="eslist">
@@ -578,7 +576,6 @@
 			fcontent +='<td>'+item.dept_name+'</td>'
 			fcontent +='<td>'+item.position_name+'</td>'
 			fcontent +='<td>'+item.grade_name+'</td>'
-			fcontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
 			fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 			fcontent += '</tr>';
 		});
@@ -621,7 +618,6 @@ function drawsList(obj){
 			scontent +='<td>'+item.dept_name+'</td>'
 			scontent +='<td>'+item.position_name+'</td>'
 			scontent +='<td>'+item.grade_name+'</td>'
-			scontent +='<td>'+'<span>'+'&#x1F4AC;'+'</span>'+'</td>';
 			scontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 			scontent += '</tr>';
 		});

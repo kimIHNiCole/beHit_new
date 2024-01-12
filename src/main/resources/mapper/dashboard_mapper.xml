@@ -26,4 +26,20 @@
 		set work_ended = #{param2}
 		where emp_id = #{param1} and work_day = #{param3}
 	</update>
+	
+	<select id="startCnk" resultType="boolean">
+		SELECT COUNT(work_started) FROM commute_history WHERE emp_id = #{loginId} AND work_day = #{todayDate};
+	</select>
+	
+	<select id="endCnk" resultType="boolean">
+		SELECT COUNT(work_ended) FROM commute_history WHERE emp_id = #{loginId} AND work_day = #{todayDate};
+	</select>
+	
+	<select id="dashvaca">
+		SELECT (COALESCE((SELECT SUM(ev.add_hour) FROM emp_vacation ev WHERE ev.emp_id = e.emp_id), 0) - 
+		    COALESCE((SELECT SUM(vh.use_hour) FROM vacation_history vh WHERE vh.emp_id = e.emp_id), 0)) AS remainhour,
+		    COALESCE((SELECT SUM(vh.use_hour) FROM vacation_history vh WHERE vh.emp_id = e.emp_id), 0) AS usehour
+		    FROM employee e
+		WHERE emp_id = #{login_id};
+	</select>
 </mapper>
