@@ -785,7 +785,7 @@
 										<!-- 여기까지 -->
 										
 										<div class="pt-4 project-add-button">
-						                    <button type="reset" class="btn btn-secondary mx-2">수정 취소</button>
+						                    <button onclick ="cancel()" type="reset" class="btn btn-secondary mx-2">수정 취소</button>
 						                    <button onclick="et()" type="submit" class="btn btn-primary mx-2">수정</button>
 						             	</div>
 										
@@ -906,6 +906,11 @@ console.log(selectedNodes);
 	    console.log(delUpfile);
 	}
 	
+	function cancel() {
+		var proj_idx = $("#projIdx").val();
+		window.location.href = '/project/project_detail.go?proj_idx='+proj_idx;
+	}
+	
 	// 수정 버튼 클릭시 전체 내용 ajax로 form데이터를 넘김
 	function et() {
 		var textsubject = $("#defaultInput").val(); // 제목
@@ -953,7 +958,7 @@ console.log(selectedNodes);
 	        contentType: false, // 필수: Content-Type 헤더를 설정하지 않도록 설정
 	        success: function (data) {
 	            console.log('서버 응답:', data);
-	            window.location.href = '/project/project_main.go'; // 실제 페이지 경로로 수정
+	            window.location.href = '/project/project_detail.go?proj_idx='+proj_idx; // 실제 페이지 경로로 수정
 	        },
 	        error: function (error) {
 	            console.error('오류 발생:', error);

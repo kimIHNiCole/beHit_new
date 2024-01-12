@@ -177,9 +177,13 @@
 		UPDATE project SET proj_subject = #{param2}, proj_start = #{param3}, proj_end = #{param4}, proj_content = #{param5}, proj_update = now() WHERE proj_idx = #{param1}
 	</update>
 	
+	<!-- 프로젝트 담당자참조자 다 삭제 -->
 	<delete id="projTAllDel">
-		DELETE  FROM project_team WHERE proj_idx IN (SELECT proj_idx FROM project_team WHERE proj_idx = #{param1});
+		DELETE FROM project_team WHERE proj_idx IN (SELECT proj_idx FROM project_team WHERE proj_idx = #{param1});
 	</delete>
 	
+	<delete id="projDelDo">
+		DELETE FROM project WHERE proj_idx = #{param1};
+	</delete>
 	
 </mapper>

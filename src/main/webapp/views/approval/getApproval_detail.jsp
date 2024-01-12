@@ -1150,37 +1150,64 @@
     
     // sweetAlert 모달창--------------------------------------------------------------------------------------------
 		(function () {
-		  var confirmText = document.querySelector('.apv-del');
-		    
-		    if (confirmText) {
-		        confirmText.onclick = function () {
-		          Swal.fire({
-		            title: '상신을 취소하시겠습니까?',
-		            text: "취소한 문서는 임시저장함으로 이동합니다.",
-		            icon: 'warning',
-		            showCancelButton: true,
-		            confirmButtonText: '네',
-		            cancelButtonText: '아니오',
-		            customClass: {
-		              confirmButton: 'btn btn-primary me-3',
-		              cancelButton: 'btn btn-label-secondary'
-		            },
-		            buttonsStyling: false
-		          }).then(function (result) {
-		            if (result.value) {
-		              Swal.fire({
-		                icon: 'success',
-		                title: 'Deleted!',
-		                text: 'Your file has been deleted.',
-		                customClass: {
-		                  confirmButton: 'btn btn-success'
-		                }
-		              });
-		            }
-		          });
-		        };
-		      }
-		})();
+    var confirmText = document.querySelector('.apv-del');
+    
+    var apv_idx = '${apv.apv_idx}';
+    var apv_stmt = '${apv.apv_stmt}';
+
+    if (confirmText) {
+        confirmText.onclick = function () {
+            Swal.fire({
+                title: '상신을 취소하시겠습니까?',
+                text: "취소한 문서는 임시저장함으로 이동합니다.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '네',
+                cancelButtonText: '아니오',
+                customClass: {
+                    confirmButton: 'btn btn-primary me-3',
+                    cancelButton: 'btn btn-label-secondary'
+                },
+                buttonsStyling: false
+            }).then(function (result) {
+                if (result.value) {
+                    // Send request to /approval/apv-del when '네' button is clicked
+                    $.ajax({
+                        type: 'POST',
+                        url: '/approval/apv_cancel',
+                        data: {
+                        	'apv_idx' : apv_idx,
+                        	'apv_stmt' : apv_stmt
+                        },  // You may need to include data if required
+                        dataType: 'json',
+                        success: function (response) {
+                            // Handle success response
+                            Swal.fire({
+                                icon: 'success',
+                                title: '완료',
+                                text: '상신을 취소하셨습니다.',
+                                customClass: {
+                                    confirmButton: 'btn btn-success'
+                                }
+                            });
+                        },
+                        error: function (error) {
+                            // Handle error response
+                            Swal.fire({
+                                icon: 'error',
+                                title: '문제 발생',
+                                text: '다시 시도해주세요.',
+                                customClass: {
+                                    confirmButton: 'btn btn-danger'
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        };
+    }
+})();
 
 		//--------------------------------------------------------------------------------------------------------------
     
@@ -1406,11 +1433,8 @@
     			  }
     			}).on('select_node.jstree', function (e, data) { // 조직도에서 직원 선택 시 작동하는 함수 
     				
-    					// 선택 버튼 눌렀을 시 결재선 추가
+				     // 선택 버튼 눌렀을 시 결재선 추가
     					$('.org-list-select').off().on('click',function () {
-    						
-    						//기존 빈칸 지우기
-    						$(".apv-sign-table-tr .apv-sign-table-right").remove();
     						
     						var deptNameElements = $('.dept-name');
     						var empNameElements = $('.emp-name');
@@ -1430,74 +1454,87 @@
     						  if (empIdElements[i]) nameOrder.push(empIdElements.eq(i).val());
     						  totalNames.push(nameOrder);
     						  
-    						  content = '';
-    						  
-			  		      content += '<td class="apv-sign-table-right">';
-			  		    	content += '<table><tbody>';
-			  		    	content += '<tr><td><span class="apv-sign-line-dept">'+positionNameElements.eq(i).text()+'</span></td></tr>';
-			  		    	content += '<tr><td><span class="apv-sign-line-name">'+empNameElements.eq(i).text()+'</span></td></tr>';
-			  		    	content += '<tr class="last"><td><span class="apv-sign-line-date">&nbsp;</span></td></tr>';
-			  		    	content += '</table></tbody>';
-			  		    	content += '</td>';
-    						  
-    						  $(".apv-sign-table-tr").append(content);
     						}
     						// 배열 출력 (콘솔에 출력하거나 다른 곳에 활용할 수 있음)
     						console.log("Total Names:", totalNames);
     						
     						// 배열 문자화하여 전송
-    						$('#totalNames').val(JSON.stringify(totalNames));
+    						var totalNamesJSON = JSON.stringify(totalNames);
+    						$('#totalNames').val(totalNamesJSON);
+    						
+    						var apv_idx = '${apv.apv_idx}';
+    						
+    						$.ajax({
+    					        type: 'post', // 전송 방식 (POST로 변경)
+    					        url: '/approval/CompApproval_ViewerPlus', // 서버 URL을 적절히 수정
+    					        data: { 
+    					        	'total_name': totalNamesJSON,
+    					        	'apv_idx' : apv_idx
+    					        }, // 전송할 데이터
+    					        dataType: 'JSON',
+    					        success: function (response) {
+    					            // 서버 응답을 처리하는 코드
+    					            console.log("Server Response:", response);
+    					        },
+    					        error: function (error) {
+    					            // 에러 처리 코드
+    					            console.log("Error:", error);
+    					        }
+    					    });
       					
 			      	});
-    				  
-    					// 조직도 추가 버튼 눌렀을 시
-    				  $('.org-modal-body .button .plus').off().on('click',function(){
-      	    	        // 현재 선택된 노드의 ID 확인
-      				  			var selectedNodeText = data.node.text;
-      	    	        
-      				  			// 정규표현식을 사용하여 'value' 속성에서 'emp01' 추출
-      				  		  var empIdMatch = /value='([^']+)'/g.exec(selectedNodeText);
-      				  		  var empId = empIdMatch ? empIdMatch[1] : null;
-
-      				  		  if (empId) {
-      				  		      // AJAX 요청을 보내어 empId에 해당하는 데이터를 서버로부터 받아옴
-      				  		      $.ajax({
-      				  		          type: 'get',
-      				  		          url: '../../org_selected', // 서버 URL을 적절히 수정
-      				  		          data: { emp_id: empId },
-      				  		          dataType: 'JSON',
-      				  		          success: function (data) {
-      				  		        	  
-	      				  		        	var content = '';
-	      				  		        	
-	      				  		        	content += '<li class="list-group-item drag-item cursor-move d-flex justify-content-between align-items-center">';
-	      				  		        	content += '<span class="d-flex justify-content-between align-items-center">';
-	      				  		        	content += '<span class="dept-name" style="width:9rem">'+data.dept_name+'</span>';
-	      				  		       		content += '<span class="emp-name" style="width:6rem">'+data.emp_name+'</span>';
-	      				  		       		content += '<span class="position-name" style="width:6rem">'+data.position_name+'</span>';
-	      				  		       		content += '<span class="order" style="width:4rem"><button type="button" class="apv-list-del"><i class="bx bx-trash" ></i></button></span>';
-	      				  		       		content += '<input class="emp-id" type="hidden" value="'+empId+'">';
-	      				  		        	content += '</span>';
-	      				  		        	content += '</li>';
-	      				  		        	
-	      				  		        	$("#pending-tasks").append(content);
-      				  		            content = '';
-      				  		            
-		      				  		        $('.apv-list-del').on('click',function () {
-		      				  		        	$(this).closest('li').remove();
-		      				  		    		});
-		      				  		        
-      				  		            },
-      				  		            error: function (e) {
-      				  		                console.log("Error:", e);
-      				  		            }
-      				  		        });
-      				  		  } 
-      				  }); // plus on click
-    			  }); // select_node.jstree 
+	    				  
+	    					// 조직도 추가 버튼 눌렀을 시
+	    				  $('.org-modal-body .button .plus').off().on('click',function(){
+	      	    	        // 현재 선택된 노드의 ID 확인
+	      				  			var selectedNodeText = data.node.text;
+	      	    	        
+	      				  			// 정규표현식을 사용하여 'value' 속성에서 'emp01' 추출
+	      				  		  var empIdMatch = /value='([^']+)'/g.exec(selectedNodeText);
+	      				  		  var empId = empIdMatch ? empIdMatch[1] : null;
+	
+	      				  		  if (empId) {
+	      				  		      // AJAX 요청을 보내어 empId에 해당하는 데이터를 서버로부터 받아옴
+	      				  		      $.ajax({
+	      				  		          type: 'get',
+	      				  		          url: '../../org_selected', // 서버 URL을 적절히 수정
+	      				  		          data: { emp_id: empId },
+	      				  		          dataType: 'JSON',
+	      				  		          success: function (data) {
+	      				  		        	  
+		      				  		        	var content = '';
+		      				  		        	
+		      				  		        	content += '<li class="list-group-item drag-item cursor-move d-flex justify-content-between align-items-center">';
+		      				  		        	content += '<span class="d-flex justify-content-between align-items-center">';
+		      				  		        	content += '<span class="dept-name" style="width:9rem">'+data.dept_name+'</span>';
+		      				  		       		content += '<span class="emp-name" style="width:6rem">'+data.emp_name+'</span>';
+		      				  		       		content += '<span class="position-name" style="width:6rem">'+data.position_name+'</span>';
+		      				  		       		content += '<span class="order" style="width:4rem"><button type="button" class="apv-list-del"><i class="bx bx-trash" ></i></button></span>';
+		      				  		       		content += '<input class="emp-id" type="hidden" value="'+empId+'">';
+		      				  		        	content += '</span>';
+		      				  		        	content += '</li>';
+		      				  		        	
+		      				  		        	$("#pending-tasks").append(content);
+	      				  		            content = '';
+	      				  		            
+			      				  		        $('.apv-list-del').on('click',function () {
+			      				  		        	$(this).closest('li').remove();
+			      				  		    		});
+			      				  		        
+	      				  		            },
+	      				  		            error: function (e) {
+	      				  		                console.log("Error:", e);
+	      				  		            }
+	      				  		        });
+	      				  		  } 
+	      				  }); // plus on click
+      				
+	      				  
+    		}); // select_node.jstree 
 
     	} // if (checkboxTree.length) {}
     }// function
+    
     
     
     // 내용 받기 -------------------------------------------------------------------------------------------
