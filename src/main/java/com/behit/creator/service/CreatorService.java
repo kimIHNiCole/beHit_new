@@ -56,6 +56,13 @@ public class CreatorService {
 		logger.info("getChCategory() 실행");
 		return creatorDAO.getChCategory();
 	}
+	
+	// 크리에이터 대쉬보드 
+	public ArrayList<HashMap<String, Object>> getCreatorRank(){
+		logger.info("크리에이터 랭크 가져오기 실행");
+		ArrayList<HashMap<String, Object>> creatorRankList = new ArrayList<HashMap<String,Object>>(getAllList());
+		return creatorRankList;
+	}
 
 	
 	// 크리에이터 등록
@@ -109,7 +116,7 @@ public class CreatorService {
 			HashMap<String, Object> channelParam = new HashMap<String, Object>();
 			channelParam.put("cre_idx", channelDTO.getCre_idx());
 			channelParam.put("channel_id", channelId);
-			channelParam.put("channel_rep", channelDTO.getRep_channel());
+			channelParam.put("rep_channel", channelDTO.getRep_channel());
 			
 			result.add(channelParam);
 		}
@@ -192,7 +199,7 @@ public class CreatorService {
 	            .setKey(secret_key);
 	    logger.info("youtube api getInfo request result : ",request);
 	    VideoListResponse response = request.execute();
-	    logger.info("youtube api getInfo response result: ",request);
+	    logger.info("youtube api getInfo response result: ",response);
 	    String channelId = response.getItems().get(0).getSnippet().getChannelId();
 	    
 	    YouTube.Channels.List channelRequest = youtube.channels()
@@ -270,7 +277,6 @@ public class CreatorService {
 	public ArrayList<HashMap<String, Object>> getChannel(int cre_idx) {
 		logger.info("channel 기본정보 가져오기 실행");
 		ArrayList<HashMap<String, Object>> channelInfoList = creatorDAO.getChannel(cre_idx);
-		
 		logger.info("channel 통계 정보 가져오기 실행");
 		logger.info("Channel ID 가져오기 실행");
 		ArrayList<String> channelIdList = creatorDAO.getChannelIdByCreIdx(cre_idx); 
