@@ -69,4 +69,10 @@ public interface ProjectDAO {
 
 	int projDelDo(String projIdx);
 
+	void projAlarm(String emp_id, int lastIdx, String alarmMsg);
+
+	List<ProjectTeamDTO> projUpAlarm(String projIdx, String projRW_id);
+
+	String whoEmpName(String projRW_id);
+
 }
