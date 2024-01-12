@@ -186,4 +186,19 @@
 		DELETE FROM project WHERE proj_idx = #{param1};
 	</delete>
 	
+	<insert id="projAlarm">
+		INSERT into alarm (emp_id, alarm_type, alarm_type_idx, alarm_msg)
+		VALUES (#{param1}, 4, #{param2}, #{param3});
+	</insert>
+	
+	<!-- 알람에 추가해줄 project_team 리스트 -->
+	<select id="projUpAlarm" resultType="projT">
+		SELECT * FROM project_team WHERE proj_idx = #{param1} AND emp_id &lt;&gt; (#{param2})
+	</select>
+	
+	<!-- 누가 작성했는지 이름 -->
+	<select id="whoEmpName" resultType="String">
+		SELECT emp_name FROM employee WHERE emp_id = #{param1}
+	</select>
+	
 </mapper>

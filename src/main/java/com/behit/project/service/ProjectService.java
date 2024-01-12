@@ -153,7 +153,19 @@ public class ProjectService {
 	public int projDelDo(String projIdx) {
 		return dao.projDelDo(projIdx);
 	}
-	
+
+	public void projAlarm(String emp_id, int lastIdx, String alarmMsg) {
+		dao.projAlarm(emp_id,lastIdx,alarmMsg);
+	}
+
+	public List<ProjectTeamDTO> projUpAlarm(String projIdx, String projRW_id) {
+		return dao.projUpAlarm(projIdx, projRW_id);
+	}
+
+	public String whoEmpName(String projRW_id) {
+		return dao.whoEmpName(projRW_id);
+	}
+
 	
 	
 }
