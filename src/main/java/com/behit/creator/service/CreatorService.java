@@ -3,6 +3,7 @@ package com.behit.creator.service;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -316,6 +317,32 @@ public class CreatorService {
 		logger.info("차트 데이터 가져오기 실행");
 		ArrayList<ChannelDataDTO> channelDataList = creatorDAO.getChartData(repChannelId);
 		return channelDataList;
+	}
+
+	// 열람자 추가
+	public int addCreator_perm(String loginId, int cre_idx, List<Map<String, String>> emp_data) {
+		List<String> empIds = new ArrayList<>();
+		
+		// emp_data에 있는 각 Map에서 emp_id를 추출하여 추가
+				for (Map<String, String> empDataMap : emp_data) {
+				    String empId = empDataMap.get("emp_id");
+				    empIds.add(empId);
+				}
+
+			    // chat_pp에 empId를 반복하여 데이터 삽입
+			    for (String empId : empIds) {
+			    	creatorDAO.addCreator_perm(empId, cre_idx, loginId);
+			    }
+		return cre_idx;
+	}
+
+	public List<CreatorDTO> creatorPermList(int cre_idx) {
+		return creatorDAO.creatorPermList(cre_idx);
+	}
+
+	public int delPerm(int cre_idx, String emp_id) {
+		// TODO Auto-generated method stub
+		return creatorDAO.delPerm(cre_idx, emp_id);
 	}
 	
 	

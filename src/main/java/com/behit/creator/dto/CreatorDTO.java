@@ -2,6 +2,8 @@ package com.behit.creator.dto;
 
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.type.Alias;
 
@@ -33,5 +35,8 @@ public class CreatorDTO {
 	
 	private String new_file_name;
 	private String ori_file_name;
+	
+	private List<Map<String, String>> selectedNodes; // 열람권한
+	private String emp_id;
 	
 }
