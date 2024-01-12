@@ -361,6 +361,7 @@ public class ProjectController {
 		return map;
 	}
 	
+	// 프로젝트 수정 페이지 이동
 	@GetMapping(value={"/project/project_update.go", "/views/project_update.go"})
 	public ModelAndView projectUpdateGo(@RequestParam String proj_idx) {
 		ModelAndView mav = new ModelAndView();
@@ -380,6 +381,7 @@ public class ProjectController {
 		return mav;
 	}
 	
+	// 프로젝트 수정 요청
 	@PostMapping(value = "/project/project_update.do")
 	@ResponseBody
 	public Map<String, Object> projectUpdateDo(
@@ -460,11 +462,21 @@ public class ProjectController {
         			}
         		}
         	}
-        }
-		
+        }	
 	    Map<String, Object> map = new HashMap<>();
 	    map.put("success", insert);
 	    return map;
+	}
+	
+	
+	@PostMapping(value="/project/project_del.do")
+	@ResponseBody
+	public Map<String, Object> projDelDo(@RequestParam String projIdx){
+		int success = 0; 
+		success = service.projDelDo(projIdx);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("record", success);
+		return map;
 	}
 	
 }

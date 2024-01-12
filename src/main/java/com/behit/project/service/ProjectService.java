@@ -149,6 +149,10 @@ public class ProjectService {
 	public int projTAllDel(String proj_idx) {
 		return dao.projTAllDel(proj_idx);
 	}
+
+	public int projDelDo(String projIdx) {
+		return dao.projDelDo(projIdx);
+	}
 	
 	
 	
