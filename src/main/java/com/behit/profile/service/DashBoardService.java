@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.behit.approval.dao.ApprovalDAO;
 import com.behit.approval.dto.ApprovalDTO;
+import com.behit.employee.dao.VacationDAO;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.dto.WorkDTO;
+import com.behit.employee.dto.VacationDTO;
 import com.behit.profile.dao.DashBoardDAO;
 import com.behit.profile.dao.ProfileDAO;
 import com.behit.profile.dto.FileDTO;
@@ -31,6 +33,7 @@ public class DashBoardService {
 	@Autowired ApprovalDAO aproDao;
 	@Autowired ProjectDAO proDao;
 	@Autowired DashBoardDAO dashDao;
+	@Autowired VacationDAO vacaDao;
 	public EmployeeDTO detail(String login_id) {
 		return profileDAO.prodetail(login_id);
 	}
@@ -89,7 +92,40 @@ public class DashBoardService {
         String todayDate = now.format(formatter);
 		return dashDao.workEnded(loginId, workEndedTime, todayDate);
 	}
-	
+
+	public boolean startCnk(String loginId) {
+		// 한국 시간대로 설정
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        
+        // 현재 날짜와 시간을 가져오기
+        LocalDateTime now = LocalDateTime.now(seoulZoneId);
+
+        // 원하는 형식으로 포맷팅
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String todayDate = now.format(formatter);
+        
+        return dashDao.startCnk(loginId, todayDate);
+	}
+
+	public boolean endCnk(String loginId) {
+		// 한국 시간대로 설정
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        
+        // 현재 날짜와 시간을 가져오기
+        LocalDateTime now = LocalDateTime.now(seoulZoneId);
+
+        // 원하는 형식으로 포맷팅
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String todayDate = now.format(formatter);
+		return dashDao.endCnk(loginId, todayDate);
+	}
+
+	public VacationDTO dashvaca(String login_id) {
+		
+		return dashDao.dashvaca(login_id);
+	}
+
+
 	
 	
 	

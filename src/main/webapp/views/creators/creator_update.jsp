@@ -370,7 +370,7 @@
 														class="form-control ch-form rep-video"
 														name="rep_video" placeholder="대표 영상 링크를 입력하세요" />
 													<button type="button" class="urlChkBtn"
-														onclick="urlCheck()">
+														onclick="urlCheck(this)">
 														<i class='bx bx-search'></i>
 													</button>
 												</div>
@@ -668,8 +668,9 @@
     
     <!-- custom script -->
 	<script>
+	
   	// 채널정보 입력창을 추가시 cnt++
-  	 var channelCnt = 0;
+  	 var channelCnt = 1;
   	
   	 
   	 $(document).ready(function() {
@@ -684,10 +685,11 @@
   			console.log("성별을 불러오는 중 에러 발생");
   		}
   		
-  		// 채널 정보 출력
+  		// 채널 정보 출력 / C태그를 이용해 변수에 담기
   		var channelList =  [
   			 <c:forEach var="channel" items="${channelInfoList}">
              {
+                 "rep_channel": "${channel.rep_channel}",
                  "rep_video": "${channel.rep_video}",
                  "channel_cate": "${channel.channel_cate}",
                  "channel_date":"${channel.channel_date}",
@@ -695,16 +697,43 @@
                  "channel_url":"${channel.channel_url}",
              }<c:if test="${!loop.last}">,</c:if>
          </c:forEach>
-  			
   		];
   		console.log('channelList====',channelList);
   		
+  		// 채널 입력 폼 생성
+  		for(let i=1; i<channelList.length; i++){
+  			debugger;
+  			console.log('rep_channel['+i+']='+channelList[i].rep_channel);
+  			console.log('repVideo['+i+']='+channelList[i].rep_video);
+  			console.log('channel_cate['+i+']='+channelList[i].channel_cate);
+  			console.log('channel_date['+i+']='+channelList[i].channel_date);
+  			console.log('channel_name['+i+']='+channelList[i].channel_name);
+  			console.log('channel_url['+i+']='+channelList[i].channel_url);
+  			debugger;
+  			addChItem();
+  			debugger;
+  			
+  		}
+  		// 채널 입력 폼 채우기
   		for(let i=0; i<channelList.length; i++){
-  			console.log('i=', i);
-  			channelList[0]
   		}
   		
-  		 
+  		
+	  	var snsList =  [
+			<c:forEach var="snsItem" items="${snsList}">
+          		{ "sns_url": "${snsItem.sns_url}"}
+          		<c:if test="${!loop.last}">,</c:if>
+      		</c:forEach>
+		];
+		console.log('snsList====',snsList);  	
+			
+		for(let i=1; i<snsList.length; i++)	{
+  			addSnsItem();
+  			
+		}
+			
+  			
+  			
 		// DAUM 주소 검색 창
         document.getElementById("address").addEventListener("click", handleEvent);
 		document.getElementById("address").addEventListener("keypress", handleEvent);
@@ -760,10 +789,12 @@
            
        }
   	 
-  	
-  	function urlCheck(){
+  	var videoUrlForm ;
+  	function urlCheck(element){
   		
-  		var videoUrl = $(".rep-video").eq(channelCnt).val();
+  		videoUrlForm = $(element).closest('.videoUrlForm');
+		console.log('videoUrlForm element : '+videoUrlForm);
+  	    var videoUrl = videoUrlForm.find('.rep-video').val();
   		console.log(videoUrl);
   		
   		var isDuplicate = false;
@@ -802,15 +833,19 @@
   		})
   	}
   	function inputInfo(chInfo){
+  		debugger;
   		console.log("inputInfo() 실행");
-  		
+  		console.log('videoUrlForm element : '+videoUrlForm);
   		var dateTime = chInfo.channelDate;
-  		var fp = $(".start-ch").eq(channelCnt).flatpickr();
+  		debugger;
+  		var fp = videoUrlForm.find(".start-ch").flatpickr();
+  		debugger;
   		fp.setDate(dateTime, true);
-  		
+  		debugger;
   		$('.ch-name').eq(channelCnt).val(chInfo.channelName);
   		$('.channel-url').eq(channelCnt).val(chInfo.channelUrl);
   		$(".start-ch").eq(channelCnt).prop("disabled", false);
+  		debugger;
   	}
   	 
   	
@@ -1010,15 +1045,64 @@
 	}	
   -->    
      // 채널 정보 항목 추가 이벤트
+     var uniqueId ="";
      function addChItem(){
+    	 debugger;
+    	 console.log('1 || ',channelCnt);
     	console.log('addChItem event !!');  
-        channelCnt++;
-        console.log("channelCnt = "+ channelCnt);
-        var originalChannel = $("#ch-item-list .repeater-wrapper:first");
+        let originalChannel = $("#ch-item-list .repeater-wrapper:first");
+        debugger;
         var clone = originalChannel.clone(true);
+        debugger;
+        if(originalChannel.find('#rep-video').attr('id')){
+        	debugger;
+	        uniqueId = "rep-video-"+ channelCnt;
+    	    originalChannel.find('#rep-video').attr('id', uniqueId);
+    	    originalChannel.find('#rep-video').attr('name', 'rep_video_' + channelCnt);
+	        uniqueId = "selectCate-"+ channelCnt;
+    	    originalChannel.find('#selectCate').attr('id', uniqueId);
+    	    originalChannel.find('#selectCate').attr('name', 'selectCate_' + channelCnt);
+	        uniqueId = "start-ch-"+ channelCnt;
+    	    originalChannel.find('#start-ch').attr('id', uniqueId);
+    	    originalChannel.find('#start-ch').attr('name', 'start-ch_' + channelCnt);
+	        uniqueId = "ch-name-"+ channelCnt;
+    	    originalChannel.find('#ch-name').attr('id', uniqueId);
+    	    originalChannel.find('#ch-name').attr('name', 'ch-name_' + channelCnt);
+	        uniqueId = "channel-url-"+ channelCnt;
+    	    originalChannel.find('#channel-url').attr('id', uniqueId);
+    	    originalChannel.find('#channel-url').attr('name', 'channel-url_' + channelCnt);
+    	    debugger;
+        }
+        debugger;
+        channelCnt++;
+        debugger;
+        console.log('2 || ',channelCnt);
+        
+        uniqueId = "rep-video-" + channelCnt;
+        clone.find('#rep-video').attr('id', uniqueId);
+        clone.find('#rep-video').attr('name', 'rep_video_' + channelCnt);
+        debugger;
+        uniqueId = "selectCate-" + channelCnt;
+        clone.find('#selectCate').attr('id', uniqueId);
+        clone.find('#selectCate').attr('name', 'selectCate_' + channelCnt);
+        debugger;
+        uniqueId = "start-ch-" + channelCnt;
+        clone.find('#start-ch').attr('id', uniqueId);
+        clone.find('#start-ch').attr('name', 'channel_date_' + channelCnt);
+        debugger;
+        uniqueId = "ch-name-" + channelCnt;
+        clone.find('#ch-name').attr('id', uniqueId);
+        clone.find('#ch-name').attr('name', 'channel_name_' + channelCnt);
+        debugger;
+        uniqueId = "channel-url-" + channelCnt;
+        clone.find('#channel-url').attr('id', uniqueId);
+        clone.find('#channel-url').attr('name', 'channel_url_' + channelCnt);
+        debugger;
         clone.find('input, select').val('');	// 밸류 속성 비우기
         clone.find('input[type="radio"]').prop('checked', false);
+        debugger;
         originalChannel.parent().append(clone);
+        debugger;
      }; 
       
      // 채널 정보 항목 제거 이벤트
@@ -1064,9 +1148,14 @@
     	 var originalSns = $("#sns-item-list .repeater-wrapper").eq(0);
          var clone = originalSns.clone(true);
          
-         clone.find('input').val('');	// 밸류 속성 비우기
+         if(snsList != null){
+			console.log('snsList is not null');        	 
+         }else{
+	        clone.find('input').val('');	// 밸류 속성 비우기
+         }
          originalSns.parent().append(clone);
     }
+    
     // SNS 정보 항목 제거 이벤트
     function delSnsItem(){
     	var repeaterWrapper = $(event.currentTarget).closest(".repeater-wrapper");

@@ -22,6 +22,7 @@ import com.behit.approval.dto.ApprovalDTO;
 import com.behit.approval.service.ApprovalService;
 import com.behit.chat.dto.ChatRoomDTO;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.employee.dto.VacationDTO;
 import com.behit.employee.dto.WorkDTO;
 import com.behit.profile.dto.FileDTO;
 import com.behit.profile.service.DashBoardService;
@@ -40,8 +41,11 @@ public class DashBoardController {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
 		logger.info("로그인 아이디 : "+login_id);
-		EmployeeDTO dashProfile=dashService.detail(login_id);
+		EmployeeDTO dashProfile = dashService.detail(login_id);
+		VacationDTO dashVaca = dashService.dashvaca(login_id);
 		FileDTO photo = dashService.getPhoto(login_id);
+		
+	
 		
 		// 대시보드의 결재 리스트
 		List<ApprovalDTO> reqAp_list = dashService.reqAp_list(login_id);
@@ -58,6 +62,8 @@ public class DashBoardController {
 		model.addAttribute("workToday", workToday);
 		model.addAttribute("dashProfile", dashProfile);
 		model.addAttribute("photo", photo);
+		model.addAttribute("dashvaca", dashVaca);
+		
 		return "home";
 	}
 	
@@ -74,9 +80,16 @@ public class DashBoardController {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
 	    String workStartedTime = sdf.format(new Date());
-		int workStarted=dashService.workStarted(loginId, workStartedTime);
-		result.put("workStarted", workStarted);
-		result.put("loginId", loginId);
+	    logger.info("workStartedTime : "+workStartedTime);
+	    boolean startCnk = dashService.startCnk(loginId);
+	    if (startCnk) {
+	    	result.put("msg", "이미 출근 상태입니다.");
+	    } else {
+	    	int workStarted=dashService.workStarted(loginId, workStartedTime);
+	    	result.put("workStarted", workStarted);
+	    	result.put("loginId", loginId);
+	    }
+
 		return result;
 	}
 	
@@ -92,9 +105,14 @@ public class DashBoardController {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
 	    String workEndedTime = sdf.format(new Date());
-		int workEnded=dashService.workEnded(loginId, workEndedTime);
-		result.put("workEnded", workEnded);
-		result.put("loginId", loginId);
+	    boolean endCnk = dashService.endCnk(loginId);
+	    if (endCnk) {
+	    	result.put("msg", "이미 퇴근 상태입니다.");
+	    } else {
+	    	int workEnded=dashService.workEnded(loginId, workEndedTime);
+	    	result.put("workEnded", workEnded);
+	    	result.put("loginId", loginId);
+	    }
 		return result;
 	}
 	

@@ -11,9 +11,9 @@
 	
 	<insert id="saveChannelData" parameterType="channeldata">
 		INSERT IGNORE INTO channeldata (
-		    channel_id, subscriber, views, contents, channel_rep, view_trend
+		    channel_id, subscriber, views, contents, rep_channel, view_trend
 		) VALUES (
-		     #{channel_id}, #{subscriber}, #{views}, #{contents},#{channel_rep},
+		     #{channel_id}, #{subscriber}, #{views}, #{contents},#{rep_channel},
 		    IFNULL((#{views} - (SELECT IFNULL(views, 0) 
 		            FROM channeldata c2
 		            WHERE channel_id = #{channel_id}

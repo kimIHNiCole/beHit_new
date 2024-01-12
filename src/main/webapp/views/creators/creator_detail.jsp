@@ -238,6 +238,7 @@
 		   			  </ul>
 		   			</div>
 		   			<div>
+		   			 <c:if test="${deptCheck eq true}">
 		   			  <div class="col-md-4 text-end">
 	                  	<div class="d-flex justify-content-center pt-3">
 	                          <a
@@ -246,6 +247,7 @@
 	                          <a href="javascript:;" class="btn btn-label-danger suspend-user">삭제</a>
 	                     </div>
                    	  </div>
+                   	  </c:if>
 		   			</div>
 		   		  </div>
                   <!--/ 탭 메뉴 영역 -->

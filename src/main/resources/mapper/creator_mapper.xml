@@ -99,6 +99,7 @@
 		WHERE f.file_kind = 6
 	</select>
 	
+	
 	<!-- 나의 크리에이터 리스트 -->
 	<select id="getMyList" parameterType="String" resultType="HashMap">
 		SELECT 
@@ -117,7 +118,7 @@
 		        FROM 
 		            channeldata cd2 
 		        JOIN 
-		            channel ch2 ON cd2.channel_id = ch2.channel_id  AND cd2.channel_rep = 1
+		            channel ch2 ON cd2.channel_id = ch2.channel_id  AND cd2.rep_channel = 1
 		        JOIN 
 		            creator c2 ON c2.cre_idx = ch2.cre_idx 
 		        GROUP BY 
@@ -133,7 +134,7 @@
 		<!-- 크리에이터 정보 -->
 	<select id="getCreator" parameterType="int" resultType="HashMap">
 		SELECT c.cre_idx , c.emp_id , c.cre_name , c.cre_nick_name ,c.cre_gender , c.cre_phone ,
-			c.cre_birthday ,c.cre_country ,c.cre_address ,c.cre_address_detail ,c.cre_contract_start ,
+			c.cre_birthday ,c.cre_email ,c.cre_country ,c.cre_address ,c.cre_address_detail ,c.cre_contract_start ,
 			c.cre_contract_end ,c.cre_specifics ,f.new_file_name ,f.ori_file_name FROM creator c 
 			JOIN file f ON c.cre_idx = f.file_kind_idx
 		WHERE cre_idx = #{cre_idx} AND f.file_kind =6;
