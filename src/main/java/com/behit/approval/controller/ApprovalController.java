@@ -85,6 +85,8 @@ public class ApprovalController {
 	public String approval_update(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		
+		logger.info(dto.getApv_cnt());
+		
 		return service.approval_update(loginInfo,dto,files);
 	}
 	

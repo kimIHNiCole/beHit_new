@@ -1410,10 +1410,17 @@
 
     	if ('${apv.apv_cnt}' != 'false') {
     	    deltaData = ${apv.apv_cnt};
+    			console.log("데이터입니다");
+    			console.log(deltaData);
+    			console.log("데이터일까요");
     	}
     	if (deltaData) {
     	    snowEditor.setContents(deltaData);
     	}
+    	
+    	var contents = snowEditor.getContents();  // 수정된 부분
+	    var jsonString = JSON.stringify(contents);
+	    document.getElementById('apvCnt').value = jsonString;
 		
 		snowEditor.on('text-change', function() {
 		    var contents = snowEditor.getContents();  // 수정된 부분
