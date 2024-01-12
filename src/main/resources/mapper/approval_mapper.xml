@@ -207,6 +207,24 @@
 		)
 	</insert>
 	
+	<insert id="apv_perm" parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO apv_perm(
+			apv_idx
+			,emp_id
+			,emp_id_in
+			,apv_perm_date
+		)
+		VALUES(
+		#{apv_idx}
+		,#{emp_id}
+		,#{emp_id_in}
+		,NOW()
+		)
+	</insert>
+	<update id="apv_cancel">
+		UPDATE apv SET apv_stmt = '임시저장' WHERE apv_idx = #{apv_idx}
+	</update>
+	
 	
 	<select id="requestApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, 
@@ -244,11 +262,11 @@
         ORDER BY apv_history_date DESC
         LIMIT 1) as apv_history_date,
        (SELECT e.emp_name 
-		FROM apv_line al 
-		JOIN employee e ON e.emp_id = al.emp_id 
-		WHERE al.apv_idx = a.apv_idx 
-		ORDER BY al.apv_line DESC
-		LIMIT 1) as emp_name
+				FROM apv_line al 
+				JOIN employee e ON e.emp_id = al.emp_id 
+				WHERE al.apv_idx = a.apv_idx 
+				ORDER BY al.apv_line DESC
+				LIMIT 1) as emp_name
 		FROM apv a 
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
@@ -279,6 +297,25 @@
 		JOIN employee e ON e.emp_id = a.emp_id
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '임시저장'
+	</select>
+	<select id="viewApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, d.emp_dept_name,
+		(SELECT apv_history_date
+		 FROM apv_history ah
+		 WHERE ah.apv_idx = a.apv_idx
+		 ORDER BY apv_history_date DESC
+		 LIMIT 1) AS apv_history_date,
+		(SELECT e.emp_name 
+		FROM apv_line al 
+		JOIN employee e ON e.emp_id = al.emp_id 
+		WHERE al.apv_idx = a.apv_idx 
+		ORDER BY al.apv_line DESC
+		LIMIT 1) AS emp_name
+		FROM apv a
+		JOIN apv_perm ap ON ap.apv_idx = a.apv_idx
+		JOIN employee e ON e.emp_id = a.apv_approver 
+		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		WHERE ap.emp_id = #{emp_id}
 	</select>
 
 
