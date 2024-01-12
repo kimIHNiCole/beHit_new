@@ -2,8 +2,10 @@ package com.behit.creator.service;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,10 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelListResponse;
+import com.google.api.services.youtube.model.SearchListResponse;
+import com.google.api.services.youtube.model.SearchResult;
+import com.google.api.services.youtube.model.Thumbnail;
+import com.google.api.services.youtube.model.ThumbnailDetails;
 
 @Service
 public class CreatorStatService {
@@ -31,6 +37,9 @@ public class CreatorStatService {
 	
 	ChannelDataDTO channelDataDTO = new ChannelDataDTO();
 	Channel channel=null;
+	private static final String APPLICATION_NAME = "BeHit";
+	private static final String SEARCH_KEYWORD = "급상승";
+	private static final String REGION_CODE = "KR";
 	// 여러개 저장할때
 	
 	
@@ -99,13 +108,19 @@ public class CreatorStatService {
             creatorStatDAO.saveChannelData(channelDataDTO);
 	}
 	
+	// youtube api 서비스 초기화
+	public YouTube youtubeApiInit() throws GeneralSecurityException, IOException {
+		logger.info(" :: YOUTUBE API SERVICE INITIALIZATION :: ");
+		YouTube youtubeService = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport()
+				, JacksonFactory.getDefaultInstance(), null)
+				.setApplicationName(APPLICATION_NAME)
+				.build();
+		return youtubeService;
+	}
 	
 	public Channel useYoutubeApi(String channelId) {
 		try {
-			YouTube youtubeService = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport()
-	        		, JacksonFactory.getDefaultInstance(), null)
-	                	.setApplicationName("BeHit")
-	                	.build();
+			YouTube youtubeService = youtubeApiInit();
 	        YouTube.Channels.List request;
 				request = youtubeService.channels()
 				    .list("snippet,contentDetails,statistics");
@@ -115,19 +130,55 @@ public class CreatorStatService {
 	        channel = response.getItems().get(0);
 	        
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return channel;
 	}
 	
+	
 	// 크리에이터 대쉬보드 
 	public ArrayList<HashMap<String, Object>> getCreatorRank(){
 		logger.info("크리에이터 랭크 가져오기 실행");
-		ArrayList<HashMap<String, Object>> creatorRankList = new ArrayList<HashMap<String,Object>>();
-		// youtube data api 로 데이터 수집
+		ArrayList<HashMap<String, Object>> rankList = new ArrayList<HashMap<String,Object>>();
+		try {
+			YouTube youtubeService = youtubeApiInit();
+			YouTube.Search.List request = youtubeService.search()
+                    .list("snippet")
+                    .setKey(secret_key)
+                    .setQ(SEARCH_KEYWORD)
+                    .setType("video") // 동영상만 검색하도록 설정
+                    .setRegionCode(REGION_CODE)
+                    .setOrder("viewCount") // 조회수에 따라 정렬
+                    .setMaxResults((long) 5); // 가져올 결과의 최대 개수 설정
+			
+			SearchListResponse response  = request.execute();
+			
+			List<SearchResult> searchResults = response.getItems();
+
+			for (SearchResult result : searchResults) {
+				String videoId = result.getId().getVideoId();
+                String videoTitle = result.getSnippet().getTitle();
+                
+                ThumbnailDetails thumbnails = result.getSnippet().getThumbnails();
+                Thumbnail defaultThumbnail = thumbnails.getDefault();
+                String thumbnailUrl = defaultThumbnail.getUrl();
+                
+                HashMap<String, Object> videoInfo = new HashMap<>();
+                videoInfo.put("videoId", videoId);
+                videoInfo.put("videoTitle", videoTitle);
+                videoInfo.put("thumbnailUrl", thumbnailUrl);
+                logger.info("videoId==="+videoId);
+                logger.info("videoTitle==="+videoTitle);
+                logger.info("thumbnailUrl==="+thumbnailUrl);
+                rankList.add(videoInfo);
+			}
+		} catch (GeneralSecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return creatorRankList;
+		
+		return rankList;
 	}
 
 
