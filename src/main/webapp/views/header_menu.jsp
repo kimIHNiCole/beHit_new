@@ -181,20 +181,6 @@
       </a>
     </li>
     
-    <li class="menu-item" id="calendar_go">
-      <a href="/calendar/calendar.go" class="menu-link">
-         <i class="menu-icon tf-icons bx bx-calendar"></i>
-        <div class="text-truncate" data-i18n="캘린더">캘린더</div>
-      </a>
-    </li>
-    
-    <li class="menu-item" id="reserveRoom_list">
-      <a href="/reserve/reserveRoom_list.go" class="menu-link">
-         <i class="menu-icon tf-icons bx bx-time-five"></i>
-        <div class="text-truncate" data-i18n="예약">예약</div>
-      </a>
-    </li>
-    
     <li class="menu-item" id="myHr" >
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>
@@ -220,38 +206,44 @@
          <i class="menu-icon tf-icons bx bx-chat"></i>
         <div class="text-truncate" data-i18n="메신저">메신저</div>
       </a>
-    </li>
-    
-    <li class="menu-item" id="employee">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-user"></i>
-        <div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item" id="employee_list">
-          <a href="/employee/employee_list.go" class="menu-link">
-            <div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
-          </a>
-        </li>
-        <li class="menu-item" id="workHour">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item" id="workHour_list">
-              <a href="/employee/workHour_list.go" class="menu-link">
-                <div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
-              </a>
-            </li>
-            <li class="menu-item" id="vacation_list">
-              <a href="/employee/vacation_list.go" class="menu-link">
-                <div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    </li> 
+    <c:choose>
+    	<c:when test="${sessionScope.employee == 2}">
+			<li class="menu-item" id="employee">
+				<a href="javascript:void(0);" class="menu-link menu-toggle">
+					<i class="menu-icon tf-icons bx bx-user"></i>
+					<div class="text-truncate" data-i18n="인사 관리">인사 관리</div>
+				</a>
+				<ul class="menu-sub">
+					<li class="menu-item">
+				    	<a href="../employee/employee_list.go" class="menu-link">
+				        	<div class="text-truncate" data-i18n="직원 관리">직원 관리</div>
+				        </a>
+				    </li>
+				    <li class="menu-item">
+				    	<a href="javascript:void(0);" class="menu-link menu-toggle">
+				        	<div class="text-truncate" data-i18n="근태 관리">근태 관리</div>
+				        </a>
+				        <ul class="menu-sub">
+				        	<li class="menu-item">
+				            	<a href="../employee/workHour_list.go" class="menu-link">
+				                	<div class="text-truncate" data-i18n="근태 현황">근태 현황</div>
+				                </a>
+				            </li>
+				            <li class="menu-item">
+				            	<a href="../employee/vacation_list.go" class="menu-link">
+				                	<div class="text-truncate" data-i18n="연차 관리">연차 관리</div>
+				                </a>
+				            </li>
+				        </ul>
+				    </li>
+				</ul>
+			</li>
+		</c:when>
+		<c:otherwise>
+		<!-- 메뉴를 보이지 않게 하는 내용 -->
+		</c:otherwise>
+	</c:choose>
   </ul>
 </aside>
 <!-- / Menu -->

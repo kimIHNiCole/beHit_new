@@ -31,6 +31,8 @@ public interface WorkDAO {
 
 	ArrayList<WorkDTO> timelineList(String login_id, String workmonth);
 
-	ArrayList<HashMap<String, Object>> timeNowList(String login_id, String workmonth);
+	ArrayList<HashMap<String, Object>> timeNowList(String login_id);
+
+	ArrayList<HashMap<String, Object>> vhList(String login_id);
 
 }

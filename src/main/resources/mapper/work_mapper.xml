@@ -21,13 +21,13 @@
 		        LPAD(HOUR(vh.vaca_start), 2, '0'),
 		        ':',
 		        LPAD(MINUTE(vh.vaca_start), 2, '0')
-		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id), '-') AS vaca_start,
+		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id LIMIT 1), '-') AS vaca_start,
 		    COALESCE((SELECT CONCAT(
 		        LPAD(HOUR(vh.vaca_end_time), 2, '0'),
 		        ':',
 		        LPAD(MINUTE(vh.vaca_end_time), 2, '0')
-		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id), '-') AS vaca_end,
-		    COALESCE((SELECT vh.use_hour FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id),
+		    )FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id LIMIT 1), '-') AS vaca_end,
+		    COALESCE((SELECT SUM(vh.use_hour) FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id),
 		        '0') AS use_hour,
 		    COALESCE((SELECT CONCAT(
 		        LPAD(HOUR(ch.work_started), 2, '0'),
@@ -127,13 +127,20 @@
 	<select id="timeNowList" resultType="HashMap">
 		SELECT ch.work_day, 
 			COALESCE(CONCAT(LPAD(HOUR(ch.work_start_time), 2, '0'),':',LPAD(MINUTE(ch.work_start_time), 2, '0')), '00:00') AS work_start,
-			COALESCE(CONCAT(LPAD(HOUR(ch.work_end_time), 2, '0'),':',LPAD(MINUTE(ch.work_end_time), 2, '0')), '00:00') AS work_end, 
+			COALESCE(CONCAT(LPAD(HOUR(ch.work_end_time), 2, '0'),':',LPAD(MINUTE(ch.work_end_time), 2, '0')), '00:00') AS work_end
+			FROM commute_history ch
+			WHERE ch.emp_id = #{login_id}	
+		ORDER BY ch.work_day asc;
+	</select>
+	
+	<select id="vhList" resultType="HashMap">
+		SELECT 
+			COALESCE(vh.doc_code, '0') AS doc_code,
+			vh.vaca_date,
 			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_start), 2, '0'),':',LPAD(MINUTE(vh.vaca_start), 2, '0')), '00:00') AS vaca_start, 
 			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_end_time), 2, '0'),':',LPAD(MINUTE(vh.vaca_end_time), 2, '0')), '00:00') AS vaca_end
-			FROM commute_history ch
-			LEFT JOIN vacation_history vh ON ch.work_day = vh.vaca_date 
-			WHERE ch.emp_id = #{login_id}
-		ORDER BY ch.work_day asc;
+		FROM vacation_history vh WHERE vh.emp_id = #{login_id}	
+		ORDER BY vh.vaca_date;
 	</select>
 
 </mapper>

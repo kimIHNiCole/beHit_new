@@ -319,7 +319,8 @@
 	        }
 	    }
     </script>
-	    
+	<!-- Header JS -->
+    <script src="../../assets/js/header.js"></script>   
    
 
 

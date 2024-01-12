@@ -100,11 +100,14 @@ public class WorkService {
 		
     	ModelAndView mav = new ModelAndView();
     	
-    	ArrayList<HashMap<String, Object>> list = workDAO.timeNowList(login_id, workmonth);
+    	ArrayList<HashMap<String, Object>> chlist = workDAO.timeNowList(login_id);
+    	ArrayList<HashMap<String, Object>> vhlist = workDAO.vhList(login_id);
     	
-    	logger.info("list : "+list);
+    	logger.info("list : "+chlist);
+    	logger.info("list : "+vhlist);
     	
-    	mav.addObject("list", list);
+    	mav.addObject("chlist", chlist);
+    	mav.addObject("vhlist", vhlist);
     	mav.setViewName("/myHr/mhr_timeline");
 		
 		return mav;
