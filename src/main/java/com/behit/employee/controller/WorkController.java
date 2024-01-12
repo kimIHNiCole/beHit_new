@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class WorkController {
 		return "/employee/workHour_list";
 	}
 	
+	// 내 근태관리 시작 리스트
     @GetMapping(value="/myHr/mhr_timeline.go")
     @ResponseBody
     public ModelAndView timeNowList(HttpSession session){
@@ -140,6 +142,10 @@ public class WorkController {
 		
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, month - 1); // Calendar 클래스의 월은 0부터 시작하므로 -1 해줌
+        
+        
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date());
 
         // 배열에 평일 추가
         List<String> weekdays = new ArrayList<>();
@@ -151,7 +157,9 @@ public class WorkController {
 
             // 주중(월요일(2)부터 금요일(6)까지)인 경우에만 배열에 추가
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY) {
+            
+            if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY
+            			&& calendar.getTime().compareTo(today.getTime()) >= 0) {
             	String formattedDay = String.format("%02d", day);
                 weekdays.add(formattedDay);
             }

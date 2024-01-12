@@ -282,14 +282,14 @@
                   </div>
                   <!--/ About User -->
                   <!-- Profile Overview -->
-                  <div class="card mb-4">
+                  <!-- <div class="card mb-4">
                     <div class="card-body">
                       <small class="text-muted text-uppercase">주간 날씨</small>
                       <hr/>
                       <div>날씨 api 위치
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <!--/ Profile Overview -->
                 </div>
                 <!-- 급상승 유튜버 영역 -->

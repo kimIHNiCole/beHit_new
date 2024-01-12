@@ -163,4 +163,31 @@
 		AND cd.channel_data_date >= CURDATE() - INTERVAL 30 DAY
 		ORDER BY cd.channel_data_date ASC
 	</select>
+	
+	<!-- 열람권한 추가 -->
+	<insert id="addCreator_perm">
+	insert into creator_perm
+	(emp_id, cre_idx, emp_id_in, cre_perm_date)
+	VALUES
+	(#{param1}, #{param2}, #{param3}, current_timestamp);
+	</insert>
+	
+	<select id="creatorPermList" resultType="employee">
+	SELECT e.emp_id, e.emp_name, 
+			(d.emp_dept_name) AS dept_name,
+			(select c.common_code_name 
+			FROM commons_code c 
+			WHERE c.common_code_idx = e.emp_grade_idx ) AS grade_name,
+			(select c.common_code_name 
+			FROM commons_code c 
+			WHERE c.common_code_idx = e.emp_position_idx ) AS position
+		FROM employee e JOIN department d
+		join creator_perm cp on e.emp_id = cp.emp_id 
+		WHERE e.emp_dept_idx = d.emp_dept_idx and cre_idx =#{param1}
+	</select>
+	
+	<delete id="delPerm">
+	DELETE from creator_perm where cre_idx = #{param1} and emp_id=#{param2};
+	</delete>
+	
 </mapper>
