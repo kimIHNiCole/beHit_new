@@ -101,7 +101,7 @@
 		<span class="text-muted fw-light">연차는 시간 단위로 입력됩니다.</span>
 	    <!-- DataTable with Buttons -->
 	    <div class="card">
-        <div class="card-datatable table-responsive">
+        <div class="card-datatable table-responsive" style="overflow-x: hidden">
             <div class="row mb-3">
 				<div class="col-md-4 offset-md-8">
 				    <!-- 검색박스 및 셀렉트 박스 -->

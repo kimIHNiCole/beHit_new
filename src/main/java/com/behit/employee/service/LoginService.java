@@ -42,6 +42,11 @@ public class LoginService {
 		int resultCnt = (int) params.get("lockCnt");
 		return resultCnt;
 	}
+
+	public boolean leaveCnt(String emp_id) {
+		
+		return dao.leaveCnt(emp_id);
+	}
 	
 	
 

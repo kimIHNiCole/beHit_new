@@ -137,16 +137,18 @@
          				크리에이터 리스트
        		      </button>
    			    </li>
-   			    <li class="nav-item">
-     			  <button 
-     			  		class="nav-link" 
-     			  		data-bs-toggle="tab" 
-     			  		data-bs-target="#form-tabs-second" 
-     			  		role="tab" 
-     			  		aria-selected="false" >
-       				크리에이터 관리
-    			  </button>
-   			    </li>
+   			    <c:if test="${deptCheck eq true}">
+	   			    <li class="nav-item">
+	     			  <button 
+	     			  		class="nav-link" 
+	     			  		data-bs-toggle="tab" 
+	     			  		data-bs-target="#form-tabs-second" 
+	     			  		role="tab" 
+	     			  		aria-selected="false" >
+	       				크리에이터 관리
+	    			  </button>
+	   			    </li>
+   			    </c:if>
    			  </ul>
    			</div>
    			

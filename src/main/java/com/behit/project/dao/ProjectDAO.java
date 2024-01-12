@@ -67,4 +67,6 @@ public interface ProjectDAO {
 
 	int projTAllDel(String proj_idx);
 
+	int projDelDo(String projIdx);
+
 }

@@ -177,6 +177,7 @@
 		                          			전체
 		                        		</button>
 	                      			</li>
+	                      		<!-- 
 	                      			<li class="nav-item">
 	                        			<button
 	                          				class="nav-link"
@@ -198,8 +199,8 @@
 	                          				onclick="tabthird()">
 	                          				미달
 	                       			 	</button>
-	                      			</li>
-                    			</ul>
+	                      			</li>  -->
+                    			</ul> 
 			                </div>
 							<div class="col-md-4">
 						        <div class="input-group">
@@ -207,21 +208,60 @@
 						        </div>
 						    </div>
 						</div>
-			            <table class="datatables-basic table border-top" style="margin-top: -10px; text-align: center;">
-			                <thead >
-			                    <tr>
-			                        <th>날짜</th>
-			                        <th>근무시간</th>
-			                        <th>연차</th>
-			                        <th>출근 시간</th>
-			                        <th>퇴근 시간</th>
-			                        <th>상태</th>
-			                    </tr>
-			                </thead>
-			                <tbody id="modalList">
-			                
-			                </tbody>
-			            </table>
+						<div class="tab-content">
+							<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
+					            <table class="datatables-basic table border-top" style="margin-top: -10px; text-align: center;">
+					                <thead >
+					                    <tr>
+					                        <th>날짜</th>
+					                        <th>근무시간</th>
+					                        <th>연차</th>
+					                        <th>출근 시간</th>
+					                        <th>퇴근 시간</th>
+					                        <th>상태</th>
+					                    </tr>
+					                </thead>
+					                <tbody id="modalfList">
+					                
+					                </tbody>
+					            </table>
+				            </div>
+			            <!-- 
+							<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
+					            <table class="datatables-basic table border-top" style="margin-top: -10px; text-align: center;">
+					                <thead >
+					                    <tr>
+					                        <th>날짜</th>
+					                        <th>근무시간</th>
+					                        <th>연차</th>
+					                        <th>출근 시간</th>
+					                        <th>퇴근 시간</th>
+					                        <th>상태</th>
+					                    </tr>
+					                </thead>
+					                <tbody id="modalsList">
+					                
+					                </tbody>
+					            </table>
+				            </div>
+							<div class="tab-pane fade" id="form-tabs-third" role="tabpanel">
+					            <table class="datatables-basic table border-top" style="margin-top: -10px; text-align: center;">
+					                <thead >
+					                    <tr>
+					                        <th>날짜</th>
+					                        <th>근무시간</th>
+					                        <th>연차</th>
+					                        <th>출근 시간</th>
+					                        <th>퇴근 시간</th>
+					                        <th>상태</th>
+					                    </tr>
+					                </thead>
+					                <tbody id="modaltList">
+					                
+					                </tbody>
+					            </table>
+				            </div> -->
+				        </div>
 			        </div>
 			    </div>
 						    </div>
@@ -492,8 +532,8 @@
      			content +='<td>'+item.work_state+'</td>';
      			content +='</tr>';
      		});
-     		$('#modalList').empty();
-     		$('#modalList').append(content);
+     		$('#modalfList').empty();
+     		$('#modalfList').append(content);
      	}
      	
      	

@@ -97,7 +97,7 @@
                       </div>
 
 					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;" >
-					  	<form action="selectmonth" method="post">
+					  	<form action="selectmonth" method="post" style="display: flex; align-items: center;">
 					  		<input type="text" value="" name="workmonth" id="workmonth" style="display: none;">
 					        <select class="form-select" style="flex: 1; margin-right: 8px;" name="worktime">
 						        <option value="07:00~16:00">07:00~16:00</option>
@@ -125,7 +125,7 @@
                         <small class="text-small text-muted text-uppercase align-middle" 
                         	id="selectedDateText" >근무시간 선택일(<span id="selectdate">선택일값</span>)변경</small>
 						  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;">
-						  	<form action="selectday" method="post">
+						  	<form action="selectday" method="post" style="display: flex; align-items: center;">
 						  		<input type="text" style="display: none;" value="" name="workdate" id="workdate">
 							    <select class="form-select"  style="flex: 1; margin-right: 8px;" name="worktime">
 							        <option value="07:00~16:00">07:00~16:00</option>
@@ -225,24 +225,27 @@
     <!-- Header -->
     <script src="../../assets/js/header.js"></script>
     <script>
-
-    
+	var nextcnk = 0;
+	var prevcnk = 0;
+	var minprev = -6;
+	var maxnext = 1;
+	
 	document.addEventListener('DOMContentLoaded', function() {
 		
 
-			  // 클래스명이 'fc-event-time'인 모든 요소들을 선택
-			  var fcEventTimeElements = document.querySelectorAll('.fc-event-time');
+		// 클래스명이 'fc-event-time'인 모든 요소들을 선택
+		var fcEventTimeElements = document.querySelectorAll('.fc-event-time');
 
-			  // 각 요소의 내용을 공백으로 변경
-			  fcEventTimeElements.forEach(function(element) {
-			    if (element.textContent !== undefined) {
-			      // 대부분의 브라우저에서는 textContent를 지원
-				      element.textContent = '';
-			    } else {
-			      // 일부 브라우저에서는 innerText를 사용해야 할 수 있음
-			      element.innerText = '';
-			    }
-			  });
+		// 각 요소의 내용을 공백으로 변경
+		fcEventTimeElements.forEach(function(element) {
+			if (element.textContent !== undefined) {
+				// 대부분의 브라우저에서는 textContent를 지원
+				element.textContent = '';
+			} else {
+				// 일부 브라우저에서는 innerText를 사용해야 할 수 있음
+				element.innerText = '';
+			}
+		});
 		
         let h2Element = document.getElementById('fc-dom-1');
 		let monthAndYear = h2Element.innerText.trim().split(' ');
@@ -263,13 +266,28 @@
 
 		if (previousMonthButton) {
 		  previousMonthButton.addEventListener('click', function() {
-		  	workmonth();
+			  	 NextMonthButton.style.visibility = 'visible';
+				 prevcnk--;
+				 nextcnk--;
+				 workmonth();
+				 console.log(prevcnk);
+				 console.log(nextcnk);
+			 if (prevcnk == minprev ){
+				 previousMonthButton.style.visibility = 'hidden';
+			 }
 		  });
 		}
 		  
 		if (NextMonthButton) {
 			NextMonthButton.addEventListener('click', function() {
-				workmonth();
+					 previousMonthButton.style.visibility = 'visible';
+					 prevcnk++;
+					 nextcnk++;
+					 console.log(prevcnk);
+					 console.log(nextcnk);
+				 if (nextcnk == maxnext){
+					 NextMonthButton.style.visibility = 'hidden';
+				 }
 			});
 		} 
 	});
@@ -292,7 +310,7 @@
 		
 		var workmonth = $('#workmonth').val();
 		console.log(workmonth);
-		/*
+		
 	    $.ajax({
 	    	type:'post',
 	    	 url:'/timelineList',
@@ -301,30 +319,40 @@
 	    	 success:function(data){
 	    		 console.log(data);
 	    		 console.log(data.list);
-	    		 drawlist(data);
+	    		
+	    		 list =[
+	    				<c:forEach var="list" items="${list}">
+	    					{
+	    						"title" : '${list.work_start}'+'~'+'${list.work_end}',
+	    						"start" : '${list.work_day}',
+	    						"end" : '${list.work_day}'
+	    					}<c:if test="${!loop.last}">,</c:if>
+	    				</c:forEach>
+	    			];
+	    			console.log(list);
+	    			events = [
+	    				<c:forEach var="list" items="${list}">
+	    					{
+	    						 title: '${list.work_start}'+'~'+'${list.work_end}',
+	    						 start: '${list.work_day}',
+	    						 end: '${list.work_day}',
+	    						 allDay: false,
+	    						 extendedProps: {
+	    						   calendar: 'Personal'
+	    						 }
+	    					}<c:if test="${!loop.last}">,</c:if>
+	    				</c:forEach>
+	    			];
+	    			
+	    			  	if (window.appCalendar) {
+	    				    window.appCalendar.render();
+	    				}
 	    	 },
 	    	 error:function(e){
 	    		 console.log(e);
 	    	 }
-	    }); 	*/
-	}
-
-	/*
-	let events = [];	
-	function drawlist(obj) {
-	    events = obj.list.map(function(item, idx) {
-	        return {
-	            id: idx + 2,
-	            title: item.work_start + '~' + item.work_end,
-	            start: item.work_day,
-	            end: item.work_day,
-	            allDay: false,
-	            extendedProps: {
-	                calendar: 'Personal'
-	            }
-	        };
 	    });
-	} */
+	}
 	
 	console.log('${list[0].work_day}'); 
 	
@@ -355,17 +383,8 @@
 			}<c:if test="${!loop.last}">,</c:if>
 		</c:forEach>
 	];
-	/*
-	events.push({
-		id: 2,
-		title: '${list[1].work_start}'+'~'+'${list[1].work_end}',
-		start: '${list[1].work_day}',
-		end: '${list[1].work_day}',
-		allDay: false,
-		extendedProps: {
-			calendar: 'Personal'
-		}	
-	}); */
+
+	
 	
     </script>
   </body>

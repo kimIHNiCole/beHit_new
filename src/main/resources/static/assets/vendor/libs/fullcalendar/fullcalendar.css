@@ -1,3 +1,16 @@
+.fc-past-day {
+  background-color: #eeeeee; /* 회색 배경색 */
+  color: #999999; /* 회색 텍스트색 */
+}
+
+.fc-daygrid-day-events{
+	text-align: center;
+}
+
+.fc-day-past{
+	
+}
+
 .fc .fc-toolbar {
   flex-wrap: wrap;
 }
@@ -121,11 +134,16 @@
 .light-style .fc table.fc-scrollgrid td {
   border-color: #d9dee3;
 }
-.light-style .fc .private-event .fc-event-time,
+.light-style .fc .private-event,
 .light-style .fc .private-event .fc-event-title {
   color: #ff3e1d;
 }
-.light-style .fc .fc-day-today {
+
+.fc-event-time {
+  display: none; /* 혹은 visibility: hidden; */
+}
+
+.light-style .fc .fc-day-past {
   background-color: #f6f7f8 !important;
 }
 .light-style .fc .fc-day-today .fc-popover-body {

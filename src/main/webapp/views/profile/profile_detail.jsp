@@ -137,7 +137,7 @@ img.rounded-top{
 								</form>
 					            <button type="button" class="btn btn-label-secondary account-image-reset mb-4 ml-1" style="margin-left: 10px;">
 		                   			<i class="bx bx-reset d-block d-sm-none"></i>
-		                            <span class="d-none d-sm-block">초기화</span>
+		                            <span class="d-none d-sm-block" onclick="photodel()">초기화</span>
 	                          	</button>
 					        </div>       					
                             <ul
@@ -395,9 +395,24 @@ img.rounded-top{
 		        }
 		    }
 		}
-		
+			
 	    function uploadFile() {
 	        document.getElementById("uploadForm").submit();
+	    }
+	    
+	    function photodel() {
+	    	$.ajax({
+	    		type: 'get',
+	    		url:'/photodel',
+	    		dataType:'json',
+	    		success: function(data){
+	    			console.log(data);
+	    			location.reload();
+	    		},
+	    		error:function(e){
+	    			console.log(e);
+	    		}
+	    	});
 	    }
 	</script>
 

@@ -595,7 +595,7 @@ height: calc(100vh - 10rem);
 												<span class="py-2 px-3 fs-4">${detailList.proj_subject}</span>
 												<span class="button">
 													<button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
-													<button type="button" class="btn btn-sm btn-secondary">삭제</button>
+													<button type="button" id="project-del" class="btn btn-sm btn-secondary">삭제</button>
 												</span>
 											</span>
 											<span class="project-subject-right">
@@ -943,6 +943,24 @@ height: calc(100vh - 10rem);
     $('#project-update-move').on('click',function(){
     	var projIdx = ${detailList.proj_idx};
     	location.href="../project/project_update.go?proj_idx="+projIdx;
+    });
+    
+    $('#project-del').on('click', function(){
+    	var projIdx = ${detailList.proj_idx};
+    	
+		$.ajax({
+    		type: 'post',
+    		url: '/project/project_del.do',
+    		data: {projIdx: projIdx},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			location.href="../project/project_main.go";
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
     });
     
 	// 내가 추가한 에디터 초기화 및 내용가져오기

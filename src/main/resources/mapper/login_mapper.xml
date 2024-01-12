@@ -31,4 +31,8 @@
 		</choose>
 		WHERE emp_id = #{emp_id};
 	</update>
+	
+	<select id="leaveCnt" resultType="boolean">
+		SELECT IF(leavedate = '9999-10-10', true, false) AS leavedate FROM employee WHERE emp_id = #{emp_id};
+	</select>
 </mapper>

@@ -84,5 +84,20 @@ public class ProfileController {
 		return "redirect:/profile/profiledetail";
 	}
 	
+	@GetMapping(value="/photodel")
+	public ModelAndView photodel(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		logger.info("로그인 아이디 : "+login_id);
+		
+		profileService.photodel(login_id);
+		
+		mav.setViewName("/profile/profiledetail");
+		
+		return mav;
+	}
+	
 
 }
