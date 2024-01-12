@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.behit.approval.dto.ApprovalDTO;
 import com.behit.approval.service.ApprovalService;
 import com.behit.chat.dto.ChatRoomDTO;
+import com.behit.creator.service.CreatorService;
+import com.behit.creator.service.CreatorStatService;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.dto.VacationDTO;
 import com.behit.employee.dto.WorkDTO;
@@ -32,8 +34,10 @@ import com.behit.project.dto.ProjectDTO;
 public class DashBoardController {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired DashBoardService dashService;
-
+	
+	@Autowired CreatorStatService creatorStatService;
 	// 기본 정보들
 	@GetMapping(value = "/home.go")
 	public String homeGo(HttpSession session, Model model) {
@@ -45,7 +49,9 @@ public class DashBoardController {
 		VacationDTO dashVaca = dashService.dashvaca(login_id);
 		FileDTO photo = dashService.getPhoto(login_id);
 		
-	
+		// 유튜버 랭크 리스트
+		ArrayList<HashMap<String, Object>> creatorRankList = creatorStatService.getCreatorRank();
+		model.addAttribute("rankList", creatorRankList);
 		
 		// 대시보드의 결재 리스트
 		List<ApprovalDTO> reqAp_list = dashService.reqAp_list(login_id);
