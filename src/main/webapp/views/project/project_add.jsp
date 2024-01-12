@@ -301,7 +301,7 @@
         <!-- Layout container -->
         <div class="layout-page">
 	      <!-- Navbar -->
-		  <jsp:include page="/views/header_navbar.jsp" /> 
+		  <jsp:include page="/views/header_navbar.jsp" />
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -491,7 +491,7 @@
 										<input class="form-control mx-4" type="file" id="formFileMultiple" multiple>
 										
 										<div class="pt-4 project-add-button">
-			                    <button type="reset" class="btn btn-secondary mx-2">작성 취소</button>
+			                    <button onclick="cancel()" type="reset" class="btn btn-secondary mx-2">작성 취소</button>
 			                    <button onclick="et()" type="submit" class="btn btn-primary mx-2">등록</button>
 			             	</div>
 										
@@ -515,6 +515,7 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
       <div class="drag-target"></div>
+    </div>
     </div>
     <!-- / Layout wrapper -->
 
@@ -592,9 +593,82 @@
   
   
 <script> // 스크립트 내코드
+// 프로젝트 사이드바 리스트
+var whatlist = '';
+    projList(whatlist);
+    
+    function worksButton(){
+    	whatlist = '진행';
+    	projList(whatlist);
+    }
+	function waitButton(){
+    	whatlist = '대기';
+    	projList(whatlist);
+    }
+	function endButton(){
+		whatlist = '완료';
+		projList(whatlist);
+	}
+
+	function projList(whatlist){
+    	$.ajax({
+    		type: 'get',
+    		url: 'projList.do',
+    		data: {whatlist: whatlist},
+    		dataType: 'json',
+    		success: function (data) {
+    			console.log(data);
+    			projListdraw(data);
+    		},
+    		error: function (e) {
+    			console.log(e);
+    		}
+    	});
+    }
+    
+    function projListdraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 0){
+        	content = '<li style="text-align:center">프로젝트가 없습니다.</li>';
+        }else{
+        	obj.list.forEach(function (item){
+        		content += '<li class="chat-contact-list-item pro" id="'+item.proj_idx+'">';
+        		content += '<a class="d-flex align-items-center">';
+        		content += '<div class="chat-contact-info flex-grow-1 ms-3">';
+        		content += '<h6 class="chat-contact-name text-truncate m-0">'+item.proj_subject+'</h6>';
+        		content += '<p class="text-muted mb-auto">'+item.proj_start+'~'+item.proj_end+'</p>';
+        		content += '<p class="chat-contact-status text-truncate mb-0 text-muted">'+item.dam_name+'</p>';
+        		content += '</div>';
+        		content += '<small class="text-muted mb-auto">'+item.proj_status+'</small>';
+        		content += '</a>';
+        		content += '</li>';
+        	});
+        }
+        $('#projlist').empty();
+        $('#projlist').append(content);
+        
+        $('.chat-contact-list-item.pro').on('click', function () {
+            // 모든 li에서 active 클래스 제거
+            $('.chat-contact-list-item.pro').removeClass('active');
+            // 현재 클릭한 li에 active 클래스 추가
+            $(this).addClass('active');
+            
+            var projIdx = $(this).attr('id');
+            console.log('projIdx:', projIdx);
+            window.location = "project_detail.go?proj_idx="+projIdx; // 보류보류
+        });
+    }
+
 //선택된 노드 정보를 담을 배열
 var selectedNodes = [];
 var selectedNodes1 = [];
+
+	function cancel() {
+		window.location.href = '/project/project_main.go';
+	}
 
 	function et() {
 		var textsubject = $("#defaultInput").val(); // 제목
