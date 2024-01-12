@@ -308,6 +308,11 @@
             buttonsStyling: false
           });
     }
+    
+    var msg = '${msg}';
+    if(msg){
+    	alert(msg);
+    }
   	
   	
 

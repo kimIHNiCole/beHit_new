@@ -23,5 +23,7 @@ public interface ProfileDAO {
 	boolean selectphoto(String file_kind_idx);
 
 	void photoinsert(HashMap<String, Object> file);
+
+	int photodel(String login_id);
 	
 }

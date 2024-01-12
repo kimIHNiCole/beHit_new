@@ -132,7 +132,7 @@
 			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_end_time), 2, '0'),':',LPAD(MINUTE(vh.vaca_end_time), 2, '0')), '00:00') AS vaca_end
 			FROM commute_history ch
 			LEFT JOIN vacation_history vh ON ch.work_day = vh.vaca_date 
-			WHERE ch.emp_id = #{login_id} AND ch.work_day LIKE CONCAT(#{workmonth}, '-%')
+			WHERE ch.emp_id = #{login_id}
 		ORDER BY ch.work_day asc;
 	</select>
 

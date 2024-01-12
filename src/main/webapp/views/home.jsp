@@ -206,8 +206,8 @@
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                               <li class="list-inline-item fw-medium"><i class="bx bx-map"></i></i> ${dashProfile.dept_name}</li>
                               <li class="list-inline-item fw-medium"><i class='bx bx-ghost'></i></i> ${dashProfile.position_name}</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bxs-time' ></i> 사용 연차 : 66시간</li>
-                              <li class="list-inline-item fw-medium"><i class='bx bx-time-five' ></i> 잔여 연차 : 12시간</li>
+                              <li class="list-inline-item fw-medium"><i class='bx bxs-time' ></i> 사용 연차 : ${dashvaca.usehour}시간</li>
+                              <li class="list-inline-item fw-medium"><i class='bx bx-time-five' ></i> 잔여 연차 : ${dashvaca.remainhour}시간</li>
                             </ul>
                           </div>
                           <a href="../profile/profiledetail" class="btn btn-primary text-nowrap">
@@ -572,6 +572,8 @@
 // 출퇴근 버튼 스크립트, 출퇴근 시간 view 에 반영
 'use strict';
 
+
+
 (function () {
   const workStart = document.querySelector('#workStart'),
     workEnd = document.querySelector('#workEnd');
@@ -582,14 +584,14 @@
   // 출근 버튼
   if (workStart) {
   workStart.onclick = function () {
-    Swal.fire({
+  /*  Swal.fire({
       text: '출근 처리되었습니다!',
       icon: 'success',
       customClass: {
         confirmButton: 'btn btn-primary'
       },
       buttonsStyling: false
-    }).then(function (result) {
+    }).then(function (result) {*/
       // 출근 처리가 완료된 후에 AJAX 요청을 보냄
       $.ajax({
         type: 'get',
@@ -599,16 +601,32 @@
         success: function (data) {
           console.log(data);
           if(data.workStarted > 0){
+        	  Swal.fire({
+        	      text: '출근 처리되었습니다!',
+        	      icon: 'success',
+        	      customClass: {
+        	        confirmButton: 'btn btn-primary'
+        	      },
+        	      buttonsStyling: false
+        	    })
         	// 페이지 이동
-              window.location.href = '/home.go';
-        	  
+              window.location.href = '/home.go';	  
+          } else{
+        	  Swal.fire({
+        	      text: '이미 출근 상태입니다.',
+        	      icon: 'error',
+        	      customClass: {
+        	        confirmButton: 'btn btn-primary'
+        	      },
+        	      buttonsStyling: false
+        	  })
           }
         },
         error: function (e) {
           console.log(e);
         }
       });
-    });
+  /*  });  */
   };
 }
 
@@ -616,7 +634,7 @@
   if (workEnd) {
     workEnd.onclick = function () {
       Swal.fire({
-        text: "정말 퇴근하시겠습니까?",
+        text: "퇴근하시겠습니까?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'OK',
@@ -635,8 +653,25 @@
                 success: function (data) {
                   console.log(data);
                   if(data.workEnded > 0){
+                	  Swal.fire({
+                	      text: '퇴근 처리되었습니다!',
+                	      icon: 'success',
+                	      customClass: {
+                	        confirmButton: 'btn btn-primary'
+                	      },
+                	      buttonsStyling: false
+                	    })
                 	// 페이지 이동
                       window.location.href = '/home.go';
+                  } else{
+                	  Swal.fire({
+                	      text: '이미 퇴근 상태입니다.',
+                	      icon: 'error',
+                	      customClass: {
+                	        confirmButton: 'btn btn-primary'
+                	      },
+                	      buttonsStyling: false
+                	  })
                   }
                 },
                 error: function (e) {

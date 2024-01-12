@@ -47,4 +47,9 @@
 		INSERT INTO file (file_kind, file_kind_idx, ori_file_name, new_file_name, upload_date, emp_id)
 			VALUES (#{file_kind}, #{file_kind_idx}, #{ori_file_name}, #{new_file_name}, NOW(), #{login_id})
 	</insert>
+	
+	<delete id="photodel">
+		DELETE FROM file WHERE file_kind_idx = #{login_id};
+	</delete>
+	
 </mapper>
