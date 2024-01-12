@@ -360,6 +360,9 @@ $(document).on('click', '.dropdown-notifications-item', function(event) {
     if ($(event.target).hasClass('dropdown-notifications-archive')) {
         return;
     }
+ // 해당 알람의 type index를 가져옴
+    var alarmTypeIdx = listItem.find('input[name="alarm_type_idx"]').val();
+    console.log("알람 idx", alarmTypeIdx);
     
     // 해당 알람의 type을 가져옴
     var alarmType = listItem.find('input[name="alarm_type"]').val();
@@ -373,15 +376,13 @@ $(document).on('click', '.dropdown-notifications-item', function(event) {
             window.location.href = '../approval/getApproval_list.go';
             break;
         case '4':
-            window.location.href = '../project/project_main.go';
+            window.location.href = '../project/project_detail.go?proj_idx='+alarmTypeIdx;
             break;
         default:
             console.log('Unhandled alarm type:', alarmType);
             break;
     }
-    // 해당 알람의 type index를 가져옴
-    var alarmTypeIdx = listItem.find('input[name="alarm_type_idx"]').val();
-    console.log("알람 idx", alarmTypeIdx);
+    
 
     // 서버로 읽음 여부 업데이트 요청을 보냄
     $.ajax({
