@@ -2,6 +2,8 @@ package com.behit.creator.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,10 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -204,7 +210,9 @@ public class CreatorController {
 		ArrayList<HashMap<String, Object>> channelInfoList = creatorService.getChannel(cre_idx);
 		ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(cre_idx); 
 		ArrayList<SnsDTO> snsList = creatorService.getSns(cre_idx); 
+		List<CreatorDTO> creatorPermList=creatorService.creatorPermList(cre_idx); 
 		
+		mav.addObject("creatorPermList", creatorPermList);
 		mav.addObject("creatorInfo", creatorInfo);
 		mav.addObject("channelInfoList", channelInfoList);
 		mav.addObject("creatorHistory", creatorHistory);
@@ -241,9 +249,53 @@ public class CreatorController {
 			}
 			return result;
 		}
-	
-	
-	
+		
+		// 열람 권한 추가
+		@RequestMapping(value = "/addCreator_perm", method = RequestMethod.POST)
+		@ResponseBody
+		public HashMap<String, Object> addCreator_perm(HttpSession session,
+				@RequestBody CreatorDTO requestData) {
+
+				logger.info("cre_idx: " + requestData.getCre_idx());
+			    logger.info("selectedNodes: " + requestData.getSelectedNodes());
+			    int cre_idx=requestData.getCre_idx();
+			    List<Map<String, String>> emp_data=requestData.getSelectedNodes();
+				HashMap<String, Object> result = new HashMap<String, Object>();
+				EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+				String loginId=empdto.getEmp_id();
+				int idx=creatorService.addCreator_perm(loginId, cre_idx, emp_data);
+
+				result.put("idx", idx);
+				return result;
+			}
+		
+		
+		@RequestMapping(value = "/delPerm", method = RequestMethod.POST)
+		@ResponseBody
+		public HashMap<String, Object> delPerm(HttpSession session,
+				@RequestBody CreatorDTO delPerm) {
+			 int cre_idx = delPerm.getCre_idx();
+			 String emp_id =delPerm.getEmp_id();
+			
+				logger.info("cre_idx: " + cre_idx);
+			    logger.info("emp_id"+emp_id);
+
+				HashMap<String, Object> result = new HashMap<String, Object>();
+				EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+				String loginId=empdto.getEmp_id();
+				int idx=creatorService.delPerm(cre_idx, emp_id);
+
+				result.put("idx", idx);
+				return result;
+			}
+		
+	/*
+		@GetMapping(value="/creatorPermList")
+		public String creatorPermList(HttpSession session, Model model) {
+			logger.info("");
+			return "creator_detail";
+		}
+	*/
 	// 채널 카테고리 항목 데이터 가져오기  보류
 //	@GetMapping(value = "/getChCate.ajax.do")
 //	public HashMap<String, Object> getChCateDo() {
