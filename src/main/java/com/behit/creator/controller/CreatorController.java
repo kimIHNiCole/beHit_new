@@ -39,51 +39,75 @@ public class CreatorController {
 	
 	// 크리에이터 리스트 페이지 이동 
 	@GetMapping(value = "creators/creatorList.go")
-	public ModelAndView cratorListGo(ModelAndView mav) {
+	public ModelAndView cratorListGo(ModelAndView mav, HttpSession session) {
 		logger.info("크리에이터 리스트 페이지로 이동 요청");
+		
+		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
+		boolean deptCheck = loginInfo.getEmp_dept_idx() == 6   ? true : false;
+		logger.info("로그인 회원의 부서 코드 : " + deptCheck);
+		
+		mav.addObject("deptCheck", deptCheck);
 		mav.setViewName("creators/creator_list_all");
 		return mav;
 	}
 	
 	// 크리에이터 등록 페이지 이동
 	@GetMapping(value = "creators/creatorAdd.go")
-	public ModelAndView creatorAddGo(ModelAndView mav) {
+	public ModelAndView creatorAddGo(ModelAndView mav, HttpSession session) {
 		logger.info("크리에이터 등록 페이지로 이동 요청");
-
-		ArrayList<CommCreDTO> genders = creatorService.getGenders();
-		ArrayList<CommCreDTO> countries = creatorService.getCountries();
-		logger.info("genders : " + genders.toString());
-		logger.info("countries : " + countries.toString());
-		mav.addObject("genders", genders);
-		mav.addObject("countries", countries);
-
-		mav.setViewName("creators/creator_add");
+		
+		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
+		boolean deptCheck = loginInfo.getEmp_dept_idx() == 6   ? true : false;
+		if(deptCheck) {
+			ArrayList<CommCreDTO> genders = creatorService.getGenders();
+			ArrayList<CommCreDTO> countries = creatorService.getCountries();
+			logger.info("genders : " + genders.toString());
+			logger.info("countries : " + countries.toString());
+			mav.addObject("genders", genders);
+			mav.addObject("countries", countries);
+			mav.setViewName("creators/creator_add");
+		}else {
+			mav.addObject("warningMsg", "접근권한이 없습니다.");
+			mav.setViewName("home");
+		}
+		
 		return mav;
 	}
 	
 	// 크리에이터 수정 페이지 이동
 	@GetMapping(value = "/creators/creatorUpdate.go")
-	public ModelAndView creatorUpdateGo(@RequestParam String cre_idx, ModelAndView mav) {
+	public ModelAndView creatorUpdateGo(@RequestParam String cre_idx, ModelAndView mav,HttpSession session) {
 		logger.info("크리에이터 수정 페이지로 이동 :: cre_idx="+cre_idx);
-		int creIdx = Integer.parseInt(cre_idx);
 		
-		ArrayList<CommCreDTO> genders = creatorService.getGenders();
-		ArrayList<CommCreDTO> countries = creatorService.getCountries();
-		
-		HashMap<String, Object> creatorInfo = creatorService.getCreator(creIdx);
-		ArrayList<HashMap<String, Object>> channelInfoList = creatorService.getChannel(creIdx);
-		ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(creIdx); 
-		ArrayList<SnsDTO> snsList = creatorService.getSns(creIdx); 
-		
-		mav.addObject("genders", genders);
-		mav.addObject("countries", countries);
-		
-		mav.addObject("creatorInfo", creatorInfo);
-		mav.addObject("channelInfoList", channelInfoList);
-		mav.addObject("creatorHistory", creatorHistory);
-		mav.addObject("snsList", snsList);
-		
-		mav.setViewName("creators/creator_update");
+		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
+		boolean deptCheck = loginInfo.getEmp_dept_idx() == 6   ? true : false;
+		if(deptCheck) {
+			int creIdx = Integer.parseInt(cre_idx);
+			
+			ArrayList<CommCreDTO> genders = creatorService.getGenders();
+			ArrayList<CommCreDTO> countries = creatorService.getCountries();
+			
+			HashMap<String, Object> creatorInfo = creatorService.getCreator(creIdx);
+			ArrayList<HashMap<String, Object>> channelInfoList = creatorService.getChannel(creIdx);
+			ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(creIdx); 
+			ArrayList<SnsDTO> snsList = creatorService.getSns(creIdx); 
+			
+			for(HashMap<String, Object>channelInfo : channelInfoList  ) {
+				logger.info("rep_channel value check = "+channelInfo.get("rep_channel"));
+			}
+			mav.addObject("genders", genders);
+			mav.addObject("countries", countries);
+			
+			mav.addObject("creatorInfo", creatorInfo);
+			mav.addObject("channelInfoList", channelInfoList);
+			mav.addObject("creatorHistory", creatorHistory);
+			mav.addObject("snsList", snsList);
+			
+			mav.setViewName("creators/creator_update");
+		}else {
+			mav.addObject("warningMsg", "접근권한이 없습니다.");
+			mav.setViewName("home");
+		}
 		return mav;
 	}
 	
@@ -99,7 +123,7 @@ public class CreatorController {
 				
 				logger.info("등록 요청 결과 channel_id: "+ param.get("channel_id"));
 				logger.info("등록 요청 결과 cre_idx "+ param.get("cre_idx"));
-				logger.info("등록 요청 결과 channel_rep: "+ param.get("channel_rep"));
+				logger.info("등록 요청 결과 rep_channel: "+ param.get("rep_channel"));
 				creidx = (int) param.get("cre_idx");
 				
 				creatorStatController.saveChannelDataOne(param);
@@ -160,6 +184,7 @@ public class CreatorController {
 		ArrayList<HashMap<String, Object>> allList = creatorService.getAllList();
 		ArrayList<HashMap<String,Object>> myList = creatorService.getMyList(loginId);
 		
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("totalInfo", totalInfo);
 		result.put("allList", allList);
@@ -169,8 +194,11 @@ public class CreatorController {
 	
 	// 크리에이터 상세보기 
 	@GetMapping(value = "creators/creatorDetail.go")
-	public ModelAndView creatorDetailGo(@RequestParam int cre_idx ,ModelAndView mav) {
+	public ModelAndView creatorDetailGo(@RequestParam int cre_idx ,ModelAndView mav, HttpSession session) {
 		logger.info("크리에이터 상세 페이지 요청 || cre_idx = "+cre_idx);
+		
+		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
+		boolean deptCheck = loginInfo.getEmp_dept_idx() == 6   ? true : false;
 		
 		HashMap<String, Object> creatorInfo = creatorService.getCreator(cre_idx);
 		ArrayList<HashMap<String, Object>> channelInfoList = creatorService.getChannel(cre_idx);
@@ -181,6 +209,8 @@ public class CreatorController {
 		mav.addObject("channelInfoList", channelInfoList);
 		mav.addObject("creatorHistory", creatorHistory);
 		mav.addObject("snsList", snsList);
+		
+		mav.addObject("deptCheck", deptCheck);
 		
 		mav.setViewName("creators/creator_detail");
 		return mav;

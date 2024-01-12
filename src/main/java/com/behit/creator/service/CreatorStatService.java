@@ -33,6 +33,8 @@ public class CreatorStatService {
 	Channel channel=null;
 	// 여러개 저장할때
 	
+	
+	// 구버전
 //	public void saveChannelData() {
 //		logger.info("SCHEDULING :: saveChannelData() 실행");
 //		// 채널 id 가져오기 ( 크리에이터당 대표 채널만 )
@@ -50,7 +52,7 @@ public class CreatorStatService {
 //		}
 //	}
 	
-	
+	// 신버전
 	public void saveChannelData() {
 		logger.info("SCHEDULING :: saveChannelData() 실행");
 		// 채널 id와 대표채널여부 가져오기 
@@ -74,7 +76,7 @@ public class CreatorStatService {
 	public void saveChannelDataOne(HashMap<String, Object> channelIdAndRep) {
 		logger.info("SCHEDULING :: saveChannelDataOne() 실행");
 			String channelId= (String)channelIdAndRep.get("channel_id");
-			int channel_rep = (int) channelIdAndRep.get("channel_rep");
+			int rep_channel = (int) channelIdAndRep.get("rep_channel");
             useYoutubeApi(channelId);
             
             BigInteger subscriber = channel.getStatistics().getSubscriberCount();
@@ -85,12 +87,12 @@ public class CreatorStatService {
             channelDataDTO.setSubscriber(subscriber);
             channelDataDTO.setViews(views);
             channelDataDTO.setContents(contents);
-            channelDataDTO.setChannel_rep(channel_rep);
+            channelDataDTO.setRep_channel(rep_channel);
             logger.info("channel_id = "+channelDataDTO.getChannel_id());
             logger.info("subscriber = "+channelDataDTO.getSubscriber());
             logger.info("views"+channelDataDTO.getViews());
             logger.info("contents"+channelDataDTO.getContents());
-            logger.info("channel_rep"+channelDataDTO.getChannel_rep());
+            logger.info("rep_channel"+channelDataDTO.getRep_channel());
             
             // 조회수추이값 계산하기 
             // insert와 동시에 => 쿼리를 통해 수행

@@ -43,6 +43,8 @@ public class DashBoardController {
 		EmployeeDTO dashProfile=dashService.detail(login_id);
 		FileDTO photo = dashService.getPhoto(login_id);
 		
+	
+		
 		// 대시보드의 결재 리스트
 		List<ApprovalDTO> reqAp_list = dashService.reqAp_list(login_id);
 		logger.info("reqAp_list"+reqAp_list);
