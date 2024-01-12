@@ -94,7 +94,7 @@
 		<if test="apv_overview == null or apv_overview.isEmpty()">,NULL</if>
 		
 		<if test="apv_cnt != null and !apv_cnt.isEmpty()">,#{apv_cnt}</if>
-		<if test="apv_cnt == null or apv_cnt.isEmpty()">,NULL</if>
+		<if test="apv_cnt == null or apv_cnt.isEmpty()">,'false'</if>
 		)
 	</insert>
 	<insert id="apv_line" parameterType="com.behit.approval.dto.ApprovalDTO">

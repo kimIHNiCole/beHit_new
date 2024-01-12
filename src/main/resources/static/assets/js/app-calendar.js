@@ -47,8 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
       selectAll = document.querySelector('.select-all'),
       filterInput = [].slice.call(document.querySelectorAll('.input-filter')),
       inlineCalendar = document.querySelector('.inline-calendar');
-      
-      
 
     let eventToUpdate,
       currentEvents = events, // Assign app-calendar-events.js file events (assume events from API) to currentEvents (browser store/object) to manage and update calender events
@@ -146,8 +144,10 @@ document.addEventListener('DOMContentLoaded', function () {
         monthSelectorType: 'static',
         inline: true
       });
-    }
-
+    }    
+    
+    
+/*
     // Event click function
     function eventClick(info) {
       eventToUpdate = info.event;
@@ -181,9 +181,6 @@ document.addEventListener('DOMContentLoaded', function () {
       eventToUpdate.extendedProps.description !== undefined
         ? (eventDescription.value = eventToUpdate.extendedProps.description)
         : null;
-        
-	    var clickedDate = info.dateStr;
-	    console.log('Clicked date:', clickedDate);
 
       // // Call removeEvent function
       // btnDeleteEvent.addEventListener('click', e => {
@@ -191,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
       //   // eventToUpdate.remove();
       //   bsAddEventSidebar.hide();
       // });
-    }
+    }*/
 
     // Modify sidebar toggler
     function modifyToggler() {
@@ -280,7 +277,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Background Color
         return ['fc-event-' + colorName];
       },
-      
       dateClick: function (info) {
         let date = moment(info.date).format('YYYY-MM-DD');
         resetValues();
@@ -299,33 +295,49 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       
       
-      
-	  
       dateClick: function (info) {
-      // 클릭한 날짜의 a 태그 안에 있는 숫자 값을 가져와서 콘솔에 출력
-      let day = info.dayEl.querySelector('a').innerText.padStart(2, '0');
-      let h2Element = document.getElementById('fc-dom-1');
-      let monthAndYear = h2Element.innerText.trim().split(' ');
-      
-      function monthToNumber(monthString) {
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-      // 입력된 월 문자열이 배열에서 몇 번째에 위치하는지 찾아서 해당 인덱스를 반환
-      return (months.indexOf(monthString) + 1).toString().padStart(2, '0');;
-	  }
-             
-      let month = monthToNumber(monthAndYear[0]);
-      let year = monthAndYear[1];
-    
-      console.log('Clicked day:', day);
-      console.log('Month (as number):', month);
-      console.log('Year:', year);
-      	document.getElementById('selectdate').innerText = day;
-      	document.getElementById('workdate').value = year+'-'+month+'-'+day;
-      	document.getElementById('selecdate').style.display = 'inline';
-      },
-      
-      
+		  var currentDate = new Date(); // 현재 날짜
+		  let day = info.dayEl.querySelector('a').innerText.padStart(2, '0'); // 클릭한 날짜 값
+		  let h2Element = document.getElementById('fc-dom-1'); // 상단 달+년 값
+		  let monthAndYear = h2Element.innerText.trim().split(' ');
+		  let clickedDate = new Date(info.date);
+		
+		  if (
+		    clickedDate.getMonth() !== currentDate.getMonth() ||
+		    clickedDate.getFullYear() !== currentDate.getFullYear()
+		  ) {
+		    return;
+		  }
+		  
+		  if (clickedDate.getDay() === 0 || clickedDate.getDay() === 6) {
+		  	document.getElementById('selecdate').style.display = 'none';
+		    return;
+		  }
+		
+		  // 클릭한 날짜가 현재 날짜 이후인 경우
+		  if (clickedDate.getDate() >= currentDate.getDate()) {
+		    document.getElementById('selecdate').style.display = 'inline';
+		  } else {
+		    // 클릭한 날짜가 현재 날짜 이전인 경우
+		    document.getElementById('selecdate').style.display = 'none';
+		  }
+		
+		  function monthToNumber(monthString) {
+		    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		
+		    // 입력된 월 문자열이 배열에서 몇 번째에 위치하는지 찾아서 해당 인덱스를 반환
+		    return (months.indexOf(monthString) + 1).toString().padStart(2, '0');
+		  }
+		
+		  let month = monthToNumber(monthAndYear[0]);
+		  let year = monthAndYear[1];
+		
+		  console.log('Clicked day:', day);
+		  console.log('Month (as number):', month);
+		  console.log('Year:', year);
+		  document.getElementById('selectdate').innerText = day;
+		  document.getElementById('workdate').value = year + '-' + month + '-' + day;
+		},
       eventClick: function (info) {
         eventClick(info);
       },
@@ -336,33 +348,11 @@ document.addEventListener('DOMContentLoaded', function () {
         modifyToggler();
       }
     });
-    
-    document.addEventListener('DOMContentLoaded', function() {
-	    var yourElement = document.querySelector('#workbutton');
-	    if (yourElement) {
-	       yourElement.addEventListener('click', function() {
-	             let h2Element = document.getElementById('fc-dom-1');
-			        let monthAndYear = h2Element.innerText.trim().split(' ');
-			        
-			        function monthToNumber(monthString) {
-			      	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-			
-			      	// 입력된 월 문자열이 배열에서 몇 번째에 위치하는지 찾아서 해당 인덱스를 반환
-			      	return (months.indexOf(monthString) + 1).toString().padStart(2, '0');;
-				  	}
-			        
-			        let month = monthToNumber(monthAndYear[0]);
-			        let year = monthAndYear[1];
-			
-			        document.getElementById('workmonth').value = year + '-' + month;
-	        });
-	    }
-	    
 
-	});
 
     // Render calendar
     calendar.render();
+    
     // Modify sidebar toggler
     modifyToggler();
 
@@ -566,7 +556,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Reset event form inputs values
     // ------------------------------------------------
-    
     function resetValues() {
       eventEndDate.value = '';
       eventUrl.value = '';

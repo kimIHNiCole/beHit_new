@@ -33,7 +33,7 @@
 					</table>
 			  
 			  </c:when>
-			  <c:when test="${form_type == 'detail'}">
+			  <c:when test="${form_type == 'detail' || form_type == 'update'}">
 			  
 				  <table class="table-header-left-table">
 						<tbody>
@@ -92,7 +92,7 @@
 										</table>
 								  
 								  </c:when>
-								  <c:when test="${form_type == 'detail'}">
+								  <c:when test="${form_type == 'detail' || form_type == 'update'}">
 								  
 									  <table>
 											<tbody>
@@ -131,7 +131,7 @@
 									</td>
 								  
 								  </c:when>
-								  <c:when test="${form_type == 'detail'}">
+								  <c:when test="${form_type == 'detail' || form_type == 'update'}">
 								  
 										<c:forEach var="apvDTO" items="${apv_line_info}">
 							        <td class="apv-sign-table-right">
@@ -184,7 +184,7 @@
 				<td class="table-content-right">
 				
 					<c:choose>
-						  <c:when test="${form_type == 'write'}">
+						  <c:when test="${form_type == 'write' || form_type == 'update'}">
 							<input type="text" name="apv_subject" class="form-control" placeholder="제목을 입력하세요." />
 						  </c:when>
 						  <c:when test="${form_type == 'detail'}">
@@ -199,7 +199,7 @@
 				<td class="table-content-right">
 				
 					<c:choose>
-						  <c:when test="${form_type == 'write'}">
+						  <c:when test="${form_type == 'write' || form_type == 'update'}">
 									<textarea class="form-control" name="apv_overview" id="exampleFormControlTextarea1" placeholder="내용을 입력하세요." rows="3" style="resize: none"></textarea>
 						  </c:when>
 						  <c:when test="${form_type == 'detail'}">
@@ -247,7 +247,7 @@
 	</tbody>
 </table>
 
-<c:if test="${form_type == 'write'}">
+<c:if test="${form_type == 'write' || form_type == 'update'}">
 	<input type="hidden" name="total_name" id="totalNames" />
 	<input type="hidden" name="apv_cnt" id="apvCnt" />
 </c:if>

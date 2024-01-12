@@ -780,6 +780,7 @@
     
     var form_type = '${form_type}';
     var apv_vac_type = '${apv.apv_vac_type}';
+    var apv_code = '${apv.apv_code}';
     
     
     
@@ -791,34 +792,10 @@
     }else if(apv_vac_type == '시간'){
 	    $('.apv-vac-time').val('${apv.apv_time}');
     	
+    }else if(apv_code == 'BSPN'){
+    	$('input[name="apv_subject"]').val('${apv.apv_subject}');
+    	$('textarea[name="apv_overview"]').val('${apv.apv_overview}');
     }
-    
-    /* $(document).ready(function () {
-	    	// 값을 담을 배열 초기화
-			var totalNames = [];
-	    
-		  var deptNameElements = $('.apv-sign-line-dept');
-			var empNameElements = $('.apv-sign-line-name');
-			var positionNameElements = $('.apv-sign-line-dept');
-			var empIdElements = $('.emp-id');
-				
-			// 각 요소의 길이를 기준으로 반복
-			for (var i = 0; i < deptNameElements.length; i++) {
-				var nameOrder=[];
-			  // 각 요소의 인덱스에 따라서 값을 totalNames 배열에 추가
-			  if (deptNameElements[i]) nameOrder.push(deptNameElements.eq(i).text());
-			  if (empNameElements[i]) nameOrder.push(empNameElements.eq(i).text());
-			  if (positionNameElements[i]) nameOrder.push(positionNameElements.eq(i).text());
-			  if (empIdElements[i]) nameOrder.push(empIdElements.eq(i).val());
-			  totalNames.push(nameOrder);
-		    
-			}
-			
-			console.log("totalNames:" + totalNames);
-			
-			// 배열 문자화하여 전송
-			$('#totalNames').val(JSON.stringify(totalNames));
-    }); */
     
 
     //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
@@ -1431,7 +1408,7 @@
 		});
     	var deltaData;
 
-    	if ('${apv.apv_cnt}' == 'false') {
+    	if ('${apv.apv_cnt}' != 'false') {
     	    deltaData = ${apv.apv_cnt};
     	}
     	if (deltaData) {

@@ -96,9 +96,9 @@
                         <small class="text-small text-muted text-uppercase align-middle">근무시간 전체 등록</small>
                       </div>
 
-					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;" >
-					  	<form action="selectmonth" method="post">
-					  		<input type="text" value="" name="workmonth" id="workmonth">
+					  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center;" >
+					  	<form action="selectmonth" method="post" style="display: flex; align-items: center;">
+					  		<input type="text" value="" name="workmonth" id="workmonth" style="display: none;">
 					        <select class="form-select" style="flex: 1; margin-right: 8px;" name="worktime">
 						        <option value="07:00~16:00">07:00~16:00</option>
 						        <option value="08:00~17:00">08:00~17:00</option>
@@ -106,10 +106,10 @@
 						        <option value="10:00~19:00">10:00~19:00</option>
 						        <option value="11:00~20:00">11:00~20:00</option>
 						    </select>
-						    <button class="btn btn-primary" id="workbutton">등록</button>
+						    <button type="submit" class="btn btn-primary" id="workbutton">등록</button>
 						</form>
 					  </div>
-					  <div class="app-calendar-events-filter">
+					  <div class="app-calendar-events-filter" style="display: none;">
                         <div class="form-check form-check-danger mb-2">
                           <input
                             class="form-check-input input-filter"
@@ -125,7 +125,7 @@
                         <small class="text-small text-muted text-uppercase align-middle" 
                         	id="selectedDateText" >근무시간 선택일(<span id="selectdate">선택일값</span>)변경</small>
 						  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;">
-						  	<form action="selectday" method="post">
+						  	<form action="selectday" method="post" style="display: flex; align-items: center;">
 						  		<input type="text" style="display: none;" value="" name="workdate" id="workdate">
 							    <select class="form-select"  style="flex: 1; margin-right: 8px;" name="worktime">
 							        <option value="07:00~16:00">07:00~16:00</option>
@@ -225,7 +225,167 @@
     <!-- Header -->
     <script src="../../assets/js/header.js"></script>
     <script>
+	var nextcnk = 0;
+	var prevcnk = 0;
+	var minprev = -6;
+	var maxnext = 1;
+	
+	document.addEventListener('DOMContentLoaded', function() {
+		
+
+		// 클래스명이 'fc-event-time'인 모든 요소들을 선택
+		var fcEventTimeElements = document.querySelectorAll('.fc-event-time');
+
+		// 각 요소의 내용을 공백으로 변경
+		fcEventTimeElements.forEach(function(element) {
+			if (element.textContent !== undefined) {
+				// 대부분의 브라우저에서는 textContent를 지원
+				element.textContent = '';
+			} else {
+				// 일부 브라우저에서는 innerText를 사용해야 할 수 있음
+				element.innerText = '';
+			}
+		});
+		
+        let h2Element = document.getElementById('fc-dom-1');
+		let monthAndYear = h2Element.innerText.trim().split(' ');
+		        
+		function monthToNumber(monthString) {
+			const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			return (months.indexOf(monthString) + 1).toString().padStart(2, '0');
+		}
+		        
+		let month = monthToNumber(monthAndYear[0]);
+		let year = monthAndYear[1];
+		
+		document.getElementById('workmonth').value = year + '-' + month;
+		        
+		
+		var previousMonthButton = document.querySelector('button[title="Previous month"]');
+		var NextMonthButton = document.querySelector('button[title="Next month"]');
+
+		if (previousMonthButton) {
+		  previousMonthButton.addEventListener('click', function() {
+			  	 NextMonthButton.style.visibility = 'visible';
+				 prevcnk--;
+				 nextcnk--;
+				 workmonth();
+				 console.log(prevcnk);
+				 console.log(nextcnk);
+			 if (prevcnk == minprev ){
+				 previousMonthButton.style.visibility = 'hidden';
+			 }
+		  });
+		}
+		  
+		if (NextMonthButton) {
+			NextMonthButton.addEventListener('click', function() {
+					 previousMonthButton.style.visibility = 'visible';
+					 prevcnk++;
+					 nextcnk++;
+					 console.log(prevcnk);
+					 console.log(nextcnk);
+				 if (nextcnk == maxnext){
+					 NextMonthButton.style.visibility = 'hidden';
+				 }
+			});
+		} 
+	});
     
+	function workmonth(){
+		let h2Element = document.getElementById('fc-dom-1');
+		let monthAndYear = h2Element.innerText.trim().split(' ');
+		console.log('h2 : ', h2Element);
+			        
+		function monthToNumber(monthString) {
+			const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			// 입력된 월 문자열이 배열에서 몇 번째에 위치하는지 찾아서 해당 인덱스를 반환
+			return (months.indexOf(monthString) + 1).toString().padStart(2, '0');;
+		}
+			        
+		let month = monthToNumber(monthAndYear[0]);
+		let year = monthAndYear[1];
+			
+		document.getElementById('workmonth').value = year + '-' + month;
+		
+		var workmonth = $('#workmonth').val();
+		console.log(workmonth);
+		
+	    $.ajax({
+	    	type:'post',
+	    	 url:'/timelineList',
+	    	 data:{'workmonth':workmonth},
+	    	 dataType: 'json',
+	    	 success:function(data){
+	    		 console.log(data);
+	    		 console.log(data.list);
+	    		
+	    		 list =[
+	    				<c:forEach var="list" items="${list}">
+	    					{
+	    						"title" : '${list.work_start}'+'~'+'${list.work_end}',
+	    						"start" : '${list.work_day}',
+	    						"end" : '${list.work_day}'
+	    					}<c:if test="${!loop.last}">,</c:if>
+	    				</c:forEach>
+	    			];
+	    			console.log(list);
+	    			events = [
+	    				<c:forEach var="list" items="${list}">
+	    					{
+	    						 title: '${list.work_start}'+'~'+'${list.work_end}',
+	    						 start: '${list.work_day}',
+	    						 end: '${list.work_day}',
+	    						 allDay: false,
+	    						 extendedProps: {
+	    						   calendar: 'Personal'
+	    						 }
+	    					}<c:if test="${!loop.last}">,</c:if>
+	    				</c:forEach>
+	    			];
+	    			
+	    			  	if (window.appCalendar) {
+	    				    window.appCalendar.render();
+	    				}
+	    	 },
+	    	 error:function(e){
+	    		 console.log(e);
+	    	 }
+	    });
+	}
+	
+	console.log('${list[0].work_day}'); 
+	
+	var list =[
+		<c:forEach var="list" items="${list}">
+			{
+				"title" : '${list.work_start}'+'~'+'${list.work_end}',
+				"start" : '${list.work_day}',
+				"end" : '${list.work_day}'
+			}<c:if test="${!loop.last}">,</c:if>
+		</c:forEach>
+	];
+	
+	console.log(list);
+	
+	
+	
+	let events = [
+		<c:forEach var="list" items="${list}">
+			{
+				 title: '${list.work_start}'+'~'+'${list.work_end}',
+				 start: '${list.work_day}',
+				 end: '${list.work_day}',
+				 allDay: false,
+				 extendedProps: {
+				   calendar: 'Personal'
+				 }
+			}<c:if test="${!loop.last}">,</c:if>
+		</c:forEach>
+	];
+
+	
+	
     </script>
   </body>
 </html>
