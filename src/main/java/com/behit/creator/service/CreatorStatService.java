@@ -120,6 +120,15 @@ public class CreatorStatService {
 		}
 		return channel;
 	}
+	
+	// 크리에이터 대쉬보드 
+	public ArrayList<HashMap<String, Object>> getCreatorRank(){
+		logger.info("크리에이터 랭크 가져오기 실행");
+		ArrayList<HashMap<String, Object>> creatorRankList = new ArrayList<HashMap<String,Object>>();
+		// youtube data api 로 데이터 수집
+		
+		return creatorRankList;
+	}
 
 
 }
