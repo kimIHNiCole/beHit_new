@@ -166,7 +166,6 @@
 	</update>
 	
 	
-	
 	<select id="getApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, e.emp_name, d.emp_dept_name AS 'dept_name' , a.apv_stmt 
 		FROM apv a 
@@ -238,6 +237,7 @@
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '진행중'
+		ORDER BY a.apv_date DESC
 	</select>
 	
 	<select id="compApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -252,6 +252,7 @@
 		FROM apv_history ah 
 		JOIN apv a ON ah.apv_idx = a.apv_idx 
 		WHERE ah.emp_id = #{emp_id}
+		ORDER BY ah.apv_history_date DESC
 	</select>
 	
 	<select id="finishApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -271,6 +272,7 @@
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '완료'
+		ORDER BY apv_history_date DESC
 	</select>
 	
 	<select id="rejectedApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -297,6 +299,7 @@
 		JOIN employee e ON e.emp_id = a.emp_id
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '임시저장'
+		ORDER BY a.apv_date DESC
 	</select>
 	<select id="viewApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, d.emp_dept_name,
@@ -316,6 +319,7 @@
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE ap.emp_id = #{emp_id}
+		ORDER BY apv_history_date DESC
 	</select>
 
 

@@ -1081,82 +1081,79 @@
 		//--------------------------------------------------------------------------------------------------------------
     
 		
-		
-		
- 		// 새 결재 작성 모달창----------------------------------------------------------------------------------------
-    $(function () {
-    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
-    	    checkboxTree = $('#jstree-checkbox-form');
+ // 새 결재 작성 모달창----------------------------------------------------------------------------------------
+    $(document).ready(function () {
+    var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+        checkboxTree = $('#jstree-checkbox-form');
 
-    	  // Checkbox
-    	  if (checkboxTree.length) {
-    	    checkboxTree.jstree({
-    	      core: {
-    	        themes: {
-    	          name: theme
-    	        },
-    	        data: [
-    	          {
-    	            text: '근태',
-    	            state: {
-      	              opened: true
-      	            },
-    	            children: [
-    	              {
-    	                text: '휴가 신청서',
-    	                type: 'docs'
-    	              },
-    	              {
-      	              text: '사후 휴가 신청서',
-      	              type: 'docs'
-      	            }
-    	            ]
-    	          },
-    	          {
-    	            text: '일반 ',
-    	            state: {
-    	              opened: true
-    	            },
-    	            children: [
-    	              {
-    	                text: '사업 기안서',
-    	                type: 'docs'
-    	              }
-    	            ]
-    	          },
-    	        ]
-    	      },
-    	      plugins: ['types','wholerow'],
-    	      types: {
-    	        default: {
-    	          icon: 'bx bx-folder'
-    	        },
-    	        docs: {
-    	          icon: 'bx bxs-file-blank'
-    	        }
-    	      }
-    	    }).on('select_node.jstree', function (e, data) {
-    	        // 현재 선택된 노드의 ID 확인
-    	        var selectedNodeId = data.node.id;
-    	        
-    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
-    	        $('.apv-doc-select').off('click');
-    	        
-    	        // id 값에 따라 페이지 이동
-    	        $('.apv-doc-select').on('click',function(){
-    	        			if(selectedNodeId == 'j1_2'){
-    	        					location.href="../approval_write.go/vac";
-    	        			}else if(selectedNodeId == 'j1_3'){
-    	        				location.href="../approval_write.go/vac_after";
-    	        			}else if(selectedNodeId == 'j1_5'){
-    	        				location.href="../approval_write.go/biz";
-    	        			}
-    	        });
-    	        
-    	      });
-    	  }
-    	});
-		
+    // Checkbox
+    if (checkboxTree.length) {
+        checkboxTree.jstree({
+            core: {
+                themes: {
+                    name: theme
+                },
+                data: [
+                    {
+                        text: '근태',
+                        state: {
+                            opened: true
+                        },
+                        children: [
+                            {
+                                text: '휴가 신청서',
+                                type: 'docs'
+                            },
+                            {
+                                text: '사후 휴가 신청서',
+                                type: 'docs'
+                            }
+                        ]
+                    },
+                    {
+                        text: '일반 ',
+                        state: {
+                            opened: true
+                        },
+                        children: [
+                            {
+                                text: '사업 기안서',
+                                type: 'docs'
+                            }
+                        ]
+                    },
+                ]
+            },
+            plugins: ['types', 'wholerow'],
+            types: {
+                default: {
+                    icon: 'bx bx-folder'
+                },
+                docs: {
+                    icon: 'bx bxs-file-blank'
+                }
+            }
+        }).on('select_node.jstree', function (e, data) {
+            // 현재 선택된 노드의 ID 확인
+            var selectedNodeId = data.node.id;
+
+            // 기존 click 이벤트 핸들러 제거
+            $('.apv-doc-select').off('click');
+
+            // id 값에 따라 페이지 이동
+            $('.apv-doc-select').on('click', function () {
+                if (selectedNodeId == 'j1_2') {
+                    location.href = "/approval/approval_write.go/vac";
+                } else if (selectedNodeId == 'j1_3') {
+                    location.href = "/approval/approval_write.go/vac_after";
+                } else if (selectedNodeId == 'j1_5') {
+                    location.href = "/approval/approval_write.go/biz";
+                }
+            });
+
+        });
+    }
+});
   	//------------------------------------------------------------------------------------------------
  		
   	

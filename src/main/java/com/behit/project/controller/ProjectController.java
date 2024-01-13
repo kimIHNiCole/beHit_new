@@ -97,7 +97,11 @@ public class ProjectController {
         				logger.info("담당자: {}", nodeD);
         				service.projteamD(lastIdx,nodeD);
         				String emp_id = nodeD;
-        				service.projAlarm(emp_id,lastIdx,alarmMsg);
+    					if (createId.equals(nodeD)) {
+    						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+    				    }else {
+    				    	service.projAlarm(emp_id,lastIdx,alarmMsg);
+    				    }
         			}
         		}
         		if(selectedNodesList1 != null) {
@@ -105,7 +109,11 @@ public class ProjectController {
         				logger.info("참조자: {}", nodeC);
         				service.projteamC(lastIdx,nodeC);
         				String emp_id = nodeC;
-        				service.projAlarm(emp_id,lastIdx,alarmMsg);
+    					if (createId.equals(nodeC)) {
+    						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+    				    }else {
+    				    	service.projAlarm(emp_id,lastIdx,alarmMsg);
+    				    }
         			}
         		}
         		if (files != null) {
@@ -456,7 +464,11 @@ public class ProjectController {
         					logger.info("담당자: {}", nodeD);
         					String emp_id = nodeD;
         					service.projteamD(projIdx,nodeD);
-        					service.projAlarm(emp_id,projIdx,alarmMsg);
+        					if (createId.equals(nodeD)) {
+        						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+        				    }else {        				    	
+        				    	service.projAlarm(emp_id,projIdx,alarmMsg);
+        				    }
         				}
         			}
         			if(selectedNodesList1 != null) {
@@ -464,7 +476,11 @@ public class ProjectController {
         					logger.info("참조자: {}", nodeC);
         					String emp_id = nodeC;
         					service.projteamC(projIdx,nodeC);
-        					service.projAlarm(emp_id,projIdx,alarmMsg);
+        					if (createId.equals(nodeC)) {
+        						logger.info("프로젝트 생성한 사람은 알람추가 안해줄꺼야");
+        				    }else {
+        				    	service.projAlarm(emp_id,projIdx,alarmMsg);
+        				    }
         				}
         			}
         		}

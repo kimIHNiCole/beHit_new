@@ -275,7 +275,7 @@
                     <div class="tab-pane fade show active" id="store_details" role="tabpanel">
         
 				              <div class="card">
-				                <h5 class="card-header"> 결재 요청 받은 문서 리스트 </h5>
+				                <h5 class="card-header"> 결재 요청한 문서 리스트 </h5>
 				                <div class="card-datatable table-responsive">
 				                  <table class="getApproval_list table border-top">
 				                    <thead>
@@ -359,7 +359,7 @@
 
   	// 리스트 출력-----------------------------------------------------------------------------
     
-    $(function () {
+    $(document).ready(function () {
         var getApprovalListTable = $('.getApproval_list');
         var lang = 'English';
 
@@ -430,9 +430,17 @@
                         var apvIdx = $(this).data('apv-idx');
                         console.log(apvIdx);
                         // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
-                        window.location.href = '/approval/getApproval_detail.go/'+ apvIdx;
+                        window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
                     });
                 }
+            }).on('draw.dt', function () {
+                // 페이지가 다시 그려질 때마다 이벤트 핸들러 다시 등록
+                getApprovalListTable.find('.apv-subject-link').off('click').on('click', function (e) {
+                    var apvIdx = $(this).data('apv-idx');
+                    console.log(apvIdx);
+                    // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
+                    window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
+                });
             });
         }
     });
@@ -441,7 +449,7 @@
      
     
  // 새 결재 작성 모달창 ---------------------------------------------------------------------------
-    $(function () {
+  $(document).ready(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
     	    checkboxTree = $('#jstree-checkbox');
     	  // Checkbox

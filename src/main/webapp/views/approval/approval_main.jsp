@@ -271,19 +271,17 @@
                     	
                     	
                     	<div class="card">
-				                <h5 class="card-header">결재 요청받은 문서</h5>
+				                <h5 class="card-header"> 결재 요청 받은 문서 리스트 </h5>
 				                <div class="card-datatable table-responsive">
-				                  <table class="dt-multilingual1 table border-top">
+				                  <table class="getApproval_list table border-top">
 				                    <thead>
 				                      <tr>
-				                        <th></th>
 				                        <th>문서양식</th>
 				                        <th>문서제목</th>
-				                        <th>요청일</th>
-				                        <th>기안자/부서</th>
-				                        <!--<th>Salary</th>
-				                        <th>Status</th>
-				                        <th>Action</th>-->
+				                        <th>상신일</th>
+				                        <th>기안자</th>
+				                        <th>부서</th>
+				                        <th>결재 상태</th>
 				                      </tr>
 				                    </thead>
 				                  </table>
@@ -291,17 +289,16 @@
 				              </div>
 				              
 				              <div class="card">
-				                <h5 class="card-header">결재 요청한 문서</h5>
+				                <h5 class="card-header"> 결재 요청한 문서 리스트 </h5>
 				                <div class="card-datatable table-responsive">
-				                  <table class="dt-multilingual2 table border-top">
+				                  <table class="requestApproval_list table border-top">
 				                    <thead>
 				                      <tr>
-				                        <th></th>
 				                        <th>문서양식</th>
 				                        <th>문서제목</th>
 				                        <th>상신일</th>
-				                        <th>마지막 결제일</th>
-				                        <th>현 결재자</th>
+				                        <th>마지막결재일</th>
+				                        <th>현결재자</th>
 				                        <th>결재 상태</th>
 				                      </tr>
 				                    </thead>
@@ -379,188 +376,183 @@
     <!-- custom JS -->
     <script>
     
-    // 데이터 리스트
-    $(function () {
-    	  var dt_multilingual_table1 = $('.dt-multilingual1'),
-    	  dt_multilingual_table2 = $('.dt-multilingual2');
-    	  
-    	  var lang = 'English';
-    	  if (dt_multilingual_table1.length) {
-    	    var table_language = dt_multilingual_table1.DataTable({
-    	      ajax: assetsPath + 'json/table-datatable.json',
-    	      columns: [
-    	        { data: '' },
-    	        { data: 'full_name' },
-    	        { data: 'post' },
-    	        { data: 'start_date' },
-    	        { data: '' }
-    	      ],
-    	      columnDefs: [
-    	        {
-    	          // For Responsive
-    	          className: 'control',
-    	          orderable: false,
-    	          targets: 0,
-    	          searchable: false,
-    	          render: function (data, type, full, meta) {
-    	            return '';
-    	          }
-    	        },
-    	        {
-      	          // Actions
-      	          targets: -1,
-      	          title: '기안자/부서',
-      	          orderable: false,
-      	          searchable: false,
-      	          render: function (data, type, full, meta) {
-      	            return '';
-      	          }
-      	        }
-    	      ],
-    	      language: {
-    	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-    	      },
-    	      //paging: false,
-    	      displayLength: 5,
-    	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-    	      lengthMenu: [5],
-    	      searching: false,
-    	      responsive: {
-    	        details: {
-    	          display: $.fn.dataTable.Responsive.display.modal({
-    	            header: function (row) {
-    	              var data = row.data();
-    	              return 'Details of ' + data['full_name'];
-    	            }
-    	          }),
-    	          type: 'column',
-    	          renderer: function (api, rowIdx, columns) {
-    	            var data = $.map(columns, function (col, i) {
-    	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-    	                ? '<tr data-dt-row="' +
-    	                    col.rowIndex +
-    	                    '" data-dt-column="' +
-    	                    col.columnIndex +
-    	                    '">' +
-    	                    '<td>' +
-    	                    col.title +
-    	                    ':' +
-    	                    '</td> ' +
-    	                    '<td>' +
-    	                    col.data +
-    	                    '</td>' +
-    	                    '</tr>'
-    	                : '';
-    	            }).join('');
-
-    	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-    	          }
-    	        }
-    	      }
-    	    });
-    	  }
-    	  
-    	  
-
-    	  var lang = 'English';
-    	  if (dt_multilingual_table2.length) {
-    	    var table_language2 = dt_multilingual_table2.DataTable({
-    	      ajax: assetsPath + 'json/table-datatable.json',
-    	      columns: [
-    	        { data: '' },
-    	        { data: 'full_name' },
-    	        { data: 'post' },
-    	        { data: 'start_date' },
-    	        { data: 'start_date' },
-    	        { data: 'status' },
-    	        { data: '' }
-    	      ],
-    	      columnDefs: [
-    	        {
-    	          // For Responsive
-    	          className: 'control',
-    	          orderable: false,
-    	          targets: 0,
-    	          searchable: false,
-    	          render: function (data, type, full, meta) {
-    	            return '';
-    	          }
-    	        },
-    	        {
-    	          // Label
-    	          targets: -1,
-    	          render: function (data, type, full, meta) {
-    	            var $status_number = full['status'];
-    	            var $status = {
-    	              1: { title: 'Current', class: 'bg-label-primary' },
-    	              2: { title: 'Professional', class: ' bg-label-success' },
-    	              3: { title: 'Rejected', class: ' bg-label-danger' },
-    	              4: { title: 'Resigned', class: ' bg-label-warning' },
-    	              5: { title: 'Applied', class: ' bg-label-info' }
-    	            };
-    	            if (typeof $status[$status_number] === 'undefined') {
-    	              return data;
-    	            }
-    	            return (
-    	              '<span class="badge ' + $status[$status_number].class + '">' + $status[$status_number].title + '</span>'
-    	            );
-    	          }
-    	        }
-    	      ],
-    	      language: {
-    	        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
-    	      },
-    	      //paging: false,
-    	      displayLength: 5,
-    	      dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-    	      lengthMenu: [5],
-    	      searching: false,
-    	      responsive: {
-    	        details: {
-    	          display: $.fn.dataTable.Responsive.display.modal({
-    	            header: function (row) {
-    	              var data = row.data();
-    	              return 'Details of ' + data['full_name'];
-    	            }
-    	          }),
-    	          type: 'column',
-    	          renderer: function (api, rowIdx, columns) {
-    	            var data = $.map(columns, function (col, i) {
-    	              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-    	                ? '<tr data-dt-row="' +
-    	                    col.rowIndex +
-    	                    '" data-dt-column="' +
-    	                    col.columnIndex +
-    	                    '">' +
-    	                    '<td>' +
-    	                    col.title +
-    	                    ':' +
-    	                    '</td> ' +
-    	                    '<td>' +
-    	                    col.data +
-    	                    '</td>' +
-    	                    '</tr>'
-    	                : '';
-    	            }).join('');
-
-    	            return data ? $('<table class="table"/><tbody />').append(data) : false;
-    	          }
-    	        }
-    	      }
-    	    });
-    	  }
-
-    	  // Filter form control to default size
-    	  // ? setTimeout used for multilingual table initialization
-    	  setTimeout(() => {
-    	    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-    	    $('.dataTables_length .form-select').removeClass('form-select-sm');
-    	  }, 300);
-    	});
+// 리스트 출력-----------------------------------------------------------------------------
     
+    $(document).ready(function () {
+        var getApprovalListTable = $('.getApproval_list');
+        var lang = 'English';
+
+        if (getApprovalListTable.length) {
+            getApprovalListTable.DataTable({
+            		stateSave: true,  // 상태 저장 활성화
+                pagingType: 'full_numbers',  // 페이징 컨트롤 옵션 설정
+                ajax: {
+                    url: '/approval/getApproval_list.do',
+                    type: 'GET',
+                    dataSrc: ''
+                },
+                columns: [
+                	{ 
+                        data: 'apv_code',
+                        render: function (data, type, row) {
+                            // apv_code 값에 따른 사용자 정의 표시
+                            switch (data) {
+                                case 'BSPN':
+                                    return '사업 기안서';
+                                case 'BFVC':
+                                    return '연차 신청서';
+                                case 'AFVC':
+                                    return '사후 연차 신청서';
+                                default:
+                                    return data; // 일치하는 값이 없는 경우 원래 값 반환
+                            }
+                        }
+                    },
+                    { data: 'apv_subject',
+                        render: function (data, type, row) {
+                        	return '<a href="javascript:void(0);" class="apv-subject-link" data-apv-idx="' + row.apv_idx + '">' + data + '</a>';
+                        }
+                    },
+                    { data: 'apv_date' },
+                    { data: 'emp_name' },
+                    { data: 'dept_name' },
+                    { 
+                        data: 'apv_stmt',
+                        targets: -1,
+                        render: function (data, type, full, meta) {
+                            var statusClass = '';
+                            if (data === '완료') {
+                                statusClass = 'bg-secondary';
+                            } else if (data === '진행중') {
+                                statusClass = 'bg-success';
+                            } else if (data === '반려') {
+                            		statusClass = 'bg-danger';
+                            } else if (data === '임시저장') {
+                            		statusClass = 'bg-warning';
+                            }
+                            return '<span class="badge ' + statusClass + '">' + data + '</span>';
+                        }
+                    }
+
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
+                },
+                displayLength: 5,
+                dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                searching: false,
+                responsive: true,
+                initComplete: function () {
+                    // DataTable 초기화가 완료된 후 이벤트 처리
+                    getApprovalListTable.find('.apv-subject-link').on('click', function (e) {
+                        var apvIdx = $(this).data('apv-idx');
+                        console.log(apvIdx);
+                        // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
+                        window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
+                    });
+                }
+            }).on('draw.dt', function () {
+                // 페이지가 다시 그려질 때마다 이벤트 핸들러 다시 등록
+                getApprovalListTable.find('.apv-subject-link').off('click').on('click', function (e) {
+                    var apvIdx = $(this).data('apv-idx');
+                    console.log(apvIdx);
+                    // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
+                    window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
+                });
+            });
+        }
+    });
+    
+    $(document).ready(function () {
+        var getApprovalListTable = $('.requestApproval_list');
+        var lang = 'English';
+
+        if (getApprovalListTable.length) {
+            getApprovalListTable.DataTable({
+            		stateSave: true,  // 상태 저장 활성화
+                pagingType: 'full_numbers',  // 페이징 컨트롤 옵션 설정
+                ajax: {
+                    url: '/approval/requestApproval_list.do',
+                    type: 'GET',
+                    dataSrc: ''
+                },
+                columns: [
+                	{ 
+                        data: 'apv_code',
+                        render: function (data, type, row) {
+                            // apv_code 값에 따른 사용자 정의 표시
+                            switch (data) {
+                                case 'BSPN':
+                                    return '사업 기안서';
+                                case 'BFVC':
+                                    return '연차 신청서';
+                                case 'AFVC':
+                                    return '사후 연차 신청서';
+                                default:
+                                    return data; // 일치하는 값이 없는 경우 원래 값 반환
+                            }
+                        }
+                    },
+                    { data: 'apv_subject',
+                        render: function (data, type, row) {
+                        	return '<a href="javascript:void(0);" class="apv-subject-link" data-apv-idx="' + row.apv_idx + '">' + data + '</a>';
+                        }
+                    },
+                    { data: 'apv_date' },
+                    { data: 'apv_history_date' },
+                    { data: 'emp_name' },
+                    { 
+                        data: 'apv_stmt',
+                        targets: -1,
+                        render: function (data, type, full, meta) {
+                            var statusClass = '';
+                            if (data === '완료') {
+                                statusClass = 'bg-secondary';
+                            } else if (data === '진행중') {
+                                statusClass = 'bg-success';
+                            } else if (data === '반려') {
+                            		statusClass = 'bg-danger';
+                            } else if (data === '임시저장') {
+                            		statusClass = 'bg-warning';
+                            }
+                            return '<span class="badge ' + statusClass + '">' + data + '</span>';
+                        }
+                    }
+
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
+                },
+                displayLength: 5,
+                dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                searching: false,
+                responsive: true,
+                initComplete: function () {
+                    // DataTable 초기화가 완료된 후 이벤트 처리
+                    getApprovalListTable.find('.apv-subject-link').on('click', function (e) {
+                        var apvIdx = $(this).data('apv-idx');
+                        console.log(apvIdx);
+                        // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
+                        window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
+                    });
+                }
+            }).on('draw.dt', function () {
+                // 페이지가 다시 그려질 때마다 이벤트 핸들러 다시 등록
+                getApprovalListTable.find('.apv-subject-link').off('click').on('click', function (e) {
+                    var apvIdx = $(this).data('apv-idx');
+                    console.log(apvIdx);
+                    // 여기에 '/approval/getApproval_detail.go' 요청을 보내는 로직 추가
+                    window.location.href = '/approval/getApproval_detail.go/' + apvIdx;
+                });
+            });
+        }
+    });
+    
+  //------------------------------------------------------------------------------------------------
+     
     
  // 새 결재 작성 모달창
-    $(function () {
+ $(document).ready(function () {
     	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
     	    checkboxTree = $('#jstree-checkbox');
 
