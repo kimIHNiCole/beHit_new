@@ -497,7 +497,7 @@
 
 <script>
 var rankList =  [
-		 <c:forEach var="rankItem" items="${rankList}">
+	<c:forEach var="rankItem" items="${rankList}">
     {
         "videoId": "${rankItem.videoId}",
         "videoTitle": "${rankItem.videoTitle}",

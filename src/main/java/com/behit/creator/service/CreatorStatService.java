@@ -35,11 +35,14 @@ public class CreatorStatService {
 	@Value("${GOOGLE-KEY}") String secret_key;
 	
 	
+	
+	
 	ChannelDataDTO channelDataDTO = new ChannelDataDTO();
 	Channel channel=null;
 	private static final String APPLICATION_NAME = "BeHit";
-	private static final String SEARCH_KEYWORD = "급상승";
+	private static final String SEARCH_KEYWORD = "!";
 	private static final String REGION_CODE = "KR";
+//	private static final String HIT_VIEDEOS = "UCsVf5SnHAmJcZ0G7kpMcYzg";
 	// 여러개 저장할때
 	
 	
@@ -65,15 +68,15 @@ public class CreatorStatService {
 	public void saveChannelData() {
 		logger.info("SCHEDULING :: saveChannelData() 실행");
 		// 채널 id와 대표채널여부 가져오기 
-		ArrayList<HashMap<String, Object>> channelIdList = creatorStatDAO.getChannelId(); 
-		logger.info("channelIdList size = "+channelIdList.size());
-		for(HashMap<String, Object> channelIdAndRep : channelIdList) {
+		ArrayList<HashMap<String, Object>> channelIdAndRepList = creatorStatDAO.getChannelId();
+		logger.info("channelIdList size = "+channelIdAndRepList.size());
+		for(HashMap<String, Object> channelIdAndRep : channelIdAndRepList) {
 			logger.info("channelId = "+channelIdAndRep.get("channel_id"));
 			logger.info("rep_channel = "+channelIdAndRep.get("rep_channel"));
 		}
 		logger.info(secret_key);
 		
-		for(HashMap<String, Object> channelIdAndRep : channelIdList) {
+		for(HashMap<String, Object> channelIdAndRep : channelIdAndRepList) {
 			logger.info("channelIdList 하나씩 꺼내기 : "+channelIdAndRep);
 			
 			// 각 채널마다 구독자수, 총 조회수, 총 컨텐츠 수 가져오기
@@ -139,44 +142,53 @@ public class CreatorStatService {
 	// 크리에이터 대쉬보드 
 	public ArrayList<HashMap<String, Object>> getCreatorRank(){
 		logger.info("크리에이터 랭크 가져오기 실행");
+		ArrayList<HashMap<String, Object>> channelIdAndRepList = creatorStatDAO.getChannelId();
 		ArrayList<HashMap<String, Object>> rankList = new ArrayList<HashMap<String,Object>>();
-		try {
-			YouTube youtubeService = youtubeApiInit();
-			YouTube.Search.List request = youtubeService.search()
-                    .list("snippet")
-                    .setKey(secret_key)
-                    .setQ(SEARCH_KEYWORD)
-                    .setType("video") // 동영상만 검색하도록 설정
-                    .setRegionCode(REGION_CODE)
-                    .setOrder("viewCount") // 조회수에 따라 정렬
-                    .setMaxResults((long) 5); // 가져올 결과의 최대 개수 설정
-			
-			SearchListResponse response  = request.execute();
-			
-			List<SearchResult> searchResults = response.getItems();
-
-			for (SearchResult result : searchResults) {
-				String videoId = result.getId().getVideoId();
-                String videoTitle = result.getSnippet().getTitle();
-                
-                ThumbnailDetails thumbnails = result.getSnippet().getThumbnails();
-                Thumbnail defaultThumbnail = thumbnails.getDefault();
-                String thumbnailUrl = defaultThumbnail.getUrl();
-                
-                HashMap<String, Object> videoInfo = new HashMap<>();
-                videoInfo.put("videoId", videoId);
-                videoInfo.put("videoTitle", videoTitle);
-                videoInfo.put("thumbnailUrl", thumbnailUrl);
-                logger.info("videoId==="+videoId);
-                logger.info("videoTitle==="+videoTitle);
-                logger.info("thumbnailUrl==="+thumbnailUrl);
-                rankList.add(videoInfo);
+		logger.info("channelIdAndRepList.size() :::: "+channelIdAndRepList.size());
+		for(HashMap<String, Object> channelIdAndRep : channelIdAndRepList) {
+			String channelId = (String) channelIdAndRep.get("channel_id");
+			logger.info("channel Id = "+ channelId);
+			try {
+				YouTube youtubeService = youtubeApiInit();
+				YouTube.Search.List request = youtubeService.search()
+	                    .list("snippet")
+	                    .setKey(secret_key)
+	                    .setChannelId(channelId)	// 채널아이디
+//	                    .setQ(SEARCH_KEYWORD)	// 키워드 검색
+	                    .setType("video")	// 종류
+	                    .setRegionCode(REGION_CODE) //국가 코드
+//	                    .setOrder("viewCount") // 조회수에 따라 정렬
+	                    .setOrder("date") // 날짜 기준 정렬 최신영상
+	                    .setVideoDuration("long")	// 60초 이상 영상
+	                    .setMaxResults((long) 1); // 가져올 결과의 최대 개수 설정
+				
+				SearchListResponse response  = request.execute();
+				
+				List<SearchResult> searchResults = response.getItems();
+	
+				for (SearchResult result : searchResults) {
+					String videoId = result.getId().getVideoId();
+	                String videoTitle = result.getSnippet().getTitle();
+	                
+	                ThumbnailDetails thumbnails = result.getSnippet().getThumbnails();
+	                Thumbnail defaultThumbnail = thumbnails.getDefault();
+	                String thumbnailUrl = defaultThumbnail.getUrl();
+	                
+	                HashMap<String, Object> videoInfo = new HashMap<>();
+	                videoInfo.put("videoId", videoId);
+	                videoInfo.put("videoTitle", videoTitle);
+	                videoInfo.put("thumbnailUrl", thumbnailUrl);
+	                logger.info("videoId==="+videoId);
+	                logger.info("videoTitle==="+videoTitle);
+	                logger.info("thumbnailUrl==="+thumbnailUrl);
+	                rankList.add(videoInfo);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (GeneralSecurityException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+		}
 		
 		return rankList;
 	}
