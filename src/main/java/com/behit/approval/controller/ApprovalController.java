@@ -69,7 +69,8 @@ public class ApprovalController {
 	public ModelAndView getApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
-		return service.getApproval_detail(apv_idx,emp_id);
+		String apv_type = "detail";
+		return service.getApproval_detail(apv_idx,emp_id,apv_type);
 	}
 	
 	// 결재
@@ -89,12 +90,13 @@ public class ApprovalController {
 		return service.approval_update(loginInfo,dto,files);
 	}
 	
-	// 임시저장 리스트
+	// 임시저장 상세
 	@GetMapping(value="/approval/temporaryApproval_detail.go/{apv_idx}")
 	public ModelAndView temporaryApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
-		return service.getApproval_detail(apv_idx,emp_id);
+		String apv_type = "detail";
+		return service.getApproval_detail(apv_idx,emp_id,apv_type);
 	}
 	
 	// 결재 요청받은 리스트
@@ -190,6 +192,16 @@ public class ApprovalController {
 		logger.info("apv_idx 값 : "+ dto.getApv_idx());
 		
 		return service.apv_cancel(dto);
+
+	}
+	
+	//pdf 미리보기
+	@GetMapping(value="/approval/approval_pdf.go")
+	@ResponseBody
+	public ModelAndView approval_pdf(@RequestParam String apv_idx, @RequestParam String apv_type, HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+		return service.getApproval_detail(apv_idx,emp_id,apv_type);
 
 	}
 	

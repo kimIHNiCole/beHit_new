@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.behit.approval.dao.ApprovalDAO;
 import com.behit.approval.dto.ApprovalDTO;
 import com.behit.employee.dto.EmployeeDTO;
-import com.behit.util.dao.UtilDAO;
 import com.behit.util.service.UtilService;
 
 @Service
@@ -237,11 +236,24 @@ public class ApprovalService {
 	}
 	
 
-	public ModelAndView getApproval_detail(String apv_idx, String emp_id) {
+	public ModelAndView getApproval_detail(String apv_idx, String emp_id, String apv_type) {
 		
-		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
+			
 		ApprovalDTO apv = dao.getApproval_detail(Integer.parseInt(apv_idx)); // apv 에 대한 정보 
 		
+		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
+		
+		if(apv_type.equals("detail")) {
+			mav = new ModelAndView("approval/getApproval_detail");
+		}else if(apv_type.equals("pdf")) {
+			
+			if(apv.getApv_code().equals("BSPN")) {
+				mav = new ModelAndView("approval/approval_pdf_biz");
+			}else if(apv.getApv_code().equals("BFVC") || apv.getApv_code().equals("AFVC")) {
+				mav = new ModelAndView("approval/approval_pdf_vac");
+			}
+				
+		}
 		
 		
 		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보

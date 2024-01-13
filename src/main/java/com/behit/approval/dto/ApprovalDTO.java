@@ -1,14 +1,10 @@
 package com.behit.approval.dto;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-
-import org.apache.ibatis.annotations.Mapper;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Mapper
 @Getter
 @Setter
 public class ApprovalDTO {
