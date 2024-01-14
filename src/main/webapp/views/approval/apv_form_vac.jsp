@@ -116,7 +116,6 @@
 										<th>승인</th>
 																			
 										<!-- 결재선 추가 -->
-										
 										<c:choose>
 										  <c:when test="${form_type == 'write'}">
 										  
@@ -131,7 +130,57 @@
 											</td>
 										  
 										  </c:when>
-										  <c:when test="${form_type == 'detail' || form_type == 'update'}">
+										  <c:when test="${form_type == 'detail'}">
+										  
+												<c:forEach var="apvDTO" items="${apv_line_info}">
+									        <td class="apv-sign-table-right">
+														<table>
+															<tbody>
+																<tr><td><span class="apv-sign-line-dept">${apvDTO.position_name}</span></td></tr>
+																<tr><td><span class="apv-sign-line-name">${apvDTO.emp_name}</span></td></tr>
+																<c:choose>
+															    <c:when test="${apvDTO.apv_history_date == null}">
+																		<tr class="last"><td><span class="apv-sign-line-date">&nbsp;</span></td></tr>
+															    </c:when>
+															    <c:when test="${apvDTO.apv_history_date != null}">
+															    
+																    <c:choose>
+																	    <c:when test="${apvDTO.apv_history_stmt == '반려'}">
+																				<tr class="last"><td>
+																				<span class="apv-sign-line-date" style="color:#C20000">
+																				<p>${apvDTO.apv_history_date}</p>
+																				<p>(반려)</p>
+																				</span>
+																				</td></tr>
+																	    </c:when>
+																	    <c:when test="${apvDTO.apv_history_stmt == '결재'}">
+																	    	<tr class="last"><td><span class="apv-sign-line-date" style="color:#C20000">${apvDTO.apv_history_date}</span></td></tr>
+																	    </c:when>
+																    </c:choose>
+																		
+															    </c:when>
+																</c:choose>
+															</tbody>
+														</table>
+													</td>
+									    	</c:forEach>
+									    	<input type="hidden" name="apv_idx" value="${apv.apv_idx}" />
+									    	<input type="hidden" name="apv_approver" value="${apv.apv_approver}" />
+										  
+										  </c:when>
+										  <c:when test="${form_type == 'update'}">
+										  
+										  <c:if test="${!apv.total_name}">
+											  <td class="apv-sign-table-right">
+													<table>
+														<tbody>
+															<tr><td><span class="apv-sign-line-dept">&nbsp;</span></td></tr>
+															<tr><td><span class="apv-sign-line-name">&nbsp;</span></td></tr>
+															<tr class="last"><td><span class="apv-sign-line-date">&nbsp;</span></td></tr>
+														</tbody>
+													</table>
+												</td>
+										  </c:if>
 										  
 												<c:forEach var="apvDTO" items="${apv_line_info}">
 									        <td class="apv-sign-table-right">

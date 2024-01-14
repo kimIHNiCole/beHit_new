@@ -39,6 +39,15 @@ public class ApprovalController {
 		return service.approval_write_go(form,emp_id,login_name);
 	}
 	
+	// 시간비교
+	@GetMapping(value="/approval/compare_time")
+	@ResponseBody
+	public HashMap<String, Object> compare_time(ApprovalDTO dto,HttpSession session){
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+		return service.compare_time(emp_id,dto);
+	}
+	
 	// 조직도
 	@GetMapping(value="/org_selected")
 	@ResponseBody
