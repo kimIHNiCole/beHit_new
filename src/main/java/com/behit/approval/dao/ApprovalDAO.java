@@ -1,10 +1,12 @@
 package com.behit.approval.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.behit.approval.dto.ApprovalDTO;
+import com.behit.employee.dto.WorkDTO;
 
 @Mapper
 public interface ApprovalDAO {
@@ -50,6 +52,13 @@ public interface ApprovalDAO {
 	void apv_cancel(String apv_stmt, int apv_idx);
 
 	ApprovalDTO getApproval_detail(int apv_idx);
+
+	void vacation_histroy(ApprovalDTO vac_dto);
+
+	WorkDTO commute_history(String apv_start_day, String emp_id);
+
+	void alarm(ApprovalDTO dto);
+
 
 
 

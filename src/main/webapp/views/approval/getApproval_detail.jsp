@@ -541,7 +541,7 @@
                 	<div class="apv-form-menu">
                 	
 	                	<c:choose>
-										  <c:when test="${apv.apv_stmt == '진행중'}">
+										  <c:when test="${apv.apv_stmt == '진행중' && apv.emp_id == emp_id}">
 										  
 											  	<c:choose>
 													  <c:when test="${apv_line_info[0].apv_history_date == null}">
@@ -572,13 +572,6 @@
 		                			<i class='bx bxs-file-blank'></i> pdf 저장
 		                			</button>
 		                		</span>
-										  </c:when>
-										  <c:when test="${apv.apv_stmt == '반려'}">
-										  	<span class="text-truncate">
-					                	<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
-					                			<i class='bx bx-trash'></i> 삭제
-					                	</button>
-					               </span>
 										  </c:when>
 										</c:choose>
 										
@@ -657,8 +650,8 @@
 					                  	</c:when>
 						                  <c:when test="${apv.apv_stmt == '반려'}">
 						                  
-						                  	<button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-							                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">수정</button>
+						                  	<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+							                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">수정</button> -->
 														  </c:when>
 														</c:choose>
 						              </div>
@@ -913,6 +906,8 @@
     
     <!-- custom JS -->
     <script>
+    
+    console.log('form_type'+'${form_type}');
     
     $('.apv-vac-day').val('${apv.apv_time}');
     $('.apv-vac-time').val('${apv.apv_time}');
