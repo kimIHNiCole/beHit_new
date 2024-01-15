@@ -22,6 +22,7 @@ import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreHistDTO;
 import com.behit.creator.dto.CreatorDTO;
+import com.behit.creator.dto.CreatorPermDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
 import com.behit.creator.dto.SnsDTO;
 import com.behit.employee.dto.EmployeeDTO;
@@ -63,7 +64,7 @@ public class CreatorService {
 	
 	// 크리에이터 등록
 	@Transactional
-	public ArrayList<HashMap<String, Object>> creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) {
+	public ArrayList<HashMap<String, Object>> creatorAdd(CreatorRequestDTO creatorRequestDTO, HttpSession session) throws Exception {
 		logger.info("creatorAdd() 실행");
 		
 		EmployeeDTO loginInfo = (EmployeeDTO)session.getAttribute("loginInfo");
@@ -76,7 +77,8 @@ public class CreatorService {
 		CreatorDTO creatorDTO = creatorRequestDTO.getCreatorDTO();
 		creatorDTO.setEmp_id_in(loginInfo.getEmp_id());
 		creatorDTO.setEmp_id_up(loginInfo.getEmp_id());
-		int creatorRow = creatorDAO.creatorInsert(creatorDTO);
+		int creatorRow =0;
+		creatorRow = creatorDAO.creatorInsert(creatorDTO);
 		logger.info("creatorInsert result :: "+creatorRow);
 		
 		cre_idx = creatorDTO.getCre_idx();
@@ -87,20 +89,20 @@ public class CreatorService {
 		int channelRow = 0;
 		String channelId = "";
 		for(ChannelDTO channelDTO : channelDTOs) {
-			try {
+//			try {
 				String videoUrl = channelDTO.getRep_video();
 			    
 				HashMap<String, String> channelInfo = getChannelInfo(videoUrl);
+				if(channelInfo == null) {
+					
+				}
 				channelId = channelInfo.get("channelId");
-//				if(channelDTO.getRep_channel() == 1) {
-//					repChannelId = channelInfo.get("channelId");
-//				}
 				channelDTO.setChannel_id(channelId);	// dto에 채널 id set
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.warn("영상링크가 없거나 잘못된 링크");
-				// 잘못되면 등록 취소 시키기 로직 구현
-			}
+//			} catch (Exception e1) {
+//				e1.printStackTrace();
+//				logger.warn("영상링크가 없거나 잘못된 링크");
+//				// 잘못되면 등록 취소 시키기 로직 구현
+//			}
 			// client에서 자동을 가져오지 않는 정보 직접 set
 			channelDTO.setCre_idx(cre_idx);
 			channelDTO.setEmp_id(loginInfo.getEmp_id());
@@ -108,7 +110,7 @@ public class CreatorService {
 			channelRow += creatorDAO.channelInsert(channelDTO);
 			logger.info("channelInsert result :: "+channelRow);
 			
-			// 등록시 channel data insert를 위함
+			// 크리에이터 등록후  channel data  를 위한 객체
 			HashMap<String, Object> channelParam = new HashMap<String, Object>();
 			channelParam.put("cre_idx", channelDTO.getCre_idx());
 			channelParam.put("channel_id", channelId);
@@ -170,8 +172,6 @@ public class CreatorService {
 			logger.info("크리에이터 등록 에러");
 		}
 		
-		
-		
 		return result;
 	}
 	
@@ -196,6 +196,10 @@ public class CreatorService {
 	    logger.info("youtube api getInfo request result : ",request);
 	    VideoListResponse response = request.execute();
 	    logger.info("youtube api getInfo response result: ",response);
+	    // 채널 id를 가져올 수 없다면 
+	    if(response == null) {
+	    	return null; 
+	    }
 	    String channelId = response.getItems().get(0).getSnippet().getChannelId();
 	    
 	    YouTube.Channels.List channelRequest = youtube.channels()
@@ -273,12 +277,13 @@ public class CreatorService {
 	public ArrayList<HashMap<String, Object>> getChannel(int cre_idx) {
 		logger.info("channel 기본정보 가져오기 실행");
 		ArrayList<HashMap<String, Object>> channelInfoList = creatorDAO.getChannel(cre_idx);
-		logger.info("channel 통계 정보 가져오기 실행");
-		logger.info("Channel ID 가져오기 실행");
-		ArrayList<String> channelIdList = creatorDAO.getChannelIdByCreIdx(cre_idx); 
+//		logger.info("channel 통계 정보 가져오기 실행");
+//		logger.info("Channel ID 가져오기 실행");
+//		ArrayList<String> channelIdList = creatorDAO.getChannelIdByCreIdx(cre_idx); 
 		
 		int idx = 0;
-		for(String channelId : channelIdList) {
+		for(HashMap<String, Object> channelItem : channelInfoList) {
+			String channelId = (String) channelItem.get("channel_id");
 			logger.info("channelIdList 하나씩 꺼내기 : "+channelId);
 			Channel channel = creatorStatService.useYoutubeApi(channelId);
 			
@@ -343,6 +348,32 @@ public class CreatorService {
 	public int delPerm(int cre_idx, String emp_id) {
 		// TODO Auto-generated method stub
 		return creatorDAO.delPerm(cre_idx, emp_id);
+	}
+
+	public boolean permChk(HashMap<String, Object> permChkParam) {
+		logger.info("상세보기 권한 체크 실행");
+		boolean permChk1 = false;
+		boolean permChk2 = false;
+		boolean permChk3 = false;
+		
+		permChk1 = creatorDAO.permChk1(permChkParam);
+		if(!permChk1) {
+			permChk2 = creatorDAO.permChk2(permChkParam);
+		}
+		if(!permChk2) {
+			permChk3 = creatorDAO.permChk3(permChkParam);
+		}
+		
+		if(permChk1 || permChk2 || permChk3) {
+			return true;
+		}
+		return false;
+	}
+
+	// 크리에이터 리스트에 보여줄 권한
+	public ArrayList<CreatorPermDTO> getCrePerm(String loginId) {
+		logger.info("로그인 id 별 크리에이터 권한 리스트 요청");
+		return creatorDAO.getCrePerm(loginId);
 	}
 	
 	

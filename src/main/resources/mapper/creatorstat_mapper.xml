@@ -6,7 +6,15 @@
 <mapper namespace="com.behit.creator.dao.CreatorStatDAO">
 	
 	<select id="getChannelId" resultType="HashMap">
-		SELECT channel_id , rep_channel FROM channel LIMIT 5
+		SELECT channel_id , rep_channel FROM channel
+	</select>
+	
+	<select id="getChannelIdForDash" resultType="HashMap">
+		SELECT c.channel_id  , c.channel_name
+		FROM channel c JOIN channeldata cd 
+			ON c.channel_id = cd.channel_id 
+		WHERE cd.view_trend > 0 
+		AND cd.channel_data_date = CURRENT_DATE();
 	</select>
 	
 	<insert id="saveChannelData" parameterType="channeldata">
@@ -21,6 +29,7 @@
 		        )), 0 )
 		)
 	</insert>
+	
 	
 	
 </mapper>
