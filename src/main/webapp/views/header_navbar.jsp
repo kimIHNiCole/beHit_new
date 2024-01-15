@@ -382,7 +382,7 @@ $(document).on('click', '.dropdown-notifications-item', function(event) {
             window.location.href = '../project/project_detail.go?proj_idx='+alarmTypeIdx;
             break;
         case '5':
-            window.location.href = '..employee/empdetail?emp_id='+alarmTypeIdx;
+            window.location.href = '../employee/empdetail?emp_id='+alarmTypeIdx;
             break;
         default:
             console.log('Unhandled alarm type:', alarmType);
