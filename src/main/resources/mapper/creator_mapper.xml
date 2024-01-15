@@ -37,7 +37,14 @@
 			#{mng_id}, #{cre_name},#{cre_nick_name}, #{cre_gender}
 			,#{cre_email},#{cre_phone},#{cre_birthday}, #{cre_country},
 			#{cre_address},#{cre_address_detail},#{cre_contract_start}
-			,#{cre_contract_end},#{cre_specifics},#{emp_id_in},#{emp_id_up}
+			,#{cre_contract_end},
+			<if test="cre_specifics != null">
+            #{cre_specifics}
+	        </if>
+	        <if test="cre_specifics == null">
+	            DEFAULT
+	        </if>
+			,#{emp_id_in},#{emp_id_up}
 		)
 	</insert>
 	<!-- insert Channel  -->
@@ -91,7 +98,7 @@
 	<select id="getAllList" resultType="HashMap">
 		SELECT c.cre_idx, c.cre_nick_name ,(e.emp_name)AS mng_name, 
 				ch.channel_url ,ch.channel_name, ch.channel_cate,
-				f.new_file_name ,f.ori_file_name
+				f.new_file_name ,f.ori_file_name 
 		FROM creator c 
 			JOIN channel ch ON c.cre_idx = ch.cre_idx AND ch.rep_channel =1
 			JOIN employee e ON c.emp_id = e.emp_id 
@@ -189,5 +196,29 @@
 	<delete id="delPerm">
 	DELETE from creator_perm where cre_idx = #{param1} and emp_id=#{param2};
 	</delete>
+	
+	<!-- 권한 체크 -->
+	<!-- 매니지먼트 팀장일때 -->
+	<select id="permChk1" parameterType="hashmap" resultType="boolean">
+		SELECT COUNT(*) FROM employee e 
+		WHERE emp_dept_idx = 6 
+		AND emp_position_idx = 8 
+		AND emp_id = #{loginId}
+	</select>
+	<!-- 크리에이터 담당 매니저 일때 -->
+	<select id="permChk2" parameterType="hashmap" resultType="boolean">
+		SELECT COUNT(*) FROM creator WHERE emp_id = #{loginId} AND cre_idx = #{cre_idx};
+	</select>
+	<!-- 권한을 부여받은 직원일때 -->
+	<select id="permChk3" parameterType="hashmap" resultType="boolean">
+		SELECT COUNT(*) 
+		FROM creator_perm cp 
+		JOIN creator c ON cp.cre_idx  = c.cre_idx 
+		WHERE cp.emp_id = #{loginId} AND cp.cre_idx = #{cre_idx};
+	</select>
+	
+	<select id="getCrePerm">
+		SELECT * FROM creator_perm cp WHERE emp_id = #{loginId};
+	</select>
 	
 </mapper>

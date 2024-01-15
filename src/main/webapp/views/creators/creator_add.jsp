@@ -136,6 +136,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <!-- 캘린더css -->
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
     <!-- 사진드롭다운 -->
@@ -660,7 +661,8 @@
     <script src="../../assets/vendor/libs/cleavejs/cleave.js"></script> <!-- 추가 -->
     <script src="../../assets/vendor/libs/cleavejs/cleave-phone.js"></script>
     <script src="../../assets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
-    
+     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+     
     <!-- Page JS -->
     <script src="../../assets/js/extended-ui-perfect-scrollbar.js"></script> <!-- scroll -->
     
@@ -849,6 +851,7 @@
       var fileInput = document.getElementById('uploadPhoto');
       var imageFile = fileInput.files[0];
       
+      // 크리에이터 등록 요청
       $.ajax({
   		type : 'post',
   		url : '/creatorAdd.ajax.do',
@@ -871,7 +874,16 @@
       	error : function(data, textStatus, jqXHR){
       		console.log("응답 실패 | 상태 코드 : ", jqXHR.status);
       		console.log("textStatus : ",textStatus);
-      		
+      		// 에러 응답 본문 가져오기
+            var errorResponse = jqXHR.responseText;
+            console.log("에러 응답 본문 : ", errorResponse);
+            
+            // 서버에서 warningMsg가 있을 경우
+            var warningMsg = JSON.parse(errorResponse).warningMsg;
+            if (warningMsg) {
+                console.warn("서버에서 경고 메시지: " + warningMsg);
+                // 여기에서 warningMsg에 대한 처리를 수행할 수 있습니다.
+            }
       	}
   		
   	  });  

@@ -17,4 +17,6 @@ public interface CreatorStatDAO {
 
 	Date getChannelDataDate(String channelId);
 
+	ArrayList<HashMap<String, Object>> getChannelIdForDash();
+
 }

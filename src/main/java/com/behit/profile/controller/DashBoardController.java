@@ -1,5 +1,7 @@
 package com.behit.profile.controller;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,9 +51,14 @@ public class DashBoardController {
 		VacationDTO dashVaca = dashService.dashvaca(login_id);
 		FileDTO photo = dashService.getPhoto(login_id);
 		
-		// 유튜버 랭크 리스트
-//		ArrayList<HashMap<String, Object>> creatorRankList = creatorStatService.getCreatorRank();
-//		model.addAttribute("rankList", creatorRankList);
+		// 유튜브 영상 리스트
+		ArrayList<HashMap<String, Object>> currentVideoList;
+		try {
+			currentVideoList = creatorStatService.getCurrentVideo();
+			model.addAttribute("currentVideoList", currentVideoList);
+		} catch (GeneralSecurityException | IOException e) {
+			e.printStackTrace();
+		}
 		
 		// 대시보드의 결재 리스트
 		List<ApprovalDTO> reqAp_list = dashService.reqAp_list(login_id);

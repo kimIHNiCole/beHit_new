@@ -297,7 +297,7 @@
 	                  <!-- Activity Timeline -->
 	                  <div class="card card-action mb-4">
 	                    <div class="card-header align-items-center">
-	                      <h5 class="card-action-title mb-0"><i class='bx bxl-youtube' ></i>인기 영상 순위</h5>
+	                      <h5 class="card-action-title mb-0"><i class='bx bxl-youtube' ></i>인기 영상 리스트</h5>
 	                    </div>
 	                    <!-- Basic Bootstrap Table -->
 	              <div class="card">
@@ -305,35 +305,33 @@
 	                  <table class="table">
 	                    <thead>
 	                      <tr>
-	                      	<th>순위</th>
-	                        <th>썸네일</th>
-	                        <th>채널 이름/분야</th>
-	                        <th>구독자수</th>
-	                        <th>구독자 급상승 수</th>
-	                        <th>일일 조회수</th>
+	                      	<th>썸네일</th>
+	                        <th>제목/채널명</th>
+	                        <th>조회수</th>
+	                        <th>좋아요</th>
+	                        <th>업로드 날짜</th>
 	                      </tr>
 	                    </thead>
 	                    <tbody class="table-border-bottom-0">
-	                    <c:forEach var="rankItem" items="${rankList}" >
-	                      <tr>
-	                        <td>1</td>
+	                    <c:forEach var="currentVideo" items="${currentVideoList}" >
+	                      <tr onclick="window.open('https://www.youtube.com/watch?v=${currentVideo.videoId}', '_blank', 'width=800,height=600'); return false;">
 	                        <td>
-	                          <div class="avatar avatar-lg me-2">
-                        	  <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
+	                          <div>
+                        	  <img src="${currentVideo.thumbnailUrl}" alt="channel_thumbnail" class="rounded">
 	                          </div>
 	                        </td>
 	                        <td>
-	                          <span class="fw-medium">${rankItem.videoTitle}</span>
-	                          <div><span class="badge bg-label-primary me-1">#일상</span></div>
+		                          <span class="fw-medium videoTitle">${currentVideo.videoTitle}</span>
+	                          <div><span class="badge bg-label-dark me-1">${currentVideo.channelName}</span></div>
 	                        </td>
 	                        <td>
-	                          <span>${rankItem.videoId}</span>
+	                          <span>${currentVideo.views} 회</span>
 	                        </td>
 	                        <td>
-	                          <span>${rankItem.thumbnailUrl}</span>
+	                          <span>${currentVideo.likes} 개</span>
 	                        </td>
 	                        <td>
-	                          <span>1542843</span>
+	                          <span>${currentVideo.uploadDate}</span>
 	                        </td>
 	                      </tr>
 	                     </c:forEach> 
@@ -496,17 +494,33 @@
   </body>
 
 <script>
-var rankList =  [
-	<c:forEach var="rankItem" items="${rankList}">
+var videoInfo =  [
+	<c:forEach var="currentVideo" items="${currentVideoList}">
     {
-        "videoId": "${rankItem.videoId}",
-        "videoTitle": "${rankItem.videoTitle}",
-        "thumbnailUrl": "${rankItem.thumbnailUrl}",
+        "videoId": "${currentVideo.videoId}",
+        "videoTitle": "${currentVideo.videoTitle}",
+        "thumbnailUrl": "${currentVideo.thumbnailUrl}",
     }<c:if test="${!loop.last}">,</c:if>
 	</c:forEach>
 	];
 
-console.log('rankList = '+ rankList)
+console.log('currentVideoList = '+ videoInfo)
+
+// 영상제목의 길이가 n자가 넘어가면 제어
+$('.videoTitle').each(function() {
+        // 현재 엘리먼트의 텍스트 가져오기
+        var titleText = $(this).text();
+
+        // 텍스트 길이가 20자 이상인 경우
+        if (titleText.length > 24) {
+            // 처음 20자까지만 잘라내고 뒤에 '...'을 붙이기
+            var shortenedText = titleText.substring(0, 24) + '...';
+            $(this).text(shortenedText);
+        }
+    });
+
+
+
 // 출퇴근 버튼 스크립트, 출퇴근 시간 view 에 반영
 'use strict';
 
