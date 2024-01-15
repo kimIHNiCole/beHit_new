@@ -264,7 +264,9 @@ public class CreatorController {
 				EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 				String loginId=empdto.getEmp_id();
 				int idx=creatorService.addCreator_perm(loginId, cre_idx, emp_data);
-
+				List<CreatorDTO> creatorPermList=creatorService.creatorPermList(cre_idx); 
+				
+				result.put("creatorPermList", creatorPermList);
 				result.put("idx", idx);
 				return result;
 			}
@@ -284,7 +286,9 @@ public class CreatorController {
 				EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 				String loginId=empdto.getEmp_id();
 				int idx=creatorService.delPerm(cre_idx, emp_id);
-
+				List<CreatorDTO> creatorPermList=creatorService.creatorPermList(cre_idx); 
+				
+				result.put("creatorPermList", creatorPermList);			
 				result.put("idx", idx);
 				return result;
 			}
