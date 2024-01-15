@@ -326,7 +326,9 @@ width: 20rem;
 				            	<tr>
 				            	  
 				                  <th>
-				                  	${channelInfo.channel_name}
+				                  	<a href="https://www.youtube.com/channel/${channelInfo.channel_id}" onclick="window.open(this.href, '_blank', 'width=1000,height=800'); return false;">
+				                  	  ${channelInfo.channel_name}
+				                  	</a>
 				                  	<c:if test="${channelInfo.rep_channel eq '1'}">
 				                  		<input id="repChannelId" type="hidden" value="${channelInfo.channel_id}"/>
 				                  		<span class="badge bg-label-primary">대표</span>
@@ -335,7 +337,7 @@ width: 20rem;
 				                  <th>${channelInfo.channel_cate}</th>
 				                  <th>${channelInfo.subscriber} 명</th>
 				                  <th>${channelInfo.contents} 개</th>
-				                  <th>${channelInfo.subscriber} 회</th>
+				                  <th>${channelInfo.views} 회</th>
 				                  <th>${channelInfo.channel_date}</th>
 				              	</tr>
 				           	  </c:forEach>
@@ -379,7 +381,7 @@ width: 20rem;
 				                  	${snsItem.sns_cate}
 				                  </th>
 				                  <th>
-				                  	<a href="${snsItem.sns_url}">${snsItem.sns_url}</a>
+				                  	<a href="${snsItem.sns_url}" onclick="window.open(this.href, '_blank', 'width=1000,height=800'); return false;">${snsItem.sns_url}</a>
 				                  </th>
 				              	</tr>
 				              </c:forEach>

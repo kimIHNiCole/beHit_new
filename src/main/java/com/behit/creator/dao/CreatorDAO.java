@@ -11,6 +11,7 @@ import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreHistDTO;
 import com.behit.creator.dto.CreatorDTO;
+import com.behit.creator.dto.CreatorPerm;
 import com.behit.creator.dto.SnsDTO;
 
 @Mapper
@@ -48,6 +49,13 @@ public interface CreatorDAO {
 	List<CreatorDTO> creatorPermList(int cre_idx);
 	// 열람자 삭제
 	int delPerm(int cre_idx, String emp_id);
+	// 열람권한 체크
+	boolean permChk1(HashMap<String, Object> permChkParam);
+	boolean permChk2(HashMap<String, Object> permChkParam);
+	boolean permChk3(HashMap<String, Object> permChkParam);
+	
+	// 로그인 id 별 크리에이터 권한 리스트 가져오기
+	ArrayList<CreatorPerm> getCrePerm(String loginId);
 	
 
 }
