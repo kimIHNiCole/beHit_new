@@ -313,7 +313,7 @@
 		   success:function(result){
 			   console.log('result'+result);
 			   drawTotalAll(result.totalInfo);
-			   drawAllList(result.allList);
+			   drawAllList(result.allList,result.permList);
 			   drawMyList(result.myList);
 		   },
 		   error:function(e){
@@ -330,10 +330,11 @@
     	}
     	
     	
-     	function drawAllList(allList) {
-    		console.log(allList);
+     	function drawAllList(allList,permList) {
+     		var combinedList = allList.concat(permList);
+    		console.log('combinedList===='+combinedList);
 	    	var creatorTable = $("#creatorList").DataTable({
-	    		data : allList,
+	    		data : combinedList,
 	    		columnDefs: [
 	    	        { targets: 0, orderable: false } // 0번째 열에 대해 정렬 비활성화
 	    	    ],

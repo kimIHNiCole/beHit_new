@@ -80,6 +80,9 @@
     <!-- custom CSS -->
     <style>
 
+		p{
+			margin: 0;
+		}
     button{
 			background: inherit;
 			border:none;
@@ -266,14 +269,21 @@
     .apv-form-vac .apv-sign-line-name,
     .apv-form-vac .apv-sign-line-date
      {
-    	display: block;
+     	display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    flex-direction: column;
 	    text-align: center;
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
-	    width: 80px;
+	    width: 88px;
 	    font-size: 12px;
 	    padding: 2px 4px;
+    }
+    
+    .apv-form-vac .apv-sign-line-date{
+    	height:2.625rem;
     }
     
     .apv-form-vac .apv-sign-line-name{
@@ -531,7 +541,7 @@
                 	<div class="apv-form-menu">
                 	
 	                	<c:choose>
-										  <c:when test="${apv.apv_stmt == '진행중'}">
+										  <c:when test="${apv.apv_stmt == '진행중' && apv.emp_id == emp_id}">
 										  
 											  	<c:choose>
 													  <c:when test="${apv_line_info[0].apv_history_date == null}">
@@ -557,13 +567,11 @@
 					                			<i class='bx bx-plus'></i> 열람자 추가
 					                	</button>
 					               </span>
-										  </c:when>
-										  <c:when test="${apv.apv_stmt == '반려'}">
-										  	<span class="text-truncate">
-					                	<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
-					                			<i class='bx bx-trash'></i> 삭제
-					                	</button>
-					               </span>
+					               <span class="text-truncate">
+		                			<button type="button" id="confirm-text" class="apv-form-menu-cnt approval-preview">
+		                			<i class='bx bxs-file-blank'></i> pdf 저장
+		                			</button>
+		                		</span>
 										  </c:when>
 										</c:choose>
 										
@@ -642,8 +650,8 @@
 					                  	</c:when>
 						                  <c:when test="${apv.apv_stmt == '반려'}">
 						                  
-						                  	<button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-							                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">수정</button>
+						                  	<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+							                    	data-bs-target="#apv-stmt-modal" onclick="handleApproval()">수정</button> -->
 														  </c:when>
 														</c:choose>
 						              </div>
@@ -899,6 +907,8 @@
     <!-- custom JS -->
     <script>
     
+    console.log('form_type'+'${form_type}');
+    
     $('.apv-vac-day').val('${apv.apv_time}');
     $('.apv-vac-time').val('${apv.apv_time}');
     
@@ -1090,52 +1100,29 @@
     
     
     
-    
+  
     // 미리보기 모달----------------------------------------------------------------------------------------------
 		 $('.approval-preview').on('click',function(){
 			
-		    var $name = $('.table-header-left-table .name').html(),
-		    $dept = $('.table-header-left-table .dept').html(),
-		    $date = $('.table-header-left-table .date').html(),
-		    $number = $('.table-header-left-table .number').html(),
-		    $form_vac_time = $('.form-vac-time').val(),
-		    $form_vac_time_start = $('.form-vac-time-start').val(),
-		    $form_vac_time_end = $('.form-vac-time-end').val(),
-		    $vac_time= $('.vac-time').val(),
-		    $apv_sign_table_tr= $('.apv-sign-table-tr').html(),
-		    $snow_editor = $('#snow-editor').html();
-
+			 	var apv_idx = '${apv.apv_idx}';
+			 	var apv_type = 'pdf';
 		    var width = 1000;
 		    var height = 800;
 		    var left = (window.innerWidth - width) / 2;
 		    var top = (window.innerHeight - height) / 2;
-	
-		    // 창의 속성 설정
-		    var previewWindow = window.open('', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
-		
+		    
 		    
 		 		// AJAX를 이용하여 페이지 내용 가져오기
 		    $.ajax({
-            	url: '../approval_preview.go',
+            	url: '/approval/approval_pdf.go',
             	method: 'GET',
+            	data:{'apv_idx' : apv_idx, 'apv_type' : apv_type},
 		        	success: function (data){
-		        			previewWindow.document.open();
-			            previewWindow.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>미리보기</title></head><body>');
-			            previewWindow.document.write(data);
-			            previewWindow.document.write('<script>');
-			            previewWindow.document.write('$(".table-header-left-table-right.name").html("'+$name+'");');
-			            previewWindow.document.write('$(".table-header-left-table-right.dept").html("'+$dept+'");');
-			            previewWindow.document.write('$(".table-header-left-table-right.date").html("'+$date+'");');
-			            previewWindow.document.write('$(".table-header-left-table-right.number").html("'+$number+'");');
-			            previewWindow.document.write('$(".form-vac-time").html("'+$form_vac_time+'");');
-			            previewWindow.document.write('$(".form-vac-time-start").html("'+$form_vac_time_start+'");');
-			            previewWindow.document.write('$(".form-vac-time-end").html("'+$form_vac_time_end+'");');
-			            previewWindow.document.write('$(".vac-time").html("'+$vac_time+' 시간");');
-			            previewWindow.document.write('$("#snow-editor").html(\'' + $snow_editor.replace(/'/g, "\\'") + '\');');
-			            previewWindow.document.write('$(".ql-editor").attr("contenteditable", "false");');
-			            previewWindow.document.write('<\/script>');
-			            previewWindow.document.write('</body></html>');
-			            previewWindow.document.close();
+						    // 창의 속성 설정
+		        		var previewWindow = window.open('', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+		        		previewWindow.document.open();
+		            previewWindow.document.write(data);
+		            previewWindow.document.close();
 		          },
 		          error: function (xhr, status, error) {
 			            console.error('AJAX request failed:', status, error);
@@ -1182,13 +1169,16 @@
                         dataType: 'json',
                         success: function (response) {
                             // Handle success response
-                            Swal.fire({
+                        	Swal.fire({
                                 icon: 'success',
                                 title: '완료',
                                 text: '상신을 취소하셨습니다.',
                                 customClass: {
                                     confirmButton: 'btn btn-success'
                                 }
+                            }).then(function () {
+                                // Redirect to /approval/approval_main.go after success message
+                                window.location.href = '/approval/approval_main.go';
                             });
                         },
                         error: function (error) {
@@ -1215,77 +1205,78 @@
 		
 		
  		// 새 결재 작성 모달창----------------------------------------------------------------------------------------
-    $(function () {
-    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
-    	    checkboxTree = $('#jstree-checkbox');
-    	  // Checkbox
-    	  if (checkboxTree.length) {
-    	    checkboxTree.jstree({
-    	      core: {
-    	        themes: {
-    	          name: theme
-    	        },
-    	        data: [
-    	          {
-    	            text: '근태',
-    	            state: {
-      	              opened: true
-      	            },
-    	            children: [
-    	              {
-    	                text: '휴가 신청서',
-    	                type: 'docs'
-    	              },
-    	              {
-      	              text: '사후 휴가 신청서',
-      	              type: 'docs'
-      	            }
-    	            ]
-    	          },
-    	          {
-    	            text: '일반 ',
-    	            state: {
-    	              opened: true
-    	            },
-    	            children: [
-    	              {
-    	                text: '사업 기안서',
-    	                type: 'docs'
-    	              }
-    	            ]
-    	          },
-    	        ]
-    	      },
-    	      plugins: ['types','wholerow'],
-    	      types: {
-    	        default: {
-    	          icon: 'bx bx-folder'
-    	        },
-    	        docs: {
-    	          icon: 'bx bxs-file-blank'
-    	        }
-    	      }
-    	    }).on('select_node.jstree', function (e, data) {
-    	        // 현재 선택된 노드의 ID 확인
-    	        var selectedNodeId = data.node.id;
-    	        
-    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
-    	        $('.apv-doc-select').off('click');
-    	        
-    	        // id 값에 따라 페이지 이동
-    	        $('.apv-doc-select').on('click',function(){
-    	        			if(selectedNodeId == 'j1_2'){
-    	        					location.href="approval_write.go/vac";
-    	        			}else if(selectedNodeId == 'j1_3'){
-    	        				location.href="approval_write.go/vac_after";
-    	        			}else if(selectedNodeId == 'j1_5'){
-    	        				location.href="approval_write.go/biz";
-    	        			}
-    	        });
-    	        
-    	      });
-    	  }
-    	});
+    $(document).ready(function () {
+    var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+        checkboxTree = $('#jstree-checkbox-form');
+
+    // Checkbox
+    if (checkboxTree.length) {
+        checkboxTree.jstree({
+            core: {
+                themes: {
+                    name: theme
+                },
+                data: [
+                    {
+                        text: '근태',
+                        state: {
+                            opened: true
+                        },
+                        children: [
+                            {
+                                text: '휴가 신청서',
+                                type: 'docs'
+                            },
+                            {
+                                text: '사후 휴가 신청서',
+                                type: 'docs'
+                            }
+                        ]
+                    },
+                    {
+                        text: '일반 ',
+                        state: {
+                            opened: true
+                        },
+                        children: [
+                            {
+                                text: '사업 기안서',
+                                type: 'docs'
+                            }
+                        ]
+                    },
+                ]
+            },
+            plugins: ['types', 'wholerow'],
+            types: {
+                default: {
+                    icon: 'bx bx-folder'
+                },
+                docs: {
+                    icon: 'bx bxs-file-blank'
+                }
+            }
+        }).on('select_node.jstree', function (e, data) {
+            // 현재 선택된 노드의 ID 확인
+            var selectedNodeId = data.node.id;
+
+            // 기존 click 이벤트 핸들러 제거
+            $('.apv-doc-select').off('click');
+
+            // id 값에 따라 페이지 이동
+            $('.apv-doc-select').on('click', function () {
+                if (selectedNodeId == 'j1_2') {
+                    location.href = "/approval/approval_write.go/vac";
+                } else if (selectedNodeId == 'j1_3') {
+                    location.href = "/approval/approval_write.go/vac_after";
+                } else if (selectedNodeId == 'j1_5') {
+                    location.href = "/approval/approval_write.go/biz";
+                }
+            });
+
+        });
+    }
+});
 		
   	//------------------------------------------------------------------------------------------------
  		

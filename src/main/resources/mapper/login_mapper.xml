@@ -35,4 +35,9 @@
 	<select id="leaveCnt" resultType="boolean">
 		SELECT IF(leavedate = '9999-10-10', true, false) AS leavedate FROM employee WHERE emp_id = #{emp_id};
 	</select>
+	
+	<insert id="lockCnkalarm">
+		INSERT INTO alarm (emp_id, alarm_type, alarm_type_idx, alarm_msg)
+			VALUES (#{emp_id}, 5, #{emp_id}, #{lockmsg})
+	</insert>
 </mapper>

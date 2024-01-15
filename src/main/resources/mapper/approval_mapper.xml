@@ -20,13 +20,21 @@
 		    WHERE e.emp_id = #{emp_id}
 	</select>
 	
+	<select id="commute_history" parameterType="com.behit.employee.dto.WorkDTO">
+		SELECT * FROM commute_history WHERE emp_id = #{emp_id} AND work_day = #{apv_start_day}
+	</select>
+	<insert id="alarm" parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT into alarm (
+		emp_id, alarm_type, alarm_type_idx, alarm_msg, alarm_date, alarm_readCheck) 
+		VALUES (#{apv_approver}, 3, #{apv_idx}, "결재할 문서가 도착했습니다", current_timestamp, "N"); 
+	</insert>
+	
 	<!-- 결재상신 -->
 	<!-- generatedKey 사용
 		 useGeneratedKeys="true" : 사용 여부 
 		 keyColumn="idx" : 어떤 컬럼 값을 가져와서 
 		 keyProperty="idx" : DTO 의 어떤 속성(필드) 에 넣을 것인가?
 	 -->
-
 	 <insert useGeneratedKeys="true" keyColumn="apv_idx"
 		keyProperty="apv_idx" id="approval_write_vac"
 		parameterType="com.behit.approval.dto.ApprovalDTO">
@@ -117,6 +125,7 @@
 		,NOW()
 		)
 	</insert>
+	
 	<delete id="apv_line_del">
 		DELETE FROM apv_line WHERE apv_idx = #{apv_idx};
 	</delete>
@@ -140,6 +149,8 @@
 	<update id="apv_update_num">
 		UPDATE apv SET apv_num = #{apv_num} WHERE apv_idx = #{apv_idx}
 	</update>
+	
+	<!-- 임시저장 -->
 	<update id="approval_update">
 		UPDATE apv SET 
 		apv_date = NOW()
@@ -165,15 +176,7 @@
 		WHERE apv_idx = #{apv_idx}
 	</update>
 	
-	
-	
-	<select id="getApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
-		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, e.emp_name, d.emp_dept_name AS 'dept_name' , a.apv_stmt 
-		FROM apv a 
-		JOIN employee e ON e.emp_id = a.emp_id
-		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
-		WHERE apv_approver = #{emp_id} AND a.apv_stmt = '진행중'
-	</select>
+	<!-- 결재문서 상세보기 -->
 	<select id="getApproval_detail" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT * FROM apv a WHERE a.apv_idx = #{apv_idx}
 	</select>
@@ -207,6 +210,33 @@
 		)
 	</insert>
 	
+	<!-- vacation_history 테이블 입력 -->
+	<insert id="vacation_histroy" parameterType="com.behit.approval.dto.ApprovalDTO">
+		INSERT INTO vacation_history(
+			emp_id
+			,doc_code
+			,vaca_date
+			,vaca_start
+			,vaca_end_time
+			,use_hour
+			,vaca_reason
+			,emp_id_in
+			,vaca_date_in
+		)
+		VALUES(
+			#{emp_id}
+			,#{doc_code}
+			,#{vaca_date}
+			,#{vaca_start}
+			,#{vaca_end_time}
+			,#{use_hour}
+			,#{vaca_reason}
+			,#{emp_id_in}
+			,NOW()
+		)
+	</insert>
+	
+	<!-- 열람자 -->
 	<insert id="apv_perm" parameterType="com.behit.approval.dto.ApprovalDTO">
 		INSERT INTO apv_perm(
 			apv_idx
@@ -221,11 +251,21 @@
 		,NOW()
 		)
 	</insert>
+	<!-- 상신취소 -->
 	<update id="apv_cancel">
 		UPDATE apv SET apv_stmt = '임시저장' WHERE apv_idx = #{apv_idx}
 	</update>
 	
 	
+	<!-- 리스트  -->
+	<select id="getApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
+		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, e.emp_name, d.emp_dept_name AS 'dept_name' , a.apv_stmt 
+		FROM apv a 
+		JOIN employee e ON e.emp_id = a.emp_id
+		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+		WHERE apv_approver = #{emp_id} AND a.apv_stmt = '진행중'
+		ORDER BY a.apv_date DESC
+	</select>
 	<select id="requestApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, 
        (SELECT apv_history_date
@@ -238,6 +278,7 @@
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '진행중'
+		ORDER BY a.apv_date DESC
 	</select>
 	
 	<select id="compApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -252,6 +293,7 @@
 		FROM apv_history ah 
 		JOIN apv a ON ah.apv_idx = a.apv_idx 
 		WHERE ah.emp_id = #{emp_id}
+		ORDER BY ah.apv_history_date DESC
 	</select>
 	
 	<select id="finishApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -271,6 +313,7 @@
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '완료'
+		ORDER BY apv_history_date DESC
 	</select>
 	
 	<select id="rejectedApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
@@ -291,13 +334,16 @@
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '반려'
 	</select>
+	
 	<select id="temporaryApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT a.apv_idx,a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt 
 		FROM apv a 
 		JOIN employee e ON e.emp_id = a.emp_id
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE a.emp_id = #{emp_id} AND a.apv_stmt = '임시저장'
+		ORDER BY a.apv_date DESC
 	</select>
+	
 	<select id="viewApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
 		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_date, a.apv_stmt, d.emp_dept_name,
 		(SELECT apv_history_date
@@ -316,6 +362,7 @@
 		JOIN employee e ON e.emp_id = a.apv_approver 
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		WHERE ap.emp_id = #{emp_id}
+		ORDER BY apv_history_date DESC
 	</select>
 
 
