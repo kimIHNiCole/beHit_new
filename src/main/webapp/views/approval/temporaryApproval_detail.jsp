@@ -530,11 +530,11 @@
                 				<i class='bx bx-plus'></i> 결재선 추가
                 			</button>
                 		</span>
-                		<span class="text-truncate">
+                		<!-- <span class="text-truncate">
                 			<button type="button" id="confirm-text" class="apv-form-menu-cnt approval-preview">
                 			<i class='bx bxs-file-blank'></i> 미리보기
                 			</button>
-                		</span>
+                		</span> -->
                 		<span class="text-truncate">
                 			<button type="button" id="temporarySaveButton" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
                 		</span>
@@ -585,7 +585,7 @@
 	
 					                <div class="pt-4 apv-form-button">
 				                    <button type="reset" class="btn btn-label-secondary">취소</button>
-				                    <button type="submit" class="btn btn-primary">상신</button>
+				                    <button id="apv_submit" type="submit" class="btn btn-primary">상신</button>
 				                  </div>
 					              </form>
 				                
@@ -778,128 +778,194 @@
     <!-- custom JS -->
     <script>
     
-    var form_type = '${form_type}';
-    var apv_vac_type = '${apv.apv_vac_type}';
-    var apv_code = '${apv.apv_code}';
-    
-    
-    
-    if(apv_vac_type == '종일'){
-	    $('.apv-vac-day').val('${apv.apv_time}');
-	    $('#flatpickr-date-before').val('${apv.apv_start_day}');
-	    $('#flatpickr-date-after').val('${apv.apv_end_day}');
-    	
-    }else if(apv_vac_type == '시간'){
-	    $('.apv-vac-time').val('${apv.apv_time}');
-    	
-    }else if(apv_code == 'BSPN'){
-    	$('input[name="apv_subject"]').val('${apv.apv_subject}');
-    	$('textarea[name="apv_overview"]').val('${apv.apv_overview}');
-    }
-    
 
-    //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
+  //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
     $('.apv-vac-time').hide();
     input_modal();
     
     $(".form-vac-time").on("change", function() {
     	
-		//$('.vac-time').val('');
-    // 선택된 옵션의 텍스트 가져오기
-    var selectedOption = $(this).find("option:selected").text();
-    
-    var content='';
-
-    // 선택된 옵션에 따라 원하는 작업 수행
-    if (selectedOption === "종일") {
-        // "종일"이 선택된 경우의 동작
-        console.log("종일이 선택되었습니다.");
+    		//$('.vac-time').val('');
+        // 선택된 옵션의 텍스트 가져오기
+        var selectedOption = $(this).find("option:selected").text();
         
-        $('.apv-vac-time').hide();
-        $('.apv-vac-day').show();
-        $('.apv-vac-time input').prop('disabled', true);
-        $('.apv-vac-time.vac-time').prop('disabled', true);
-        $('.apv-vac-day.vac-time').prop('disabled', false);
-        $('.apv-vac-day input').prop('disabled', false);
-         
-    } else if (selectedOption === "시간") {
-        // "시간"이 선택된 경우의 동작
-        console.log("시간이 선택되었습니다.");
-        
-        $('.apv-vac-day').hide();
-        $('.apv-vac-time').show();
-        $('.apv-vac-time input').prop('disabled', false);
-        $('.apv-vac-day.vac-time').prop('disabled', true);
-        $('.apv-vac-time.vac-time').prop('disabled', false);
-        $('.apv-vac-day input').prop('disabled', true);
-    }
- 		// 날짜 시간 input 모달
-    input_modal();
-});
+        var content='';
+
+        // 선택된 옵션에 따라 원하는 작업 수행
+        if (selectedOption === "종일") {
+            // "종일"이 선택된 경우의 동작
+            console.log("종일이 선택되었습니다.");
+            
+            $('.apv-vac-time').hide();
+            $('.apv-vac-day').show();
+            $('.apv-vac-time input').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', true);
+            $('.apv-vac-day.vac-time').prop('disabled', false);
+            $('.apv-vac-day input').prop('disabled', false);
+             
+        } else if (selectedOption === "시간") {
+            // "시간"이 선택된 경우의 동작
+            console.log("시간이 선택되었습니다.");
+            
+            $('.apv-vac-day').hide();
+            $('.apv-vac-time').show();
+            $('.apv-vac-time input').prop('disabled', false);
+            $('.apv-vac-day.vac-time').prop('disabled', true);
+            $('.apv-vac-time.vac-time').prop('disabled', false);
+            $('.apv-vac-day input').prop('disabled', true);
+        }
+     		// 날짜 시간 input 모달
+        input_modal();
+    });
     
  		// 날짜 시간 input 모달
-    function input_modal(){
-    	  // Flat Picker
-    	  var flatpickrDate = document.querySelector('#flatpickr-date');
-    	  var flatpickrDateBefore = document.querySelector('#flatpickr-date-before');
-    	  var flatpickrDateAfter = document.querySelector('#flatpickr-date-after');
-    	  var basicTimepickerBefore = $('#timepicker-basic-before');
-    	  var basicTimepickerAfter = $('#timepicker-basic-after');
+    // 날짜 시간 input 모달
+	function input_modal() {
+    // Flat Picker
+    var flatpickrDate = document.querySelector('#flatpickr-date');
+    var flatpickrDateBefore = document.querySelector('#flatpickr-date-before');
+    var flatpickrDateAfter = document.querySelector('#flatpickr-date-after');
+    var basicTimepickerBefore = $('#timepicker-basic-before');
+    var basicTimepickerAfter = $('#timepicker-basic-after');
 
-    	  // Date
-    	  if (flatpickrDate) {
-    	    flatpickrDate.flatpickr({
-    	      monthSelectorType: 'static'
-    	    });
-    	  }
-    	  
-    	  if (flatpickrDateBefore) {
-    	    flatpickrDateBefore.flatpickr({
-    	      monthSelectorType: 'static'
-    	    });
-    	  }
-    	  
-    	  if (flatpickrDateAfter) {
-      	    flatpickrDateAfter.flatpickr({
-      	      monthSelectorType: 'static'
-      	    });
-      	  }
-    	  
-    	  if (basicTimepickerBefore.length) {
-    		  		basicTimepickerBefore.timepicker({
-    		  			orientation: isRtl ? 'r' : 'l',
-    		  		  step: 60, // 1-hour step
-    		  			disableTextInput: true, // Disable manual input
-    	          'disableTimeRanges': [
-    	            ['12am', '6:59am'],
-    	            ['8:01pm', '11:59pm']
-    	          ]
-    		    });
-    		  }
-    	  
-    	  if (basicTimepickerAfter.length) {
-		  		basicTimepickerAfter.timepicker({
-		  			orientation: isRtl ? 'r' : 'l',
-		     		step: 60, // 1-hour step
-			    	disableTextInput: true, // Disable manual input
-			    	'disableTimeRanges': [
-			    	  ['12am', '6:59am'],
-			    	  ['8:01pm', '11:59pm']
-		    	 ]
-		    });
-		  }
-    	  
+    var form = '${apv.apv_code}';
+
+    if (form == 'BFVC') {
+        // Date
+        if (flatpickrDate) {
+            flatpickrDate.flatpickr({
+                monthSelectorType: 'static',
+                disable: [
+                    function(date) {
+                        // 그 전날부터 오늘까지 비활성화
+                        var today = new Date();
+                        today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
+
+                        return date <= today;
+                    },
+                    function(date) {
+                        // 주말 비활성화 (0: 일요일, 6: 토요일)
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ]
+            });
+        }
+
+        if (flatpickrDateBefore) {
+            flatpickrDateBefore.flatpickr({
+                monthSelectorType: 'static',
+                disable: [
+                    function(date) {
+                        // 그 전날부터 오늘까지 비활성화
+                        var today = new Date();
+                        today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
+
+                        return date <= today;
+                    },
+                    function(date) {
+                        // 주말 비활성화 (0: 일요일, 6: 토요일)
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ]
+            });
+        }
+
+        if (flatpickrDateAfter) {
+            flatpickrDateAfter.flatpickr({
+                monthSelectorType: 'static',
+                disable: [
+                    function(date) {
+                        // 그 전날부터 오늘까지 비활성화
+                        var today = new Date();
+                        today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
+
+                        return date <= today;
+                    },
+                    function(date) {
+                        // 주말 비활성화 (0: 일요일, 6: 토요일)
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ]
+            });
+        }
+
+    } else if (form == 'AFVC') {
+
+        if (flatpickrDate) {
+            flatpickrDate.flatpickr({
+                monthSelectorType: 'static',
+                disable: [
+                    function(date) {
+                        // 주말 비활성화 (0: 일요일, 6: 토요일)
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ]
+            });
+        }
+
+        if (flatpickrDateBefore) {
+            flatpickrDateBefore.flatpickr({
+                monthSelectorType: 'static',
+                disable: [
+                    function(date) {
+                        // 주말 비활성화 (0: 일요일, 6: 토요일)
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ]
+            });
+        }
+
+        if (flatpickrDateAfter) {
+            flatpickrDateAfter.flatpickr({
+                monthSelectorType: 'static',
+                disable: [
+                    function(date) {
+                        // 주말 비활성화 (0: 일요일, 6: 토요일)
+                        return (date.getDay() === 0 || date.getDay() === 6);
+                    }
+                ]
+            });
+        }
     }
+
+    if (basicTimepickerBefore.length) {
+        basicTimepickerBefore.timepicker({
+            orientation: isRtl ? 'r' : 'l',
+            step: 60, // 1-hour step
+            disableTextInput: true, // Disable manual input
+            'disableTimeRanges': [
+                ['12am', '6:59am'],
+                ['8:01pm', '11:59pm']
+            ]
+        });
+    }
+
+    if (basicTimepickerAfter.length) {
+        basicTimepickerAfter.timepicker({
+            orientation: isRtl ? 'r' : 'l', // 여기 수정
+            step: 60, // 1-hour step
+            disableTextInput: true, // Disable manual input
+            'disableTimeRanges': [
+                ['12am', '6:59am'],
+                ['8:01pm', '11:59pm']
+            ]
+        });
+    }
+}
     
   	//--------------------------------------------------------------------------------------------------------------
   	
   	
   	//연차 시간 자동 표시 ------------------------------------------------------------------------------------------------
   	
-  	var startDay = $('#flatpickr-date-before').val();
-  	var endDay = $('#flatpickr-date-after').val();
+  	var startDay = '';
+  	var endDay = '';
   	var startTime = '';
   	var endTime = '';
+  	
+  	$('.apv-vac-time').on('change', '#flatpickr-date', function() {
+	    console.log('시작 날짜:', startDay);
+		});
     
     $('.apv-vac-day').on('change', '#flatpickr-date-before', function() {
 		    startDay = $(this).val();
@@ -917,21 +983,29 @@
 		    startTime = $(this).val();
 		    console.log('시작 시간:', startTime);
 		    calculateTimeDifference();
+		    compareWithWorkDTO();
 		});
 		
 		$('.apv-vac-time').on('change', '#timepicker-basic-after', function() {
 		   	endTime = $(this).val();
 		    console.log('마지막 시간:', endTime);
 		    calculateTimeDifference();
+		    compareWithWorkDTO();
 		});
-
+		
 		function calculateDateDifference() {
 		    if (startDay && endDay) {
 		        var startDate = new Date(startDay);
 		        var endDate = new Date(endDay);
 
-		        var dateDifference = endDate - startDate;
-		        var daysDifference = (dateDifference / (24 * 60 * 60 * 1000) +1 ) * 8;
+		        // 주말 제외 계산
+		        var daysDifference = 0;
+		        while (startDate <= endDate) {
+		            if (startDate.getDay() !== 0 && startDate.getDay() !== 6) {
+		                daysDifference += 8;
+		            }
+		            startDate.setDate(startDate.getDate() + 1);
+		        }
 
 		        console.log('날짜 차이 (일):', daysDifference);
 		        $('.apv-vac-day').val(daysDifference);
@@ -939,7 +1013,7 @@
 		        console.log('시작 날짜와 마지막 날짜를 선택하세요.');
 		    }
 		}
-
+		
 		function calculateTimeDifference() {
 		    if (startTime && endTime) {
 		        var startTimeParts = startTime.match(/(\d+):(\d+)\s*([aApP][mM])?/);
@@ -974,6 +1048,125 @@
 
     
     //--------------------------------------------------------------------------------------------------------------
+    
+    // 출퇴근 예정 시간과 비교 ------------------------------------------------------------------------------------------
+    
+    // 연차 시간 입력 처리
+    
+    // var workDTO = '${workDTO}';
+    
+		// workDTO와 입력값 비교하여 경고창 띄우기
+		function compareWithWorkDTO() {
+    // workDTO에 담긴 출근 및 퇴근 예정시간 가져오기
+	    var apv_start_day = $('#flatpickr-date').val();
+	    var apv_start_time = $('#timepicker-basic-before').val();
+	    var apv_end_time = $('#timepicker-basic-after').val();
+
+    $.ajax({
+        type: 'get',
+        url: '/approval/compare_time',
+        dataType: 'JSON',
+        data: {
+            'apv_start_day': apv_start_day,
+            'apv_start_time': apv_start_time,
+            'apv_end_time': apv_end_time
+        },
+        success: function (data) {
+            console.log("data.status " + data.status);
+
+            if (data.status !== 'success') {
+            	
+                Swal.fire({
+                    title: '알림',
+                    text: data.msg,
+                    icon: 'warning',
+                    confirmButtonText: '확인'
+                }).then(function (result) {
+	                $('#timepicker-basic-after').val('');
+	                $('#timepicker-basic-before').val('');
+	                $('.apv-vac-time').val('');
+			          });
+                
+                
+
+            }
+        },
+        error: function (e) {
+            console.log("에러 발생: " + e);
+        }
+    });
+}
+    
+    //---------------------------------------------------------------------------------------------------------------
+  	
+    // 임시저장된 시간 및 날짜 불러오기 ------------------------------------------------------------------
+    
+    var form_type = '${form_type}';
+    var apv_vac_type = '${apv.apv_vac_type}';
+    var apv_code = '${apv.apv_code}';
+    
+    if(apv_vac_type == '종일'){
+    	// 누적 시간 입력
+	    $('.apv-vac-day').val('${apv.apv_time}');
+	    $('#flatpickr-date-before').val('${apv.apv_start_day}');
+	    $('#flatpickr-date-after').val('${apv.apv_end_day}');
+    	
+    }else if(apv_vac_type == '시간'){
+    	
+    	$('.form-vac-time').val('시간');
+    	
+    	$('.apv-vac-day').hide();
+      $('.apv-vac-time').show();
+    	
+    	// 누적 시간 입력
+	    $('.apv-vac-time').val('${apv.apv_time}');
+    	
+    	if($('.apv-vac-time').val()){
+		    calculateTimeAndDay();
+    	}
+    	
+    	
+    }else if(apv_code == 'BSPN'){
+    	$('input[name="apv_subject"]').val('${apv.apv_subject}');
+    	$('textarea[name="apv_overview"]').val('${apv.apv_overview}');
+    }
+    
+    function calculateTimeAndDay() {
+    	var dateString1 = '${apv.apv_start_time}';
+    	var dateString2 = '${apv.apv_end_time}';
+
+    	// Date 객체로 변환
+    	var date1 = new Date(dateString1);
+    	var date2 = new Date(dateString2);
+
+    	// 날짜를 원하는 형식으로 표시
+    	var formattedDate1 = date1.toISOString().split('T')[0]; // "2024-01-12"
+
+    	var formattedTime1 = formatTime(date1); // "7:00am"
+      var formattedTime2 = formatTime(date2); // "1:00pm"
+
+	    
+	    console.log("시간 : "+formattedTime1);
+	    console.log("시간 : "+formattedTime2);
+	    
+    	$('#flatpickr-date').val(formattedDate1);
+    	$('#timepicker-basic-before').val(formattedTime1);
+	    $('#timepicker-basic-after').val(formattedTime2);
+		}
+    
+    function formatTime(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0시인 경우 12시로 표시
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+
+        return hours + ':' + minutes + ampm;
+    }
+    
+  	//--------------------------------------------------------------------------------------------------------------
   	
   	
     // 미리보기 모달----------------------------------------------------------------------------------------------
@@ -1081,82 +1274,79 @@
 		//--------------------------------------------------------------------------------------------------------------
     
 		
-		
-		
- 		// 새 결재 작성 모달창----------------------------------------------------------------------------------------
-    $(function () {
-    	  var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
-    	    checkboxTree = $('#jstree-checkbox-form');
+ // 새 결재 작성 모달창----------------------------------------------------------------------------------------
+    $(document).ready(function () {
+    var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark',
+        checkboxTree = $('#jstree-checkbox-form');
 
-    	  // Checkbox
-    	  if (checkboxTree.length) {
-    	    checkboxTree.jstree({
-    	      core: {
-    	        themes: {
-    	          name: theme
-    	        },
-    	        data: [
-    	          {
-    	            text: '근태',
-    	            state: {
-      	              opened: true
-      	            },
-    	            children: [
-    	              {
-    	                text: '휴가 신청서',
-    	                type: 'docs'
-    	              },
-    	              {
-      	              text: '사후 휴가 신청서',
-      	              type: 'docs'
-      	            }
-    	            ]
-    	          },
-    	          {
-    	            text: '일반 ',
-    	            state: {
-    	              opened: true
-    	            },
-    	            children: [
-    	              {
-    	                text: '사업 기안서',
-    	                type: 'docs'
-    	              }
-    	            ]
-    	          },
-    	        ]
-    	      },
-    	      plugins: ['types','wholerow'],
-    	      types: {
-    	        default: {
-    	          icon: 'bx bx-folder'
-    	        },
-    	        docs: {
-    	          icon: 'bx bxs-file-blank'
-    	        }
-    	      }
-    	    }).on('select_node.jstree', function (e, data) {
-    	        // 현재 선택된 노드의 ID 확인
-    	        var selectedNodeId = data.node.id;
-    	        
-    	        // 여러번 왔다갔다 클릭 이벤트의 id 값이 중첩되어 여러번 호출되는걸 막기 위해서
-    	        $('.apv-doc-select').off('click');
-    	        
-    	        // id 값에 따라 페이지 이동
-    	        $('.apv-doc-select').on('click',function(){
-    	        			if(selectedNodeId == 'j1_2'){
-    	        					location.href="../approval_write.go/vac";
-    	        			}else if(selectedNodeId == 'j1_3'){
-    	        				location.href="../approval_write.go/vac_after";
-    	        			}else if(selectedNodeId == 'j1_5'){
-    	        				location.href="../approval_write.go/biz";
-    	        			}
-    	        });
-    	        
-    	      });
-    	  }
-    	});
-		
+    // Checkbox
+    if (checkboxTree.length) {
+        checkboxTree.jstree({
+            core: {
+                themes: {
+                    name: theme
+                },
+                data: [
+                    {
+                        text: '근태',
+                        state: {
+                            opened: true
+                        },
+                        children: [
+                            {
+                                text: '휴가 신청서',
+                                type: 'docs'
+                            },
+                            {
+                                text: '사후 휴가 신청서',
+                                type: 'docs'
+                            }
+                        ]
+                    },
+                    {
+                        text: '일반 ',
+                        state: {
+                            opened: true
+                        },
+                        children: [
+                            {
+                                text: '사업 기안서',
+                                type: 'docs'
+                            }
+                        ]
+                    },
+                ]
+            },
+            plugins: ['types', 'wholerow'],
+            types: {
+                default: {
+                    icon: 'bx bx-folder'
+                },
+                docs: {
+                    icon: 'bx bxs-file-blank'
+                }
+            }
+        }).on('select_node.jstree', function (e, data) {
+            // 현재 선택된 노드의 ID 확인
+            var selectedNodeId = data.node.id;
+
+            // 기존 click 이벤트 핸들러 제거
+            $('.apv-doc-select').off('click');
+
+            // id 값에 따라 페이지 이동
+            $('.apv-doc-select').on('click', function () {
+                if (selectedNodeId == 'j1_2') {
+                    location.href = "/approval/approval_write.go/vac";
+                } else if (selectedNodeId == 'j1_3') {
+                    location.href = "/approval/approval_write.go/vac_after";
+                } else if (selectedNodeId == 'j1_5') {
+                    location.href = "/approval/approval_write.go/biz";
+                }
+            });
+
+        });
+    }
+});
   	//------------------------------------------------------------------------------------------------
  		
   	
@@ -1428,6 +1618,84 @@
 		    document.getElementById('apvCnt').value = jsonString;
 		});
    	//------------------------------------------------------------------------------------------------
+   	
+   	// 미입력시 전송 막기 --------------------------------------------------------------------------------
+    
+   	$(document).ready(function() {
+    // 저장 또는 업데이트 버튼 클릭 시 실행되는 함수
+		    $('#apv_submit').click(function() { // 저장 또는 업데이트 버튼의 ID를 사용하시길 바랍니다.
+		        var total_name = $('#totalNames').val();
+		        var apv_cnt = $('#apvCnt').val();
+		        var apv_vac_type = $('#selectpickerBasic').val();
+		        var apv_day = $('#flatpickr-date').val();
+		        var apv_start_day = $('#flatpickr-date-before').val();
+		        var apv_end_day = $('#flatpickr-date-after').val();
+		        var apv_start_time = $('#timepicker-basic-before').val();
+		        var apv_end_time = $('#timepicker-basic-after').val();
+		        var apv_subject = $('input[name="apv_subject"]').val();
+		        var apv_overview = $('#exampleFormControlTextarea1').val();
+		
+		        console.log(total_name + "/" + apv_cnt + "/" + apv_vac_type +
+		            "/" + apv_day + "/" + apv_start_day + "/" + apv_end_day +
+		            "/" + apv_start_time + "/" + apv_end_time + "/" + apv_subject +
+		            "/" + apv_overview);
+		        
+		        console.log('apv_cnt:', apv_cnt);
+		
+		        form = '${apv.apv_code}';
+		        
+		
+		        if (form === 'BFVC' || form === 'AFVC' ) {
+
+		            if (apv_vac_type === '종일') {
+
+		                if (!total_name || !apv_cnt || !apv_vac_type ||
+		                    !apv_start_day || !apv_end_day) {
+		                    Swal.fire({
+		                        icon: 'error',
+		                        title: '입력되지 않은 항목이 있습니다.',
+		                        text: '모든 항목을 입력해주세요.',
+		                        confirmButtonText: '확인'
+		                    });
+		                    event.preventDefault();
+		                    return; // 필요한 경우 추가적인 처리
+		                }
+
+		            } else if (apv_vac_type === '시간') {
+
+		                if (!total_name || !apv_cnt || !apv_vac_type ||
+		                    !apv_day || !apv_start_time || !apv_end_time) {
+		                    Swal.fire({
+		                        icon: 'error',
+		                        title: '입력되지 않은 항목이 있습니다.',
+		                        text: '모든 항목을 입력해주세요.',
+		                        confirmButtonText: '확인'
+		                    });
+		                    event.preventDefault();
+		                    return; // 필요한 경우 추가적인 처리
+		                }
+
+		            }
+
+		        } else if (form === 'BSPN') {
+
+		            if (!total_name || !apv_cnt || !apv_subject) {
+		                Swal.fire({
+		                    icon: 'error',
+		                    title: '입력되지 않은 항목이 있습니다.',
+		                    text: '모든 항목을 입력해주세요.',
+		                    confirmButtonText: '확인'
+		                });
+		                event.preventDefault();
+		                return; // 필요한 경우 추가적인 처리
+		            }
+
+		        }
+		
+		    });
+		});
+   	
+  //------------------------------------------------------------------------------------------------
     
     
 

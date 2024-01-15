@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
       plugins: [dayGridPlugin, interactionPlugin, listPlugin, timegridPlugin],
       editable: true,
       dragScroll: true,
-      dayMaxEvents: 2,
+      dayMaxEvents: 6,
       eventResizableFromStart: true,
       customButtons: {
         sidebarToggle: {
@@ -277,11 +277,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Background Color
         return ['fc-event-' + colorName];
       },
+/*
       dateClick: function (info) {
         let date = moment(info.date).format('YYYY-MM-DD');
         resetValues();
-        bsAddEventSidebar.show();
-
+        bsAddEventSidebar.show();s
         // For new event set offcanvas title text: Add Event
         if (offcanvasTitle) {
           offcanvasTitle.innerHTML = 'Add Event';
@@ -291,8 +291,8 @@ document.addEventListener('DOMContentLoaded', function () {
         btnSubmit.classList.add('btn-add-event');
         btnDeleteEvent.classList.add('d-none');
         eventStartDate.value = date;
-        eventEndDate.value = date;
-      },
+        eventEndDate.value = date; 
+      }, */
       
       
       dateClick: function (info) {

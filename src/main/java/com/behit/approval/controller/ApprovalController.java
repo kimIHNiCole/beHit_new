@@ -29,6 +29,7 @@ public class ApprovalController {
 	@Autowired
 	ApprovalService service;
 
+	// 작성 기안 이동
 	@GetMapping(value="/approval/approval_write.go/{form}")
 	public ModelAndView approval_write_go(@PathVariable String form,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
@@ -38,6 +39,16 @@ public class ApprovalController {
 		return service.approval_write_go(form,emp_id,login_name);
 	}
 	
+	// 시간비교
+	@GetMapping(value="/approval/compare_time")
+	@ResponseBody
+	public HashMap<String, Object> compare_time(ApprovalDTO dto,HttpSession session){
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+		return service.compare_time(emp_id,dto);
+	}
+	
+	// 조직도
 	@GetMapping(value="/org_selected")
 	@ResponseBody
 	public HashMap<String, Object> org_selected(@RequestParam String emp_id){
@@ -45,13 +56,15 @@ public class ApprovalController {
 		return service.org_selected(emp_id);
 	}
 	
+	// 상신
 	@PostMapping(value="/approval/approval_write.do")
 	public String approval_write(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
-		
+
 		return service.approval_write(loginInfo,dto,files);
 	}
 	
+	// 임시저장
 	@PostMapping(value="/approval/temporaryApproval_write.do")
 	public String temporaryApproval_write(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
@@ -59,28 +72,24 @@ public class ApprovalController {
 		return service.approval_write(loginInfo,dto,files);
 	}
 	
-	@GetMapping(value="/approval/getApproval_list.do")
-	@ResponseBody
-	public List<ApprovalDTO> getApproval_list(HttpSession session) {
-		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
-		String emp_id = loginInfo.getEmp_id();
-
-		return service.getApproval_list(emp_id);
-	}
 	
+	// 리스트 상세보기
 	@GetMapping(value="/approval/getApproval_detail.go/{apv_idx}")
 	public ModelAndView getApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
-		return service.getApproval_detail(apv_idx,emp_id);
+		String apv_type = "detail";
+		return service.getApproval_detail(apv_idx,emp_id,apv_type);
 	}
 	
+	// 결재
 	@PostMapping(value="/approval/getApproval_detail.do")
 	public String getApproval_detail_do(ApprovalDTO dto) {
 		
 		return service.getApproval_detail_do(dto);
 	}
 	
+	// 임시저장 재상신
 	@PostMapping(value="/approval/approval_update.do")
 	public String approval_update(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
@@ -90,14 +99,26 @@ public class ApprovalController {
 		return service.approval_update(loginInfo,dto,files);
 	}
 	
+	// 임시저장 상세
 	@GetMapping(value="/approval/temporaryApproval_detail.go/{apv_idx}")
 	public ModelAndView temporaryApproval_detail(@PathVariable String apv_idx,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
-		return service.getApproval_detail(apv_idx,emp_id);
+		String apv_type = "detail";
+		return service.getApproval_detail(apv_idx,emp_id,apv_type);
 	}
 	
+	// 결재 요청받은 리스트
+	@GetMapping(value="/approval/getApproval_list.do")
+	@ResponseBody
+	public List<ApprovalDTO> getApproval_list(HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+		
+		return service.getApproval_list(emp_id);
+	}
 	
+	// 결재 완료한 리스트
 	@GetMapping(value="/approval/compApproval_list.do")
 	@ResponseBody
 	public List<ApprovalDTO> compApproval_list(HttpSession session) {
@@ -107,6 +128,7 @@ public class ApprovalController {
 		return service.compApproval_list(emp_id);
 	}
 	
+	// 결재 요청한 리스트
 	@GetMapping(value="/approval/requestApproval_list.do")
 	@ResponseBody
 	public List<ApprovalDTO> requestApproval_list(HttpSession session) {
@@ -116,6 +138,7 @@ public class ApprovalController {
 		return service.requestApproval_list(emp_id);
 	}
 	
+	// 결재 완료된 리스트
 	@GetMapping(value="/approval/finishApproval_list.do")
 	@ResponseBody
 	public List<ApprovalDTO> finishApproval_list(HttpSession session) {
@@ -125,6 +148,7 @@ public class ApprovalController {
 		return service.finishApproval_list(emp_id);
 	}
 	
+	// 반려된 리스트
 	@GetMapping(value="/approval/rejectedApproval_list.do")
 	@ResponseBody
 	public List<ApprovalDTO> rejectedApproval_list(HttpSession session) {
@@ -134,6 +158,7 @@ public class ApprovalController {
 		return service.rejectedApproval_list(emp_id);
 	}
 	
+	// 임시저장된 리스트
 	@GetMapping(value="/approval/temporaryApproval_list.do")
 	@ResponseBody
 	public List<ApprovalDTO> temporaryApproval_list(HttpSession session) {
@@ -143,6 +168,7 @@ public class ApprovalController {
 		return service.temporaryApproval_list(emp_id);
 	}
 	
+	// 열람자 리스트
 	@GetMapping(value="/approval/viewApproval_list.do")
 	@ResponseBody
 	public List<ApprovalDTO> viewApproval_list(HttpSession session) {
@@ -152,7 +178,7 @@ public class ApprovalController {
 		return service.viewApproval_list(emp_id);
 	}
 	
-	
+	// 열람자 추가
 	@PostMapping(value="/approval/CompApproval_ViewerPlus")
 	@ResponseBody
 	public HashMap<String, Object> CompApproval_ViewerPlus(ApprovalDTO dto,HttpSession session) {
@@ -165,9 +191,10 @@ public class ApprovalController {
 		
 	}
 	
+	// 상신 취소
 	@PostMapping(value="/approval/apv_cancel")
 	@ResponseBody
-	public ModelAndView apv_cancel(ApprovalDTO dto,HttpSession session) {
+	public HashMap<String, Object> apv_cancel(ApprovalDTO dto,HttpSession session) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		
 		logger.info("apv_stmt 값 : "+ dto.getApv_stmt());
@@ -177,6 +204,17 @@ public class ApprovalController {
 
 	}
 	
+	//pdf 미리보기
+	@GetMapping(value="/approval/approval_pdf.go")
+	@ResponseBody
+	public ModelAndView approval_pdf(@RequestParam String apv_idx, @RequestParam String apv_type, HttpSession session) {
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String emp_id = loginInfo.getEmp_id();
+		return service.getApproval_detail(apv_idx,emp_id,apv_type);
+
+	}
+	
+	// 페이지 이동
 	@GetMapping(value="/approval/{page}.go")
 	public String pageMove(@PathVariable String page) {
 		return "/approval/"+page;

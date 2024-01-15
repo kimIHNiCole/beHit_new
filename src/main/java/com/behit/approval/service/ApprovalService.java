@@ -1,10 +1,12 @@
 package com.behit.approval.service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -21,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.behit.approval.dao.ApprovalDAO;
 import com.behit.approval.dto.ApprovalDTO;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.employee.dto.VacationDTO;
+import com.behit.employee.dto.WorkDTO;
+import com.behit.util.service.UtilService;
 
 @Service
 public class ApprovalService {
@@ -29,17 +34,19 @@ public class ApprovalService {
 	
 	@Autowired
 	ApprovalDAO dao;
-
 	
 	public ModelAndView approval_write_go(String form,String emp_id, String login_name) {
 		
-		ModelAndView mav = new ModelAndView("approval/approval_write");
+		ModelAndView mav = new ModelAndView("/approval/approval_write");
 		ApprovalDTO dto = dao.approval_write_go(emp_id);
+		
+		// ArrayList<WorkDTO> workDTO = dao.commute_history(emp_id);
 
 		mav.addObject("form",form);
 		mav.addObject("login_name",login_name);
 		mav.addObject("dto",dto);
 		mav.addObject("form_type","write");
+		// mav.addObject("workDTO" ,workDTO);
 		
 		return mav;
 	}
@@ -88,15 +95,48 @@ public class ApprovalService {
 			}
 			
 			dao.approval_write_vac(dto);
-			
-			
+
 		}else if(apv_code.equals("BSPN")) {
 			dao.approval_write_biz(dto);
 		}
 		
+		// 제너레이트 키로 apv_idx 값 받기
 		int apv_idx = dto.getApv_idx();
-		apv_line(apv_idx,total_name,emp_id);
 		
+		if (dto.getTotal_name() != null && !dto.getTotal_name().isEmpty()) {
+		    // 값이 비어있지 않은 경우
+			apv_line(apv_idx,total_name,emp_id);
+			
+			ApprovalDTO apv_dto = dao.getApproval_detail(apv_idx);
+			
+			if(!apv_dto.getApv_stmt().equals("임시저장")) {
+				dao.alarm(apv_dto);
+			}
+			
+		} else {
+		    // 값이 비어있는 경우
+		    logger.info("TotalName is empty or null");
+		    // 또는 다른 로직 수행
+		}
+		
+		
+//		HashMap<String, Object> file = new HashMap<String, Object>();
+//		
+//		file.put("file_kind", 3);
+//		file.put("login_id", emp_id);
+//		file.put("apv_idx", String.valueOf(apv_idx));
+//		
+//		UtilService service = new UtilService();
+//		
+//		for (MultipartFile multipartFile : files) {
+//			try {
+//				service.upload(multipartFile,file);
+//				Thread.sleep(1);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
 		
 		return "approval/approval_main";
 	}
@@ -124,6 +164,13 @@ public class ApprovalService {
 				dto.setApv_start_day(dto.getApv_start_day().replace(",", ""));
 			}else if(apv_vac_type.equals("시간")) {
 				setVacationTime(dto);
+				dto.setApv_start_time(dto.getApv_start_time().replace(",", ""));
+				dto.setApv_end_time(dto.getApv_end_time().replace(",", ""));
+				
+				logger.info("뭐가 문제죠 :" +dto.getApv_start_time());
+				logger.info("뭐가 문제죠 :" +dto.getApv_end_time());
+				
+				setVacationTime(dto);
 				dto.setApv_start_day("");
 			}
 		
@@ -131,8 +178,16 @@ public class ApprovalService {
 		
 		dao.approval_update(dto);
 		
-		if(!total_name.equals("")) {
+		if (dto.getTotal_name() != null && !dto.getTotal_name().isEmpty()) {
+		    // 값이 비어있지 않은 경우
 			apv_line(apv_idx,total_name,emp_id);
+			
+			ApprovalDTO apv_dto = dao.getApproval_detail(apv_idx);
+			
+			if(!apv_dto.getApv_stmt().equals("임시저장")) {
+				dao.alarm(apv_dto);
+			}
+			
 		}
 		
 		
@@ -142,6 +197,8 @@ public class ApprovalService {
 
 	// apv_line 테이블에 데이터 insert 메서드
 	private void apv_line(int apv_idx, String total_name, String emp_id_in) {
+		
+		dao.apv_line_del(apv_idx);
 		
 		String pattern = "\\[\"(.*?)\",\"(.*?)\",\"(.*?)\",\"(.*?)\"(?:,\"(.*?)\")?\\]";
 		
@@ -217,11 +274,24 @@ public class ApprovalService {
 	}
 	
 
-	public ModelAndView getApproval_detail(String apv_idx, String emp_id) {
+	public ModelAndView getApproval_detail(String apv_idx, String emp_id, String apv_type) {
+		
+			
+		ApprovalDTO apv = dao.getApproval_detail(Integer.parseInt(apv_idx)); // apv 에 대한 정보 
 		
 		ModelAndView mav = new ModelAndView("approval/getApproval_detail");
-		ApprovalDTO apv = dao.getApproval_detail(apv_idx); // apv 에 대한 정보 
 		
+		if(apv_type.equals("detail")) {
+			mav = new ModelAndView("approval/getApproval_detail");
+		}else if(apv_type.equals("pdf")) {
+			
+			if(apv.getApv_code().equals("BSPN")) {
+				mav = new ModelAndView("approval/approval_pdf_biz");
+			}else if(apv.getApv_code().equals("BFVC") || apv.getApv_code().equals("AFVC")) {
+				mav = new ModelAndView("approval/approval_pdf_vac");
+			}
+				
+		}
 		
 		
 		ApprovalDTO dto = dao.approval_write_go(apv.getEmp_id()); // 상신자 정보
@@ -272,31 +342,40 @@ public class ApprovalService {
 
 	public String getApproval_detail_do(ApprovalDTO dto) {
 		
-		dao.getApproval_detail_do(dto); // 결재 히스토리 insert
+		dao.getApproval_detail_do(dto); // 결재 히스토리에 기록 insert
 		
 		String apv_stmt = "";
 		int apv_idx = dto.getApv_idx();      
+		String apv_approver = dao.apv_line_sel(apv_idx,dto.getApv_approver()); // 다음 순서
 		
 		if(dto.getApv_history_stmt().equals("결재")) {
 			
-			String apv_approver = dao.apv_line_sel(apv_idx,dto.getApv_approver()); // 다음 순서
 			if(apv_approver != null) {
 				// 다음 결재자 업데이트
 				dao.apv_approver(apv_idx, apv_approver);
+				
+				ApprovalDTO apv_dto = dao.getApproval_detail(apv_idx);
+				dao.alarm(apv_dto);
+				
 			}else{
 				// 다음 결재자 없으면 완료 처리
 				apv_stmt = "완료";
 				
-				String apv_code = dto.getApv_code();
-				String format_apv_idx = formatNumber(apv_idx);
-				String apv_history_date = apv_history_date(dao.apv_history_date(apv_idx));
+				String apv_code = dto.getApv_code(); //연차인지 사업기안인지
+				String format_apv_idx = formatNumber(apv_idx); // 4를 004 로 변경
+				String apv_history_date = apv_history_date(dao.apv_history_date(apv_idx)); // 2024-01-10 -> 20240110 으로 변경 
 				String apv_num = apv_code + "-" + apv_history_date + "-" + format_apv_idx ;
 				
-				logger.info("apv_code 값 :" +apv_code);
-				logger.info("apv_num 값 :" +apv_code);
+				dao.apv_update(apv_idx,apv_stmt); // 문서 상태 완료로 표시
+				dao.apv_update_num(apv_idx,apv_num); // 문서 번호 표시
 				
-				dao.apv_update(apv_idx,apv_stmt);
-				dao.apv_update_num(apv_idx,apv_num);
+				if(apv_code.equals("BFVC") || apv_code.equals("AFVC")) {
+					// 완료 처리 후 연차 승인 위해 vacation_histroy 테이블에 값 입력 
+					ApprovalDTO apv_dto =dao.getApproval_detail(apv_idx);
+					// vacation_histroy_insert 함수
+					vacation_history_insert(apv_dto);
+				}
+				
 			}
 			
 		}else if(dto.getApv_history_stmt().equals("반려")){
@@ -306,6 +385,74 @@ public class ApprovalService {
 		
 			return "approval/getApproval_list";
 	}
+
+	// vacation_history 에 insert 할 내용
+	private void vacation_history_insert(ApprovalDTO apv_dto) {
+		
+		ApprovalDTO vac_dto = new ApprovalDTO(); // vacation_history 에 넣을 DTO
+		
+		// 공통
+		vac_dto.setEmp_id(apv_dto.getEmp_id());
+		vac_dto.setDoc_code(apv_dto.getApv_code());
+		vac_dto.setVaca_reason("연차 신청");
+		vac_dto.setEmp_id_in(apv_dto.getApv_approver());
+		
+		// 종일인 경우
+		if(apv_dto.getApv_vac_type().equals("종일")) {
+			
+			try {
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date startDate = dateFormat.parse(apv_dto.getApv_start_day());
+	            java.util.Date endDate = dateFormat.parse(apv_dto.getApv_end_day());
+
+	            Calendar calendar = Calendar.getInstance();
+	            calendar.setTime(startDate);
+
+	            while (!calendar.getTime().after(endDate)) {
+	                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+	                // 주말(토요일 또는 일요일)이 아닌 경우에만 출력
+	                if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
+	                	
+	                    String vaca_date = dateFormat.format(calendar.getTime());
+	                    String vaca_start = vaca_date + " 09:00:00";
+	    				String vaca_end_time = vaca_date + " 18:00:00";
+	    				
+	    				vac_dto.setVaca_date(vaca_date);
+	    				vac_dto.setVaca_start(vaca_start);
+	    				vac_dto.setVaca_end_time(vaca_end_time);
+	    				vac_dto.setUse_hour(8);
+	                }
+	                // 다음 날짜로 이동
+	                calendar.add(Calendar.DAY_OF_MONTH, 1);
+	            }
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	        }
+			
+		}else if(apv_dto.getApv_vac_type().equals("시간")) {
+			
+			SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        
+	        try {
+	        	java.util.Date date1 = inputFormat.parse(apv_dto.getApv_start_time());
+	            String vaca_date = outputFormat.format(date1);
+	            
+	            vac_dto.setVaca_date(vaca_date);
+				vac_dto.setVaca_start(apv_dto.getApv_start_time());
+				vac_dto.setVaca_end_time(apv_dto.getApv_end_time());
+				vac_dto.setUse_hour(Integer.parseInt(apv_dto.getApv_time()));
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	        }
+		}
+		
+		dao.vacation_histroy(vac_dto);
+		
+	}
+
+
 
 	// 4 -> 004 변경
 	private String formatNumber(int apv_idx) {
@@ -423,13 +570,107 @@ public class ApprovalService {
 		
 	}
 
-	public ModelAndView apv_cancel(ApprovalDTO dto) {
+	public HashMap<String, Object> apv_cancel(ApprovalDTO dto) {
 		
-		ModelAndView mav = new ModelAndView("approval/approval_main");
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		dao.apv_cancel(dto.getApv_stmt(),dto.getApv_idx());
 		
-		return mav;
+		map.put("msg","상신취소가 완료되었습니다.");
+		
+		return map;
+	}
+
+	public HashMap<String, Object> compare_time(String emp_id, ApprovalDTO dto) {
+		
+		HashMap<String, Object> result = new HashMap<>();
+		
+	    SimpleDateFormat inputFormat = new SimpleDateFormat("h:mma", Locale.ENGLISH); // 7:00am을
+	    SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss"); // 07:00:00로
+	    SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    
+	    String apv_start_time = "";
+	    String apv_end_time = "";
+	    
+	    if (dto.getApv_start_day() != null && !dto.getApv_start_day().isEmpty()) {
+
+	        try {
+	        	if (dto.getApv_start_time() != null && !dto.getApv_start_time().isEmpty()) {
+	        	    apv_start_time = dto.getApv_start_time();
+	        	    java.util.Date date1 = inputFormat.parse(apv_start_time);
+	        	    apv_start_time = outputFormat.format(date1);
+	        	    apv_start_time = dto.getApv_start_day() + " " + apv_start_time;
+	        	}
+
+	        	if (dto.getApv_end_time() != null && !dto.getApv_end_time().isEmpty()) {
+	        	    apv_end_time = dto.getApv_end_time();
+	        	    java.util.Date date2 = inputFormat.parse(apv_end_time);
+	        	    apv_end_time = outputFormat.format(date2);
+	        	    apv_end_time = dto.getApv_start_day() + " " + apv_end_time;
+	        	}
+	        } catch (Exception e) {
+	            // 파싱 예외 처리
+	            e.printStackTrace();
+	            return null;
+	        }
+
+	        WorkDTO workDTO = dao.commute_history(dto.getApv_start_day(), emp_id);
+	        
+	        String work_start_time = "";
+	        String work_end_time = "";
+	        
+	        if(workDTO != null) {
+	        	work_start_time = workDTO.getWork_start_time();
+	        	work_end_time = workDTO.getWork_end_time();
+	        }else {
+	        	work_start_time = dto.getApv_start_day() + " 09:00:00";
+	        	work_end_time = dto.getApv_start_day() + " 18:00:00";
+	        }
+
+
+
+	        try {
+	        // apv_start_time과 work_start_time 비교
+	        	java.util.Date workStartDate = Format.parse(work_start_time);
+	        	java.util.Date workEndDate = Format.parse(work_end_time);
+	        	
+			    if (!apv_start_time.isEmpty() && !work_start_time.isEmpty()) {
+			    	
+			            java.util.Date apvStartDate = Format.parse(apv_start_time);
+		
+			            if (apvStartDate.before(workStartDate) || apvStartDate.after(workEndDate)) {
+			                // apv_start_time의 시간이 더 빠릅니다.
+			            	result.put("msg", "출근하실 시간은 "+work_start_time+" 입니다. 확인 후 다시 입력해주세요.");
+			            	result.put("status", "error");
+			            } else {
+			            	result.put("status", "success");
+			            }
+			    }
+			    
+			    if (!apv_end_time.isEmpty() && !work_end_time.isEmpty()) {
+			    	
+	                java.util.Date apvEndDate = Format.parse(apv_end_time);
+
+	                if (apvEndDate.after(workEndDate) || apvEndDate.before(workStartDate)) {
+	                    // apv_end_time의 시간이 더 느립니다.
+	                	result.put("msg", "퇴근하실 시간은 "+work_end_time+" 입니다. 확인 후 다시 입력해주세요.");
+	                	result.put("status", "error");
+	                } else {
+	                	result.put("status", "success");
+	                }
+			    }
+			    
+	        } catch (Exception e) {
+	                // 비교 예외 처리
+	                e.printStackTrace();
+	                result.put("status", "error");
+	                return null;
+	        }
+	    }
+	    
+	    // 필요한 경우 메시지를 포함한 결과를 반환할 수 있습니다.
+	    return result;
+		
 	}
 
 
