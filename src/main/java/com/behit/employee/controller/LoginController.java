@@ -52,7 +52,7 @@ public class LoginController {
 			// 로그인 시도가 5회를 이미 초과했을때
 			try {
 				lockCnt = service.getLockChk(emp_id);
-				if(lockCnt >= 5) {
+				if(lockCnt >= 4) {
 					logger.info("@@@ 로그인 시도 5회 이상 @@@");
 					rAttr.addFlashAttribute("warningMsg", "비밀번호 5회 이상 오류::인사팀에 문의하세요");
 					String lockmsg = emp_id+"님의 비밀번호 입력이 5회 이상 오입력되었습니다.";

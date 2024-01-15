@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -274,41 +273,48 @@ public class CreatorController {
 		return result;
 	}
 
-	// 열람 권한 추가
+//열람 권한 추가
 	@RequestMapping(value = "/addCreator_perm", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> addCreator_perm(HttpSession session, @RequestBody CreatorDTO requestData) {
 
-		logger.info("cre_idx: " + requestData.getCre_idx());
-		logger.info("selectedNodes: " + requestData.getSelectedNodes());
-		int cre_idx = requestData.getCre_idx();
-		List<Map<String, String>> emp_data = requestData.getSelectedNodes();
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		EmployeeDTO empdto = (EmployeeDTO) session.getAttribute("loginInfo");
-		String loginId = empdto.getEmp_id();
-		int idx = creatorService.addCreator_perm(loginId, cre_idx, emp_data);
+				logger.info("cre_idx: " + requestData.getCre_idx());
+			    logger.info("selectedNodes: " + requestData.getSelectedNodes());
+			    int cre_idx=requestData.getCre_idx();
+			    List<Map<String, String>> emp_data=requestData.getSelectedNodes();
+				HashMap<String, Object> result = new HashMap<String, Object>();
+				EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+				String loginId=empdto.getEmp_id();
+				int idx=creatorService.addCreator_perm(loginId, cre_idx, emp_data);
+				List<CreatorDTO> creatorPermList=creatorService.creatorPermList(cre_idx); 
+				
+				result.put("creatorPermList", creatorPermList);
+				result.put("idx", idx);
+				return result;
+			}
+		
+		
+		@RequestMapping(value = "/delPerm", method = RequestMethod.POST)
+		@ResponseBody
+		public HashMap<String, Object> delPerm(HttpSession session,
+				@RequestBody CreatorDTO delPerm) {
+			 int cre_idx = delPerm.getCre_idx();
+			 String emp_id =delPerm.getEmp_id();
+			
+				logger.info("cre_idx: " + cre_idx);
+			    logger.info("emp_id"+emp_id);
 
-		result.put("idx", idx);
-		return result;
-	}
-
-	@RequestMapping(value = "/delPerm", method = RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, Object> delPerm(HttpSession session, @RequestBody CreatorDTO delPerm) {
-		int cre_idx = delPerm.getCre_idx();
-		String emp_id = delPerm.getEmp_id();
-
-		logger.info("cre_idx: " + cre_idx);
-		logger.info("emp_id" + emp_id);
-
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		EmployeeDTO empdto = (EmployeeDTO) session.getAttribute("loginInfo");
-		String loginId = empdto.getEmp_id();
-		int idx = creatorService.delPerm(cre_idx, emp_id);
-
-		result.put("idx", idx);
-		return result;
-	}
+				HashMap<String, Object> result = new HashMap<String, Object>();
+				EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+				String loginId=empdto.getEmp_id();
+				int idx=creatorService.delPerm(cre_idx, emp_id);
+				List<CreatorDTO> creatorPermList=creatorService.creatorPermList(cre_idx); 
+				
+				result.put("creatorPermList", creatorPermList);			
+				result.put("idx", idx);
+				return result;
+			}
+		
 
 	/*
 	 * @GetMapping(value="/creatorPermList") public String

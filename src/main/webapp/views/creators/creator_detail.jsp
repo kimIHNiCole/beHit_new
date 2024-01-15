@@ -93,6 +93,11 @@ width: 23rem;
 width: 20rem;
 }
 
+/* 비활성화된 노드의 체크박스 숨기기 */
+.jstree-wholerow-disabled > .jstree-checkbox {
+    display: none;
+}
+
     
     </style>
     
@@ -221,16 +226,17 @@ width: 20rem;
 				        </div>
 				        <h5 class="pb-2 border-bottom mb-4">
 				    </div>
-					<p class="fw-medium me-2">
-                      <ul>
-                      <c:forEach var="creatorPermList" items="${creatorPermList}" varStatus="loop">
-                      
-                      <li><input id="permEmp_id" type="hidden" value="${creatorPermList.emp_id}"/>
-                      ${creatorPermList.emp_name} ${creatorPermList.grade_name}(${creatorPermList.dept_name})
-                      <i class='bx bx-x' onclick="delPerm(this)"></i></li>
-                      </c:forEach>
-                      </ul>
-                      </p>
+					<p class="fw-medium me-2 creator-list-container">
+					    <ul id="creator-list-ul">
+					        <c:forEach var="creatorPermList" items="${creatorPermList}" varStatus="loop">
+					            <div>
+					                <input class="permEmp_id" type="hidden" value="${creatorPermList.emp_id}" />
+					                ${creatorPermList.emp_name} ${creatorPermList.grade_name}(${creatorPermList.dept_name})
+					                <i class='bx bx-x' onclick="delPerm(this)"></i>
+					            </div>
+					        </c:forEach>
+					    </ul>
+					</p>
                       
                       
                     </div>
@@ -756,12 +762,28 @@ width: 20rem;
     <script src="../../assets/js/app-user-view-account.js"></script> -->
     <script>
     var selectedNodes = []; // 전역 범위에서 정의
+    var permEmpIds = [];
+    $('.permEmp_id').each(function() {
+        permEmpIds.push($(this).val());
+    });
+
+    // permEmpIds 배열에는 각 요소의 값이 저장됨
+    console.log(permEmpIds);
+/*     var creatorPermList = ${creatorPermList};
+
+ // 값이 존재하면 처리
+ if (creatorPermList != null) {
+     console.log("권한 리스트",creatorPermList);
+     drowCreatorPermList(creatorPermList);
+ } */
+    	
+    
     
     function addPerm(){
     	console.log("열람자 추가 버튼 클릭");
     	// 모달이 열릴 때마다 체크박스 초기화
         
-    	 // 채팅방 생성
+    	 
     	//리스트 받기
     		$.ajax({
     		type: 'get',
@@ -781,7 +803,7 @@ width: 20rem;
     
     function delPerm(iconElement) {
         // 클릭된 아이콘( bx bx-x ) 요소의 부모 li 태그에서 input 값을 가져옴
-        var emp_id = $(iconElement).closest('li').find('#permEmp_id').val();
+        var emp_id = $(iconElement).closest('div').find('.permEmp_id').val();
         var cre_idx = $('#cre_idx').val();
         console.log(cre_idx);
         console.log(emp_id);
@@ -797,7 +819,8 @@ width: 20rem;
                 console.log(data);
                 if (data.idx !== null) {
                     console.log(data.idx);
-                    location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx;
+                    drowCreatorPermList(data.creatorPermList);
+                    /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
                 }
             },
             error: function (error) {
@@ -870,12 +893,21 @@ width: 20rem;
         			      text: parent.text,
         			      type: 'depart',
         			      children: parent.children.map(function (child) {
-        			        return {
-        			          text: child.text
-        			        };
-        			      })
-        			    };
-        			    return parentNode;
+        		                // 체크박스를 비활성화하고 싶은 emp_id 값을 여기에서 확인
+        		                /* var empIdToDisable = '해당_emp_id_값'; */
+								console.log("이미 권한 있는 애들",permEmpIds);
+        		                // emp_id 값에 따라 체크박스를 활성화 또는 비활성화
+        		                var isDisabled = (child.text.indexOf(permEmpIds) !== -1);
+
+        		                return {
+        		                    text: child.text,
+        		                    state: {
+        		                        disabled: isDisabled
+        		                    }
+        		                };
+        		            })
+        		        };
+        		        return parentNode;
         			  });
      
 
@@ -1038,7 +1070,8 @@ width: 20rem;
                 console.log(data);
                 if (data.idx !== null) {
                     console.log(data.idx);
-                    location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx;
+                    drowCreatorPermList(data.creatorPermList);
+                    /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
                 }
             },
             error: function (error) {
@@ -1061,7 +1094,26 @@ width: 20rem;
         $('#jstree-checkbox').jstree('deselect_all');
     });
 
-    
+ // 동적으로 리스트 생성하고 추가
+    function drowCreatorPermList(creatorPermList) {
+        var $ul = $('<ul>');
+
+        creatorPermList.forEach(function (creator) {
+            var $div = $('<div>').html(
+            		'<input class="permEmp_id" type="hidden" value="' + creator.emp_id + '" />' +	
+                creator.emp_name + ' ' + creator.grade_name + '(' + creator.dept_name + ')'
+                + ' <i class="bx bx-x" onclick="delPerm(this)"></i>'
+            );
+            $ul.append($div);
+        });
+
+        // 기존의 내용을 비우고 새로운 내용을 추가
+        $('#creator-list-ul').empty().append($ul);
+    }
+ 
+ 
+ 
+ 
     
     
     </script>

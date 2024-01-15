@@ -276,7 +276,7 @@
     var msg = '<%= request.getParameter("msg") %>';
     console.log(msg);
 
-    if (msg.trim() !== "") {
+    if (msg.trim() !== 'null') {
         Swal.fire({
             text: msg,
             icon: 'warning',
