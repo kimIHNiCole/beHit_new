@@ -505,6 +505,7 @@
                 </div>
               </div>
             </div>
+            <jsp:include page="/views/todo_include.jsp" />
             <!-- / Project Content -->
             <div class="content-backdrop fade"></div>
           </div>

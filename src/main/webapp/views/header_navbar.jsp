@@ -354,7 +354,7 @@ setInterval(function() {
         loadAlarmList();
 }, 6000000); // 1분에 한 번
     
-    
+//풀푸시 확인을 위한 변경
 /* 알림 개별 읽음 처리  */
 $(document).on('click', '.dropdown-notifications-item', function(event) {
     var listItem = $(this);
@@ -509,9 +509,5 @@ function formattedDate(dateString) {
     const formatted = new Date(dateString).toLocaleString('ko-KR', options);
     return formatted;
 }
-
-
-
-
 
 </script>
