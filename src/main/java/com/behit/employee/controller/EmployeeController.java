@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.service.EmployeeService;
@@ -49,7 +50,8 @@ public class EmployeeController {
 
 	// 추후 경로 수정
 	@PostMapping(value = "/empadd.do")
-	public String empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, MultipartFile uploadFile) throws Exception {
+	public String empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, 
+			MultipartFile uploadFile, RedirectAttributes rAttr) throws Exception {
 
 
 		logger.info("params: " + params);
@@ -64,7 +66,6 @@ public class EmployeeController {
 		params.put("login_id", login_id);
 		logger.info("encoded password : " + params.get("password"));
 		
-		employeeService.join(params);
 		
 		if(!uploadFile.isEmpty()) {
 			String emp_id = (String) params.get("emp_id");
@@ -73,6 +74,12 @@ public class EmployeeController {
 			file.put("emp_id", emp_id);
 			file.put("file_kind", 5);
 			utilService.upload(uploadFile, file);	
+			
+			employeeService.join(params);
+			
+		} else {
+			rAttr.addAttribute("msg", "프로필 사진을 추가해 주세요!");
+			return "redirect:/empadd.go";
 		}
 
 		return "redirect:/employee/employee_list.go";

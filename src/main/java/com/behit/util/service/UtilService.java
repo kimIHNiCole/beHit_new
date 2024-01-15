@@ -63,7 +63,7 @@ public class UtilService {
 		case 4:
 			sub = "project/";
 			file_kind_idx = (String) file.get("proj_idx");
-			break;
+			break;	
 		case 5:
 			sub = "employee/";
 			file_kind_idx = (String) file.get("emp_id");

@@ -47,6 +47,10 @@ public class LoginService {
 		
 		return dao.leaveCnt(emp_id);
 	}
+
+	public void lockCnkalarm(String emp_id, String lockmsg) {
+		dao.lockCnkalarm(emp_id, lockmsg);
+	}
 	
 	
 

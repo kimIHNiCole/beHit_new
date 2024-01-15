@@ -104,10 +104,6 @@
 	                         			<label for="uploadFile" class="btn btn-label-secondary account-image-reset mb-4">Upload new photo</label>
 		                            	<input type="file" name="uploadFile" id="uploadFile" style="display: none;" onchange="previewImage(event)" accept=".jpg, .jpeg, .gif, .png"/>
 		                            	<i class="bx bx-upload d-block d-sm-none"></i>
-	                          		  	<button type="button" class="btn btn-label-secondary account-image-reset mb-4">
-	                   				  		<i class="bx bx-reset d-block d-sm-none"></i>
-	                                  		<span class="d-none d-sm-block">Reset</span>
-	                          		  	</button>
 	                          			<p class="text-muted mb-0">.jpg, .jpeg, .png, .gif 확장자만 추가할 수 있고 최대 사이즈는 1MB입니다</p>
 	                        		</div>
 	                      		</div>
@@ -277,6 +273,20 @@
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+    var msg = '<%= request.getParameter("msg") %>';
+    console.log(msg);
+
+    if (msg.trim() !== "") {
+        Swal.fire({
+            text: msg,
+            icon: 'warning',
+            customClass: {
+                confirmButton: 'btn btn-primary'
+            },
+            buttonsStyling: false
+        });
+    }
+    
     	// 날짜 선택
 	    var flatpickrhiredate = document.querySelector("#hiredate");
 		

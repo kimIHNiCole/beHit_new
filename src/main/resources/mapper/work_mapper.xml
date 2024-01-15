@@ -45,6 +45,7 @@
 		    FROM employee e
 		    JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 		   	LEFT JOIN file f ON e.emp_id = f.file_kind_idx
+		   	WHERE e.emp_id NOT IN ('master')
 		    ORDER BY e.emp_name asc LIMIT 10 offset #{offset};
 	</select>
 	

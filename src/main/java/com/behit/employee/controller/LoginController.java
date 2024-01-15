@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.behit.alarm.service.AlarmService;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.service.LoginService;
 
@@ -25,6 +26,7 @@ public class LoginController {
 
 	@Autowired PasswordEncoder encoder;
 	@Autowired LoginService service;
+	@Autowired AlarmService alarmService;
 	
 
 	@GetMapping(value = "/")
@@ -53,6 +55,8 @@ public class LoginController {
 				if(lockCnt >= 5) {
 					logger.info("@@@ 로그인 시도 5회 이상 @@@");
 					rAttr.addFlashAttribute("warningMsg", "비밀번호 5회 이상 오류::인사팀에 문의하세요");
+					String lockmsg = emp_id+"님의 비밀번호 입력이 5회 이상 오입력되었습니다.";
+					service.lockCnkalarm(emp_id, lockmsg);
 					return mav;
 				} 
 			} catch (Exception e) {

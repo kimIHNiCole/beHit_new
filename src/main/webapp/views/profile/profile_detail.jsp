@@ -135,10 +135,6 @@ img.rounded-top{
 									<input type="file" name="uploadFile" id="uploadFile" accept=".jpg, .jpeg, .gif, .png" onchange="checkFileSize(this)" style="display: none;"/>
 									<label for="uploadFile" class="btn btn-label-secondary account-image-reset mb-4">프로필 사진 변경</label>
 								</form>
-					            <button type="button" class="btn btn-label-secondary account-image-reset mb-4 ml-1" style="margin-left: 10px;">
-		                   			<i class="bx bx-reset d-block d-sm-none"></i>
-		                            <span class="d-none d-sm-block" onclick="photodel()">초기화</span>
-	                          	</button>
 					        </div>       					
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
