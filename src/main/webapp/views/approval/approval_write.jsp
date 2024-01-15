@@ -705,7 +705,7 @@
               </div>
             </div>
             <!-- /조직도 추가 모달 -->
-              
+            <jsp:include page="/views/todo_include.jsp" />
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
