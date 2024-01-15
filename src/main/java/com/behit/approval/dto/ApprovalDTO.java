@@ -1,14 +1,10 @@
 package com.behit.approval.dto;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-
-import org.apache.ibatis.annotations.Mapper;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Mapper
 @Getter
 @Setter
 public class ApprovalDTO {
@@ -47,6 +43,13 @@ public class ApprovalDTO {
 	private Date apv_line_date_up;
 	
 	private Date apv_perm_date;
+	
+	private String doc_code;
+	private String vaca_date;
+	private String vaca_start;
+	private String vaca_end_time;
+	private int use_hour;
+	private String vaca_reason;
 
 	
 
