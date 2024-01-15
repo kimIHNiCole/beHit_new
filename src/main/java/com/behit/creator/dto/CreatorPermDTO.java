@@ -9,7 +9,7 @@ import lombok.Getter;
 @Alias("creatorperm")
 @Getter
 @Setter
-public class CreatorPerm {
+public class CreatorPermDTO {
 	private String emp_id;
 	private int cre_idx;
 }

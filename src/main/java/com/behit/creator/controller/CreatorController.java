@@ -30,7 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreatorDTO;
-import com.behit.creator.dto.CreatorPerm;
+import com.behit.creator.dto.CreatorPermDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
 import com.behit.creator.dto.SnsDTO;
 import com.behit.creator.service.CreatorService;
@@ -201,7 +201,7 @@ public class CreatorController {
 		HashMap<String, Object> totalInfo = creatorService.getTotalInfo();
 		ArrayList<HashMap<String, Object>> allList = creatorService.getAllList();
 		ArrayList<HashMap<String, Object>> myList = creatorService.getMyList(loginId);
-		ArrayList<CreatorPerm> permList = creatorService.getCrePerm(loginId);
+		ArrayList<CreatorPermDTO> permList = creatorService.getCrePerm(loginId);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("totalInfo", totalInfo);
 		result.put("allList", allList);

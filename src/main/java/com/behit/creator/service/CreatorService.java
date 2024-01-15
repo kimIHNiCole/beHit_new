@@ -22,7 +22,7 @@ import com.behit.creator.dto.ChannelDataDTO;
 import com.behit.creator.dto.CommCreDTO;
 import com.behit.creator.dto.CreHistDTO;
 import com.behit.creator.dto.CreatorDTO;
-import com.behit.creator.dto.CreatorPerm;
+import com.behit.creator.dto.CreatorPermDTO;
 import com.behit.creator.dto.CreatorRequestDTO;
 import com.behit.creator.dto.SnsDTO;
 import com.behit.employee.dto.EmployeeDTO;
@@ -371,7 +371,7 @@ public class CreatorService {
 	}
 
 	// 크리에이터 리스트에 보여줄 권한
-	public ArrayList<CreatorPerm> getCrePerm(String loginId) {
+	public ArrayList<CreatorPermDTO> getCrePerm(String loginId) {
 		logger.info("로그인 id 별 크리에이터 권한 리스트 요청");
 		return creatorDAO.getCrePerm(loginId);
 	}
