@@ -293,7 +293,7 @@ img.rounded-top{
                                   data-bs-dismiss="modal"
                                   aria-label="Close"></button>
                               </div>
-                              <form action="passChange.do" method="post">
+                              <form action="passChange.do" method="get">
 	                              <div class="modal-body">
 	                                <div class="mb-3 form-password-toggle">
 						                <label class="form-label" for="password">비밀번호</label>
@@ -373,10 +373,29 @@ img.rounded-top{
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     
     <script>
-		var msg = '${msg}';
-		if (msg!=''){
-			alert(msg);
-		}
+    var falsemsg = '<%= request.getParameter("falsemsg") %>';
+    if (falsemsg.trim() !== 'null') {
+        Swal.fire({
+            text: falsemsg,
+            icon: 'warning',
+            customClass: {
+                confirmButton: 'btn btn-primary'
+            },
+            buttonsStyling: false
+        });
+    }
+    
+    var successmsg = '<%= request.getParameter("successmsg") %>';
+    if (successmsg.trim() !== 'null') {
+        Swal.fire({
+            text: successmsg,
+            icon: 'success',
+            customClass: {
+                confirmButton: 'btn btn-primary'
+            },
+            buttonsStyling: false
+        });
+    }
 		
 		function checkFileSize(input) {
 		    const maxFileSizeInBytes = 1024 * 1024; // 예시: 1MB 제한
