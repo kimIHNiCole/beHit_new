@@ -256,6 +256,20 @@
     <!-- Page JS -->
 <!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
 	<script>
+    var msg = '${msg}';
+    console.log(msg);
+    if(msg != ""){
+        Swal.fire({
+             text: msg,
+             icon: 'warning',
+             customClass: {
+               confirmButton: 'btn btn-primary'
+             },
+             buttonsStyling: false
+           });
+     }
+	
+	
 	// fshowPage = 첫번째 탭, sshowPage = 두번째 탭
     var fshowPage = 1;
     var sshowPage = 1;

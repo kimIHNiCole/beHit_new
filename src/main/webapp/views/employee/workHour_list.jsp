@@ -163,10 +163,14 @@
   			  	<!-- DataTable with Buttons -->
 			    <div class="card">
 			        <div class="card-datatable table-responsive">
+			        	<h4 class="py-3 mb-4" style="margin-left: 10px; margin-top: 10px;">
+			        		<span class="text-muted fw-light" id="emp-name"></span>
+			        		<span class="text-muted fw-light" > 님의 근태 현황</span>
+			        	</h4>
 						<div class="row mb-3">
 							<div class="col-md-4">
 			                    <!-- 탭 추가 -->
-                    			<ul class="nav nav-pills" role="tablist">
+                    			<ul class="nav nav-pills" role="tablist" style="margin-left: 10px;">
 	                      			<li class="nav-item">
 		                        		<button
 		                          			class="nav-link active"
@@ -458,7 +462,7 @@
 				}
 				content +='</td>';
 				content +='<td>'+'<div class="d-flex flex-column">'+
-					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
+					'<span class="emp_name text-truncate" id="emp_name">'+item.emp_name+'</span>'+
 					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.dept_name+'</small>'+'</div>'+'</td>';	
         		content +='<td style="text-align: center;">'+item.work_start+'~'+item.work_end+'</td>';
         		if (item.work_start == item.vaca_start && item.work_end == item.vaca_end){
@@ -496,6 +500,8 @@
      
      $(document).on('click', '.worklist', function() {
     	    emp_id = $(this).find('.emp_id').text(); // 클릭한 행에서 emp_id 가져오기
+    	    emp_name = $(this).find('#emp_name').text();
+    	    $('#emp-name').text(emp_name);
     	    var modaldate = $('#sdatepicker').val();
     	    console.log('Clicked row emp_id:', emp_id);
     	    console.log('date:', modaldate);

@@ -273,6 +273,20 @@
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+    var msg = '<%= request.getParameter("msg") %>';
+    console.log(msg);
+
+    if (msg.trim() !== "") {
+        Swal.fire({
+            text: msg,
+            icon: 'warning',
+            customClass: {
+                confirmButton: 'btn btn-primary'
+            },
+            buttonsStyling: false
+        });
+    }
+    
     	// 날짜 선택
 	    var flatpickrhiredate = document.querySelector("#hiredate");
 		
