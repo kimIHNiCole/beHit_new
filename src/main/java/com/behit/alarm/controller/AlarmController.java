@@ -68,7 +68,7 @@ public class AlarmController {
 	@ResponseBody
 	public HashMap<String, Object> deleteAlarm(HttpSession session,
 			@RequestParam("alarmType") int alarmType,
-            @RequestParam("alarmTypeIdx") int alarmTypeIdx){
+            @RequestParam("alarmTypeIdx") String alarmTypeIdx){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
@@ -92,7 +92,7 @@ public class AlarmController {
 	@ResponseBody
 	public HashMap<String, Object> updateAlarmRead(HttpSession session,
 			@RequestParam("alarmType") int alarmType,
-            @RequestParam("alarmTypeIdx") int alarmTypeIdx){
+            @RequestParam("alarmTypeIdx") String alarmTypeIdx){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
