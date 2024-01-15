@@ -2,6 +2,7 @@ package com.behit.profile.controller;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -116,11 +117,40 @@ public class DashBoardController {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
 	    String workEndedTime = sdf.format(new Date());
+	    
 	    boolean endCnk = dashService.endCnk(loginId);
+	    
 	    if (endCnk) {
 	    	result.put("msg", "이미 퇴근 상태입니다.");
 	    } else {
 	    	int workEnded=dashService.workEnded(loginId, workEndedTime);
+
+			try {
+				Date date = sdf.parse(workEndedTime);
+				SimpleDateFormat sdfDateOnly = new SimpleDateFormat("yyyy-MM-dd");
+				String dateOnly = sdfDateOnly.format(date);
+				HashMap <String, Object> workTime = dashService.workTime(loginId, dateOnly);
+				
+				int start_comparison = (int) workTime.get("start_comparison");
+				int end_comparison = (int) workTime.get("end_comparison");
+				
+				if (start_comparison == 1 && end_comparison == 1) {
+					String workState = "미달";
+					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
+				} else if (start_comparison == 1 && end_comparison == 0){
+					String workState = "미달";
+					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
+				} else if (start_comparison == 0 && end_comparison == 1) {
+					String workState = "미달";
+					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
+				} else {
+					String workState = "정상";
+					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+            
 	    	result.put("workEnded", workEnded);
 	    	result.put("loginId", loginId);
 	    }
