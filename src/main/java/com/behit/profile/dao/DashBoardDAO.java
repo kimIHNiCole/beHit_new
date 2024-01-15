@@ -1,5 +1,7 @@
 package com.behit.profile.dao;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.behit.employee.dto.VacationDTO;
@@ -19,5 +21,9 @@ public interface DashBoardDAO {
 	boolean endCnk(String loginId, String todayDate);
 
 	VacationDTO dashvaca(String login_id);
+
+	HashMap<String, Object> workTime(String loginId, String dateOnly);
+
+	int stateUpdate(String workState, String loginId, String dateOnly);
 
 }
