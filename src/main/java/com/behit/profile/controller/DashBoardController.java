@@ -136,19 +136,16 @@ public class DashBoardController {
 				int start_comparison = (int) workTime.get("start_comparison");
 				int end_comparison = (int) workTime.get("end_comparison");
 				
-				if (start_comparison == 1 && end_comparison == 1) {
-					String workState = "미달";
-					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
-				} else if (start_comparison == 1 && end_comparison == 0){
-					String workState = "미달";
-					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
-				} else if (start_comparison == 0 && end_comparison == 1) {
-					String workState = "미달";
+
+				String workState = "미달";
+				
+				if (start_comparison == 1 || end_comparison == 1){
 					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
 				} else {
-					String workState = "정상";
+					workState = "정상";
 					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
 				}
+				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

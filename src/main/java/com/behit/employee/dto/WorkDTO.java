@@ -28,6 +28,5 @@ public class WorkDTO {
 	private String work_state;
 	private String ori_file_name;
 	private String new_file_name;
-	
-	
+	private String doc_code;
 }

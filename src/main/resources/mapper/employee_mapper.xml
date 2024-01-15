@@ -78,7 +78,8 @@ SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobil
     COALESCE(
         (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
         'default'
-    ) AS new_file_name
+    ) AS new_file_name,
+    e.login_lock
 	FROM 
     employee e
 	JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
