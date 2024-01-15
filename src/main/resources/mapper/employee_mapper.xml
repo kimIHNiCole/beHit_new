@@ -222,5 +222,10 @@ SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobil
 		UPDATE employee
 			SET login_lock = 0
 		WHERE emp_id = #{emp_id};
-	</update>		
+	</update>
+	
+	<insert id="defaultwork">
+		INSERT INTO commute_history (emp_id, work_day, work_start_time, work_end_time)
+			VALUES (#{emp_id}, #{day}, #{workstart}, #{workend});
+	</insert>		
 </mapper>
