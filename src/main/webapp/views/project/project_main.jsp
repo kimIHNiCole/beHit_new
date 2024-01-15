@@ -375,6 +375,7 @@ height: calc(100vh - 10rem);
                 </div>
               </div>
             </div>
+            <jsp:include page="/views/todo_include.jsp" />
             <!-- / Content -->
 
             <div class="content-backdrop fade"></div>

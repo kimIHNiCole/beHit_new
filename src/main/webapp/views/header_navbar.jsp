@@ -504,8 +504,4 @@ function formattedDate(dateString) {
     return formatted;
 }
 
-
-
-
-
 </script>
