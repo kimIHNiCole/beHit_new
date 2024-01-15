@@ -281,7 +281,10 @@ function updateAlarmList(alarmList) {
                     avatarImagePath = "../../assets/img/avatars/23.png";
                 } else if (alarm.alarm_type === 4) {
                     avatarImagePath = "../../assets/img/avatars/24.png";
-                } else {
+                } else if(alarm.alarm_type === 5){
+                	avatarImagePath = "../../assets/img/avatars/26.png";
+                }
+                else {
                     // 기본값 설정 또는 예외 처리 로직 추가
                     avatarImagePath = "../../assets/img/avatars/1.png";
                 }
@@ -377,6 +380,9 @@ $(document).on('click', '.dropdown-notifications-item', function(event) {
             break;
         case '4':
             window.location.href = '../project/project_detail.go?proj_idx='+alarmTypeIdx;
+            break;
+        case '5':
+            window.location.href = '../employee/empdetail?emp_id='+alarmTypeIdx;
             break;
         default:
             console.log('Unhandled alarm type:', alarmType);
