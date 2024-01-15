@@ -101,7 +101,8 @@
 			COALESCE(CONCAT(LPAD(HOUR(vh.vaca_end_time), 2, '0'),':',LPAD(MINUTE(vh.vaca_end_time), 2, '0')), '00:00') AS vaca_end,
 			COALESCE(CONCAT(LPAD(HOUR(ch.work_started), 2, '0'),':',LPAD(MINUTE(ch.work_started), 2, '0')), '00:00') AS work_started,
 			COALESCE(CONCAT(LPAD(HOUR(ch.work_ended), 2, '0'),':',LPAD(MINUTE(ch.work_ended), 2, '0')), '00:00') AS work_ended,
-			COALESCE(ch.work_state, '-') AS work_state 
+			COALESCE(ch.work_state, '-') AS work_state,
+			COALESCE(vh.doc_code, '0') AS doc_code
 			FROM commute_history ch
 			JOIN employee e ON e.emp_id = ch.emp_id
 			LEFT JOIN vacation_history vh ON ch.work_day = vh.vaca_date 

@@ -44,6 +44,8 @@ public interface EmployeeDAO {
 
 	void chkClear(String emp_id);
 
+	void defaultwork(String emp_id, String day, String workstart, String workend);
+
 
 
 }
