@@ -10,6 +10,10 @@ $(document).ready(function() {
 	var match = url.match(/\/([^\/]+)\/[^\/]+\.go$/);
 	var homeUrl = url.match(/\/([^\/]+)\.go$/)[1];
 	
+	console.log("url!!!"+url);
+	/*console.log("url!!!"+match);
+	console.log("url!!!"+homeUrl);*/
+	
 	var targetId = match ? match[1] : null;
 	console.log(targetId);
 	 
