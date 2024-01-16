@@ -580,6 +580,21 @@
 						              			</tbody>
 						              		</table>
 						              		
+						              		<!-- 여기서부터 파일 지울 영역 나타내주기 -->
+															<c:forEach var="Ufile" items="${detailFile}">
+															<div id="fileDiv_${Ufile.file_idx}" class="mx-4 border my-2" style="overflow: hidden; margin-right: 1.7rem !important; background-color: white;">
+																<div style="float: left;">
+																	<i class="bx bx-file" style="color:red"></i>
+																	<span class="align-middle ms-1">
+																	<a>${Ufile.ori_file_name}</a>
+																	</span>
+																</div>
+																<button onclick="delFile(${Ufile.file_idx})" class="btn p-0" type="button" style="float: right; margin-right:5px;"><i class="bx bx-trash"></i></button>
+															</div>
+															</c:forEach>
+															<input type="hidden" name="apv_file" id="apvFile" />
+															<!-- 여기까지 -->
+						              		
 					              </div>
 					                </div>
 	
@@ -777,6 +792,10 @@
     
     <!-- custom JS -->
     <script>
+    
+    var temporaryTotalName = '${temporaryTotalName}';
+    
+    console.log("!!tempararyTotalName : "+temporaryTotalName);
     
 
   //종일, 시간 선택에 따라 연차 구분  ------------------------------------------------------------------------------------------------------
@@ -1600,9 +1619,7 @@
 
     	if ('${apv.apv_cnt}' != 'false') {
     	    deltaData = ${apv.apv_cnt};
-    			console.log("데이터입니다");
     			console.log(deltaData);
-    			console.log("데이터일까요");
     	}
     	if (deltaData) {
     	    snowEditor.setContents(deltaData);
@@ -1620,7 +1637,6 @@
    	//------------------------------------------------------------------------------------------------
    	
    	// 미입력시 전송 막기 --------------------------------------------------------------------------------
-    
    	$(document).ready(function() {
     // 저장 또는 업데이트 버튼 클릭 시 실행되는 함수
 		    $('#apv_submit').click(function() { // 저장 또는 업데이트 버튼의 ID를 사용하시길 바랍니다.
@@ -1642,62 +1658,127 @@
 		        
 		        console.log('apv_cnt:', apv_cnt);
 		
-		        form = '${apv.apv_code}';
+		        var form = '${apv.apv_code}';
 		        
-		
-		        if (form === 'BFVC' || form === 'AFVC' ) {
+		        var temporaryTotalName = '${temporaryTotalName}';
 
-		            if (apv_vac_type === '종일') {
+		        
+		        if(temporaryTotalName === 'null'){
+		        	
+		        	if (form === 'BFVC' || form === 'AFVC' ) {
 
-		                if (!total_name || !apv_cnt || !apv_vac_type ||
-		                    !apv_start_day || !apv_end_day) {
-		                    Swal.fire({
-		                        icon: 'error',
-		                        title: '입력되지 않은 항목이 있습니다.',
-		                        text: '모든 항목을 입력해주세요.',
-		                        confirmButtonText: '확인'
-		                    });
-		                    event.preventDefault();
-		                    return; // 필요한 경우 추가적인 처리
-		                }
+			            if (apv_vac_type === '종일') {
 
-		            } else if (apv_vac_type === '시간') {
+			                if (!total_name || !apv_cnt || !apv_vac_type ||
+			                    !apv_start_day || !apv_end_day) {
+			                    Swal.fire({
+			                        icon: 'error',
+			                        title: '입력되지 않은 항목이 있습니다.',
+			                        text: '모든 항목을 입력해주세요.',
+			                        confirmButtonText: '확인'
+			                    });
+			                    event.preventDefault();
+			                    return; // 필요한 경우 추가적인 처리
+			                }
 
-		                if (!total_name || !apv_cnt || !apv_vac_type ||
-		                    !apv_day || !apv_start_time || !apv_end_time) {
-		                    Swal.fire({
-		                        icon: 'error',
-		                        title: '입력되지 않은 항목이 있습니다.',
-		                        text: '모든 항목을 입력해주세요.',
-		                        confirmButtonText: '확인'
-		                    });
-		                    event.preventDefault();
-		                    return; // 필요한 경우 추가적인 처리
-		                }
+			            } else if (apv_vac_type === '시간') {
 
-		            }
+			                if (!total_name || !apv_cnt || !apv_vac_type ||
+			                    !apv_day || !apv_start_time || !apv_end_time) {
+			                    Swal.fire({
+			                        icon: 'error',
+			                        title: '입력되지 않은 항목이 있습니다.',
+			                        text: '모든 항목을 입력해주세요.',
+			                        confirmButtonText: '확인'
+			                    });
+			                    event.preventDefault();
+			                    return; // 필요한 경우 추가적인 처리
+			                }
 
-		        } else if (form === 'BSPN') {
+			            }
 
-		            if (!total_name || !apv_cnt || !apv_subject) {
-		                Swal.fire({
-		                    icon: 'error',
-		                    title: '입력되지 않은 항목이 있습니다.',
-		                    text: '모든 항목을 입력해주세요.',
-		                    confirmButtonText: '확인'
-		                });
-		                event.preventDefault();
-		                return; // 필요한 경우 추가적인 처리
-		            }
+			        } else if (form === 'BSPN') {
 
+			            if (!total_name || !apv_cnt || !apv_subject) {
+			                Swal.fire({
+			                    icon: 'error',
+			                    title: '입력되지 않은 항목이 있습니다.',
+			                    text: '모든 항목을 입력해주세요.',
+			                    confirmButtonText: '확인'
+			                });
+			                event.preventDefault();
+			                return; // 필요한 경우 추가적인 처리
+			            }
+
+			        }
+		        	
+		        }else{
+		        	
+		        	if (form === 'BFVC' || form === 'AFVC' ) {
+
+			            if (apv_vac_type === '종일') {
+
+			                if (!apv_cnt || !apv_vac_type ||
+			                    !apv_start_day || !apv_end_day) {
+			                    Swal.fire({
+			                        icon: 'error',
+			                        title: '입력되지 않은 항목이 있습니다.',
+			                        text: '모든 항목을 입력해주세요.',
+			                        confirmButtonText: '확인'
+			                    });
+			                    event.preventDefault();
+			                    return; // 필요한 경우 추가적인 처리
+			                }
+
+			            } else if (apv_vac_type === '시간') {
+
+			                if (!apv_cnt || !apv_vac_type ||
+			                    !apv_day || !apv_start_time || !apv_end_time) {
+			                    Swal.fire({
+			                        icon: 'error',
+			                        title: '입력되지 않은 항목이 있습니다.',
+			                        text: '모든 항목을 입력해주세요.',
+			                        confirmButtonText: '확인'
+			                    });
+			                    event.preventDefault();
+			                    return; // 필요한 경우 추가적인 처리
+			                }
+
+			            }
+
+			        } else if (form === 'BSPN') {
+
+			            if (!apv_cnt || !apv_subject) {
+			                Swal.fire({
+			                    icon: 'error',
+			                    title: '입력되지 않은 항목이 있습니다.',
+			                    text: '모든 항목을 입력해주세요.',
+			                    confirmButtonText: '확인'
+			                });
+			                event.preventDefault();
+			                return; // 필요한 경우 추가적인 처리
+			            }
+
+			        }
+		        	
 		        }
+		
 		
 		    });
 		});
-   	
+  	 
+   	 
   //------------------------------------------------------------------------------------------------
-    
-    
+  
+  var delUpfile = [];
+  
+	function delFile(file_idx) {
+	    delUpfile.push(file_idx);
+	    $('#fileDiv_' + file_idx).hide();
+	    console.log(delUpfile);
+	    
+	    $('#apvFile').val(JSON.stringify(delUpfile));
+	}
 
     </script>
   </body>

@@ -23,4 +23,5 @@ public class ProjectRecordDTO {
 	private String ori_file_name;
 	private String new_file_name;
 	private String emp_name;
+	private String pro_file_name;
 }

@@ -14,6 +14,7 @@ public class ApprovalDTO {
 	private String grade_name;
 	private String position_name;
 	private String total_name;
+	private String apv_file;
 	
 	private int apv_idx;
 	private String emp_id;

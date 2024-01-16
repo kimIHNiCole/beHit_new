@@ -41,6 +41,10 @@ public class TodoService {
 	public ArrayList<TodoDTO> todohistory(String emp_id) {
 		return dao.todohistory(emp_id);
 	}
+
+	public int todohide(String todoIdx) {
+		return dao.todohide(todoIdx);
+	}
 	
 	
 	

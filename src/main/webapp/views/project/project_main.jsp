@@ -209,14 +209,19 @@ height: calc(100vh - 10rem);
                   <div
                     class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
                     id="app-chat-contacts">
-                    <div class="sidebar-header pt-3 px-3 mx-1">
-                      <div class="d-flex align-items-center me-3 me-lg-0">
-                        
-                        
-                        <button type="button" id="project-add-move" class="btn btn-primary text-nowrap">프로젝트 추가</button>
-                       </div>
-                    </div>
-                    <hr class="container-m-nx mt-3 mb-0" />
+                    <!-- 프로젝트 추가 버튼 -->
+                    <c:if test="${sessionScope.loginInfo.getEmp_position_idx() == 8}">                    
+	                    <div class="sidebar-header pt-3 px-3 mx-1">
+	                      <div class="d-flex align-items-center me-3 me-lg-0">
+	                        
+	                        
+	                        <button type="button" id="project-add-move" class="btn btn-primary text-nowrap">프로젝트 추가</button>
+	                       </div>
+	                    </div>
+	                    <hr class="container-m-nx mt-3 mb-0" />
+                    </c:if>
+                    
+                    <!-- 여기서 부터 리스트 뿌려줌 -->
                     <div class="sidebar-body">
                       <!-- Chats -->
                       <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
@@ -237,6 +242,7 @@ height: calc(100vh - 10rem);
                         </li>
                         <li>
 						    <div class="d-flex justify-content-center">
+						    	<button onclick="allButton()" class="btn btn-primary text-nowrap go" style="border-color:#C20000; background-color:#C20000;">전체</button>
 						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
 						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
 						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
@@ -424,6 +430,10 @@ height: calc(100vh - 10rem);
     projWorksList();
     projDelayList();
     
+    function allButton(){
+    	whatlist = '';
+    	projList(whatlist);
+    }
     function worksButton(){
     	whatlist = '진행';
     	projList(whatlist);

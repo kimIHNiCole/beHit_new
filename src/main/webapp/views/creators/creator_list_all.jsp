@@ -337,6 +337,9 @@
  			$.each(allList, function (index, item) {
  				console.log(item);	
  			});
+ 			
+ 			
+ 			
 	    	var creatorTable = $("#creatorList").DataTable({
 	    		data : allList,
 	    		columnDefs: [
@@ -354,8 +357,11 @@
 	    				width:'20%', 
 	    				data: null,
 	    				render : function(data, type, row){
-	    					
-	    	                return '<a href="/creators/creatorDetail.go?cre_idx=' + row.cre_idx + '">' + row.cre_nick_name + '</a>';
+	    					if(row.perm === 1){
+		    	                return '<a href="/creators/creatorDetail.go?cre_idx=' + row.cre_idx + '">' + row.cre_nick_name + '</a>';
+	    					}else{
+		    	                return '<label style="color:gray">'+row.cre_nick_name+'</label>';
+	    					}
 	    				}
 	    			},
 	    			{ 

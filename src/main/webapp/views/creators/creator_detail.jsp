@@ -274,7 +274,7 @@ width: 20rem;
 		       					<i class='bx bxl-sketch' ></i>대표 채널 정보
 		    			  </button>
 		   			    </li>
-		   			    <li class="nav-item">
+		   			    <!-- <li class="nav-item">
 		     			  <button 
 		     			  		class="nav-link" 
 		     			  		data-bs-toggle="tab" 
@@ -283,7 +283,7 @@ width: 20rem;
 		     			  		aria-selected="false" >
 		       					<i class='bx bxl-youtube' ></i>컨텐츠 정보(임시)
 		    			  </button>
-		   			    </li>
+		   			    </li> -->
 		   			  </ul>
 		   			</div>
 		   			<div>

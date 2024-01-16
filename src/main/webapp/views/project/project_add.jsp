@@ -274,13 +274,23 @@
 	/* 조직도 모달 */
     div#projModal {
 	    width: 350px;
-    	height: 430px;
-    	background-color: white;
+	    height: 430px;
+	    bottom: 285px;
+	    right: 215px;
+	    background-color: white;
+	    z-index: 999;
+	    position: fixed;
+	    border: 1px solid lightgray;
 	}
     div#projModal1 {
-    	width: 350px;
-    	height: 430px;
-    	background-color: white;
+		width: 350px;
+	    height: 430px;
+	    bottom: 285px;
+	    right: 215px;
+	    background-color: white;
+	    z-index: 999;
+	    position: fixed;
+	    border: 1px solid lightgray;
 	}
 	.card-body {
     	overflow-y: auto;
@@ -316,13 +326,16 @@
                     class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
                     id="app-chat-contacts">
                     
-                    <div class="sidebar-header pt-3 px-3 mx-1">
-                      <div class="d-flex align-items-center me-3 me-lg-0">
-                        <button type="button" id="project-add-move" class="btn btn-primary text-nowrap">프로젝트 추가</button>
-                       </div>
-                    </div>
-                    
-                    <hr class="container-m-nx mt-3 mb-0" />
+                    <c:if test="${sessionScope.loginInfo.getEmp_position_idx() == 8}">                    
+	                    <div class="sidebar-header pt-3 px-3 mx-1">
+	                      <div class="d-flex align-items-center me-3 me-lg-0">
+	                        
+	                        
+	                        <button type="button" id="project-add-move" class="btn btn-primary text-nowrap">프로젝트 추가</button>
+	                       </div>
+	                    </div>
+	                    <hr class="container-m-nx mt-3 mb-0" />
+                    </c:if>
                     
                     <div class="sidebar-body">
                                             <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
@@ -343,6 +356,7 @@
                         </li>
                         <li>
 						    <div class="d-flex justify-content-center">
+						    	<button onclick="allButton()" class="btn btn-primary text-nowrap go" style="border-color:#C20000; background-color:#C20000;">전체</button>
 						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
 						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
 						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
@@ -598,6 +612,10 @@
 var whatlist = '';
     projList(whatlist);
     
+    function allButton(){
+    	whatlist = '';
+    	projList(whatlist);
+    }
     function worksButton(){
     	whatlist = '진행';
     	projList(whatlist);
@@ -668,7 +686,10 @@ var selectedNodes = [];
 var selectedNodes1 = [];
 
 	function cancel() {
-		window.location.href = '/project/project_main.go';
+		var nowrite = confirm('취소 하시겠습니까?');
+		if(nowrite){			
+			window.location.href = '/project/project_main.go';
+		}
 	}
 
 	function et() {
@@ -705,6 +726,12 @@ var selectedNodes1 = [];
 		console.log(selectedNodes);
 		console.log(selectedNodes1);
 		*/
+		
+		// 값이 비어있는지 확인하고 alert 창 띄우기
+	    if (!textsubject || !startproj || !endproj || !textContent || selectedNodes.length === 0) {
+	        alert('제목, 담당자, 시작일, 종료일, 내용 중 하나 이상이 비어있습니다.');
+	        return; // 이후의 코드 실행을 막기 위해 함수를 종료
+	    }
 		
 	    $.ajax({
 	        type: 'POST',
@@ -1031,6 +1058,21 @@ function removeNodeFromList(hiddenValue) {
     selectedNodes = selectedNodes.filter(node => node !== hiddenValue);
     removeFromDamList(hiddenValue);
     console.log('Selected Nodes after removal:', selectedNodes);
+    
+    // 추가된 부분
+    $('#jstree-checkbox').jstree('open_all');
+    var $checkedNode = $('#jstree-checkbox').find('a:has(input[value="' + hiddenValue + '"])');
+    $checkedNode.trigger('click');  // 해당 노드에 대한 클릭 이벤트를 발생시켜 체크 해제
+    console.log('Selected Nodes after removal:', selectedNodes);
+    
+	// 여기서부터 전부닫고 다시 체크된애들만 열리게
+	$('#jstree-checkbox').jstree('close_all');
+	
+	var checkedNodes = $('#jstree-checkbox').jstree('get_checked', true);
+	checkedNodes.forEach(function (node) {
+		// 체크된 노드의 부모 노드 확장
+		$('#jstree-checkbox').jstree('open_node', node.parent);
+	});
 }
 
 //체크시 조직도 이벤트 (참조자)
@@ -1124,6 +1166,21 @@ function removeNodeFromList1(hiddenValue) {
     selectedNodes1 = selectedNodes1.filter(node => node !== hiddenValue);
     removeFromChamList(hiddenValue);
     console.log('Selected Nodes1 after removal:', selectedNodes1);
+    
+    // 추가된 부분
+    $('#jstree-checkbox1').jstree('open_all');
+    var $checkedNode = $('#jstree-checkbox1').find('a:has(input[value="' + hiddenValue + '"])');
+    $checkedNode.trigger('click');  // 해당 노드에 대한 클릭 이벤트를 발생시켜 체크 해제
+    console.log('Selected Nodes after removal:', selectedNodes1);
+    
+	// 여기서부터 전부닫고 다시 체크된애들만 열리게
+	$('#jstree-checkbox1').jstree('close_all');
+	
+	var checkedNodes = $('#jstree-checkbox1').jstree('get_checked', true);
+	checkedNodes.forEach(function (node) {
+		// 체크된 노드의 부모 노드 확장
+		$('#jstree-checkbox1').jstree('open_node', node.parent);
+	});
 }
 
 </script>

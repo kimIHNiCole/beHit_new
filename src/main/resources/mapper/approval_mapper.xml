@@ -364,6 +364,20 @@
 		WHERE ap.emp_id = #{emp_id}
 		ORDER BY apv_history_date DESC
 	</select>
+	
+	<!-- 파일 업로드 -->
+	<insert id="upload" parameterType="HashMap">
+		INSERT INTO file(file_kind, file_kind_idx, ori_file_name, new_file_name, emp_id)
+			VALUES(#{file_kind}, #{file_kind_idx}, #{ori_file_name}, #{new_file_name}, #{login_id});	
+	</insert>
+	
+	<select id="approval_file" resultType="util">
+		SELECT * FROM file WHERE file_kind = 3 AND file_kind_idx =#{apv_idx};
+	</select>
+	
+	<delete id="fileDel">
+		DELETE FROM file WHERE file_idx = #{param1}
+	</delete>
 
 
 </mapper>

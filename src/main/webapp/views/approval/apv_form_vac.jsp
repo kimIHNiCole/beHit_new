@@ -170,7 +170,7 @@
 										  </c:when>
 										  <c:when test="${form_type == 'update'}">
 										  
-										  <c:if test="${!apv.total_name}">
+										  <c:if test="${temporaryTotalName == 'null'}">
 											  <td class="apv-sign-table-right">
 													<table>
 														<tbody>
