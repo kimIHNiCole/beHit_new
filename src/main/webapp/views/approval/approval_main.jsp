@@ -127,6 +127,10 @@
     	color:#C20000;
     }
     
+    .card{
+    	font-family:pretendard;
+    }
+    
     </style>
     
     

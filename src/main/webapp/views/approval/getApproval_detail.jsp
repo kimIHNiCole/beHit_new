@@ -296,6 +296,43 @@
     	text-align: center;
     }
     
+  
+    
+    /*table-reason*/
+    
+    .table-reason{
+    	margin:1rem 0;
+    }
+    
+    .table-upload .table-upload-left{
+    	font-size: 14px;
+	    font-weight: bold;
+    }
+    
+    .table-reason .table-upload-left{
+    	background: rgb(221, 221, 221);
+	    padding: 5px;
+	    border: 1px solid black;
+	    height: 25px;
+	    text-align: center;
+	    color: rgb(0, 0, 0);
+	    font-size: 14px;
+	    font-weight: bold;
+	    vertical-align: middle;
+    }
+    
+    .table-reason .table-upload-right{
+    	padding: 3px;
+	    border: 1px solid black;
+	    width: 700px;
+	    height: 38px;
+	    text-align: left;
+	    color: rgb(0, 0, 0);
+	    font-size: 12px;
+	    vertical-align: middle;
+	    background: rgb(255, 255, 255);
+    }
+    
     /*table-content*/
     
     .apv-form-vac .table-content-left{
@@ -309,6 +346,8 @@
 	    font-weight: bold;
 	    vertical-align: middle;
     }
+    
+  
     
     .apv-form-vac .table-content-right{
     	padding: 3px;
@@ -356,7 +395,7 @@
     
     .table-upload{
     	width: 100%;
-    	margin-top:4rem;
+    	margin: 2rem 0;
     }
     
     .table-upload-left{
@@ -637,19 +676,6 @@
 														    </c:when>
 														</c:choose>
 						              		
-						              		
-						              		<table class="table-upload">
-						              			<tbody>
-						              				<tr>
-						              					<td class="table-upload-left">파일 첨부</td>
-						              					<td class="table-upload-right">
-						              						<!-- <input class="form-control" type="file" id="formFile" name="files" /> -->
-						              						<div id="fileAll"></div>
-						              					</td>
-						              				</tr>
-						              			</tbody>
-						              		</table>
-						              		
 						              		<c:if test="${form_type == 'detail' && apv.apv_history_stmt != null}">
 							              		<table class="table-reason">
 							              			<tbody>
@@ -674,6 +700,18 @@
 							              			</tbody>
 							              		</table>
 						              		</c:if>
+						              		
+						              		<table class="table-upload">
+						              			<tbody>
+						              				<tr>
+						              					<td class="table-upload-left">파일 첨부</td>
+						              					<td class="table-upload-right">
+						              						<!-- <input class="form-control" type="file" id="formFile" name="files" /> -->
+						              						<div id="fileAll"></div>
+						              					</td>
+						              				</tr>
+						              			</tbody>
+						              		</table>
 						              		
 					              </div>
 					                </div>
@@ -769,6 +807,47 @@
             
             
             <!-- modal -->
+            
+            <!-- 새 결제 작성 모달 -->
+              <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-start mb-4">
+                        <h3>결재 양식</h3>
+                      </div>
+                      
+	                      <div>
+	                      	<div class="col-md-6 col-12">
+														<div class="card mb-md-0 mb-4 apv-modal-folder shadow-none border">
+															<h5 class="card-header">문서양식</h5>
+															<div class="card-body">
+																<div id="jstree-checkbox-form"></div>
+															</div>
+														</div>
+													</div>
+	                      </div>
+
+                      <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-sm-3 me-1 mt-3 apv-doc-select">선택</button>
+                        <button
+                          type="reset"
+                          class="btn btn-label-secondary btn-reset mt-3"
+                          data-bs-dismiss="modal"
+                          aria-label="Close">
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ 새 결제 작성 모달 -->
+              
+              <div class="col app-chat-history text chat-history-body">
+              </div>
+            
 							<!-- 조직도 추가 모달 -->
               <div class="modal fade org-modal" id="apv-org-modal" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1583,7 +1662,7 @@
         console.log(totalItems);
         
         if (totalItems === 1 && obj.list[0].ori_file_name == null){
-        	content = '<li style="text-align:center">첨부 파일이 없습니다.</li>';
+        	content = '<div style="text-align:center">첨부 파일이 없습니다.</div>';
         }else{
         	obj.list.forEach(function (item){
         		if(item.ori_file_name != null){
@@ -1591,7 +1670,7 @@
 	                content += '<div class="cursor-pointer">';
 	                content += '<i class="bx bx-file"></i>';
 	                content += '<span class="align-middle ms-1">';
-	                content += '<a href="/file/project/' + item.new_file_name + '" download>' + item.ori_file_name + '</a>';
+	                content += '<a href="/file/approval/' + item.new_file_name + '" download="'+item.ori_file_name+'">' + item.ori_file_name + '</a>';
 									content += '</span>';
 	                content += '</div>';
 	            		content += '</div>';

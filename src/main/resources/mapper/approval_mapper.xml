@@ -288,7 +288,7 @@
 	</select>
 	
 	<select id="compApproval_list" resultType="com.behit.approval.dto.ApprovalDTO">
-		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_stmt, 
+		SELECT a.apv_idx, a.apv_code, a.apv_subject, a.apv_stmt, a.apv_date,
 			(SELECT e.emp_name 
 			 FROM apv_line al 
 			 JOIN employee e ON e.emp_id = al.emp_id 

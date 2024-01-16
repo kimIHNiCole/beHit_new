@@ -418,6 +418,9 @@
                     }
 
                 ],
+                order: [
+                    [2, 'asc']  // 'apv_history_date' 열을 기준으로 내림차순 정렬
+                ],
                 language: {
                     url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
                     ,emptyTable: '리스트가 없습니다'  // 빈 데이터 상태에 대한 메시지
