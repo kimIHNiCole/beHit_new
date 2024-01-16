@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.approval.dao.ApprovalDAO;
 import com.behit.approval.dto.ApprovalDTO;
+import com.behit.creator.dto.CreatorDTO;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.dto.VacationDTO;
 import com.behit.employee.dto.WorkDTO;
@@ -416,6 +418,15 @@ public class ApprovalService {
 			mav.addObject("form_type","detail");
 		}
 		
+		if(apv.getApv_stmt().equals("완료")) {
+			List<ApprovalDTO> apvPermList=dao.apvPermList(Integer.parseInt(apv_idx)); 
+			
+			if(apvPermList != null) {
+				mav.addObject("apvPermList", apvPermList);
+			}
+			
+		}
+		
 		mav.addObject("emp_id",emp_id);
 		mav.addObject("apv",apv);
 		mav.addObject("dto",dto);
@@ -511,6 +522,9 @@ public class ApprovalService {
 	                }
 	                // 다음 날짜로 이동
 	                calendar.add(Calendar.DAY_OF_MONTH, 1);
+	                
+	                dao.vacation_histroy(vac_dto);
+	                
 	            }
 	        } catch (ParseException e) {
 	            e.printStackTrace();
@@ -532,9 +546,9 @@ public class ApprovalService {
 	        } catch (ParseException e) {
 	            e.printStackTrace();
 	        }
+	        dao.vacation_histroy(vac_dto);
 		}
 		
-		dao.vacation_histroy(vac_dto);
 		
 	}
 
@@ -774,6 +788,38 @@ public class ApprovalService {
 	map.put("msg","문서가 삭제되었습니다.");
 	
 	return map;
+	}
+
+
+
+	public int addApv_perm(String loginId, int apv_idx, List<Map<String, String>> emp_data) {
+		
+		List<String> empIds = new ArrayList<>();
+		
+		// emp_data에 있는 각 Map에서 emp_id를 추출하여 추가
+		for (Map<String, String> empDataMap : emp_data) {
+		    String empId = empDataMap.get("emp_id");
+		    empIds.add(empId);
+		}
+	
+		// chat_pp에 empId를 반복하여 데이터 삽입
+		for (String empId : empIds) {
+			dao.addApv_perm(apv_idx,empId, loginId);
+		}
+		
+		return apv_idx;
+		
+	}
+
+
+	public List<ApprovalDTO> apvPermList(int apv_idx) {
+		return dao.apvPermList(apv_idx);
+	}
+
+
+
+	public int delApvPerm(int apv_idx, String emp_id) {
+		return dao.delApvPerm(apv_idx,emp_id);
 	}
 
 
