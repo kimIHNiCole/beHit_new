@@ -67,6 +67,9 @@ public interface ApprovalDAO {
 	ArrayList<UtilDTO> approval_file(String apv_idx);
 
 	void fileDel(int file_idx);
+
+	void temporary_apv_del(String apv_idx);
+
 	
 	
 
