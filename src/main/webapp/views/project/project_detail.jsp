@@ -365,15 +365,27 @@ height: calc(100vh - 10rem);
 												<!-- 여기까지 -->
 											</span>
 											<span class="project-subject-right">
-									<c:forEach var="projT" items="${damchamList}">
-									    <c:if test="${projT.projT_contact == 1 && sessionScope.loginInfo.getEmp_id() eq projT.emp_id}">
-											<select id="selectpickerBasic" class="selectpicker" data-style="btn-default" onchange="upStatus()">
-											    <option ${detailList.proj_status eq '대기' ? 'selected' : ''} value="대기">대기</option>
-											    <option ${detailList.proj_status eq '진행' ? 'selected' : ''} value="진행">진행중</option>
-											    <option ${detailList.proj_status eq '완료' ? 'selected' : ''} value="완료">완료</option>
-											</select>
-									    </c:if>
-									</c:forEach>
+									
+									<c:choose>
+									    <c:when test="${detailList.emp_id == sessionScope.loginInfo.getEmp_id()}">
+												<select id="selectpickerBasic" class="selectpicker" data-style="btn-default" onchange="upStatus()">
+												    <option ${detailList.proj_status eq '대기' ? 'selected' : ''} value="대기">대기</option>
+												    <option ${detailList.proj_status eq '진행' ? 'selected' : ''} value="진행">진행중</option>
+												    <option ${detailList.proj_status eq '완료' ? 'selected' : ''} value="완료">완료</option>
+												</select>
+									    </c:when>
+									    <c:otherwise>
+										<c:forEach var="projT" items="${damchamList}">
+										    <c:if test="${projT.projT_contact == 1 && sessionScope.loginInfo.getEmp_id() eq projT.emp_id}">
+												<select id="selectpickerBasic" class="selectpicker" data-style="btn-default" onchange="upStatus()">
+												    <option ${detailList.proj_status eq '대기' ? 'selected' : ''} value="대기">대기</option>
+												    <option ${detailList.proj_status eq '진행' ? 'selected' : ''} value="진행">진행중</option>
+												    <option ${detailList.proj_status eq '완료' ? 'selected' : ''} value="완료">완료</option>
+												</select>
+										    </c:if>
+										</c:forEach>
+									    </c:otherwise>
+									</c:choose>
 									
 									<span class="selected-stat">
 										<c:if test="${detailList.proj_status eq '대기'}">
