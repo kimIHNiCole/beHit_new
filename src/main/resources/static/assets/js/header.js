@@ -21,6 +21,10 @@ $(document).ready(function() {
 	
 		$('#home').addClass('active');
 		
+	}else if(targetId == 'chat'){
+	
+		$('#chat').addClass('active');
+		
 	}else if(targetId == 'creators'){
 		
 		$('#creator_list_all').addClass('active');
