@@ -356,7 +356,6 @@ height: calc(100vh - 10rem);
 														    <c:if test="${projT.projT_contact == 1 && sessionScope.loginInfo.getEmp_id() eq projT.emp_id}">
 														        <span class="button">
 														            <button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
-														            <button type="button" id="project-del" class="btn btn-sm btn-secondary">삭제</button>
 														        </span>
 														    </c:if>
 														</c:forEach>

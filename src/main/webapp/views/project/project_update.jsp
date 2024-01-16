@@ -461,9 +461,18 @@
 				                          class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
 				                          <div>
 				                            <h5>시작일</h5>
-				                            <div class="project-date-start">
-				                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" value="${detailList.proj_start}"/>
-				                            </div>
+				                            <c:choose>
+				                            	<c:when test="${detailList.emp_id == sessionScope.loginInfo.getEmp_id()}">
+						                            <div class="project-date-start">
+						                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" value="${detailList.proj_start}"/>
+						                            </div>
+				                            	</c:when>
+				                            	<c:otherwise>
+				                            		<div>
+				                            			<input type="text" class="form-control" placeholder="YYYY-MM-DD" value="${detailList.proj_start}" readonly/>
+				                            		</div>
+				                            	</c:otherwise>
+				                            </c:choose>
 				                          </div>
 				                        </div>
 				                      </div>
@@ -471,9 +480,18 @@
 				                        <div class="d-flex justify-content-between align-items-start">
 				                          <div>
 				                            <h5>종료일</h5>
-				                            <div class="project-date-end">
-				                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" value="${detailList.proj_end}"/>
-				                            </div>
+				                            <c:choose>
+				                            	<c:when test="${detailList.emp_id == sessionScope.loginInfo.getEmp_id()}">
+						                            <div class="project-date-end">
+						                            	<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" value="${detailList.proj_end}"/>
+						                            </div>
+				                            	</c:when>
+				                            	<c:otherwise>
+				                            		<div>
+				                            			<input type="text" class="form-control" placeholder="YYYY-MM-DD" value="${detailList.proj_end}" readonly/>
+				                            		</div>
+				                            	</c:otherwise>
+				                            </c:choose>
 				                          </div>
 				                        </div>
 				                      </div>
