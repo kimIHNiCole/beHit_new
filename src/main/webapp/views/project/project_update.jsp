@@ -469,7 +469,11 @@
 				                            	</c:when>
 				                            	<c:otherwise>
 				                            		<div>
-				                            			<input type="text" class="form-control" placeholder="YYYY-MM-DD" value="${detailList.proj_start}" readonly/>
+				                            			<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-before" value="${detailList.proj_start}" readonly/>
+				                            			<script>
+											                // JavaScript를 사용하여 input을 비활성화(disabled) 상태로 만듭니다.
+											                document.getElementById('flatpickr-date-before').disabled = true;
+											            </script>
 				                            		</div>
 				                            	</c:otherwise>
 				                            </c:choose>
@@ -488,7 +492,11 @@
 				                            	</c:when>
 				                            	<c:otherwise>
 				                            		<div>
-				                            			<input type="text" class="form-control" placeholder="YYYY-MM-DD" value="${detailList.proj_end}" readonly/>
+				                            			<input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date-after" value="${detailList.proj_end}" readonly/>
+				                            			<script>
+											                // JavaScript를 사용하여 input을 비활성화(disabled) 상태로 만듭니다.
+											                document.getElementById('flatpickr-date-after').disabled = true;
+											            </script>
 				                            		</div>
 				                            	</c:otherwise>
 				                            </c:choose>

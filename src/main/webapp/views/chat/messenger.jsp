@@ -529,7 +529,7 @@ function addChatRoom(){
 	//리스트 받기
 		$.ajax({
 		type: 'get',
-    	url: '../../getOrgList',
+    	url: '../../getOrgListNM',
     	data: {},
     	dataType: 'JSON',
         success : function(data){
