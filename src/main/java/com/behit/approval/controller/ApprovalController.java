@@ -1,7 +1,9 @@
 package com.behit.approval.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.behit.approval.dto.ApprovalDTO;
 import com.behit.approval.service.ApprovalService;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.project.dto.ProjectFileDTO;
+import com.behit.util.dto.UtilDTO;
 
 @Controller
 public class ApprovalController {
@@ -218,6 +222,17 @@ public class ApprovalController {
 	@GetMapping(value="/approval/{page}.go")
 	public String pageMove(@PathVariable String page) {
 		return "/approval/"+page;
+	}
+	
+	// 결재 파일
+	
+	@GetMapping(value="/approval/approval_file.do")
+	@ResponseBody
+	public Map<String, Object> projAllFile(@RequestParam String apv_idx){
+		ArrayList<UtilDTO> list = service.approval_file(apv_idx);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
 	}
 	
 

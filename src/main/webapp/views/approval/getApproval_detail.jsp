@@ -606,7 +606,8 @@
 						              				<tr>
 						              					<td class="table-upload-left">파일 첨부</td>
 						              					<td class="table-upload-right">
-						              						<input class="form-control" type="file" id="formFile" name="files" />
+						              						<!-- <input class="form-control" type="file" id="formFile" name="files" /> -->
+						              						<div id="fileAll"></div>
 						              					</td>
 						              				</tr>
 						              			</tbody>
@@ -906,6 +907,8 @@
     
     <!-- custom JS -->
     <script>
+    
+    projAllFile();
     
     console.log('form_type'+'${form_type}');
     
@@ -1547,9 +1550,52 @@
     
    	//------------------------------------------------------------------------------------------------
     
+    // 파일 업로드 -------------------------------------------------------------
     
+    function projAllFile(){    	
+    	var apv_idx = '${apv.apv_idx}';
+    	
+   		$.ajax({
+   			type: 'get',
+   			url: '/approval/approval_file.do',
+   			data: {'apv_idx': apv_idx},
+   			dataType: 'json',
+   			success: function (data){
+   				console.log(data);
+   				projAllFiledraw(data);
+   			},
+   			error: function (e){
+   				console.log(e);
+   			}
+   		});
+    }
+
+    function projAllFiledraw(obj){
+        var content = '';
+        var totalItems = obj.list.length;
+        console.log(totalItems);
+        
+        if (totalItems === 1 && obj.list[0].ori_file_name == null){
+        	content = '<li style="text-align:center">첨부 파일이 없습니다.</li>';
+        }else{
+        	obj.list.forEach(function (item){
+        		if(item.ori_file_name != null){
+	        				content += '<div class="card email-card-prev mx-sm-1 mx-3 border my-2" >';
+	                content += '<div class="cursor-pointer">';
+	                content += '<i class="bx bx-file"></i>';
+	                content += '<span class="align-middle ms-1">';
+	                content += '<a href="/file/project/' + item.new_file_name + '" download>' + item.ori_file_name + '</a>';
+									content += '</span>';
+	                content += '</div>';
+	            		content += '</div>';
+        		}
+        	});
+        }
+        $('#fileAll').empty();
+        $('#fileAll').append(content);
+    }
     
-    
+   	//------------------------------------------------------------------------------------------------
     
 
     </script>
