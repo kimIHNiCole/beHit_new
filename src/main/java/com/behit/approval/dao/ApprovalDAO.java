@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.behit.approval.dto.ApprovalDTO;
+import com.behit.creator.dto.CreatorDTO;
 import com.behit.employee.dto.WorkDTO;
 import com.behit.project.dto.ProjectFileDTO;
 import com.behit.util.dto.UtilDTO;
@@ -69,6 +70,12 @@ public interface ApprovalDAO {
 	void fileDel(int file_idx);
 
 	void temporary_apv_del(String apv_idx);
+
+	void addApv_perm(int apv_idx, String empId, String loginId);
+
+	List<ApprovalDTO> apvPermList(int apv_idx);
+
+	int delApvPerm(int apv_idx, String emp_id);
 
 	
 	

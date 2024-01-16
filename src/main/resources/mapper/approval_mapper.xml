@@ -243,7 +243,7 @@
 	</insert>
 	
 	<!-- 열람자 -->
-	<insert id="apv_perm" parameterType="com.behit.approval.dto.ApprovalDTO">
+	<!-- <insert id="apv_perm" parameterType="com.behit.approval.dto.ApprovalDTO">
 		INSERT INTO apv_perm(
 			apv_idx
 			,emp_id
@@ -256,7 +256,7 @@
 		,#{emp_id_in}
 		,NOW()
 		)
-	</insert>
+	</insert> -->
 	<!-- 상신취소 -->
 	<update id="apv_cancel">
 		UPDATE apv SET apv_stmt = '임시저장' WHERE apv_idx = #{apv_idx}
@@ -387,6 +387,38 @@
 	
 	<delete id="temporary_apv_del">
 		DELETE FROM apv WHERE apv_idx = #{apv_idx}
+	</delete>
+	
+	<!-- 열람자 추가/ 조회/ 삭제 -->
+	<insert id="addApv_perm">
+	INSERT INTO apv_perm(
+			apv_idx
+			,emp_id
+			,emp_id_in
+			,apv_perm_date
+		)
+		VALUES(
+		#{param1}
+		,#{param2}
+		,#{param3}
+		,NOW()
+		)
+	</insert>
+	<select id="apvPermList" resultType="com.behit.approval.dto.ApprovalDTO">
+	SELECT e.emp_id, e.emp_name, 
+			(d.emp_dept_name) AS dept_name,
+			(select c.common_code_name 
+			FROM commons_code c 
+			WHERE c.common_code_idx = e.emp_grade_idx ) AS grade_name,
+			(select c.common_code_name 
+			FROM commons_code c 
+			WHERE c.common_code_idx = e.emp_position_idx ) AS position_name
+	FROM employee e JOIN department d
+	JOIN apv_perm ap ON e.emp_id = ap.emp_id 
+	WHERE e.emp_dept_idx = d.emp_dept_idx AND apv_idx =#{param1}
+	</select>
+	<delete id="delApvPerm">
+	DELETE FROM apv_perm WHERE apv_idx = #{param1} AND emp_id=#{param2}
 	</delete>
 	
 	

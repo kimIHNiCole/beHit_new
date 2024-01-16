@@ -14,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.approval.dto.ApprovalDTO;
 import com.behit.approval.service.ApprovalService;
+import com.behit.creator.dto.CreatorDTO;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.project.dto.ProjectFileDTO;
 import com.behit.util.dto.UtilDTO;
@@ -181,17 +185,61 @@ public class ApprovalController {
 	}
 	
 	// 열람자 추가
-	@PostMapping(value="/approval/CompApproval_ViewerPlus")
+//	@PostMapping(value="/approval/CompApproval_ViewerPlus")
+//	@ResponseBody
+//	public HashMap<String, Object> CompApproval_ViewerPlus(ApprovalDTO dto,HttpSession session) {
+//		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+//		
+//		logger.info("total_name 값 : "+ dto.getTotal_name());
+//		logger.info("apv_idx 값 : "+ dto.getApv_idx());
+//		
+//		return service.CompApproval_ViewerPlus(loginInfo,dto);
+//		
+//	}
+	
+	// 열람자 추가
+	@RequestMapping(value = "/approval/CompApproval_ViewerPlus", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> CompApproval_ViewerPlus(ApprovalDTO dto,HttpSession session) {
-		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+	public HashMap<String, Object> addApv_perm(HttpSession session, @RequestBody ApprovalDTO requestData) {
+
+		logger.info("cre_idx: " + requestData.getApv_idx());
+		logger.info("selectedNodes: " + requestData.getSelectedNodes());
+		int apv_idx=requestData.getApv_idx();
+		List<Map<String, String>> emp_data=requestData.getSelectedNodes();
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+		String loginId=empdto.getEmp_id();
+		int idx=service.addApv_perm(loginId, apv_idx, emp_data);
+		List<ApprovalDTO> apvPermList=service.apvPermList(apv_idx); 
 		
-		logger.info("total_name 값 : "+ dto.getTotal_name());
-		logger.info("apv_idx 값 : "+ dto.getApv_idx());
-		
-		return service.CompApproval_ViewerPlus(loginInfo,dto);
-		
+		result.put("apvPermList", apvPermList);
+		result.put("idx", idx);
+		return result;
 	}
+	
+	// 열람자 삭제
+	@RequestMapping(value = "/approval/delApvPerm", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> delApvPerm(HttpSession session,
+			@RequestBody ApprovalDTO delPerm) {
+		int apv_idx = delPerm.getApv_idx();
+		String emp_id =delPerm.getEmp_id();
+	
+		logger.info("cre_idx: " + apv_idx);
+	    logger.info("emp_id"+emp_id);
+	
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+		String loginId=empdto.getEmp_id();
+		int idx=service.delApvPerm(apv_idx, emp_id);
+		List<ApprovalDTO> apvPermList=service.apvPermList(apv_idx); 
+		
+		result.put("apvPermList", apvPermList);			
+		result.put("idx", idx);
+		return result;
+	}
+	
+	
 	
 	// 상신 취소
 	@PostMapping(value="/approval/apv_cancel")

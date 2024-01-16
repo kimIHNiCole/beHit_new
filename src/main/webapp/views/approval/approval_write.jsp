@@ -460,9 +460,11 @@
                     <ul class="nav nav-align-left nav-pills flex-column">
                     
                     	<li class="nav-item mb-1">
+                    		<a href="/approval/approval_main.go">
                     		<h4 class="apv-title">
                     			전자 결재
                     		</h4>
+                    		</a>
                     	</li>
                     	
                     	<li class="nav-item mb-1">
@@ -892,6 +894,12 @@
             flatpickrDate.flatpickr({
                 monthSelectorType: 'static',
                 disable: [
+                	function(date) {
+                        var today = new Date();
+                        today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
+
+                        return date > today;
+                    },
                     function(date) {
                         // 주말 비활성화 (0: 일요일, 6: 토요일)
                         return (date.getDay() === 0 || date.getDay() === 6);
@@ -904,6 +912,12 @@
             flatpickrDateBefore.flatpickr({
                 monthSelectorType: 'static',
                 disable: [
+                	function(date) {
+                        var today = new Date();
+                        today.setHours(0, 0, 0, 0); // 오늘 자정으로 설정
+
+                        return date > today;
+                    },
                     function(date) {
                         // 주말 비활성화 (0: 일요일, 6: 토요일)
                         return (date.getDay() === 0 || date.getDay() === 6);

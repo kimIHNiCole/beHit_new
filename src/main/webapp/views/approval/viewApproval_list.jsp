@@ -268,7 +268,7 @@
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
                 	<h4 class="apv-home">
-                		결재 요청 받은 문서
+                		열람 가능한 문서 리스트
                 	</h4>
                   <div class="tab-content p-0">
                     <!-- Store Details Tab -->
