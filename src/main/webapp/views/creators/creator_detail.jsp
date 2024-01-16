@@ -832,7 +832,7 @@ width: 20rem;
     }
     
     
-  //리스트 받기 실행 함수
+  	//리스트 받기 실행 함수
     function drawOrg(orgList, deptKind) {
         		console.log('orgList', orgList);
         		console.log('deptKind',deptKind);

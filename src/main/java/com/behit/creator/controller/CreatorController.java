@@ -272,12 +272,15 @@ public class CreatorController {
 			ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(cre_idx);
 			ArrayList<SnsDTO> snsList = creatorService.getSns(cre_idx);
 			List<CreatorDTO> creatorPermList = creatorService.creatorPermList(cre_idx);
+			
 	
 			mav.addObject("creatorPermList", creatorPermList);
 			mav.addObject("creatorInfo", creatorInfo);
 			mav.addObject("channelInfoList", channelInfoList);
 			mav.addObject("creatorHistory", creatorHistory);
 			mav.addObject("snsList", snsList);
+			
+			
 	
 	
 			mav.setViewName("creators/creator_detail");
