@@ -1861,18 +1861,7 @@
 		                    $('#apvStmt').val('임시저장');
 		                    // 폼 데이터 전송
 		                    $('#approvalForm').submit();
-		
 		                    // 상신이 성공하면 SweetAlert으로 완료 메시지를 띄우고 페이지를 이동
-		                    Swal.fire({
-		                        icon: 'success',
-		                        title: '완료',
-		                        text: '문서가 임시저장되었습니다.',
-		                        customClass: {
-		                            confirmButton: 'btn btn-success'
-		                        }
-		                    }).then(function () {
-		                        window.location.href = '/approval/temporaryApproval_list.go';
-		                    });
 		                }
 		            });
 		        };
