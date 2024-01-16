@@ -903,10 +903,12 @@
   	        processData: false,
   	        success: function (imageUploadResponse) {
                 console.log('이미지 업로드 성공!', imageUploadResponse);
+                
                 location.replace('/creators/creatorList.go');
             },
   	        error: function (imageUploadError) {
                 console.error('이미지 업로드 실패:', imageUploadError);
+                
             }
   	    });
   	}
