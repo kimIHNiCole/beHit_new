@@ -208,7 +208,7 @@
       </a>
     </li> 
     <c:choose>
-    	<c:when test="${sessionScope.employee == 2}">
+    	<c:when test="${sessionScope.dept == 2 || sessionScope.position == 8}">
 			<li class="menu-item" id="employee">
 				<a href="javascript:void(0);" class="menu-link menu-toggle">
 					<i class="menu-icon tf-icons bx bx-user"></i>

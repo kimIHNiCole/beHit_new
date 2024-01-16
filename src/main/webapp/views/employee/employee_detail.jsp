@@ -252,7 +252,7 @@ img.rounded-top{
                             </div>
                             <div class="col-md-6">
                               <label class="form-label" for="detail-addr">상세 주소</label>
-                              <input type="text" id="detail-addr" name="detail_addr" class="form-control" value="${empdetail.detail_addr}" />
+                              <input type="text" id="detail_addr" name="detail_addr" class="form-control" value="${empdetail.detail_addr}" />
                             </div>
                             <div class="mb-3 col-md-6">
 	                            <label for="hiredate" class="form-label">입사일</label>
@@ -382,40 +382,6 @@ img.rounded-top{
 	       		</div>
             </div>
             <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  Â©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with â¤ï¸ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://themeselection.com/support/"
-                    target="_blank"
-                    class="footer-link d-none d-sm-inline-block"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
-
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -460,6 +426,28 @@ img.rounded-top{
 	                 }
 	             }).open();
 	         });
+	 		
+	         var position = '${sessionScope.position}';
+	         var dept = '${sessionScope.dept}';
+	         console.log(position);
+	         console.log(dept);
+	 		
+	         if (position === '8' && dept != '2') {
+	        	 
+	             $('#emp_name').prop('disabled', true);
+	             $('#password').prop('disabled', true);
+	             $('#cp_phone').prop('disabled', true);
+	             $('#mobile_phone').prop('disabled', true);
+	             $('#emp_birth').prop('disabled', true);
+	             $('#email').prop('disabled', true);
+	             $('#address').prop('disabled', true);
+	             $('#detail_addr').prop('disabled', true);
+	             $('#hiredate').prop('disabled', true);
+	             $('#leavedate').prop('disabled', true);
+	             $('#department').prop('disabled', true);
+	             $('#position').prop('disabled', true);
+	             $('#grade').prop('disabled', true);
+	         }
 	 	});
     
     

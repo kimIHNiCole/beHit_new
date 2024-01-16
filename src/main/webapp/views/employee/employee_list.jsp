@@ -268,6 +268,9 @@
              buttonsStyling: false
            });
      }
+    
+    var dept = '${sessionScope.dept}';
+    console.log(dept);
 	
 	
 	// fshowPage = 첫번째 탭, sshowPage = 두번째 탭
@@ -331,7 +334,7 @@
 			fcontent +='<td>'+item.position_name+'</td>'
 			fcontent +='<td>'+item.grade_name+'</td>'
 			fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
-			fcontent += '</tr>';
+			fcontent += '</tr>';		
 		});
 		$('#eflist').empty();
 		$('#eflist').append(fcontent);

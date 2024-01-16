@@ -90,7 +90,7 @@
                   		<div class="card mb-4">
                     		<h5 class="card-header">직원 등록</h5>
                     		<!-- Account -->
-                      		<form id="formAccountSettings" action="empadd.do" method="post" enctype="multipart/form-data">
+                      		
 							<div class="card-body">
 								<div class="d-flex align-items-start align-items-sm-center gap-4">
 			                        <img
@@ -104,6 +104,7 @@
 	                         			<label for="uploadFile" class="btn btn-label-secondary account-image-reset mb-4">Upload new photo</label>
 		                            	<input type="file" name="uploadFile" id="uploadFile" style="display: none;" onchange="previewImage(event)" accept=".jpg, .jpeg, .gif, .png"/>
 		                            	<i class="bx bx-upload d-block d-sm-none"></i>
+		                            	<button class="btn btn-label-secondary account-image-reset mb-4" style="margin-left: 10px;">아이디 중복 검사</button>
 	                          			<p class="text-muted mb-0">.jpg, .jpeg, .png, .gif 확장자만 추가할 수 있고 최대 사이즈는 1MB입니다</p>
 	                        		</div>
 	                      		</div>
@@ -193,8 +194,8 @@
 		                        	</div>
 		                        	<!-- forEach 리스트로 출력 -->
 	                            	<div class="mb-3 col-md-6">
-	                            		<label class="form-label" for="position">직급</label>
-	                            		<select id="rank" class="select2 form-select" name="emp_grade_idx">
+	                            		<label class="form-label" for="grade">직급</label>
+	                            		<select id="grade" class="select2 form-select" name="emp_grade_idx">
 	                              			<option value=""></option>
 	                              			<option value="1">대표</option>
 	                              			<option value="2">이사</option>
@@ -211,8 +212,8 @@
 	                       			</div>
 	                         		<!-- forEach 리스트로 출력 -->
 	                         		<div class="mb-3 col-md-6">
-	                            		<label for="job" class="form-label">직책</label>
-	                            		<select id="job" class="select2 form-select" name="emp_position_idx">
+	                            		<label for="position" class="form-label">직책</label>
+	                            		<select id="position" class="select2 form-select" name="emp_position_idx">
 			                            	<option value=""></option>
 			                            	<option value="8">팀장</option>
 			                              	<option value="9">팀원</option>
@@ -221,11 +222,10 @@
 	                          		</div>    
 	                        		</div>
 		                        	<div class="mt-2">
-		                          		<button type="submit" class="btn btn-primary me-2">직원 등록</button>
+		                          		<button type="button" class="btn btn-primary me-2" id="empadd">직원 등록</button>
 		                          		<button type="reset" class="btn btn-label-secondary" onclick="back()">등록 취소 </button>
 		                        	</div>
                 			</div>
-                      	</form>
                			</div>
                			</div>
                			
@@ -273,6 +273,7 @@
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+    var idChk = true;
     var msg = '<%= request.getParameter("msg") %>';
     console.log(msg);
 
@@ -332,6 +333,255 @@
 	    function back(){
 	    	window.location.href = '/employee/employee_list.go';
 	    }
+	    
+	    $('#empadd').on('click', function(){
+	    	
+	    	Swal.fire({
+    	        text: '직원을 등록하시겠습니까?',
+    	        icon: 'warning',
+    	        showCancelButton: true,
+    	        confirmButtonText: 'OK',
+    	        customClass: {
+    	        	confirmButton: 'btn btn-primary me-3',
+    	        	cancelButton: 'btn btn-label-secondary'
+    	        },
+    	        buttonsStyling: false
+    	    }).then(function() {  	
+	    	
+	    	var fileInput = document.getElementById('uploadFile');
+	    	var emp_id = $("#emp_id");
+	        var password = $("#password");
+	        var email = $("#email");
+	        var emp_name = $("#emp_name");
+	        var cp_phone = $("#cp_phone");
+	        var address = $("#address");
+	        var mobile_phone = $("#mobile_phone");
+	        var detail_addr = $("#detail_addr");
+	        var department = $("#department");
+	        var hiredate = $("#hiredate");
+	        var emp_birth = $("#emp_birth");
+	        var grade = $("#grade");
+	        var position = $("#position");
+	        
+	        if (idChk){
+	        	if (!fileInput.files.length){
+	        		Swal.fire({
+		    	        text: '사진을 추가해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    });
+	        	} else if (emp_id.val() == ''){
+		    	    Swal.fire({
+		    	        text: '아이디를 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#emp_id').focus();
+		    	    });
+		    	} else if (password.val() == '') {
+		    		Swal.fire({
+		    	        text: '비밀번호를 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#password').focus();
+		    	    });
+		    	} else if (email.val() == '') {
+		    		Swal.fire({
+		    	        text: '이메일을 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#email').focus();
+		    	    });
+		    	} else if (emp_name.val() == '') {
+		    		Swal.fire({
+		    	        text: '이름을 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#emp_name').focus();
+		    	    });
+		    	} else if (cp_phone.val() == '') {
+		    		Swal.fire({
+		    	        text: '사내 전화번호를 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#cp_phone').focus();
+		    	    });
+		    	} else if (address.val() == '') {
+		    		Swal.fire({
+		    	        text: '주소를 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#address').focus();
+		    	    });
+		    	} else if (mobile_phone.val() == '') {
+		    		Swal.fire({
+		    	        text: '휴대폰 번호를 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#mobile_phone').focus();
+		    	    });
+		    	} else if (detail_addr.val() == '') {
+		    		Swal.fire({
+		    	        text: '상세주소를 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#detail_addr').focus();
+		    	    });
+		    	} else if (department.val() == '') {
+		    		Swal.fire({
+		    	        text: '부서를 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#department').focus();
+		    	    });
+		    	} else if (hiredate.val() == '') {
+		    		Swal.fire({
+		    	        text: '입사일을 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#hiredate').focus();
+		    	    });
+		    	} else if (emp_birth.val() == '') {
+		    		Swal.fire({
+		    	        text: '생일을 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#emp_birth').focus();
+		    	    });
+		    	} else if (grade.val() == '') {
+		    		Swal.fire({
+		    	        text: '직급을 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#grade').focus();
+		    	    });
+		    	} else if (position.val() == '') {
+		    		Swal.fire({
+		    	        text: '직책을 입력해 주세요',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	        $('#position').focus();
+		    	    });
+		    	} else {
+		    		
+		    	    var formData = new FormData();
+		    	    var fileInput = document.getElementById('uploadFile');
+		    	    
+		    	    formData.append('uploadFile', fileInput.files[0]);
+		    		
+		            formData.append('emp_id', emp_id.val());
+		            formData.append('password', password.val());
+		            formData.append('emp_name', emp_name.val());
+		            formData.append('cp_phone', cp_phone.val());
+		            formData.append('mobile_phone', mobile_phone.val());
+		            formData.append('emp_birth', emp_birth.val());
+		            formData.append('email', email.val());
+		            formData.append('address', address.val());
+		            formData.append('detail_addr', detail_addr.val());
+		            formData.append('hiredate', hiredate.val());
+		            formData.append('emp_dept_idx', department.val());
+		            formData.append('emp_position_idx', position.val());
+		            formData.append('emp_grade_idx', grade.val());
+		    		
+		    		 $.ajax({
+		    	        type: 'POST',
+		    	     	url: '/empadd.do', 
+		    	        data: formData,
+		    	        dataType: 'json',
+		    	        enctype : 'multipart/form-data',
+		    	        contentType : false,
+		    	        processData: false,
+		    	        success: function(data) {
+		    	        	console.log(data);
+		    	        	location.href = './';
+				    		
+		    	        },
+		    	        error: function(e) {
+		    	        	console.log(e);
+		    	        }
+		    	     });
+		    	}
+		    	
+	        } else {
+	        	Swal.fire({
+	    	        text: '아이디 중복체크를 해주세요!',
+	    	        icon: 'warning',
+	    	        customClass: {
+	    	            confirmButton: 'btn btn-primary'
+	    	        },
+	    	        buttonsStyling: false
+	    	    });
+	        }
+	    });
+	    });
+	    
     </script>
 	<!-- Header JS -->
     <script src="../../assets/js/header.js"></script>   

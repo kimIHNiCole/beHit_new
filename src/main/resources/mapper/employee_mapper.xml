@@ -11,7 +11,7 @@
 			(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr}, #{emp_dept_idx}, #{emp_position_idx} ,#{emp_grade_idx}, #{login_id}, #{login_id});
 	</insert>
 	
-	<select id="eflist" resultType="com.behit.employee.dto.EmployeeDTO">
+	<select id="eflistall" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT 
 			e.emp_id, 
 			e.emp_name, 
@@ -32,6 +32,30 @@
 			JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
 			JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
 		WHERE emp_id NOT IN ('master') AND leavedate = '9999-10-10' LIMIT 10 offset #{offset};
+	</select>
+	
+	<select id="eflist" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT 
+			e.emp_id, 
+			e.emp_name, 
+			d.emp_dept_name AS 'dept_name',
+			cc_grade.common_code_name AS 'grade_name',
+			cc_position.common_code_name AS 'position_name',
+			COALESCE(
+		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
+		        'default'
+		    ) AS ori_file_name,
+		    COALESCE(
+		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
+		        'default'
+		    ) AS new_file_name
+		FROM 
+			employee e
+			JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+			JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
+			JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+		WHERE emp_id NOT IN ('master') AND leavedate = '9999-10-10' AND e.emp_dept_idx = #{login_dept}
+		LIMIT 10 offset #{offset};
 	</select>
 	
 	<select id="eslist" resultType="com.behit.employee.dto.EmployeeDTO">
@@ -58,7 +82,8 @@
 	</select>
 	
 	<select id="ftotalPage" resultType="int">
-   		SELECT CEIL(COUNT(emp_id)/#{param1}) AS pages FROM employee WHERE emp_id NOT IN ('master');
+   		SELECT CEIL(COUNT(emp_id)/10) AS pages FROM employee WHERE emp_id NOT IN ('master')
+   		<if test="login_dept != 2">AND emp_dept_idx = #{login_dept}</if>;
     </select>
     
     <select id="stotalPage" resultType="int">

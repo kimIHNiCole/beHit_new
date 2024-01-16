@@ -13,11 +13,13 @@ public interface EmployeeDAO {
 
 	int join(HashMap<String, Object> params);
 
-	ArrayList<EmployeeDTO> eflist(int pn);
+	ArrayList<EmployeeDTO> eflist(int offset, int login_dept);
 	
 	ArrayList<EmployeeDTO> eslist(int pn);
 	
-	int ftotalPage(int pn);
+	ArrayList<EmployeeDTO> eflistall(int offset);
+	
+	int ftotalPage(int login_dept);
 	int stotalPage(int pn);
 
 	EmployeeDTO detail(String emp_id);
@@ -45,6 +47,7 @@ public interface EmployeeDAO {
 	void chkClear(String emp_id);
 
 	void defaultwork(String emp_id, String day, String workstart, String workend);
+
 
 
 
