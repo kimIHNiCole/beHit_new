@@ -418,6 +418,7 @@
                 ],
                 language: {
                     url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/' + lang + '.json'
+                    ,emptyTable: '리스트가 없습니다'  // 빈 데이터 상태에 대한 메시지
                 },
                 displayLength: 10,
                 dom: '<"row"<"col-sm-12 col-md-6"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',

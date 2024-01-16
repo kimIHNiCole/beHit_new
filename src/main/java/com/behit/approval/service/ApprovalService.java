@@ -1,5 +1,9 @@
 package com.behit.approval.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -25,12 +29,19 @@ import com.behit.approval.dto.ApprovalDTO;
 import com.behit.employee.dto.EmployeeDTO;
 import com.behit.employee.dto.VacationDTO;
 import com.behit.employee.dto.WorkDTO;
+import com.behit.project.dto.ProjectFileDTO;
+import com.behit.util.dto.UtilDTO;
 import com.behit.util.service.UtilService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class ApprovalService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
+	
+	private String root = "C:/upload/";	
 	
 	@Autowired
 	ApprovalDAO dao;
@@ -118,29 +129,29 @@ public class ApprovalService {
 		    logger.info("TotalName is empty or null");
 		    // 또는 다른 로직 수행
 		}
+	
 		
+		HashMap<String, Object> file = new HashMap<String, Object>();
 		
-//		HashMap<String, Object> file = new HashMap<String, Object>();
-//		
-//		file.put("file_kind", 3);
-//		file.put("login_id", emp_id);
-//		file.put("apv_idx", String.valueOf(apv_idx));
-//		
-//		UtilService service = new UtilService();
-//		
-//		for (MultipartFile multipartFile : files) {
-//			try {
-//				service.upload(multipartFile,file);
-//				Thread.sleep(1);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
+		file.put("file_kind", 3);
+		file.put("login_id", emp_id);
+		file.put("apv_idx", apv_idx);
+		
+		for (MultipartFile multipartFile : files) {
+			try {
+				upload(multipartFile,file);
+				Thread.sleep(1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		return "approval/approval_main";
 	}
 	
+
+
 	public String approval_update(EmployeeDTO loginInfo, ApprovalDTO dto, MultipartFile[] files) {
 		
 		int apv_idx = dto.getApv_idx();
@@ -148,6 +159,8 @@ public class ApprovalService {
 		String apv_code = dto.getApv_code();
 		String total_name = dto.getTotal_name();
 		String emp_id = loginInfo.getEmp_id();
+		
+		logger.info("!!total_name :"+total_name);
 		
 		
 		if(apv_code.equals("BFVC") || apv_code.equals("AFVC")) {
@@ -166,9 +179,6 @@ public class ApprovalService {
 				setVacationTime(dto);
 				dto.setApv_start_time(dto.getApv_start_time().replace(",", ""));
 				dto.setApv_end_time(dto.getApv_end_time().replace(",", ""));
-				
-				logger.info("뭐가 문제죠 :" +dto.getApv_start_time());
-				logger.info("뭐가 문제죠 :" +dto.getApv_end_time());
 				
 				setVacationTime(dto);
 				dto.setApv_start_day("");
@@ -190,9 +200,73 @@ public class ApprovalService {
 			
 		}
 		
+		// 만약 지울 파일이 있으면
+		if(dto.getApv_file() != null && !dto.getApv_file().isEmpty()) {
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			List<String> delUpfileList = null;
+			try {
+				delUpfileList = objectMapper.readValue(dto.getApv_file(), new TypeReference<List<String>>() {});
+				if(delUpfileList != null) { // 파일 삭제
+					for (String delF : delUpfileList) {
+						logger.info("삭제할 파일: {}", delF);
+						int file_idx = Integer.parseInt(delF);
+						dao.fileDel(file_idx);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		HashMap<String, Object> file = new HashMap<String, Object>();
+		
+		file.put("file_kind", 3);
+		file.put("login_id", emp_id);
+		file.put("apv_idx", apv_idx);
+		
+		for (MultipartFile multipartFile : files) {
+			try {
+				upload(multipartFile,file);
+				Thread.sleep(1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		return "approval/approval_main";
 	}
+	
+	// 파일 업로드 메서드
+	private void upload(MultipartFile uploadFile, HashMap<String, Object> file) {
+		String ori_file_name = uploadFile.getOriginalFilename(); // 파일명 추출
+		String ext = ori_file_name.substring(ori_file_name.lastIndexOf(".")); // 확장자 추출
+		String new_file_name = System.currentTimeMillis()+ext; // 새 파일명 생성 + 확장자
+		
+		String sub = "approval/";
+		String file_kind_idx = String.valueOf(file.get("apv_idx"));
+		
+		byte[] bytes;
+		
+		try {
+			bytes = uploadFile.getBytes();
+			Path path = Paths.get(root+sub+new_file_name);
+			Files.write(path, bytes);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		file.put("file_kind_idx", file_kind_idx);
+		file.put("ori_file_name", ori_file_name);
+		file.put("new_file_name", new_file_name);
+		
+		dao.upload(file);
+		
+	}
+	
 	
 
 	// apv_line 테이블에 데이터 insert 메서드
@@ -324,8 +398,21 @@ public class ApprovalService {
 		apv.setApv_idx(Integer.parseInt(apv_idx));
 		
 		if(apv.getApv_stmt().equals("임시저장")) {
+			
 			mav = new ModelAndView("approval/temporaryApproval_detail");
+			
+			ArrayList<UtilDTO> detailFile = dao.approval_file(apv_idx);
+			
 			mav.addObject("form_type","update");
+			
+			if(detailFile != null) {
+				mav.addObject("detailFile", detailFile);
+			}
+			
+			if(apv.getApv_approver() == null) {
+				mav.addObject("temporaryTotalName","null");
+			}
+			
 		}else {
 			mav.addObject("form_type","detail");
 		}
@@ -671,6 +758,23 @@ public class ApprovalService {
 	    // 필요한 경우 메시지를 포함한 결과를 반환할 수 있습니다.
 	    return result;
 		
+	}
+
+
+
+	public ArrayList<UtilDTO> approval_file(String apv_idx) {
+		return dao.approval_file(apv_idx);
+	}
+
+	public HashMap<String, Object> temporary_apv_del(String apv_idx) {
+		
+	HashMap<String, Object> map = new HashMap<String, Object>();
+				
+	dao.temporary_apv_del(apv_idx);
+				
+	map.put("msg","문서가 삭제되었습니다.");
+	
+	return map;
 	}
 
 
