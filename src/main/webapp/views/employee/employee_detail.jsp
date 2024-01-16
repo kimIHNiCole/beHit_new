@@ -415,7 +415,7 @@ img.rounded-top{
               </div>
             </footer>
             <!-- / Footer -->
-
+			<jsp:include page="/views/todo_include.jsp" />
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->

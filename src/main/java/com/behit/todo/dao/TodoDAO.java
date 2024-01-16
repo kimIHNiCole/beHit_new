@@ -20,6 +20,8 @@ public interface TodoDAO {
 	void todocheckf(String todoIdx);
 
 	ArrayList<TodoDTO> todohistory(String emp_id);
+
+	int todohide(String todoIdx);
 	
 	
 	
