@@ -389,7 +389,7 @@
 														<option>과학</option>
 														<option>영화</option>
 														<option>음악</option>
-														<option>스포츠</option>
+														<option>운동</option>
 														<option>FUN</option>
 														<option>교육</option>
 														<option>사회</option>
@@ -573,7 +573,7 @@
               </div>
             </div>
             <!-- / Content -->
-
+			<jsp:include page="/views/todo_include.jsp" />
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -867,7 +867,7 @@
       		console.log("textStatus : ",textStatus);
       		if(jqXHR.status == 200){
       			// 서버 응답 성공 시 이미지를 업로드
-      			var cre_idx = data;
+      			var cre_idx = data.cre_idx;
                 uploadImage(imageFile, cre_idx);
       		}
       	},

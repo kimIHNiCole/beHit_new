@@ -217,8 +217,21 @@
 		WHERE cp.emp_id = #{loginId} AND cp.cre_idx = #{cre_idx};
 	</select>
 	
-	<select id="getCrePerm">
-		SELECT * FROM creator_perm cp WHERE emp_id = #{loginId};
+	<!-- 권한 가져오기 -->
+	<!-- 매니지먼트 팀장 체크 -->	
+	<select id="leaderChk" parameterType="String" resultType="boolean">
+		SELECT COUNT(*) FROM employee e 
+		WHERE emp_dept_idx = 6 
+		AND emp_position_idx = 8 
+		AND emp_id = #{loginId}
+	</select>
+	<!-- 담당매니저 체크 -->
+	<select id="getCrePermForMng" parameterType="String" resultType="creatorperm">
+		SELECT emp_id AS perm_emp_id, cre_idx AS perm_cre_idx FROM creator WHERE emp_id = #{loginId};
+	</select>
+	<!-- 권한 부여받은 직원 -->
+	<select id="getCrePerm" parameterType="String" resultType="creatorperm">
+		SELECT emp_id AS perm_emp_id, cre_idx AS perm_cre_idx FROM creator_perm WHERE emp_id = #{loginId};
 	</select>
 	
 </mapper>

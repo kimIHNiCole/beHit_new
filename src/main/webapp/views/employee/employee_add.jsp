@@ -222,15 +222,15 @@
 	                        		</div>
 		                        	<div class="mt-2">
 		                          		<button type="submit" class="btn btn-primary me-2">직원 등록</button>
-		                          		<button type="reset" class="btn btn-label-secondary">등록 취소 </button>
+		                          		<button type="reset" class="btn btn-label-secondary" onclick="back()">등록 취소 </button>
 		                        	</div>
                 			</div>
                       	</form>
                			</div>
+               			<jsp:include page="/views/todo_include.jsp" />
                			</div>
                			
             <!-- / Content -->
-
             <div class="content-backdrop fade"></div>
           	</div>
           	<!-- Content wrapper -->
@@ -327,6 +327,10 @@
 
 	            reader.readAsDataURL(input.files[0]);
 	        }
+	    }
+	    
+	    function back(){
+	    	window.location.href = '/employee/employee_list.go';
 	    }
     </script>
 	<!-- Header JS -->

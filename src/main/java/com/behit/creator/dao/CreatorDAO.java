@@ -54,8 +54,11 @@ public interface CreatorDAO {
 	boolean permChk2(HashMap<String, Object> permChkParam);
 	boolean permChk3(HashMap<String, Object> permChkParam);
 	
+	// 팀장 체크
+	boolean leaderChk(String loginId);
+	// 담당 매니저 체크
+	ArrayList<CreatorPermDTO> getCrePermForMng(String loginId);
 	// 로그인 id 별 크리에이터 권한 리스트 가져오기
 	ArrayList<CreatorPermDTO> getCrePerm(String loginId);
-	
 
 }

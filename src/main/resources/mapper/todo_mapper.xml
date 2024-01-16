@@ -7,7 +7,7 @@
 	<select id="todoList" resultType="todo">
 		SELECT *,
 			(SELECT COUNT(todo_idx) FROM todo WHERE todo_state = 'N' AND emp_id=#{param1}) AS todoN
-		FROM todo WHERE emp_id=#{param1} AND todo_state = 'N' ORDER BY todo_idx DESC
+		FROM todo WHERE emp_id=#{param1} AND todo_hidden='N' ORDER BY todo_idx DESC
 	</select>
 	
 	<select id="todohistory" resultType="todo">
@@ -34,8 +34,13 @@
 	<update id="todocheckf">
 		UPDATE todo SET
 			todo_state = 'N',
-			todo_update = now()
+			todo_update = now(),
+			todo_hidden = 'N'
         WHERE todo_idx = #{param1}
+	</update>
+	
+	<update id="todohide">
+		UPDATE todo SET todo_hidden = 'Y' WHERE todo_idx = #{param1}
 	</update>
 
 </mapper>

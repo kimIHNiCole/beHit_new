@@ -363,7 +363,6 @@ public class CreatorService {
 		if(!permChk2) {
 			permChk3 = creatorDAO.permChk3(permChkParam);
 		}
-		
 		if(permChk1 || permChk2 || permChk3) {
 			return true;
 		}
@@ -373,7 +372,18 @@ public class CreatorService {
 	// 크리에이터 리스트에 보여줄 권한
 	public ArrayList<CreatorPermDTO> getCrePerm(String loginId) {
 		logger.info("로그인 id 별 크리에이터 권한 리스트 요청");
-		return creatorDAO.getCrePerm(loginId);
+		ArrayList<CreatorPermDTO> crePermList = creatorDAO.getCrePerm(loginId);
+		return crePermList;
+	}
+
+	public boolean leaderChk(String loginId) {
+		logger.info("팀장인지 권한 체크 요청");
+		return creatorDAO.leaderChk(loginId);
+	}
+
+	public ArrayList<CreatorPermDTO> getCrePermForMng(String loginId) {
+		logger.info("담당자인지 권한 체크 요청");
+		return creatorDAO.getCrePermForMng(loginId);
 	}
 	
 	

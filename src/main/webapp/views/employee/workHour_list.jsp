@@ -278,7 +278,7 @@
 <!-- / Content -->
 
            
-
+			<jsp:include page="/views/todo_include.jsp" />
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
@@ -525,18 +525,16 @@
      		var content = "";
      		
      		obj.list.forEach(function(item, idx){
-     			content +='<tr>';
-     			content +='<td>'+item.work_day+'</td>';
-     			content +='<td>'+item.work_start+'~'+item.work_end+'</td>';
-     			if (item.vaca_start == '-'){
-     				content +='<td>'+'-'+'</td>';
-     			} else{
-     				content +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+     			if (item.doc_code !== '-'){
+	     			content +='<tr>';
+	     			content +='<td>'+item.work_day+'</td>';
+	     			content +='<td>'+item.work_start+'~'+item.work_end+'</td>';
+	     			content +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+	     			content +='<td>'+item.work_started+'</td>';
+	     			content +='<td>'+item.work_ended+'</td>';
+	     			content +='<td>'+item.work_state+'</td>';
+	     			content +='</tr>';
      			}
-     			content +='<td>'+item.work_started+'</td>';
-     			content +='<td>'+item.work_ended+'</td>';
-     			content +='<td>'+item.work_state+'</td>';
-     			content +='</tr>';
      		});
      		$('#modalfList').empty();
      		$('#modalfList').append(content);

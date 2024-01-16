@@ -207,6 +207,7 @@
     			</div>
 			</div>
 			<!-- / Content -->
+			<jsp:include page="/views/todo_include.jsp" />
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
