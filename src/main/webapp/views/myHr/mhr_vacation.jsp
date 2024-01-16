@@ -231,7 +231,7 @@
                     			<td>${usingList.emp_name}</td>
                     			<td>${usingList.emp_dept_name}</td>
                     			<td>${usingList.use_hour}</td>
-                    			<td>${usingList.startDate} ${usingList.startTime} ~ ${usingList.endDate} ${usingList.endTime}</td>
+                    			<td>${usingList.vaca_start} ~ ${usingList.vaca_end_time}</td>
                     			<td>${usingList.vaca_reason}</td>
                     		</tr>
                     	</c:forEach>

@@ -109,28 +109,8 @@
 						    <button type="submit" class="btn btn-primary" id="workbutton">등록</button>
 						</form>
 					  </div>
-					  <div class="app-calendar-events-filter" style="display: none;">
-                        <div class="form-check form-check-danger mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-personal"
-                            data-value="personal"
-                            checked />
-                          <label class="form-check-label" for="select-personal">내 일정</label>
-                        </div>
-                        <div class="form-check mb-2">
-                          <input
-                            class="form-check-input input-filter"
-                            type="checkbox"
-                            id="select-business"
-                            data-value="business"
-                            checked />
-                          <label class="form-check-label" for="select-business">프로젝트 일정</label>
-                        </div>
-                      </div>
 						<br/>
-                      <div class="mb-1" id="selecdate" style="display:none;">
+                      <div class="mb-1" id="selecdate" style="visibility: hidden;">
                         <small class="text-small text-muted text-uppercase align-middle" 
                         	id="selectedDateText" >근무시간 선택일(<span id="selectdate">선택일값</span>)변경</small>
 						  <div class="form-check mb-2" style="padding-left: 0; display: flex; align-items: center; white-space: nowrap;">
@@ -146,6 +126,28 @@
 							    <button type="submit" class="btn btn-primary">변경</button>
 						  	</form>
 						  </div>
+                      </div>
+                      <div class="app-calendar-events-filter">
+                        <div class="form-check form-check-danger mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-personal"
+                            data-value="personal"
+                            checked
+                            disabled />
+                          <label class="form-check-label" for="select-personal">내 일정</label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input
+                            class="form-check-input input-filter"
+                            type="checkbox"
+                            id="select-business"
+                            data-value="business"
+                            checked
+                            disabled />
+                          <label class="form-check-label" for="select-business">프로젝트 일정</label>
+                        </div>
                       </div>
                     </div>
                   </div>

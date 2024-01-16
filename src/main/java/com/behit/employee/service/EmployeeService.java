@@ -24,16 +24,24 @@ public class EmployeeService {
 		return employeeDAO.join(params);
 	}
 
-	public HashMap<String, Object> flist(String page) {
+	public HashMap<String, Object> flist(String page, int login_dept) {
 		
 		int p = Integer.parseInt(page);
 		
 		int offset = (p-1) * 10;	
 		
-		ArrayList<EmployeeDTO> eflist = employeeDAO.eflist(offset);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		int pages = employeeDAO.ftotalPage(10);
+		if (login_dept == 2) {
+			ArrayList<EmployeeDTO> eflistall = employeeDAO.eflistall(offset);
+			map.put("eflist", eflistall);
+		} else {
+			ArrayList<EmployeeDTO> eflist = employeeDAO.eflist(offset, login_dept);
+			map.put("eflist", eflist);
+		}
+		
+		
+		int pages = employeeDAO.ftotalPage(login_dept);
 		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		
 		if (p > pages) {
@@ -42,7 +50,7 @@ public class EmployeeService {
 		
 		map.put("currPage", p);
 		map.put("pages", pages);
-		map.put("eflist", eflist);
+		
 		
 		return map;
 	}
@@ -144,6 +152,11 @@ public HashMap<String, Object> slist(String page) {
 	public void defaultwork(String emp_id, String day, String workstart, String workend) {
 		employeeDAO.defaultwork(emp_id, day, workstart, workend);
 		
+	}
+
+	public boolean idChk(String emp_id) {
+		
+		return employeeDAO.idChk(emp_id);
 	}
 
 }

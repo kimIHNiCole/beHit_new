@@ -11,6 +11,30 @@
 			(#{emp_id}, #{emp_name}, #{password}, #{emp_birth}, #{email}, #{cp_phone}, #{mobile_phone}, #{address}, #{detail_addr}, #{emp_dept_idx}, #{emp_position_idx} ,#{emp_grade_idx}, #{login_id}, #{login_id});
 	</insert>
 	
+	<select id="eflistall" resultType="com.behit.employee.dto.EmployeeDTO">
+		SELECT 
+			e.emp_id, 
+			e.emp_name, 
+			d.emp_dept_name AS 'dept_name',
+			cc_grade.common_code_name AS 'grade_name',
+			cc_position.common_code_name AS 'position_name',
+			COALESCE(
+		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
+		        'default'
+		    ) AS ori_file_name,
+		    COALESCE(
+		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
+		        'default'
+		    ) AS new_file_name
+		FROM 
+			employee e
+			JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+			JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
+			JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
+		WHERE emp_id NOT IN ('master') AND leavedate = '9999-10-10'
+		ORDER BY emp_date DESC LIMIT 10 offset #{offset};
+	</select>
+	
 	<select id="eflist" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT 
 			e.emp_id, 
@@ -31,7 +55,8 @@
 			JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 			JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
 			JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
-		WHERE emp_id NOT IN ('master') AND leavedate = '9999-10-10' LIMIT 10 offset #{offset};
+		WHERE emp_id NOT IN ('master') AND leavedate = '9999-10-10' AND e.emp_dept_idx = #{login_dept}
+		ORDER BY emp_date DESC LIMIT 10 offset #{offset};
 	</select>
 	
 	<select id="eslist" resultType="com.behit.employee.dto.EmployeeDTO">
@@ -54,11 +79,13 @@
 			JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 			JOIN commons_code cc_position ON cc_position.common_code_idx = e.emp_position_idx
 			JOIN commons_code cc_grade ON cc_grade.common_code_idx = e.emp_grade_idx
-		WHERE emp_id NOT IN ('master') AND leavedate NOT IN ('9999-10-10') LIMIT 10 offset #{offset};
+		WHERE emp_id NOT IN ('master') AND leavedate NOT IN ('9999-10-10')
+		ORDER BY emp_date DESC LIMIT 10 offset #{offset};
 	</select>
 	
 	<select id="ftotalPage" resultType="int">
-   		SELECT CEIL(COUNT(emp_id)/#{param1}) AS pages FROM employee WHERE emp_id NOT IN ('master');
+   		SELECT CEIL(COUNT(emp_id)/10) AS pages FROM employee WHERE emp_id NOT IN ('master') AND leavedate = '9999-10-10'
+   		<if test="login_dept != 2">AND emp_dept_idx = #{login_dept}</if>;
     </select>
     
     <select id="stotalPage" resultType="int">
@@ -90,7 +117,7 @@ SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobil
 	
 	<select id="HisList" resultType="com.behit.employee.dto.EmployeeDTO">
 		SELECT psn_his_kind, psn_his_befoInfo, psn_his_aftrInfo, psn_his_date, category FROM personnel_history
-			WHERE emp_id = #{emp_id} ORDER BY psn_his_idx DESC;
+			WHERE emp_id = #{emp_id} AND psn_his_kind != '비밀번호 수정' ORDER BY psn_his_idx DESC;
 	</select>
 	
 	<select id="deptList" parameterType="String" resultType="com.behit.employee.dto.EmployeeDTO">
@@ -190,6 +217,7 @@ SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobil
 			VALUES
 			<trim prefix="(" suffix=")" suffixOverrides=",">
 				<if test="emp_name != null">#{emp_id}, '이름 수정', #{defaultname}, #{emp_name}, #{login_id}, '기본 정보',</if>
+				<if test="password != null">#{emp_id}, '비밀번호 수정', '-', '-', #{login_id}, '기본 정보',</if>
 				<if test="cp_phone != null">#{emp_id}, '사원번호 수정', #{defaultphone}, #{cp_phone}, #{login_id}, '기본 정보',</if>
 				<if test="mobile_phone != null">#{emp_id}, '휴대폰번호 수정', #{defaultmobile}, #{mobile_phone}, #{login_id}, '기본 정보',</if>
 				<if test="emp_birth != null">#{emp_id}, '생년월일 수정', #{defaultbirth}, #{emp_birth}, #{login_id}, '기본 정보',</if>
@@ -227,5 +255,9 @@ SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobil
 	<insert id="defaultwork">
 		INSERT INTO commute_history (emp_id, work_day, work_start_time, work_end_time)
 			VALUES (#{emp_id}, #{day}, #{workstart}, #{workend});
-	</insert>		
+	</insert>
+	
+	<select id="idChk" resultType="boolean">
+		SELECT COUNT(emp_id) FROM employee WHERE emp_id = #{emp_id}
+	</select>		
 </mapper>
