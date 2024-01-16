@@ -1148,7 +1148,7 @@ width: 20rem;
     	  return formattedDate;
       }
       
-      for(let i =0; i<dataList.length; i++){
+      for(let i =dataList.length-7; i<dataList.length; i++){
     	  const subs = dataList[i].subscriber;
     	  const view = dataList[i].views;
     	  const content = dataList[i].contents;
@@ -1160,6 +1160,7 @@ width: 20rem;
 	      dateList.push(date);
 	      viewTrendList.push(viewTrend);
       }
+      
       console.log('subList:',subList);
       console.log('viewList:',viewList);
       console.log('contentList:',contentList);
