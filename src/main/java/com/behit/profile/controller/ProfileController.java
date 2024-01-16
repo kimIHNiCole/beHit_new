@@ -39,7 +39,7 @@ public class ProfileController {
 		return profileService.detail(login_id);
 	}
 	
-	@PostMapping(value="/profile/passChange.do")
+	@GetMapping(value="/profile/passChange.do")
 	public String passChange(@RequestParam String password, HttpSession session, RedirectAttributes rAttr) {
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
@@ -52,13 +52,13 @@ public class ProfileController {
 		
 		if (same) {
 			logger.info("기존 비밀번호와 일치");
-			rAttr.addFlashAttribute("msg", "기존 비밀번호와 일치합니다.");
+			rAttr.addFlashAttribute("falsemsg", "기존 비밀번호와 일치합니다.");
 			return "redirect:/profile/profiledetail";
 		} else {
 			String hash = encoder.encode((CharSequence) password);
 			profileService.passChange(hash, login_id);
 			logger.info("비밀번호 변경 성공");
-			rAttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
+			rAttr.addFlashAttribute("successmsg", "비밀번호가 변경되었습니다.");
 			return "redirect:/";
 		}
 	}

@@ -11,11 +11,11 @@ public interface AlarmDAO {
 
 	ArrayList<AlarmDTO> alarmList(String login_id);
 
-	int deleteAlarm(String login_id, int alarmType, int alarmTypeIdx);
+	int deleteAlarm(String login_id, int alarmType, String alarmTypeIdx);
 
 	int deleteAllAlarms(String login_id);
 
-	int updateAlarmRead(String login_id, int alarmType, int alarmTypeIdx);
+	int updateAlarmRead(String login_id, int alarmType, String alarmTypeIdx);
 
 	int readAllAlarm(String login_id);
 

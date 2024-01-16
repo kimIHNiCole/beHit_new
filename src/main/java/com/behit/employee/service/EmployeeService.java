@@ -2,6 +2,7 @@ package com.behit.employee.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -139,4 +140,10 @@ public HashMap<String, Object> slist(String page) {
 	public void chkClear(String emp_id) {
 		employeeDAO.chkClear(emp_id);		
 	}
+
+	public void defaultwork(String emp_id, String day, String workstart, String workend) {
+		employeeDAO.defaultwork(emp_id, day, workstart, workend);
+		
+	}
+
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -123,6 +124,16 @@ public class DashBoardService {
 	public VacationDTO dashvaca(String login_id) {
 		
 		return dashDao.dashvaca(login_id);
+	}
+
+	public HashMap<String, Object> workTime(String loginId, String dateOnly) {
+		
+		return dashDao.workTime(loginId, dateOnly);
+	}
+
+	public int stateUpdate(String workState, String loginId, String dateOnly) {
+		
+		return dashDao.stateUpdate(workState, loginId, dateOnly);
 	}
 
 

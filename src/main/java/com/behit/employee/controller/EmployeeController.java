@@ -1,6 +1,11 @@
 package com.behit.employee.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -76,6 +81,16 @@ public class EmployeeController {
 			utilService.upload(uploadFile, file);	
 			
 			employeeService.join(params);
+			
+			LocalDate currentDate = LocalDate.now();
+			List<String> weekdaysList = calculateWeekdays(currentDate);
+			logger.info("weekdaysList : "+weekdaysList);
+			for (String day : weekdaysList) {
+				String workstart = day+" "+"09:00:00";
+				String workend = day+" "+"18:00:00";
+				employeeService.defaultwork(emp_id, day, workstart, workend);
+			}
+			
 			
 		} else {
 			rAttr.addAttribute("msg", "프로필 사진을 추가해 주세요!");
@@ -181,6 +196,23 @@ public class EmployeeController {
 		 
 		 return mav;
 	 }
+	 
+	    private List<String> calculateWeekdays(LocalDate startDate) {
+	        List<String> weekdaysList = new ArrayList<>();
+
+	        // 한 달 동안 반복
+	        for (int i = 0; i < 30; i++) {
+	            // 주말이 아니라면 리스트에 추가
+	            if (startDate.getDayOfWeek() != DayOfWeek.SATURDAY && startDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+	                weekdaysList.add(startDate.format(DateTimeFormatter.ISO_DATE));
+	            }
+
+	            // 다음 날짜로 이동
+	            startDate = startDate.plusDays(1);
+	        }
+
+	        return weekdaysList;
+	    }
 	 
 	 
 

@@ -38,6 +38,6 @@
 	
 	<insert id="lockCnkalarm">
 		INSERT INTO alarm (emp_id, alarm_type, alarm_type_idx, alarm_msg)
-			VALUES (#{emp_id}, 5, #{emp_id}, #{lockmsg})
+			VALUES ('Yoonyesoung', 5, #{emp_id}, #{lockmsg})
 	</insert>
 </mapper>

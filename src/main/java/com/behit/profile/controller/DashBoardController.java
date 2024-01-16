@@ -2,6 +2,7 @@ package com.behit.profile.controller;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,14 +52,13 @@ public class DashBoardController {
 		VacationDTO dashVaca = dashService.dashvaca(login_id);
 		FileDTO photo = dashService.getPhoto(login_id);
 		
-		// 유튜브 영상 리스트
-		ArrayList<HashMap<String, Object>> currentVideoList;
-		try {
-			currentVideoList = creatorStatService.getCurrentVideo();
-			model.addAttribute("currentVideoList", currentVideoList);
-		} catch (GeneralSecurityException | IOException e) {
-			e.printStackTrace();
-		}
+        ArrayList<HashMap<String, Object>> currentVideoList;
+        try {
+            currentVideoList = creatorStatService.getCurrentVideo();
+            model.addAttribute("currentVideoList", currentVideoList);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
 		
 		// 대시보드의 결재 리스트
 		List<ApprovalDTO> reqAp_list = dashService.reqAp_list(login_id);
@@ -118,11 +118,37 @@ public class DashBoardController {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
 	    String workEndedTime = sdf.format(new Date());
+	    
 	    boolean endCnk = dashService.endCnk(loginId);
+	    
 	    if (endCnk) {
 	    	result.put("msg", "이미 퇴근 상태입니다.");
 	    } else {
 	    	int workEnded=dashService.workEnded(loginId, workEndedTime);
+
+			try {
+				Date date = sdf.parse(workEndedTime);
+				SimpleDateFormat sdfDateOnly = new SimpleDateFormat("yyyy-MM-dd");
+				String dateOnly = sdfDateOnly.format(date);
+				HashMap <String, Object> workTime = dashService.workTime(loginId, dateOnly);
+				
+				int start_comparison = (int) workTime.get("start_comparison");
+				int end_comparison = (int) workTime.get("end_comparison");
+				
+
+				String workState = "미달";
+				
+				if (start_comparison == 1 || end_comparison == 1){
+					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
+				} else {
+					workState = "정상";
+					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);
+				}
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+            
 	    	result.put("workEnded", workEnded);
 	    	result.put("loginId", loginId);
 	    }

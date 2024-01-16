@@ -93,7 +93,8 @@
     font-size: 13px;
     }
     
-    #todoopenModal { /*내가추가*/
+    /*내가추가*/
+    /* #todoopenModal {
 	    position: absolute;
 	    top: 180px;
 	    left: 0;
@@ -136,8 +137,8 @@
 	    bottom: 0;
 	    left: auto;
 	    z-index: 2000;
-	}
-	/*여기까지내가추가*/
+	} */
+	/*여기까지은호추가*/
 	/* 여기는 내가 추가 */
 	table {
 
@@ -166,7 +167,7 @@
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-<jsp:include page="/views/header_navbar.jsp" />
+		<jsp:include page="/views/header_navbar.jsp" />
 
           <!-- / Navbar -->
           
@@ -425,11 +426,12 @@
                       </table>
                     </div>
                   </div>
+                  <jsp:include page="/views/todo_include.jsp" />
                   <!--/ Projects table -->
-                  <div id="template-customizer" class="invert-bg-white" style="visibility: visible">
+<!--                   <div id="template-customizer" class="invert-bg-white" style="visibility: visible">
 	                  <a id="todoopenModal" ></a>
                   </div>
-	              <div id="todoListModal"></div>
+	              <div id="todoListModal"></div> -->
                 </div>
               </div>
               <!--/ User Profile Content -->
@@ -667,11 +669,11 @@ $('.videoTitle').each(function() {
          document.getElementById('currentDateTime').textContent = formattedDateTime;
      }
      
-	$('#todoopenModal').click(function (e) {
+/* 	$('#todoopenModal').click(function (e) {
 		$.get("/todoList.go", function(data) {
 			$("#todoListModal").html(data);
 		});
-	});
+	}); */
      </script>
 <script>
 //페이지 이동 스크립트(전자결재, 프로젝트 등)

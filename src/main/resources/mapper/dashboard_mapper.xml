@@ -42,4 +42,18 @@
 		    FROM employee e
 		WHERE emp_id = #{login_id};
 	</select>
+	
+	<select id="workTime" resultType="Hashmap">
+	    <![CDATA[
+		    SELECT
+		        CASE WHEN work_start_time < work_started THEN 1 ELSE 0 END AS start_comparison,
+		        CASE WHEN work_end_time > work_ended THEN 1 ELSE 0 END AS end_comparison
+		    FROM commute_history
+		    WHERE emp_id = #{loginId} AND work_day = #{dateOnly}
+	    ]]>
+	</select>
+	
+	<update id="stateUpdate">
+		UPDATE commute_history SET work_state = #{workState} WHERE emp_id = #{loginId} AND work_day = #{dateOnly};
+	</update>
 </mapper>

@@ -119,7 +119,14 @@ img.rounded-top{
                               <li class="list-inline-item fw-medium"><i class="bx bx-pen"></i> 아이디 : ${empdetail.emp_id}</li>
                             </ul>
                           </div>
-                          	<button type="button" class="btn btn-primary me-sm-3 me-1" onclick="chkClear()">로그인 제한 해제</button>
+                          <c:choose>
+                          	<c:when test="${empdetail.login_lock == 5}">
+	                          	<button type="button" class="btn btn-primary me-sm-3 me-1" onclick="chkClear()">로그인 제한 해제</button>
+                          	</c:when>
+                          	<c:otherwise>
+                          	
+                          	</c:otherwise>
+                          </c:choose>
                         </div>
                       </div>
                     </div>
@@ -195,7 +202,7 @@ img.rounded-top{
                             </div>
                           <div class="pt-4">
                             <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="bsubmit()">수정 등록</button>
-                            <button type="reset" class="btn btn-label-secondary">취소</button>
+                            <button type="reset" class="btn btn-label-secondary" onclick="bcancelChanges()">취소</button>
                           </div>
                          </div>
 						<!-- Activity Timeline -->
@@ -258,7 +265,7 @@ img.rounded-top{
                           </div>
                           <div class="pt-4">
                             <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="dsubmit()">수정 등록</button>
-                            <button type="reset" class="btn btn-label-secondary">취소</button>
+                            <button type="reset" class="btn btn-label-secondary"  onclick="dcancelChanges()">취소</button>
                           </div>
                           <!-- Activity Timeline -->
 						<br>
@@ -328,7 +335,7 @@ img.rounded-top{
                           </div>
                           <div class="pt-4">
                             <button type="button" class="btn btn-primary me-sm-3 me-1" onclick="psubmit()">수정 등록</button>
-                            <button type="reset" class="btn btn-label-secondary">취소</button>
+                            <button type="reset" class="btn btn-label-secondary" onclick="pcancelChanges()">취소</button>
                           </div>
                           <!-- Activity Timeline -->
 						<br>
@@ -435,6 +442,7 @@ img.rounded-top{
     <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="../../assets/vendor/js/menu.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <!-- endbuild -->
 
@@ -442,6 +450,19 @@ img.rounded-top{
     <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script>
+ 	 	$(document).ready(function() {
+	 		// DAUM 주소 검색 창
+	         document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	             //카카오 지도 발생
+	             new daum.Postcode({
+	                 oncomplete: function(data) { //선택시 입력값 세팅
+	                     document.getElementById("address").value = data.address; // 주소 넣기
+	                 }
+	             }).open();
+	         });
+	 	});
+    
+    
 		// 생일 선택
 	    var flatpickrDate = document.querySelector("#emp_birth");
 		
@@ -538,6 +559,16 @@ img.rounded-top{
 			}		
     	}
     	
+    	function bcancelChanges() {
+    		// 초기 값으로 복원
+    		document.getElementById("emp_name").value = defaultname;
+    		document.getElementById("password").value = '';
+    		document.getElementById("cp_phone").value = defaultphone;
+    		document.getElementById("moblie_phone").value = defaultmobile;
+    		document.getElementById("emp_birth").value = defaultbirth;
+    		document.getElementById("email").value = defaultemail;
+    	}
+    	
     	function dsubmit(){
     		
     		var address = $('input[name="address"]').val();
@@ -587,6 +618,14 @@ img.rounded-top{
 				alert('내용을 수정해 주세요');
 			}		
     	}
+
+    	function dcancelChanges() {
+    		// 초기 값으로 복원
+    		document.getElementById("address").value = defaultaddr;
+    		document.getElementById("detail_addr").value = defaultdaddr;
+    		document.getElementById("hiredate").value = defaulthiredate;
+    		document.getElementById("leavedate").value = defaultleavedate;
+    	}    	
     	
     	function psubmit(){
     		
@@ -635,6 +674,13 @@ img.rounded-top{
 				alert('내용을 수정해 주세요');
 			}		
     	}
+    	
+    	function pcancelChanges() {
+    		// 초기 값으로 복원
+    		document.getElementById("department").value = defaultdept;
+    		document.getElementById("position").value = defaultposition;
+    		document.getElementById("grade").value = defaultgrade;
+    	}        	
     	
     	function chkClear(){
     		

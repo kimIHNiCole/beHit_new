@@ -22,7 +22,7 @@ public class AlarmService {
 		
 	}
 
-	public int deleteAlarm(String login_id, int alarmType, int alarmTypeIdx) {	
+	public int deleteAlarm(String login_id, int alarmType, String alarmTypeIdx) {	
 		return alarmDao.deleteAlarm(login_id, alarmType, alarmTypeIdx);
 	}
 
@@ -31,7 +31,7 @@ public class AlarmService {
 		return alarmDao.deleteAllAlarms(login_id);
 	}
 
-	public int updateAlarmRead(String login_id, int alarmType, int alarmTypeIdx) {
+	public int updateAlarmRead(String login_id, int alarmType, String alarmTypeIdx) {
 		return alarmDao.updateAlarmRead(login_id, alarmType, alarmTypeIdx);
 	}
 
