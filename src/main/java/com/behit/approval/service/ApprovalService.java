@@ -160,6 +160,8 @@ public class ApprovalService {
 		String total_name = dto.getTotal_name();
 		String emp_id = loginInfo.getEmp_id();
 		
+		logger.info("!!total_name :"+total_name);
+		
 		
 		if(apv_code.equals("BFVC") || apv_code.equals("AFVC")) {
 			
@@ -177,9 +179,6 @@ public class ApprovalService {
 				setVacationTime(dto);
 				dto.setApv_start_time(dto.getApv_start_time().replace(",", ""));
 				dto.setApv_end_time(dto.getApv_end_time().replace(",", ""));
-				
-				logger.info("뭐가 문제죠 :" +dto.getApv_start_time());
-				logger.info("뭐가 문제죠 :" +dto.getApv_end_time());
 				
 				setVacationTime(dto);
 				dto.setApv_start_day("");
@@ -202,7 +201,7 @@ public class ApprovalService {
 		}
 		
 		// 만약 지울 파일이 있으면
-		if(dto.getApv_file() != null) {
+		if(dto.getApv_file() != null && !dto.getApv_file().isEmpty()) {
 			
 			ObjectMapper objectMapper = new ObjectMapper();
 			List<String> delUpfileList = null;
@@ -765,6 +764,17 @@ public class ApprovalService {
 
 	public ArrayList<UtilDTO> approval_file(String apv_idx) {
 		return dao.approval_file(apv_idx);
+	}
+
+	public HashMap<String, Object> temporary_apv_del(String apv_idx) {
+		
+	HashMap<String, Object> map = new HashMap<String, Object>();
+				
+	dao.temporary_apv_del(apv_idx);
+				
+	map.put("msg","문서가 삭제되었습니다.");
+	
+	return map;
 	}
 
 

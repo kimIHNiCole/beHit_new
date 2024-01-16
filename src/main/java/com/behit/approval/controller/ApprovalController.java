@@ -98,8 +98,6 @@ public class ApprovalController {
 	public String approval_update(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		
-		logger.info(dto.getApv_cnt());
-		
 		return service.approval_update(loginInfo,dto,files);
 	}
 	
@@ -215,6 +213,15 @@ public class ApprovalController {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String emp_id = loginInfo.getEmp_id();
 		return service.getApproval_detail(apv_idx,emp_id,apv_type);
+
+	}
+	
+	// 임시저장 삭제
+	@PostMapping(value="/approval/temporary_apv_del")
+	@ResponseBody
+	public HashMap<String, Object> temporary_apv_del(@RequestParam String apv_idx) {
+		
+		return service.temporary_apv_del(apv_idx);
 
 	}
 	

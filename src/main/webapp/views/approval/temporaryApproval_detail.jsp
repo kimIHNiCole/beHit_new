@@ -539,7 +539,7 @@
                 			<button type="button" id="temporarySaveButton" class="apv-form-menu-cnt"><i class='bx bxs-archive-in'></i> 임시 저장</button>
                 		</span>
                 		<span class="text-truncate">
-                			<button type="button" id="temporarySaveButton" class="apv-form-menu-cnt"><i class='bx bx-trash'></i> 삭제</button>
+                			<button type="button" id="temporaryDelButton" class="apv-form-menu-cnt"><i class='bx bx-trash'></i> 삭제</button>
                 		</span>
                 	</div>
                   <div class="tab-content p-0">
@@ -1242,21 +1242,6 @@
 
 		//--------------------------------------------------------------------------------------------------------------
     
-		// 임시저장 form 요청 변경------------------------------------------------------------------------------------------
-    
-    $(document).ready(function () {
-    $('#temporarySaveButton').on('click', function () {
-        // 임시 저장 버튼 클릭 시 action 변경
-        $('#approvalForm').attr('action', '/approval/temporaryApproval_write.do');
-        $('#apvStmt').val('임시저장');
-        // 폼 데이터 전송
-        $('#approvalForm').submit();
-    });
-});
-    
-    //--------------------------------------------------------------------------------------------------------------
-		
-    
     // sweetAlert 모달창--------------------------------------------------------------------------------------------
 		(function () {
 		  const confirmText = document.querySelector('#confirm-text');
@@ -1782,7 +1767,121 @@
 	    $('#apvFile').val(JSON.stringify(delUpfile));
 	}
 	
-	//------------------------------------------------------------------------------------------------
+	 // 문서 삭제  -------------------------------------------------------------------------------------------
+	 
+	 (function () {
+    var confirmText = document.querySelector('#temporaryDelButton');
+    
+    var apv_idx = '${apv.apv_idx}';
+
+    if (confirmText) {
+        confirmText.onclick = function () {
+            Swal.fire({
+                title: '문서를 삭제하시겠습니까?',
+                text: "삭제한 문서는 되돌릴 수 없습니다",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '네',
+                cancelButtonText: '아니오',
+                customClass: {
+                    confirmButton: 'btn btn-primary me-3',
+                    cancelButton: 'btn btn-label-secondary'
+                },
+                buttonsStyling: false
+            }).then(function (result) {
+                if (result.value) {
+                    // Send request to /approval/apv-del when '네' button is clicked
+                    $.ajax({
+                        type: 'POST',
+                        url: '/approval/temporary_apv_del',
+                        data: {
+                        	'apv_idx' : apv_idx,
+                        },  // You may need to include data if required
+                        dataType: 'json',
+                        success: function (response) {
+                            // Handle success response
+                        	Swal.fire({
+                                icon: 'success',
+                                title: '완료',
+                                text: '문서가 삭제되었습니다.',
+                                customClass: {
+                                    confirmButton: 'btn btn-success'
+                                }
+                            }).then(function () {
+                                // Redirect to /approval/approval_main.go after success message
+                                window.location.href = '/approval/temporaryApproval_list.go';
+                            });
+                        },
+                        error: function (error) {
+                            // Handle error response
+                            Swal.fire({
+                                icon: 'error',
+                                title: '문제 발생',
+                                text: '다시 시도해주세요.',
+                                customClass: {
+                                    confirmButton: 'btn btn-danger'
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        };
+    }
+})();
+	 
+	 // 임시저장 문서 임시저장  -------------------------------------------------------------------------------------------
+	 
+	 (function () {
+		 		var confirmText = document.querySelector('#temporarySaveButton');
+		    var apvStmtInput = document.querySelector('#apvStmt');
+		    var apvSubmitButton = document.querySelector('#apv_submit');
+		    var approvalForm = document.querySelector('#approvalForm');
+    
+		    var apv_idx = '${apv.apv_idx}';
+		
+		    if (confirmText) {
+		        confirmText.onclick = function () {
+		            Swal.fire({
+		                title: '임시저장 하시겠습니까?',
+		                text: "임시저장하실 문서는 임시저장함에 저장됩니다",
+		                icon: 'warning',
+		                showCancelButton: true,
+		                confirmButtonText: '네',
+		                cancelButtonText: '아니오',
+		                customClass: {
+		                    confirmButton: 'btn btn-primary me-3',
+		                    cancelButton: 'btn btn-label-secondary'
+		                },
+		                buttonsStyling: false
+		            }).then(function (result) {
+		                if (result.value) {// 변경된 값으로 업데이트
+		                     // 임시 저장 버튼 클릭 시 action 변경
+		                    $('#approvalForm').attr('action', '/approval/approval_update.do');
+		                    $('#apvStmt').val('임시저장');
+		                    // 폼 데이터 전송
+		                    $('#approvalForm').submit();
+		
+		                    // 상신이 성공하면 SweetAlert으로 완료 메시지를 띄우고 페이지를 이동
+		                    Swal.fire({
+		                        icon: 'success',
+		                        title: '완료',
+		                        text: '문서가 임시저장되었습니다.',
+		                        customClass: {
+		                            confirmButton: 'btn btn-success'
+		                        }
+		                    }).then(function () {
+		                        window.location.href = '/approval/temporaryApproval_list.go';
+		                    });
+		                }
+		            });
+		        };
+		    }
+})();
+	 
+	 
+	 
+
 
     </script>
   </body>
