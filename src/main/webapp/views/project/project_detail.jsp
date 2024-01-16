@@ -344,14 +344,25 @@ height: calc(100vh - 10rem);
 										<div class="project-subject">
 											<span class="project-subject-left">
 												<span class="py-2 px-3 fs-4" style="max-width:740px;">${detailList.proj_subject}</span>
-												<c:forEach var="projT" items="${damchamList}">
-												    <c:if test="${projT.projT_contact == 1 && sessionScope.loginInfo.getEmp_id() eq projT.emp_id}">
+												<c:choose>
+												    <c:when test="${detailList.emp_id == sessionScope.loginInfo.getEmp_id()}">
 												        <span class="button">
 												            <button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
 												            <button type="button" id="project-del" class="btn btn-sm btn-secondary">삭제</button>
 												        </span>
-												    </c:if>
-												</c:forEach>
+												    </c:when>
+												    <c:otherwise>
+														<c:forEach var="projT" items="${damchamList}">
+														    <c:if test="${projT.projT_contact == 1 && sessionScope.loginInfo.getEmp_id() eq projT.emp_id}">
+														        <span class="button">
+														            <button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
+														            <button type="button" id="project-del" class="btn btn-sm btn-secondary">삭제</button>
+														        </span>
+														    </c:if>
+														</c:forEach>
+												    </c:otherwise>
+												</c:choose>
+												<!-- 여기까지 -->
 											</span>
 											<span class="project-subject-right">
 									<c:forEach var="projT" items="${damchamList}">
