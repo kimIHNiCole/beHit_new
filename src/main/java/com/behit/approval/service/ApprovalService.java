@@ -234,9 +234,8 @@ public class ApprovalService {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		return "approval/approval_main";
+			
+		return "approval/temporaryApproval_list";
 	}
 	
 	// 파일 업로드 메서드

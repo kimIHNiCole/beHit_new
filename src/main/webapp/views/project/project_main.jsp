@@ -181,6 +181,13 @@ height: calc(100vh - 10rem);
     height: 320px;
 	}
     
+    /* 내가 프로젝트 대시보드 스타일 추가 */
+    .table .ellipsis-text {
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    max-width: 300px;
+	}
     </style>
   </head>
 
@@ -533,7 +540,7 @@ height: calc(100vh - 10rem);
         	obj.list.forEach(function (item){
 				content += '<tr>';
 				content += '<td>'+item.proj_end+'</td>';
-				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '<td class="ellipsis-text"><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
 				content += '</tr>';
         	});
         }
@@ -569,7 +576,7 @@ height: calc(100vh - 10rem);
         	obj.list.forEach(function (item){
 				content += '<tr>';
 				content += '<td>'+item.proj_start+'</td>';
-				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '<td class="ellipsis-text"><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
 				content += '</tr>';
         	});
         }
@@ -605,7 +612,7 @@ height: calc(100vh - 10rem);
         	obj.list.forEach(function (item){
 				content += '<tr>';
 				content += '<td>'+item.proj_start+'</td>';
-				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '<td class="ellipsis-text"><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
 				content += '</tr>';
         	});
         }
@@ -641,7 +648,7 @@ height: calc(100vh - 10rem);
         	obj.list.forEach(function (item){
 				content += '<tr>';
 				content += '<td>'+item.proj_end+'</td>';
-				content += '<td><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
+				content += '<td class="ellipsis-text"><a href="project_detail.go?proj_idx='+item.proj_idx+'">'+item.proj_subject+'</a></td>';
 				content += '</tr>';
         	});
         }
