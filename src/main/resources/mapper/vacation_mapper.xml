@@ -4,9 +4,8 @@
 >
 
 <mapper namespace="com.behit.employee.dao.VacationDAO">
-	<select id="vacalist" resultType="vacation">
-		SELECT 
-		    CAST(ROW_NUMBER() OVER (ORDER BY e.hiredate) AS SIGNED) AS idx,
+	<select id="vacalistall" resultType="vacation">
+		SELECT
 		    e.emp_id, 
 		    e.emp_name, 
 		    d.emp_dept_name, 
@@ -27,9 +26,40 @@
 		    employee e
 		JOIN 
 		    department d ON e.emp_dept_idx = d.emp_dept_idx
-		    WHERE emp_id NOT IN ('master')
-		ORDER BY idx desc;	
+		    WHERE emp_id NOT IN ('master') AND e.leavedate = '9999-10-10'
+		ORDER BY e.emp_date DESC LIMIT 10 offset #{offset};	
 	</select>
+	
+	<select id="vacalist" resultType="vacation">
+		SELECT
+		    e.emp_id, 
+		    e.emp_name, 
+		    d.emp_dept_name, 
+		    e.hiredate,
+		    COALESCE(
+		        (SELECT f.ori_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
+		        'default'
+		    ) AS ori_file_name,
+		    COALESCE(
+		        (SELECT f.new_file_name FROM file f WHERE f.file_kind = 5 AND e.emp_id = f.file_kind_idx),
+		        'default'
+		    ) AS new_file_name,
+		    COALESCE((SELECT SUM(ev.add_hour) FROM emp_vacation ev WHERE ev.emp_id = e.emp_id), 0) AS totalhour,
+		    COALESCE((SELECT SUM(vh.use_hour) FROM vacation_history vh WHERE vh.emp_id = e.emp_id), 0) AS usehour,	
+		    (COALESCE((SELECT SUM(ev.add_hour) FROM emp_vacation ev WHERE ev.emp_id = e.emp_id), 0) - 
+    		COALESCE((SELECT SUM(vh.use_hour) FROM vacation_history vh WHERE vh.emp_id = e.emp_id), 0)) AS remainhour
+		FROM 
+		    employee e
+		JOIN 
+		    department d ON e.emp_dept_idx = d.emp_dept_idx
+		    WHERE emp_id NOT IN ('master') AND e.leavedate = '9999-10-10' AND e.emp_dept_idx = #{login_dept}
+		ORDER BY e.emp_date DESC LIMIT 10 offset #{offset};	
+	</select>
+	
+	<select id="totalPage" resultType="int">
+   		SELECT CEIL(COUNT(emp_id)/10) AS pages FROM employee WHERE emp_id NOT IN ('master') AND leavedate = '9999-10-10'
+   		<if test="login_dept != 2">AND emp_dept_idx = #{login_dept}</if>;
+    </select>
 	
 	<select id="detail" parameterType="String" resultType="vacation">
 		SELECT 
@@ -51,9 +81,21 @@
 	</select>
 	
 	<select id="usingList" parameterType="String" resultType="vacation">
-		SELECT e.emp_name, d.emp_dept_name, vh.use_hour, vh.vaca_start, vh.vaca_end_time, vh.vaca_reason FROM employee e
-		JOIN vacation_history vh ON e.emp_id = vh.emp_id
-		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx WHERE e.emp_id = #{emp_id};
+		SELECT 
+		    e.emp_name, 
+		    d.emp_dept_name, 
+		    vh.use_hour, 
+		    DATE_FORMAT(vh.vaca_start, '%Y-%m-%d %H:%i') AS vaca_start,
+		    DATE_FORMAT(vh.vaca_start, '%Y-%m-%d %H:%i') AS vaca_end_time,
+		    vh.vaca_reason 
+		FROM 
+		    employee e
+		JOIN 
+		    vacation_history vh ON e.emp_id = vh.emp_id
+		JOIN 
+		    department d ON e.emp_dept_idx = d.emp_dept_idx 
+		WHERE 
+		    e.emp_id = #{emp_id};
 	</select>
 	
 	<select id="createList" parameterType="String" resultType="vacation">

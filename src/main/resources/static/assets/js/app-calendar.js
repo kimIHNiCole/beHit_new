@@ -310,16 +310,16 @@ document.addEventListener('DOMContentLoaded', function () {
 		  }
 		  
 		  if (clickedDate.getDay() === 0 || clickedDate.getDay() === 6) {
-		  	document.getElementById('selecdate').style.display = 'none';
+		  	document.getElementById('selecdate').style.visibility = 'hidden';
 		    return;
 		  }
 		
 		  // 클릭한 날짜가 현재 날짜 이후인 경우
-		  if (clickedDate.getDate() >= currentDate.getDate()) {
-		    document.getElementById('selecdate').style.display = 'inline';
+		  if (clickedDate.getDate() > currentDate.getDate()) {
+		    document.getElementById('selecdate').style.visibility = 'visible';
 		  } else {
 		    // 클릭한 날짜가 현재 날짜 이전인 경우
-		    document.getElementById('selecdate').style.display = 'none';
+		    document.getElementById('selecdate').style.visibility = 'hidden';
 		  }
 		
 		  function monthToNumber(monthString) {

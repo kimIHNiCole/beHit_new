@@ -55,8 +55,9 @@ public class EmployeeController {
 
 	// 추후 경로 수정
 	@PostMapping(value = "/empadd.do")
-	public String empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, 
-			MultipartFile uploadFile, RedirectAttributes rAttr) throws Exception {
+	@ResponseBody
+	public HashMap<String, Object> empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, 
+			@RequestParam("uploadFile") MultipartFile uploadFile, RedirectAttributes rAttr) throws Exception {
 
 
 		logger.info("params: " + params);
@@ -72,7 +73,7 @@ public class EmployeeController {
 		logger.info("encoded password : " + params.get("password"));
 		
 		
-		if(!uploadFile.isEmpty()) {
+		
 			String emp_id = (String) params.get("emp_id");
 			HashMap<String, Object> file = new HashMap<String, Object>();
 			file.put("login_id", login_id);
@@ -91,13 +92,10 @@ public class EmployeeController {
 				employeeService.defaultwork(emp_id, day, workstart, workend);
 			}
 			
-			
-		} else {
-			rAttr.addAttribute("msg", "프로필 사진을 추가해 주세요!");
-			return "redirect:/empadd.go";
-		}
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("status", "success");
 
-		return "redirect:/employee/employee_list.go";
+		return map; 
 	}
 
 	@GetMapping(value = "/employee/empflist.do")
@@ -106,9 +104,10 @@ public class EmployeeController {
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
+		int login_dept = loginInfo.getEmp_dept_idx();
 		logger.info("로그인 아이디 : "+login_id);
 
-		return employeeService.flist(page);
+		return employeeService.flist(page, login_dept);
 	}
 	
 	@GetMapping(value = "/employee/empslist.do")
@@ -197,23 +196,34 @@ public class EmployeeController {
 		 return mav;
 	 }
 	 
-	    private List<String> calculateWeekdays(LocalDate startDate) {
-	        List<String> weekdaysList = new ArrayList<>();
+	 private List<String> calculateWeekdays(LocalDate startDate) {
+	     List<String> weekdaysList = new ArrayList<>();
 
-	        // 한 달 동안 반복
-	        for (int i = 0; i < 30; i++) {
-	            // 주말이 아니라면 리스트에 추가
-	            if (startDate.getDayOfWeek() != DayOfWeek.SATURDAY && startDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
-	                weekdaysList.add(startDate.format(DateTimeFormatter.ISO_DATE));
-	            }
+	     // 한 달 동안 반복
+	     for (int i = 0; i < 30; i++) {
+	         // 주말이 아니라면 리스트에 추가
+	         if (startDate.getDayOfWeek() != DayOfWeek.SATURDAY && startDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+	             weekdaysList.add(startDate.format(DateTimeFormatter.ISO_DATE));
+	         }
 
-	            // 다음 날짜로 이동
-	            startDate = startDate.plusDays(1);
-	        }
+	         // 다음 날짜로 이동
+	         startDate = startDate.plusDays(1);
+	     }
 
-	        return weekdaysList;
-	    }
+	     return weekdaysList;
+	 }
 	 
 	 
+	 @GetMapping(value="/idChk.do")
+	 @ResponseBody
+	 public HashMap<String, Object> idChk(@RequestParam String emp_id){
+		 HashMap<String, Object> map = new HashMap<String, Object>();
+		 
+		 boolean use = employeeService.idChk(emp_id);
+		 
+		 map.put("use", use);
+		 
+		 return map;
+	 }
 
 }

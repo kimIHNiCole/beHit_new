@@ -121,7 +121,7 @@
             <table class="datatables-basic table border-top" style="margin-top: -10px;">
                 <thead>
                     <tr>
-                        <th colspan="3" style="width: 250px;">이름 / 아이디</th>
+                        <th colspan="2" style="width: 250px;">이름 / 아이디</th>
                         <th>부서</th>
                         <th>입사일</th>
                         <th>총 연차</th>
@@ -129,38 +129,16 @@
                         <th>잔여 연차</th>
                     </tr>
                 </thead>
-                <tbody>
-                	<c:forEach items="${vacalist}" var="vacalist">
-	                	<tr class="clickable-row" data-href="vacadetail?emp_id=${vacalist.emp_id}">
-	                	<td style="width: 100px;">
-		                	<c:choose>
-							    <c:when test="${not empty vacalist.new_file_name and vacalist.new_file_name ne 'default'}">
-							        <img src="/file/employee/${vacalist.new_file_name}" alt="${vacalist.ori_file_name}" 
-							            class="d-block h-auto ms-0 rounded user-profile-img"
-							            width="50px" height="50px" />
-							    </c:when>
-							    <c:otherwise>
-							        <img src="../../assets/img/avatars/1.png" alt="user image" 
-							            class="d-block h-auto ms-0 rounded user-profile-img"
-							            width="50px" height="50px" />
-							    </c:otherwise>
-							</c:choose>
-	                	</td>
-	                        <td colspan="2">
-	                        	<div class="d-flex flex-column">
-	                        		<span class="emp_name text-truncate">${vacalist.emp_name}</span>
-	                        		<small class="emp_post text-truncate text-muted">${vacalist.emp_id}</small>
-	                        	</div>
-	                        </td>
-	                        <td>${vacalist.emp_dept_name}</td>
-	                        <td>${vacalist.hiredate}</td>
-	                        <td>${vacalist.totalhour}</td>
-	                        <td>${vacalist.usehour}</td>
-	                        <td>${vacalist.remainhour}</td>
-	                    </tr>
-                	</c:forEach>
+                <tbody id="vacalist">
+                
                 </tbody>
             </table>
+            <br/>
+            <div class="container" style="display: flex; justify-content: flex-end;">									
+				<nav aria-label="Page navigation" style="text-align:center">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>					
+			</div>
         </div>
     </div>
 
@@ -208,6 +186,10 @@
     <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <!-- pagenation -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/jquery.twbsPagination.js" type="text/javascript"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
@@ -227,6 +209,61 @@
 	             });
 	         });
 	     });
+	     
+	     var showPage = 1;
+	     listCall(showPage);
+	     
+	     function listCall(page){
+	 		$.ajax({
+	 			type: 'post',
+	 			url: '/employee/vacalist.do',
+	 			data: {'page':page},
+	 			dataType: 'json',
+	 			success:function(data){
+	 				console.log(data);
+	 				drawList(data);
+	 			},
+	 			error:function(e){
+	 				console.log(e);
+	 			}
+	 		});
+	 	}
+	     
+	     function drawList(obj){
+	    	 var content = '';
+	    	 
+	    	 obj.vacalist.forEach(function(item, idx) {
+	    		 content += '<tr onclick="location.href=\'/employee/vacadetail?emp_id=' + item.emp_id + '\'">';
+	    		 content +='<td style="width:100px;">';
+	    		 content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+	    		 content +='</td>';
+	    		 content +='<td>'+'<div class="d-flex flex-column">'+
+					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
+					'<small class="emp_post text-truncate text-muted" id="emp_id">'+item.emp_id+'</small>'+'</div>'+'</td>';	
+				content +='<td>'+item.emp_dept_name+'</td>';
+				content +='<td>'+item.hiredate+'</td>';
+				content +='<td>'+item.totalhour+'</td>';
+				content +='<td>'+item.usehour+'</td>';
+				content +='<td>'+item.remainhour+'</td>';
+				content += '</tr>';
+	    	 });
+	    	 $('#vacalist').empty();
+	    	 $('#vacalist').append(content);
+	    	 
+	    	 $('#pagination').twbsPagination({
+	 			startPage:obj.currPage, // 보여줄 페이지
+	 			totalPages:obj.pages, // 총 페이지 수 (총 갯수 / 페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야 함
+	 			visiblePages:5, // [1],[2],[3],[4],[5]
+	 			onPageClick:function(e, page){
+	 				// console.log(e);
+	 				if (showPage != page) {
+	 					console.log(page);
+	 					showPage = page;
+	 					listCall(page);
+	 				}
+	 			}
+	 		});
+	     }
      </script>
      
     <!-- Header -->

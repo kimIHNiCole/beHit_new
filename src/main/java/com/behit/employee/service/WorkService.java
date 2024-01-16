@@ -2,7 +2,6 @@ package com.behit.employee.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,16 +20,23 @@ public class WorkService {
 	
 	@Autowired WorkDAO workDAO;
 
-	public HashMap<String, Object> worklist(String date, String page) {
+	public HashMap<String, Object> worklist(String date, String page, int login_dept) {
 		
 		int p = Integer.parseInt(page);
 		
 		int offset = (p-1) * 10;	
 		
-		ArrayList<WorkDTO> worklist = workDAO.worklist(date, offset);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		int pages = workDAO.totalPage(10);
+		if (login_dept == 2) {
+			ArrayList<WorkDTO> worklistall = workDAO.worklistall(date, offset);
+			map.put("worklist", worklistall);
+		} else {
+			ArrayList<WorkDTO> worklist = workDAO.worklist(date, offset, login_dept);
+			map.put("worklist", worklist);
+		}
+		
+		int pages = workDAO.totalPage(login_dept);
 		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		
 		if (p > pages) {
@@ -39,7 +45,7 @@ public class WorkService {
 		
 		map.put("currPage", p);
 		map.put("pages", pages);
-		map.put("worklist", worklist);
+		
 		
 		return map;
 	}
@@ -71,8 +77,12 @@ public class WorkService {
 	public HashMap<String, Object> workmodal(String emp_id, String modaldate) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<WorkDTO> list = workDAO.workmodal(emp_id, modaldate);
-		map.put("list", list);
+		ArrayList<WorkDTO> flist = workDAO.workfmodal(emp_id, modaldate);
+		ArrayList<WorkDTO> slist = workDAO.worksmodal(emp_id, modaldate);
+		ArrayList<WorkDTO> tlist = workDAO.worktmodal(emp_id, modaldate);
+		map.put("flist", flist);
+		map.put("slist", slist);
+		map.put("tlist", tlist);
 		
 		return map;
 	}

@@ -887,28 +887,19 @@ width: 20rem;
 
         			console.log(serverData); 
 
-        			  // jstree에서 사용할 데이터 구성
-        			  var jstreeData = serverData.map(function (parent) {
-        			    var parentNode = {
-        			      text: parent.text,
-        			      type: 'depart',
-        			      children: parent.children.map(function (child) {
-        		                // 체크박스를 비활성화하고 싶은 emp_id 값을 여기에서 확인
-        		                /* var empIdToDisable = '해당_emp_id_값'; */
-								console.log("이미 권한 있는 애들",permEmpIds);
-        		                // emp_id 값에 따라 체크박스를 활성화 또는 비활성화
-        		                var isDisabled = (child.text.indexOf(permEmpIds) !== -1);
-
-        		                return {
-        		                    text: child.text,
-        		                    state: {
-        		                        disabled: isDisabled
-        		                    }
-        		                };
-        		            })
-        		        };
-        		        return parentNode;
-        			  });
+        			// jstree에서 사용할 데이터 구성
+    		    	var jstreeData = serverData.map(function (parent) {
+    		    	  var parentNode = {
+    		    	    text: parent.text,
+    		    	    type: 'depart',
+    		    	    children: parent.children.map(function (child) {
+    		    	      return {
+    		    	        text: child.text
+    		    	      };
+    		    	    })
+    		    	  };
+    		    	  return parentNode;
+    		    	});
      
 
         			  checkboxTree.jstree({

@@ -79,8 +79,10 @@ public class LoginController {
 				EmployeeDTO loginInfo = service.login(emp_id);
 				logger.info("login result || "+ loginInfo.getEmp_id());
 				session.setAttribute("loginInfo", loginInfo);
-				session.setAttribute("employee", loginInfo.getEmp_dept_idx());
-				logger.info("employee : "+loginInfo.getEmp_dept_idx());
+				session.setAttribute("dept", loginInfo.getEmp_dept_idx());
+				session.setAttribute("position", loginInfo.getEmp_position_idx());
+				logger.info("dept : "+loginInfo.getEmp_dept_idx());
+				logger.info("position : " +loginInfo.getEmp_position_idx());
 				mav.setViewName("redirect:/home.go");
 			}else {
 				logger.info("로그인 에러");

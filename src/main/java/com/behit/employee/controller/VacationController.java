@@ -26,14 +26,21 @@ public class VacationController {
 	@Autowired VacationService vacationService;
 	
 	@GetMapping(value="/employee/vacation_list.go")
+	public String vacalistgo() {
+		return "/employee/vacation_list";
+	}
+	
+	@PostMapping(value="/employee/vacalist.do")
 	@ResponseBody
-	public ModelAndView vacalist(HttpSession session) {
+	public HashMap<String, Object> vacalist(@RequestParam String page, HttpSession session) {
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String login_id = loginInfo.getEmp_id();
+		int login_dept = loginInfo.getEmp_dept_idx();
+		logger.info("login_dept" + login_dept);
 		logger.info("로그인 아이디 : "+login_id);
 		
-		return vacationService.vacalist();
+		return vacationService.vacalist(page, login_dept);
 	}
 	
 	@GetMapping(value="/employee/vacadetail")

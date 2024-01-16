@@ -248,7 +248,7 @@
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
 
     <!-- Main JS -->
-    <!-- <script src="../../assets/js/main.js"></script> -->
+    <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
     <!-- <script src="../../assets/js/app-ecommerce-category-list.js"></script> -->
@@ -470,4 +470,7 @@ function todocheck(check){
 	}
 }
 </script>
+
+<!-- Header JS -->
+    <script src="../../assets/js/header.js"></script> 
 </html>

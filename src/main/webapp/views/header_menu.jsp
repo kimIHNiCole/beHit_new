@@ -201,14 +201,14 @@
       </ul>
     </li>
     
-    <li class="menu-item">
+    <li class="menu-item" id="chat">
       <a href="/chat/messenger.go" class="menu-link">
          <i class="menu-icon tf-icons bx bx-chat"></i>
         <div class="text-truncate" data-i18n="메신저">메신저</div>
       </a>
     </li> 
     <c:choose>
-    	<c:when test="${sessionScope.employee == 2}">
+    	<c:when test="${sessionScope.dept == 2 || sessionScope.position == 8}">
 			<li class="menu-item" id="employee">
 				<a href="javascript:void(0);" class="menu-link menu-toggle">
 					<i class="menu-icon tf-icons bx bx-user"></i>

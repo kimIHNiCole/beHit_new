@@ -19,18 +19,33 @@ public class VacationService {
 	
 	@Autowired VacationDAO vacationDAO;
 
-	public ModelAndView vacalist() {
+	public HashMap<String, Object> vacalist(String page, int login_dept) {
 		
-		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		ArrayList<VacationDTO> vacalist = vacationDAO.vacalist();
+		int p = Integer.parseInt(page);
 		
-		mav.addObject("vacalist", vacalist);
+		int offset = (p-1) * 10;	
 		
-		mav.setViewName("/employee/vacation_list");
+		if (login_dept == 2) {
+			ArrayList<VacationDTO> vacalistall = vacationDAO.vacalistall(offset);
+			map.put("vacalist", vacalistall);
+		} else {
+			ArrayList<VacationDTO> vacalist = vacationDAO.vacalist(offset, login_dept);
+			map.put("vacalist", vacalist);
+		}
 		
+		int pages = vacationDAO.totalPage(login_dept);
+		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		
-		return mav;
+		if (p > pages) {
+			p = pages;
+		}
+		
+		map.put("currPage", p);
+		map.put("pages", pages);
+		
+		return map;
 	}
 
 	public ModelAndView detail(String emp_id) {
