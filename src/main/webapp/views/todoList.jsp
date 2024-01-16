@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>BeHit</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
         #modalContent {
@@ -105,8 +105,8 @@ function todoListdraw(obj){
     		$("#todoNCount").text(item.todoN);
     		
     		content += '<tr>';
-    		content += '<th style="width:30px"><input onclick="todocheck(this)" type="checkbox" class="form-check-input input-filter" value="'+item.todo_idx+'" ' + isChecked + '></th>';
-    		content += '<td style="color: '+ textcolor+'">'+ item.todo_content +'</td>';
+    		content += '<th style="width:30px; padding-right:15px;"><input onclick="todocheck(this)" type="checkbox" class="form-check-input input-filter" value="'+item.todo_idx+'" ' + isChecked + '></th>';
+    		content += '<td style="color: '+ textcolor+'; text-align: left;">'+ item.todo_content +'</td>';
     		content += '<th style="width:40px"><button onclick="tododel(this)" class="delete-btn" value="'+item.todo_idx+'"><i class="bx bx-trash"></i></button>'+'</th>';
     		
     		content += '</tr>';
@@ -146,11 +146,13 @@ function handleKeyPress(event) {
 // 할일 삭제하기
 function tododel(del){
 	var todoIdx = del.value;
+	var checked = $(del).closest('tr').find('input[type="checkbox"]').prop('checked');
 	console.log("삭제할 투두idx: ", todoIdx);
+	console.log("삭제할 체크상태:",checked);
 	$.ajax({
 		type: 'post',
-		url: 'todoListdel.do',
-		data: {todoIdx: todoIdx},
+		url: 'todoListhide.do',
+		data: {todoIdx: todoIdx,checked: checked},
 		dataType: 'json',
 		success: function (data) {
 			console.log(data);

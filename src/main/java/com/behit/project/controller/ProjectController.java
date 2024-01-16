@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.profile.dto.FileDTO;
+import com.behit.profile.service.DashBoardService;
 import com.behit.project.dto.ProjectDTO;
 import com.behit.project.dto.ProjectFileDTO;
 import com.behit.project.dto.ProjectRecordDTO;
@@ -34,6 +36,7 @@ public class ProjectController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired ProjectService service;
+	@Autowired DashBoardService dashService;
 	
 	@GetMapping(value = "/project/project_main.go")
 	public ModelAndView projectMainGo(ModelAndView mav) {
@@ -212,15 +215,19 @@ public class ProjectController {
 	
 	// 프로젝트 상세보기 페이지 이동시 값가지고 이동
 	@GetMapping(value={"/project/project_detail.go", "/views/project_detail.go"})
-	public ModelAndView projectDetailGo(@RequestParam String proj_idx) {
+	public ModelAndView projectDetailGo(@RequestParam String proj_idx,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세페이지 이동요청 및 proj_idx: "+proj_idx);
 		Map<String, String> detailList = service.projDetail(proj_idx);
 		ArrayList<ProjectTeamDTO> damchamList = service.projdamcham(proj_idx);
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		FileDTO Mephoto = dashService.getPhoto(login_id);
 		logger.info("상세페이지 정보: "+detailList);
 		logger.info("상세 담당자 참조자 정보: "+damchamList);
 		mav.addObject("detailList", detailList);
 		mav.addObject("damchamList", damchamList);
+		mav.addObject("Mephoto", Mephoto);
 		mav.setViewName("project/project_detail");
 		
 		return mav;

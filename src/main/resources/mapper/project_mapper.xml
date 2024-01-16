@@ -128,7 +128,8 @@
 			r.emp_id,
 			(SELECT e.emp_name FROM employee e WHERE e.emp_id = r.emp_id) AS emp_name,
 			GROUP_CONCAT(f.ori_file_name) AS ori_file_name,
-			GROUP_CONCAT(f.new_file_name) AS new_file_name
+			GROUP_CONCAT(f.new_file_name) AS new_file_name,
+			(SELECT f2.new_file_name FROM file f2 WHERE f2.file_kind_idx = r.emp_id AND f2.file_kind = 5) AS pro_file_name
 		FROM project_record r
 		LEFT JOIN file f ON r.projR_idx = f.file_kind_idx AND f.file_kind = 7
 		WHERE proj_idx = #{param1}

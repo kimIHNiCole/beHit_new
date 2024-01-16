@@ -281,15 +281,19 @@ height: calc(100vh - 10rem);
                   <div
                     class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
                     id="app-chat-contacts">
+                    <!-- 여기서부터 -->
+                    <c:if test="${sessionScope.loginInfo.getEmp_position_idx() == 8}">                    
+	                    <div class="sidebar-header pt-3 px-3 mx-1">
+	                      <div class="d-flex align-items-center me-3 me-lg-0">
+	                        
+	                        
+	                        <button type="button" id="project-add-move" class="btn btn-primary text-nowrap">프로젝트 추가</button>
+	                       </div>
+	                    </div>
+	                    <hr class="container-m-nx mt-3 mb-0" />
+                    </c:if>
                     
-                    <div class="sidebar-header pt-3 px-3 mx-1">
-                      <div class="d-flex align-items-center me-3 me-lg-0">
-                        <button type="button" id="project-add-move" class="btn btn-primary text-nowrap">프로젝트 추가</button>
-                       </div>
-                    </div>
-                    
-                    <hr class="container-m-nx mt-3 mb-0" />
-                    
+                    <!-- 여기까지 -->
                     <div class="sidebar-body">
                                             <ul class="list-unstyled chat-contact-list pt-1" id="chat-list">
                         <li class="chat-contact-list-item chat-contact-list-item-title">
@@ -309,6 +313,7 @@ height: calc(100vh - 10rem);
                         </li>
                         <li>
 						    <div class="d-flex justify-content-center">
+						    	<button onclick="allButton()" class="btn btn-primary text-nowrap go" style="border-color:#C20000; background-color:#C20000;">전체</button>
 						        <button onclick="worksButton()" class="btn btn-primary text-nowrap go">진행중</button>
 						        <button onclick="waitButton()" class="btn btn-primary text-nowrap wait">대기</button>
 						        <button onclick="endButton()" class="btn btn-primary text-nowrap end">완료</button>
@@ -338,18 +343,27 @@ height: calc(100vh - 10rem);
 										<!-- 프로젝트 제목 -->
 										<div class="project-subject">
 											<span class="project-subject-left">
-												<span class="py-2 px-3 fs-4">${detailList.proj_subject}</span>
-												<span class="button">
-													<button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
-													<button type="button" id="project-del" class="btn btn-sm btn-secondary">삭제</button>
-												</span>
+												<span class="py-2 px-3 fs-4" style="max-width:740px;">${detailList.proj_subject}</span>
+												<c:forEach var="projT" items="${damchamList}">
+												    <c:if test="${projT.projT_contact == 1 && sessionScope.loginInfo.getEmp_id() eq projT.emp_id}">
+												        <span class="button">
+												            <button type="button" id="project-update-move" class="btn btn-sm btn-secondary">수정</button>
+												            <button type="button" id="project-del" class="btn btn-sm btn-secondary">삭제</button>
+												        </span>
+												    </c:if>
+												</c:forEach>
 											</span>
 											<span class="project-subject-right">
-									<select id="selectpickerBasic" class="selectpicker" data-style="btn-default" onchange="upStatus()">
-									    <option ${detailList.proj_status eq '대기' ? 'selected' : ''} value="대기">대기</option>
-									    <option ${detailList.proj_status eq '진행' ? 'selected' : ''} value="진행">진행중</option>
-									    <option ${detailList.proj_status eq '완료' ? 'selected' : ''} value="완료">완료</option>
-									</select>
+									<c:forEach var="projT" items="${damchamList}">
+									    <c:if test="${projT.projT_contact == 1 && sessionScope.loginInfo.getEmp_id() eq projT.emp_id}">
+											<select id="selectpickerBasic" class="selectpicker" data-style="btn-default" onchange="upStatus()">
+											    <option ${detailList.proj_status eq '대기' ? 'selected' : ''} value="대기">대기</option>
+											    <option ${detailList.proj_status eq '진행' ? 'selected' : ''} value="진행">진행중</option>
+											    <option ${detailList.proj_status eq '완료' ? 'selected' : ''} value="완료">완료</option>
+											</select>
+									    </c:if>
+									</c:forEach>
+									
 									<span class="selected-stat">
 										<c:if test="${detailList.proj_status eq '대기'}">
 											<span class="badge bg-secondary">대기</span>
@@ -505,7 +519,7 @@ height: calc(100vh - 10rem);
 								</div>
 								<div class="d-flex align-items-center mb-sm-0 mb-3 m-4">
 									<div class="avatar avatar-md me-2">
-										<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
+										<img src="/file/employee/${Mephoto.new_file_name}" alt="${sessionScope.loginInfo.getEmp_name()}" class="rounded-circle">
 									</div>
 									<div class="flex-grow-1 ms-1">
 										<input id="projRW_id" type="hidden" value="${sessionScope.loginInfo.getEmp_id()}"/>
@@ -576,7 +590,7 @@ height: calc(100vh - 10rem);
 									</div>
 									<div class="d-flex align-items-center mb-sm-0 mb-3 m-4">
 										<div class="avatar avatar-md me-2">
-											<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle"> <!-- 수정 프로필 이미지 -->
+											<img src="/file/employee/${Mephoto.new_file_name}" alt="${sessionScope.loginInfo.getEmp_name()}" class="rounded-circle"> <!-- 수정 프로필 이미지 -->
 										</div>
 										<div class="flex-grow-1 ms-1">
 											<input id="projRU_id" type="hidden" value=""/>
@@ -692,22 +706,26 @@ height: calc(100vh - 10rem);
     	location.href="../project/project_update.go?proj_idx="+projIdx;
     });
     
+    // 프로젝트 삭제
     $('#project-del').on('click', function(){
     	var projIdx = ${detailList.proj_idx};
+    	var delP = confirm('프로젝트를 삭제하시겠습니까?');
     	
-		$.ajax({
-    		type: 'post',
-    		url: '/project/project_del.do',
-    		data: {projIdx: projIdx},
-    		dataType: 'json',
-    		success: function (data) {
-    			console.log(data);
-    			location.href="../project/project_main.go";
-    		},
-    		error: function (e) {
-    			console.log(e);
-    		}
-    	});
+    	if(delP){    		
+			$.ajax({
+	    		type: 'post',
+	    		url: '/project/project_del.do',
+	    		data: {projIdx: projIdx},
+	    		dataType: 'json',
+	    		success: function (data) {
+	    			console.log(data);
+	    			location.href="../project/project_main.go";
+	    		},
+	    		error: function (e) {
+	    			console.log(e);
+	    		}
+	    	});
+    	}
     });
     
 	// 내가 추가한 에디터 초기화 및 내용가져오기
@@ -929,6 +947,10 @@ height: calc(100vh - 10rem);
     var whatlist = '';
     projList(whatlist);
     
+    function allButton(){
+    	whatlist = '';
+    	projList(whatlist);
+    }
     function worksButton(){
     	whatlist = '진행';
     	projList(whatlist);
@@ -1033,7 +1055,7 @@ height: calc(100vh - 10rem);
         		content += '<div class="card-header d-flex justify-content-between align-items-center flex-wrap">';
         		content += '<div class="d-flex align-items-center mb-sm-0 mb-3">';
         		content += '<div class="avatar avatar-md me-2">';
-        		content += '<img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">'; // 동그라미 사진부분
+        		content += '<img src="/file/employee/'+item.pro_file_name+'" alt="'+item.emp_name+'" class="rounded-circle">'; // 동그라미 사진부분
         		content += '</div>';
         		content += '<div class="flex-grow-1 ms-1">';
         		content += '<span class="fs-5">'+item.emp_name+'</span>';
@@ -1133,7 +1155,7 @@ height: calc(100vh - 10rem);
    	// 활동기록 삭제
     function delProjRB(projR_idx){
     	console.log("삭제할 활동기록 idx:",projR_idx);
-    	var delConf = confirm('활동기록을 삭제 하시겠습니끼?');
+    	var delConf = confirm('활동기록을 삭제 하시겠습니까?');
     	
     	if(delConf){
     		

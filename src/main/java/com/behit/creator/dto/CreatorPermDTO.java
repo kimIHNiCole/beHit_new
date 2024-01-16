@@ -10,6 +10,6 @@ import lombok.Getter;
 @Getter
 @Setter
 public class CreatorPermDTO {
-	private String emp_id;
-	private int cre_idx;
+	private String perm_emp_id;
+	private int perm_cre_idx;
 }
