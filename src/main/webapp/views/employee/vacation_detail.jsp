@@ -228,11 +228,11 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th>이름</th>
-                        <th>부서</th>
-                        <th>사용 연차</th>
-                        <th>사용 날짜</th>
-                        <th>내용</th>
+                        <th style="width: 15%">이름</th>
+                        <th style="width: 15%">부서</th>
+                        <th style="width: 15%">사용 연차</th>
+                        <th style="width: 30%">사용 날짜</th>
+                        <th style="width: 35%">내용</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -241,7 +241,7 @@
                     			<td>${usingList.emp_name}</td>
                     			<td>${usingList.emp_dept_name}</td>
                     			<td>${usingList.use_hour}</td>
-                    			<td>${usingList.startDate} ${usingList.startTime} ~ ${usingList.endDate} ${usingList.endTime}</td>
+                    			<td>${usingList.vaca_start} ~ ${usingList.vaca_end_time}</td>
                     			<td>${usingList.vaca_reason}</td>
                     		</tr>
                     	</c:forEach>
@@ -257,10 +257,10 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th>연/월차 등록일자</th>
-                        <th>연차 사용기한</th>
-                        <th>발생 시간</th>
-                        <th>내용</th>  
+                        <th style="width: 20%">연/월차 등록일자</th>
+                        <th style="width: 20%">연차 사용기한</th>
+                        <th style="width: 15%">발생 시간</th>
+                        <th style="width: 45%">내용</th>  
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">

@@ -48,6 +48,8 @@ public interface EmployeeDAO {
 
 	void defaultwork(String emp_id, String day, String workstart, String workend);
 
+	boolean idChk(String emp_id);
+
 
 
 

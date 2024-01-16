@@ -154,4 +154,9 @@ public HashMap<String, Object> slist(String page) {
 		
 	}
 
+	public boolean idChk(String emp_id) {
+		
+		return employeeDAO.idChk(emp_id);
+	}
+
 }

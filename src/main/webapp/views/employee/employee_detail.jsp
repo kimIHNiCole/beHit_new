@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
@@ -256,11 +257,12 @@ img.rounded-top{
                             </div>
                             <div class="mb-3 col-md-6">
 	                            <label for="hiredate" class="form-label">입사일</label>
-	 							<input type="date" class="form-control" id="hiredate" name="hiredate" value="${empdetail.hiredate}">
+								<input type="date" class="form-control" id="hiredate" name="hiredate" value="${empdetail.hiredate}">
 	                        </div>
 	                        <div class="mb-3 col-md-6">
 	                            <label for="leavedate" class="form-label">퇴사일</label>
-	 							<input type="date" class="form-control" id="leavedate" name="leavedate" value="${empdetail.leavedate}">
+	                            <input type="date" class="form-control" id="leavedate" name="leavedate" 
+	                            	value="${empdetail.leavedate == '9999-10-10' ? '-' : empdetail.leavedate}">
 	                         </div>
                           </div>
                           <div class="pt-4">
@@ -382,39 +384,6 @@ img.rounded-top{
 	       		</div>
             </div>
             <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  Â©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with â¤ï¸ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://themeselection.com/support/"
-                    target="_blank"
-                    class="footer-link d-none d-sm-inline-block"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
 			<jsp:include page="/views/todo_include.jsp" />
             <div class="content-backdrop fade"></div>
           </div>
@@ -442,6 +411,7 @@ img.rounded-top{
     <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
     <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="../../assets/vendor/js/menu.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <!-- endbuild -->
@@ -569,15 +539,31 @@ img.rounded-top{
 	    			data: param,
 	    			success: function(data){
 	    				console.log(data);
-	    				alert('수정되었습니다.');
-	    				location.reload();
+	    				Swal.fire({
+			    	        text: '정보가 수정되었습니다.',
+			    	        icon: 'success',
+			    	        customClass: {
+			    	            confirmButton: 'btn btn-primary'
+			    	        },
+			    	        buttonsStyling: false
+			    	    }).then(function() {
+			    	        // 확인 버튼을 눌렀을 때 실행될 코드
+			    	    	location.reload();
+			    	    });
 	    			},
 	    			error: function(e){
 	    				console.log(e)
 	    			}
 	    		});
 			} else{
-				alert('내용을 수정해 주세요');
+				Swal.fire({
+	    	        text: '정보를 수정해 주세요',
+	    	        icon: 'warning',
+	    	        customClass: {
+	    	            confirmButton: 'btn btn-primary'
+	    	        },
+	    	        buttonsStyling: false
+	    	    });
 			}		
     	}
     	
@@ -612,7 +598,7 @@ img.rounded-top{
 				param.hiredate = hiredate;
 				param.defaulthiredate = defaulthiredate;
 			}
-			if (leavedate !== '${empdetail.leavedate}') {
+			if (leavedate !== '${empdetail.leavedate}' && leavedate !== '') {
 				param.leavedate = leavedate;
 				param.defaultleavedate = defaultleavedate;
 			}
@@ -629,15 +615,31 @@ img.rounded-top{
 	    			data: param,
 	    			success: function(data){
 	    				console.log(data);
-	    				alert('수정되었습니다.');
-	    				location.reload();
+	    				Swal.fire({
+			    	        text: '정보가 수정되었습니다.',
+			    	        icon: 'success',
+			    	        customClass: {
+			    	            confirmButton: 'btn btn-primary'
+			    	        },
+			    	        buttonsStyling: false
+			    	    }).then(function() {
+			    	        // 확인 버튼을 눌렀을 때 실행될 코드
+			    	    	location.reload();
+			    	    });
 	    			},
 	    			error: function(e){
 	    				console.log(e)
 	    			}
 	    		});
 			} else{
-				alert('내용을 수정해 주세요');
+				Swal.fire({
+	    	        text: '정보를 수정해 주세요',
+	    	        icon: 'warning',
+	    	        customClass: {
+	    	            confirmButton: 'btn btn-primary'
+	    	        },
+	    	        buttonsStyling: false
+	    	    });
 			}		
     	}
 
@@ -685,15 +687,31 @@ img.rounded-top{
 	    			data: param,
 	    			success: function(data){
 	    				console.log(data);
-	    				alert('수정되었습니다.');
-	    				location.reload();
+	    				Swal.fire({
+			    	        text: '정보가 수정되었습니다.',
+			    	        icon: 'success',
+			    	        customClass: {
+			    	            confirmButton: 'btn btn-primary'
+			    	        },
+			    	        buttonsStyling: false
+			    	    }).then(function() {
+			    	        // 확인 버튼을 눌렀을 때 실행될 코드
+			    	    	location.reload();
+			    	    });
 	    			},
 	    			error: function(e){
 	    				console.log(e)
 	    			}
 	    		});
 			} else{
-				alert('내용을 수정해 주세요');
+				Swal.fire({
+	    	        text: '정보를 수정해 주세요',
+	    	        icon: 'warning',
+	    	        customClass: {
+	    	            confirmButton: 'btn btn-primary'
+	    	        },
+	    	        buttonsStyling: false
+	    	    });
 			}		
     	}
     	

@@ -118,17 +118,24 @@
 		                          			재직자
 		                        		</button>
 	                      			</li>
-	                      			<li class="nav-item">
-	                        			<button
-	                          				class="nav-link"
-	                          				data-bs-toggle="tab"
-	                          				data-bs-target="#form-tabs-secend"
-	                          				role="tab"
-	                          				aria-selected="false"
-	                          				onclick="tabsecend()">
-	                          				퇴사자
-	                       			 	</button>
-	                      			</li>
+	                      			<c:choose>
+	                      				<c:when test="${sessionScope.dept == 2}">
+			                      			<li class="nav-item">
+			                        			<button
+			                          				class="nav-link"
+			                          				data-bs-toggle="tab"
+			                          				data-bs-target="#form-tabs-secend"
+			                          				role="tab"
+			                          				aria-selected="false"
+			                          				onclick="tabsecend()">
+			                          				퇴사자
+			                       			 	</button>
+			                      			</li>
+	                      				</c:when>
+	                      				<c:otherwise>
+	                      				
+	                      				</c:otherwise>
+	                      			</c:choose>
                     			</ul>
                 			</div>
                 			<div class="col-md-4">
@@ -147,10 +154,17 @@
                         			<button class="btn btn-primary" type="button">검색</button>
                     			</div>
                 			</div>
-                			<div class="col-md-4 text-end">
-                    			<!-- 직원 등록 버튼 -->
-                    			<button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
-                			</div>
+                			<c:choose>
+	                      		<c:when test="${sessionScope.dept == 2}">
+				                	<div class="col-md-4 text-end">
+				                    	<!-- 직원 등록 버튼 -->
+				                    	<button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
+				                	</div>   			
+	                      		</c:when>
+	                      		<c:otherwise>
+	                      				
+	                      		</c:otherwise>
+	                       </c:choose>
             			</div>
             			<div class="tab-content">
             				<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
@@ -361,7 +375,6 @@ function drawsList(obj){
 		var scontent = '';
 		
 		obj.eslist.forEach(function(item, idx) {
-			
 			scontent += '<tr>';
 			scontent +='<td style="width:100px;">';
 			if (item.new_file_name != 'default'){
@@ -377,7 +390,7 @@ function drawsList(obj){
 			scontent +='<td>'+item.position_name+'</td>'
 			scontent +='<td>'+item.grade_name+'</td>'
 			scontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
-			scontent += '</tr>';
+			scontent += '</tr>';			
 		});
 		$('#eslist').empty();
 		$('#eslist').append(scontent);		

@@ -55,7 +55,8 @@ public class EmployeeController {
 
 	// 추후 경로 수정
 	@PostMapping(value = "/empadd.do")
-	public String empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, 
+	@ResponseBody
+	public HashMap<String, Object> empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, 
 			@RequestParam("uploadFile") MultipartFile uploadFile, RedirectAttributes rAttr) throws Exception {
 
 
@@ -90,8 +91,11 @@ public class EmployeeController {
 				String workend = day+" "+"18:00:00";
 				employeeService.defaultwork(emp_id, day, workstart, workend);
 			}
+			
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("status", "success");
 
-		return "redirect:/employee/employee_list.go";
+		return map; 
 	}
 
 	@GetMapping(value = "/employee/empflist.do")
@@ -192,23 +196,34 @@ public class EmployeeController {
 		 return mav;
 	 }
 	 
-	    private List<String> calculateWeekdays(LocalDate startDate) {
-	        List<String> weekdaysList = new ArrayList<>();
+	 private List<String> calculateWeekdays(LocalDate startDate) {
+	     List<String> weekdaysList = new ArrayList<>();
 
-	        // 한 달 동안 반복
-	        for (int i = 0; i < 30; i++) {
-	            // 주말이 아니라면 리스트에 추가
-	            if (startDate.getDayOfWeek() != DayOfWeek.SATURDAY && startDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
-	                weekdaysList.add(startDate.format(DateTimeFormatter.ISO_DATE));
-	            }
+	     // 한 달 동안 반복
+	     for (int i = 0; i < 30; i++) {
+	         // 주말이 아니라면 리스트에 추가
+	         if (startDate.getDayOfWeek() != DayOfWeek.SATURDAY && startDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+	             weekdaysList.add(startDate.format(DateTimeFormatter.ISO_DATE));
+	         }
 
-	            // 다음 날짜로 이동
-	            startDate = startDate.plusDays(1);
-	        }
+	         // 다음 날짜로 이동
+	         startDate = startDate.plusDays(1);
+	     }
 
-	        return weekdaysList;
-	    }
+	     return weekdaysList;
+	 }
 	 
 	 
+	 @GetMapping(value="/idChk.do")
+	 @ResponseBody
+	 public HashMap<String, Object> idChk(@RequestParam String emp_id){
+		 HashMap<String, Object> map = new HashMap<String, Object>();
+		 
+		 boolean use = employeeService.idChk(emp_id);
+		 
+		 map.put("use", use);
+		 
+		 return map;
+	 }
 
 }

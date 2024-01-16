@@ -105,7 +105,7 @@
           
            <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">근태 관리 </span></h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">근태 현황</span></h4>
     <!-- DataTable with Buttons -->
     <div class="card">
         <div class="card-datatable table-responsive">
@@ -138,11 +138,11 @@
                 <thead style="text-align: center;">
                     <tr>
                         <th colspan="2">이름 / 부서</th>
-                        <th>근무시간</th>
-                        <th>연차</th>
-                        <th>출근 시간</th>
-                        <th>퇴근 시간</th>
-                        <th>상태</th>
+                        <th style="width: 20%">근무시간</th>
+                        <th style="width: 20%">연차</th>
+                        <th style="width: 12%">출근 시간</th>
+                        <th style="width: 12%">퇴근 시간</th>
+                        <th style="width: 10%">상태</th>
                     </tr>
                 </thead>
                 <tbody id="worklist">
@@ -181,12 +181,11 @@
 		                          			전체
 		                        		</button>
 	                      			</li>
-	                      		<!-- 
 	                      			<li class="nav-item">
 	                        			<button
 	                          				class="nav-link"
 	                          				data-bs-toggle="tab"
-	                          				data-bs-target="#form-tabs-secend"
+	                          				data-bs-target="#form-tabs-second"
 	                          				role="tab"
 	                          				aria-selected="false"
 	                          				onclick="tabsecend()">
@@ -203,7 +202,7 @@
 	                          				onclick="tabthird()">
 	                          				미달
 	                       			 	</button>
-	                      			</li>  -->
+	                      			</li>
                     			</ul> 
 			                </div>
 							<div class="col-md-4">
@@ -230,10 +229,9 @@
 					                </tbody>
 					            </table>
 				            </div>
-			            <!-- 
 							<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
 					            <table class="datatables-basic table border-top" style="margin-top: -10px; text-align: center;">
-					                <thead >
+					                <thead>
 					                    <tr>
 					                        <th>날짜</th>
 					                        <th>근무시간</th>
@@ -247,7 +245,7 @@
 					                
 					                </tbody>
 					            </table>
-				            </div>
+				              </div>
 							<div class="tab-pane fade" id="form-tabs-third" role="tabpanel">
 					            <table class="datatables-basic table border-top" style="margin-top: -10px; text-align: center;">
 					                <thead >
@@ -264,7 +262,7 @@
 					                
 					                </tbody>
 					            </table>
-				            </div> -->
+				            </div>
 				        </div>
 			        </div>
 			    </div>
@@ -454,7 +452,7 @@
         		
         		content +='<tr data-bs-toggle="modal" data-bs-target="#largeModal" class="worklist">';
         		content +='<td style="display:none" class="emp_id">'+item.emp_id+'</td>';
-				content +='<td style="width:100px;">';
+				content +='<td style="width:80px;">';
 				if (item.new_file_name != 'default'){
 					content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
 				} else {
@@ -467,9 +465,9 @@
         		content +='<td style="text-align: center;">'+item.work_start+'~'+item.work_end+'</td>';
         		if (item.work_start == item.vaca_start && item.work_end == item.vaca_end){
         			content +='<td style="text-align: center;">'+'종일'+'</td>';
-        		} else if(item.use_hour == 0){
+        		} else if(item.vaca_start == '-'){
  	       			content +='<td style="text-align: center;">'+'-'+'</td>';
-        		} else {
+        		} else {	
         			content +='<td style="text-align: center;">'+item.vaca_start+'~'+item.vaca_end+'</td>';
         		}
         		content +='<td style="text-align: center;">'+item.work_started+'</td>';
@@ -522,22 +520,66 @@
      });
      	
      	function drawmodal(obj){
-     		var content = "";
+     		var fcontent = "";
+     		var scontent = "";
+     		var tcontent = "";
      		
-     		obj.list.forEach(function(item, idx){
+     		obj.flist.forEach(function(item, idx){
      			if (item.doc_code !== '-'){
-	     			content +='<tr>';
-	     			content +='<td>'+item.work_day+'</td>';
-	     			content +='<td>'+item.work_start+'~'+item.work_end+'</td>';
-	     			content +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
-	     			content +='<td>'+item.work_started+'</td>';
-	     			content +='<td>'+item.work_ended+'</td>';
-	     			content +='<td>'+item.work_state+'</td>';
-	     			content +='</tr>';
+	     			fcontent +='<tr>';
+	     			fcontent +='<td>'+item.work_day+'</td>';
+	     			fcontent +='<td>'+item.work_start+'~'+item.work_end+'</td>';
+	     			if (item.vaca_start == '00:00') {
+	     				fcontent +='<td>'+'-'+'</td>';
+	     			} else{
+		     			fcontent +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+	     			}
+	     			fcontent +='<td>'+item.work_started+'</td>';
+	     			fcontent +='<td>'+item.work_ended+'</td>';
+	     			fcontent +='<td>'+item.work_state+'</td>';
+	     			fcontent +='</tr>';
      			}
      		});
      		$('#modalfList').empty();
-     		$('#modalfList').append(content);
+     		$('#modalfList').append(fcontent);
+     		
+     		obj.slist.forEach(function(item, idx){
+     			if (item.doc_code !== '-'){
+	     			scontent +='<tr>';
+	     			scontent +='<td>'+item.work_day+'</td>';
+	     			scontent +='<td>'+item.work_start+'~'+item.work_end+'</td>';
+	     			if (item.vaca_start == '00:00') {
+	     				scontent +='<td>'+'-'+'</td>';
+	     			} else{
+		     			scontent +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+	     			}
+	     			scontent +='<td>'+item.work_started+'</td>';
+	     			scontent +='<td>'+item.work_ended+'</td>';
+	     			scontent +='<td>'+item.work_state+'</td>';
+	     			scontent +='</tr>';
+     			}
+     		});
+     		$('#modalsList').empty();
+     		$('#modalsList').append(scontent);     	
+     		
+     		obj.tlist.forEach(function(item, idx){
+     			if (item.doc_code !== '-'){
+	     			tcontent +='<tr>';
+	     			tcontent +='<td>'+item.work_day+'</td>';
+	     			tcontent +='<td>'+item.work_start+'~'+item.work_end+'</td>';
+	     			if (item.vaca_start == '00:00') {
+	     				tcontent +='<td>'+'-'+'</td>';
+	     			} else{
+		     			tcontent +='<td>'+item.vaca_start+'~'+item.vaca_end+'</td>';
+	     			}
+	     			tcontent +='<td>'+item.work_started+'</td>';
+	     			tcontent +='<td>'+item.work_ended+'</td>';
+	     			tcontent +='<td>'+item.work_state+'</td>';
+	     			tcontent +='</tr>';
+     			}
+     		});
+     		$('#modaltList').empty();
+     		$('#modaltList').append(tcontent);     		
      	}
      	
      	

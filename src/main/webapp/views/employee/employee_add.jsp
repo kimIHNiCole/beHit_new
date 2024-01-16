@@ -104,7 +104,7 @@
 	                         			<label for="uploadFile" class="btn btn-label-secondary account-image-reset mb-4">Upload new photo</label>
 		                            	<input type="file" name="uploadFile" id="uploadFile" style="display: none;" onchange="previewImage(event)" accept=".jpg, .jpeg, .gif, .png"/>
 		                            	<i class="bx bx-upload d-block d-sm-none"></i>
-		                            	<button class="btn btn-label-secondary account-image-reset mb-4" style="margin-left: 10px;">아이디 중복 검사</button>
+		                            	<button class="btn btn-label-secondary account-image-reset mb-4" style="margin-left: 10px;" id="idChk">아이디 중복 검사</button>
 	                          			<p class="text-muted mb-0">.jpg, .jpeg, .png, .gif 확장자만 추가할 수 있고 최대 사이즈는 1MB입니다</p>
 	                        		</div>
 	                      		</div>
@@ -273,7 +273,7 @@
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
-    var idChk = true;
+    var idChk = false;
     var msg = '<%= request.getParameter("msg") %>';
     console.log(msg);
 
@@ -560,8 +560,9 @@
 		    	        processData: false,
 		    	        success: function(data) {
 		    	        	console.log(data);
-		    	        	location.href = './';
-				    		
+		    	        	if (data.status){
+		    	        		window.location.href = '/employee/employee_list.go';
+		    	        	}
 		    	        },
 		    	        error: function(e) {
 		    	        	console.log(e);
@@ -580,6 +581,44 @@
 	    	    });
 	        }
 	    });
+	    });
+	    
+	    $('#idChk').on('click', function(){
+	    	var emp_id = $('input[name="emp_id"]').val();
+	    	
+	    	$.ajax({
+	    		type:'get',
+	    		url:'idChk.do',
+	    		data: {'emp_id' : emp_id},
+	    		dataType: 'json',
+	    		success:function(data){
+	    			console.log(data);
+			   		if (data.use) {
+			        	Swal.fire({
+			    	        text: '이미 사용중인 아이디 입니다!',
+			    	        icon: 'warning',
+			    	        customClass: {
+			    	            confirmButton: 'btn btn-primary'
+			    	        },
+			    	        buttonsStyling: false
+			    	    });
+			   			$('input[name="emp_id"]').val('');
+			   		} else {
+			        	Swal.fire({
+			    	        text: '사용가능한 아이디 입니다!',
+			    	        icon: 'success',
+			    	        customClass: {
+			    	            confirmButton: 'btn btn-primary'
+			    	        },
+			    	        buttonsStyling: false
+			    	    }); 
+				   		idChk = true;
+			   		}
+	    		},
+	    		error:function(e){
+	    			console.log(e);
+	    		}
+	    	});
 	    });
 	    
     </script>

@@ -61,12 +61,18 @@ public class WorkController {
 	//근태현황 리스트
 	@GetMapping(value="/worklist.do")
 	@ResponseBody
-	public HashMap<String, Object> worklist(@RequestParam String date, @RequestParam String page){
+	public HashMap<String, Object> worklist(@RequestParam String date, @RequestParam String page, HttpSession session){
+		
+		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		String login_id = loginInfo.getEmp_id();
+		int login_dept = loginInfo.getEmp_dept_idx();
+		
+		logger.info("로그인 아이디 : "+login_id);
 		
 		logger.info("컨트롤러 접근");
 		logger.info("date : "+date);
 		
-		return workService.worklist(date, page);
+		return workService.worklist(date, page, login_dept);
 	}
 	
 	// 근태현황 상세보기

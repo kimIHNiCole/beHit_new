@@ -11,9 +11,9 @@ import com.behit.employee.dto.WorkDTO;
 @Mapper
 public interface WorkDAO {
 
-	ArrayList<WorkDTO> worklist(String date, int offset);
+	ArrayList<WorkDTO> worklist(String date, int offset, int login_dept);
 
-	int totalPage(int i);
+	int totalPage(int login_dept);
 
 	VacationDTO detail(String login_id);
 
@@ -22,8 +22,6 @@ public interface WorkDAO {
 	ArrayList<VacationDTO> createList(String login_id);
 
 	int selectdate(HashMap<String, Object> commute);
-
-	ArrayList<WorkDTO> workmodal(String emp_id, String modaldate);
 
 	boolean workChk(String login_id, String workdate);
 
@@ -34,5 +32,13 @@ public interface WorkDAO {
 	ArrayList<HashMap<String, Object>> timeNowList(String login_id);
 
 	ArrayList<HashMap<String, Object>> vhList(String login_id);
+
+	ArrayList<WorkDTO> worklistall(String date, int offset);
+
+	ArrayList<WorkDTO> workfmodal(String emp_id, String modaldate);
+
+	ArrayList<WorkDTO> worksmodal(String emp_id, String modaldate);
+
+	ArrayList<WorkDTO> worktmodal(String emp_id, String modaldate);
 
 }
