@@ -143,14 +143,14 @@ width: 20rem;
                           <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
                           <div>
                             <h5 class="mb-0">구독자</h5>
-                            <span>3,333,333 명</span>
+                            <span>${channelSum.total_subscribers} 명</span>
                           </div>
                         </div>
                         <div class="d-flex align-items-start mt-3 gap-3">
                           <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
                           <div>
                             <h5 class="mb-0">컨텐츠 수</h5>
-                            <span>1,432 개</span>
+                            <span>${channelSum.total_contents} 개</span>
                           </div>
                         </div>
                       </div>
@@ -923,8 +923,10 @@ width: 20rem;
         			}
         		
         	}  
-    //체크시 조직도 이벤트 (담당자)
-    $(document).ready(function () {
+    
+    $(document).ready(function () {  	
+    	
+    	//체크시 조직도 이벤트 (담당자)
         $('#jstree-checkbox').on('click', '.jstree-anchor', function (event) {
             event.preventDefault();
 

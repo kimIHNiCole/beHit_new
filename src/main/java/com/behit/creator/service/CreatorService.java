@@ -272,6 +272,11 @@ public class CreatorService {
 		logger.info("creator 가져오기 실행");
 		return creatorDAO.getCreator(cre_idx);
 	}
+	// 크리에이터 채널 합계 정보
+	public HashMap<String, Object> getChannelSum(int cre_idx) {
+		logger.info("creator 채널 합계 정보 가져오기 실행");
+		return creatorDAO.getChannelSum(cre_idx);
+	}
 
 	// 크리에이터 채널 정보
 	public ArrayList<HashMap<String, Object>> getChannel(int cre_idx) {
@@ -385,6 +390,8 @@ public class CreatorService {
 		logger.info("담당자인지 권한 체크 요청");
 		return creatorDAO.getCrePermForMng(loginId);
 	}
+
+	
 	
 	
 

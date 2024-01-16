@@ -127,6 +127,10 @@
     	color:#C20000;
     }
     
+    .card{
+    	font-family:pretendard;
+    }
+    
     </style>
     
     
@@ -161,9 +165,11 @@
                     <ul class="nav nav-align-left nav-pills flex-column">
                     
                     	<li class="nav-item mb-1">
+                    		<a href="/approval/approval_main.go">
                     		<h4 class="apv-title">
                     			전자 결재
                     		</h4>
+                    		</a>
                     	</li>
                     	
                     	<li class="nav-item mb-1">

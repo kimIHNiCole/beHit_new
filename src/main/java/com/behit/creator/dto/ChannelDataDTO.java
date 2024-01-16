@@ -20,4 +20,7 @@ public class ChannelDataDTO {
 	private BigInteger contents;
 	private int view_trend;
 	private int rep_channel;
+	
+	private BigInteger total_subscribers;
+	private BigInteger total_contents;
 }

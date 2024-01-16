@@ -150,6 +150,34 @@
 		SELECT * FROM channel WHERE cre_idx = #{cre_idx}
 		ORDER BY rep_channel DESC
 	</select>
+	<!-- 크리채널 합계정보 -->
+	<select id="getChannelSum" resultType="HashMap">
+	SELECT
+    SUM(subscriber) AS total_subscribers,
+    SUM(contents) AS total_contents
+FROM (
+    SELECT
+        cndt.subscriber,
+        cndt.contents
+    FROM
+        channeldata cndt
+    JOIN
+        channel cn ON cn.channel_id = cndt.channel_id
+    WHERE
+        cn.cre_idx = #{cre_idx}
+        AND (cndt.channel_id, cndt.channel_data_date) IN (
+            SELECT
+                channel_id,
+                MAX(channel_data_date) AS latest_date
+            FROM
+                channeldata
+            WHERE
+                channel_id IN (SELECT channel_id FROM channel WHERE cre_idx = #{cre_idx})
+            GROUP BY
+                channel_id
+        )
+) AS subquery
+	</select>
 	<select id="getChannelIdByCreIdx" parameterType="int" resultType="String">
 		SELECT channel_id FROM channel WHERE cre_idx = #{cre_idx}
 	</select>
