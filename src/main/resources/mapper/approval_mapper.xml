@@ -154,10 +154,16 @@
 	<update id="approval_update">
 		UPDATE apv SET 
 		apv_date = NOW()
-		,apv_stmt = '진행중'
-		,apv_subject = #{apv_subject}
-		,apv_overview = #{apv_overview}
+		,apv_stmt = #{apv_stmt}
+		
+		<if test="apv_subject != null and !apv_subject.isEmpty()">,apv_subject = #{apv_subject}</if>
+		<if test="apv_subject == null or apv_subject.isEmpty()">,apv_subject = NULL</if>
+		
+		<if test="apv_overview != null and !apv_overview.isEmpty()">,apv_overview = #{apv_overview}</if>
+		<if test="apv_overview == null or apv_overview.isEmpty()">,apv_overview = NULL</if>
+		
 		,apv_vac_type = #{apv_vac_type}
+		
 		<if test="apv_time != null and !apv_time.isEmpty()">,apv_time = #{apv_time}</if>
 		<if test="apv_time == null or apv_time.isEmpty()">,apv_time = NULL</if>
 	
@@ -364,6 +370,26 @@
 		WHERE ap.emp_id = #{emp_id}
 		ORDER BY apv_history_date DESC
 	</select>
+	
+	<!-- 파일 업로드 -->
+	<insert id="upload" parameterType="HashMap">
+		INSERT INTO file(file_kind, file_kind_idx, ori_file_name, new_file_name, emp_id)
+			VALUES(#{file_kind}, #{file_kind_idx}, #{ori_file_name}, #{new_file_name}, #{login_id});	
+	</insert>
+	
+	<select id="approval_file" resultType="util">
+		SELECT * FROM file WHERE file_kind = 3 AND file_kind_idx =#{apv_idx};
+	</select>
+	
+	<delete id="fileDel">
+		DELETE FROM file WHERE file_idx = #{param1}
+	</delete>
+	
+	<delete id="temporary_apv_del">
+		DELETE FROM apv WHERE apv_idx = #{apv_idx}
+	</delete>
+	
+	
 
 
 </mapper>

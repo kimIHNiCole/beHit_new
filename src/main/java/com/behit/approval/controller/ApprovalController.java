@@ -1,7 +1,9 @@
 package com.behit.approval.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.behit.approval.dto.ApprovalDTO;
 import com.behit.approval.service.ApprovalService;
 import com.behit.employee.dto.EmployeeDTO;
+import com.behit.project.dto.ProjectFileDTO;
+import com.behit.util.dto.UtilDTO;
 
 @Controller
 public class ApprovalController {
@@ -93,8 +97,6 @@ public class ApprovalController {
 	@PostMapping(value="/approval/approval_update.do")
 	public String approval_update(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
-		
-		logger.info(dto.getApv_cnt());
 		
 		return service.approval_update(loginInfo,dto,files);
 	}
@@ -214,10 +216,30 @@ public class ApprovalController {
 
 	}
 	
+	// 임시저장 삭제
+	@PostMapping(value="/approval/temporary_apv_del")
+	@ResponseBody
+	public HashMap<String, Object> temporary_apv_del(@RequestParam String apv_idx) {
+		
+		return service.temporary_apv_del(apv_idx);
+
+	}
+	
 	// 페이지 이동
 	@GetMapping(value="/approval/{page}.go")
 	public String pageMove(@PathVariable String page) {
 		return "/approval/"+page;
+	}
+	
+	// 결재 파일
+	
+	@GetMapping(value="/approval/approval_file.do")
+	@ResponseBody
+	public Map<String, Object> projAllFile(@RequestParam String apv_idx){
+		ArrayList<UtilDTO> list = service.approval_file(apv_idx);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
 	}
 	
 
