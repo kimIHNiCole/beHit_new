@@ -228,6 +228,7 @@
 				                    <tr>
 				                     <th>&nbsp;</th>
 				                      <th>크리에이터</th>
+				                      <th>열람권한</th>
 				                      <th>카테고리</th>
 				                      <th>대표채널</th>
 				                      <th>담당매니저</th>
@@ -308,12 +309,12 @@
     
     	$.ajax({
 		   type : 'get',
-		   url:'/getCreatorlist',
+		   url:'/getCreatorList',
 		   dataType:'json',
 		   success:function(result){
-			   console.log('result'+result);
+			   console.log('/getCreatorList');
 			   drawTotalAll(result.totalInfo);
-			   drawAllList(result.allList,result.permList);
+			   drawAllList(result.allList);
 			   drawMyList(result.myList);
 		   },
 		   error:function(e){
@@ -330,11 +331,13 @@
     	}
     	
     	
-     	function drawAllList(allList,permList) {
-     		var combinedList = allList.concat(permList);
-    		console.log('combinedList===='+combinedList);
+     	function drawAllList(allList){
+     		console.log('allList :::: '+ allList);
+ 			$.each(allList, function (index, item) {
+ 				console.log(item);	
+ 			});
 	    	var creatorTable = $("#creatorList").DataTable({
-	    		data : combinedList,
+	    		data : allList,
 	    		columnDefs: [
 	    	        { targets: 0, orderable: false } // 0번째 열에 대해 정렬 비활성화
 	    	    ],
@@ -347,23 +350,35 @@
 	    				}
     				},
 	    			{ 
-	    				width:'30%', 
-	    				data: null,
-	    				render : function(data, type, row){
-	    					return '<a href="/creators/creatorDetail.go?cre_idx=' + row.cre_idx +'">'+row.cre_nick_name+'</a>';
-	    				}
-	    			},
-	    			{ width:'20%', data:'channel_cate'},
-	    			{ 
 	    				width:'20%', 
 	    				data: null,
 	    				render : function(data, type, row){
-	    					return  '<a href="' + row.channel_url + '">'+row.channel_name+'</a>';
+	    					
+	    	                return '<a href="/creators/creatorDetail.go?cre_idx=' + row.cre_idx + '">' + row.cre_nick_name + '</a>';
 	    				}
 	    			},
-	    			{ width:'20%', data:'mng_name'}
+	    			{ 
+	    				width:'10%', 
+	    				data: null,
+	    				render : function(data, type, row){
+	    					var permBadge = row.perm === 1 ? 
+	    							'<span class="badge bg-info ms-3">○</span>' 
+	    							: '<span class="badge bg-warning ms-3 p-1"><i class="bx bx-x bx-xs" style="color:#ffffff"></i></span>';
+	    	                return permBadge;
+	    				}
+	    			},
+	    			{ width:'15%', data:'channel_cate'},
+	    			{ 
+	    				width:'30%', 
+	    				data: null,
+	    				render : function(data, type, row){
+	    					return  '<a href="' + row.channel_url + '"><i class="bx bxl-youtube bx-sm" style="color:#ff0000"></i>&nbsp;'+row.channel_name+'</a>';
+	    				}
+	    			},
+	    			{ width:'15%', data:'mng_name'}
 	    		]
 	    	});
+	    	
 		}
     	
     	function drawMyList(myList) {
@@ -387,8 +402,8 @@
 		            '</tr>'+
 		            '<tr>'+
 		            	'<td><label class="card-text"> 대표 채널</label></td>' + 
-		            	'<td><label>| <i class="bx bxl-youtube" style="color:#ff0000"></i> ' +
-		            	'<a href="'+myCre.channel_url+'" class="card-link">' + myCre.channel_name + '</a></label></td>' +
+		            	'<td><label>| <a href="'+myCre.channel_url+'" class="card-link"> ' +
+		            	'<i class="bx bxl-youtube" style="color:#ff0000"></i>&nbsp;' + myCre.channel_name + '</a></label></td>' +
 		            '</tr>'+
 		            	'<td><label class="card-text"> 총 구독자수</label></td>' + 
 		            	'<td><label>| ' + myCre.last_subscriber + ' 명</label>' +

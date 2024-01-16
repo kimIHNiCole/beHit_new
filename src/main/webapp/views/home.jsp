@@ -494,7 +494,7 @@
   </body>
 
 <script>
-var videoInfo =  [
+ /* var videoInfo =  [
 	<c:forEach var="currentVideo" items="${currentVideoList}">
     {
         "videoId": "${currentVideo.videoId}",
@@ -502,21 +502,23 @@ var videoInfo =  [
         "thumbnailUrl": "${currentVideo.thumbnailUrl}",
     }<c:if test="${!loop.last}">,</c:if>
 	</c:forEach>
-	];
+	];  */
 
-console.log('currentVideoList = '+ videoInfo)
+/* console.log('currentVideoList = '+ videoInfo); */
 
 // 영상제목의 길이가 n자가 넘어가면 제어
 $('.videoTitle').each(function() {
         // 현재 엘리먼트의 텍스트 가져오기
         var titleText = $(this).text();
-
-        // 텍스트 길이가 20자 이상인 경우
-        if (titleText.length > 24) {
-            // 처음 20자까지만 잘라내고 뒤에 '...'을 붙이기
-            var shortenedText = titleText.substring(0, 24) + '...';
-            $(this).text(shortenedText);
-        }
+        
+        // 텍스트 길이가 23자 이상인 경우
+         if (titleText && titleText.length > 23) {
+        // 처음 23자까지만 잘라내고 뒤에 '...'을 붙이기
+        var shortenedText = titleText.substring(0, 23) + '...';
+        
+        
+        $(this).text(shortenedText);
+    }
     });
 
 

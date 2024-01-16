@@ -191,23 +191,64 @@ public class CreatorController {
 	}
 
 	// 크리에이터 리스트
-	@GetMapping(value = "/getCreatorlist")
+	@GetMapping(value = "/getCreatorList")
 	public HashMap<String, Object> getCreatorList(HttpSession session) {
 		logger.info("크리에이터 리스트 가져오기");
 
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
 		String loginId = loginInfo.getEmp_id();
 
+		// 리스트 출력
 		HashMap<String, Object> totalInfo = creatorService.getTotalInfo();
 		ArrayList<HashMap<String, Object>> allList = creatorService.getAllList();
 		ArrayList<HashMap<String, Object>> myList = creatorService.getMyList(loginId);
-		ArrayList<CreatorPermDTO> permList = creatorService.getCrePerm(loginId);
+		
+		for(int i=0; i<allList.size(); i++) {
+			allList.get(i).put("perm", 0); // perm 기본값 0 할당 = 권한 없음
+		}
+		
+		// 열람권한
+		boolean leaderChk = creatorService.leaderChk(loginId);
+		if(leaderChk) {	// 팀장일때 
+			for(HashMap<String, Object> cre : allList) {
+				cre.put("perm", 1);	
+			}
+		}
+		else {	// 담당 매니저 일때
+			ArrayList<CreatorPermDTO> permListForMng = creatorService.getCrePermForMng(loginId);
+			ArrayList<CreatorPermDTO> permList = creatorService.getCrePerm(loginId);
+			if(permListForMng != null){	// 담당 매니저 일때
+				permBadgeForList(allList,permListForMng);
+			}
+			if(permList != null){	// 권한 받은 직원 일때
+				permBadgeForList(allList,permList);
+			}
+		}
+		
+		// 값 확인용
+		for(HashMap<String, Object> item : allList) {
+			logger.info("item :: " + item);
+		}
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		allList.sort((mapA, mapB) -> Integer.compare((Integer) mapB.get("perm"), (Integer) mapA.get("perm")));
 		result.put("totalInfo", totalInfo);
 		result.put("allList", allList);
 		result.put("myList", myList);
-		result.put("permList", permList);
 		return result;
+	}
+	
+	
+	public void permBadgeForList(ArrayList<HashMap<String, Object>> allList
+			, ArrayList<CreatorPermDTO> list) {
+		for(int i=0; i<allList.size(); i++) {	
+			for(int j=0; j<list.size(); j++) {
+				if(allList.get(i).get("cre_idx").equals( list.get(j).getPerm_cre_idx()) ) {
+					allList.get(i).put("perm", 1);	// 1 : 권한 있음
+				}
+			}
+		}
+		
 	}
 
 	// 크리에이터 상세보기
@@ -222,7 +263,7 @@ public class CreatorController {
 		String loginId = loginInfo.getEmp_id();
 		permChkParam.put("loginId", loginId);
 		permChkParam.put("cre_idx", cre_idx);
-		
+		logger.info("cre_idx"+cre_idx);
 		// 담당 매니저 및 팀장은 제외시키기
 		boolean permChk = creatorService.permChk(permChkParam);
 		if(permChk) {
