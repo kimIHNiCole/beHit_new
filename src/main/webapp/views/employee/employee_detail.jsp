@@ -62,6 +62,12 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
 <style>
+
+.content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+
 img.rounded-top{
 	height: 95px;
     }
@@ -102,11 +108,11 @@ img.rounded-top{
                      	<c:choose>
 						    <c:when test="${not empty empdetail and 'default' eq empdetail.new_file_name}">
 						        <img src="../../assets/img/avatars/1.png" alt="user image" 
-						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						            class="d-block ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>
 						        <img src="/file/employee/${empdetail.new_file_name}" alt="${empdetail.ori_file_name}" 
-						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						            class="d-block ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:otherwise>
 						</c:choose>
                       </div>

@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
 
     <!-- Page CSS -->
 
@@ -712,6 +713,7 @@ height: calc(100vh - 10rem);
     <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
     <script src="../../assets/vendor/libs/quill/quill.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
@@ -734,23 +736,33 @@ height: calc(100vh - 10rem);
     // 프로젝트 삭제
     $('#project-del').on('click', function(){
     	var projIdx = ${detailList.proj_idx};
-    	var delP = confirm('프로젝트를 삭제하시겠습니까?');
-    	
-    	if(delP){    		
-			$.ajax({
-	    		type: 'post',
-	    		url: '/project/project_del.do',
-	    		data: {projIdx: projIdx},
-	    		dataType: 'json',
-	    		success: function (data) {
-	    			console.log(data);
-	    			location.href="../project/project_main.go";
-	    		},
-	    		error: function (e) {
-	    			console.log(e);
-	    		}
-	    	});
-    	}
+ 		Swal.fire({
+	        text: '프로젝트를 삭제하시겠습니까?',
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonText: 'OK',
+	        customClass: {
+	        	confirmButton: 'btn btn-primary me-3',
+	        	cancelButton: 'btn btn-label-secondary'
+	        },
+	        buttonsStyling: false
+	    }).then(function(result) {
+	    	if (result.isConfirmed) {
+				$.ajax({
+		    		type: 'post',
+		    		url: '/project/project_del.do',
+		    		data: {projIdx: projIdx},
+		    		dataType: 'json',
+		    		success: function (data) {
+		    			console.log(data);
+		    			location.href="../project/project_main.go";
+		    		},
+		    		error: function (e) {
+		    			console.log(e);
+		    		}
+		    	});		    	
+	    	}
+	    });
     });
     
 	// 내가 추가한 에디터 초기화 및 내용가져오기
