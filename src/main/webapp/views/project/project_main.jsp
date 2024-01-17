@@ -429,6 +429,9 @@ height: calc(100vh - 10rem);
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
     
+    <!-- Header -->
+    <script src="../../assets/js/header.js"></script>
+    
     <script>
     var whatlist = '';
     projList(whatlist);

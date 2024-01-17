@@ -24,7 +24,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
     
-    <!-- pretendard 폰트 -->
+	<!-- pretendard 폰트 -->
 	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
@@ -269,7 +269,11 @@
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
+	<script src="../../assets/js/app-ecommerce-settings.js"></script>
+	
+	<!-- Header JS -->
+    <script src="../../assets/js/header.js"></script>
+	
 	<script>
     var msg = '${msg}';
     console.log(msg);
@@ -412,7 +416,7 @@ function drawsList(obj){
 	}
 
      </script>
-    <!-- Header JS -->
-    <script src="../../assets/js/header.js"></script>   
+
+       
   </body>
 </html>

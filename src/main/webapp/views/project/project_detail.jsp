@@ -720,6 +720,9 @@ height: calc(100vh - 10rem);
     <script src="../../assets/js/app-chat.js"></script>
     <script src="../../assets/js/forms-editors.js"></script>
     
+    <!-- Header -->
+    <script src="../../assets/js/header.js"></script>
+    
     <!-- custom JS -->
     <script>
     

@@ -1180,6 +1180,9 @@
 	<script src="../../assets/js/form-wizard-numbered.js"></script>
 	<script src="../../assets/js/form-wizard-validation.js"></script>
 	<script src="../../assets/js/forms-file-upload.js"></script>
+	
+	<!-- Header -->
+    <script src="../../assets/js/header.js"></script>
 
 	<!-- jstree -->
 	<script src="../../assets/vendor/libs/jstree/jstree.js"></script>
