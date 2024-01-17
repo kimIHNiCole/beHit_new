@@ -363,7 +363,7 @@
     	font-family:pretendard;
     }
     
-    .apv-form-button button[type="submit"]{
+    #apv_submit{
     	margin-right: 5.125rem;
     }
     
@@ -602,7 +602,7 @@
 	
 					                <div class="pt-4 apv-form-button">
 				                    <button type="reset" class="btn btn-label-secondary">취소</button>
-				                    <button id="apv_submit" type="submit" class="btn btn-primary">상신</button>
+				                    <button id="apv_submit" type="button" class="btn btn-primary">상신</button>
 				                  </div>
 					              </form>
 				                
@@ -1749,6 +1749,33 @@
 			        }
 		        	
 		        }
+		        
+		        
+		        Swal.fire({
+		            icon: 'question',
+		            title: '상신하시겠습니까?',
+		            showCancelButton: true,
+		            confirmButtonText: '확인',
+		            cancelButtonText: '취소'
+		        }).then((result) => {
+		            if (result.isConfirmed) {
+		                // 확인 버튼을 누른 경우
+		                Swal.fire({
+		                    icon: 'success',
+		                    title: '상신하였습니다.',
+		                    confirmButtonText: '확인'
+		                }).then(() => {
+		                	console.log("Form data before submission:", $('#approvalForm').serialize());
+		                    // 확인 버튼을 누른 후 추가 동작
+		                    $('#approvalForm').submit(); // 폼 서버로 제출
+		                    
+		                });
+		            } else {
+		                // 취소 버튼을 누른 경우
+		                // 필요한 경우 추가 동작
+		            }
+		        });
+		        
 		
 		
 		    });
@@ -1841,35 +1868,40 @@
 		    var approvalForm = document.querySelector('#approvalForm');
     
 		    var apv_idx = '${apv.apv_idx}';
-		
+		    
 		    if (confirmText) {
 		        confirmText.onclick = function () {
-		            Swal.fire({
-		                title: '임시저장 하시겠습니까?',
-		                text: "임시저장하실 문서는 임시저장함에 저장됩니다",
-		                icon: 'warning',
-		                showCancelButton: true,
-		                confirmButtonText: '네',
-		                cancelButtonText: '아니오',
-		                customClass: {
-		                    confirmButton: 'btn btn-primary me-3',
-		                    cancelButton: 'btn btn-label-secondary'
-		                },
-		                buttonsStyling: false
-		            }).then(function (result) {
-		                if (result.value) {// 변경된 값으로 업데이트
-		                     // 임시 저장 버튼 클릭 시 action 변경
-		                    $('#approvalForm').attr('action', '/approval/approval_update.do');
-		                    $('#apvStmt').val('임시저장');
-		                    // 폼 데이터 전송
-		                    $('#approvalForm').submit();
-		                    // 상신이 성공하면 SweetAlert으로 완료 메시지를 띄우고 페이지를 이동
-		                }
-		            });
+		        	Swal.fire({
+			            icon: 'question',
+			            title: '임시저장 하시겠습니까?',
+			            showCancelButton: true,
+			            confirmButtonText: '확인',
+			            cancelButtonText: '취소'
+			        }).then((result) => {
+			            if (result.isConfirmed) {
+			                // 확인 버튼을 누른 경우
+			                Swal.fire({
+			                    icon: 'success',
+			                    title: '임시저장 하였습니다.',
+			                    confirmButtonText: '확인'
+			                }).then(() => {
+			                	// 임시 저장 버튼 클릭 시 action 변경
+			                    $('#approvalForm').attr('action', '/approval/approval_update.do');
+			                    $('#apvStmt').val('임시저장');
+			                    // 폼 데이터 전송
+			                    $('#approvalForm').submit();
+			                    // 상신이 성공하면 SweetAlert으로 완료 메시지를 띄우고 페이지를 이동
+			                    
+			                });
+			            } else {
+			                // 취소 버튼을 누른 경우
+			                // 필요한 경우 추가 동작
+			            }
+			        });
+		        	
 		        };
 		    }
 })();
-	 
 	 
 	 
 

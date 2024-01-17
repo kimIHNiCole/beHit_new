@@ -68,6 +68,8 @@ public class ApprovalController {
 	@PostMapping(value="/approval/approval_write.do")
 	public String approval_write(HttpSession session, ApprovalDTO dto, MultipartFile[] files) {
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
+		
+		logger.info(dto.getApv_cnt());
 
 		return service.approval_write(loginInfo,dto,files);
 	}
