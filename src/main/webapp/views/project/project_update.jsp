@@ -630,6 +630,9 @@
     <script src="../../assets/js/app-chat.js"></script>
     <script src="../../assets/js/forms-editors.js"></script><!-- 상세 에디터 js -->
     
+    <!-- Header -->
+    <script src="../../assets/js/header.js"></script>
+    
     <!-- custom JS -->
     <script>
     

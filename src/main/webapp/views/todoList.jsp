@@ -56,9 +56,9 @@
 <body>
 <div id="modalContent">
     <div>
-        <span style="color: #C20000">할 일 <a id="todoNCount" style="color: #C20000"></a>개 남음</span>
-        <a href="todoList_history.go" style="color: red; text-decoration: none;">완료된 히스토리 보기</a>
-        <span style="float: right;"><button style="background: none; border: none;" onclick="closeTodoModal()">X</button></span>
+        <span style="color: #C20000">할 일 <a id="todoNCount" style="color: #C20000"></a>개 남음 </span>
+        <a href="todoList_history.go" style="color: #969696; text-decoration: none;"> |  완료된 히스토리 보기</a>
+        <span style="float: right;"><button style="background: none; border: none;" onclick="closeTodoModal()"><i class='bx bx-x' ></i></button></span>
     </div>
     <hr>
     <div id="todoListContainer"><!-- 투두리스트 -->

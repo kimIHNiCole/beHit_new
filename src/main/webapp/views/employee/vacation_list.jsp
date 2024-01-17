@@ -195,7 +195,10 @@
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
+	<script src="../../assets/js/tables-datatables-basic.js"></script>
+	
+	<!-- Header -->
+    <script src="../../assets/js/header.js"></script>
      <script>
 	     document.addEventListener("DOMContentLoaded", function () {
 	         var tableRows = document.querySelectorAll(".clickable-row");
@@ -266,7 +269,6 @@
 	     }
      </script>
      
-    <!-- Header -->
-    <script src="../../assets/js/header.js"></script>
+
   </body>
 </html>

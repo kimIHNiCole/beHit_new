@@ -70,7 +70,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-			<jsp:include page="/views/header_menu.jsp"/>
+		<jsp:include page="/views/header_menu.jsp"/>
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -94,7 +94,7 @@
 							<div class="card-body">
 								<div class="d-flex align-items-start align-items-sm-center gap-4">
 			                        <img
-			                          src="../../assets/img/avatars/1.png"
+			                          src="../../assets/img/avatars/21.png"
 			                          alt="user-avatar"
 			                          class="d-block rounded"
 			                          height="100"
@@ -272,6 +272,10 @@
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+    <!-- Header JS -->
+    <script src="../../assets/js/header.js"></script>  
+    
     <script>
     var idChk = false;
     var msg = '<%= request.getParameter("msg") %>';
@@ -622,8 +626,7 @@
 	    });
 	    
     </script>
-	<!-- Header JS -->
-    <script src="../../assets/js/header.js"></script>   
+ 
    
 
 
