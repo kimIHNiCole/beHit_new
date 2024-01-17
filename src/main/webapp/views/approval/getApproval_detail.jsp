@@ -1134,24 +1134,24 @@
     
     if('${apv.apv_vac_type}' == '시간'){
     
-    var startTime = new Date("${apv.apv_start_time}");
-		var endTime = new Date("${apv.apv_end_time}");
-		
-		// 날짜 형식 변경
-		var options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: '2-digit' };
-		var formattedStartTime = startTime.toLocaleString('en-US', options).replace(',', '');
-		var formattedEndTime = endTime.toLocaleString('en-US', options).split(',')[1].trim();
-		
-		console.log(formattedStartTime);
-		console.log(formattedEndTime);
-		
-		// 결과 생성
-		var result = '<span>'+formattedStartTime+'</span><span> ~ </span><span>'+formattedEndTime+'</span>';
-		
-		// 결과를 출력합니다.
-		var apvVacTypeTimeElement = document.getElementById("apv_vac_type_time");
-		apvVacTypeTimeElement.innerHTML = result;
-    
+    	var startTime = new Date("${apv.apv_start_time}");
+        var endTime = new Date("${apv.apv_end_time}");
+
+        // 시작 시간 형식 변경 (AM/PM 추가)
+        var formattedStartTime = startTime.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        
+        // 종료 시간 형식 변경 (AM/PM 추가)
+        var formattedEndTime = endTime.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+        // 날짜 형식 변경 (YYYY-MM-DD)
+        var formattedStartDate = startTime.toISOString().split('T')[0];
+
+        // 결과 생성
+        var result = '<span>' + formattedStartDate + ' ' + formattedStartTime + '</span><span> ~ </span><span>' + formattedEndTime + '</span>';
+
+        // 결과를 출력합니다.
+        var apvVacTypeTimeElement = document.getElementById("apv_vac_type_time");
+        apvVacTypeTimeElement.innerHTML = result;
 		}
     
   	//--------------------------------------------------------------------------------------------------------------

@@ -75,6 +75,7 @@ public class ApprovalService {
 		map.put("dept_name",dto.getDept_name());
 		map.put("position_name",dto.getPosition_name());
 		map.put("emp_name",dto.getEmp_name());
+		map.put("grade_name",dto.getGrade_name());
 		
 		return map;
 	}
