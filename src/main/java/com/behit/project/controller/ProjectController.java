@@ -89,12 +89,13 @@ public class ProjectController {
         }
         String alarmMsg = "["+textsubject+"] 프로젝트가 새로 생성되었습니다.";
         int file_kind = 4;
+        int insert = 0;
+        int lastIdx = 0;
         if(createId != "") {
-        	int insert = 0;
         	insert = service.projwrite(createId,textsubject,startproj,endproj,textContent);
         	logger.info("insert된 proj_idx 번호값: "+insert);
         	if(insert != 0) {
-        		int lastIdx = service.projIdx();
+        		lastIdx = service.projIdx();
         		if(selectedNodesList != null) {
         			for (String nodeD : selectedNodesList) {
         				logger.info("담당자: {}", nodeD);
@@ -130,7 +131,7 @@ public class ProjectController {
         }
 		
 	    Map<String, Object> map = new HashMap<>();
-	    map.put("success", "성공");
+	    map.put("lastIdx", lastIdx);
 	    return map;
 	}
 	

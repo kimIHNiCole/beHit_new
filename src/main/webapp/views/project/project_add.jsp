@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="../../assets/vendor/libs/jstree/jstree.css" /> <!-- 조직도 -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/sweetalert2/sweetalert2.css" />
 
     <!-- Page CSS -->
 
@@ -554,6 +555,7 @@
     <script src="../../assets/vendor/libs/quill/katex.js"></script>
     <script src="../../assets/vendor/libs/quill/quill.js"></script> <!-- 주석할수도 -->
     <script src="../../assets/vendor/libs/jstree/jstree.js"></script>
+    <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     
     <!-- Flat Picker -->
     <script src="../../assets/vendor/libs/moment/moment.js"></script>
@@ -731,12 +733,19 @@ var selectedNodes1 = [];
 		*/
 		
 		// 값이 비어있는지 확인하고 alert 창 띄우기
-	    if (!textsubject || !startproj || !endproj || !textContent || selectedNodes.length === 0) {
-	        alert('제목, 담당자, 시작일, 종료일, 내용 중 하나 이상이 비어있습니다.');
+	    if (!textsubject.trim() || !startproj || !endproj || !textContent.trim() || selectedNodes.length === 0) {
+        	Swal.fire({
+    	        text: '제목, 담당자, 시작일, 종료일, 내용 중 하나 이상이 비어있습니다.',
+    	        icon: 'warning',
+    	        customClass: {
+    	            confirmButton: 'btn btn-primary'
+    	        },
+    	        buttonsStyling: false
+    	    })
 	        return; // 이후의 코드 실행을 막기 위해 함수를 종료
 	    }
 		
-	    $.ajax({
+  	    $.ajax({
 	        type: 'POST',
 	        url: '/project/project_add.do',
 	        data: formData,
@@ -744,7 +753,24 @@ var selectedNodes1 = [];
 	        contentType: false, // 필수: Content-Type 헤더를 설정하지 않도록 설정
 	        success: function (data) {
 	            console.log('서버 응답:', data);
-	            window.location.href = '/project/project_main.go'; // 실제 페이지 경로로 수정
+	            var lastIdx = data.lastIdx;
+	            if(lastIdx != 0){            	
+		            location.href = '/project/project_detail.go?proj_idx='+lastIdx; // 실제 페이지 경로로 수정
+	            }else{
+	            	Swal.fire({
+		    	        text: '프로젝트 생성에 실패하였습니다.',
+		    	        icon: 'warning',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then((result) => {
+		    	        // 확인 버튼을 눌렀을 때만 실행
+		    	        if (result.isConfirmed) {
+		    	            window.location.href = '/project/project_main.go';
+		    	        }
+		    	    });
+	            }
 	        },
 	        error: function (error) {
 	            console.error('오류 발생:', error);
