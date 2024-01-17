@@ -24,9 +24,9 @@ public class CommonsService {
 		
 	}
 	
-	public ArrayList<Object> getOrgListNM(String loginId, String mngLeader) {
+	public ArrayList<Object> getOrgListNM(String loginId) {
 		logger.info("getOrgList() 실행");
-		return commonsDAO.getOrgListNM(loginId,mngLeader);
+		return commonsDAO.getOrgListNM(loginId);
 		
 	}
 
@@ -35,9 +35,11 @@ public class CommonsService {
 		return commonsDAO.getDeptSum();
 	}
 
-	public String getMngLeader() {
-		logger.info("getMngLeader() 실행");
-		return commonsDAO.getMngLeader();
+	public ArrayList<Object> getOrgListCreP(String loginId, String cre_idx) {
+		logger.info("getOrgListCreP() 실행");
+		return commonsDAO.getOrgListCreP(loginId, cre_idx);
 	}
+
+
 	
 }

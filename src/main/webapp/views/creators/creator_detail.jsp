@@ -689,13 +689,15 @@
     function addPerm(){
     	console.log("열람자 추가 버튼 클릭");
     	// 모달이 열릴 때마다 체크박스 초기화
-        
+        var cre_idx=$('#cre_idx').val();
     	 
     	//리스트 받기
     		$.ajax({
     		type: 'get',
-        	url: '/getOrgListNM',
-        	data: {},
+        	url: '/getOrgListCreP',
+        	data: {
+        		cre_idx: cre_idx // cre_idx를 추가하여 서버에 전달
+        	},
         	dataType: 'JSON',
             success : function(data){
               console.log("data",data);
@@ -744,6 +746,7 @@
     	                             if (data.idx !== null) {
     	                                 console.log(data.idx);
     	                                 drowCreatorPermList(data.creatorPermList);
+    	                                 addPerm();
     	                                 /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
     	                             }
     	                         },

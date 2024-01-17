@@ -30,12 +30,30 @@
 			FROM commons_code c 
 			WHERE c.common_code_idx = e.emp_position_idx ) AS position
 		FROM employee e JOIN department d 
-		WHERE e.emp_dept_idx = d.emp_dept_idx AND e.emp_id NOT IN ("master", #{param1}, #{param2})
+		WHERE e.emp_dept_idx = d.emp_dept_idx AND e.emp_id NOT IN ("master", #{param1})
 		ORDER BY e.emp_dept_idx ASC, e.emp_position_idx ASC, e.emp_grade_idx ASC
 	</select>
 	
-	<select id="getMngLeader" resultType="String">
-		SELECT emp_id FROM employee  WHERE emp_dept_idx = 6 AND emp_position_idx = 8
+	<select id="getOrgListCreP" resultType="orgchart">
+	SELECT e.emp_id, e.emp_name, 
+       d.emp_dept_name AS dept, 
+       (SELECT c.common_code_name 
+        FROM commons_code c 
+        WHERE c.common_code_idx = e.emp_grade_idx) AS grade,
+       (SELECT c.common_code_name 
+        FROM commons_code c 
+        WHERE c.common_code_idx = e.emp_position_idx) AS position
+FROM employee e 
+JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
+WHERE e.emp_id NOT IN (
+    'master', #{param1}, 
+    (SELECT emp_id FROM employee WHERE emp_dept_idx = 6 AND emp_position_idx = 8)
+)
+AND NOT EXISTS (
+    SELECT 1 FROM creator_perm WHERE cre_idx = #{param2} AND e.emp_id = emp_id
+)
+ORDER BY e.emp_dept_idx ASC, e.emp_position_idx ASC, e.emp_grade_idx ASC;
+	
 	</select>
 	
 	<select id="getDeptSum" resultType="String">
