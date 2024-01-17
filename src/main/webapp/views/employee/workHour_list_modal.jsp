@@ -141,7 +141,7 @@
                     			</ul>
 			                </div>
 							<div class="col-md-4">
-						        <div class="input-group">
+						        <div class="input-group fs-4">
 						            <button class="btn btn-outline-secondary" id="sprevBtn" type="button"><</button>
 						            <input type="text" class="form-control text-center" id="sdatepicker" readonly>
 						            <button class="btn btn-outline-secondary" id="snextBtn" type="button">></button>
