@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
 <html
@@ -158,14 +159,18 @@
                           <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
                           <div>
                             <h5 class="mb-0">구독자</h5>
-                            <span>${channelSum.total_subscribers} 명</span>
+                            <span id="total-subs">
+                              <fmt:formatNumber value="${channelSum.total_subscribers}" pattern="#,##0"/> 명
+                            </span>
                           </div>
                         </div>
                         <div class="d-flex align-items-start mt-3 gap-3">
                           <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
                           <div>
                             <h5 class="mb-0">컨텐츠 수</h5>
-                            <span>${channelSum.total_contents} 개</span>
+                            <span id="total-contents">
+                            	<fmt:formatNumber value="${channelSum.total_contents}" pattern="#,##0"/> 개
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -336,7 +341,7 @@
 				      <div class="card mb-4" >
 				        <h5 class="card-header">활동 채널 리스트</h5>
 				        <div class="table-responsive mb-3">
-				          <table class="table datatable-project border-top">
+				          <table id="channel-list" class="table datatable-project border-top ps-3 pe-3">
 				            <thead>
 				              <tr>
 				                <th>채널명</th>
@@ -361,9 +366,15 @@
 				                  	</c:if>
 				                  </th>
 				                  <th>${channelInfo.channel_cate}</th>
-				                  <th>${channelInfo.subscriber} 명</th>
-				                  <th>${channelInfo.contents} 개</th>
-				                  <th>${channelInfo.views} 회</th>
+				                  <th>
+				                  	<fmt:formatNumber value="${channelInfo.subscriber}" pattern="#,##0"/> 명
+				                  </th>
+				                  <th>
+								    <fmt:formatNumber value="${channelInfo.contents}" pattern="#,##0"/> 개
+								  </th>
+								  <th>
+								    <fmt:formatNumber value="${channelInfo.views}" pattern="#,##0"/> 회
+								  </th>
 				                  <th>${channelInfo.channel_date}</th>
 				              	</tr>
 				           	  </c:forEach>
@@ -475,8 +486,8 @@
 								    position: absolute;
 								    top: 188px;
 								    left: 1521px;">
-		   			  <label class="switch switch-primary" id="toggleSwitch">
-                          <input type="checkbox" class="switch-input" checked />
+		   			 <!--  <label class="switch switch-primary" id="toggleSwitch">
+                          <input type="checkbox" id="switchInput" class="switch-input" checked />
                           <span class="switch-toggle-slider">
                             <span class="switch-on">
                              7
@@ -486,7 +497,7 @@
                             </span>
                           </span>
                           <span class="switch-label">일</span>
-                        </label>
+                        </label> -->
 		   			</div>
 				   	   <!-- Line Chart (조회수 추이)-->
 					   <div class="col-12 mb-4">
@@ -664,6 +675,17 @@
     <script src="../../assets/js/header.js"></script>
     
     <script>
+    
+    /* var total_subs = ${channelSum.total_subscribers};
+    var total_contents = ${channelSum.total_contents};
+    console.log('total_subs :: ' +total_subs);
+    console.log('total_contents :: ' +total_contents);
+    
+    $('#total-subs').text(total_subs.toLocaleString()+" 명");
+    $('#total-contents').text(total_contents.toLocaleString()+" 개"); */
+    
+  
+    
     var selectedNodes = []; // 전역 범위에서 정의
     var permEmpIds = [];
     $('.permEmp_id').each(function() {
@@ -1047,53 +1069,25 @@
     /**
      * Charts Apex
      */
-     'use strict';
+    'use strict';
     
-    var isChecked = "true";
-  	// 차트 스위치 버튼 값
-   	const switchElement = document.getElementById('toggleSwitch');
-    // 스위치 변경 이벤트 리스너 추가
-   	switchElement.addEventListener('change', function() {
-       	// 스위치 상태 확인
-   	    isChecked = this.querySelector('.switch-input').checked;
-   	
-   	    // 상태에 따른 동작 수행
-   	    if (isChecked) {
-   	      console.log('Switch is ON');
-   	    } else {
-   	      console.log('Switch is OFF');
-   	      // 여기에 스위치가 OFF일 때 수행할 동작 추가
-   	    }
-   	});
-       
-    
-    
-    
-    getChartData();
-    
-    
-    function getChartData(){
+    // 차트에 그릴 데이터를 가져오기
+    var repChannelId = $('#repChannelId').val();
+	console.log('repChannelId : ',repChannelId);
+    $.ajax({
+    	type: 'get',
+    	url: '/getChartData.ajax',
+    	data: {'repChannelId': repChannelId},
+    	dataType: 'JSON',
+    	success: function(data){
+    		console.log("AJAX SUCCESS RESULT :: "+data.channelDataList);
+    		chart(data.channelDataList);
+    	},
+    	error: function(e){
+    		console.log(e);
+    	}
     	
-		var repChannelId = $('#repChannelId').val();
-		console.log('repChannelId : ',repChannelId);
-	    $.ajax({
-	    	type: 'get',
-	    	url: '/getChartData.ajax',
-	    	data: {'repChannelId': repChannelId},
-	    	dataType: 'JSON',
-	    	success: function(data){
-	    		console.log(data.channelDataList);
-	    		chart(data.channelDataList);
-	    	},
-	    	error: function(e){
-	    		console.log(e);
-	    	}
-	    	
-	    });
-	    
-    }
- 	
-    
+    });
     
     function chart(dataList) {
 	      // 가져온 데이터 담기
@@ -1111,15 +1105,14 @@
 	      }
       
    	
-	    if(isChecked){
-	    	console.log("isChecked = "+ isChecked);
-	    	if(dataList.length < 3){
+    	// 데이터 개수에 따른 구분
+	    	if(dataList.length < 3){	// 데이터가 3일미만일때
 	    		var ifNoData = "<div class='ifNoArea'>"+
 	    		"<h2 style='color:#FFF'>데이터가 부족합니다.</h2>"+
 	    		"</div>";
 	    		$('.chart-body').append(ifNoData);
 	    	}
-	    	else if(dataList.length <= 7){
+	    	else if(dataList.length <= 7){	// 데이터가 7일 이하일때
 		      	for(let i =0; i<dataList.length; i++){
 		    	  var subs = dataList[i].subscriber;
 		    	  var view = dataList[i].views;
@@ -1132,59 +1125,33 @@
 			      dateList.push(date);
 			      viewTrendList.push(viewTrend);
 		      	}
-	    	}else{
-	    		for(let i =dataList.length-7; i<dataList.length; i++){
-		    	  var subs = dataList[i].subscriber;
-		    	  var view = dataList[i].views;
-		    	  var content = dataList[i].contents;
-		    	  var date = formatDate(dataList[i].channel_data_date);
-		    	  var viewTrend = dataList[i].view_trend;
-			      subList.push(subs);	
-			      viewList.push(view);	
-			      contentList.push(content);
-			      dateList.push(date);
-			      viewTrendList.push(viewTrend);
-		      	}
+	    	}else{	// 데이터가 7일 이상일 때
+		    	console.log('isChecked == false || dataList.length = '+dataList.length);
+		    	if(dataList.length >= 30){	// 데이터가 30일 이상있을때
+			    	for(let i =dataList.length - 30; i<dataList.length; i++){
+				    	  var subs = dataList[i].subscriber;
+				    	  var view = dataList[i].views;
+				    	  var content = dataList[i].contents;
+				    	  var date = formatDate(dataList[i].channel_data_date);
+				    	  var viewTrend = dataList[i].view_trend;
+					      subList.push(subs);	
+					      viewList.push(view);	
+					      contentList.push(content);
+					      dateList.push(date);
+					      viewTrendList.push(viewTrend);
+				    }
+		    	}
 	    	}
-	      	drawChart();
-	    }else{
-	    	console.log('isChecked == false || dataList.length = '+dataList.length);
-	    	if(dataList.length >= 30){
-		    	for(let i =dataList.length - 30; i<dataList.length; i++){
-			    	  var subs = dataList[i].subscriber;
-			    	  var view = dataList[i].views;
-			    	  var content = dataList[i].contents;
-			    	  var date = formatDate(dataList[i].channel_data_date);
-			    	  var viewTrend = dataList[i].view_trend;
-				      subList.push(subs);	
-				      viewList.push(view);	
-				      contentList.push(content);
-				      dateList.push(date);
-				      viewTrendList.push(viewTrend);
-			      }
-		    	drawChart();
-	    	}else{
-	    		alert("아직 30일치 데이터가 없습니다.");
-	    	}
-	    }
       
-      
-      console.log('subList:',subList);
-      console.log('viewList:',viewList);
-      console.log('contentList:',contentList);
-      console.log('dateList:',dateList);
-      console.log('viewTrendList:',viewTrendList);
-   	  // / 가져온 데이터 담기	
-   	  
-     
-
+	      console.log('subList:',subList);
+	      console.log('viewList:',viewList);
+	      console.log('contentList:',contentList);
+	      console.log('dateList:',dateList);
+	      console.log('viewTrendList:',viewTrendList);
 
       // Line Area Chart1
       // --------------------------------------------------------------------
-      function drawChart(){
-    	  
     	  let cardColor, headingColor, labelColor, borderColor, legendColor;
-
           if (isDarkStyle) {
             cardColor = config.colors_dark.cardColor;
             headingColor = config.colors_dark.headingColor;
@@ -1198,84 +1165,86 @@
             legendColor = config.colors.bodyColor;
             borderColor = config.colors.borderColor;
           }
-   		  
-      const areaChartEl1 = document.querySelector('#lineAreaChart1'),
-        areaChartConfig1 = {
-          chart: {
-            height: 500,
-            type: 'area',
-            parentHeightOffset: 0,
-            toolbar: {
-              show: true
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            show: false,
-            curve: 'straight'
-          },
-          legend: {
-            show: true,
-            position: 'top',
-            horizontalAlign: 'start',
-            labels: {
-              colors: legendColor,
-              useSeriesColors: false
-            }
-          },
-          grid: {
-            borderColor: borderColor,
-            xaxis: {
-              lines: {
+      	var areaChartEl1 = document.querySelector('#lineAreaChart1'),
+          areaChartConfig1 = {
+          	chart: {
+              height: 500,
+              type: 'area',
+              parentHeightOffset: 0,
+              toolbar: {
                 show: true
               }
-            }
-          },
-          colors: ['#2ecc71'],
-          series: [
-            {
-              name: '구독자 수',
-              data: subList
-            }
-          ],
-          xaxis: {
-            categories: dateList,
-            axisBorder: {
-              show: false
             },
-            axisTicks: {
-              show: false
+            dataLabels: {
+              enabled: false
             },
-            labels: {
-              style: {
-                colors: labelColor,
-                fontSize: '13px'
+            stroke: {
+              show: false,
+              curve: 'straight'
+            },
+            legend: {
+              show: true,
+              position: 'top',
+              horizontalAlign: 'start',
+              labels: {
+              colors: legendColor,
+                useSeriesColors: false
               }
-            }
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: labelColor,
-                fontSize: '13px'
+            },
+            grid: {
+              borderColor: borderColor,
+              xaxis: {
+                lines: {
+                  show: true
+                }
               }
+            },
+            colors: ['#2ecc71'],
+            series: [
+              {
+                name: '구독자 수',
+                data: subList
+              }
+            ],
+            xaxis: {
+              categories: dateList,
+              axisBorder: {
+                show: false
+              },
+              axisTicks: {
+                show: false
+              },
+              labels: {
+                style: {
+                  colors: labelColor,
+                  fontSize: '13px'
+                }
+              }
+            },
+            yaxis: {
+              labels: {
+                style: {
+                  colors: labelColor,
+                  fontSize: '13px'
+                },
+                formatter: function (value) {
+                    // 숫자 형식 지정
+                    return new Intl.NumberFormat().format(value);
+                  }
+              }
+            },
+            fill: {
+              opacity: 1,
+              type: 'gradient'
+            },
+            tooltip: {
+              shared: false
             }
-          },
-          fill: {
-            opacity: 1,
-            type: 'gradient'
-          },
-          tooltip: {
-            shared: false
-          }
-        };
-      if (typeof areaChartEl1 !== undefined && areaChartEl1 !== null) {
-        const areaChart = new ApexCharts(areaChartEl1, areaChartConfig1);
-        areaChart.render();
-      }
-      
+          };
+        if (typeof areaChartEl1 !== undefined && areaChartEl1 !== null) {
+          const areaChart1 = new ApexCharts(areaChartEl1, areaChartConfig1);
+          areaChart1.render();
+        }
    	  // Line Area Chart2
       // --------------------------------------------------------------------
       const areaChartEl2 = document.querySelector('#lineAreaChart2'),
@@ -1339,7 +1308,11 @@
               style: {
                 colors: labelColor,
                 fontSize: '13px'
-              }
+              },
+              formatter: function (value) {
+                  // 숫자 형식 지정
+                  return new Intl.NumberFormat().format(value);
+                }
             }
           },
           fill: {
@@ -1351,8 +1324,8 @@
           }
         };
       if (typeof areaChartEl2 !== undefined && areaChartEl2 !== null) {
-        const areaChart = new ApexCharts(areaChartEl2, areaChartConfig2);
-        areaChart.render();
+        const areaChart2 = new ApexCharts(areaChartEl2, areaChartConfig2);
+        areaChart2.render();
       }
 		
       
@@ -1419,7 +1392,11 @@
               style: {
                 colors: labelColor,
                 fontSize: '13px'
-              }
+              },
+              formatter: function (value) {
+                  // 숫자 형식 지정
+                  return new Intl.NumberFormat().format(value);
+                }
             }
           },
           fill: {
@@ -1431,8 +1408,8 @@
           }
         };
       if (typeof areaChartEl3 !== undefined && areaChartEl3 !== null) {
-        const areaChart = new ApexCharts(areaChartEl3, areaChartConfig3);
-        areaChart.render();
+        const areaChart3 = new ApexCharts(areaChartEl3, areaChartConfig3);
+        areaChart3.render();
       }
 
       // Line Chart
@@ -1444,10 +1421,10 @@
             type: 'line',
             parentHeightOffset: 0,
             zoom: {
-              enabled: false
+              enabled: true
             },
             toolbar: {
-              show: false
+              show: true
             }
           },
           series: [
@@ -1504,16 +1481,19 @@
               style: {
                 colors: labelColor,
                 fontSize: '13px'
-              }
+              },
+              formatter: function (value) {
+                  // 숫자 형식 지정
+                  return new Intl.NumberFormat().format(value);
+                }
             }
           }
         };
-      if (typeof lineChartEl !== undefined && lineChartEl !== null) {
-        const lineChart = new ApexCharts(lineChartEl, lineChartConfig);
-        lineChart.render();
-      }
-      }
-    };
+	      if (typeof lineChartEl !== undefined && lineChartEl !== null) {
+	        const lineChart = new ApexCharts(lineChartEl, lineChartConfig);
+	        lineChart.render();
+	      }
+    }
     </script>
   </body>
 </html>
