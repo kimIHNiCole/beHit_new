@@ -96,6 +96,17 @@
   .bx:hover{
   	cursor: pointer;
   }
+  
+  .ifNoArea{
+  	width: 95%;
+    height: 100%;
+    position: absolute;
+    top: -20px;
+    background: #0000006b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
 /* 비활성화된 노드의 체크박스 숨기기 */
 .jstree-wholerow-disabled > .jstree-checkbox {
@@ -482,11 +493,11 @@
 					     <div class="card">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">일일 조회수 추이</h5>
+					           <h5 class="card-title mb-0">조회수 추이</h5>
 					           <small class="text-muted">조회수 변동값 체크를 통해 알고리즘 상태와 채널 성장도 체크</small>
 					         </div>
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 				             <div id="lineChart"></div>
 					       </div>
 					     </div>
@@ -497,60 +508,12 @@
 					   <div class="card mb-4">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">일별 구독자 수</h5>
+					           <h5 class="card-title mb-0">구독자 수</h5>
 					           <small class="text-muted">구독자 성장세 확인</small>
 					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
+					          
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 					         <div id="lineAreaChart1">
 					         <!-- 스크립트로 그려질 차트 영역 -->
 					         </div>
@@ -561,60 +524,12 @@
 					   <div class="card mb-4">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">일별 조회 수</h5>
+					           <h5 class="card-title mb-0">조회 수</h5>
 					           <small class="text-muted">구독자 성장세 확인</small>
 					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
+					        
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 					         <div id="lineAreaChart2">
 					         <!-- 스크립트로 그려질 차트 영역 -->
 					         </div>
@@ -625,60 +540,12 @@
 					   <div class="card mb-4">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">영상 컨텐츠 수</h5>
+					           <h5 class="card-title mb-0">컨텐츠 수</h5>
 					           <small class="text-muted">영상 업로드 주기 확인</small>
 					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
+					       
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 					         <div id="lineAreaChart3">
 					         <!-- 스크립트로 그려질 차트 영역 -->
 					         </div>
@@ -1243,28 +1110,49 @@
    	
 	    if(isChecked){
 	    	console.log("isChecked = "+ isChecked);
-		      for(let i =dataList.length-7; i<dataList.length; i++){
-		    	  const subs = dataList[i].subscriber;
-		    	  const view = dataList[i].views;
-		    	  const content = dataList[i].contents;
-		    	  const date = formatDate(dataList[i].channel_data_date);
-		    	  const viewTrend = dataList[i].view_trend;
+	    	if(dataList.length < 3){
+	    		var ifNoData = "<div class='ifNoArea'>"+
+	    		"<h2 style='color:#FFF'>데이터가 부족합니다.</h2>"+
+	    		"</div>";
+	    		$('.chart-body').append(ifNoData);
+	    	}
+	    	else if(dataList.length <= 7){
+		      	for(let i =0; i<dataList.length; i++){
+		    	  var subs = dataList[i].subscriber;
+		    	  var view = dataList[i].views;
+		    	  var content = dataList[i].contents;
+		    	  var date = formatDate(dataList[i].channel_data_date);
+		    	  var viewTrend = dataList[i].view_trend;
 			      subList.push(subs);	
 			      viewList.push(view);	
 			      contentList.push(content);
 			      dateList.push(date);
 			      viewTrendList.push(viewTrend);
-		      }
-		      drawChart();
+		      	}
+	    	}else{
+	    		for(let i =dataList.length-7; i<dataList.length; i++){
+		    	  var subs = dataList[i].subscriber;
+		    	  var view = dataList[i].views;
+		    	  var content = dataList[i].contents;
+		    	  var date = formatDate(dataList[i].channel_data_date);
+		    	  var viewTrend = dataList[i].view_trend;
+			      subList.push(subs);	
+			      viewList.push(view);	
+			      contentList.push(content);
+			      dateList.push(date);
+			      viewTrendList.push(viewTrend);
+		      	}
+	    	}
+	      	drawChart();
 	    }else{
-	    	console.log('dataList.length = '+dataList.length);
+	    	console.log('isChecked == false || dataList.length = '+dataList.length);
 	    	if(dataList.length >= 30){
 		    	for(let i =dataList.length - 30; i<dataList.length; i++){
-			    	  const subs = dataList[i].subscriber;
-			    	  const view = dataList[i].views;
-			    	  const content = dataList[i].contents;
-			    	  const date = formatDate(dataList[i].channel_data_date);
-			    	  const viewTrend = dataList[i].view_trend;
+			    	  var subs = dataList[i].subscriber;
+			    	  var view = dataList[i].views;
+			    	  var content = dataList[i].contents;
+			    	  var date = formatDate(dataList[i].channel_data_date);
+			    	  var viewTrend = dataList[i].view_trend;
 				      subList.push(subs);	
 				      viewList.push(view);	
 				      contentList.push(content);
