@@ -244,7 +244,7 @@
 			              <div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
 	  		              	<div class="cardListTop">
 		              		 <div>
-		              		   <a href="showOrgModal()">열람 권한자 등록</a>
+		              		   <!-- <a href="showOrgModal()">열람 권한자 등록</a> -->
 		              		  </div>
 		              		  <div>
 			              	   <a href="/creators/creatorAdd.go">
