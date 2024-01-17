@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         monthSelectorType: 'static',
         inline: true
       });
-    }    
+    }
     
     
 /*
@@ -245,19 +245,23 @@ document.addEventListener('DOMContentLoaded', function () {
         // console.log(event.extendedProps.calendar.toLowerCase());
         return calendars.includes(event.extendedProps.calendar.toLowerCase());
       });
+      
+	  selectedEvents.sort((a, b) => {
+	    if (a.extendedProps.calendar === 'Personal') {
+	      return -1; // Personal comes first
+	    } else if (b.extendedProps.calendar === 'Personal') {
+	      return 1; // Business comes first
+	    } else {
+	      return 0; // Keep the order unchanged for other calendars
+	    }
+	  });      
+	    console.log("After sorting:", selectedEvents);
+      
       // if (selectedEvents.length > 0) {
       successCallback(selectedEvents);
       // }
     }	
     
-	events.sort((a, b) => {
-	  const calendarOrder = { 'Personal': 1, 'Business': 2 };
-	
-	  const calendarA = a.extendedProps.calendar.toLowerCase();
-	  const calendarB = b.extendedProps.calendar.toLowerCase();
-	
-	  return calendarOrder[calendarA] - calendarOrder[calendarB];
-	});
 
     // Init FullCalendar
     // ------------------------------------------------
@@ -357,7 +361,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modifyToggler();
       }
     });
-
 
     // Render calendar
     calendar.render();
