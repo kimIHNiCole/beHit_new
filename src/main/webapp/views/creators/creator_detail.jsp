@@ -226,7 +226,9 @@
 				            <h5>열람권한</h5>
 				        </div>
 				        <div class="col-md-6 text-end">
-				        	<button type="button" onclick="addPerm()" class="card-header plus no-border" data-bs-toggle="modal" data-bs-target="#apv-org-modal">+추가</button>
+				        	<c:if test="${permListChk}">
+					        	<button type="button" onclick="addPerm()" class="card-header plus no-border" data-bs-toggle="modal" data-bs-target="#apv-org-modal">+추가</button>
+				        	</c:if>
 				        </div>
 				        <h5 class="pb-2 border-bottom mb-4">
 				    </div>
@@ -236,7 +238,9 @@
 					            <div>
 					                <input class="permEmp_id" type="hidden" value="${creatorPermList.emp_id}" />
 					                <span id="permTarget">${creatorPermList.emp_name} ${creatorPermList.grade_name}(${creatorPermList.dept_name})</span>
-					                <i class='bx bx-x' onclick="delPerm(this)"></i>
+					                <c:if test="${permListChk}">
+					                	<i class='bx bx-x' onclick="delPerm(this)"></i>
+					                </c:if>
 					            </div>
 					        </c:forEach>
 					    </ul>
@@ -355,7 +359,9 @@
 				            </tbody>
 				          </table>
 				      </div>
+				      </div>
 				      <!-- / 채널 리스트 -->
+				      
 				      <!-- SNS 리스트 -->
 				      <div class="card mb-4">
 				        <h5 class="card-header">SNS</h5>
@@ -450,8 +456,8 @@
 				        </div>
 				      </div>
 				      <!-- / 활동이력 Timeline -->
-					</div>
 					
+				   </div>
 				   	<!-- 채널 데이터 영역 -->
 				 	<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
 				 	  <div style="width: 100%;
@@ -681,7 +687,6 @@
 					   <!-- /Line Area Chart3 -->
 				    </div>
 				    <!-- / 체널 데이터 영역 -->
-				   
 				</div>
 				<!-- / 탭 콘텐츠 영역 -->
 				
@@ -838,47 +843,55 @@
     
     function delPerm(iconElement) {
     	
-    	/* var $parentDiv = $(iconElement).parent();
-        var $permTargetElement = $parentDiv.find("#permTarget");
     	
-    	var warningMsg = $permTargetElement+"님의 권한을 제거하시겠습니까?";
-    	   if(warningMsg != ""){
+    	var confirmMsg = "해당 크리에이터의 열람권한 목록에서 제외하겠습니까?";
+    	   if(confirmMsg != ""){
     	      Swal.fire({
-    	           text: warningMsg,
-    	           icon: 'warning',
-    	           customClass: {
-    	             confirmButton: 'btn btn-primary'
-    	           },
-    	           buttonsStyling: false
-    	         });
-    	   } */
+    	                 text: confirmMsg,
+    	                 icon: 'warning',
+    	                 showCancelButton: true,
+    	                 confirmButtonText: 'OK',
+    	                 customClass: {
+    	                   confirmButton: 'btn btn-primary me-3',
+    	                   cancelButton: 'btn btn-label-secondary'
+    	                 },
+    	                 buttonsStyling: false
+    	               }).then(function (result) {
+    	                 if (result.value) {
+    	                   
+    	                	 // 클릭된 아이콘( bx bx-x ) 요소의 부모 li 태그에서 input 값을 가져옴
+    	                     var emp_id = $(iconElement).closest('div').find('.permEmp_id').val();
+    	                     var cre_idx = $('#cre_idx').val();
+    	                     console.log(cre_idx);
+    	                     console.log(emp_id);
+    	                     
+    	                  // AJAX 요청
+    	                     $.ajax({
+    	                         type: 'POST',
+    	                         url: '/delPerm',  // 실제 서버 엔드포인트로 수정
+    	                         contentType: 'application/json',
+    	                         data: JSON.stringify({ emp_id: emp_id, cre_idx: cre_idx }),
+    	                         success: function (data) {
+    	                             // 서버 응답에 대한 처리
+    	                             console.log(data);
+    	                             if (data.idx !== null) {
+    	                                 console.log(data.idx);
+    	                                 drowCreatorPermList(data.creatorPermList);
+    	                                 /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
+    	                             }
+    	                         },
+    	                         error: function (error) {
+    	                             // 오류 처리
+    	                             console.error('Error:', error);
+    	                         }
+    	                     });
+    	                	 
+    	                	 
+    	                 }
+    	               });
+    	   }
     	
-        // 클릭된 아이콘( bx bx-x ) 요소의 부모 li 태그에서 input 값을 가져옴
-        var emp_id = $(iconElement).closest('div').find('.permEmp_id').val();
-        var cre_idx = $('#cre_idx').val();
-        console.log(cre_idx);
-        console.log(emp_id);
-        
-     // AJAX 요청
-        $.ajax({
-            type: 'POST',
-            url: '/delPerm',  // 실제 서버 엔드포인트로 수정
-            contentType: 'application/json',
-            data: JSON.stringify({ emp_id: emp_id, cre_idx: cre_idx }),
-            success: function (data) {
-                // 서버 응답에 대한 처리
-                console.log(data);
-                if (data.idx !== null) {
-                    console.log(data.idx);
-                    drowCreatorPermList(data.creatorPermList);
-                    /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
-                }
-            },
-            error: function (error) {
-                // 오류 처리
-                console.error('Error:', error);
-            }
-        });
+       
        
     }
     
