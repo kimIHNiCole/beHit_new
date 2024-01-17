@@ -121,7 +121,7 @@ img.rounded-top{
                             </ul>
                           </div>
                           <c:choose>
-                          	<c:when test="${empdetail.login_lock == 5}">
+                          	<c:when test="${empdetail.login_lock >= 4}">
 	                          	<button type="button" class="btn btn-primary me-sm-3 me-1" onclick="chkClear()">로그인 제한 해제</button>
                           	</c:when>
                           	<c:otherwise>
@@ -730,8 +730,17 @@ img.rounded-top{
     			data: {"emp_id":emp_id},
     			success: function(data){
     				console.log(data);
-    				alert('로그인 제한이 해제되었습니다.');
-    				location.reload();
+    				Swal.fire({
+		    	        text: '로그인 제한이 해제되었습니다.',
+		    	        icon: 'success',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	    	location.reload();
+		    	    });
     			},
     			error: function(e){
     				console.log(e)

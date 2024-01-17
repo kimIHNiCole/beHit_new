@@ -127,7 +127,7 @@
 						  	</form>
 						  </div>
                       </div>
-                      <div class="app-calendar-events-filter">
+                      <div class="app-calendar-events-filter" style="display: none;">
                         <div class="form-check form-check-danger mb-2">
                           <input
                             class="form-check-input input-filter"
@@ -387,41 +387,11 @@
 	];
 	
 	console.log(list);
-	/*
-	
-	
-	let events = [
-		<c:forEach var="list" items="${list}">
-			{
-				 title: '${list.work_start}'+'~'+'${list.work_end}',
-				 start: '${list.work_day}',
-				 end: '${list.work_day}',
-				 allDay: false,
-				 extendedProps: {
-				   calendar: 'Personal'
-				 }
-			},
-			<c:choose>
-				<c:when test="${list.vaca_start != '00:00'}">
-					{
-						 title: '${list.vaca_start}'+'~'+'${list.vaca_end}',
-						 start: '${list.work_day}',
-						 end: '${list.work_day}',
-						 allDay: false,
-						 extendedProps: {
-						   calendar: 'Business'
-						 }
-					}
-				</c:when>
-			</c:choose>
-			<c:if test="${!loop.last}">,</c:if>
-		</c:forEach>
-	]; */
 	
 	var events = [
         <c:forEach var="work" items="${chlist}">
             {
-                title: '${work.work_start}' + '~' + '${work.work_end}',
+                title: '1출근 '+'${work.work_start}' + '~' + '${work.work_end}',
                 start: '${work.work_day}',
                 end: '${work.work_day}',
                 allDay: false,
@@ -432,7 +402,7 @@
         </c:forEach>,
         <c:forEach var="vacation" items="${vhlist}">
             {
-                title: '${vacation.vaca_start}' + '~' + '${vacation.vaca_end}',
+                title: '2연차 '+'${vacation.vaca_start}' + '~' + '${vacation.vaca_end}',
                 start: '${vacation.vaca_date}',
                 end: '${vacation.vaca_date}',
                 allDay: false,
@@ -442,6 +412,12 @@
             }<c:if test="${!loop.last}">,</c:if>
         </c:forEach>
     ];
+	
+	events.sort((a, b) => {
+	    const calendarOrder = { 'Personal': 1, 'Business': 2 };
+
+	    return calendarOrder[a.extendedProps.calendar] - calendarOrder[b.extendedProps.calendar];
+	});
 
 	
 	
