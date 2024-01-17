@@ -23,6 +23,12 @@ public class CommonsService {
 		return commonsDAO.getOrgList();
 		
 	}
+	
+	public ArrayList<Object> getOrgListNM(String loginId) {
+		logger.info("getOrgList() 실행");
+		return commonsDAO.getOrgListNM(loginId);
+		
+	}
 
 	public ArrayList<Object> getDeptSum() {
 		logger.info("getDeptSum() 실행");

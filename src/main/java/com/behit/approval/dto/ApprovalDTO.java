@@ -1,6 +1,8 @@
 package com.behit.approval.dto;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +17,7 @@ public class ApprovalDTO {
 	private String position_name;
 	private String total_name;
 	private String apv_file;
+	private List<Map<String, String>> selectedNodes; // 열람권한
 	
 	private int apv_idx;
 	private String emp_id;

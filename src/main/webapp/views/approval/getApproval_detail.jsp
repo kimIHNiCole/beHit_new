@@ -80,6 +80,10 @@
     <!-- custom CSS -->
     <style>
 
+		hr{
+			margin-top:0;
+		}
+
 		p{
 			margin: 0;
 		}
@@ -108,6 +112,7 @@
     h5{
     	font-family:pretendard;
     	font-weight:600;
+    	margin: 1rem;
     }
     
     h4{
@@ -291,6 +296,43 @@
     	text-align: center;
     }
     
+  
+    
+    /*table-reason*/
+    
+    .table-reason{
+    	margin:1rem 0;
+    }
+    
+    .table-upload .table-upload-left{
+    	font-size: 14px;
+	    font-weight: bold;
+    }
+    
+    .table-reason .table-upload-left{
+    	background: rgb(221, 221, 221);
+	    padding: 5px;
+	    border: 1px solid black;
+	    height: 25px;
+	    text-align: center;
+	    color: rgb(0, 0, 0);
+	    font-size: 14px;
+	    font-weight: bold;
+	    vertical-align: middle;
+    }
+    
+    .table-reason .table-upload-right{
+    	padding: 3px;
+	    border: 1px solid black;
+	    width: 700px;
+	    height: 38px;
+	    text-align: left;
+	    color: rgb(0, 0, 0);
+	    font-size: 12px;
+	    vertical-align: middle;
+	    background: rgb(255, 255, 255);
+    }
+    
     /*table-content*/
     
     .apv-form-vac .table-content-left{
@@ -304,6 +346,8 @@
 	    font-weight: bold;
 	    vertical-align: middle;
     }
+    
+  
     
     .apv-form-vac .table-content-right{
     	padding: 3px;
@@ -351,7 +395,7 @@
     
     .table-upload{
     	width: 100%;
-    	margin-top:4rem;
+    	margin: 2rem 0;
     }
     
     .table-upload-left{
@@ -438,6 +482,13 @@
 		  font-family:pretendard;
 		}
 		
+		.apv_perm_bar{
+			display:flex;
+			justify-content: space-between;
+			align-items: center;
+	
+		}
+		
 
 
     </style>
@@ -474,9 +525,11 @@
                     <ul class="nav nav-align-left nav-pills flex-column">
                     
                     	<li class="nav-item mb-1">
+                    		<a href="/approval/approval_main.go">
                     		<h4 class="apv-title">
                     			전자 결재
                     		</h4>
+                    		</a>
                     	</li>
                     	
                     	<li class="nav-item mb-1">
@@ -537,7 +590,35 @@
 
                 <!-- Options -->
                 <div class="col-12 col-lg-8 pt-4 pt-lg-0">
-                	<h4 class="apv-home">결재 작성</h4>
+                	<h4 class="apv-home">결재 상세보기</h4>
+                	
+                	<c:if test="${apv.apv_stmt == '완료'}">
+	                	<div class="card" id="apv_perm_card">
+	                		<div class="apv_perm_bar">
+	                			<h5>열람자 추가</h5>
+		                		<span class="text-truncate" style="margin-right:2rem;">
+							           	<button type="button" onclick="addPerm()" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
+							           			<i class='bx bx-plus'></i> 추가
+							           	</button>
+							          </span>
+						          </div>
+						          <hr/>
+						          
+						          <p class="fw-medium me-2 creator-list-container">
+										    <ul id="creator-list-ul">
+										        <c:forEach var="apvPermList" items="${apvPermList}" varStatus="loop">
+										            <div>
+										                <input class="permEmp_id" type="hidden" value="${apvPermList.emp_id}" />
+										                ${apvPermList.emp_name} ${apvPermList.grade_name}(${apvPermList.dept_name})
+										                <i class='bx bx-x' onclick="delPerm(this)"></i>
+										            </div>
+										        </c:forEach>
+										    </ul>
+										</p>
+						          
+										</div>
+									</c:if>
+                	
                 	<div class="apv-form-menu">
                 	
 	                	<c:choose>
@@ -562,11 +643,6 @@
 													
 										  </c:when>
 										  <c:when test="${apv.apv_stmt == '완료'}">
-										  	<span class="text-truncate">
-					                	<button type="button" class="apv-form-menu-cnt org-chart" data-bs-toggle="modal" data-bs-target="#apv-org-modal">
-					                			<i class='bx bx-plus'></i> 열람자 추가
-					                	</button>
-					               </span>
 					               <span class="text-truncate">
 		                			<button type="button" id="confirm-text" class="apv-form-menu-cnt approval-preview">
 		                			<i class='bx bxs-file-blank'></i> pdf 저장
@@ -600,19 +676,6 @@
 														    </c:when>
 														</c:choose>
 						              		
-						              		
-						              		<table class="table-upload">
-						              			<tbody>
-						              				<tr>
-						              					<td class="table-upload-left">파일 첨부</td>
-						              					<td class="table-upload-right">
-						              						<!-- <input class="form-control" type="file" id="formFile" name="files" /> -->
-						              						<div id="fileAll"></div>
-						              					</td>
-						              				</tr>
-						              			</tbody>
-						              		</table>
-						              		
 						              		<c:if test="${form_type == 'detail' && apv.apv_history_stmt != null}">
 							              		<table class="table-reason">
 							              			<tbody>
@@ -637,6 +700,18 @@
 							              			</tbody>
 							              		</table>
 						              		</c:if>
+						              		
+						              		<table class="table-upload">
+						              			<tbody>
+						              				<tr>
+						              					<td class="table-upload-left">파일 첨부</td>
+						              					<td class="table-upload-right">
+						              						<!-- <input class="form-control" type="file" id="formFile" name="files" /> -->
+						              						<div id="fileAll"></div>
+						              					</td>
+						              				</tr>
+						              			</tbody>
+						              		</table>
 						              		
 					              </div>
 					                </div>
@@ -732,7 +807,8 @@
             
             
             <!-- modal -->
-							<!-- 새 결제 작성 모달 -->
+            
+            <!-- 새 결제 작성 모달 -->
               <div class="modal fade" id="apv-modal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
                   <div class="modal-content p-3 p-md-5">
@@ -771,13 +847,13 @@
               
               <div class="col app-chat-history text chat-history-body">
               </div>
-              
-              <!-- 조직도 추가 모달 -->
+            
+							<!-- 조직도 추가 모달 -->
               <div class="modal fade org-modal" id="apv-org-modal" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="modalCenterTitle">결재선</h5>
+                    <h5 class="modal-title" id="modalCenterTitle">조직도</h5>
                     <button
                       type="button"
                       class="btn-close"
@@ -786,50 +862,28 @@
                   </div>
                   <div class="modal-body org-modal-body">
                   
-	                  <div class="col-md-4">
-				              <div class="card mb-md-0 mb-4 shadow-none border overflow-hidden" style="height: 20rem">
-				                <h5 class="card-header">조직도</h5>
+	                  <div class="col-md-4" style="width: 95%;">
+				              <div class="card mb-md-0 mb-4 shadow-none border overflow-hidden" >
+				                
 				                <div class="card-body" id="org-body">
 				                  <div id="jstree-checkbox"></div>
 				                </div>
 				              </div>
 				            </div>
 				            
-				            <div class="col-md-1 button" >
-				            <button type="button" class="btn btn-icon btn-outline-primary plus">
-                      <i class='bx bx-chevrons-right' style="font-size:1.625rem"></i>
-                    </button>
-                    </div>
                     
-                    <div class="col-md-7">
-				              <div class="card mb-md-0 mb-4 shadow-none border overflow-hidden" style="height: 20rem">
-				                <div class="card-body" id="org-list-body">
-				                
-				                <div class="org-list-dist lh-1 d-flex justify-content-between align-items-center">
-				                	<span class="d-flex justify-content-between align-items-center">
-						               <span style="width:9rem">부서</span>
-						               <span style="width:6rem">이름</span>
-						               <span style="width:6rem">직책</span>
-						               <span style="width:4rem"> </span>
-						              </span>
-				                </div>
-				                <ul class="list-group list-group-flush" id="pending-tasks">
-				                	
-      		              </ul>
-				                
-				                </div>
-				              </div>
-				            </div>
                   
                   </div>
                   <div class="modal-footer">
                     <div class="col-12 text-center">
                       <button 
                       	type="button" class="btn btn-primary me-sm-3 me-1 mt-3 org-list-select"
+                      	id=""
                       	data-bs-dismiss="modal"
                         aria-label="Close">선택</button>
                       <button
                         type="reset"
+                        id="modal-close"
                         class="btn btn-label-secondary btn-reset mt-3"
                         data-bs-dismiss="modal"
                         aria-label="Close">취소</button>
@@ -839,6 +893,8 @@
               </div>
             </div>
             <!-- /조직도 추가 모달 -->
+            
+            
             <jsp:include page="/views/todo_include.jsp" />
             <div class="content-backdrop fade"></div>
           </div>
@@ -1287,7 +1343,7 @@
   	
  		
  		//조직도 모달창-----------------------------------------------------------------------------------
- 		
+ 		/* 
  		// 조직도 스크롤
  		$(function() {
 	    var orgBody = $('#org-body'),
@@ -1333,8 +1389,9 @@
  		    });
  		  }
  	  });
-		
+		 */
  		//리스트 받기 실행 함수
+    /* 
     function drawOrg(orgList, deptKind) {
     	
     	console.log('orgList', orgList);
@@ -1427,57 +1484,86 @@
     			  }
     			}).on('select_node.jstree', function (e, data) { // 조직도에서 직원 선택 시 작동하는 함수 
     				
-				     // 선택 버튼 눌렀을 시 결재선 추가
-    					$('.org-list-select').off().on('click',function () {
-    						
-    						var deptNameElements = $('.dept-name');
-    						var empNameElements = $('.emp-name');
-    						var positionNameElements = $('.position-name');
-    						var empIdElements = $('.emp-id');
-    						
-    						// 값을 담을 배열 초기화
-    						var totalNames = [];
-    						
-    						// 각 요소의 길이를 기준으로 반복
-    						for (var i = 0; i < deptNameElements.length; i++) {
-	    						var nameOrder=[];
-    						  // 각 요소의 인덱스에 따라서 값을 totalNames 배열에 추가
-    						  if (deptNameElements[i]) nameOrder.push(deptNameElements.eq(i).text());
-    						  if (empNameElements[i]) nameOrder.push(empNameElements.eq(i).text());
-    						  if (positionNameElements[i]) nameOrder.push(positionNameElements.eq(i).text());
-    						  if (empIdElements[i]) nameOrder.push(empIdElements.eq(i).val());
-    						  totalNames.push(nameOrder);
-    						  
-    						}
-    						// 배열 출력 (콘솔에 출력하거나 다른 곳에 활용할 수 있음)
-    						console.log("Total Names:", totalNames);
-    						
-    						// 배열 문자화하여 전송
-    						var totalNamesJSON = JSON.stringify(totalNames);
-    						$('#totalNames').val(totalNamesJSON);
-    						
-    						var apv_idx = '${apv.apv_idx}';
-    						
-    						$.ajax({
-    					        type: 'post', // 전송 방식 (POST로 변경)
-    					        url: '/approval/CompApproval_ViewerPlus', // 서버 URL을 적절히 수정
-    					        data: { 
-    					        	'total_name': totalNamesJSON,
-    					        	'apv_idx' : apv_idx
-    					        }, // 전송할 데이터
-    					        dataType: 'JSON',
-    					        success: function (response) {
-    					            // 서버 응답을 처리하는 코드
-    					            console.log("Server Response:", response);
-    					        },
-    					        error: function (error) {
-    					            // 에러 처리 코드
-    					            console.log("Error:", error);
-    					        }
-    					    });
-      					
-			      	});
-	    				  
+    				$('.org-list-select').off().on('click', function () {
+    				    var deptNameElements = $('.dept-name');
+    				    var empNameElements = $('.emp-name');
+    				    var positionNameElements = $('.position-name');
+    				    var empIdElements = $('.emp-id');
+
+    				    var totalNames = [];
+
+    				    for (var i = 0; i < deptNameElements.length; i++) {
+    				        var nameOrder = [];
+    				        if (deptNameElements[i]) nameOrder.push(deptNameElements.eq(i).text());
+    				        if (empNameElements[i]) nameOrder.push(empNameElements.eq(i).text());
+    				        if (positionNameElements[i]) nameOrder.push(positionNameElements.eq(i).text());
+    				        if (empIdElements[i]) nameOrder.push(empIdElements.eq(i).val());
+    				        totalNames.push(nameOrder);
+    				    }
+
+    				    console.log("Total Names:", totalNames);
+
+    				    var totalNamesJSON = JSON.stringify(totalNames);
+    				    $('#totalNames').val(totalNamesJSON);
+
+    				    var apv_idx = '${apv.apv_idx}';
+
+    				    Swal.fire({
+    				        title: '열람자를 추가 하시겠습니까?',
+    				        text: "추가하신 열람자는 열람 가능한 문서에서 문서 확인이 가능합니다.",
+    				        icon: 'warning',
+    				        showCancelButton: true,
+    				        confirmButtonText: '네',
+    				        cancelButtonText: '아니오',
+    				        customClass: {
+    				            confirmButton: 'btn btn-primary me-3',
+    				            cancelButton: 'btn btn-label-secondary'
+    				        },
+    				        buttonsStyling: false
+    				    }).then(function (result) {
+    				        if (result.value) {
+    				            // Ajax 요청 부분
+    				            $.ajax({
+    				                type: 'POST',
+    				                url: '/approval/CompApproval_ViewerPlus',
+    				                data: {
+    				                    'total_name': totalNamesJSON,
+    				                    'apv_idx': apv_idx
+    				                },
+    				                dataType: 'JSON',
+    				                success: function (response) {
+    				                    console.log("Server Response:", response);
+
+    				                    // SweetAlert로 완료 메시지 띄우고 페이지 이동
+    				                    Swal.fire({
+    				                        icon: 'success',
+    				                        title: '완료',
+    				                        text: '열람자가 추가되었습니다.',
+    				                        customClass: {
+    				                            confirmButton: 'btn btn-success'
+    				                        }
+    				                    }).then(function () {
+    				                        // Redirect to /approval/approval_main.go after success message
+    				                        window.location.href = '/approval/approval_main.go';
+    				                    });
+    				                },
+    				                error: function (error) {
+    				                    console.log("Error:", error);
+    				                    // 에러 처리 코드 추가
+    				                    Swal.fire({
+    				                        icon: 'error',
+    				                        title: '문제 발생',
+    				                        text: '다시 시도해주세요.',
+    				                        customClass: {
+    				                            confirmButton: 'btn btn-danger'
+    				                        }
+    				                    });
+    				                }
+    				            });
+    				        }
+    				    });
+    				});
+    				
 	    					// 조직도 추가 버튼 눌렀을 시
 	    				  $('.org-modal-body .button .plus').off().on('click',function(){
 	      	    	        // 현재 선택된 노드의 ID 확인
@@ -1528,7 +1614,7 @@
 
     	} // if (checkboxTree.length) {}
     }// function
-    
+     */
     
     
     // 내용 받기 -------------------------------------------------------------------------------------------
@@ -1576,7 +1662,7 @@
         console.log(totalItems);
         
         if (totalItems === 1 && obj.list[0].ori_file_name == null){
-        	content = '<li style="text-align:center">첨부 파일이 없습니다.</li>';
+        	content = '<div style="text-align:center">첨부 파일이 없습니다.</div>';
         }else{
         	obj.list.forEach(function (item){
         		if(item.ori_file_name != null){
@@ -1584,7 +1670,7 @@
 	                content += '<div class="cursor-pointer">';
 	                content += '<i class="bx bx-file"></i>';
 	                content += '<span class="align-middle ms-1">';
-	                content += '<a href="/file/project/' + item.new_file_name + '" download>' + item.ori_file_name + '</a>';
+	                content += '<a href="/file/approval/' + item.new_file_name + '" download="'+item.ori_file_name+'">' + item.ori_file_name + '</a>';
 									content += '</span>';
 	                content += '</div>';
 	            		content += '</div>';
@@ -1596,7 +1682,332 @@
     }
     
    	//------------------------------------------------------------------------------------------------
+   	
+   	var selectedNodes = []; // 전역 범위에서 정의
+    var permEmpIds = [];
+    $('.permEmp_id').each(function() {
+        permEmpIds.push($(this).val());
+    });
+
+    // permEmpIds 배열에는 각 요소의 값이 저장됨
+    console.log(permEmpIds);
+ 
+    function addPerm(){
+    	console.log("열람자 추가 버튼 클릭");
+    	// 모달이 열릴 때마다 체크박스 초기화
+    	 
+    	//리스트 받기
+    		$.ajax({
+    		type: 'get',
+        	url: '../../getOrgList',
+        	data: {},
+        	dataType: 'JSON',
+            success : function(data){
+              console.log("data",data);
+            drawOrg(data.orgList, data.deptKind);
+            } ,
+            error : function(e){
+              console.log("e",e);
+            }
+    	});
+    	
+    }
     
+    function delPerm(iconElement) {
+        // 클릭된 아이콘( bx bx-x ) 요소의 부모 li 태그에서 input 값을 가져옴
+        var emp_id = $(iconElement).closest('div').find('.permEmp_id').val();
+        var apv_idx = '${apv.apv_idx}';
+        
+     // AJAX 요청
+        $.ajax({
+            type: 'POST',
+            url: '/approval/delApvPerm',  // 실제 서버 엔드포인트로 수정
+            contentType: 'application/json',
+            data: JSON.stringify({ emp_id: emp_id, apv_idx: apv_idx }),
+            success: function (data) {
+                // 서버 응답에 대한 처리
+                console.log(data);
+                if (data.idx !== null) {
+                    console.log(data.idx);
+                    drowCreatorPermList(data.apvPermList);
+                    /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
+                }
+            },
+            error: function (error) {
+                // 오류 처리
+                console.error('Error:', error);
+            }
+        });
+       
+    }
+    
+    
+  //리스트 받기 실행 함수
+    function drawOrg(orgList, deptKind) {
+        		console.log('orgList', orgList);
+        		console.log('deptKind',deptKind);
+        		
+        		var theme = $('html').hasClass('light-style') ? 'default' : 'default-dark';
+        		var checkboxTree = $('#jstree-checkbox');
+             	console.log("체크박스트리",checkboxTree);
+        		if (checkboxTree.length) {
+        			
+        			var serverData = [];
+        			
+        			for (var i = 0; i < deptKind.length; i++) {
+        			    var deptname = {
+        			        text: deptKind[i],
+        			        type: 'depart',
+        			        children: []
+        			    };
+        			    console.log("deptKind",deptKind[i]);
+        			    
+        			    var empLength = function(){
+        			    	var cnt=0;
+       			    		for(var k=0; k < orgList.length; k++){
+       			    			if(orgList[k].dept == deptKind[i]){
+       			    				cnt++;
+       			    				console.log("cnt", cnt);
+       			    			}
+       			    		}
+       			    		return cnt;
+        			    };
+        			    var empInfo = function(index){
+        			    	var info=[];
+       			    		for(var k=0; k < orgList.length; k++){
+       			    			if(orgList[k].dept == deptKind[i]){
+       			    				console.log("emp_value : ", orgList[k].emp_name,orgList[k].grade);
+       			    				info.push( orgList[k].emp_name+" | "+orgList[k].grade+" | "+orgList[k].position+"<input type='hidden' value='"+orgList[k].emp_id+"'/>");
+       			    			}
+       			    		}
+       			    		return info[index];
+        			    };
+        			    
+        			    for (var j = 0; j < empLength(); j++) {
+        			    	console.log("empInfo("+j+")",empInfo(j));
+        			        var emp = {
+        			            text: empInfo(j)
+        			        };
+        			        deptname.children.push(emp);
+        			    } 
+
+        			    // 부모 데이터를 배열에 추가
+       			    	serverData.push(deptname); 
+        			}
+
+        			console.log(serverData); 
+
+        			// jstree에서 사용할 데이터 구성
+    		    	var jstreeData = serverData.map(function (parent) {
+    		    	  var parentNode = {
+    		    	    text: parent.text,
+    		    	    type: 'depart',
+    		    	    children: parent.children.map(function (child) {
+    		    	      return {
+    		    	        text: child.text
+    		    	      };
+    		    	    })
+    		    	  };
+    		    	  return parentNode;
+    		    	});
+     
+
+        			  checkboxTree.jstree({
+
+        			    core: {
+        			      themes: {
+        			        name: theme
+        			      },
+        			      data: jstreeData
+        			    },
+        			    plugins: ['types', 'checkbox', 'wholerow'],
+        			    types: {
+        			      default: {
+        			        icon: 'bx bx-user'
+        			      },
+        			      depart: {
+        			    	icon: 'bx bx-folder'
+        			      }
+        			    }
+        			  });
+        			}
+        		
+        	}  
+    //체크시 조직도 이벤트 (담당자)
+    $(document).ready(function () {
+        $('#jstree-checkbox').on('click', '.jstree-anchor', function (event) {
+            event.preventDefault();
+
+            var $clickedNode = $(this);
+            var nodeName = $clickedNode.text().trim();
+            var nodeHidden = $clickedNode.find('input[type="hidden"]').val();
+            var isSelected = $clickedNode.attr('aria-selected') === 'true';
+
+            setTimeout(function () {
+                var currentSelected = $clickedNode.attr('aria-selected') === 'true';
+
+                var isParentNode = !$clickedNode.parent().hasClass('jstree-leaf');
+                if (isParentNode) {
+                    var isOpen = $clickedNode.parent().hasClass('jstree-open');
+                    if (!isOpen) {
+                        $clickedNode.parent().find('> .jstree-icon').click();
+                    }
+
+                    $clickedNode.parent().find('.jstree-children li').each(function () {
+                        var $childNode = $(this).find('> .jstree-anchor');
+                        var childNodeName = $childNode.text().trim();
+                        var childNodeSelected = $childNode.attr('aria-selected') === 'true';
+                        var ChildHidden = $childNode.find('input[type="hidden"]').val();
+
+                        // "|"를 기준으로 문자열 분할하고 첫 번째 부분 사용
+                        var empNameParts = childNodeName.split('|');
+                        var empName = empNameParts.length > 0 ? empNameParts[0].trim() : '';
+
+                        // 객체 생성
+                        var empObject = {
+                            emp_id: ChildHidden,
+                            emp_name: empName
+                        };
+
+                        // 배열에서 노드 정보 추가 또는 제외
+                        if (childNodeSelected) {
+                            if (!selectedNodes.some(node => node.emp_id === ChildHidden)) {
+                                selectedNodes.push(empObject);
+                                addToDamList(empName, ChildHidden);
+                            }
+                        } else {
+                            selectedNodes = selectedNodes.filter(node => node.emp_id !== ChildHidden);
+                            removeFromDamList(ChildHidden);
+                        }
+
+                        console.log('이름:', childNodeName, ' 클릭 후 체크 여부:', childNodeSelected, ' ChildHidden:', ChildHidden);
+                    });
+                } else {
+                    // "|"를 기준으로 문자열 분할하고 첫 번째 부분 사용
+                    var empNameParts = nodeName.split('|');
+                    var empName = empNameParts.length > 0 ? empNameParts[0].trim() : '';
+
+                    // 객체 생성
+                    var empObject = {
+                        emp_id: nodeHidden,
+                        emp_name: empName
+                    };
+
+                    // 배열에서 노드 정보 추가 또는 제외
+                    if (currentSelected) {
+                        if (!selectedNodes.some(node => node.emp_id === nodeHidden)) {
+                            selectedNodes.push(empObject);
+                            addToDamList(empName, nodeHidden);
+                        }
+                    } else {
+                        selectedNodes = selectedNodes.filter(node => node.emp_id !== nodeHidden);
+                        removeFromDamList(nodeHidden);
+                    }
+
+                    console.log('이름:', nodeName, ' 클릭 후 체크 여부:', currentSelected, ' nodeHidden:', nodeHidden);
+                }
+
+                // 출력 선택된 노드 배열
+                console.log('Selected Nodes:', selectedNodes);
+            }, 0);
+        });
+
+        // 트리 노드 열림/닫힘 이벤트 리스너를 추가
+        $('#jstree-checkbox').on('after_open.jstree', function (event, data) {
+            // 열린 노드의 이름
+            var nodeName = $(data.node).find('> a').text().trim();
+    		
+            // console.log('이름:', nodeName, ' 상태: 열림');
+        });
+
+        $('#jstree-checkbox').on('after_close.jstree', function (event, data) {
+            // 닫힌 노드의 이름
+            var nodeName = $(data.node).find('> a').text().trim();
+
+            // console.log('이름:', nodeName, ' 상태: 닫힘');
+        });
+    });
+
+    function addToDamList(name, hiddenValue) {
+        var $damList = $('#addChamList');
+        var Fname = name.split(' | ')[0];
+        var $badge = $('<span style="margin-right:5px" class="badge bg-primary">' + Fname + '<button type="button" class="offset-1" onclick="removeNodeFromList1(\'' + hiddenValue + '\')"><i class=\'bx bx-x\'></i></button></span>');
+        $damList.append($badge);
+    }
+
+    function removeFromDamList(hiddenValue) {
+        var $badgeToRemove = $('#addDamList').find('[onclick="removeNodeFromList(\'' + hiddenValue + '\')"]').closest('.badge.bg-primary');
+        $badgeToRemove.remove();
+    }
+
+    function removeNodeFromList(hiddenValue) {
+        selectedNodes = selectedNodes.filter(node => node !== hiddenValue);
+        removeFromDamList(hiddenValue);
+        console.log('Selected Nodes after removal:', selectedNodes);
+    }
+
+
+
+    //선택 버튼 클릭 시 처리
+    $('.org-list-select').click(function () {
+    	console.log("selectedNodes",selectedNodes);
+    	var apv_idx = '${apv.apv_idx}';
+    	
+    	// 데이터 객체 생성
+        var requestData = {
+            selectedNodes: selectedNodes,
+            apv_idx: apv_idx
+        };
+    	
+      	$.ajax({
+            type: 'POST',
+            url: '/approval/CompApproval_ViewerPlus',
+            contentType: 'application/json',
+            data: JSON.stringify(requestData),
+            success: function (data) {
+            	
+                console.log(data);
+                if (data.idx !== null) {
+                    console.log(data.idx);
+                    drowCreatorPermList(data.apvPermList);
+                }
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+        
+
+        // 모달 닫기
+        selectedNodes = [];
+        $('#apv-org-modal').modal('hide');
+        
+        
+    });
+
+    //모달이 닫힐 때 selectedNodes 배열 초기화
+    $('#apv-org-modal').on('hidden.bs.modal', function () {
+    	selectedNodes = [];
+    	// 체크된 상태 해제 코드 추가
+        $('#jstree-checkbox').jstree('deselect_all');
+    });
+
+ // 동적으로 리스트 생성하고 추가
+    function drowCreatorPermList(apvPermList) {
+        var $ul = $('<ul>');
+
+        apvPermList.forEach(function (apvPerm) {
+            var $div = $('<div>').html(
+            		'<input class="permEmp_id" type="hidden" value="' + apvPerm.emp_id + '" />' +	
+            		apvPerm.emp_name + ' ' + apvPerm.grade_name + '(' + apvPerm.dept_name + ')'
+                + ' <i class="bx bx-x" onclick="delPerm(this)"></i>'
+            );
+            $ul.append($div);
+        });
+
+        // 기존의 내용을 비우고 새로운 내용을 추가
+        $('#creator-list-ul').empty().append($ul);
+    }
 
     </script>
   </body>

@@ -40,6 +40,9 @@ public interface CreatorDAO {
 	ArrayList<HashMap<String, Object>> getCreHistory(int cre_idx);
 	ArrayList<SnsDTO> getSns(int cre_idx);
 	
+	// 채널 합계 정보
+	HashMap<String, Object> getChannelSum(int cre_idx);
+	
 	// 크리에이터 상세정보 - 대표 채널 데이터
 	ArrayList<ChannelDataDTO> getChartData(String repChannelId);
 	
@@ -60,5 +63,6 @@ public interface CreatorDAO {
 	ArrayList<CreatorPermDTO> getCrePermForMng(String loginId);
 	// 로그인 id 별 크리에이터 권한 리스트 가져오기
 	ArrayList<CreatorPermDTO> getCrePerm(String loginId);
+	
 
 }

@@ -268,6 +268,8 @@ public class CreatorController {
 		if(permChk) {
 			
 			HashMap<String, Object> creatorInfo = creatorService.getCreator(cre_idx);
+			//구독자, 컨텐츠 총합
+			HashMap<String, Object> channelSum=creatorService.getChannelSum(cre_idx);
 			ArrayList<HashMap<String, Object>> channelInfoList = creatorService.getChannel(cre_idx);
 			ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(cre_idx);
 			ArrayList<SnsDTO> snsList = creatorService.getSns(cre_idx);
@@ -275,6 +277,7 @@ public class CreatorController {
 	
 			mav.addObject("creatorPermList", creatorPermList);
 			mav.addObject("creatorInfo", creatorInfo);
+			mav.addObject("channelSum", channelSum);
 			mav.addObject("channelInfoList", channelInfoList);
 			mav.addObject("creatorHistory", creatorHistory);
 			mav.addObject("snsList", snsList);
