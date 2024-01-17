@@ -74,11 +74,12 @@
 			FROM employee e
 		JOIN vacation_history vh ON e.emp_id = vh.emp_id
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx WHERE e.emp_id = #{login_id}
-		ORDER BY vh.vaca_date_in DESC;
+		ORDER BY vh.vaca_date_in ASC;
 	</select>
 	
 	<select id="createList" parameterType="String" resultType="vacation">
-		SELECT add_date, del_date, add_hour, add_vaca_reason FROM emp_vacation ev WHERE emp_id = #{login_id};
+		SELECT add_date, del_date, add_hour, add_vaca_reason FROM emp_vacation ev 
+			WHERE emp_id = #{login_id};
 	</select>
 	
 	<insert id="selectdate" parameterType="HashMap">

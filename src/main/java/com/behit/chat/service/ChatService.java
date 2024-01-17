@@ -151,7 +151,14 @@ public class ChatService {
 		// emp_name+" 님으로부터 새 메시지가 도착했습니다."
 		
 		String sendEmp=message.getEmp_name();
-		String alarm_msg= sendEmp+" 님으로부터 새 메시지가 도착했습니다.";
+		String sendMsg = message.getMessage();
+		
+		// sendMsg가 10자 이상인 경우에만 자르기
+		if (sendMsg.length() > 10) {
+		    sendMsg = sendMsg.substring(0, 10);
+		}
+		
+		String alarm_msg= sendEmp+" 님으로부터 새 메시지 ["+sendMsg+"...]가 도착했습니다.";
 		
 		// 챗룸 idx 값으로 챗pp 뽑아오기	
 		int chat_room_idx=message.getChat_room_idx();

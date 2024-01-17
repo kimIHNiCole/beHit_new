@@ -76,7 +76,7 @@ public class WorkController {
 	}
 	
 	// 근태현황 상세보기
-	@GetMapping(value="/myHr/workdetail")
+	@GetMapping(value="/myHr/mhr_vacation.go")
 	public ModelAndView vacadetail(HttpSession session) {
 		
 		EmployeeDTO loginInfo = (EmployeeDTO) session.getAttribute("loginInfo");
