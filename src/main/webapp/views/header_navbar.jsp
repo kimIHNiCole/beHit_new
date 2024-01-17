@@ -352,7 +352,7 @@ function updateAlarmList(alarmList) {
 // 알람 목록을 주기적으로 업데이트 (예: 1분마다)
 setInterval(function() {
         loadAlarmList();
-}, 6000000); // 1분에 한 번
+}, 60000); // 1분에 한 번
     
 //풀푸시 확인을 위한 변경
 /* 알림 개별 읽음 처리  */
