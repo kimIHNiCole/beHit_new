@@ -178,7 +178,7 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="../logout.go" target="_blank">
+            <a class="dropdown-item" href="/logout.go">
               <i class="bx bx-power-off me-2"></i>
               <span class="align-middle">Log Out</span>
             </a>
@@ -352,7 +352,7 @@ function updateAlarmList(alarmList) {
 // 알람 목록을 주기적으로 업데이트 (예: 1분마다)
 setInterval(function() {
         loadAlarmList();
-}, 6000000); // 1분에 한 번
+}, 60000); // 1분에 한 번
     
 //풀푸시 확인을 위한 변경
 /* 알림 개별 읽음 처리  */
@@ -373,16 +373,16 @@ $(document).on('click', '.dropdown-notifications-item', function(event) {
  // 알람 타입에 따라 페이지 이동
     switch (alarmType) {
         case '1':
-            window.location.href = '../chat/messenger.go';
+            window.location.href = '/chat/messenger.go';
             break;
         case '3':
-            window.location.href = '../approval/getApproval_list.go';
+            window.location.href = '/approval/getApproval_detail.go/'+alarmTypeIdx;
             break;
         case '4':
-            window.location.href = '../project/project_detail.go?proj_idx='+alarmTypeIdx;
+            window.location.href = '/project/project_detail.go?proj_idx='+alarmTypeIdx;
             break;
         case '5':
-            window.location.href = '../employee/empdetail?emp_id='+alarmTypeIdx;
+            window.location.href = '/employee/empdetail?emp_id='+alarmTypeIdx;
             break;
         default:
             console.log('Unhandled alarm type:', alarmType);

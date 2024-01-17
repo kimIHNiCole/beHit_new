@@ -62,6 +62,12 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
 <style>
+
+.content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+
 img.rounded-top{
 	height: 95px;
     }
@@ -102,11 +108,11 @@ img.rounded-top{
                      	<c:choose>
 						    <c:when test="${not empty empdetail and 'default' eq empdetail.new_file_name}">
 						        <img src="../../assets/img/avatars/1.png" alt="user image" 
-						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						            class="d-block ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>
 						        <img src="/file/employee/${empdetail.new_file_name}" alt="${empdetail.ori_file_name}" 
-						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						            class="d-block ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:otherwise>
 						</c:choose>
                       </div>
@@ -121,7 +127,7 @@ img.rounded-top{
                             </ul>
                           </div>
                           <c:choose>
-                          	<c:when test="${empdetail.login_lock == 5}">
+                          	<c:when test="${empdetail.login_lock >= 4}">
 	                          	<button type="button" class="btn btn-primary me-sm-3 me-1" onclick="chkClear()">로그인 제한 해제</button>
                           	</c:when>
                           	<c:otherwise>
@@ -256,11 +262,11 @@ img.rounded-top{
                               <input type="text" id="detail_addr" name="detail_addr" class="form-control" value="${empdetail.detail_addr}" />
                             </div>
                             <div class="mb-3 col-md-6">
-	                            <label for="hiredate" class="form-label">입사일</label>
+	                            <label for="flatpickr-date" class="form-label">입사일</label>
 								<input type="date" class="form-control" id="hiredate" name="hiredate" value="${empdetail.hiredate}">
 	                        </div>
 	                        <div class="mb-3 col-md-6">
-	                            <label for="leavedate" class="form-label">퇴사일</label>
+	                            <label for="flatpickr-date" class="form-label">퇴사일</label>
 	                            <input type="date" class="form-control" id="leavedate" name="leavedate" 
 	                            	value="${empdetail.leavedate == '9999-10-10' ? '-' : empdetail.leavedate}">
 	                         </div>
@@ -430,7 +436,7 @@ img.rounded-top{
 	                 }
 	             }).open();
 	         });
-	 		
+	    
 	         var position = '${sessionScope.position}';
 	         var dept = '${sessionScope.dept}';
 	         console.log(position);
@@ -438,43 +444,44 @@ img.rounded-top{
 	 		
 	         if (position === '8' && dept != '2') {
 	        	 
-	             $('#emp_name').prop('disabled', true);
-	             $('#password').prop('disabled', true);
-	             $('#cp_phone').prop('disabled', true);
-	             $('#mobile_phone').prop('disabled', true);
-	             $('#emp_birth').prop('disabled', true);
-	             $('#email').prop('disabled', true);
-	             $('#address').prop('disabled', true);
-	             $('#detail_addr').prop('disabled', true);
-	             $('#hiredate').prop('disabled', true);
-	             $('#leavedate').prop('disabled', true);
-	             $('#department').prop('disabled', true);
-	             $('#position').prop('disabled', true);
-	             $('#grade').prop('disabled', true);
+	             $('#emp_name').prop('readonly', true);
+	             $('#password').prop('readonly', true);
+	             $('#cp_phone').prop('readonly', true);
+	             $('#mobile_phone').prop('readonly', true);
+	             $('#emp_birth').prop('readonly', true);
+	             $('#email').prop('readonly', true);
+	             $('#address').prop('readonly', true);
+	             $('#detail_addr').prop('readonly', true);
+	             $('#hiredate').prop('readonly', true);
+	             $('#leavedate').prop('readonly', true);
+	             $('#department').prop('readonly', true);
+	             $('#position').prop('readonly', true);
+	             $('#grade').prop('readonly', true);
 	         }
 	 	});
+	 	 	// 생일 선택
+	 		    var flatpickrDate= document.querySelector("#emp_birth");
+	 			
+	 		   flatpickrDate.flatpickr({
+	 		      monthSelectorType: "static"
+	 		    });
+	 		    
+	 		    // 입사일 선택
+	 		   	var flatpickrDate = document.querySelector("#hiredate");
+	 			
+	 		   flatpickrDate.flatpickr({
+	 		      monthSelectorType: "static"
+	 		    });
+	 		    
+	 		    // 퇴사일 선택
+	 		    var flatpickrDate = document.querySelector("#leavedate");
+	 			
+	 		   flatpickrDate.flatpickr({
+	 		      monthSelectorType: "static"
+	 		    });
+		
     
     
-		// 생일 선택
-	    var flatpickrDate = document.querySelector("#emp_birth");
-		
-	    flatpickrDate.flatpickr({
-	      monthSelectorType: "static"
-	    });
-	    
-	    // 입사일 선택
-	   	var flatpickrDate = document.querySelector("#hiredate");
-		
-	    flatpickrDate.flatpickr({
-	      monthSelectorType: "static"
-	    });
-	    
-	    // 퇴사일 선택
-	    var flatpickrDate = document.querySelector("#leavedate");
-		
-	    flatpickrDate.flatpickr({
-	      monthSelectorType: "static"
-	    });
     
     
     
@@ -730,8 +737,17 @@ img.rounded-top{
     			data: {"emp_id":emp_id},
     			success: function(data){
     				console.log(data);
-    				alert('로그인 제한이 해제되었습니다.');
-    				location.reload();
+    				Swal.fire({
+		    	        text: '로그인 제한이 해제되었습니다.',
+		    	        icon: 'success',
+		    	        customClass: {
+		    	            confirmButton: 'btn btn-primary'
+		    	        },
+		    	        buttonsStyling: false
+		    	    }).then(function() {
+		    	        // 확인 버튼을 눌렀을 때 실행될 코드
+		    	    	location.reload();
+		    	    });
     			},
     			error: function(e){
     				console.log(e)

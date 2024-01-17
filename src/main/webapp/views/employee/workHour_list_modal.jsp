@@ -68,6 +68,12 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     <style>
+    
+    .content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+    
     .row.mb-3{
     margin-right: 10px;
     margin-top: 10px;
@@ -135,7 +141,7 @@
                     			</ul>
 			                </div>
 							<div class="col-md-4">
-						        <div class="input-group">
+						        <div class="input-group fs-4">
 						            <button class="btn btn-outline-secondary" id="sprevBtn" type="button"><</button>
 						            <input type="text" class="form-control text-center" id="sdatepicker" readonly>
 						            <button class="btn btn-outline-secondary" id="snextBtn" type="button">></button>

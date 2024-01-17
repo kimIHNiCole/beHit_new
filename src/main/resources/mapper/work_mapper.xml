@@ -13,7 +13,7 @@
 			COALESCE((SELECT  DATE_FORMAT(vh.vaca_end_time, '%H:%i') AS work FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id LIMIT 1), '-') AS vaca_end,
 		    COALESCE((SELECT  DATE_FORMAT(ch.work_started, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_started,
 		    COALESCE((SELECT  DATE_FORMAT(ch.work_ended, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_ended,
-		    COALESCE((SELECT work_state FROM commute_history ch WHERE ch.work_day = '2024-01-12' AND e.emp_id = ch.emp_id), '-') AS work_state,
+		    COALESCE((SELECT work_state FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '-') AS work_state,
 			COALESCE((f.ori_file_name),'default') AS ori_file_name,
 		    COALESCE((f.new_file_name),'default') AS new_file_name
 		    FROM employee e
@@ -26,13 +26,13 @@
 	<select id="worklist" resultType="work">
 		SELECT 
 			e.emp_id, e.emp_name, d.emp_dept_name AS 'dept_name',
-		    COALESCE((SELECT  DATE_FORMAT(ch.work_start_time, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = '2024-01-12' AND e.emp_id = ch.emp_id), '00:00') AS work_start,
-			COALESCE((SELECT  DATE_FORMAT(ch.work_end_time, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = '2024-01-12' AND e.emp_id = ch.emp_id), '00:00') AS work_end,
-			COALESCE((SELECT  DATE_FORMAT(vh.vaca_start, '%H:%i') AS work FROM vacation_history vh WHERE vh.vaca_date = '2024-01-12' AND e.emp_id = vh.emp_id LIMIT 1), '-') AS vaca_start,
-			COALESCE((SELECT  DATE_FORMAT(vh.vaca_end_time, '%H:%i') AS work FROM vacation_history vh WHERE vh.vaca_date = '2024-01-12' AND e.emp_id = vh.emp_id LIMIT 1), '-') AS vaca_end,
-		    COALESCE((SELECT  DATE_FORMAT(ch.work_started, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = '2024-01-12' AND e.emp_id = ch.emp_id), '00:00') AS work_started,
-		    COALESCE((SELECT  DATE_FORMAT(ch.work_ended, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = '2024-01-12' AND e.emp_id = ch.emp_id), '00:00') AS work_ended,
-		    COALESCE((SELECT work_state FROM commute_history ch WHERE ch.work_day = '2024-01-12' AND e.emp_id = ch.emp_id), '-') AS work_state,
+		    COALESCE((SELECT  DATE_FORMAT(ch.work_start_time, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_start,
+			COALESCE((SELECT  DATE_FORMAT(ch.work_end_time, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_end,
+			COALESCE((SELECT  DATE_FORMAT(vh.vaca_start, '%H:%i') AS work FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id LIMIT 1), '-') AS vaca_start,
+			COALESCE((SELECT  DATE_FORMAT(vh.vaca_end_time, '%H:%i') AS work FROM vacation_history vh WHERE vh.vaca_date = #{date} AND e.emp_id = vh.emp_id LIMIT 1), '-') AS vaca_end,
+		    COALESCE((SELECT  DATE_FORMAT(ch.work_started, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_started,
+		    COALESCE((SELECT  DATE_FORMAT(ch.work_ended, '%H:%i') AS work FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '00:00') AS work_ended,
+		    COALESCE((SELECT work_state FROM commute_history ch WHERE ch.work_day = #{date} AND e.emp_id = ch.emp_id), '-') AS work_state,
 			COALESCE((f.ori_file_name),'default') AS ori_file_name,
 		    COALESCE((f.new_file_name),'default') AS new_file_name
 		    FROM employee e
@@ -74,11 +74,12 @@
 			FROM employee e
 		JOIN vacation_history vh ON e.emp_id = vh.emp_id
 		JOIN department d ON e.emp_dept_idx = d.emp_dept_idx WHERE e.emp_id = #{login_id}
-		ORDER BY vh.vaca_date_in DESC;
+		ORDER BY vh.vaca_date_in ASC;
 	</select>
 	
 	<select id="createList" parameterType="String" resultType="vacation">
-		SELECT add_date, del_date, add_hour, add_vaca_reason FROM emp_vacation ev WHERE emp_id = #{login_id};
+		SELECT add_date, del_date, add_hour, add_vaca_reason FROM emp_vacation ev 
+			WHERE emp_id = #{login_id};
 	</select>
 	
 	<insert id="selectdate" parameterType="HashMap">

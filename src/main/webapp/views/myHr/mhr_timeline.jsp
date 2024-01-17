@@ -127,7 +127,7 @@
 						  	</form>
 						  </div>
                       </div>
-                      <div class="app-calendar-events-filter">
+                      <div class="app-calendar-events-filter" style="display: none;">
                         <div class="form-check form-check-danger mb-2">
                           <input
                             class="form-check-input input-filter"
@@ -244,6 +244,14 @@
 	
 	document.addEventListener('DOMContentLoaded', function() {
 		
+		events.sort((a, b) => {
+		    const calendarOrder = { 'Personal': 1, 'Business': 2 };
+		    
+		    const calendarA = a.extendedProps.calendar.toLowerCase();
+			const calendarB = b.extendedProps.calendar.toLowerCase();
+
+			return calendarOrder[calendarA] - calendarOrder[calendarB];
+		});
 
 		// 클래스명이 'fc-event-time'인 모든 요소들을 선택
 		var fcEventTimeElements = document.querySelectorAll('.fc-event-time');
@@ -281,7 +289,6 @@
 			  	 NextMonthButton.style.visibility = 'visible';
 				 prevcnk--;
 				 nextcnk--;
-				 workmonth();
 				 console.log(prevcnk);
 				 console.log(nextcnk);
 			 if (prevcnk == minprev ){
@@ -303,7 +310,7 @@
 			});
 		} 
 	});
-    
+    /*
 	function workmonth(){
 		let h2Element = document.getElementById('fc-dom-1');
 		let monthAndYear = h2Element.innerText.trim().split(' ');
@@ -364,9 +371,9 @@
 	    		 console.log(e);
 	    	 }
 	    });
-	}
 	console.log('${list[0].work_day}'); 
-	
+	} */
+	/*
 	var list =[
 		<c:forEach var="list" items="${chlist}">
 			{
@@ -386,62 +393,38 @@
 		</c:forEach>
 	];
 	
-	console.log(list);
-	/*
+	console.log(list); */
 	
+		var events = [
+	        <c:forEach var="work" items="${chlist}">
+	            {
+	                title: '근무 '+'${work.work_start}' + '~' + '${work.work_end}',
+	                start: '${work.work_day}',
+	                end: '${work.work_day}',
+	                allDay: false,
+	                extendedProps: {
+	                    calendar: 'Personal'
+	                }
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>,
+	        <c:forEach var="vacation" items="${vhlist}">
+	            {
+	                title: '연차 '+'${vacation.vaca_start}' + '~' + '${vacation.vaca_end}',
+	                start: '${vacation.vaca_date}',
+	                end: '${vacation.vaca_date}',
+	                allDay: false,
+	                extendedProps: {
+	                    calendar: 'Business'
+	                }
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>
+	    ];
 	
-	let events = [
-		<c:forEach var="list" items="${list}">
-			{
-				 title: '${list.work_start}'+'~'+'${list.work_end}',
-				 start: '${list.work_day}',
-				 end: '${list.work_day}',
-				 allDay: false,
-				 extendedProps: {
-				   calendar: 'Personal'
-				 }
-			},
-			<c:choose>
-				<c:when test="${list.vaca_start != '00:00'}">
-					{
-						 title: '${list.vaca_start}'+'~'+'${list.vaca_end}',
-						 start: '${list.work_day}',
-						 end: '${list.work_day}',
-						 allDay: false,
-						 extendedProps: {
-						   calendar: 'Business'
-						 }
-					}
-				</c:when>
-			</c:choose>
-			<c:if test="${!loop.last}">,</c:if>
-		</c:forEach>
-	]; */
+	console.log(events);
 	
-	var events = [
-        <c:forEach var="work" items="${chlist}">
-            {
-                title: '${work.work_start}' + '~' + '${work.work_end}',
-                start: '${work.work_day}',
-                end: '${work.work_day}',
-                allDay: false,
-                extendedProps: {
-                    calendar: 'Personal'
-                }
-            }<c:if test="${!loop.last}">,</c:if>
-        </c:forEach>,
-        <c:forEach var="vacation" items="${vhlist}">
-            {
-                title: '${vacation.vaca_start}' + '~' + '${vacation.vaca_end}',
-                start: '${vacation.vaca_date}',
-                end: '${vacation.vaca_date}',
-                allDay: false,
-                extendedProps: {
-                    calendar: 'Business'
-                }
-            }<c:if test="${!loop.last}">,</c:if>
-        </c:forEach>
-    ];
+
+	
+
 
 	
 	

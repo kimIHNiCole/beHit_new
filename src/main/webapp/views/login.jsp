@@ -31,6 +31,8 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet" />
+      <!-- pretendard 폰트 -->
+<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Icons -->
     <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
@@ -63,6 +65,10 @@
     
     <!-- custom CSS -->
     <style>
+    	.authentication-wrapper{
+    		font-family:pretendard;
+    	}
+    
 	    .app-brand-text.demo{
 	     text-transform: none;
 	     /* color:red !important; */
@@ -73,6 +79,13 @@
 	        background-color: #C20000;
     		border-color: #C20000;
 	    }
+	    
+	    .login_img{
+	    	max-width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+	    }
+	    
     </style>
     
   </head>
@@ -83,16 +96,14 @@
     <div class="authentication-wrapper authentication-cover">
       <div class="authentication-inner row m-0">
         <!-- /Left Text -->
-        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5">
-          <div class="w-100 d-flex justify-content-center">
+        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center" style="padding:0;">
+        	
             <img
-              src="../../assets/img/illustrations/beHit_logo.png"
-              class="img-fluid"
+              src="../../assets/img/illustrations/loginImg.png"
+              class="login_img"
               alt="Login image"
-              width="700"
-              data-app-dark-img="illustrations/beHit_logo.png"
-              data-app-light-img="illustrations/beHit_logo.png" />
-          </div>
+              data-app-dark-img="illustrations/loginImg.png"
+              data-app-light-img="illustrations/loginImg.png" />
         </div>
         <!-- /Left Text -->
 
@@ -157,11 +168,11 @@
             </div>
             <!-- /Logo -->
             <!-- <h4 class="mb-2">Be Hit</h4> -->
-            <p class="mb-4">세계 최고의 유튜버들을 위한 에이전시</p>
+            <p class="mb-4 fs-5">세계 최고의 유튜버들을 위한 에이전시</p>
 
 			<form id="formAuthentication" class="mb-3" action="login.do" method="POST" onsubmit="return saveId()">
               <div class="mb-3">
-                <label for="username" class="form-label">아이디</label>
+                <label for="username" class="form-label fs-6">아이디</label>
                 <input
                   type="text"
                   class="form-control"
@@ -175,7 +186,7 @@
                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
               </div> -->
               <div class="mb-3 form-password-toggle">
-                <label class="form-label" for="password">비밀번호</label>
+                <label class="form-label fs-6" for="password">비밀번호</label>
                 <div class="input-group input-group-merge">
                   <input
                     type="password"

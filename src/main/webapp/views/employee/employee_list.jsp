@@ -24,7 +24,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
     
-    <!-- pretendard 폰트 -->
+	<!-- pretendard 폰트 -->
 	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
 
     <!-- Fonts -->
@@ -70,6 +70,12 @@
     
     <!-- custom CSS -->
     <style>
+    
+     .content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+    
     	.col-md-4{
     		margin-top:3.625rem;
     	}
@@ -158,7 +164,9 @@
 	                      		<c:when test="${sessionScope.dept == 2}">
 				                	<div class="col-md-4 text-end">
 				                    	<!-- 직원 등록 버튼 -->
-				                    	<button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
+				                    	<div>
+						              	    <a href="/employee/employee_add.go" class="btn btn-primary">직원 등록</a>
+				              		    </div>
 				                	</div>   			
 	                      		</c:when>
 	                      		<c:otherwise>
@@ -269,7 +277,11 @@
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
+	<script src="../../assets/js/app-ecommerce-settings.js"></script>
+	
+	<!-- Header JS -->
+    <script src="../../assets/js/header.js"></script>
+	
 	<script>
     var msg = '${msg}';
     console.log(msg);
@@ -337,9 +349,9 @@
 			fcontent += '<tr>';
 			fcontent +='<td style="width:100px;">';
 			if (item.new_file_name != 'default'){
-				fcontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+				fcontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block ms-0 rounded user-profile-img" width="50px" height="50px" />';
 			} else {
-				fcontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+				fcontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block ms-0 rounded user-profile-img"width="50px" height="50px" />';
 			}
 			fcontent +='</td>';
 			fcontent +='<td>'+'<div class="d-flex flex-column">'+
@@ -348,7 +360,7 @@
 			fcontent +='<td>'+item.dept_name+'</td>'
 			fcontent +='<td>'+item.position_name+'</td>'
 			fcontent +='<td>'+item.grade_name+'</td>'
-			fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
+			fcontent += '<td><button type="button" class="btn btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 			fcontent += '</tr>';		
 		});
 		$('#eflist').empty();
@@ -378,9 +390,9 @@ function drawsList(obj){
 			scontent += '<tr>';
 			scontent +='<td style="width:100px;">';
 			if (item.new_file_name != 'default'){
-				scontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+				scontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block ms-0 rounded user-profile-img" width="50px" height="50px" />';
 			} else {
-				scontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+				scontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block ms-0 rounded user-profile-img"width="50px" height="50px" />';
 			}
 			scontent +='</td>';
 			scontent +='<td>'+'<div class="d-flex flex-column">'+
@@ -412,7 +424,7 @@ function drawsList(obj){
 	}
 
      </script>
-    <!-- Header JS -->
-    <script src="../../assets/js/header.js"></script>   
+
+       
   </body>
 </html>

@@ -12,9 +12,12 @@
             padding: 20px;
             border-radius: 8px;
             width: 400px;
-            height: 605px; /* 최대 높이 설정 */
+            height: 32rem; /* 최대 높이 설정 */
             overflow: hidden;
-            border: 1px solid black;
+            border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+				    border-radius: 1rem;
+				    outline: 0;
+    				box-shadow: 0 2px 20px 0 rgba(67, 89, 113, 0.45);
         }
         #todoListContainer {
             max-height: 80%;
@@ -23,15 +26,15 @@
             height:80%;
         }
         #todoInput {
-            width: calc(100% - 22px); /* 20px는 패딩, 2px는 테두리 고려 */
+            width: calc(100% - 2px); /* 20px는 패딩, 2px는 테두리 고려 */
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
 		.form-check-input:checked, .form-check-input[type=checkbox]:indeterminate {
-		    background-color: #71dd37;
-		    border-color: #71dd37;
+		    background-color: #C20000;
+		    border-color: #C20000;
 		    box-shadow: 0 2px 4px 0 rgba(113, 221, 55, 0.4);
 		}
 
@@ -42,14 +45,20 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+        
+        #modalContent{
+        	font-family:pretendard;
+        }
+        
+        
 </style>
 </head>
 <body>
 <div id="modalContent">
     <div>
-        <span style="color: green">할 일 <a id="todoNCount" style="color: green"></a>개 남음</span>
-        <a href="todoList_history.go" style="color: red; text-decoration: none;">완료된 히스토리 보기</a>
-        <span style="float: right;"><button style="background: none; border: none;" onclick="closeTodoModal()">X</button></span>
+        <span style="color: #C20000">할 일 <a id="todoNCount" style="color: #C20000"></a>개 남음 </span>
+        <a href="todoList_history.go" style="color: #969696; text-decoration: none;"> |  완료된 히스토리 보기</a>
+        <span style="float: right;"><button style="background: none; border: none;" onclick="closeTodoModal()"><i class='bx bx-x' ></i></button></span>
     </div>
     <hr>
     <div id="todoListContainer"><!-- 투두리스트 -->

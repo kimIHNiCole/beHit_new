@@ -363,7 +363,7 @@
     	font-family:pretendard;
     }
     
-    .apv-form-button button[type="submit"]{
+    #apv_submit{
     	margin-right: 5.125rem;
     }
     
@@ -423,6 +423,12 @@
 		#apv-vac-time{
 			display:none;
 		}
+		
+		.btn-primary:hover {
+  color: #ED8A8A;
+  background-color: #ED8A8A;
+  border-color: #ED8A8A;
+}
 		
 
 
@@ -583,7 +589,7 @@
 	
 					                <div class="pt-4 apv-form-button">
 				                    <button type="reset" class="btn btn-label-secondary">취소</button>
-				                    <button id="apv_submit" type="submit" class="btn btn-primary">상신</button>
+				                    <button id="apv_submit" type="button" class="btn btn-primary">상신</button>
 				                  </div>
 					              </form>
 				                
@@ -675,9 +681,10 @@
 				                
 				                <div class="org-list-dist lh-1 d-flex justify-content-between align-items-center">
 				                	<span class="d-flex justify-content-between align-items-center">
-						               <span style="width:9rem">부서</span>
-						               <span style="width:6rem">이름</span>
-						               <span style="width:6rem">직책</span>
+						               <span style="width:7rem">부서</span>
+						               <span style="width:5rem">직급</span>
+						               <span style="width:5rem">직책</span>
+						               <span style="width:5rem">이름</span>
 						               <span style="width:4rem"> </span>
 						              </span>
 				                </div>
@@ -1169,11 +1176,35 @@
     
     $(document).ready(function () {
     $('#temporarySaveButton').on('click', function () {
-        // 임시 저장 버튼 클릭 시 action 변경
-        $('#approvalForm').attr('action', '/approval/temporaryApproval_write.do');
-        $('#apvStmt').val('임시저장');
-        // 폼 데이터 전송
-        $('#approvalForm').submit();
+    	
+    	Swal.fire({
+            icon: 'question',
+            title: '임시저장 하시겠습니까?',
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 확인 버튼을 누른 경우
+                Swal.fire({
+                    icon: 'success',
+                    title: '임시저장 하였습니다.',
+                    confirmButtonText: '확인'
+                }).then(() => {
+                		// 임시 저장 버튼 클릭 시 action 변경
+                    $('#approvalForm').attr('action', '/approval/temporaryApproval_write.do');
+                    $('#apvStmt').val('임시저장');
+                    // 확인 버튼을 누른 후 추가 동작
+                    $('#approvalForm').submit(); // 폼 서버로 제출
+                    
+                });
+            } else {
+                // 취소 버튼을 누른 경우
+                // 필요한 경우 추가 동작
+            }
+        });
+    	
+    	
     });
 });
     
@@ -1319,7 +1350,7 @@
  		//리스트 받기
  		$.ajax({
     		type: 'get',
-        	url: '../../getOrgList',
+        	url: '../../getOrgListNM',
         	data: {},
         	dataType: 'JSON',
 	        success : function(data){
@@ -1502,9 +1533,10 @@
 	      				  		        	
 	      				  		        	content += '<li class="list-group-item drag-item cursor-move d-flex justify-content-between align-items-center">';
 	      				  		        	content += '<span class="d-flex justify-content-between align-items-center">';
-	      				  		        	content += '<span class="dept-name" style="width:9rem">'+data.dept_name+'</span>';
-	      				  		       		content += '<span class="emp-name" style="width:6rem">'+data.emp_name+'</span>';
-	      				  		       		content += '<span class="position-name" style="width:6rem">'+data.position_name+'</span>';
+	      				  		        	content += '<span class="dept-name" style="width:7rem">'+data.dept_name+'</span>';
+	      				  		        	content += '<span class="grade-name" style="width:5rem">'+data.grade_name+'</span>';
+	      				  		       		content += '<span class="position-name" style="width:5rem">'+data.position_name+'</span>';
+	      				  		       		content += '<span class="emp-name" style="width:5rem">'+data.emp_name+'</span>';
 	      				  		       		content += '<span class="order" style="width:4rem"><button type="button" class="apv-list-del"><i class="bx bx-trash" ></i></button></span>';
 	      				  		       		content += '<input class="emp-id" type="hidden" value="'+empId+'">';
 	      				  		        	content += '</span>';
@@ -1568,8 +1600,6 @@
 		            "/" + apv_day + "/" + apv_start_day + "/" + apv_end_day +
 		            "/" + apv_start_time + "/" + apv_end_time + "/" + apv_subject +
 		            "/" + apv_overview);
-		        
-		        console.log('apv_overview:', apv_overview);
 		
 		        var form = '${form}';
 		
@@ -1619,6 +1649,31 @@
 		            }
 		
 		        }
+		        
+		        Swal.fire({
+		            icon: 'question',
+		            title: '상신하시겠습니까?',
+		            showCancelButton: true,
+		            confirmButtonText: '확인',
+		            cancelButtonText: '취소'
+		        }).then((result) => {
+		            if (result.isConfirmed) {
+		                // 확인 버튼을 누른 경우
+		                Swal.fire({
+		                    icon: 'success',
+		                    title: '상신하였습니다.',
+		                    confirmButtonText: '확인'
+		                }).then(() => {
+		                	console.log("Form data before submission:", $('#approvalForm').serialize());
+		                    // 확인 버튼을 누른 후 추가 동작
+		                    $('#approvalForm').submit(); // 폼 서버로 제출
+		                    
+		                });
+		            } else {
+		                // 취소 버튼을 누른 경우
+		                // 필요한 경우 추가 동작
+		            }
+		        });
 		
 		    });
 		});

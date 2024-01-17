@@ -66,7 +66,7 @@
     }
     
     img.rounded-top{
-	height: 95px;
+			height: 95px;
     }
     .bx.bxl-youtube{
     margin-right: 15px;
@@ -100,6 +100,10 @@
     tr:hover {
         background-color: #f5f5f5;
         cursor: pointer;
+    }
+    
+    .container-xxl{
+    	font-family:pretendard;
     }
 	
 	
@@ -143,7 +147,7 @@
                         <c:choose>
 						    <c:when test="${not empty photo and not empty photo.new_file_name}">
 						        <img src="/file/employee/${photo.new_file_name}" alt="${photo.ori_file_name}" 
-						            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+						            class="d-block ms-0 ms-sm-4 rounded user-profile-img" />
 						    </c:when>
 						    <c:otherwise>
 						        <img src="../../assets/img/avatars/1.png" alt="user image" 

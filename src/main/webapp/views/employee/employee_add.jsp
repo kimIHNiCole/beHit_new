@@ -63,6 +63,14 @@
     
     <!-- DAUM 주소 검색 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+    <style>
+    .content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+    </style>
+    
   </head>
 
   <body>
@@ -70,7 +78,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-			<jsp:include page="/views/header_menu.jsp"/>
+		<jsp:include page="/views/header_menu.jsp"/>
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -94,7 +102,7 @@
 							<div class="card-body">
 								<div class="d-flex align-items-start align-items-sm-center gap-4">
 			                        <img
-			                          src="../../assets/img/avatars/1.png"
+			                          src="../../assets/img/avatars/21.png"
 			                          alt="user-avatar"
 			                          class="d-block rounded"
 			                          height="100"
@@ -217,7 +225,8 @@
 			                            	<option value=""></option>
 			                            	<option value="8">팀장</option>
 			                              	<option value="9">팀원</option>
-			                              	<option value="10">무직책</option>
+			                              	<option value="10">대표</option>
+			                              	<option value="36">대표</option>
 			                            </select>
 	                          		</div>    
 	                        		</div>
@@ -272,6 +281,10 @@
     <script src="../../assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+    <!-- Header JS -->
+    <script src="../../assets/js/header.js"></script>  
+    
     <script>
     var idChk = false;
     var msg = '<%= request.getParameter("msg") %>';
@@ -552,7 +565,7 @@
 		    		
 		    		 $.ajax({
 		    	        type: 'POST',
-		    	     	url: '/empadd.do', 
+		    	     	url: 'empadd.do', 
 		    	        data: formData,
 		    	        dataType: 'json',
 		    	        enctype : 'multipart/form-data',
@@ -585,45 +598,58 @@
 	    
 	    $('#idChk').on('click', function(){
 	    	var emp_id = $('input[name="emp_id"]').val();
-	    	
-	    	$.ajax({
-	    		type:'get',
-	    		url:'idChk.do',
-	    		data: {'emp_id' : emp_id},
-	    		dataType: 'json',
-	    		success:function(data){
-	    			console.log(data);
-			   		if (data.use) {
-			        	Swal.fire({
-			    	        text: '이미 사용중인 아이디 입니다!',
-			    	        icon: 'warning',
-			    	        customClass: {
-			    	            confirmButton: 'btn btn-primary'
-			    	        },
-			    	        buttonsStyling: false
-			    	    });
-			   			$('input[name="emp_id"]').val('');
-			   		} else {
-			        	Swal.fire({
-			    	        text: '사용가능한 아이디 입니다!',
-			    	        icon: 'success',
-			    	        customClass: {
-			    	            confirmButton: 'btn btn-primary'
-			    	        },
-			    	        buttonsStyling: false
-			    	    }); 
-				   		idChk = true;
-			   		}
-	    		},
-	    		error:function(e){
-	    			console.log(e);
-	    		}
-	    	});
+	    	console.log(emp_id);
+	    	if (emp_id == ''){
+	    		Swal.fire({
+	    	        text: '아이디를 입력해 주세요',
+	    	        icon: 'warning',
+	    	        customClass: {
+	    	            confirmButton: 'btn btn-primary'
+	    	        },
+	    	        buttonsStyling: false
+	    	    }).then(function() {
+	    	        // 확인 버튼을 눌렀을 때 실행될 코드
+	    	        $('#emp_id').focus();
+	    	    });
+	    	} else{
+		    	$.ajax({
+		    		type:'get',
+		    		url:'idChk.do',
+		    		data: {'emp_id' : emp_id},
+		    		dataType: 'json',
+		    		success:function(data){
+		    			console.log(data);
+				   		if (data.use) {
+				        	Swal.fire({
+				    	        text: '이미 사용중인 아이디 입니다!',
+				    	        icon: 'warning',
+				    	        customClass: {
+				    	            confirmButton: 'btn btn-primary'
+				    	        },
+				    	        buttonsStyling: false
+				    	    });
+				   			$('input[name="emp_id"]').val('');
+				   		} else {
+				        	Swal.fire({
+				    	        text: '사용가능한 아이디 입니다!',
+				    	        icon: 'success',
+				    	        customClass: {
+				    	            confirmButton: 'btn btn-primary'
+				    	        },
+				    	        buttonsStyling: false
+				    	    }); 
+					   		idChk = true;
+				   		}
+		    		},
+		    		error:function(e){
+		    			console.log(e);
+		    		}
+		    	});
+	    	}
 	    });
 	    
     </script>
-	<!-- Header JS -->
-    <script src="../../assets/js/header.js"></script>   
+ 
    
 
 

@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         monthSelectorType: 'static',
         inline: true
       });
-    }    
+    }
     
     
 /*
@@ -245,10 +245,23 @@ document.addEventListener('DOMContentLoaded', function () {
         // console.log(event.extendedProps.calendar.toLowerCase());
         return calendars.includes(event.extendedProps.calendar.toLowerCase());
       });
+      
+	  selectedEvents.sort((a, b) => {
+	    if (a.extendedProps.calendar === 'Personal') {
+	      return -1; // Personal comes first
+	    } else if (b.extendedProps.calendar === 'Personal') {
+	      return 1; // Business comes first
+	    } else {
+	      return 0; // Keep the order unchanged for other calendars
+	    }
+	  });      
+	    console.log("After sorting:", selectedEvents);
+      
       // if (selectedEvents.length > 0) {
       successCallback(selectedEvents);
       // }
-    }
+    }	
+    
 
     // Init FullCalendar
     // ------------------------------------------------
@@ -315,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		  }
 		
 		  // 클릭한 날짜가 현재 날짜 이후인 경우
-		  if (clickedDate.getDate() > currentDate.getDate()) {
+		  if (clickedDate.getDate() >= currentDate.getDate()) {
 		    document.getElementById('selecdate').style.visibility = 'visible';
 		  } else {
 		    // 클릭한 날짜가 현재 날짜 이전인 경우
@@ -348,7 +361,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modifyToggler();
       }
     });
-
 
     // Render calendar
     calendar.render();
@@ -415,12 +427,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add Event
     // ------------------------------------------------
-    function addEvent(eventData) {
+/*    function addEvent(eventData) {
       // ? Add new event data to current events object and refetch it to display on calender
       // ? You can write below code to AJAX call success response
 
       currentEvents.push(eventData);
-      calendar.refetchEvents();
+      // calendar.refetchEvents();
 
       // ? To add event directly to calender (won't update currentEvents object)
       // calendar.addEvent(eventData);
@@ -455,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // ? To delete event directly to calender (won't update currentEvents object)
       // removeEventInCalendar(eventId);
-    }
+    } */
 
     // (Update Event In Calendar (UI Only)
     // ------------------------------------------------

@@ -59,6 +59,11 @@
     
     <!-- 커스텀 -->
     <style>
+    
+    .app-chat-history{
+    	font-family:pretendard;
+    }
+    
     /* 프로젝트 추가 버튼 */
     .btn.btn-primary.text-nowrap{
     	margin-left: 5px;
@@ -291,7 +296,7 @@ height: calc(100vh - 10rem);
 					                    <div class="card mb-4">
 					                        <div class="row">
 					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #f2d200; font-weight: bold;">즉시 작업</h5>
+					                                <h5 class="card-header fs-5 p-4" style=" color: #f2d200; font-weight: bold;">즉시 작업</h5>
 					                            </div>
 					                        </div>
 					                        <div class="table-responsive mb-3pro">
@@ -312,7 +317,7 @@ height: calc(100vh - 10rem);
 					                    <div class="card mb-4">
 					                        <div class="row">
 					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #4974e3; font-weight: bold;">대기</h5>
+					                                <h5 class="card-header fs-5 p-4" style=" color: #4974e3; font-weight: bold;">대기</h5>
 					                            </div>
 					                        </div>
 					                        <div class="table-responsive mb-3">
@@ -336,7 +341,7 @@ height: calc(100vh - 10rem);
 					                    <div class="card mb-4">
 					                        <div class="row">
 					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #23a62e; font-weight: bold;">진행중</h5>
+					                                <h5 class="card-header fs-5 p-4" style=" color: #23a62e; font-weight: bold;">진행중</h5>
 					                            </div>
 					                        </div>
 					                        <div class="table-responsive mb-3">
@@ -357,7 +362,7 @@ height: calc(100vh - 10rem);
 					                    <div class="card mb-4">
 					                        <div class="row">
 					                            <div class="col-md-6">
-					                                <h5 class="card-header" style=" color: #C20000; font-weight: bold;">지연</h5>
+					                                <h5 class="card-header fs-5 p-4" style=" color: #C20000; font-weight: bold;">지연</h5>
 					                            </div>
 					                        </div>
 					                        <div class="table-responsive mb-3">
@@ -428,6 +433,9 @@ height: calc(100vh - 10rem);
 
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
+    
+    <!-- Header -->
+    <script src="../../assets/js/header.js"></script>
     
     <script>
     var whatlist = '';

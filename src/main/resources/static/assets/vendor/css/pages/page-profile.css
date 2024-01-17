@@ -10,6 +10,7 @@
 .user-profile-header .user-profile-img {
   border: 5px solid;
   width: 120px;
+  height: 120px;
 }
 
 .light-style .user-profile-header .user-profile-img {

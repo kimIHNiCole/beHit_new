@@ -65,6 +65,10 @@
     height: 38px;
     margin-left: 150px;
     }
+    
+    .content-wrapper{
+    	font-family:pretendard;
+    }
     </style>
   </head>
 
@@ -97,7 +101,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">${workdetail.emp_name}님의 상세 연차</span> </h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">${workdetail.emp_name} 님의 상세 연차</span> </h4>
 
               <!-- 총 기록 -->
 

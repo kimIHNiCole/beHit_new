@@ -61,7 +61,7 @@
   <body>
 	<div id="projModal">
 		<h5 class="card-header">조직도
-		<span style="float: right;"><button style="background: none; border: none;" onclick="closeChartModal()">X</button></span>
+		<span style="float: right;"><button style="background: none; border: none;" onclick="closeChartModal()"><i class='bx bx-x' ></i></button></span>
 		</h5>
 		<div class="card-body">
 		  <div id="jstree-checkbox"></div>

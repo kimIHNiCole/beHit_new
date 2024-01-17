@@ -65,9 +65,18 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     <style>
+    .content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+    
     .col-md-4.offset-md-8{
     margin-right: 10px;
     margin-top: 10px;
+    }
+    
+    .click{
+    	cursor:pointer;
     }
     
     </style>
@@ -97,8 +106,8 @@
           
            <!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y mt-2">
-	    <h4 class="py-3 mb-4"><span class="text-muted fw-light">연차 관리 </span></h4>
-		<span class="text-muted fw-light">연차는 시간 단위로 입력됩니다.</span>
+	    <h4 class="py-3 mb-4">연차 관리</h4>
+		<div class="text-muted fw-light mb-4">* 연차는 시간 단위로 입력됩니다.</div>
 	    <!-- DataTable with Buttons -->
 	    <div class="card">
         <div class="card-datatable table-responsive" style="overflow-x: hidden">
@@ -195,7 +204,10 @@
     <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
-<!--      <script src="../../assets/js/tables-datatables-basic.js"></script> -->
+	<script src="../../assets/js/tables-datatables-basic.js"></script>
+	
+	<!-- Header -->
+    <script src="../../assets/js/header.js"></script>
      <script>
 	     document.addEventListener("DOMContentLoaded", function () {
 	         var tableRows = document.querySelectorAll(".clickable-row");
@@ -233,9 +245,9 @@
 	    	 var content = '';
 	    	 
 	    	 obj.vacalist.forEach(function(item, idx) {
-	    		 content += '<tr onclick="location.href=\'/employee/vacadetail?emp_id=' + item.emp_id + '\'">';
+	    		 content += '<tr class="click" onclick="location.href=\'/employee/vacadetail?emp_id=' + item.emp_id + '\'">';
 	    		 content +='<td style="width:100px;">';
-	    		 content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+	    		 content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block ms-0 rounded user-profile-img" width="50px" height="50px" />';
 	    		 content +='</td>';
 	    		 content +='<td>'+'<div class="d-flex flex-column">'+
 					'<span class="emp_name text-truncate">'+item.emp_name+'</span>'+
@@ -266,7 +278,6 @@
 	     }
      </script>
      
-    <!-- Header -->
-    <script src="../../assets/js/header.js"></script>
+
   </body>
 </html>

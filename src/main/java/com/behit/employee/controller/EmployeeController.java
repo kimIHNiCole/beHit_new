@@ -47,14 +47,14 @@ public class EmployeeController {
 	}
 	
 
-	@GetMapping(value = "/empadd.go")
+	@GetMapping(value = "/employee/employee_add.go")
 	public String empAddGo() {
 		logger.info("직원 등록 페이지로 이동");
 		return "employee/employee_add";
 	}
 
 	// 추후 경로 수정
-	@PostMapping(value = "/empadd.do")
+	@PostMapping(value = "/employee/empadd.do")
 	@ResponseBody
 	public HashMap<String, Object> empjoin(@RequestParam HashMap<String, Object> params, HttpSession session, 
 			@RequestParam("uploadFile") MultipartFile uploadFile, RedirectAttributes rAttr) throws Exception {
@@ -83,7 +83,8 @@ public class EmployeeController {
 			
 			employeeService.join(params);
 			
-			LocalDate currentDate = LocalDate.now();
+			String hiredateString = (String) params.get("hiredate");
+			LocalDate currentDate = LocalDate.parse(hiredateString);
 			List<String> weekdaysList = calculateWeekdays(currentDate);
 			logger.info("weekdaysList : "+weekdaysList);
 			for (String day : weekdaysList) {
@@ -214,7 +215,7 @@ public class EmployeeController {
 	 }
 	 
 	 
-	 @GetMapping(value="/idChk.do")
+	 @GetMapping(value="/employee/idChk.do")
 	 @ResponseBody
 	 public HashMap<String, Object> idChk(@RequestParam String emp_id){
 		 HashMap<String, Object> map = new HashMap<String, Object>();

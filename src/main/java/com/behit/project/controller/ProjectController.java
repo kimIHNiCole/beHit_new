@@ -87,14 +87,15 @@ public class ProjectController {
         } catch (Exception e) {
             logger.error("JSON error: "+e);
         }
-        String alarmMsg = "프로젝트가 새로 생성되었습니다.";
+        String alarmMsg = "["+textsubject+"] 프로젝트가 새로 생성되었습니다.";
         int file_kind = 4;
+        int insert = 0;
+        int lastIdx = 0;
         if(createId != "") {
-        	int insert = 0;
         	insert = service.projwrite(createId,textsubject,startproj,endproj,textContent);
         	logger.info("insert된 proj_idx 번호값: "+insert);
         	if(insert != 0) {
-        		int lastIdx = service.projIdx();
+        		lastIdx = service.projIdx();
         		if(selectedNodesList != null) {
         			for (String nodeD : selectedNodesList) {
         				logger.info("담당자: {}", nodeD);
@@ -130,7 +131,7 @@ public class ProjectController {
         }
 		
 	    Map<String, Object> map = new HashMap<>();
-	    map.put("success", "성공");
+	    map.put("lastIdx", lastIdx);
 	    return map;
 	}
 	
@@ -457,7 +458,7 @@ public class ProjectController {
         int insert = 0;
         int projIdx = Integer.parseInt(proj_idx);
         int file_kind = 4;
-        String alarmMsg = "프로젝트가 수정되었습니다.";
+        String alarmMsg = "["+textsubject+"] 프로젝트가 수정되었습니다.";
         
         if(createId != "") {
         	insert = service.projupdate(proj_idx,textsubject,startproj,endproj,textContent);
