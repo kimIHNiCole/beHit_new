@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,8 +50,25 @@ public class CommonsController {
 		logger.info("getOrgListNM");
 		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 		String loginId=empdto.getEmp_id();
-		String mngLeader = commonsService.getMngLeader();
-		ArrayList<Object> getOrgs = commonsService.getOrgListNM(loginId, mngLeader);
+
+		ArrayList<Object> getOrgs = commonsService.getOrgListNM(loginId);
+		ArrayList<Object> deptKind = commonsService.getDeptSum();
+		HashMap<String, ArrayList<Object>> result = new HashMap<String, ArrayList<Object>>();
+		result.put("orgList", getOrgs);
+		result.put("deptKind", deptKind);
+		logger.info("result : "+getOrgs);
+		
+		return result;
+	}
+	
+	@GetMapping(value = {"/getOrgListCreP"})
+	public HashMap<String, ArrayList<Object>> getOrgListCreP(HttpSession session,
+			@RequestParam(name = "cre_idx", required = false) String cre_idx){
+		logger.info("getOrgListCreP");
+		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
+		String loginId=empdto.getEmp_id();
+
+		ArrayList<Object> getOrgs = commonsService.getOrgListCreP(loginId, cre_idx);
 		ArrayList<Object> deptKind = commonsService.getDeptSum();
 		HashMap<String, ArrayList<Object>> result = new HashMap<String, ArrayList<Object>>();
 		result.put("orgList", getOrgs);
