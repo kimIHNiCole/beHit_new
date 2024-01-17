@@ -158,6 +158,9 @@ public class WorkController {
 
         // 월의 마지막 날짜까지 반복
         int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        
+        
+        
         for (int day = 1; day <= lastDay; day++) {
             calendar.set(Calendar.DAY_OF_MONTH, day);
 

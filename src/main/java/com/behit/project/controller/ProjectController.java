@@ -87,7 +87,7 @@ public class ProjectController {
         } catch (Exception e) {
             logger.error("JSON error: "+e);
         }
-        String alarmMsg = "프로젝트가 새로 생성되었습니다.";
+        String alarmMsg = "["+textsubject+"] 프로젝트가 새로 생성되었습니다.";
         int file_kind = 4;
         if(createId != "") {
         	int insert = 0;
@@ -457,7 +457,7 @@ public class ProjectController {
         int insert = 0;
         int projIdx = Integer.parseInt(proj_idx);
         int file_kind = 4;
-        String alarmMsg = "프로젝트가 수정되었습니다.";
+        String alarmMsg = "["+textsubject+"] 프로젝트가 수정되었습니다.";
         
         if(createId != "") {
         	insert = service.projupdate(proj_idx,textsubject,startproj,endproj,textContent);
