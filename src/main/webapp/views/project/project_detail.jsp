@@ -1237,6 +1237,14 @@ height: calc(100vh - 10rem);
 		});
     }
     
+    document.addEventListener("DOMContentLoaded", function() {
+        scrollToTop();
+    });
+
+    function scrollToTop() {
+        var chatHistory = document.querySelector('.chat-history-body');
+        chatHistory.scrollTop = 0;
+    }
     
     </script>
   </body>
