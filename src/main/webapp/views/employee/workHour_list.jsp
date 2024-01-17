@@ -67,6 +67,12 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     <style>
+    
+    .content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+    
     .row.mb-3{
     margin-right: 10px;
     margin-top: 10px;

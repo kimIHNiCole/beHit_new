@@ -56,6 +56,12 @@
     <script src="../../assets/js/config.js"></script>
     
     <style>
+    
+    .content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+    
     .mb-1.red{
     color: #C20000;
     }
@@ -99,7 +105,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">${vacadetail.emp_name}님의 상세 연차</span> </h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">${vacadetail.emp_name} 님의 상세 연차</span> </h4>
 
               <!-- 총 기록 -->
 
