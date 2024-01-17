@@ -760,6 +760,10 @@ width: 20rem;
 <!--     <script src="../../assets/js/modal-edit-user.js"></script>
     <script src="../../assets/js/app-user-view.js"></script>
     <script src="../../assets/js/app-user-view-account.js"></script> -->
+    
+    <!-- Header -->
+    <script src="../../assets/js/header.js"></script>
+    
     <script>
     var selectedNodes = []; // 전역 범위에서 정의
     var permEmpIds = [];
