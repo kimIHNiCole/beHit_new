@@ -12,9 +12,12 @@
             padding: 20px;
             border-radius: 8px;
             width: 400px;
-            height: 605px; /* 최대 높이 설정 */
+            height: 32rem; /* 최대 높이 설정 */
             overflow: hidden;
-            border: 1px solid black;
+            border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+				    border-radius: 1rem;
+				    outline: 0;
+    				box-shadow: 0 2px 20px 0 rgba(67, 89, 113, 0.45);
         }
         #todoListContainer {
             max-height: 80%;
@@ -23,7 +26,7 @@
             height:80%;
         }
         #todoInput {
-            width: calc(100% - 22px); /* 20px는 패딩, 2px는 테두리 고려 */
+            width: calc(100% - 2px); /* 20px는 패딩, 2px는 테두리 고려 */
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
