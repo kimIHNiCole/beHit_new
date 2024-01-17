@@ -675,9 +675,10 @@
 				                
 				                <div class="org-list-dist lh-1 d-flex justify-content-between align-items-center">
 				                	<span class="d-flex justify-content-between align-items-center">
-						               <span style="width:9rem">부서</span>
-						               <span style="width:6rem">이름</span>
-						               <span style="width:6rem">직책</span>
+						               <span style="width:7rem">부서</span>
+						               <span style="width:5rem">직급</span>
+						               <span style="width:5rem">직책</span>
+						               <span style="width:5rem">이름</span>
 						               <span style="width:4rem"> </span>
 						              </span>
 				                </div>
@@ -1502,9 +1503,10 @@
 	      				  		        	
 	      				  		        	content += '<li class="list-group-item drag-item cursor-move d-flex justify-content-between align-items-center">';
 	      				  		        	content += '<span class="d-flex justify-content-between align-items-center">';
-	      				  		        	content += '<span class="dept-name" style="width:9rem">'+data.dept_name+'</span>';
-	      				  		       		content += '<span class="emp-name" style="width:6rem">'+data.emp_name+'</span>';
-	      				  		       		content += '<span class="position-name" style="width:6rem">'+data.position_name+'</span>';
+	      				  		        	content += '<span class="dept-name" style="width:7rem">'+data.dept_name+'</span>';
+	      				  		        	content += '<span class="grade-name" style="width:5rem">'+data.grade_name+'</span>';
+	      				  		       		content += '<span class="position-name" style="width:5rem">'+data.position_name+'</span>';
+	      				  		       		content += '<span class="emp-name" style="width:5rem">'+data.emp_name+'</span>';
 	      				  		       		content += '<span class="order" style="width:4rem"><button type="button" class="apv-list-del"><i class="bx bx-trash" ></i></button></span>';
 	      				  		       		content += '<input class="emp-id" type="hidden" value="'+empId+'">';
 	      				  		        	content += '</span>';

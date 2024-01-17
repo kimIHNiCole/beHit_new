@@ -88,12 +88,12 @@
             margin-bottom: 10px;
             margin-top: 10px;
             color: white;
-            background-color: green;
+            background-color: #C20000;
             text-align: center; 
         }		
 		.form-check-input:checked, .form-check-input[type=checkbox]:indeterminate {
-		    background-color: #71dd37;
-		    border-color: #71dd37;
+		    background-color: #C20000;
+		    border-color: #C20000;
 		    box-shadow: 0 2px 4px 0 rgba(113, 221, 55, 0.4);
 		}
 
@@ -135,6 +135,11 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+        
+        .content-wrapper{
+        	font-family:pretendard;
+        }
+        
     </style>
     
   </head>
@@ -163,8 +168,8 @@
               	<div class="col-8">
                 	<!-- Category List Table -->
 					<div id="taskList">
-						<div class="date-header" style="color:green; background-color:white; text-align:left; margin-top:0px;">
-							완료한 개수<a id="todoYCount" style="color: green"></a>개
+						<div class="date-header" style="color:#C20000; background-color:white; text-align:left; margin-top:0px;">
+							완료한 개수<a id="todoYCount" style="color: #C20000"></a>개
 						</div>
 						<div id="todohistoryContainer"><!-- 투두히스토리 -->
 							<table class="tb-history">
@@ -183,7 +188,7 @@
 				<div class="col-4">
 					<div id="modalContent">
 				    <div>
-				        <span style="color: green">할 일 <a id="todoNCount" style="color: green"></a>개 남음</span>
+				        <span style="color: #C20000">할 일 <a id="todoNCount" style="color: #C20000"></a>개 남음</span>
 				    </div>
 				    <hr>
 				    <div id="todoListContainer"><!-- 투두리스트 -->

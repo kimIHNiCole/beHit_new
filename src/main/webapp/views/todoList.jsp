@@ -30,8 +30,8 @@
             box-sizing: border-box;
         }
 		.form-check-input:checked, .form-check-input[type=checkbox]:indeterminate {
-		    background-color: #71dd37;
-		    border-color: #71dd37;
+		    background-color: #C20000;
+		    border-color: #C20000;
 		    box-shadow: 0 2px 4px 0 rgba(113, 221, 55, 0.4);
 		}
 
@@ -42,12 +42,18 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+        
+        #modalContent{
+        	font-family:pretendard;
+        }
+        
+        
 </style>
 </head>
 <body>
 <div id="modalContent">
     <div>
-        <span style="color: green">할 일 <a id="todoNCount" style="color: green"></a>개 남음</span>
+        <span style="color: #C20000">할 일 <a id="todoNCount" style="color: #C20000"></a>개 남음</span>
         <a href="todoList_history.go" style="color: red; text-decoration: none;">완료된 히스토리 보기</a>
         <span style="float: right;"><button style="background: none; border: none;" onclick="closeTodoModal()">X</button></span>
     </div>
