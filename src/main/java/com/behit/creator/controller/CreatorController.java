@@ -274,7 +274,6 @@ public class CreatorController {
 			ArrayList<HashMap<String, Object>> creatorHistory = creatorService.getCreHistory(cre_idx);
 			ArrayList<SnsDTO> snsList = creatorService.getSns(cre_idx);
 			List<CreatorDTO> creatorPermList = creatorService.creatorPermList(cre_idx);
-			
 	
 			mav.addObject("creatorPermList", creatorPermList);
 			mav.addObject("creatorInfo", creatorInfo);
@@ -284,8 +283,6 @@ public class CreatorController {
 			mav.addObject("snsList", snsList);
 			
 			
-	
-	
 			mav.setViewName("creators/creator_detail");
 		}else {
 			reAttr.addFlashAttribute("warningMsg", "접근권한이 없습니다.");

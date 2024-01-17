@@ -11,8 +11,9 @@ import com.behit.commons.dto.OrgChartDTO;
 public interface CommonsDAO {
 
 	ArrayList<Object> getOrgList();
-	ArrayList<Object> getOrgListNM(String loginId);
+	ArrayList<Object> getOrgListNM(String loginId, String mngLeader);
 
 	ArrayList<Object> getDeptSum();
+	String getMngLeader();
 
 }

@@ -30,10 +30,13 @@
 			FROM commons_code c 
 			WHERE c.common_code_idx = e.emp_position_idx ) AS position
 		FROM employee e JOIN department d 
-		WHERE e.emp_dept_idx = d.emp_dept_idx AND e.emp_id NOT IN ("master", #{param1})
+		WHERE e.emp_dept_idx = d.emp_dept_idx AND e.emp_id NOT IN ("master", #{param1}, #{param2})
 		ORDER BY e.emp_dept_idx ASC, e.emp_position_idx ASC, e.emp_grade_idx ASC
 	</select>
 	
+	<select id="getMngLeader" resultType="String">
+		SELECT emp_id FROM employee  WHERE emp_dept_idx = 6 AND emp_position_idx = 8
+	</select>
 	
 	<select id="getDeptSum" resultType="String">
 		SELECT DISTINCT

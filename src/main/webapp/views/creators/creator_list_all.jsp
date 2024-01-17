@@ -71,7 +71,8 @@
 		display:flex;
 		justify-content: flex-end;
 	}
-	.cardListTop div:nth-child(1) a{
+	
+	 /* .cardListTop div:nth-child(1) a{
 	    margin: 5px 5px;
 	    padding: 7px 15px;
 	    background: #FFF;
@@ -82,15 +83,15 @@
 	.cardListTop div:nth-child(1) a:hover{
 		background: #a2a2a2;
 		color: #FFF;
-	}
-	.cardListTop div:nth-child(2) a{
+	}  */
+	.cardListTop div:nth-child(1) a{
 	    margin: 5px 5px;
 	    padding: 7px 15px;
 	    background: #FFF;
 	    border: 2px solid #C20000;
 	    border-radius: 7px;
 	}
-	.cardListTop div:nth-child(2) a:hover{
+	.cardListTop div:nth-child(1) a:hover{
 		background: #C20000;
 		color:#FFFFFF;
 	}
@@ -167,7 +168,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_creators"></h4>
 		                          </div>
-		                          <p class="mb-0">　</p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -182,7 +182,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_channels"></h4>
 		                          </div>
-		                          <p class="mb-0">　</p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -197,7 +196,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_subscribers"></h4>
 		                          </div>
-		                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -212,7 +210,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_contents"></h4>
 		                          </div>
-		                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -243,9 +240,9 @@
 	              		<!-- 나의 크리에이터 -->
 			              <div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
 	  		              	<div class="cardListTop">
-		              		 <div>
+		              		 <!-- <div>
 		              		   <a href="showOrgModal()">열람 권한자 등록</a>
-		              		  </div>
+		              		  </div> -->
 		              		  <div>
 			              	   <a href="/creators/creatorAdd.go">
 			              	   	<i class="bx bx-user-check me-1"></i>

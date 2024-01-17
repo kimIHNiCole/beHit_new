@@ -24,15 +24,20 @@ public class CommonsService {
 		
 	}
 	
-	public ArrayList<Object> getOrgListNM(String loginId) {
+	public ArrayList<Object> getOrgListNM(String loginId, String mngLeader) {
 		logger.info("getOrgList() 실행");
-		return commonsDAO.getOrgListNM(loginId);
+		return commonsDAO.getOrgListNM(loginId,mngLeader);
 		
 	}
 
 	public ArrayList<Object> getDeptSum() {
 		logger.info("getDeptSum() 실행");
 		return commonsDAO.getDeptSum();
+	}
+
+	public String getMngLeader() {
+		logger.info("getMngLeader() 실행");
+		return commonsDAO.getMngLeader();
 	}
 	
 }

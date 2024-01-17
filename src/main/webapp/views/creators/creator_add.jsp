@@ -244,18 +244,18 @@
 					  	
 					    <div class="fallback">
 					       <input id="uploadPhoto" name="file" type="file" onchange="previewImage(event)" 
-					       	accept=".jpg, .jpeg, .gif, .png" style="display:none;"/>
+					       	accept=".jpg, .jpeg, .gif, .png" style="display:none;" required/>
 					    </div>
                     </div>
                     <div>
                        	<label class="form-label ms-4">성별</label>
                            <div style="display: flex; gap: 50px; justify-content: space-evenly;">
                             	<div class="form-check custom mb-2">
-                           			<input type="radio" id="cre-male" class="form-check-input" name="cre_gender" value="${genders[0].code_name}" checked />
+                           			<input type="radio" id="cre-male" class="form-check-input" name="cre_gender" value="${genders[0].code_name}" checked required />
                             		<label class="form-check-label" for="cre-male">${genders[0].code_name}</label>
                             	 </div>
                            		 <div class="form-check custom">
-	                            	<input type="radio" id="cre-female" class="form-check-input" name="cre_gender" value="${genders[1].code_name}"/>
+	                            	<input type="radio" id="cre-female" class="form-check-input" name="cre_gender" value="${genders[1].code_name}" required/>
 	                            	<label class="form-check-label" for="cre-female">${genders[1].code_name}</label>
                             	</div>
                             </div>
@@ -264,45 +264,45 @@
                   <div class="col-sm-4">
                             <div>
                               <label class="form-label" for="username" ><span style="color:#c20000">*</span> 이름</label>
-                              <input type="text" id="username" class="form-control" name="cre_name" placeholder="실명 또는 활동명"  />
+                              <input type="text" id="username" class="form-control" name="cre_name" placeholder="실명 또는 활동명" required/>
                             </div>
                             <div>
                               <label class="form-label" for="nickname"><span style="color:#c20000">*</span> 활동명</label>
                               <input type="text" id="nickname" class="form-control" name="cre_nick_name"
-                              		placeholder="활동명" />
+                              		placeholder="활동명" required/>
                             </div>
                             
 							<div>
                             	<label class="form-label" for="formValidationDob"><span style="color:#c20000">*</span> 생년월일</label>
 	                       		<input
 	                            	type="text" id="birthdate" class="form-control flatpickr-validation" name="cre_birthday"
-	                            	placeholder="YYYY-MM-DD"  />
+	                            	placeholder="YYYY-MM-DD" required />
                       		</div>
                       		<div>
  							  <label class="form-label" for="address" ><span style="color:#c20000">*</span> 주소</label>
-                        	  <input type="text" id="address" class="form-control" name="cre_address" placeholder="주소" />
+                        	  <input type="text" id="address" class="form-control" name="cre_address" placeholder="주소"  required/>
                             </div>
                             <div>
                               <label class="form-label" for="detail_addr"><span style="color:#c20000">*</span> 상세주소</label>
  							  <input type="text" id="detail_addr" class="form-control" name="address_detail" 
- 							  		placeholder="상세주소를 입력해주세요" />
+ 							  		placeholder="상세주소를 입력해주세요"  required/>
                             </div>
                       	</div>
                       	<div class="col-sm-4">
                       	    <div>
                               <label class="form-label" for="email"><span style="color:#c20000">*</span> 이메일</label>
  							  <input type="text" id="email" class="form-control" name="cre_email" 
- 							  		placeholder="이메일을 입력해주세요" />
+ 							  		placeholder="이메일을 입력해주세요"  required/>
                             </div>
                             <div>
                               <label class="form-label" for="phone"><span style="color:#c20000">*</span> 연락처</label>
  							  <input type="text" id="phone" class="form-control" name="cre_phone" 
- 							  		placeholder="연락처를 입력해주세요" />
+ 							  		placeholder="연락처를 입력해주세요" required />
                             </div>
                       		<div>
                          		<label class="form-label" for="country" ><span style="color:#c20000">*</span> 국적</label>
 	                          	<select id="country" class="form-select select2" name="cre_country"
-		                            	data-allow-clear="false">
+		                            	data-allow-clear="false" required>
 		                            <c:forEach var="country" items="${countries}" >
 			                            <option value="${country.code_name}">${country.code_name}</option>
 		                            </c:forEach>
@@ -312,12 +312,12 @@
                             <div>
                             	<label class="form-label" for="start-contract"><span style="color:#c20000">*</span> 계약시작일</label>
 	                       		<input type="text" id="start-contract" class="form-control flatpickr-validation" name="cre_contract_start"
-	                            	placeholder="YYYY-MM-DD"  />
+	                            	placeholder="YYYY-MM-DD"  required/>
                       		</div>
                       		<div>
                             	<label class="form-label" for="end-contract"><span style="color:#c20000">*</span> 계약만료일</label>
 	                       		<input type="text" id="end-contract" class="form-control flatpickr-validation" name="cre_contract_end" 
-	                       			placeholder="YYYY-MM-DD"  />
+	                       			placeholder="YYYY-MM-DD" required />
                       		</div>
                             </div>
 
@@ -369,14 +369,14 @@
 												<div class="videoUrlForm">
 													<input type="text" id="rep-video"
 														class="form-control ch-form rep-video"
-														name="rep_video" placeholder="대표 영상 링크를 입력하세요" />
+														name="rep_video" placeholder="대표 영상 링크를 입력하세요"  required/>
 													<button type="button" class="urlChkBtn"
 														onclick="urlCheck()">
 														<i class='bx bx-search'></i>
 													</button>
 												</div>
 												<div class="col-sm-7">
-													<select id="selectCate" class="ch-form selectCate w-100" >
+													<select id="selectCate" class="ch-form selectCate w-100"  required>
 														<option disabled selected hidden>카테고리를 선택하세요</option>
 														<option>패션</option>
 														<option>뷰티</option>
@@ -400,17 +400,17 @@
 												<div class="col-sm-5" style="padding-left: 0;">
 													<input type="text" id="start-ch"
 														class="form-control flatpickr-validation ch-form start-ch"
-														name="channel_date" placeholder="채널가입일" disabled />
+														name="channel_date" placeholder="채널가입일" disabled required/>
 												</div>
 												<div>
 													<input type="text" id="ch-name"
 														class="form-control ch-form ch-name"
-														name="channel_name" placeholder="채널명" disabled />
+														name="channel_name" placeholder="채널명" disabled required/>
 												</div>
 												<div>
 													<input type="text" id="channel-url"
 														class="form-control ch-form channel-url"
-														name="channel_url" placeholder="채널 링크" disabled />
+														name="channel_url" placeholder="채널 링크" disabled required/>
 												</div>
 											</div>
 											<div
@@ -441,7 +441,7 @@
                               <div class="row w-100">
                                 
 	                            <div>
-	                              <input type="text" id="snsUrl" class="form-control ch-form snsUrl" name="sns_url" placeholder="SNS 링크 입력" />
+	                              <input type="text" id="snsUrl" class="form-control ch-form snsUrl" name="sns_url" placeholder="SNS 링크 입력" required/>
 	                            </div>
 
 
@@ -481,8 +481,8 @@
                    		  <div class="mb-3 mt-3 select-mng-box" style="width:250px">
                              <input type="text" id="managerName" class="form-control act-form" name="mng_name"
                               data-bs-toggle="modal" data-bs-target="#modalCenter" 
-                              readonly="readonly" placeholder="매니저 선택" />
-                              <input type="hidden" id="managerId"/>
+                              readonly="readonly" placeholder="매니저 선택" required/>
+                              <input type="hidden" id="managerId" />
                    		  </div>
                           <div style="display: flex; justify-content: space-between; align-items: center;">
                           	<span>활동 이력</span>
@@ -499,7 +499,7 @@
 	                                
 	                                <div class="col-sm-5">
 			                       		<input type="text" id="hisDate" class="form-control flatpickr-validation act-form hisDate"
-			                            	name="history_date" placeholder="날짜 선택" />
+			                            	name="history_date" placeholder="날짜 선택" required/>
 	                      			</div>
 	                                
 			                        <div class="col-sm-5" style="padding-left:0px">

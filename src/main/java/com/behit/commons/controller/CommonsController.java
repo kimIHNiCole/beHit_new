@@ -49,7 +49,8 @@ public class CommonsController {
 		logger.info("getOrgListNM");
 		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 		String loginId=empdto.getEmp_id();
-		ArrayList<Object> getOrgs = commonsService.getOrgListNM(loginId);
+		String mngLeader = commonsService.getMngLeader();
+		ArrayList<Object> getOrgs = commonsService.getOrgListNM(loginId, mngLeader);
 		ArrayList<Object> deptKind = commonsService.getDeptSum();
 		HashMap<String, ArrayList<Object>> result = new HashMap<String, ArrayList<Object>>();
 		result.put("orgList", getOrgs);

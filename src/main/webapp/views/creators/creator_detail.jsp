@@ -87,11 +87,15 @@
     padding: 0px;
   }
   .modal-content{
-width: 23rem;
-}
-.card-body.modal{
-width: 20rem;
-}
+	width: 23rem;
+  }
+	.card-body.modal{
+	width: 20rem;
+  }
+  
+  .bx:hover{
+  	cursor: pointer;
+  }
 
 /* 비활성화된 노드의 체크박스 숨기기 */
 .jstree-wholerow-disabled > .jstree-checkbox {
@@ -219,19 +223,19 @@ width: 20rem;
                     <div class="card-body">
                       <div class="row">
 				        <div class="col-md-6">
-				            <h5 class="card-header">열람권한</h5>
+				            <h5>열람권한</h5>
 				        </div>
-				        <div class="col-md-6 text-end mt-4">
+				        <div class="col-md-6 text-end">
 				        	<button type="button" onclick="addPerm()" class="card-header plus no-border" data-bs-toggle="modal" data-bs-target="#apv-org-modal">+추가</button>
 				        </div>
 				        <h5 class="pb-2 border-bottom mb-4">
 				    </div>
-					<p class="fw-medium me-2 creator-list-container">
+					<p class="fw-medium me-2 creator-list-container" id="creator-list-p">
 					    <ul id="creator-list-ul">
 					        <c:forEach var="creatorPermList" items="${creatorPermList}" varStatus="loop">
 					            <div>
 					                <input class="permEmp_id" type="hidden" value="${creatorPermList.emp_id}" />
-					                ${creatorPermList.emp_name} ${creatorPermList.grade_name}(${creatorPermList.dept_name})
+					                <span id="permTarget">${creatorPermList.emp_name} ${creatorPermList.grade_name}(${creatorPermList.dept_name})</span>
 					                <i class='bx bx-x' onclick="delPerm(this)"></i>
 					            </div>
 					        </c:forEach>
@@ -286,6 +290,12 @@ width: 20rem;
 		   			    </li> -->
 		   			  </ul>
 		   			</div>
+		   			
+		   			
+		   						
+		   			
+		   			
+		   			
 		   			<div>
 		   			 <c:if test="${deptCheck eq true}">
 		   			  <div class="col-md-4 text-end">
@@ -306,6 +316,7 @@ width: 20rem;
                   
 				  	<!-- 기본 정보 영역 -->
 				  	<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
+			  		
 				      <!-- 채널 리스트 -->
 				      <div class="card mb-4" >
 				        <h5 class="card-header">활동 채널 리스트</h5>
@@ -343,7 +354,6 @@ width: 20rem;
 				           	  </c:forEach>
 				            </tbody>
 				          </table>
-				        </div>
 				      </div>
 				      <!-- / 채널 리스트 -->
 				      <!-- SNS 리스트 -->
@@ -444,6 +454,23 @@ width: 20rem;
 					
 				   	<!-- 채널 데이터 영역 -->
 				 	<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
+				 	  <div style="width: 100%;
+								    position: absolute;
+								    top: 188px;
+								    left: 1521px;">
+		   			  <label class="switch switch-primary" id="toggleSwitch">
+                          <input type="checkbox" class="switch-input" checked />
+                          <span class="switch-toggle-slider">
+                            <span class="switch-on">
+                             7
+                            </span>
+                            <span class="switch-off">
+                              30
+                            </span>
+                          </span>
+                          <span class="switch-label">일</span>
+                        </label>
+		   			</div>
 				   	   <!-- Line Chart (조회수 추이)-->
 					   <div class="col-12 mb-4">
 					     <div class="card">
@@ -778,6 +805,10 @@ width: 20rem;
  } */
     	
     
+ 
+ 	
+ 
+ 
     
     function addPerm(){
     	console.log("열람자 추가 버튼 클릭");
@@ -787,7 +818,7 @@ width: 20rem;
     	//리스트 받기
     		$.ajax({
     		type: 'get',
-        	url: '../../getOrgList',
+        	url: '/getOrgListNM',
         	data: {},
         	dataType: 'JSON',
             success : function(data){
@@ -802,6 +833,22 @@ width: 20rem;
     }
     
     function delPerm(iconElement) {
+    	
+    	/* var $parentDiv = $(iconElement).parent();
+        var $permTargetElement = $parentDiv.find("#permTarget");
+    	
+    	var warningMsg = $permTargetElement+"님의 권한을 제거하시겠습니까?";
+    	   if(warningMsg != ""){
+    	      Swal.fire({
+    	           text: warningMsg,
+    	           icon: 'warning',
+    	           customClass: {
+    	             confirmButton: 'btn btn-primary'
+    	           },
+    	           buttonsStyling: false
+    	         });
+    	   } */
+    	
         // 클릭된 아이콘( bx bx-x ) 요소의 부모 li 태그에서 input 값을 가져옴
         var emp_id = $(iconElement).closest('div').find('.permEmp_id').val();
         var cre_idx = $('#cre_idx').val();
@@ -1038,7 +1085,7 @@ width: 20rem;
         console.log('Selected Nodes after removal:', selectedNodes);
     }
 
-
+ 	
 
     //선택 버튼 클릭 시 처리
     $('.org-list-select').click(function () {
@@ -1087,21 +1134,18 @@ width: 20rem;
         $('#jstree-checkbox').jstree('deselect_all');
     });
 
- // 동적으로 리스트 생성하고 추가
+ 	// 동적으로 리스트 생성하고 추가
     function drowCreatorPermList(creatorPermList) {
-        var $ul = $('<ul>');
-
+    	$('#creator-list-ul').empty();
+ 		
         creatorPermList.forEach(function (creator) {
             var $div = $('<div>').html(
             		'<input class="permEmp_id" type="hidden" value="' + creator.emp_id + '" />' +	
                 creator.emp_name + ' ' + creator.grade_name + '(' + creator.dept_name + ')'
                 + ' <i class="bx bx-x" onclick="delPerm(this)"></i>'
             );
-            $ul.append($div);
+            $('#creator-list-ul').append($div);
         });
-
-        // 기존의 내용을 비우고 새로운 내용을 추가
-        $('#creator-list-ul').empty().append($ul);
     }
  
  
@@ -1116,52 +1160,106 @@ width: 20rem;
     /**
      * Charts Apex
      */
-
-    'use strict';
-	var repChannelId = $('#repChannelId').val();
-	console.log('repChannelId : ',repChannelId);
-    $.ajax({
-    	type: 'get',
-    	url: '/getChartData.ajax',
-    	data: {'repChannelId': repChannelId},
-    	dataType: 'JSON',
-    	success: function(data){
-    		console.log(data.channelDataList);
-    		chart(data.channelDataList);
-    	},
-    	error: function(e){
-    		console.log(e);
-    	}
+     'use strict';
+    
+    var isChecked = "true";
+  	// 차트 스위치 버튼 값
+   	const switchElement = document.getElementById('toggleSwitch');
+    // 스위치 변경 이벤트 리스너 추가
+   	switchElement.addEventListener('change', function() {
+       	// 스위치 상태 확인
+   	    isChecked = this.querySelector('.switch-input').checked;
+   	
+   	    // 상태에 따른 동작 수행
+   	    if (isChecked) {
+   	      console.log('Switch is ON');
+   	    } else {
+   	      console.log('Switch is OFF');
+   	      // 여기에 스위치가 OFF일 때 수행할 동작 추가
+   	    }
+   	});
+       
+    
+    
+    
+    getChartData();
+    
+    
+    function getChartData(){
     	
-    });
+		var repChannelId = $('#repChannelId').val();
+		console.log('repChannelId : ',repChannelId);
+	    $.ajax({
+	    	type: 'get',
+	    	url: '/getChartData.ajax',
+	    	data: {'repChannelId': repChannelId},
+	    	dataType: 'JSON',
+	    	success: function(data){
+	    		console.log(data.channelDataList);
+	    		chart(data.channelDataList);
+	    	},
+	    	error: function(e){
+	    		console.log(e);
+	    	}
+	    	
+	    });
+	    
+    }
+ 	
     
     
     function chart(dataList) {
-      // 가져온 데이터 담기
-	  let subList = [];
-      let viewList = [];
-      let contentList = [];
-      let dateList = [];
-      let viewTrendList = [];
+	      // 가져온 데이터 담기
+		  let subList = [];
+	      let viewList = [];
+	      let contentList = [];
+	      let dateList = [];
+	      let viewTrendList = [];
+	      
+	      function formatDate(dateString) {	// 날짜 형식 바꿔주는 함수
+	    	  const options = { month: '2-digit', day: '2-digit'};
+	    	 /*  const formattedDate = new Date(dateString).toLocaleDateString('ko-KR', options); */
+	    	  const formattedDate = new Intl.DateTimeFormat('ko-KR', options).format(new Date(dateString));
+	    	  return formattedDate;
+	      }
       
-      function formatDate(dateString) {	// 날짜 형식 바꿔주는 함수
-    	  const options = { month: '2-digit', day: '2-digit'};
-    	  const formattedDate = new Date(dateString).toLocaleDateString('ko-KR', options);
-    	  return formattedDate;
-      }
+   	
+	    if(isChecked){
+	    	console.log("isChecked = "+ isChecked);
+		      for(let i =dataList.length-7; i<dataList.length; i++){
+		    	  const subs = dataList[i].subscriber;
+		    	  const view = dataList[i].views;
+		    	  const content = dataList[i].contents;
+		    	  const date = formatDate(dataList[i].channel_data_date);
+		    	  const viewTrend = dataList[i].view_trend;
+			      subList.push(subs);	
+			      viewList.push(view);	
+			      contentList.push(content);
+			      dateList.push(date);
+			      viewTrendList.push(viewTrend);
+		      }
+		      drawChart();
+	    }else{
+	    	console.log('dataList.length = '+dataList.length);
+	    	if(dataList.length >= 30){
+		    	for(let i =dataList.length - 30; i<dataList.length; i++){
+			    	  const subs = dataList[i].subscriber;
+			    	  const view = dataList[i].views;
+			    	  const content = dataList[i].contents;
+			    	  const date = formatDate(dataList[i].channel_data_date);
+			    	  const viewTrend = dataList[i].view_trend;
+				      subList.push(subs);	
+				      viewList.push(view);	
+				      contentList.push(content);
+				      dateList.push(date);
+				      viewTrendList.push(viewTrend);
+			      }
+		    	drawChart();
+	    	}else{
+	    		alert("아직 30일치 데이터가 없습니다.");
+	    	}
+	    }
       
-      for(let i =dataList.length-7; i<dataList.length; i++){
-    	  const subs = dataList[i].subscriber;
-    	  const view = dataList[i].views;
-    	  const content = dataList[i].contents;
-    	  const date = formatDate(dataList[i].channel_data_date);
-    	  const viewTrend = dataList[i].view_trend;
-	      subList.push(subs);	
-	      viewList.push(view);	
-	      contentList.push(content);
-	      dateList.push(date);
-	      viewTrendList.push(viewTrend);
-      }
       
       console.log('subList:',subList);
       console.log('viewList:',viewList);
@@ -1170,25 +1268,29 @@ width: 20rem;
       console.log('viewTrendList:',viewTrendList);
    	  // / 가져온 데이터 담기	
    	  
-      let cardColor, headingColor, labelColor, borderColor, legendColor;
-
-      if (isDarkStyle) {
-        cardColor = config.colors_dark.cardColor;
-        headingColor = config.colors_dark.headingColor;
-        labelColor = config.colors_dark.textMuted;
-        legendColor = config.colors_dark.bodyColor;
-        borderColor = config.colors_dark.borderColor;
-      } else {
-        cardColor = config.colors.cardColor;
-        headingColor = config.colors.headingColor;
-        labelColor = config.colors.textMuted;
-        legendColor = config.colors.bodyColor;
-        borderColor = config.colors.borderColor;
-      }
+     
 
 
       // Line Area Chart1
       // --------------------------------------------------------------------
+      function drawChart(){
+    	  
+    	  let cardColor, headingColor, labelColor, borderColor, legendColor;
+
+          if (isDarkStyle) {
+            cardColor = config.colors_dark.cardColor;
+            headingColor = config.colors_dark.headingColor;
+            labelColor = config.colors_dark.textMuted;
+            legendColor = config.colors_dark.bodyColor;
+            borderColor = config.colors_dark.borderColor;
+          } else {
+            cardColor = config.colors.cardColor;
+            headingColor = config.colors.headingColor;
+            labelColor = config.colors.textMuted;
+            legendColor = config.colors.bodyColor;
+            borderColor = config.colors.borderColor;
+          }
+   		  
       const areaChartEl1 = document.querySelector('#lineAreaChart1'),
         areaChartConfig1 = {
           chart: {
@@ -1502,7 +1604,7 @@ width: 20rem;
         const lineChart = new ApexCharts(lineChartEl, lineChartConfig);
         lineChart.render();
       }
-
+      }
     };
     </script>
   </body>
