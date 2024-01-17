@@ -66,7 +66,7 @@
     }
     
     img.rounded-top{
-	height: 95px;
+			height: 95px;
     }
     .bx.bxl-youtube{
     margin-right: 15px;

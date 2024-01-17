@@ -70,6 +70,12 @@
     
     <!-- custom CSS -->
     <style>
+    
+     .content-wrapper{
+    	font-family:pretendard;
+    	font-size:1.125rem;
+    }
+    
     	.col-md-4{
     		margin-top:3.625rem;
     	}
@@ -343,9 +349,9 @@
 			fcontent += '<tr>';
 			fcontent +='<td style="width:100px;">';
 			if (item.new_file_name != 'default'){
-				fcontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+				fcontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block ms-0 rounded user-profile-img" width="50px" height="50px" />';
 			} else {
-				fcontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+				fcontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block ms-0 rounded user-profile-img"width="50px" height="50px" />';
 			}
 			fcontent +='</td>';
 			fcontent +='<td>'+'<div class="d-flex flex-column">'+
@@ -354,7 +360,7 @@
 			fcontent +='<td>'+item.dept_name+'</td>'
 			fcontent +='<td>'+item.position_name+'</td>'
 			fcontent +='<td>'+item.grade_name+'</td>'
-			fcontent += '<td><button type="button" class="btn btn-sm btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
+			fcontent += '<td><button type="button" class="btn btn-primary btn-view-details" onclick="location.href=\'empdetail?emp_id=' + item.emp_id + '\'">직원 상세보기</button></td>';
 			fcontent += '</tr>';		
 		});
 		$('#eflist').empty();
@@ -384,9 +390,9 @@ function drawsList(obj){
 			scontent += '<tr>';
 			scontent +='<td style="width:100px;">';
 			if (item.new_file_name != 'default'){
-				scontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+				scontent += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block ms-0 rounded user-profile-img" width="50px" height="50px" />';
 			} else {
-				scontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+				scontent +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block ms-0 rounded user-profile-img"width="50px" height="50px" />';
 			}
 			scontent +='</td>';
 			scontent +='<td>'+'<div class="d-flex flex-column">'+

@@ -244,6 +244,14 @@
 	
 	document.addEventListener('DOMContentLoaded', function() {
 		
+		events.sort((a, b) => {
+		    const calendarOrder = { 'Personal': 1, 'Business': 2 };
+		    
+		    const calendarA = a.extendedProps.calendar.toLowerCase();
+			const calendarB = b.extendedProps.calendar.toLowerCase();
+
+			return calendarOrder[calendarA] - calendarOrder[calendarB];
+		});
 
 		// 클래스명이 'fc-event-time'인 모든 요소들을 선택
 		var fcEventTimeElements = document.querySelectorAll('.fc-event-time');
@@ -281,7 +289,6 @@
 			  	 NextMonthButton.style.visibility = 'visible';
 				 prevcnk--;
 				 nextcnk--;
-				 workmonth();
 				 console.log(prevcnk);
 				 console.log(nextcnk);
 			 if (prevcnk == minprev ){
@@ -303,7 +310,7 @@
 			});
 		} 
 	});
-    
+    /*
 	function workmonth(){
 		let h2Element = document.getElementById('fc-dom-1');
 		let monthAndYear = h2Element.innerText.trim().split(' ');
@@ -364,9 +371,9 @@
 	    		 console.log(e);
 	    	 }
 	    });
-	}
 	console.log('${list[0].work_day}'); 
-	
+	} */
+	/*
 	var list =[
 		<c:forEach var="list" items="${chlist}">
 			{
@@ -386,38 +393,38 @@
 		</c:forEach>
 	];
 	
-	console.log(list);
+	console.log(list); */
 	
-	var events = [
-        <c:forEach var="work" items="${chlist}">
-            {
-                title: '1출근 '+'${work.work_start}' + '~' + '${work.work_end}',
-                start: '${work.work_day}',
-                end: '${work.work_day}',
-                allDay: false,
-                extendedProps: {
-                    calendar: 'Personal'
-                }
-            }<c:if test="${!loop.last}">,</c:if>
-        </c:forEach>,
-        <c:forEach var="vacation" items="${vhlist}">
-            {
-                title: '2연차 '+'${vacation.vaca_start}' + '~' + '${vacation.vaca_end}',
-                start: '${vacation.vaca_date}',
-                end: '${vacation.vaca_date}',
-                allDay: false,
-                extendedProps: {
-                    calendar: 'Business'
-                }
-            }<c:if test="${!loop.last}">,</c:if>
-        </c:forEach>
-    ];
+		var events = [
+	        <c:forEach var="work" items="${chlist}">
+	            {
+	                title: '출근 '+'${work.work_start}' + '~' + '${work.work_end}',
+	                start: '${work.work_day}',
+	                end: '${work.work_day}',
+	                allDay: false,
+	                extendedProps: {
+	                    calendar: 'Personal'
+	                }
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>,
+	        <c:forEach var="vacation" items="${vhlist}">
+	            {
+	                title: '연차 '+'${vacation.vaca_start}' + '~' + '${vacation.vaca_end}',
+	                start: '${vacation.vaca_date}',
+	                end: '${vacation.vaca_date}',
+	                allDay: false,
+	                extendedProps: {
+	                    calendar: 'Business'
+	                }
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>
+	    ];
 	
-	events.sort((a, b) => {
-	    const calendarOrder = { 'Personal': 1, 'Business': 2 };
+	console.log(events);
+	
 
-	    return calendarOrder[a.extendedProps.calendar] - calendarOrder[b.extendedProps.calendar];
-	});
+	
+
 
 	
 	
