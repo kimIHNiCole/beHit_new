@@ -1212,6 +1212,16 @@ function removeNodeFromList1(hiddenValue) {
 	});
 }
 
+// 화면 로드시 자동으로 스크롤 내려가는거 제일 위로 올린상태로 로드
+document.addEventListener("DOMContentLoaded", function() {
+    scrollToTop();
+});
+
+function scrollToTop() {
+    var chatHistory = document.querySelector('.chat-history-body');
+    chatHistory.scrollTop = 0;
+}
+
 </script>
 
 </html>
