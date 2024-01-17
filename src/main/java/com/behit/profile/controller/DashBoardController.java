@@ -132,11 +132,10 @@ public class DashBoardController {
 				String dateOnly = sdfDateOnly.format(date);
 				HashMap <String, Object> workTime = dashService.workTime(loginId, dateOnly);
 				
+				String workState = "미달";
+				
 				int start_comparison = (int) workTime.get("start_comparison");
 				int end_comparison = (int) workTime.get("end_comparison");
-				
-
-				String workState = "미달";
 				
 				if (start_comparison == 1 || end_comparison == 1){
 					int stateUpdate = dashService.stateUpdate(workState, loginId, dateOnly);

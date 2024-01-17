@@ -47,8 +47,8 @@ public class LoginController {
 		
 		ModelAndView mav = new ModelAndView("redirect:/");
 		int lockCnt = 0;
-		boolean leaveCnt = service.leaveCnt(emp_id);
-		if (leaveCnt) {
+		Boolean leaveCnt = service.leaveCnt(emp_id);
+		if (Boolean.TRUE.equals(leaveCnt)) {
 			// 로그인 시도가 5회를 이미 초과했을때
 			try {
 				lockCnt = service.getLockChk(emp_id);
@@ -78,9 +78,11 @@ public class LoginController {
 				logger.info("lockCnt = "+lockCnt);
 				EmployeeDTO loginInfo = service.login(emp_id);
 				logger.info("login result || "+ loginInfo.getEmp_id());
+				
 				session.setAttribute("loginInfo", loginInfo);
 				session.setAttribute("dept", loginInfo.getEmp_dept_idx());
 				session.setAttribute("position", loginInfo.getEmp_position_idx());
+				
 				logger.info("dept : "+loginInfo.getEmp_dept_idx());
 				logger.info("position : " +loginInfo.getEmp_position_idx());
 				mav.setViewName("redirect:/home.go");
@@ -94,8 +96,11 @@ public class LoginController {
 							+ " 비밀번호를 확인해주세요\\n :: 5회이상 오류시 로그인 불가 :: ");
 				}
 			}
-		} else {
+		} else if (Boolean.FALSE.equals(leaveCnt)) {
 			rAttr.addFlashAttribute("warningMsg", "이미 퇴사한 직원 입니다.");
+			return mav;
+		} else {
+			rAttr.addFlashAttribute("warningMsg", "등록되지 않은 아이디입니다.");
 			return mav;
 		}
 		
