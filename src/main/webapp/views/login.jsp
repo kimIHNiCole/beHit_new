@@ -79,6 +79,13 @@
 	        background-color: #C20000;
     		border-color: #C20000;
 	    }
+	    
+	    .login_img{
+	    	max-width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+	    }
+	    
     </style>
     
   </head>
@@ -93,7 +100,7 @@
         	
             <img
               src="../../assets/img/illustrations/loginImg.png"
-              class="img-fluid"
+              class="login_img"
               alt="Login image"
               data-app-dark-img="illustrations/loginImg.png"
               data-app-light-img="illustrations/loginImg.png" />

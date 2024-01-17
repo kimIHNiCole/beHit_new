@@ -68,20 +68,29 @@
     <script src="../../assets/js/config.js"></script>
     <style>
     
+    /* .datepicker{
+    	top: 270px !important;
+    } */
+    
+    .worklist{
+    	cursor:pointer;
+    }
+    
     .content-wrapper{
     	font-family:pretendard;
     	font-size:1.125rem;
     }
     
-    .row.mb-3{
-    margin-right: 10px;
-    margin-top: 10px;
-    }
     .btn.btn-outline-secondary{
     border: none;
     }
     .form-control.text-center{
     border: none;
+    }
+    
+    .time{
+    	border-radius:1rem;
+    	box-shadow: 0 0.1rem 0.3rem rgba(161, 172, 184, 0.4);
     }
     
     </style>
@@ -111,17 +120,17 @@
           
            <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y mt-2">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">근태 현황</span></h4>
+    <h4 class="py-3 mb-4">근태 현황</h4>
     <!-- DataTable with Buttons -->
     <div class="card">
         <div class="card-datatable table-responsive">
-			<div class="row mb-3">
+			<div class="row m-4">
 			    <!-- Calendar -->
 				<div class="col-md-4">
-			        <div class="input-group">
-			            <button class="btn btn-outline-secondary" id="prevBtn" type="button"><</button>
-			            <input type="text" class="form-control text-center" id="datepicker" readonly>
-			            <button class="btn btn-outline-secondary" id="nextBtn" type="button">></button>
+			        <div class="input-group time">
+			            <button class="btn btn-outline-secondary fs-3" id="prevBtn" type="button" style="cursor: pointer; padding:0 1rem;"><</button>
+			            <input type="text" class="form-control text-center fs-5" id="datepicker" readonly style="cursor: pointer; padding:0;">
+			            <button class="btn btn-outline-secondary fs-3" id="nextBtn" type="button" style="cursor: pointer; padding:0 1rem;">></button>
 			        </div>
 			    </div>
 			
@@ -213,7 +222,7 @@
 			                </div>
 							<div class="col-md-4">
 						        <div class="input-group">
-						            <input type="text" class="form-control text-center" id="sdatepicker" readonly>
+						            <input type="text" class="form-control text-center fs-5" id="sdatepicker" style="cursor: pointer;" readonly>
 						        </div>
 						    </div>
 						</div>
@@ -460,9 +469,9 @@
         		content +='<td style="display:none" class="emp_id">'+item.emp_id+'</td>';
 				content +='<td style="width:80px;">';
 				if (item.new_file_name != 'default'){
-					content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block h-auto ms-0 rounded user-profile-img" width="50px" height="50px" />';
+					content += '<img src="/file/employee/'+item.new_file_name+'" alt="'+item.ori_file_name+'"class="d-block ms-0 rounded user-profile-img" width="50px" height="50px" />';
 				} else {
-					content +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block h-auto ms-0 rounded user-profile-img"width="50px" height="50px" />';
+					content +=  '<img src="../../assets/img/avatars/1.png" alt="user image"class="d-block ms-0 rounded user-profile-img"width="50px" height="50px" />';
 				}
 				content +='</td>';
 				content +='<td>'+'<div class="d-flex flex-column">'+
