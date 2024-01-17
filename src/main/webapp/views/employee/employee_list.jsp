@@ -158,7 +158,9 @@
 	                      		<c:when test="${sessionScope.dept == 2}">
 				                	<div class="col-md-4 text-end">
 				                    	<!-- 직원 등록 버튼 -->
-				                    	<button class="btn btn-primary" onclick="location.href='/empadd.go'">직원 등록</button>
+				                    	<div>
+						              	    <a href="/employee/employee_add.go" class="btn btn-primary">직원 등록</a>
+				              		    </div>
 				                	</div>   			
 	                      		</c:when>
 	                      		<c:otherwise>
