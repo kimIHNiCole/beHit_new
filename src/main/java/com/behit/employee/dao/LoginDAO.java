@@ -17,7 +17,7 @@ public interface LoginDAO {
 	
 	void lockCnt(HashMap<String, Object> params);
 
-	boolean leaveCnt(String emp_id);
+	Boolean leaveCnt(String emp_id);
 
 	void lockCnkalarm(String emp_id, String lockmsg);
 }

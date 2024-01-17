@@ -248,7 +248,16 @@ document.addEventListener('DOMContentLoaded', function () {
       // if (selectedEvents.length > 0) {
       successCallback(selectedEvents);
       // }
-    }
+    }	
+    
+	events.sort((a, b) => {
+	  const calendarOrder = { 'Personal': 1, 'Business': 2 };
+	
+	  const calendarA = a.extendedProps.calendar.toLowerCase();
+	  const calendarB = b.extendedProps.calendar.toLowerCase();
+	
+	  return calendarOrder[calendarA] - calendarOrder[calendarB];
+	});
 
     // Init FullCalendar
     // ------------------------------------------------
@@ -315,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		  }
 		
 		  // 클릭한 날짜가 현재 날짜 이후인 경우
-		  if (clickedDate.getDate() > currentDate.getDate()) {
+		  if (clickedDate.getDate() >= currentDate.getDate()) {
 		    document.getElementById('selecdate').style.visibility = 'visible';
 		  } else {
 		    // 클릭한 날짜가 현재 날짜 이전인 경우
@@ -415,12 +424,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add Event
     // ------------------------------------------------
-    function addEvent(eventData) {
+/*    function addEvent(eventData) {
       // ? Add new event data to current events object and refetch it to display on calender
       // ? You can write below code to AJAX call success response
 
       currentEvents.push(eventData);
-      calendar.refetchEvents();
+      // calendar.refetchEvents();
 
       // ? To add event directly to calender (won't update currentEvents object)
       // calendar.addEvent(eventData);
@@ -455,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // ? To delete event directly to calender (won't update currentEvents object)
       // removeEventInCalendar(eventId);
-    }
+    } */
 
     // (Update Event In Calendar (UI Only)
     // ------------------------------------------------

@@ -93,7 +93,7 @@
     </select>
     
     <select id="detail" resultType="com.behit.employee.dto.EmployeeDTO">
-SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobile_phone, e.hiredate, e.leavedate, e.address, e.detail_addr,
+SELECT e.emp_id, e.emp_name, password, e.emp_birth, e.email, e.cp_phone, e.mobile_phone, e.hiredate, e.leavedate, e.address, e.detail_addr, e.login_lock,
 	d.emp_dept_name AS 'dept_name',
 	cc_position.common_code_name AS 'position_name',
 	cc_grade.common_code_name AS 'grade_name',
