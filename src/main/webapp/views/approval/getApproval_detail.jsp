@@ -623,7 +623,7 @@
                 	
 	                	<c:choose>
 										  <c:when test="${apv.apv_stmt == '진행중' && apv.emp_id == emp_id}">
-										  
+										  	<input type="hidden" id="apv.emp_id" value="${apv.emp_id}">
 											  	<c:choose>
 													  <c:when test="${apv_line_info[0].apv_history_date == null}">
 													  	<span class="text-truncate">
