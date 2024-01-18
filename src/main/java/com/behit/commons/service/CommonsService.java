@@ -40,9 +40,9 @@ public class CommonsService {
 		return commonsDAO.getOrgListCreP(loginId, cre_idx);
 	}
 
-	public ArrayList<Object> getOrgListApvP(String loginId, String apv_idx) {
+	public ArrayList<Object> getOrgListApvP(String loginId, String apv_idx, String apvReq_empId) {
 		logger.info("getOrgListApvP() 실행");
-		return commonsDAO.getOrgListApvP(loginId, apv_idx);
+		return commonsDAO.getOrgListApvP(loginId, apv_idx, apvReq_empId);
 	}
 
 

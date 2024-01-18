@@ -68,7 +68,7 @@ ORDER BY e.emp_dept_idx ASC, e.emp_position_idx ASC, e.emp_grade_idx ASC;
 FROM employee e 
 JOIN department d ON e.emp_dept_idx = d.emp_dept_idx
 WHERE e.emp_id NOT IN (
-    'master', #{param1}
+    'master', #{param1}, #{param3}
 )
 AND NOT EXISTS (
     SELECT 1 FROM apv_perm WHERE apv_idx = #{param2} AND e.emp_id = emp_id

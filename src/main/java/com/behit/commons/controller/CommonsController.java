@@ -80,12 +80,13 @@ public class CommonsController {
 	
 	@GetMapping(value = {"/getOrgListApvP"})
 	public HashMap<String, ArrayList<Object>> getOrgListApvP(HttpSession session,
-			@RequestParam(name = "apv_idx", required = false) String apv_idx){
+			@RequestParam(name = "apv_idx", required = false) String apv_idx,
+			 @RequestParam(name = "apvReq_empId", required = false) String apvReq_empId){
 		logger.info("getOrgListApvP");
 		EmployeeDTO empdto=(EmployeeDTO) session.getAttribute("loginInfo");
 		String loginId=empdto.getEmp_id();
 
-		ArrayList<Object> getOrgs = commonsService.getOrgListApvP(loginId, apv_idx);
+		ArrayList<Object> getOrgs = commonsService.getOrgListApvP(loginId, apv_idx, apvReq_empId);
 		ArrayList<Object> deptKind = commonsService.getDeptSum();
 		HashMap<String, ArrayList<Object>> result = new HashMap<String, ArrayList<Object>>();
 		result.put("orgList", getOrgs);
