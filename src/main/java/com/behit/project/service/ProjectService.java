@@ -27,6 +27,8 @@ public class ProjectService {
 	
 	@Autowired ProjectDAO dao;
 	
+	// private String root = "/usr/local/tomcat/upload/project/";
+	
 	private String root = "C:/upload/project/";
 
 	public int projwrite(String createId, String textsubject, String startproj, String endproj, String textContent) { // 프로젝트 생성
