@@ -26,7 +26,7 @@
 	<insert id="alarm" parameterType="com.behit.approval.dto.ApprovalDTO">
 		INSERT into alarm (
 		emp_id, alarm_type, alarm_type_idx, alarm_msg, alarm_date, alarm_readCheck) 
-		VALUES (#{apv_approver}, 3, #{apv_idx}, CONCAT('결재하실 문서 [', LEFT(#{apv_subject}, 20), '...] 가 도착했습니다.'), current_timestamp, "N"); 
+		VALUES (#{apv_approver}, 3, #{apv_idx}, CONCAT('결재하실 문서 [',#{apv_subject}, '] 가 도착했습니다.'), current_timestamp, "N"); 
 	</insert>
 	
 	<!-- 결재상신 -->

@@ -123,7 +123,14 @@ public class ApprovalService {
 			
 			ApprovalDTO apv_dto = dao.getApproval_detail(apv_idx);
 			
+			logger.info("값 찍어보기 "+apv_dto.getApv_stmt());
+			
 			if(!apv_dto.getApv_stmt().equals("임시저장")) {
+				String apv_subject = apv_dto.getApv_subject();
+				if (apv_subject.length() > 20) {
+				    apv_subject = apv_subject.substring(0, 20) + "...";
+				    apv_dto.setApv_subject(apv_subject);
+				}
 				dao.alarm(apv_dto);
 			}
 			
@@ -191,15 +198,23 @@ public class ApprovalService {
 		
 		dao.approval_update(dto);
 		
+		ApprovalDTO apv_dto = dao.getApproval_detail(apv_idx);
+		
+		logger.info("값 찍어보기 "+apv_dto.getApv_stmt());
+		
+		if(!apv_dto.getApv_stmt().equals("임시저장")) {
+			String apv_subject = apv_dto.getApv_subject();
+			if (apv_subject.length() > 20) {
+				apv_subject = apv_subject.substring(0, 20) + "...";
+				apv_dto.setApv_subject(apv_subject);
+			}
+			dao.alarm(apv_dto);
+		}
+		
 		if (dto.getTotal_name() != null && !dto.getTotal_name().isEmpty()) {
 		    // 값이 비어있지 않은 경우
 			apv_line(apv_idx,total_name,emp_id);
 			
-			ApprovalDTO apv_dto = dao.getApproval_detail(apv_idx);
-			
-			if(!apv_dto.getApv_stmt().equals("임시저장")) {
-				dao.alarm(apv_dto);
-			}
 			
 		}
 		
@@ -453,6 +468,11 @@ public class ApprovalService {
 				dao.apv_approver(apv_idx, apv_approver);
 				
 				ApprovalDTO apv_dto = dao.getApproval_detail(apv_idx);
+				String apv_subject = apv_dto.getApv_subject();
+				if (apv_subject.length() > 20) {
+				    apv_subject = apv_subject.substring(0, 20) + "...";
+				    apv_dto.setApv_subject(apv_subject);
+				}
 				dao.alarm(apv_dto);
 				
 			}else{
