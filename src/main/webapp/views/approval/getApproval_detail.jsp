@@ -623,7 +623,7 @@
                 	
 	                	<c:choose>
 										  <c:when test="${apv.apv_stmt == '진행중' && apv.emp_id == emp_id}">
-										  
+										  	<input type="hidden" id="reqEmp_id" value="${apv.emp_id}">
 											  	<c:choose>
 													  <c:when test="${apv_line_info[0].apv_history_date == null}">
 													  	<span class="text-truncate">
@@ -1695,14 +1695,16 @@
     function addPerm(){
     	console.log("열람자 추가 버튼 클릭");
     	// 모달이 열릴 때마다 체크박스 초기화
-    	var apv_idx = '${apv.apv_idx}'; 
+    	var apv_idx = '${apv.apv_idx}';
+    	var apvReq_empId= '${apv.emp_id}';
     	
     	//리스트 받기
     		$.ajax({
     		type: 'get',
         	url: '../../getOrgListApvP',
         	data: {
-        		apv_idx: apv_idx
+        		apv_idx: apv_idx,
+        		apvReq_empId: apvReq_empId
         	},
         	dataType: 'JSON',
             success : function(data){
