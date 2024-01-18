@@ -3,15 +3,28 @@
   color: #999999; /* 회색 텍스트색 */
 }
 
+.fc-day-today{
+	cursor: pointer;
+}
+
+ .fc-day-future{
+ 	cursor: pointer;
+ }
+
 .fc-daygrid-day-events{
 	text-align: center;
 }
-.fc-event-primary{
-	color: #696cff;
+
+.fc-event-famaily{
+    background-color: #e7e7ff !important;
+    color: #696CFF !important;
+	border-color: rgba(105,108,255,.15) !important;
 }
 
-.fc-day-past{
-	
+.fc-event-danger{
+	background-color : #e8fadf !important;
+	color : #71DD37 !important;
+	border-color: rgba(113,221,55,.15) !important;
 }
 
 .fc .fc-toolbar {
@@ -180,16 +193,6 @@
 .light-style .fc tbody td {
   border-color: #d9dee3;
 }
-.light-style .fc-event-primary:not(.fc-list-event) {
-  background-color: #e7e7ff !important;
-  color: #C20000 !important;
-}
-.light-style .fc-event-primary:not(.fc-list-event) {
-  border-color: rgba(105, 108, 255, 0.15);
-}
-.light-style .fc-event-primary.fc-list-event .fc-list-event-dot {
-  border-color: #C20000 !important;
-}
 .light-style .fc-event-secondary:not(.fc-list-event) {
   background-color: #ebeef0 !important;
   color: #8592a3 !important;
@@ -230,14 +233,7 @@
 .light-style .fc-event-warning.fc-list-event .fc-list-event-dot {
   border-color: #ffab00 !important;
 }
-.light-style .fc-event-danger:not(.fc-list-event) {
-  background-color: #ffe0db !important;
-  color: #ff3e1d !important;
-}
-.light-style .fc-event-danger:not(.fc-list-event) {
-  border-color: rgba(255, 62, 29, 0.15);
-}
-.light-style .fc-event-danger.fc-list-event .fc-list-event-dot {
+.light-style .fc-list-event .fc-list-event-dot {
   border-color: #ff3e1d !important;
 }
 .light-style .fc-event-light:not(.fc-list-event) {
@@ -337,6 +333,7 @@
 .dark-style .fc tbody td {
   border-color: #444564;
 }
+/*
 .dark-style .fc-event-primary:not(.fc-list-event) {
   background-color: #35365f !important;
   color: #C20000 !important;
@@ -347,7 +344,7 @@
 }
 .dark-style .fc-event-primary.fc-list-event .fc-list-event-dot {
   border-color: #C20000 !important;
-}
+} */
 .dark-style .fc-event-secondary:not(.fc-list-event) {
   background-color: #393c50 !important;
   color: #8592a3 !important;

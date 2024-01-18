@@ -25,7 +25,7 @@
 		    cursor: pointer !important;
 		    border: 1px dashed lightgray  !important;
 		    border-radius: 6px !important; 
-			height: 200px;
+			height: 270px;
 		}
 		.ch-form{
 			margin: 3px;
@@ -229,11 +229,11 @@
                     
                   <div class="col-sm-3">
                     <div class="card-body " style="text-align: center;">
-					  <label for="uploadPhoto" class="col-12 my-2 imgForm" >
+					  <label for="uploadPhoto" class="col-11 my-2 imgForm" >
                   		<img
                              src="#"
                              alt="creator-avatar"
-                             height="200px"
+                             height="270px"
                              class="rounded d-none"
                              width="100%"
                              id="preview" />
