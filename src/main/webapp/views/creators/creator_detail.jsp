@@ -835,6 +835,7 @@
             success : function(data){
               console.log("data",data);
             drawOrg(data.orgList, data.deptKind);
+            
             } ,
             error : function(e){
               console.log("e",e);
@@ -879,7 +880,7 @@
     	                             if (data.idx !== null) {
     	                                 console.log(data.idx);
     	                                 drowCreatorPermList(data.creatorPermList);
-    	                                 addPerm();
+    	                                 /* addPerm(); */
     	                                 /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
     	                             }
     	                         },
@@ -968,7 +969,7 @@
     		    	  return parentNode;
     		    	});
      
-
+    		    	checkboxTree.jstree('destroy');
         			  checkboxTree.jstree({
 
         			    core: {
