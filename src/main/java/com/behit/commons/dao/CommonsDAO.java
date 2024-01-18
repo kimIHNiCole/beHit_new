@@ -14,5 +14,7 @@ public interface CommonsDAO {
 	ArrayList<Object> getOrgListNM(String loginId);
 
 	ArrayList<Object> getDeptSum();
+	ArrayList<Object> getOrgListCreP(String loginId, String cre_idx);
+
 
 }

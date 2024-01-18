@@ -488,8 +488,8 @@ button.list-group-item-primary.active {
 }
 
 .switch-input:checked ~ .switch-toggle-slider {
-  background: #C20000;
-  border-color: #C20000 !important;
+  background: #696cff;
+  border-color: #696cff !important;
   color: #fff;
 }
 
@@ -503,8 +503,8 @@ button.list-group-item-primary.active {
 }
 
 .switch-primary.switch .switch-input:checked ~ .switch-toggle-slider {
-  background: #C20000;
-  border-color: #C20000 !important;
+  background: #696cff;
+  border-color: #696cff !important;
   color: #fff;
 }
 
@@ -513,7 +513,7 @@ button.list-group-item-primary.active {
 }
 
 .switch-primary.switch .switch-input:focus ~ .switch-toggle-slider {
-  border: 1px solid #C20000;
+  border: 1px solid #696cff;
   box-shadow: 0 0 0.25rem 0.05rem rgba(105, 108, 255, 0.1);
 }
 

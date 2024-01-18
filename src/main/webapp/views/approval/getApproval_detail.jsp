@@ -437,7 +437,7 @@
     
     
     .org-modal{
-    	--bs-modal-width: 50rem;
+    	--bs-modal-width: 20rem;
     	font-family:pretendard;
     }
     
@@ -1699,7 +1699,7 @@
     	//리스트 받기
     		$.ajax({
     		type: 'get',
-        	url: '../../getOrgList',
+        	url: '../../getOrgListNM',
         	data: {},
         	dataType: 'JSON',
             success : function(data){
