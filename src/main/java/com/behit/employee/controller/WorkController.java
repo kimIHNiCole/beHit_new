@@ -157,10 +157,7 @@ public class WorkController {
         List<String> weekdays = new ArrayList<>();
 
         // 월의 마지막 날짜까지 반복
-        int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        
-        
-        
+        int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);   
         
         for (int day = 1; day <= lastDay; day++) {
             calendar.set(Calendar.DAY_OF_MONTH, day);
