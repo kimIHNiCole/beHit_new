@@ -338,7 +338,7 @@ height: calc(100vh - 10rem);
 										
 										<hr class="my-3" />
 										<!-- 지연된 프로젝트일시 -->
-										<c:if test="${detailList.proj_delay == 'Y'}">
+										<c:if test="${detailList.proj_delay == 'Y' && detailList.proj_status == '진행'}">
 											<span class="px-3" style="color:#C20000"><i class='bx bx-error'></i> 지연된 프로젝트입니다.</span>
 										</c:if>
 										<!-- 프로젝트 제목 -->
@@ -663,7 +663,6 @@ height: calc(100vh - 10rem);
 										id="submitRUcancel"
 										type="reset"
 										class="btn btn-label-secondary btn-reset mt-3"
-										data-bs-dismiss="modal"
 										aria-label="Close">
 										취소
 										</button>
@@ -791,8 +790,15 @@ height: calc(100vh - 10rem);
 			
 			// 내용이 비어있을 경우 알림
 			if (content.trim() === '') {
-				alert('내용을 입력하세요.');
-				return; 
+	        	Swal.fire({
+	    	        text: '내용을 입력하세요.',
+	    	        icon: 'warning',
+	    	        customClass: {
+	    	            confirmButton: 'btn btn-primary'
+	    	        },
+	    	        buttonsStyling: false
+	    	    })
+		        return; // 이후의 코드 실행을 막기 위해 함수를 종료
 			}else{
 				console.log('활동기록 proj_idx: ',projIdx);
 				console.log('활동기록 emp_id:', projRW_id);
@@ -924,8 +930,15 @@ height: calc(100vh - 10rem);
   			
   			// 내용이 비어있을 경우 알림
   			if (content.trim() === '') {
-  				alert('내용을 입력하세요.');
-  				return; 
+	        	Swal.fire({
+	    	        text: '내용을 입력하세요.',
+	    	        icon: 'warning',
+	    	        customClass: {
+	    	            confirmButton: 'btn btn-primary'
+	    	        },
+	    	        buttonsStyling: false
+	    	    })
+		        return;
   			}else{
   				//console.log('활동기록 업데이트시 삭제할 파일들:',delUpfile);
   				//console.log('활동기록 업데이트 작성내용:', content);
@@ -942,38 +955,67 @@ height: calc(100vh - 10rem);
   			    }
   				formData.append('delUpfile', JSON.stringify(delUpfile));
   				
-  				$.ajax({
-  					type: 'POST',
-  					url: '/project/projectRUpdate.do',
-  					data: formData,
-  					processData: false,
-  					contentType: false,
-  					success: function (data) {
-  						console.log(data);
-  						snowEditorup.setText(''); // 내용 초기화
-  						fileInput.value = '';   // 파일 선택값 초기화
-  						$('#project-modal-update').modal('hide');
-  						projRList();
-  						projAllFile();
-  						projList(whatlist);
-  						delUpfile = [];
-  					},
-  					error: function (e) {
-  						console.log(e);
-  						alert('작성에 실패했습니다.');
-  						$('#project-modal-update').modal('hide');
-  					}
-  				});
+  		 		Swal.fire({
+  			        text: '수정을 하시겠습니까?',
+  			        icon: 'success',
+  			        showCancelButton: true,
+  			        confirmButtonText: 'OK',
+  			        customClass: {
+  			        	confirmButton: 'btn btn-primary me-3',
+  			        	cancelButton: 'btn btn-label-secondary'
+  			        },
+  			        buttonsStyling: false
+  			    }).then(function(result) {
+  			    	if (result.isConfirmed) {						
+		  				$.ajax({
+		  					type: 'POST',
+		  					url: '/project/projectRUpdate.do',
+		  					data: formData,
+		  					processData: false,
+		  					contentType: false,
+		  					success: function (data) {
+		  						console.log(data);
+		  						snowEditorup.setText(''); // 내용 초기화
+		  						fileInput.value = '';   // 파일 선택값 초기화
+		  						$('#project-modal-update').modal('hide');
+		  						projRList();
+		  						projAllFile();
+		  						projList(whatlist);
+		  						delUpfile = [];
+		  					},
+		  					error: function (e) {
+		  						console.log(e);
+		  						alert('작성에 실패했습니다.');
+		  						$('#project-modal-update').modal('hide');
+		  					}
+		  				});
+  			    	}
+  			    });
   			}
   		});
   		$('#submitRUcancel').click(function() {
   			console.log("활동기록 작성 취소버튼 클릭");
-  			snowEditorup.setText(''); // 내용 초기화
-			delUpfile = [];
-  			var fileInput = document.getElementById('formFileU');
-  			if(fileInput.value != ''){
-  				fileInput.value = '';   // 파일 선택값 초기화
-  			}
+  	 		Swal.fire({
+  		        text: '수정을 취소하시겠습니까?',
+  		        icon: 'warning',
+  		        showCancelButton: true,
+  		        confirmButtonText: 'OK',
+  		        customClass: {
+  		        	confirmButton: 'btn btn-primary me-3',
+  		        	cancelButton: 'btn btn-label-secondary'
+  		        },
+  		        buttonsStyling: false
+  		    }).then(function(result) {
+  		    	if (result.isConfirmed) {
+		  			snowEditorup.setText(''); // 내용 초기화
+					delUpfile = [];
+		  			var fileInput = document.getElementById('formFileU');
+		  			if(fileInput.value != ''){
+		  				fileInput.value = '';   // 파일 선택값 초기화
+		  			}
+		  			$('#project-modal-update').modal('hide'); // 이부부분
+  		    	}
+  		    });
   		});
     })();
     </script>
