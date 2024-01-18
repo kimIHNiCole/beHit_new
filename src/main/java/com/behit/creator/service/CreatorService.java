@@ -391,6 +391,22 @@ public class CreatorService {
 		return creatorDAO.getCrePermForMng(loginId);
 	}
 
+	public boolean permListChk(HashMap<String, Object> permChkParam) {
+		logger.info("열람권한 리스트 체크 실행");
+		boolean permChk1 = false;
+		boolean permChk2 = false;
+		
+		permChk1 = creatorDAO.permChk1(permChkParam);
+		if(!permChk1) {
+			permChk2 = creatorDAO.permChk2(permChkParam);
+		}
+		
+		if(permChk1 || permChk2) {
+			return true;
+		}
+		return false;
+	}
+
 	
 	
 	

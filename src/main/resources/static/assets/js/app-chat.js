@@ -61,12 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+/*
     // Scroll to bottom function
     function scrollToBottom() {
       chatHistoryBody.scrollTo(0, chatHistoryBody.scrollHeight);
     }
     scrollToBottom();
 
+*/
     // User About Maxlength Init
     if (chatSidebarLeftUserAbout.length) {
       chatSidebarLeftUserAbout.maxlength({

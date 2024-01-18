@@ -103,7 +103,7 @@
 			JOIN channel ch ON c.cre_idx = ch.cre_idx AND ch.rep_channel =1
 			JOIN employee e ON c.emp_id = e.emp_id 
 			JOIN file f ON c.cre_idx = f.file_kind_idx 
-		WHERE f.file_kind = 6
+		WHERE f.file_kind = 6 ORDER BY cre_idx DESC;
 	</select>
 	
 	

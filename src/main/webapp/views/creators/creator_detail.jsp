@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
 <html
@@ -87,11 +88,26 @@
     padding: 0px;
   }
   .modal-content{
-width: 23rem;
-}
-.card-body.modal{
-width: 20rem;
-}
+	width: 23rem;
+  }
+	.card-body.modal{
+	width: 20rem;
+  }
+  
+  .bx:hover{
+  	cursor: pointer;
+  }
+  
+  .ifNoArea{
+  	width: 95%;
+    height: 100%;
+    position: absolute;
+    top: -20px;
+    background: #0000006b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
 /* 비활성화된 노드의 체크박스 숨기기 */
 .jstree-wholerow-disabled > .jstree-checkbox {
@@ -143,14 +159,18 @@ width: 20rem;
                           <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-check bx-sm"></i></span>
                           <div>
                             <h5 class="mb-0">구독자</h5>
-                            <span>${channelSum.total_subscribers} 명</span>
+                            <span id="total-subs">
+                              <fmt:formatNumber value="${channelSum.total_subscribers}" pattern="#,##0"/> 명
+                            </span>
                           </div>
                         </div>
                         <div class="d-flex align-items-start mt-3 gap-3">
                           <span class="badge bg-label-primary p-2 rounded"><i class="bx bx-customize bx-sm"></i></span>
                           <div>
                             <h5 class="mb-0">컨텐츠 수</h5>
-                            <span>${channelSum.total_contents} 개</span>
+                            <span id="total-contents">
+                            	<fmt:formatNumber value="${channelSum.total_contents}" pattern="#,##0"/> 개
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -219,20 +239,24 @@ width: 20rem;
                     <div class="card-body">
                       <div class="row">
 				        <div class="col-md-6">
-				            <h5 class="card-header">열람권한</h5>
+				            <h5>열람권한</h5>
 				        </div>
-				        <div class="col-md-6 text-end mt-4">
-				        	<button type="button" onclick="addPerm()" class="card-header plus no-border" data-bs-toggle="modal" data-bs-target="#apv-org-modal">+추가</button>
+				        <div class="col-md-6 text-end">
+				        	<c:if test="${permListChk}">
+					        	<button type="button" onclick="addPerm()" class="card-header plus no-border" data-bs-toggle="modal" data-bs-target="#apv-org-modal">+추가</button>
+				        	</c:if>
 				        </div>
 				        <h5 class="pb-2 border-bottom mb-4">
 				    </div>
-					<p class="fw-medium me-2 creator-list-container">
+					<p class="fw-medium me-2 creator-list-container" id="creator-list-p">
 					    <ul id="creator-list-ul">
 					        <c:forEach var="creatorPermList" items="${creatorPermList}" varStatus="loop">
 					            <div>
 					                <input class="permEmp_id" type="hidden" value="${creatorPermList.emp_id}" />
-					                ${creatorPermList.emp_name} ${creatorPermList.grade_name}(${creatorPermList.dept_name})
-					                <i class='bx bx-x' onclick="delPerm(this)"></i>
+					                <span id="permTarget">${creatorPermList.emp_name} ${creatorPermList.grade_name}(${creatorPermList.dept_name})</span>
+					                <c:if test="${permListChk}">
+					                	<i class='bx bx-x' onclick="delPerm(this)"></i>
+					                </c:if>
 					            </div>
 					        </c:forEach>
 					    </ul>
@@ -286,6 +310,12 @@ width: 20rem;
 		   			    </li> -->
 		   			  </ul>
 		   			</div>
+		   			
+		   			
+		   						
+		   			
+		   			
+		   			
 		   			<div>
 		   			 <c:if test="${deptCheck eq true}">
 		   			  <div class="col-md-4 text-end">
@@ -306,11 +336,12 @@ width: 20rem;
                   
 				  	<!-- 기본 정보 영역 -->
 				  	<div class="tab-pane fade active show" id="form-tabs-first" role="tabpanel">
+			  		
 				      <!-- 채널 리스트 -->
 				      <div class="card mb-4" >
 				        <h5 class="card-header">활동 채널 리스트</h5>
 				        <div class="table-responsive mb-3">
-				          <table class="table datatable-project border-top">
+				          <table id="channel-list" class="table datatable-project border-top ps-3 pe-3">
 				            <thead>
 				              <tr>
 				                <th>채널명</th>
@@ -335,17 +366,24 @@ width: 20rem;
 				                  	</c:if>
 				                  </th>
 				                  <th>${channelInfo.channel_cate}</th>
-				                  <th>${channelInfo.subscriber} 명</th>
-				                  <th>${channelInfo.contents} 개</th>
-				                  <th>${channelInfo.views} 회</th>
+				                  <th>
+				                  	<fmt:formatNumber value="${channelInfo.subscriber}" pattern="#,##0"/> 명
+				                  </th>
+				                  <th>
+								    <fmt:formatNumber value="${channelInfo.contents}" pattern="#,##0"/> 개
+								  </th>
+								  <th>
+								    <fmt:formatNumber value="${channelInfo.views}" pattern="#,##0"/> 회
+								  </th>
 				                  <th>${channelInfo.channel_date}</th>
 				              	</tr>
 				           	  </c:forEach>
 				            </tbody>
 				          </table>
-				        </div>
+				      </div>
 				      </div>
 				      <!-- / 채널 리스트 -->
+				      
 				      <!-- SNS 리스트 -->
 				      <div class="card mb-4">
 				        <h5 class="card-header">SNS</h5>
@@ -440,20 +478,37 @@ width: 20rem;
 				        </div>
 				      </div>
 				      <!-- / 활동이력 Timeline -->
-					</div>
 					
+				   </div>
 				   	<!-- 채널 데이터 영역 -->
 				 	<div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
+				 	  <div style="width: 100%;
+								    position: absolute;
+								    top: 188px;
+								    left: 1521px;">
+		   			 <!--  <label class="switch switch-primary" id="toggleSwitch">
+                          <input type="checkbox" id="switchInput" class="switch-input" checked />
+                          <span class="switch-toggle-slider">
+                            <span class="switch-on">
+                             7
+                            </span>
+                            <span class="switch-off">
+                              30
+                            </span>
+                          </span>
+                          <span class="switch-label">일</span>
+                        </label> -->
+		   			</div>
 				   	   <!-- Line Chart (조회수 추이)-->
 					   <div class="col-12 mb-4">
 					     <div class="card">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">일일 조회수 추이</h5>
+					           <h5 class="card-title mb-0">조회수 추이</h5>
 					           <small class="text-muted">조회수 변동값 체크를 통해 알고리즘 상태와 채널 성장도 체크</small>
 					         </div>
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 				             <div id="lineChart"></div>
 					       </div>
 					     </div>
@@ -464,60 +519,12 @@ width: 20rem;
 					   <div class="card mb-4">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">일별 구독자 수</h5>
+					           <h5 class="card-title mb-0">구독자 수</h5>
 					           <small class="text-muted">구독자 성장세 확인</small>
 					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
+					          
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 					         <div id="lineAreaChart1">
 					         <!-- 스크립트로 그려질 차트 영역 -->
 					         </div>
@@ -528,60 +535,12 @@ width: 20rem;
 					   <div class="card mb-4">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">일별 조회 수</h5>
+					           <h5 class="card-title mb-0">조회 수</h5>
 					           <small class="text-muted">구독자 성장세 확인</small>
 					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
+					        
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 					         <div id="lineAreaChart2">
 					         <!-- 스크립트로 그려질 차트 영역 -->
 					         </div>
@@ -592,60 +551,12 @@ width: 20rem;
 					   <div class="card mb-4">
 					       <div class="card-header d-flex justify-content-between">
 					         <div>
-					           <h5 class="card-title mb-0">영상 컨텐츠 수</h5>
+					           <h5 class="card-title mb-0">컨텐츠 수</h5>
 					           <small class="text-muted">영상 업로드 주기 확인</small>
 					         </div>
-					         <!-- 달력 드롭다운 영역-->
-					         <div class="dropdown">
-					           <button
-					             type="button"
-					             class="btn dropdown-toggle px-0"
-					             data-bs-toggle="dropdown"
-					             aria-expanded="false">
-					             <i class="bx bx-calendar"></i>
-					           </button>
-					           <ul class="dropdown-menu dropdown-menu-end">
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Today
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					                 class="dropdown-item d-flex align-items-center">
-					                 Yesterday
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	 class="dropdown-item d-flex align-items-center">
-					               	 Last 7 Days
-				               	   </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Last 30 Days
-					               </a>
-					             </li>
-					             <li>
-					               <hr class="dropdown-divider" />
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" 
-					               	class="dropdown-item d-flex align-items-center">
-					               	Current Month
-					               </a>
-					             </li>
-					             <li>
-					               <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a>
-					             </li>
-					           </ul>
-					         </div>
-					         <!--  / 달력 드롭다운 영역--> 
+					       
 					       </div>
-					       <div class="card-body">
+					       <div class="card-body chart-body">
 					         <div id="lineAreaChart3">
 					         <!-- 스크립트로 그려질 차트 영역 -->
 					         </div>
@@ -654,7 +565,6 @@ width: 20rem;
 					   <!-- /Line Area Chart3 -->
 				    </div>
 				    <!-- / 체널 데이터 영역 -->
-				   
 				</div>
 				<!-- / 탭 콘텐츠 영역 -->
 				
@@ -765,6 +675,17 @@ width: 20rem;
     <script src="../../assets/js/header.js"></script>
     
     <script>
+    
+    /* var total_subs = ${channelSum.total_subscribers};
+    var total_contents = ${channelSum.total_contents};
+    console.log('total_subs :: ' +total_subs);
+    console.log('total_contents :: ' +total_contents);
+    
+    $('#total-subs').text(total_subs.toLocaleString()+" 명");
+    $('#total-contents').text(total_contents.toLocaleString()+" 개"); */
+    
+  
+    
     var selectedNodes = []; // 전역 범위에서 정의
     var permEmpIds = [];
     $('.permEmp_id').each(function() {
@@ -782,21 +703,28 @@ width: 20rem;
  } */
     	
     
+ 
+ 	
+ 
+ 
     
     function addPerm(){
     	console.log("열람자 추가 버튼 클릭");
     	// 모달이 열릴 때마다 체크박스 초기화
-        
+        var cre_idx=$('#cre_idx').val();
     	 
     	//리스트 받기
     		$.ajax({
     		type: 'get',
-        	url: '../../getOrgList',
-        	data: {},
+        	url: '/getOrgListCreP',
+        	data: {
+        		cre_idx: cre_idx // cre_idx를 추가하여 서버에 전달
+        	},
         	dataType: 'JSON',
             success : function(data){
               console.log("data",data);
             drawOrg(data.orgList, data.deptKind);
+            
             } ,
             error : function(e){
               console.log("e",e);
@@ -806,37 +734,62 @@ width: 20rem;
     }
     
     function delPerm(iconElement) {
-        // 클릭된 아이콘( bx bx-x ) 요소의 부모 li 태그에서 input 값을 가져옴
-        var emp_id = $(iconElement).closest('div').find('.permEmp_id').val();
-        var cre_idx = $('#cre_idx').val();
-        console.log(cre_idx);
-        console.log(emp_id);
-        
-     // AJAX 요청
-        $.ajax({
-            type: 'POST',
-            url: '/delPerm',  // 실제 서버 엔드포인트로 수정
-            contentType: 'application/json',
-            data: JSON.stringify({ emp_id: emp_id, cre_idx: cre_idx }),
-            success: function (data) {
-                // 서버 응답에 대한 처리
-                console.log(data);
-                if (data.idx !== null) {
-                    console.log(data.idx);
-                    drowCreatorPermList(data.creatorPermList);
-                    /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
-                }
-            },
-            error: function (error) {
-                // 오류 처리
-                console.error('Error:', error);
-            }
-        });
+    	
+    	
+    	var confirmMsg = "해당 크리에이터의 열람권한 목록에서 제외하겠습니까?";
+    	   if(confirmMsg != ""){
+    	      Swal.fire({
+    	                 text: confirmMsg,
+    	                 icon: 'warning',
+    	                 showCancelButton: true,
+    	                 confirmButtonText: 'OK',
+    	                 customClass: {
+    	                   confirmButton: 'btn btn-primary me-3',
+    	                   cancelButton: 'btn btn-label-secondary'
+    	                 },
+    	                 buttonsStyling: false
+    	               }).then(function (result) {
+    	                 if (result.value) {
+    	                   
+    	                	 // 클릭된 아이콘( bx bx-x ) 요소의 부모 li 태그에서 input 값을 가져옴
+    	                     var emp_id = $(iconElement).closest('div').find('.permEmp_id').val();
+    	                     var cre_idx = $('#cre_idx').val();
+    	                     console.log(cre_idx);
+    	                     console.log(emp_id);
+    	                     
+    	                  // AJAX 요청
+    	                     $.ajax({
+    	                         type: 'POST',
+    	                         url: '/delPerm',  // 실제 서버 엔드포인트로 수정
+    	                         contentType: 'application/json',
+    	                         data: JSON.stringify({ emp_id: emp_id, cre_idx: cre_idx }),
+    	                         success: function (data) {
+    	                             // 서버 응답에 대한 처리
+    	                             console.log(data);
+    	                             if (data.idx !== null) {
+    	                                 console.log(data.idx);
+    	                                 drowCreatorPermList(data.creatorPermList);
+    	                                 /* addPerm(); */
+    	                                 /* location.href = '../creators/creatorDetail.go?cre_idx='+cre_idx; */
+    	                             }
+    	                         },
+    	                         error: function (error) {
+    	                             // 오류 처리
+    	                             console.error('Error:', error);
+    	                         }
+    	                     });
+    	                	 
+    	                	 
+    	                 }
+    	               });
+    	   }
+    	
+       
        
     }
     
     
-  //리스트 받기 실행 함수
+  	//리스트 받기 실행 함수
     function drawOrg(orgList, deptKind) {
         		console.log('orgList', orgList);
         		console.log('deptKind',deptKind);
@@ -905,7 +858,7 @@ width: 20rem;
     		    	  return parentNode;
     		    	});
      
-
+    		    	checkboxTree.jstree('destroy');
         			  checkboxTree.jstree({
 
         			    core: {
@@ -1042,7 +995,7 @@ width: 20rem;
         console.log('Selected Nodes after removal:', selectedNodes);
     }
 
-
+ 	
 
     //선택 버튼 클릭 시 처리
     $('.org-list-select').click(function () {
@@ -1091,21 +1044,18 @@ width: 20rem;
         $('#jstree-checkbox').jstree('deselect_all');
     });
 
- // 동적으로 리스트 생성하고 추가
+ 	// 동적으로 리스트 생성하고 추가
     function drowCreatorPermList(creatorPermList) {
-        var $ul = $('<ul>');
-
+    	$('#creator-list-ul').empty();
+ 		
         creatorPermList.forEach(function (creator) {
             var $div = $('<div>').html(
             		'<input class="permEmp_id" type="hidden" value="' + creator.emp_id + '" />' +	
                 creator.emp_name + ' ' + creator.grade_name + '(' + creator.dept_name + ')'
                 + ' <i class="bx bx-x" onclick="delPerm(this)"></i>'
             );
-            $ul.append($div);
+            $('#creator-list-ul').append($div);
         });
-
-        // 기존의 내용을 비우고 새로운 내용을 추가
-        $('#creator-list-ul').empty().append($ul);
     }
  
  
@@ -1120,9 +1070,10 @@ width: 20rem;
     /**
      * Charts Apex
      */
-
     'use strict';
-	var repChannelId = $('#repChannelId').val();
+    
+    // 차트에 그릴 데이터를 가져오기
+    var repChannelId = $('#repChannelId').val();
 	console.log('repChannelId : ',repChannelId);
     $.ajax({
     	type: 'get',
@@ -1130,7 +1081,7 @@ width: 20rem;
     	data: {'repChannelId': repChannelId},
     	dataType: 'JSON',
     	success: function(data){
-    		console.log(data.channelDataList);
+    		console.log("AJAX SUCCESS RESULT :: "+data.channelDataList);
     		chart(data.channelDataList);
     	},
     	error: function(e){
@@ -1139,136 +1090,162 @@ width: 20rem;
     	
     });
     
-    
     function chart(dataList) {
-      // 가져온 데이터 담기
-	  let subList = [];
-      let viewList = [];
-      let contentList = [];
-      let dateList = [];
-      let viewTrendList = [];
+	      // 가져온 데이터 담기
+		  let subList = [];
+	      let viewList = [];
+	      let contentList = [];
+	      let dateList = [];
+	      let viewTrendList = [];
+	      
+	      function formatDate(dateString) {	// 날짜 형식 바꿔주는 함수
+	    	  const options = { month: '2-digit', day: '2-digit'};
+	    	 /*  const formattedDate = new Date(dateString).toLocaleDateString('ko-KR', options); */
+	    	  const formattedDate = new Intl.DateTimeFormat('ko-KR', options).format(new Date(dateString));
+	    	  return formattedDate;
+	      }
       
-      function formatDate(dateString) {	// 날짜 형식 바꿔주는 함수
-    	  const options = { month: '2-digit', day: '2-digit'};
-    	  const formattedDate = new Date(dateString).toLocaleDateString('ko-KR', options);
-    	  return formattedDate;
-      }
+   	
+    	// 데이터 개수에 따른 구분
+	    	if(dataList.length < 3){	// 데이터가 3일미만일때
+	    		var ifNoData = "<div class='ifNoArea'>"+
+	    		"<h2 style='color:#FFF'>데이터가 부족합니다.</h2>"+
+	    		"</div>";
+	    		$('.chart-body').append(ifNoData);
+	    	}
+	    	else if(dataList.length <= 7){	// 데이터가 7일 이하일때
+		      	for(let i =0; i<dataList.length; i++){
+		    	  var subs = dataList[i].subscriber;
+		    	  var view = dataList[i].views;
+		    	  var content = dataList[i].contents;
+		    	  var date = formatDate(dataList[i].channel_data_date);
+		    	  var viewTrend = dataList[i].view_trend;
+			      subList.push(subs);	
+			      viewList.push(view);	
+			      contentList.push(content);
+			      dateList.push(date);
+			      viewTrendList.push(viewTrend);
+		      	}
+	    	}else{	// 데이터가 7일 이상일 때
+		    	console.log('isChecked == false || dataList.length = '+dataList.length);
+		    	if(dataList.length >= 30){	// 데이터가 30일 이상있을때
+			    	for(let i =dataList.length - 30; i<dataList.length; i++){
+				    	  var subs = dataList[i].subscriber;
+				    	  var view = dataList[i].views;
+				    	  var content = dataList[i].contents;
+				    	  var date = formatDate(dataList[i].channel_data_date);
+				    	  var viewTrend = dataList[i].view_trend;
+					      subList.push(subs);	
+					      viewList.push(view);	
+					      contentList.push(content);
+					      dateList.push(date);
+					      viewTrendList.push(viewTrend);
+				    }
+		    	}
+	    	}
       
-      for(let i =0; i<dataList.length; i++){
-    	  const subs = dataList[i].subscriber;
-    	  const view = dataList[i].views;
-    	  const content = dataList[i].contents;
-    	  const date = formatDate(dataList[i].channel_data_date);
-    	  const viewTrend = dataList[i].view_trend;
-	      subList.push(subs);	
-	      viewList.push(view);	
-	      contentList.push(content);
-	      dateList.push(date);
-	      viewTrendList.push(viewTrend);
-      }
-      console.log('subList:',subList);
-      console.log('viewList:',viewList);
-      console.log('contentList:',contentList);
-      console.log('dateList:',dateList);
-      console.log('viewTrendList:',viewTrendList);
-   	  // / 가져온 데이터 담기	
-   	  
-      let cardColor, headingColor, labelColor, borderColor, legendColor;
-
-      if (isDarkStyle) {
-        cardColor = config.colors_dark.cardColor;
-        headingColor = config.colors_dark.headingColor;
-        labelColor = config.colors_dark.textMuted;
-        legendColor = config.colors_dark.bodyColor;
-        borderColor = config.colors_dark.borderColor;
-      } else {
-        cardColor = config.colors.cardColor;
-        headingColor = config.colors.headingColor;
-        labelColor = config.colors.textMuted;
-        legendColor = config.colors.bodyColor;
-        borderColor = config.colors.borderColor;
-      }
-
+	      console.log('subList:',subList);
+	      console.log('viewList:',viewList);
+	      console.log('contentList:',contentList);
+	      console.log('dateList:',dateList);
+	      console.log('viewTrendList:',viewTrendList);
 
       // Line Area Chart1
       // --------------------------------------------------------------------
-      const areaChartEl1 = document.querySelector('#lineAreaChart1'),
-        areaChartConfig1 = {
-          chart: {
-            height: 500,
-            type: 'area',
-            parentHeightOffset: 0,
-            toolbar: {
-              show: true
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            show: false,
-            curve: 'straight'
-          },
-          legend: {
-            show: true,
-            position: 'top',
-            horizontalAlign: 'start',
-            labels: {
-              colors: legendColor,
-              useSeriesColors: false
-            }
-          },
-          grid: {
-            borderColor: borderColor,
-            xaxis: {
-              lines: {
+    	  let cardColor, headingColor, labelColor, borderColor, legendColor;
+          if (isDarkStyle) {
+            cardColor = config.colors_dark.cardColor;
+            headingColor = config.colors_dark.headingColor;
+            labelColor = config.colors_dark.textMuted;
+            legendColor = config.colors_dark.bodyColor;
+            borderColor = config.colors_dark.borderColor;
+          } else {
+            cardColor = config.colors.cardColor;
+            headingColor = config.colors.headingColor;
+            labelColor = config.colors.textMuted;
+            legendColor = config.colors.bodyColor;
+            borderColor = config.colors.borderColor;
+          }
+      	var areaChartEl1 = document.querySelector('#lineAreaChart1'),
+          areaChartConfig1 = {
+          	chart: {
+              height: 500,
+              type: 'area',
+              parentHeightOffset: 0,
+              toolbar: {
                 show: true
               }
-            }
-          },
-          colors: ['#2ecc71'],
-          series: [
-            {
-              name: '구독자 수',
-              data: subList
-            }
-          ],
-          xaxis: {
-            categories: dateList,
-            axisBorder: {
-              show: false
             },
-            axisTicks: {
-              show: false
+            dataLabels: {
+              enabled: false
             },
-            labels: {
-              style: {
-                colors: labelColor,
-                fontSize: '13px'
+            stroke: {
+              show: false,
+              curve: 'straight'
+            },
+            legend: {
+              show: true,
+              position: 'top',
+              horizontalAlign: 'start',
+              labels: {
+              colors: legendColor,
+                useSeriesColors: false
               }
-            }
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: labelColor,
-                fontSize: '13px'
+            },
+            grid: {
+              borderColor: borderColor,
+              xaxis: {
+                lines: {
+                  show: true
+                }
               }
+            },
+            colors: ['#2ecc71'],
+            series: [
+              {
+                name: '구독자 수',
+                data: subList
+              }
+            ],
+            xaxis: {
+              categories: dateList,
+              axisBorder: {
+                show: false
+              },
+              axisTicks: {
+                show: false
+              },
+              labels: {
+                style: {
+                  colors: labelColor,
+                  fontSize: '13px'
+                }
+              }
+            },
+            yaxis: {
+              labels: {
+                style: {
+                  colors: labelColor,
+                  fontSize: '13px'
+                },
+                formatter: function (value) {
+                    // 숫자 형식 지정
+                    return new Intl.NumberFormat().format(value);
+                  }
+              }
+            },
+            fill: {
+              opacity: 1,
+              type: 'gradient'
+            },
+            tooltip: {
+              shared: false
             }
-          },
-          fill: {
-            opacity: 1,
-            type: 'gradient'
-          },
-          tooltip: {
-            shared: false
-          }
-        };
-      if (typeof areaChartEl1 !== undefined && areaChartEl1 !== null) {
-        const areaChart = new ApexCharts(areaChartEl1, areaChartConfig1);
-        areaChart.render();
-      }
-      
+          };
+        if (typeof areaChartEl1 !== undefined && areaChartEl1 !== null) {
+          const areaChart1 = new ApexCharts(areaChartEl1, areaChartConfig1);
+          areaChart1.render();
+        }
    	  // Line Area Chart2
       // --------------------------------------------------------------------
       const areaChartEl2 = document.querySelector('#lineAreaChart2'),
@@ -1332,7 +1309,11 @@ width: 20rem;
               style: {
                 colors: labelColor,
                 fontSize: '13px'
-              }
+              },
+              formatter: function (value) {
+                  // 숫자 형식 지정
+                  return new Intl.NumberFormat().format(value);
+                }
             }
           },
           fill: {
@@ -1344,8 +1325,8 @@ width: 20rem;
           }
         };
       if (typeof areaChartEl2 !== undefined && areaChartEl2 !== null) {
-        const areaChart = new ApexCharts(areaChartEl2, areaChartConfig2);
-        areaChart.render();
+        const areaChart2 = new ApexCharts(areaChartEl2, areaChartConfig2);
+        areaChart2.render();
       }
 		
       
@@ -1412,7 +1393,11 @@ width: 20rem;
               style: {
                 colors: labelColor,
                 fontSize: '13px'
-              }
+              },
+              formatter: function (value) {
+                  // 숫자 형식 지정
+                  return new Intl.NumberFormat().format(value);
+                }
             }
           },
           fill: {
@@ -1424,8 +1409,8 @@ width: 20rem;
           }
         };
       if (typeof areaChartEl3 !== undefined && areaChartEl3 !== null) {
-        const areaChart = new ApexCharts(areaChartEl3, areaChartConfig3);
-        areaChart.render();
+        const areaChart3 = new ApexCharts(areaChartEl3, areaChartConfig3);
+        areaChart3.render();
       }
 
       // Line Chart
@@ -1437,10 +1422,10 @@ width: 20rem;
             type: 'line',
             parentHeightOffset: 0,
             zoom: {
-              enabled: false
+              enabled: true
             },
             toolbar: {
-              show: false
+              show: true
             }
           },
           series: [
@@ -1497,16 +1482,19 @@ width: 20rem;
               style: {
                 colors: labelColor,
                 fontSize: '13px'
-              }
+              },
+              formatter: function (value) {
+                  // 숫자 형식 지정
+                  return new Intl.NumberFormat().format(value);
+                }
             }
           }
         };
-      if (typeof lineChartEl !== undefined && lineChartEl !== null) {
-        const lineChart = new ApexCharts(lineChartEl, lineChartConfig);
-        lineChart.render();
-      }
-
-    };
+	      if (typeof lineChartEl !== undefined && lineChartEl !== null) {
+	        const lineChart = new ApexCharts(lineChartEl, lineChartConfig);
+	        lineChart.render();
+	      }
+    }
     </script>
   </body>
 </html>

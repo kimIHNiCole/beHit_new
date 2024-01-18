@@ -265,6 +265,7 @@ public class CreatorController {
 		logger.info("cre_idx"+cre_idx);
 		// 담당 매니저 및 팀장은 제외시키기
 		boolean permChk = creatorService.permChk(permChkParam);
+		boolean permListChk = creatorService.permListChk(permChkParam);
 		if(permChk) {
 			
 			HashMap<String, Object> creatorInfo = creatorService.getCreator(cre_idx);
@@ -281,8 +282,8 @@ public class CreatorController {
 			mav.addObject("channelInfoList", channelInfoList);
 			mav.addObject("creatorHistory", creatorHistory);
 			mav.addObject("snsList", snsList);
-	
-	
+			mav.addObject("permListChk", permListChk);
+			
 			mav.setViewName("creators/creator_detail");
 		}else {
 			reAttr.addFlashAttribute("warningMsg", "접근권한이 없습니다.");

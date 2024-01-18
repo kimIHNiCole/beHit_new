@@ -29,7 +29,8 @@ public class UtilService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 
-	private String root = "C:/upload/";	
+	// private String root = "/usr/local/tomcat/upload/";
+	private String root = "C:/upload/";
 
 	// upload
 	public void upload(MultipartFile uploadFile, @RequestParam HashMap<String, Object> file) throws Exception {

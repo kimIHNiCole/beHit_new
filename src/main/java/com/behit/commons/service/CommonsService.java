@@ -34,5 +34,17 @@ public class CommonsService {
 		logger.info("getDeptSum() 실행");
 		return commonsDAO.getDeptSum();
 	}
+
+	public ArrayList<Object> getOrgListCreP(String loginId, String cre_idx) {
+		logger.info("getOrgListCreP() 실행");
+		return commonsDAO.getOrgListCreP(loginId, cre_idx);
+	}
+
+	public ArrayList<Object> getOrgListApvP(String loginId, String apv_idx) {
+		logger.info("getOrgListApvP() 실행");
+		return commonsDAO.getOrgListApvP(loginId, apv_idx);
+	}
+
+
 	
 }

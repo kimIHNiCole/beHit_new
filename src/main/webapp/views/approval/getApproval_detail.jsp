@@ -437,7 +437,7 @@
     
     
     .org-modal{
-    	--bs-modal-width: 50rem;
+    	--bs-modal-width: 20rem;
     	font-family:pretendard;
     }
     
@@ -1695,12 +1695,15 @@
     function addPerm(){
     	console.log("열람자 추가 버튼 클릭");
     	// 모달이 열릴 때마다 체크박스 초기화
-    	 
+    	var apv_idx = '${apv.apv_idx}'; 
+    	
     	//리스트 받기
     		$.ajax({
     		type: 'get',
-        	url: '../../getOrgList',
-        	data: {},
+        	url: '../../getOrgListApvP',
+        	data: {
+        		apv_idx: apv_idx
+        	},
         	dataType: 'JSON',
             success : function(data){
               console.log("data",data);
@@ -1811,7 +1814,7 @@
     		    	  return parentNode;
     		    	});
      
-
+    		    	checkboxTree.jstree('destroy');
         			  checkboxTree.jstree({
 
         			    core: {

@@ -60,6 +60,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     <style>
+    
     </style>
   </head>
 
@@ -398,7 +399,7 @@
 		var events = [
 	        <c:forEach var="work" items="${chlist}">
 	            {
-	                title: '출근 '+'${work.work_start}' + '~' + '${work.work_end}',
+	                title: '근무 '+'${work.work_start}' + '~' + '${work.work_end}',
 	                start: '${work.work_day}',
 	                end: '${work.work_day}',
 	                allDay: false,

@@ -71,7 +71,8 @@
 		display:flex;
 		justify-content: flex-end;
 	}
-	.cardListTop div:nth-child(1) a{
+	
+	 /* .cardListTop div:nth-child(1) a{
 	    margin: 5px 5px;
 	    padding: 7px 15px;
 	    background: #FFF;
@@ -82,15 +83,15 @@
 	.cardListTop div:nth-child(1) a:hover{
 		background: #a2a2a2;
 		color: #FFF;
-	}
-	.cardListTop div:nth-child(2) a{
+	}  */
+	.cardListTop div:nth-child(1) a{
 	    margin: 5px 5px;
 	    padding: 7px 15px;
 	    background: #FFF;
 	    border: 2px solid #C20000;
 	    border-radius: 7px;
 	}
-	.cardListTop div:nth-child(2) a:hover{
+	.cardListTop div:nth-child(1) a:hover{
 		background: #C20000;
 		color:#FFFFFF;
 	}
@@ -167,7 +168,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_creators"></h4>
 		                          </div>
-		                          <p class="mb-0">　</p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -182,7 +182,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_channels"></h4>
 		                          </div>
-		                          <p class="mb-0">　</p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -197,7 +196,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_subscribers"></h4>
 		                          </div>
-		                          <p class="mb-0">전일대비 <small class="text-success">+0.0%</small></p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -212,7 +210,6 @@
 		                          <div class="d-flex align-items-end mt-2">
 		                            <h4 class="mb-0 me-2 total_contents"></h4>
 		                          </div>
-		                          <p class="mb-0">전일 대비 <small class="text-danger">-3.5%</small></p>
 		                        </div>
 		                      </div>
 		                    </div>
@@ -243,9 +240,9 @@
 	              		<!-- 나의 크리에이터 -->
 			              <div class="tab-pane fade" id="form-tabs-second" role="tabpanel">
 	  		              	<div class="cardListTop">
-		              		 <div>
-		              		   <!-- <a href="showOrgModal()">열람 권한자 등록</a> -->
-		              		  </div>
+		              		 <!-- <div>
+		              		   <a href="showOrgModal()">열람 권한자 등록</a>
+		              		  </div> -->
 		              		  <div>
 			              	   <a href="/creators/creatorAdd.go">
 			              	   	<i class="bx bx-user-check me-1"></i>
@@ -328,10 +325,18 @@
     	
     	function drawTotalAll(totalInfo){
     		console.log(totalInfo);
-    		$('.total_creators:eq(0)').text(totalInfo.total_creators+" 명");
-    		$('.total_channels:eq(0)').text(totalInfo.total_channels+" 개");
-    		$('.total_subscribers:eq(0)').text(totalInfo.total_subscribers+" 명");
-    		$('.total_contents:eq(0)').text(totalInfo.total_contents+" 개");
+    		
+    		// 숫자 표현 형식 변환
+    		const formattedCreators = totalInfo.total_creators.toLocaleString();
+   		    const formattedChannels = totalInfo.total_channels.toLocaleString();
+   		    const formattedSubscribers = totalInfo.total_subscribers.toLocaleString();
+   		    const formattedContents = totalInfo.total_contents.toLocaleString();
+   		
+   		    $('.total_creators:eq(0)').text(formattedCreators + " 명");
+   		    $('.total_channels:eq(0)').text(formattedChannels + " 개");
+   		    $('.total_subscribers:eq(0)').text(formattedSubscribers + " 명");
+   		    $('.total_contents:eq(0)').text(formattedContents + " 개");
+    		
     	}
     	
     	
@@ -416,15 +421,15 @@
 		            	'<i class="bx bxl-youtube" style="color:#ff0000"></i>&nbsp;' + myCre.channel_name + '</a></label></td>' +
 		            '</tr>'+
 		            	'<td><label class="card-text"> 총 구독자수</label></td>' + 
-		            	'<td><label>| ' + myCre.last_subscriber + ' 명</label>' +
+		            	'<td><label>| ' + myCre.last_subscriber.toLocaleString() + ' 명</label>' +
 		            '</tr>'+
 		            '<tr>'+
 		            	'<td><label class="card-text"> 총 컨텐츠수</label></td>' +
-		            	'<td><label>| ' + myCre.last_contents + ' 개</label>' +
+		            	'<td><label>| ' + myCre.last_contents.toLocaleString() + ' 개</label>' +
 		            '</tr>'+
 		            '<tr>'+
 		            	'<td><label class="card-text"> 총 조회수</label></td>' +
-		            	'<td><label>| ' + myCre.last_views + ' 회</label>' +
+		            	'<td><label>| ' + myCre.last_views.toLocaleString() + ' 회</label>' +
 		            '</tr>'+
 		            '<tr>'+
 		            	'<td><label class="card-text"> 카테고리</label></td>' +
