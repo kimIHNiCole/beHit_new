@@ -86,10 +86,15 @@ public class ApprovalService {
 	
 	public String approval_write(EmployeeDTO loginInfo, ApprovalDTO dto, MultipartFile[] files) {
 		
+		
+		
+		
 		String emp_id = loginInfo.getEmp_id();
 		String total_name = dto.getTotal_name();
 		String apv_code = dto.getApv_code();
 		String apv_vac_type = dto.getApv_vac_type();
+		
+		logger.info("!!왜?"+emp_id);
 		
 		dto.setEmp_id(emp_id);
 		
@@ -118,6 +123,8 @@ public class ApprovalService {
 		
 		// 제너레이트 키로 apv_idx 값 받기
 		int apv_idx = dto.getApv_idx();
+		
+		logger.info("!!dto.getTotal_name()"+dto.getTotal_name());
 		
 		if (dto.getTotal_name() != null && !dto.getTotal_name().isEmpty()) {
 		    // 값이 비어있지 않은 경우
@@ -204,18 +211,25 @@ public class ApprovalService {
 		
 		logger.info("값 찍어보기 "+apv_dto.getApv_stmt());
 		
-		if(!apv_dto.getApv_stmt().equals("임시저장")) {
-			String apv_subject = apv_dto.getApv_subject();
-			if (apv_subject.length() > 20) {
-				apv_subject = apv_subject.substring(0, 20) + "...";
-				apv_dto.setApv_subject(apv_subject);
-			}
-			dao.alarm(apv_dto);
-		}
 		
 		if (dto.getTotal_name() != null && !dto.getTotal_name().isEmpty()) {
 		    // 값이 비어있지 않은 경우
+			
+			logger.info("값이 찍히나요?");
+			logger.info("!!total_name :"+total_name);
 			apv_line(apv_idx,total_name,emp_id);
+			
+			ApprovalDTO aaa = dao.getApproval_detail(apv_idx);
+			
+			if(!aaa.getApv_stmt().equals("임시저장")) {
+				String apv_subject = aaa.getApv_subject();
+				if (apv_subject.length() > 20) {
+					apv_subject = apv_subject.substring(0, 20) + "...";
+					apv_dto.setApv_subject(apv_subject);
+				}
+				
+				dao.alarm(aaa);
+			}
 			
 			
 		}
