@@ -325,10 +325,18 @@
     	
     	function drawTotalAll(totalInfo){
     		console.log(totalInfo);
-    		$('.total_creators:eq(0)').text(totalInfo.total_creators+" 명");
-    		$('.total_channels:eq(0)').text(totalInfo.total_channels+" 개");
-    		$('.total_subscribers:eq(0)').text(totalInfo.total_subscribers+" 명");
-    		$('.total_contents:eq(0)').text(totalInfo.total_contents+" 개");
+    		
+    		// 숫자 표현 형식 변환
+    		const formattedCreators = totalInfo.total_creators.toLocaleString();
+   		    const formattedChannels = totalInfo.total_channels.toLocaleString();
+   		    const formattedSubscribers = totalInfo.total_subscribers.toLocaleString();
+   		    const formattedContents = totalInfo.total_contents.toLocaleString();
+   		
+   		    $('.total_creators:eq(0)').text(formattedCreators + " 명");
+   		    $('.total_channels:eq(0)').text(formattedChannels + " 개");
+   		    $('.total_subscribers:eq(0)').text(formattedSubscribers + " 명");
+   		    $('.total_contents:eq(0)').text(formattedContents + " 개");
+    		
     	}
     	
     	
@@ -413,15 +421,15 @@
 		            	'<i class="bx bxl-youtube" style="color:#ff0000"></i>&nbsp;' + myCre.channel_name + '</a></label></td>' +
 		            '</tr>'+
 		            	'<td><label class="card-text"> 총 구독자수</label></td>' + 
-		            	'<td><label>| ' + myCre.last_subscriber + ' 명</label>' +
+		            	'<td><label>| ' + myCre.last_subscriber.toLocaleString() + ' 명</label>' +
 		            '</tr>'+
 		            '<tr>'+
 		            	'<td><label class="card-text"> 총 컨텐츠수</label></td>' +
-		            	'<td><label>| ' + myCre.last_contents + ' 개</label>' +
+		            	'<td><label>| ' + myCre.last_contents.toLocaleString() + ' 개</label>' +
 		            '</tr>'+
 		            '<tr>'+
 		            	'<td><label class="card-text"> 총 조회수</label></td>' +
-		            	'<td><label>| ' + myCre.last_views + ' 회</label>' +
+		            	'<td><label>| ' + myCre.last_views.toLocaleString() + ' 회</label>' +
 		            '</tr>'+
 		            '<tr>'+
 		            	'<td><label class="card-text"> 카테고리</label></td>' +
