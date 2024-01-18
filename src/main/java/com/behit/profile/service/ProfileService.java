@@ -23,7 +23,8 @@ public class ProfileService {
 	
 	@Autowired ProfileDAO profileDAO;
 	
-	private String root = "C:/upload/employee/";	
+	// private String root = "/usr/local/tomcat/upload/employee/";	
+	private String root = "C:/upload/employee/";
 	
 	public ModelAndView detail(String login_id) {
 		

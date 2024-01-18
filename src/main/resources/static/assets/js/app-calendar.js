@@ -19,6 +19,7 @@ if (isRtl) {
 
 document.addEventListener('DOMContentLoaded', function () {
   (function () {
+  	let previousClickedDayEl = null;  
     const calendarEl = document.getElementById('calendar'),
       appCalendarSidebar = document.querySelector('.app-calendar-sidebar'),
       addEventSidebar = document.getElementById('addEventSidebar'),
@@ -307,6 +308,11 @@ document.addEventListener('DOMContentLoaded', function () {
         eventEndDate.value = date; 
       }, */
       
+      dayRender: function (info) {
+        // 포인터 스타일을 모든 날짜에 추가
+        info.el.style.cursor = 'pointer';
+      },
+    
       
       dateClick: function (info) {
 		  var currentDate = new Date(); // 현재 날짜
@@ -319,22 +325,41 @@ document.addEventListener('DOMContentLoaded', function () {
 		    clickedDate.getMonth() !== currentDate.getMonth() ||
 		    clickedDate.getFullYear() !== currentDate.getFullYear()
 		  ) {
+		    previousClickedDayEl.style.backgroundColor = ''; // 기본 값으로 초기화
+		    document.getElementById('selecdate').style.visibility = 'hidden';
 		    return;
 		  }
 		  
 		  if (clickedDate.getDay() === 0 || clickedDate.getDay() === 6) {
 		  	document.getElementById('selecdate').style.visibility = 'hidden';
+		  	previousClickedDayEl.style.backgroundColor = ''; // 기본 값으로 초기화
 		    return;
 		  }
-		
-		  // 클릭한 날짜가 현재 날짜 이후인 경우
-		  if (clickedDate.getDate() >= currentDate.getDate()) {
-		    document.getElementById('selecdate').style.visibility = 'visible';
-		  } else {
-		    // 클릭한 날짜가 현재 날짜 이전인 경우
-		    document.getElementById('selecdate').style.visibility = 'hidden';
-		  }
-		
+		  
+
+
+			// 클릭한 날짜가 현재 날짜 이후인 경우
+			if (clickedDate.getDate() >= currentDate.getDate()) {
+			console.log('이전에 클릭한 날짜의 엘리먼트:', previousClickedDayEl);
+			  // 이전에 클릭한 날짜의 스타일을 초기화
+			  if (previousClickedDayEl) {
+			    previousClickedDayEl.style.backgroundColor = ''; // 기본 값으로 초기화
+			    console.log('이전에 클릭한 날짜의 엘리먼트:', previousClickedDayEl);
+			  }
+			
+			  // 클릭한 날짜에 새로운 스타일 적용
+			  info.dayEl.style.backgroundColor = '#ffe0db';
+			
+			  // 현재 클릭한 날짜의 엘리먼트를 이전에 클릭한 날짜의 엘리먼트로 저장
+			  previousClickedDayEl = info.dayEl;
+			  console.log('이전에 클릭한 날짜의 엘리먼트:', previousClickedDayEl);
+			
+			  document.getElementById('selecdate').style.visibility = 'visible';
+			} else {
+			  // 클릭한 날짜가 현재 날짜 이전인 경우
+			  document.getElementById('selecdate').style.visibility = 'hidden';
+			  previousClickedDayEl.style.backgroundColor = ''; // 기본 값으로 초기화			  
+			}		
 		  function monthToNumber(monthString) {
 		    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		
@@ -353,6 +378,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
       eventClick: function (info) {
         eventClick(info);
+        
+        info.event.setProp('backgroundColor', 'black');
       },
       datesSet: function () {
         modifyToggler();

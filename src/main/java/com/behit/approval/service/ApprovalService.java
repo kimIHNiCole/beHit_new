@@ -43,7 +43,9 @@ public class ApprovalService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	private String root = "C:/upload/";	
+	// private String root = "/usr/local/tomcat/upload/";	
+	
+	private String root = "C:/upload/";
 	
 	@Autowired
 	ApprovalDAO dao;
