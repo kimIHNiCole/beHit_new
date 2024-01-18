@@ -1234,26 +1234,35 @@ height: calc(100vh - 10rem);
    	// 활동기록 삭제
     function delProjRB(projR_idx){
     	console.log("삭제할 활동기록 idx:",projR_idx);
-    	var delConf = confirm('활동기록을 삭제 하시겠습니까?');
     	
-    	if(delConf){
-    		
-    		$.ajax({
-    			type: 'post',
-    			url: 'projectRdel.do',
-    			data: {projR_idx: projR_idx},
-    			dataType: 'json',
-    			success: function (data){
-    				console.log(data);
-    				projRList();
-    				projAllFile();
-    			},
-    			error: function (e){
-    				console.log(e);
-    			}
-    		});
-    		
-    	}
+ 		Swal.fire({
+ 		        text: '활동기록을 삭제 하시겠습니까?',
+ 		        icon: 'warning',
+ 		        showCancelButton: true,
+ 		        confirmButtonText: 'OK',
+ 		        customClass: {
+ 		        	confirmButton: 'btn btn-primary me-3',
+ 		        	cancelButton: 'btn btn-label-secondary'
+ 		        },
+ 		        buttonsStyling: false
+ 		    }).then(function(result) {
+ 		    	if (result.isConfirmed) {
+		    		$.ajax({
+		    			type: 'post',
+		    			url: 'projectRdel.do',
+		    			data: {projR_idx: projR_idx},
+		    			dataType: 'json',
+		    			success: function (data){
+		    				console.log(data);
+		    				projRList();
+		    				projAllFile();
+		    			},
+		    			error: function (e){
+		    				console.log(e);
+		    			}
+		    		});
+ 		    	}
+ 		    });
     }
     
     // 상태 변경 (완료,진행,대기)
