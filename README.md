@@ -1,4 +1,5 @@
 개발 기간 : 2023.12.06 ~ 2024.01.18
+아카데미 최종 프로젝트
 
 <img width="900" alt="image" src="https://github.com/kimIHNiCole/beHit_new/assets/142763051/2b41f81e-dd75-4d44-828e-d8c88723e3d0">
 <img width="900" alt="image" src="https://github.com/kimIHNiCole/beHit_new/assets/142763051/2a21e25f-04e0-4b37-9ad8-5cf263b63f84">
