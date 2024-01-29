@@ -168,7 +168,7 @@
             </div>
             <!-- /Logo -->
             <!-- <h4 class="mb-2">Be Hit</h4> -->
-            <p class="mb-4 fs-5">세계 최고의 유튜버들을 위한 에이전시</p>
+            <p class="mb-4 fs-5">세계 최고의 크리에이터들을 위한 에이전시</p>
 
 			<form id="formAuthentication" class="mb-3" action="login.do" method="POST" onsubmit="return saveId()">
               <div class="mb-3">
